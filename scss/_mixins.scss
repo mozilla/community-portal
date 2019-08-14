@@ -1,0 +1,30 @@
+@mixin mobile-and-down {
+    @media(max-width: 0) {
+        @content;
+    }
+}
+
+@mixin mobile-and-up {
+    @media (min-width: #{$screen-mobile-min}) {
+        @content;
+    }
+}
+
+@mixin tablet-and-up {
+    @media (min-width: #{$screen-tablet-min}) {
+        @content;
+    }
+}
+
+@mixin desktop-and-up {
+    @media (min-width: #{$screen-desktop-min}) {
+        @content;
+    }
+}
+
+
+@function remCalc($size) {
+    $remSize: $size / 16;
+    //Default font size on html element is 100%, equivalent to 16px;
+    @return #{$remSize}rem;
+}

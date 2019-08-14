@@ -1,5 +1,8 @@
 @import "normalize/normalize"; 
 
+@import "mixins";
+@import "vars";
+
 * {
     box-sizing: border-box;  
 }
