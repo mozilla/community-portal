@@ -1,4 +1,4 @@
-# community-portal
+# Mozilla Community Portal
 
 This repo will contain all the theme files for the new Mozilla community portal.  
 
