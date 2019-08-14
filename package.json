@@ -19,5 +19,8 @@
   "dependencies": {
     "node-sass": "^4.12.0",
     "node-sass-import": "^2.0.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.6.1"
   }
 }
