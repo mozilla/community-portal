@@ -4,6 +4,10 @@
   "description": "Mozilla Community Portal",
   "main": "index.js",
   "scripts": {
+    "compile": "./node_modules/.bin/node-sass scss/style.scss -o ./ --importer ./node_modules/node-sass-import",
+    "prefix": "postcss --use autoprefixer -b 'last 10 versions' style.css -o style.css",
+    "build": "npm-run-all compile prefix",
+    "watch": "./node_modules/.bin/nodemon -e scss -x \"npm run build\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
