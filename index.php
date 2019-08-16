@@ -1,2 +1,5 @@
-<?php
-    // Required php file for wordpress themes
+<?php get_header(); ?>
+    <div class="content">
+
+    </div>
+<?php get_footer(); ?>
