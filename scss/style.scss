@@ -1,8 +1,30 @@
 @import "normalize/normalize"; 
 
+@import url('https://rsms.me/inter/inter.css');
+
 @import "mixins";
 @import "vars";
 
+@import "footer";
+@import "nav";
+
 * {
     box-sizing: border-box;  
+}
+
+html { 
+    font-family: 'Inter', sans-serif; 
+}
+
+@supports (font-variation-settings: normal) {
+    html { 
+        font-family: 'Inter var', sans-serif; 
+    }
+}
+
+.content {
+    max-width: $container-max-width;
+    width: 100%;
+    position: relative;
+    height: 100%;
 }
