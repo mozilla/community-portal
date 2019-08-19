@@ -1,0 +1,81 @@
+.nav {
+    width: 100%;
+    box-shadow: 0px 10px 18px rgba(0, 0, 0, 0.05);
+
+    &__container {
+        max-width: $container-max-width;
+        width: 100%;
+        margin: 0 auto;
+        color: $white;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+    } 
+
+    &__header {
+        background-color: $black;
+        height: 47px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    &__menu {
+        height: 75px;
+        background-color: $white;
+    }
+
+    &__search-container {
+        position: relative;
+        width: 240px;
+    }
+
+    &__search {
+        height: 27px;
+        border: 1px solid $border-grey;
+        border-radius: 2px;
+        background-color: $black;        
+        width: 100%;
+        padding: 5px 10px;
+        color: $search-font-color;
+    }
+
+    &__search-icon {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    &__login {
+        width: 120px;
+        font-size: remCalc(14);
+        line-height: 17px;
+        font-weight: 600;
+        margin-left: auto;
+    }
+}
+
+
+.menu {
+    width: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+.menu-item {
+    display: inline-block;
+    width: 130px;
+    padding: 25px;
+    text-align: center;
+}
+
+.menu-item__link {
+    text-decoration: none;
+    font-size: remCalc(16);
+    line-height: 24px;
+    color: $black;
+}
