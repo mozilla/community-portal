@@ -1,0 +1,19 @@
+.footer {
+    width: 100%;
+    background-color: $black;
+    height: 387px;
+    position: absolute;
+    bottom: 0;
+
+    &__container {
+        max-width: $container-max-width;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0 auto;
+        color: $white;
+    }
+}
+
