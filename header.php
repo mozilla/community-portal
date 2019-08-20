@@ -14,7 +14,7 @@
         <nav class="nav">
             <div class="nav__header">
                 <div class="nav__container">
-                    <img src="<?php print get_stylesheet_directory_uri(); ?>/images/logo.svg"  class="nav__logo" />
+                    <img src="<?php print get_stylesheet_directory_uri(); ?>/images/logo.png"  class="nav__logo" alt="Mozilla Logo" />
                     <div class="nav__search-container">
                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" class="nav__search-icon">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M9 5C9 7.20914 7.20914 9 5 9C2.79086 9 1 7.20914 1 5C1 2.79086 2.79086 1 5 1C7.20914 1 9 2.79086 9 5ZM8.00021 9.00021C7.16451 9.62799 6.1257 10 5 10C2.23858 10 0 7.76142 0 5C0 2.23858 2.23858 0 5 0C7.76142 0 10 2.23858 10 5C10 6.27532 9.52253 7.43912 8.73661 8.32239L11.7071 11.2929L11 12L8.00021 9.00021Z" fill="#D2D2D2"/>
