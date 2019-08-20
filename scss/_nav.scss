@@ -11,6 +11,7 @@
         flex-direction: row;
         justify-content: flex-start;
         align-items: center;
+        overflow: hidden;
     } 
 
     &__header {
@@ -29,6 +30,7 @@
     &__search-container {
         position: relative;
         width: 240px;
+        margin-left: 30px;
     }
 
     &__search {
@@ -55,6 +57,10 @@
         font-weight: 600;
         margin-left: auto;
     }
+
+    &__logo {
+        height: 48px;
+    }
 }
 
 
@@ -71,6 +77,11 @@
     width: 130px;
     padding: 25px;
     text-align: center;
+
+    &:first-of-type {
+        padding-left: 0;
+        text-align: left;
+    }
 }
 
 .menu-item__link {
