@@ -5,7 +5,9 @@
 @import "mixins";
 @import "vars";
 
+@import "base";
 @import "footer";
+@import "groups";
 @import "nav";
 
 * {
@@ -14,6 +16,7 @@
 
 html { 
     font-family: 'Inter', sans-serif; 
+    height: 100%;
 }
 
 @supports (font-variation-settings: normal) {
@@ -23,8 +26,14 @@ html {
 }
 
 .content {
-    max-width: $container-max-width;
     width: 100%;
+    min-height: calc(100vh - 387px - 122px - 96px);
     position: relative;
+
+}
+
+.body {
+    background-color: #F8F8F8;
+    width: 100%;
     height: 100%;
 }
