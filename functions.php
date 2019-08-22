@@ -10,6 +10,7 @@ add_action('init', 'mozilla_custom_menu');
 
 // Filters
 add_filter('nav_menu_link_attributes', 'mozilla_add_menu_attrs', 10, 3);
+add_filter('nav_menu_css_class', 'mozilla_add_active_page' , 10 , 2);
 
 // Include theme style.css file not in admin page
 if(!is_admin()) 
@@ -26,4 +27,15 @@ function mozilla_custom_menu() {
 function mozilla_add_menu_attrs($attrs, $item, $args) {
     $attrs['class'] = 'menu-item__link';
     return $attrs;
+}
+
+function mozilla_add_active_page($classes, $item) {
+
+    $pagename = strtolower(get_query_var('pagename'));  
+
+    if($pagename === strtolower($item->post_name)) {
+        $classes[] = 'menu-item--active';
+    }
+
+    return $classes;
 }
