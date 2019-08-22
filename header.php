@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html <?php language_attributes(); ?> class="no-js">
     <head>
-        <meta charset="<?php bloginfo( 'charset' ); ?>">
+        <meta charset="<?php bloginfo('charset'); ?>">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="profile" href="http://gmpg.org/xfn/11">
-        <?php if ( is_singular() && pings_open( get_queried_object() ) ) : ?>
-        <link rel="pingback" href="<?php echo esc_url( get_bloginfo( 'pingback_url' ) ); ?>">
+        <?php if (is_singular() && pings_open( get_queried_object())) : ?>
+        <link rel="pingback" href="<?php echo esc_url(get_bloginfo('pingback_url')); ?>">
         <?php endif; ?>
         <?php wp_head(); ?>
         <title><?php print get_bloginfo('name'); ?> - <?php print get_bloginfo('description'); ?></title>
     </head>
-    <body class="body">
+    <body class="body" <?php body_class(); ?>>
         <nav class="nav">
             <div class="nav__header">
                 <div class="nav__container">
