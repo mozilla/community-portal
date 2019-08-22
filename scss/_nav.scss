@@ -3,15 +3,18 @@
     box-shadow: 0px 10px 18px rgba(0, 0, 0, 0.05);
 
     &__container {
-        max-width: $container-max-width;
-        width: 100%;
-        margin: 0 auto;
+        @extend .container;
         color: $white;
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
         align-items: center;
+        height: 100%;
         overflow: hidden;
+
+        .menu-item--active {
+            background-color: #F3F3F3;
+        }
     } 
 
     &__header {
@@ -69,6 +72,7 @@
     list-style-type: none;
     margin: 0;
     padding: 0;
+    height: 100%;
 }
 
 
@@ -77,11 +81,13 @@
     width: 130px;
     padding: 25px;
     text-align: center;
+    height: 100%;
 
     &:first-of-type {
         padding-left: 0;
         text-align: left;
     }
+
 }
 
 .menu-item__link {
@@ -89,4 +95,8 @@
     font-size: remCalc(16);
     line-height: 24px;
     color: $black;
+}
+
+.menu-mozilla-main-menu-container {
+    height: 100%;
 }
