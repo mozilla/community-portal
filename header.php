@@ -22,7 +22,14 @@
                         <input type="text" class="nav__search" placeholder="Seach"/>
                     </div>
                     <div class="nav__login">
-                        Log In / Sign Up
+                        <?php if(is_user_logged_in()): ?>
+                            <?php 
+                                $user = wp_get_current_user();
+                                print $user->user_login;
+                            ?>
+                        <?php else: ?>
+                            <?php print __("Log In / Sign Up"); ?>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
