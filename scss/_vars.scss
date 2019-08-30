@@ -7,10 +7,19 @@ $container-max-width: 1228px;
 
 
 // Colours
-$black: #000;
-$white: #fff;
-$blue: #0060DF;
+$color-black: #000;
+$color-white: #fff;
+$color-blue-50: #0060DF;
+
+
 $light-blue: #F2FCFD;
 
-$border-grey: #2F2F2F;
+$color-gray-secondary: #737373;
+$color-gray-10: #F9F9FA;
+$color-gray-20: #EDEDF0;
+$color-gray-30: #CDCDD4;
+$color-gray-60: #7A7A8B;
+$color-off-black: #20123A;
+
+$border-grey: $color-black;
 $search-font-color: #CECECE;
