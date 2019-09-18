@@ -1,9 +1,40 @@
+.form {
+
+    &__error-container {
+        color: $error;
+        font-size: remCalc(12);
+        line-height: 20px;
+        letter-spacing: 0.4px;
+        margin-top: 4px;
+        display: none;
+
+        &--visible {
+            display: block;
+        }
+
+        &--checkbox {
+            margin-bottom: -24px;
+        }
+
+    }
+}
+
 .input {
-    background: #FAFAFA;
-    border: 1px solid #D8D8D8;
+    background: $color-gray-20;
+    border: 1px solid $color-gray-20;
+    border-radius: 5px;
     box-sizing: border-box;
     width: 100%;
-    height: 50px;
+    height: 40px;
+    padding: 15px;
+
+    &:focus {
+        outline: 0;
+    }
+
+    &--error {
+        border-color: $error;
+    }
 }
 
 .label {
@@ -11,22 +42,25 @@
     line-height: 24px;
 
     &--inline {
-        font-size: remCalc(14);
-        line-height: 20px;
-        color: #BDBDBD;
         display: inline;
     }
 
     &--checkbox {
-        padding-left: 60px;
+        padding-left: 32px;
         cursor: pointer;
     }
 }
 
 .textarea {
     width: 100%;
-    background: #FAFAFA;
-    border: 1px solid #D8D8D8;
+    background: $color-gray-20;
+    border: 1px solid $color-gray-20;
+    border-radius: 5px;
+    padding: 15px;
+
+    &--error {
+        border-color: $error;
+    }
 }
 
 .checkbox-container input {
@@ -43,22 +77,29 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
+    padding-left: 35px;
 
     &:hover input ~ .checkbox-check {
         transition: all 0.3s ease-in;
         cursor: pointer;
-        box-shadow: 0px 0px 0px 4px rgba(215,215,219,1);
+        box-shadow: 0px 0px 0px 4px  $color-gray-30;
     }
 }
 
+
+.checkbox-container input:checked ~ .checkbox-check:after {
+    display: block;
+}
+
+
 .checkbox-check {
     position: absolute;
-    top: 0;
+    top: 12px;
     left: 0;
-    height: 48px;
-    width: 48px;
-    background: $white;
-    border: 1px solid #737373;
+    height: 24px;
+    width: 24px;
+    background: $color-white;
+    border: 1px solid $color-gray-secondary;
     border-radius: 2px;
 
     svg {
@@ -67,8 +108,8 @@
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
-        width: 40px;
-        height: 40px;
+        width: 16px;
+        height: 16px;
     }
 
     &:after {
@@ -84,11 +125,13 @@
     padding-left: 35px;
     margin-bottom: 12px;
     cursor: pointer;
-    font-size: 22px;
+    font-size: remCalc(14);
+    line-height: 24px;
     user-select: none;
+    font-weight: 400;
 
     &:hover input ~ .radio {
-        background-color: #ccc;
+        background-color: $color-gray-30;
     }
 }
 
@@ -98,7 +141,7 @@
 
 
 .radio-container input:checked ~ .radio {
-    background-color: #0060DF;
+    background-color: $color-blue-50;
 }
   
 
@@ -116,8 +159,9 @@
     left: 0;
     height: 25px;
     width: 25px;
-    background-color: #eee;
+    background-color: $color-white;
     border-radius: 50%;
+    border: 1px solid $color-gray-secondary;
 
     &:after {
         content: '';
@@ -127,12 +171,12 @@
 }
 
 .radio-container .radio:after {
-    top: 9px;
-	left: 9px;
+    top: 8px;
+	left: 8px;
 	width: 8px;
 	height: 8px;
 	border-radius: 50%;
-	background: white;
+	background: $color-white;
 }
 
 .select-container {
@@ -144,32 +188,39 @@
         height: 24px;
         display: block;
         right: 0;
-        top: 50%;
-        transform: translateY(-50%);
+        margin-top: 8px;
     }
 
 }
 
 .select {
-    background: $white;
-    border: 1px solid #D8D8D8;
+    background: $color-gray-20;
+    border: 1px solid $color-gray-20;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
     box-sizing: border-box;
-    height: 50px;
+    height: 40px;
     border-radius: none;
-    padding: 15px;
+    padding: 10px;
     appearance: none;
     -webkit-appearance: none;
+
+    &--error {
+        border-color: $error;
+    }
 }
 
 .cta {
-    background-color: #343434;
-    color: $white;
-    min-width: 170px;
+    background-color: $color-blue-50;
+    color: $color-white;
+    border-radius: 28px;
+    min-width: 115px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
-    border-radius: 2px;
     font-size: remCalc(14);
     line-height: 17px;
-    height: 57px;
-    padding: 20px 50px;
-
+    height: 48px;
+    padding: 15px 50px;
+    &:hover {
+        cursor: pointer;
+    }
 }

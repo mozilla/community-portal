@@ -1,9 +1,9 @@
 // Screen Sizes
 $screen-mobile-min: 320px;
-$screen-tablet-min: 600px;
-$screen-desktop-min: 972px;
+$screen-tablet-min: 768px;
+$screen-desktop-min: 1024px;
 
-$container-max-width: 1228px;
+$container-max-width: 1018px;
 
 
 // Colours
@@ -11,8 +11,8 @@ $color-black: #000;
 $color-white: #fff;
 $color-blue-50: #0060DF;
 
-
 $light-blue: #F2FCFD;
+$error: #ff0039;
 
 $color-gray-secondary: #737373;
 $color-gray-10: #F9F9FA;

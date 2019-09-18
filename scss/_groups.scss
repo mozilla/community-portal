@@ -23,7 +23,7 @@
     &__search-container {
         width: 100%;
         height: 220px;
-        background-color: $white;
+        background-color: $color-white;
     }
 
     &__list-container {
@@ -42,7 +42,7 @@
     }
 
     &__group {
-        background-color: $white;
+        background-color: $color-white;
         width: 100%;
         padding: 24px;
         margin-top: 15px;
@@ -53,7 +53,7 @@
 
     &__group-image-container {
         width: 132px;
-        background-color: #F9F9F9;
+        background-color: $color-gray-10;
     }
 
     &__group-details-container {
@@ -87,15 +87,15 @@
         width: 100%;
         height: 84px;
         padding: 32px;
-        border-bottom: 1px solid #E9E9E9;
+        border-bottom: 1px solid $color-gray-20;
         font-size: remCalc(16);
         line-height: 19px;
-        color: #D0D0D0; 
+        color: $color-gray-30; 
 
         &::placeholder {
             font-size: remCalc(16);
             line-height: 19px;
-            color: #D0D0D0;
+            color: $color-gray-30;
         }
     }
 
@@ -108,9 +108,9 @@
         right: 25px;
         top: 50%;
         transform: translateY(-50%);
-        background-color: $black;
+        background-color: $color-black;
         display: block;
-        color: $white;
+        color: $color-white;
         width: 76px;
         height: 34px;
         font-size: remaCalc(10);
@@ -119,7 +119,9 @@
         font-weight: 300;
         border: none;
     }
-    
+
+
+
 
     &__button {
 
@@ -131,14 +133,14 @@
         line-height: 18px;
         padding: 14px;
         text-align: left;
-        color: $black;
+        color: $color-black;
         text-decoration: none;
         width: 100%;
         margin-top: 14px;
-        background-color: #F8F8F8;
+        background-color: $color-gray-10;
 
         &--active {
-            background-color: $white;
+            background-color: $color-white;
             box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
         }
 

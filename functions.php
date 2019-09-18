@@ -10,6 +10,9 @@ add_action('wp_enqueue_scripts', 'mozilla_init_scripts');
 add_action('wp_ajax_nopriv_upload_group_image', 'mozilla_upload_image');
 add_action('wp_ajax_upload_group_image', 'mozilla_upload_image');
 
+add_action('wp_ajax_validate_group', 'mozilla_validate_group_name');
+
+
 // Buddypress Actions
 add_action('bp_before_create_group_page', 'mozilla_create_group');
 
@@ -48,7 +51,7 @@ function mozilla_add_active_page($classes, $item) {
 function mozilla_init_scripts() {
     wp_enqueue_script('dropzonejs', get_stylesheet_directory_uri()."/js/vendor/dropzone.min.js", array('jquery'));
     wp_enqueue_script('groups', get_stylesheet_directory_uri()."/js/groups.js", array('jquery'));
-    
+    wp_enqueue_script('cleavejs', get_stylesheet_directory_uri()."/js/vendor/cleave.min.js", array());
 }
 
 // If the create group page is called create a group 
@@ -57,9 +60,53 @@ function mozilla_create_group() {
     if(is_user_logged_in()) {
         // If we're posting data lets create a group
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
+            if(isset($_POST['step']) && isset($_POST['my_nonce_field']) && wp_verify_nonce($_REQUEST['my_nonce_field'], 'protect_content')) {
+                switch($_POST['step']) {
+                    case '1':
+                        // Gather information
+                        $required = Array(
+                            'group_name',
+                            'group_type',
+                            'group_desc',
+                            'group_city',
+                            'group_address',
+                            'group_country'
+                        );
+                        
+                        $error = false;
+                        foreach($required AS $field) {
+                            if(isset($_POST[$field])) {
+                                if($_POST[$field] === "" || $_POST[$field] === 0) {
+                                    $error = true;
+                                }
+
+                            }
+                        }
+
+  
+                        $_SESSION['form'] = $_POST;
+
+                        // Cleanup
+                        if($error) {
+                            if(isset($_SESSION['uploaded_file']) && file_exists($_SESSION['uploaded_file'])) {
+                                $image = getimagesize($_SESSION['uploaded_file']);
+                                if(isset($image[2]) && in_array($image[2], Array(IMAGETYPE_JPEG ,IMAGETYPE_PNG))) {
+                                    unlink($_SESSION['uploaded_file']);
+                                }
+                            }
+
+                            $_POST['step'] = 0;                           
+                        }
+                        
+                        break;
+                    case 2:
+                        // Create the group here
+                        break;
+                        
+                }
+            }
         } else {
-    
+            unset($_SESSION['form']);
         }
     } else {
         wp_redirect("/");
@@ -69,17 +116,44 @@ function mozilla_create_group() {
 function mozilla_upload_image() {
 
     if(!empty($_FILES) && wp_verify_nonce($_REQUEST['my_nonce_field'], 'protect_content')) {
-		$uploaded_bits = wp_upload_bits($_FILES['file']['name'], null, file_get_contents($_FILES['file']['tmp_name']));
-    
-		if (false !== $uploaded_bits['error']) {
+        $image = getimagesize($_FILES['file']['tmp_name']);
+
+        if(isset($image[2]) && in_array($image[2], Array(IMAGETYPE_JPEG ,IMAGETYPE_PNG))) {
+            $uploaded_bits = wp_upload_bits($_FILES['file']['name'], null, file_get_contents($_FILES['file']['tmp_name']));
             
-		} else {
-            $uploaded_file     = $uploaded_bits['file'];
-            $uploaded_url      = $uploaded_bits['url'];
-            $uploaded_filetype = wp_check_filetype(basename($uploaded_bits['file'] ), null);
-    
-            print $uploaded_url;
+            if (false !== $uploaded_bits['error']) {
+                
+            } else {
+                $uploaded_file     = $uploaded_bits['file'];
+                $_SESSION['uploaded_file'] = $uploaded_bits['file'];
+                $uploaded_url      = $uploaded_bits['url'];
+                $uploaded_filetype = wp_check_filetype(basename($uploaded_bits['file'] ), null);
+        
+                print $uploaded_url;
+            }
         }
     }
 	die();
+}
+
+function mozilla_validate_group_name() {
+    if($_SERVER['REQUEST_METHOD'] == 'GET') {
+        if(isset($_GET['q'])) {
+            $query = $_GET['q'];
+            $group = mozilla_search_groups($query);
+            var_dump($group);
+            die();
+        }
+    }
+}
+
+function mozilla_search_groups($name) {
+    $groups = groups_get_groups();
+    $group_array = $groups['groups'];
+
+    $group = array_filter($groups, function($object) {
+        return trim(strtolower($object->name)) === trim(strtolower($name));
+    });
+
+    return $group;
 }

@@ -8,6 +8,17 @@
     // Execute actions by buddypress
     do_action('bp_before_directory_groups_page');
     do_action('bp_before_directory_groups');
+
+
+    $groups = groups_get_groups(Array(
+        'search_columns'    =>  'name',
+        'serach_terms'      =>  'Test'
+    ));
+
+    print "FFF";
+    print "<pre>";
+    print_r($groups);
+    print "</pre>";
 ?>
 
 

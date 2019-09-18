@@ -8,7 +8,7 @@
                     <?php 
                         wp_nav_menu(array(
                                         'menu'           =>  'Footer Primary',
-                                        'menu_class'        =>  'footer-menu')
+                                        'menu_class'        =>  'footer-menu footer-menu--primary')
                         ); 
                     ?>
                     

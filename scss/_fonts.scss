@@ -1,8 +1,15 @@
 @font-face {
-    font-family: 'Inter';
+    font-family: 'Open Sans', sans-serif;
     font-style:  normal;
-    font-weight: 100;
+    font-weight: 400;
     font-display: swap;
-    src: url("../fonts/Inter-Regular.otf") format("opentype")
+    src: url("../fonts/OpenSans-Regular.ttf") format("truetype");
 }
 
+@font-face {
+    font-family: 'ZillaSlab', serif;
+    font-style:  normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("../fonts/ZillaSlab-Regular.ttf") format("truetype");
+}

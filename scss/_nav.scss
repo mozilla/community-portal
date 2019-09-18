@@ -4,21 +4,23 @@
 
     &__container {
         @extend .container;
-        color: $white;
+        color: $color-white;
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
         align-items: center;
         height: 100%;
         overflow: hidden;
+        max-width: 1228px;
+        padding: 0;
 
         .menu-item--active {
-            background-color: #F3F3F3;
+            background-color: $color-gray-10;
         }
     } 
 
     &__header {
-        background-color: $black;
+        background-color: $color-black;
         height: 47px;
         display: flex;
         flex-direction: column;
@@ -27,7 +29,7 @@
 
     &__menu {
         height: 75px;
-        background-color: $white;
+        background-color: $color-white;
     }
 
     &__search-container {
@@ -40,7 +42,7 @@
         height: 27px;
         border: 1px solid $border-grey;
         border-radius: 2px;
-        background-color: $black;        
+        background-color: $color-black;        
         width: 100%;
         padding: 5px 10px;
         color: $search-font-color;
@@ -94,7 +96,7 @@
     text-decoration: none;
     font-size: remCalc(16);
     line-height: 24px;
-    color: $black;
+    color: $color-black;
 }
 
 .menu-mozilla-main-menu-container {

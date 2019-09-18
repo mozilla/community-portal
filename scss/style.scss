@@ -1,6 +1,7 @@
 @import "normalize/normalize"; 
 
-@import url('https://rsms.me/inter/inter.css');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Zilla+Slab&display=swap');
 
 @import "mixins";
 @import "vars";
@@ -17,13 +18,13 @@
 }
 
 html { 
-    font-family: 'Inter', sans-serif; 
+    font-family: 'Open Sans', sans-serif; 
     height: 100%;
 }
 
 @supports (font-variation-settings: normal) {
     html { 
-        font-family: 'Inter var', sans-serif; 
+        font-family: 'Open Sans', sans-serif; 
     }
 }
 
