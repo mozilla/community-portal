@@ -260,6 +260,7 @@
 <div class="content">
     <div class="create-group">
         <div class="create-group__container">
+            <?php if($step !== 3): ?>
             <h1 class="create-group__title"><?php print __("Create a Mozilla Group"); ?></h1>
             <ol class="create-group__menu">
                 <li class="create-group__menu-item<?php if($step == 1): ?> create-group__menu-item--disabled<?php endif;?>"><?php print __("Basic Information"); ?></li>
@@ -337,7 +338,7 @@
                             </svg>
                         </div>
                         <div class="create-group__image-instructions"><?php print __("Click or drag a photo above"); ?></div>
-                        <input type="hidden" name="image_url" id="image-url" value="" />
+                        <input type="hidden" name="image_url" id="image-url" value="<?php print (isset($form['image_url'])) ? $form['image_url'] : '' ?>" />
                     </div>
                     <div class="create-group__input-container create-group__input-container--full">
                         <label class="create-group__label"><?php print __("Tags for your group"); ?></label>
@@ -369,7 +370,7 @@
                         </div>
                     </div>
                     <div class="create-group__input-container">
-                        <input type="text" name="group_discourse" id="group-discourse" class="create-group__input create-group__input--inline" value="<?php print isset($form['group_discourse']) ? $form['group_discourse'] : ''; ?>" />
+                        <input type="text" name="group_address" id="group-discourse" class="create-group__input create-group__input--inline" value="<?php print isset($form['group_address']) ? $form['group_address'] : ''; ?>" />
                     </div>
                     <div class="create-group__input-container create-group__input-container--full">
                         <label class="create-group__label" for="group-desc"><?php print __("Meeting details"); ?></label>
@@ -433,11 +434,16 @@
                     <input type="hidden" name="step" value="2" />
                 </section>
                 <?php endif; ?>
-
                 <section class="create-group__cta-container">
                     <input type="submit" class="create-group__cta" value="<?php print strtoupper(__("Continue")); ?>" />
                 </section>
             </form>
+            <?php endif; ?>
+            <?php if($step === 3): ?>
+                <section class="create-group__details">
+                <h1 class="create-group__title"><?php print __("Group Created"); ?></h1>
+                <section>
+            <?php endif; ?>
         </div>
     </div>
 </div>

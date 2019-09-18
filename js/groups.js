@@ -72,7 +72,7 @@ jQuery(function(){
 
     });
 
-    jQuery('#create-group-form').submit(function(e){
+    jQuery('#create-group-form').one('submit', function(e){
         e.preventDefault();
         var error = false;
         jQuery(':input[required]').each(function(index, element){
@@ -98,7 +98,7 @@ jQuery(function(){
             jQuery('#create-group-form').find('.create-group__input--error:first').focus();
             return false;
         } else {
-            console.log("We are good");
+    
             jQuery(this).submit();
             return true;
         }

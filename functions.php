@@ -58,21 +58,36 @@ function mozilla_init_scripts() {
 function mozilla_create_group() {
 
     if(is_user_logged_in()) {
+        $required = Array(
+            'group_name',
+            'group_type',
+            'group_desc',
+            'group_city',
+            'group_address',
+            'group_country',
+            'my_nonce_field'
+        );
+
+
+        $optional = Array(
+            'image_url',
+            'group_address_type',
+            'group_address',
+            'group_meeting_details',
+            'group_discourse',
+            'group_facebook',
+            'group_telegram',
+            'group_github',
+            'group_twitter',
+            'group_other'
+        );
+
         // If we're posting data lets create a group
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
             if(isset($_POST['step']) && isset($_POST['my_nonce_field']) && wp_verify_nonce($_REQUEST['my_nonce_field'], 'protect_content')) {
                 switch($_POST['step']) {
                     case '1':
                         // Gather information
-                        $required = Array(
-                            'group_name',
-                            'group_type',
-                            'group_desc',
-                            'group_city',
-                            'group_address',
-                            'group_country'
-                        );
-                        
                         $error = false;
                         foreach($required AS $field) {
                             if(isset($_POST[$field])) {
@@ -82,7 +97,6 @@ function mozilla_create_group() {
 
                             }
                         }
-
   
                         $_SESSION['form'] = $_POST;
 
@@ -100,7 +114,55 @@ function mozilla_create_group() {
                         
                         break;
                     case 2:
-                        // Create the group here
+
+                        if(isset($_POST['agree']) && $_POST['agree']) {
+                            $args = Array(
+                                'group_id'  =>  0,
+                            );
+                            
+                            $args['name'] = $_POST['group_name'];
+                            $args['description'] = $_POST['group_desc'];
+                            $args['status'] = 'public';
+                            
+                            $group_id = groups_create_group($args);
+                            $meta = Array();
+
+                            if($group_id) {
+                                foreach($optional AS $field) {
+                                    if(isset($_POST[$field]) && $_POST[$field] !== "") {
+                                        $meta[$field] = trim($_POST[$field]);
+                                    }
+                                }
+
+                                // Required information but needs to be stored in meta data because buddypress does not support these fields
+                                $meta['group_image_url'] = trim($_POST['image_url']);
+                                $meta['group_city'] = trim($_POST['group_city']);
+                                $meta['group_address'] = trim($_POST['group_address']);
+                                $meta['group_country'] = trim($_POST['group_country']);
+                                $meta['group_type'] = trim($_POST['group_type']);
+                                
+                                if(isset($_POST['tags'])) {
+                                    $tags = explode(',', $_POST['tags']);
+                                    $meta['group_tags'] = array_filter($tags);
+                                }
+
+                                $result = groups_update_groupmeta($group_id, 'meta', $meta);
+                                // Could not update gorup information so reset form
+                                if($result) {
+                                    unset($_SESSION['form']);
+                                    $_POST = Array();
+                                    $_POST['step'] = 3;
+                                } else {
+                                    groups_delete_group($group_id);
+                                    $_POST['step'] = 0;
+                                }
+
+                                
+                            }
+                        } else {
+                            $_POST['step'] = 2;
+                        }
+
                         break;
                         
                 }
