@@ -59,12 +59,6 @@ jQuery(function(){
     });
 
 
-    var cleave = new Cleave('#group-meet-date', {
-        date: true, 
-        datePattern: ['m', 'd', 'Y'],
-        dateMin: new Date().toISOString().slice(0,10)
-    });
-
 
     jQuery('.create-group__input, .create-group__textarea, .create-group__select').on('change keyup paste', function(){
         var $this = jQuery(this);
