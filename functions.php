@@ -122,12 +122,14 @@ function mozilla_create_group() {
                             
                             $args['name'] = $_POST['group_name'];
                             $args['description'] = $_POST['group_desc'];
-                            $args['status'] = 'public';
+                            $args['status'] = 'private';
                             
                             $group_id = groups_create_group($args);
                             $meta = Array();
 
                             if($group_id) {
+
+                                // Loop through optional fields and save to meta
                                 foreach($optional AS $field) {
                                     if(isset($_POST[$field]) && $_POST[$field] !== "") {
                                         $meta[$field] = trim($_POST[$field]);
@@ -140,14 +142,14 @@ function mozilla_create_group() {
                                 $meta['group_address'] = trim($_POST['group_address']);
                                 $meta['group_country'] = trim($_POST['group_country']);
                                 $meta['group_type'] = trim($_POST['group_type']);
-                                
+                       
                                 if(isset($_POST['tags'])) {
                                     $tags = explode(',', $_POST['tags']);
                                     $meta['group_tags'] = array_filter($tags);
                                 }
 
                                 $result = groups_update_groupmeta($group_id, 'meta', $meta);
-                                // Could not update gorup information so reset form
+                                // Could not update group information so reset form
                                 if($result) {
                                     unset($_SESSION['form']);
                                     $_POST = Array();
@@ -155,9 +157,7 @@ function mozilla_create_group() {
                                 } else {
                                     groups_delete_group($group_id);
                                     $_POST['step'] = 0;
-                                }
-
-                                
+                                }                                
                             }
                         } else {
                             $_POST['step'] = 2;
