@@ -297,14 +297,14 @@
                         </div>
                     </div>
                     <div class="create-group__input-container  create-group__input-container--short">
-                        <label class="create-group__label"><?php print __("Where is your group from ?"); ?></label>
+                        <label class="create-group__label" for="group-country"><?php print __("Where is your group from ? *"); ?></label>
                         <div class="create-group__select-container">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g>
                                     <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
                                 </g>
                             </svg>
-                            <select class="create-group__select<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_country']) || (isset($form['group_country']) && $form['group_country'] == "0" )): ?> create-group__input--error<?php endif; ?>" name="group_country" required>
+                            <select id="group-country" class="create-group__select<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_country']) || (isset($form['group_country']) && $form['group_country'] == "0" )): ?> create-group__input--error<?php endif; ?>" name="group_country">
                                 <option value="0">Country</option>
                                 <?php foreach($countries AS $code => $country): ?>
                                 <option value="<?php print $code; ?>"<?php if(isset($form['group_country']) && $form['group_country'] === $code): ?> selected<?php endif; ?>><?php print __($country); ?></option>
@@ -315,8 +315,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="create-group__input-container create-group__input-container--vertical-align">
-                        <input type="text" name="group_city" id="group-city" class="create-group__input<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_city']) || (isset($form['group_city']) && empty(trim($form['group_city'])) )): ?> create-group__input--error<?php endif; ?>" placeholder="<?php print __("City"); ?>" required value="<?php print isset($form['group_city']) ? $form['group_city'] : ''; ?>" />
+                    <div class="create-group__input-container">
+                        <label class="create-group__label" for="group-city"><?php print __("City *"); ?></label>
+                        <input type="text" name="group_city" id="group-city" class="create-group__input<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_city']) || (isset($form['group_city']) && empty(trim($form['group_city'])) )): ?> create-group__input--error<?php endif; ?>" placeholder="<?php print __("City"); ?>" value="<?php print isset($form['group_city']) ? $form['group_city'] : ''; ?>" />
                         <div class="form__error-container<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_city']) || (isset($form['group_city']) && empty(trim($form['group_city'])) )): ?> form__error-container--visible<?php endif; ?>">
                             <div class="form__error"><?php print __("This field is required"); ?></div>
                         </div>
