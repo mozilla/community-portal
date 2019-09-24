@@ -310,7 +310,7 @@
                                 <option value="<?php print $code; ?>"<?php if(isset($form['group_country']) && $form['group_country'] === $code): ?> selected<?php endif; ?>><?php print __($country); ?></option>
                                 <?php endforeach; ?>
                             </select>
-                            <div class="form__error-container<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_country']) || (isset($form['group_country']) && $form['group_country'] == "0" )): ?> form__error-container--visible<?php endif; ?>">
+                            <div class="form__error-container<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && $form['group_type'] === 'offline' && !isset($form['group_country']) || (isset($form['group_country']) && $form['group_country'] == "0" )): ?> form__error-container--visible<?php endif; ?>">
                                 <div class="form__error"><?php print __("This field is required"); ?></div>
                             </div>
                         </div>
@@ -318,7 +318,7 @@
                     <div class="create-group__input-container">
                         <label class="create-group__label" for="group-city"><?php print __("City *"); ?></label>
                         <input type="text" name="group_city" id="group-city" class="create-group__input<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_city']) || (isset($form['group_city']) && empty(trim($form['group_city'])) )): ?> create-group__input--error<?php endif; ?>" placeholder="<?php print __("City"); ?>" value="<?php print isset($form['group_city']) ? $form['group_city'] : ''; ?>" />
-                        <div class="form__error-container<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_city']) || (isset($form['group_city']) && empty(trim($form['group_city'])) )): ?> form__error-container--visible<?php endif; ?>">
+                        <div class="form__error-container<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && $form['group_type'] === 'offline' && !isset($form['group_city']) || (isset($form['group_city']) && empty(trim($form['group_city'])) )): ?> form__error-container--visible<?php endif; ?>">
                             <div class="form__error"><?php print __("This field is required"); ?></div>
                         </div>
                     </div>

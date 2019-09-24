@@ -62,9 +62,7 @@ function mozilla_create_group() {
             'group_name',
             'group_type',
             'group_desc',
-            'group_city',
             'group_address',
-            'group_country',
             'my_nonce_field'
         );
 
@@ -94,7 +92,16 @@ function mozilla_create_group() {
                                 if($_POST[$field] === "" || $_POST[$field] === 0) {
                                     $error = true;
                                 }
+                            }
+                            
+                            if(isset($_POST['group_type']) && trim(strtolower($_POST['group_type'])) == 'offline') {
+                                if(!isset($_POST['group_country']) || $_POST['group_country'] == '0')  {
+                                    $error = true;
+                                }
 
+                                if(!isset($_POST['group_city']) || $_POST['group_city'] === '') {
+                                    $error = true;
+                                }
                             }
                         }
   
