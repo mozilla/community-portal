@@ -10,6 +10,7 @@
 @import "base";
 @import "create-group";
 @import "footer";
+@import "group";
 @import "groups";
 @import "nav";
 
@@ -36,7 +37,7 @@ html {
 }
 
 .body {
-    background-color: #F8F8F8;
+    background-color: $color-gray-background;
     width: 100%;
     height: 100%;
 }

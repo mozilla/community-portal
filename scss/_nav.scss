@@ -4,13 +4,12 @@
 
     &__container {
         @extend .container;
-        color: $color-white;
+        color: $color-black;
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
         align-items: center;
-        height: 100%;
-        overflow: hidden;
+        height: 58px;
         max-width: 1228px;
         padding: 0;
 
@@ -20,29 +19,29 @@
     } 
 
     &__header {
-        background-color: $color-black;
-        height: 47px;
+        background-color: $color-white;
+        height: 80px;
         display: flex;
         flex-direction: column;
         justify-content: center;
     }
 
     &__menu {
-        height: 75px;
-        background-color: $color-white;
+        height: 58px;
+        background-color: $color-black;
     }
 
     &__search-container {
         position: relative;
         width: 240px;
-        margin-left: 30px;
+
     }
 
     &__search {
         height: 27px;
-        border: 1px solid $border-grey;
-        border-radius: 2px;
-        background-color: $color-black;        
+        border: 1px solid $color-gray-background;
+        border-radius: 5px;
+        background-color: $color-gray-background;        
         width: 100%;
         padding: 5px 10px;
         color: $search-font-color;
@@ -56,10 +55,12 @@
     }
 
     &__login {
-        font-size: remCalc(14);
-        line-height: 17px;
-        font-weight: 600;
+        font-size: remCalc(16);
+        line-height: 25px;
+        font-weight: 500;
         margin-left: auto;
+        margin-right: 40px;
+        font-family: 'Zilla Slab';
     }
 
     &__logo {
@@ -80,7 +81,7 @@
 .menu-item {
     display: inline-block;
     width: 130px;
-    padding: 25px;
+    padding: 16px;
     text-align: center;
     height: 100%;
 
@@ -95,7 +96,7 @@
     text-decoration: none;
     font-size: remCalc(16);
     line-height: 24px;
-    color: $color-black;
+    color: $color-white;
 }
 
 .menu-mozilla-main-menu-container {
