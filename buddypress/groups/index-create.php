@@ -164,6 +164,7 @@
                         <label class="create-group__label"><?php print __("Secondary Group Contact *"); ?></label>
                     </div>
                     <input type="text" name="group_admin" id="group-admin" class="create-group__input" value="<?php print isset($form['group_admin']) ? $form['group_admin'] : ''; ?>" placeholder="Username" />
+                    <input type="hidden" name="group_admin_id" id="group-admin-id" value="<?php print isset($form['group_admin_id']) ? $form['group_admin_id'] : ''; ?>" />
                 </section>
                 <?php if($step == 1): ?>
                 <section class="create-group__details">

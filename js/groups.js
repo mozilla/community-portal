@@ -170,19 +170,28 @@ jQuery(function(){
                 var users = [];
 
                 for(var x = 0; x < data.length; x++) {
-                    users.push(data[x].data.user_login + ":" + data[x].data.ID);
+                    users.push(data[x].data.ID+ ":" + data[x].data.user_login );
                 }
                 suggest(users);
             });
         },
         renderItem: function(item, search) {
             search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-            console.log(item);
-
-
+            var data = item.split(':');
             var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
-            return '<div class="autocomplete-suggestion" data-val="' + item + '">' + item.replace(re, "<b>$1</b>") + '</div>';
+            if(data.length === 2) {
+                return '<div class="autocomplete-suggestion" data-val="' + data[1] + '" data-id="' + data[0] + '">' + data[1].replace(re, "<b>$1</b>") + '</div>';    
+            } else {
+                return '<div class="autocomplete-suggestion" data-val="' + item + '">' + item.replace(re, "<b>$1</b>") + '</div>';
+            }
+        },
+        onSelect: function(e, term, item) {
+            e.preventDefault();
+            
+            jQuery('#group-admin-id').val(item.data('id'));
+
         }
+        
 
     });
     

@@ -388,12 +388,15 @@ function mozilla_create_group() {
                             $meta = Array();
 
                             if($group_id) {
-
                                 // Loop through optional fields and save to meta
                                 foreach($optional AS $field) {
                                     if(isset($_POST[$field]) && $_POST[$field] !== "") {
                                         $meta[$field] = trim($_POST[$field]);
                                     }
+                                }
+
+                                if(isset($_POST['group_admin_id']) && $_POST['group_admin_id']) {
+                                    groups_promote_member(intval($_POST['group_admin_id']), $group_id, 'admin');
                                 }
 
                                 // Required information but needs to be stored in meta data because buddypress does not support these fields
@@ -402,7 +405,8 @@ function mozilla_create_group() {
                                 $meta['group_address'] = trim($_POST['group_address']);
                                 $meta['group_country'] = trim($_POST['group_country']);
                                 $meta['group_type'] = trim($_POST['group_type']);
-                       
+                    
+
                                 if(isset($_POST['tags'])) {
                                     $tags = explode(',', $_POST['tags']);
                                     $meta['group_tags'] = array_filter($tags);
