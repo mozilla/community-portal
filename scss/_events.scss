@@ -1,0 +1,103 @@
+.events {
+  &__nav {
+    display: flex;
+    padding: 0;
+    justify-content: flex-start;
+    list-style-type: none;
+    margin: 0;
+    &__link {
+      display: inline-block;
+      padding: 20px 16px;
+      text-decoration: none;
+      color: #000;
+      &--active {
+        font-weight: bold;
+        position: relative;
+      }
+      &--active::after {
+        content: "";
+        position: absolute;
+        background: $color-blue-50;
+        display: block;
+        height: 2px;
+        margin-top: 16px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: calc(100% - 32px);
+        margin: 0 auto;
+      }
+    }
+    &__item:first-child .events__nav__link {
+      padding-left: 0;
+      &--active::after {
+        width: calc(100% - 16px);
+        margin: 0;
+      }
+    }
+  }
+  &__tags {
+    padding: 0;
+  }
+  .card {
+    background: white;
+    margin-bottom: 16px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    &__image {
+      position: relative;
+      img {
+        max-width: 100%;
+        display: block;
+      }
+    }
+    &__image__date {
+      display: inline-block;
+      position: absolute;
+      left: 24px;
+      bottom: 28px;
+      background: white;
+      text-align: center;
+      padding: 20px 35px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.08);
+      span {
+        display: block;
+        font-size: 32px;
+        line-height: 40px;
+      }
+    }
+    &__description {
+      padding: 16px 40px 24px;
+    }
+  }
+}
+
+.em-search-wrapper {
+  border-bottom: 1px solid $color-gray-30;
+  .em-events-search {
+    padding: 16px 30px;
+  }
+  .em-search-main {
+    border-bottom: 1px solid $color-gray-20;
+    width: calc(100% - 191px);
+  }
+  div.css-search div.em-search-main .em-search-submit {
+    background: $color-blue-50;
+    text-shadow: none;
+    border-radius: 100px;
+    padding: 10px 36px;
+    font-size: 14px;
+    line-height: 20px;
+    font-family: $secondary-font;
+    font-weight: 400;
+    top: 16px;
+    right: 30px;
+  }
+  div.css-search div.em-search-text {
+    background: url("./images/search.png");
+    background-position: left;
+    background-repeat: no-repeat;
+  }
+  div.css-search input.em-search-text {
+    line-height: 22px;
+  }
+}

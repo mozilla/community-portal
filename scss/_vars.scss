@@ -1,3 +1,11 @@
+// Grid Breakpoints
+$xxl: 1300px;
+$xl: 1200px;
+$lg: 996px;
+$md: 768px;
+$sm: 544px;
+$columns: 12;
+
 // Screen Sizes
 $screen-mobile-min: 320px;
 $screen-tablet-min: 768px;
@@ -5,22 +13,24 @@ $screen-desktop-min: 1024px;
 
 $container-max-width: 1018px;
 
-
 // Colours
 $color-black: #000;
 $color-white: #fff;
-$color-blue-50: #0060DF;
+$color-blue-50: #0060df;
 
-$light-blue: #F2FCFD;
+$light-blue: #f2fcfd;
 $error: #ff0039;
 
 $color-gray-secondary: #737373;
-$color-gray-10: #F9F9FA;
-$color-gray-20: #EDEDF0;
-$color-gray-30: #CDCDD4;
-$color-gray-60: #7A7A8B;
-$color-off-black: #20123A;
-$color-gray-background: #EDEDF0;
+$color-gray-10: #f9f9fa;
+$color-gray-20: #ededf0;
+$color-gray-30: #cdcdd4;
+$color-gray-60: #7a7a8b;
+$color-gray-80: #42425a;
+$color-off-black: #20123a;
+$color-gray-background: #ededf0;
 
 $border-grey: $color-black;
-$search-font-color: #CECECE;
+$search-font-color: #cecece;
+
+$secondary-font: "Open Sans", sans-serif;
