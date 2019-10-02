@@ -94,11 +94,10 @@ jQuery(function(){
             }
         });
 
-        if(error) {
+        if(error || jQuery('.create-group__input--error').length > 0) {
             jQuery('#create-group-form').find('.create-group__input--error:first').focus();
             return false;
         } else {
-    
             jQuery(this).submit();
             return true;
         }
@@ -172,7 +171,9 @@ jQuery(function(){
                 for(var x = 0; x < data.length; x++) {
                     users.push(data[x].data.ID+ ":" + data[x].data.user_login );
                 }
+                
                 suggest(users);
+
             });
         },
         renderItem: function(item, search) {
@@ -187,13 +188,35 @@ jQuery(function(){
         },
         onSelect: function(e, term, item) {
             e.preventDefault();
-            
             jQuery('#group-admin-id').val(item.data('id'));
 
         }
-        
-
     });
     
+
+    jQuery('#group-name').change(function(e) {
+        var $this = jQuery(this);
+        var name = $this.val();
+
+        var $errorContainer = $this.next('.form__error-container');
+
+        jQuery.get('/wp-admin/admin-ajax.php?action=validate_group',  { q: name }, function(response) {
+            var resp = jQuery.parseJSON(response);
+
+            // Show error
+            if(resp !== true) {
+                $this.addClass('create-group__input--error');
+
+                $errorContainer.addClass('form__error-container--visible');
+                $errorContainer.children('.form__error').text('This group name is already taken');
+            } else {
+                $this.removeClass('create-group__input--error');
+                $errorContainer.removeClass('form__error-container--visible');
+                $errorContainer.children('.form__error').text('This field is required');
+            }
+        });
+
+
+    });
 
 });

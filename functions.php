@@ -11,10 +11,9 @@ add_action('wp_ajax_nopriv_upload_group_image', 'mozilla_upload_image');
 add_action('wp_ajax_upload_group_image', 'mozilla_upload_image');
 add_action('wp_ajax_join_group', 'mozilla_join_group');
 add_action('wp_ajax_leave_group', 'mozilla_leave_group');
-add_action('wp_ajax_nopriv_get_users', 'mozilla_get_users');
 add_action('wp_ajax_get_users', 'mozilla_get_users');
 
-
+add_action('wp_ajax_nopriv_validate_group', 'mozilla_validate_group_name');
 add_action('wp_ajax_validate_group', 'mozilla_validate_group_name');
 
 
@@ -29,6 +28,15 @@ add_filter('nav_menu_css_class', 'mozilla_add_active_page' , 10 , 2);
 // Include theme style.css file not in admin page
 if(!is_admin()) 
     wp_enqueue_style('style', get_stylesheet_uri());
+
+
+
+add_filter('redirect_canonical', function($redirect_url, $requested_url) {
+    if($requested_url == home_url('index.php')) {
+        return '';
+    }
+}, 10, 2);
+
 
 $countries = Array(
     "AF" => "Afghanistan",
@@ -467,7 +475,12 @@ function mozilla_validate_group_name() {
         if(isset($_GET['q'])) {
             $query = $_GET['q'];
             $group = mozilla_search_groups($query);
-            var_dump($group);
+
+            if(isset($group['total']) && $group['total'] == 0) {
+                print json_encode(true);
+            } else {
+                print json_encode(false);
+            }
             die();
         }
     }
@@ -489,12 +502,14 @@ function mozilla_get_users() {
 
     if(isset($_GET['q']) && $_GET['q']) {
         $q = esc_attr(trim($_GET['q']));
-        
+        $current_user_id = get_current_user_id();
+
         $query = new WP_User_Query(Array(
             'search'            =>  "*{$q}*",
             'search_columns'    =>  Array(
                 'user_login'
-            )
+            ),
+            'exclude'   => Array($current_user_id)
         ));
 
         print json_encode($query->get_results());
