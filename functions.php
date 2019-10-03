@@ -51,6 +51,7 @@ function mozilla_add_active_page($classes, $item) {
 function mozilla_init_scripts() {
     wp_enqueue_script('dropzonejs', get_stylesheet_directory_uri()."/js/vendor/dropzone.min.js", array('jquery'));
     wp_enqueue_script('groups', get_stylesheet_directory_uri()."/js/groups.js", array('jquery'));
+    wp_enqueue_script('events', get_stylesheet_directory_uri()."/js/events.js", array('jquery'));
     wp_enqueue_script('cleavejs', get_stylesheet_directory_uri()."/js/vendor/cleave.min.js", array());
 }
 
