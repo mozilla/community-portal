@@ -14,9 +14,27 @@
     '11' => 'Nov',
     '12' => 'Dec',
   );
-
+  $categories = get_the_terms($event->post_id, EM_TAXONOMY_CATEGORY);
+  $allCountries = em_get_countries();
+  $allTags = array_map('simplify', $categories);
 ?>
-<div class="col-md-4 events__column">
+<div class="col-xl-4 col-sm-6 events__column <?php
+  if ($tag !== 'all ' && !$categories) {
+    echo 'hidden';
+  } else if ($tag !== 'all' && $country !== 'all') {
+    if (!in_array($tag, $allTags) || $country !== $allCountries[$location->country]) {
+      echo 'hidden';
+    } 
+  } else if ($tag !== 'all') {
+    if (!in_array($tag, $allTags)) {
+      echo 'hidden';
+    } 
+  } else if ($country !== 'all') {
+    if ($country !== $allCountries[$location->country]) {
+      echo 'hidden';
+    }
+  }
+?>">
   <div class="card">
     <a class="events__link" href="<?php echo $url?>">
       <div class="card__image">
@@ -36,7 +54,7 @@
         <p class="card__image__date"><span><?php echo $months[$month] ?> </span><span><?php echo $date ?></span></p>
       </div>
       <div class="card__description">
-        <h2><?php echo $event->event_name; ?></h2>
+        <h3 class="card__description__title title--card"><?php echo $event->event_name; ?></h2>
         <p><?php echo $months[$month].' '.$date.', '.$year.' @ '.substr($event->event_start_time, 0, 5).' - '.substr($event->event_end_time, 0, 5).' '.$event->event_timezone; ?></p>
         <p class="text--light text--small">
         <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -58,14 +76,13 @@
         ?>
       </p>
       <?php 
-        $tags = get_the_terms($event->post_id, EM_TAXONOMY_CATEGORY);
-          if ($tags) {
+        if ($categories) {
       ?>
       <ul class="events__tags">
         <?php
-          for ($j=0; $j < count($tags); $j = $j + 1) {
+          foreach($categories as $category) {
         ?>
-        <li class="tag"><?php echo $tags[$j]->name ?></li>
+        <li class="tag"><?php echo $category->name ?></li>
         <?php
           }
         ?>

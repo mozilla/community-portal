@@ -1,22 +1,21 @@
 jQuery(function() {
   function getFilter(option) {
-    console.log(option.dataset);
-    const filter = option.data("filter");
-    console.log(filter);
+    const filter = option.dataset.filter;
     return filter;
   }
 
   const $filters = jQuery(".events__filter__option");
   $filters.each((i, filter) => {
     jQuery(filter).on("change", function(e) {
-      console.log(filter);
-      const filterTitle = getFilter(filter);
-      console.log(filterTitle);
+      const value = encodeURI(e.target.value);
+      const filterTitle = getFilter(e.target);
       const url = new URL(location.href);
       const params = new URLSearchParams(url.search.slice(1));
-      console.log(params.has("tag"));
-      if (params.has("tag")) {
-        url.searchParams.set("tag", "Localization");
+      if (params.has(filterTitle.toLowerCase())) {
+        url.searchParams.set(filterTitle.toLowerCase(), value);
+        window.location.href = url;
+      } else {
+        url.searchParams.set(filterTitle.toLowerCase(), value);
         window.location.href = url;
       }
     });

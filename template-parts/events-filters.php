@@ -12,16 +12,19 @@
   foreach($categories as $category) {
     $categories[$category->id] = $category->name;
   }
+
 ?>
 <div class="col-md-12 events__filter">
   <p class="events__filter__title">Filter By:</p>
   <form action="" class="events__filter__form">
     <?php
-      $field_name = "Location";
+      $field_name = "Country";
+      $field_label = "Location";
       $options = $ddm_countries;
       include(locate_template('template-parts/options.php', false, false));    
 
       $field_name =  "Tag";
+      $field_label = "Tag";
       $options = $categories;
       include(locate_template('template-parts/options.php', false, false));    
 

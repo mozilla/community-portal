@@ -1,4 +1,7 @@
 .events {
+  .hidden {
+    display: none;
+  }
   .col-* {
     padding: 0;
   }
@@ -102,11 +105,11 @@
   }
   .card {
     background: white;
-    margin: 32px 16px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     &__image {
       position: relative;
-      height: 200px;
+      height: 175px;
+      overflow: hidden;
       img {
         max-width: 100%;
         display: block;
@@ -127,8 +130,12 @@
         line-height: 40px;
       }
     }
+
     &__description {
       padding: 16px 40px 24px;
+      &__title {
+        margin: 0;
+      }
     }
   }
 }

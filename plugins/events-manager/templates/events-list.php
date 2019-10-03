@@ -12,25 +12,63 @@
     <?php
     $args = apply_filters('em_content_events_args', $args);
     $view = get_query_var( 'view', $default = '');
+    $country = urldecode(get_query_var('country', $default = null));
+    $tag = urldecode(get_query_var('tag', $default = null));
     if ($view === 'past') {
       $args['scope'] = $view;
     }  else {
       $args['scope'] = 'future';
     }
+    if ($country !== 'all') {
+      $args['country'] = $country;
+    } 
+    if ($tag !== 'all') {
+      $args['category'] = $tag;
+    }
+    function simplify($n) {
+      return $n->name;
+    }
     $events = EM_Events::get($args);
     ?>
     <div class="row events">
     <ul class="col-md-12 center-md events__nav">
-      <li class="events__nav__item"><a class="events__nav__link <?php if ($view === 'future' | $view === "") echo "events__nav__link--active" ?>" href="<?php echo add_query_arg('view', 'future', get_site_url('', 'events')) ?>">Upcoming Events</a></li>
-      <li class="events__nav__item"><a class="events__nav__link <?php if ($view === 'attending') echo "events__nav__link--active" ?>" href="<?php echo add_query_arg('view', 'attending', get_site_url('','events')) ?>">Events I'm attending</a></li>
-      <li class="events__nav__item"><a class="events__nav__link <?php if ($view === 'organized') echo "events__nav__link--active" ?>" href="<?php echo add_query_arg('view', 'organized', get_site_url('','events')) ?>">Events I've organized</a></li>
-      <li class="events__nav__item"><a class="events__nav__link <?php if ($view === 'past') echo "events__nav__link--active" ?>" href="<?php echo add_query_arg('view', 'past', get_site_url('','events'))?>">Past events</a></li>
+      <li class="events__nav__item">
+        <a 
+          class="events__nav__link <?php if ($view === 'future' | $view === "") echo "events__nav__link--active" ?>" 
+          href="<?php echo add_query_arg(array('view' => 'future', 'country' => $country, 'tag' => $tag), get_site_url('', 'events')) ?>"
+        >
+          Upcoming Events
+        </a>
+      </li>
+      <li class="events__nav__item">
+        <a 
+          class="events__nav__link <?php if ($view === 'attending') echo "events__nav__link--active" ?>" 
+          href="<?php echo add_query_arg(array('view' => 'attending', 'country' => $country, 'tag' => $tag), get_site_url('', 'events'), get_site_url('','events')) ?>"
+        >
+          Events I'm attending
+        </a>
+      </li>
+      <li class="events__nav__item">
+        <a 
+          class="events__nav__link <?php if ($view === 'organized') echo "events__nav__link--active" ?>" 
+          href="<?php echo add_query_arg(array('view' => 'organized', 'country' => $country, 'tag' => $tag), get_site_url('', 'events'), get_site_url('','events')) ?>"
+        >
+          Events I've organized
+        </a>
+      </li>
+      <li class="events__nav__item">
+        <a class="events__nav__link <?php if ($view === 'past') echo "events__nav__link--active" ?>" 
+        href="<?php echo add_query_arg(array('view' => 'past', 'country' => $country, 'tag' => $tag), get_site_url('', 'events'), get_site_url('','events'))?>"
+        >
+          Past events
+        </a>
+      </li>
       <!-- <li class="events__nav__item"><a class="events__nav__link " href="<?php echo add_query_arg(array('view' => 'organized', 'action' => 'edit'), get_site_url('','events')) ?>">Create an event</a></li> -->
     </ul>
     <?php
     include(locate_template('template-parts/events-filters.php', false, false));
     if ($view === 'attending') {
-      bp_em_attending_content();
+      include(locate_template('plugins/events-manager/templates/my-bookings.php', false, false));
     } elseif ($view === 'organized'){
       em_locate_template('buddypress/my-events.php', true);
     } else {

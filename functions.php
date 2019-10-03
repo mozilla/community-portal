@@ -230,6 +230,8 @@ function mozilla_search_groups($name) {
 
 function add_query_vars_filter( $vars ){
   $vars[] = "view";
+  $vars[] = "country";
+  $vars[] = "tag";
   return $vars;
 }
 add_filter( 'query_vars', 'add_query_vars_filter' );
