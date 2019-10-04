@@ -18,6 +18,5 @@
     foreach ($events as $event) {
       $site_url = get_site_url();
       $url = $site_url.'/'.$event->slug;
-      var_dump($url);
       include(locate_template('template-parts/event-cards.php', false, false));
     }

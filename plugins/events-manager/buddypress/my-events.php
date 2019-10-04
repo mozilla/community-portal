@@ -1,21 +1,18 @@
-<?php
-	global $wpdb, $bp, $EM_Notices;
-	/* @var $args array */
-	/* @var $EM_Events array */
-	/* @var $events_count int */
-	/* @var $future_count int */
-	/* @var $past_count int */
-	/* @var $pending_count int */
-	/* @var $url string */
-	/* @var $show_add_new bool */
-	/* @var $limit int */
-	//add new button will only appear if called from em_event_admin template tag, or if the $show_add_new var is set
-	?>
-		<?php
-      $EM_Person = new EM_Person( get_current_user_id() );
+<div class="row">
+  <?php
+    global $wpdb, $current_user, $EM_Notices, $EM_Person;
+    if( is_user_logged_in()):
+      $user_id = get_current_user_id();
+      if ($args['search']) {
+        $EM_Events = EM_Events::get(array('scope'=>'all', 'search' => $args['search'], 'owner'=>$user_id, 'status'=>false));
+      } else {
+        $EM_Events = EM_Events::get(array('scope'=>'all','owner'=>$user_id, 'status'=>false));
+      }
+      $EM_Person = new EM_Person($user_id);
       $username = $EM_Person->display_name;
       $site_url = get_site_url();
-			echo $EM_Notices;
+      $country = urldecode(get_query_var('country', $default = 'all'));
+      $tag = urldecode(get_query_var('tag', $default = 'all'));
 			if(!empty($show_add_new) && current_user_can('edit_events')) echo '<a class="em-button button add-new-h2" href="'.em_add_get_params($_SERVER['REQUEST_URI'],array('action'=>'edit','scope'=>null,'status'=>null,'event_id'=>null, 'success'=>null)).'">'.__('Add New','events-manager').'</a>';
 		?>
 				
@@ -39,4 +36,8 @@
       echo $EM_Notices;
     ?>
 	</div>
-
+    <?php else: ?>
+      <p><?php echo sprintf(__('Please <a href="%s">Log In</a> to view your bookings.','events-manager'),site_url('wp-login.php?redirect_to=' . urlencode(get_permalink()), 'login'))?></p>
+    <?php endif; ?>
+  </div>
+</div>

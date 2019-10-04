@@ -12,8 +12,8 @@
     <?php
     $args = apply_filters('em_content_events_args', $args);
     $view = get_query_var( 'view', $default = '');
-    $country = urldecode(get_query_var('country', $default = null));
-    $tag = urldecode(get_query_var('tag', $default = null));
+    $country = urldecode(get_query_var('country', $default = 'all'));
+    $tag = urldecode(get_query_var('tag', $default = 'all'));
     if ($view === 'past') {
       $args['scope'] = $view;
     }  else {
@@ -70,7 +70,7 @@
     if ($view === 'attending') {
       include(locate_template('plugins/events-manager/templates/my-bookings.php', false, false));
     } elseif ($view === 'organized'){
-      em_locate_template('buddypress/my-events.php', true);
+      include(locate_template('plugins/events-manager/buddypress/my-events.php', false, false));
     } else {
       foreach($events as $event) {
       $url = $site_url.'/events/'.$event->slug;

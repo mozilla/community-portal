@@ -11,6 +11,9 @@ $args = !empty($args) ? $args:array(); /* @var $args array */
 ?>
 <div class="em-search-wrapper row">
 <div class="em-events-search em-search col-md-7 <?php if( !empty($args['main_classes']) ) echo esc_attr(implode(' ', $args['main_classes'])); ?>">
+  <?php $view = get_query_var( 'view', $default = ''); ?>
+
+  <?php $args['search_url'] = 'http://mdmozdev.wpengine.com.test/events/?view='.$view ?>
 	<form action="<?php echo !empty($args['search_url']) ? esc_url($args['search_url']) : EM_URI; ?>" method="post" class="em-events-search-form em-search-form">
 		<input type="hidden" name="action" value="<?php echo esc_attr($args['search_action']); ?>" />
 		<?php if( $args['show_main'] ): //show the 'main' search form ?>
