@@ -4,20 +4,69 @@ jQuery(function() {
     return filter;
   }
 
-  const $filters = jQuery(".events__filter__option");
-  $filters.each((i, filter) => {
-    jQuery(filter).on("change", function(e) {
-      const value = encodeURI(e.target.value);
-      const filterTitle = getFilter(e.target);
-      const url = new URL(location.href);
-      const params = new URLSearchParams(url.search.slice(1));
-      if (params.has(filterTitle.toLowerCase())) {
-        url.searchParams.set(filterTitle.toLowerCase(), value);
-        window.location.href = url;
-      } else {
-        url.searchParams.set(filterTitle.toLowerCase(), value);
-        window.location.href = url;
-      }
-    });
-  });
+  function getUrl() {
+    const url = new URL(location.href);
+    return url;
+  }
+
+  function getParams(url) {
+    const params = new URLSearchParams(url.search.slice(1));
+    return params;
+  }
+
+  function setUrlParams(url, params, key, value) {
+    url.searchParams.set(key.toLowerCase(), value);
+    window.location.href = url;
+  }
+
+  function applyFilters() {
+    const $filters = jQuery(".events__filter__option");
+    if ($filters) {
+      $filters.each((i, filter) => {
+        jQuery(filter).on("change", function(e) {
+          const value = encodeURI(e.target.value);
+          const filterTitle = getFilter(e.target);
+          const url = getUrl();
+          const params = getParams(url);
+          setUrlParams(url, params, filterTitle.toLowerCase(), value);
+        });
+      });
+    }
+  }
+
+  function toggleMobileEventsNav(className, toggleTarget) {
+    const $eventsNavToggle = jQuery(className);
+    const $eventsNav = jQuery(toggleTarget);
+    if ($eventsNavToggle && $eventsNav) {
+      $eventsNavToggle.on("click", function(e) {
+        e.preventDefault();
+        $eventsNav.slideToggle();
+        if (/show/gi.test($eventsNavToggle[0].innerText)) {
+          $eventsNavToggle[0].innerText = "Hide Filters";
+        } else if (/hide/gi.test($eventsNavToggle[0].innerText)) {
+          $eventsNavToggle[0].innerText = "Show Filters";
+        }
+      });
+    }
+  }
+
+  function eventsMobileNav() {
+    const $viewOptions = jQuery(".events__nav--mobile select");
+    if ($viewOptions) {
+      $viewOptions.on("change", function(e) {
+        const url = getUrl();
+        const params = getParams(url);
+        setUrlParams(url, params, "view", this.value);
+      });
+    }
+  }
+
+  function init() {
+    toggleMobileEventsNav(".events__nav__toggle", ".events__nav");
+    toggleMobileEventsNav(".events__filter__toggle", ".events__filter");
+    eventsMobileNav();
+    applyFilters();
+  }
+
+  init();
 });

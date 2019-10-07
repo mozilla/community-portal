@@ -1,0 +1,16 @@
+.btn {
+  -webkit-appearance: none;
+  border: none;
+  background: none;
+  &--large {
+    width: 100%;
+    padding: 10px 0;
+    line-height: 22px;
+    font-weight: lighter;
+  }
+  &--light {
+    border: 1px solid $color-blue-50;
+    color: $color-blue-50;
+    border-radius: 28px;
+  }
+}

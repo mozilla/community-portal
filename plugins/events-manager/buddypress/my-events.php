@@ -1,5 +1,5 @@
-<div class="row">
-  <?php
+
+<?php
     global $wpdb, $current_user, $EM_Notices, $EM_Person;
     if( is_user_logged_in()):
       $user_id = get_current_user_id();
@@ -40,4 +40,3 @@
       <p><?php echo sprintf(__('Please <a href="%s">Log In</a> to view your bookings.','events-manager'),site_url('wp-login.php?redirect_to=' . urlencode(get_permalink()), 'login'))?></p>
     <?php endif; ?>
   </div>
-</div>

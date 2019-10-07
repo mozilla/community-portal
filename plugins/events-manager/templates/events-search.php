@@ -10,7 +10,7 @@
 $args = !empty($args) ? $args:array(); /* @var $args array */
 ?>
 <div class="em-search-wrapper row">
-<div class="em-events-search em-search col-md-7 <?php if( !empty($args['main_classes']) ) echo esc_attr(implode(' ', $args['main_classes'])); ?>">
+<div class="em-events-search em-search col-lg-7 col-xs-12 <?php if( !empty($args['main_classes']) ) echo esc_attr(implode(' ', $args['main_classes'])); ?>">
   <?php $view = get_query_var( 'view', $default = ''); ?>
 
   <?php $args['search_url'] = 'http://mdmozdev.wpengine.com.test/events/?view='.$view ?>

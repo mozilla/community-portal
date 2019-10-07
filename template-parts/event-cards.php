@@ -33,7 +33,7 @@
     if ($country !== $allCountries[$location->country]) {
       echo 'hidden';
     }
-  }
+  } 
 ?>">
   <div class="card">
     <a class="events__link" href="<?php echo $url?>">
