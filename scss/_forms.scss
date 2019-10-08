@@ -208,6 +208,10 @@
     &--error {
         border-color: $error;
     }
+
+    &--disabled {
+        background-color: $color-white;
+    }
 }
 
 .cta {
