@@ -2,12 +2,37 @@
   margin: 0;
 }
 .events {
+  &__header {
+    background-color: $color-yellow-20;
+    .events__container {
+      padding-top: 56px;
+      padding-bottom: 88px;
+      background-image: url("./images/events-header.png");
+      background-repeat: no-repeat;
+      background-position: right;
+    }
+  }
+  &__title {
+    font-family: $main-font-family;
+    font-size: 48px;
+    &::before {
+      content: url("./images/Ellipse.png");
+      padding-right: 15px;
+    }
+  }
   &__container {
     max-width: 1228px;
     margin: 0 auto;
     padding: 0 64px;
     @media (max-width: $md) {
       padding: 0 24px;
+    }
+    &--edit {
+      .em-search-wrapper,
+      .events__nav__container,
+      .events__filter {
+        display: none;
+      }
     }
   }
   .hidden {
@@ -176,7 +201,10 @@
   .card {
     background: white;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 5px;
+    border-radius: 4px;
+    border: 4px solid transparent;
+    transition: box-shadow 0.3s ease-in-out, border 0.2s ease-in-out;
+
     &__image {
       position: relative;
       height: 175px;
@@ -223,27 +251,37 @@
         margin: 0;
       }
     }
+    &:hover {
+      box-shadow: none;
+      border: 4px solid #d7d7db;
+    }
   }
   &__cards {
-    .events__column:not(.hidden):nth-of-type(3n) {
+    .events__column:nth-of-type(3n) {
       padding-right: 0;
-      @media (max-width: $lg) {
+      @media (max-width: $xl) {
         padding-right: 16px;
       }
-    }
-    .events__column:not(.hidden):nth-of-type(3n + 1) {
-      padding-left: 0;
-      @media (max-width: $lg) {
-        padding-left: 16px;
+      @media (max-width: $md) {
+        padding-right: 0;
       }
     }
-    .events__column:not(.hidden):nth-of-type(2n + 1) {
-      @media (max-width: $lg) {
+    .events__column:nth-of-type(3n + 1) {
+      padding-left: 0;
+      @media (max-width: $xl) {
+        padding-left: 16px;
+      }
+      @media (max-width: $md) {
         padding-left: 0;
       }
     }
-    .events__column:not(.hidden):nth-of-type(2n) {
-      @media (max-width: $lg) {
+    .events__column:nth-of-type(2n + 1) {
+      @media (max-width: $xl) {
+        padding-left: 0;
+      }
+    }
+    .events__column:nth-of-type(2n) {
+      @media (max-width: $xl) {
         padding-right: 0;
       }
     }
@@ -258,6 +296,11 @@
 
 .css-events-admin {
   width: 100%;
+}
+
+#em-wrapper {
+  position: relative;
+  top: -15px;
 }
 
 .em-search-wrapper {

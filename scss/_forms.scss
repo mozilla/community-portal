@@ -224,3 +224,45 @@
         cursor: pointer;
     }
 }
+
+.autocomplete-suggestions {
+    text-align: left; 
+    cursor: default; 
+    border: 1px solid $color-gray-10; 
+    border-top: 0; 
+    background: $color-white; 
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+    color: $color-black;
+    padding: 10px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+
+    /* core styles should not be changed */
+    position: absolute; 
+    display: none; 
+    z-index: 9999; 
+    max-height: 254px; 
+    overflow: hidden;
+    overflow-y: auto; 
+    box-sizing: border-box;
+}
+
+.autocomplete-suggestion { 
+    position: relative; 
+    padding: 0 .6em; 
+    line-height: 23px; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    font-size: 1.02em; 
+    color: #333; 
+}
+
+.autocomplete-suggestion b { 
+    font-weight: normal; 
+    color: #1f8dd6; 
+}
+
+.autocomplete-suggestion.selected { 
+    background: #f0f0f0; 
+}

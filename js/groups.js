@@ -1,5 +1,4 @@
 jQuery(function(){
-
     Dropzone.autoDiscover = false;
     
     jQuery("#group-photo-uploader").dropzone({
@@ -40,6 +39,19 @@ jQuery(function(){
         }
     });
 
+    jQuery('.create-group__input, .create-group__textarea, .create-group__select').on('change keyup paste', function(e){
+        var $this = jQuery(this);
+        if($this.val() != '' || $this.val() == '0') {
+            $this.removeClass('create-group__input--error');
+            $this.next('.form__error-container').removeClass('form__error-container--visible');
+        } else {
+            $this.addClass('create-group__input--error');
+            $this.next('.form__error-container').addClass('form__error-container--visible');
+        }
+        e.stopPropagation();
+
+        return false;
+    });
 
     jQuery('.create-group__tag').click(function(e) {
         e.preventDefault();
@@ -59,18 +71,6 @@ jQuery(function(){
     });
 
 
-
-    jQuery('.create-group__input, .create-group__textarea, .create-group__select').on('change keyup paste', function(){
-        var $this = jQuery(this);
-        if($this.val() != '' || $this.val() == '0') {
-            $this.removeClass('create-group__input--error');
-            $this.next('.form__error-container').removeClass('form__error-container--visible');
-        } else {
-            $this.addClass('create-group__input--error');
-            $this.next('.form__error-container').addClass('form__error-container--visible');
-        }
-
-    });
 
     jQuery('#create-group-form').one('submit', function(e){
         e.preventDefault();
@@ -94,11 +94,10 @@ jQuery(function(){
             }
         });
 
-        if(error) {
+        if(error || jQuery('.create-group__input--error').length > 0) {
             jQuery('#create-group-form').find('.create-group__input--error:first').focus();
             return false;
         } else {
-    
             jQuery(this).submit();
             return true;
         }
@@ -107,10 +106,10 @@ jQuery(function(){
 
 
     jQuery('input[name="group_type"]').change(function(e){
-        var $this = jQuery(this);
+        var $this = $(this);
 
-        var countryLabel = jQuery('label[for="group-country"]').text();
-        var cityLabel = jQuery('label[for="group-city"]').text();
+        var countryLabel = $('label[for="group-country"]').text();
+        var cityLabel = $('label[for="group-city"]').text();
 
         if($this.val() == 'Offline') {
             jQuery('select[name="group_country"]').prop('required', true);
@@ -123,6 +122,100 @@ jQuery(function(){
             jQuery('input[name="group_city"]').prop('required', false);
             jQuery('label[for="group-city"]').text(cityLabel.concat(' *'));
         }
+
+    });
+
+    jQuery('.group__join-cta').click(function(e) {
+        e.preventDefault();
+        var $this = jQuery(this);
+        var group = $this.data('group');
+        var post = { 
+            'group': group
+        };
+
+        var url = $this.text() == 'Join Group' ? '/wp-admin/admin-ajax.php?action=join_group' : '/wp-admin/admin-ajax.php?action=leave_group'
+
+        jQuery.ajax({
+            url: url,
+            data: post,
+            method: 'POST',
+            success: function(response) {
+                response = jQuery.parseJSON(response);
+
+                if(response.status == 'success') {
+                    var memberCount = parseInt(jQuery('.group__member-count').text());
+                    if($this.text() == 'Join Group') {
+                        memberCount++;
+                        $this.text('Leave Group');
+                    } else {
+                        memberCount--;
+                        $this.text('Join Group');
+                    }     
+
+                    jQuery('.group__member-count').text(memberCount);
+                }
+            }
+        });
+
+
+        return false;
+    });
+
+
+
+    jQuery('#group-admin').autoComplete({
+        source: function(term, suggest) {
+            jQuery.getJSON('/wp-admin/admin-ajax.php?action=get_users', { q: term }, function(data){
+                var users = [];
+
+                for(var x = 0; x < data.length; x++) {
+                    users.push(data[x].data.ID+ ":" + data[x].data.user_login );
+                }
+                
+                suggest(users);
+
+            });
+        },
+        renderItem: function(item, search) {
+            search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+            var data = item.split(':');
+            var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
+            if(data.length === 2) {
+                return '<div class="autocomplete-suggestion" data-val="' + data[1] + '" data-id="' + data[0] + '">' + data[1].replace(re, "<b>$1</b>") + '</div>';    
+            } else {
+                return '<div class="autocomplete-suggestion" data-val="' + item + '">' + item.replace(re, "<b>$1</b>") + '</div>';
+            }
+        },
+        onSelect: function(e, term, item) {
+            e.preventDefault();
+            jQuery('#group-admin-id').val(item.data('id'));
+
+        }
+    });
+    
+
+    jQuery('#group-name').change(function(e) {
+        var $this = jQuery(this);
+        var name = $this.val();
+
+        var $errorContainer = $this.next('.form__error-container');
+
+        jQuery.get('/wp-admin/admin-ajax.php?action=validate_group',  { q: name }, function(response) {
+            var resp = jQuery.parseJSON(response);
+
+            // Show error
+            if(resp !== true) {
+                $this.addClass('create-group__input--error');
+
+                $errorContainer.addClass('form__error-container--visible');
+                $errorContainer.children('.form__error').text('This group name is already taken');
+            } else {
+                $this.removeClass('create-group__input--error');
+                $errorContainer.removeClass('form__error-container--visible');
+                $errorContainer.children('.form__error').text('This field is required');
+            }
+        });
+
 
     });
 

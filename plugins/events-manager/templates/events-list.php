@@ -25,9 +25,6 @@
   if ($tag !== 'all') {
     $args['category'] = $tag;
   }
-  function simplify($n) {
-    return $n->name;
-  }
   $events = EM_Events::get($args);
 ?>
 <div class="row events">
@@ -81,18 +78,19 @@
     </form>
   </div>
   <?php
-    include(locate_template('template-parts/events-filters.php', false, false));
+    include(locate_template('plugins/events-manager/templates/template-parts/events-filters.php', false, false));
     ?>
     <div class="row events__cards">
       <?php
         if ($view === 'attending') {
           include(locate_template('plugins/events-manager/templates/my-bookings.php', false, false));
         } elseif ($view === 'organized'){
-          include(locate_template('plugins/events-manager/buddypress/my-events.php', false, false));
+          // include(locate_template('plugins/events-manager/buddypress/my-events.php', false, false));
+          em_locate_template('buddypress/my-events.php', true);
         } else {
           foreach($events as $event) {
             $url = $site_url.'/events/'.$event->slug;
-            include(locate_template('template-parts/event-cards.php', false, false));
+            include(locate_template('plugins/events-manager/templates/template-parts/event-cards.php', false, false));
           }
         }
       ?>

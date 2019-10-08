@@ -20,13 +20,13 @@
               foreach ($eventsArray as $eventItem) {
               if ($eventItem->event_id === $id) {
                 $event = $eventItem;
-                include(locate_template('template-parts/event-cards.php', false, false));
+                include(locate_template('plugins/events-manager/templates/template-parts/event-cards.php', false, false));
               }
             } 
             }
           } else {
             $event = em_get_event($id);
-            include(locate_template('template-parts/event-cards.php', false, false));
+            include(locate_template('plugins/events-manager/templates/template-parts/event-cards.php', false, false));
           }
         }
         $limit = ( !empty($_GET['limit']) ) ? $_GET['limit'] : 20;//Default limit

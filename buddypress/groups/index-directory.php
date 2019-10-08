@@ -15,16 +15,18 @@
         'serach_terms'      =>  'Test'
     ));
 
-    print "FFF";
-    print "<pre>";
-    print_r($groups);
-    print "</pre>";
 ?>
 
 
 <div class="content">
     <?php do_action('bp_before_directory_groups_content'); ?>
-
+    <?php 
+        
+        global $wp_query;
+        $id = $wp_query->get_queried_object_id();
+        $page = get_page($id);
+    
+    ?>
     <div class="groups">
         <div class="groups__container">
             <div class="groups__left">
@@ -51,7 +53,14 @@
                                 </div>
                                 <div class="groups__group-details-container">
                                     <h3 class="groups__group-title"><?php bp_group_name(); ?></h3>
-                                    <div class="groups__group-details"><?php print groups_get_total_group_count(); ?> Members</div>
+                                    <?php 
+                                        $group_id = bp_get_group_id(); 
+
+                                        // Get extra meta infomration
+                                        $meta = groups_get_groupmeta($group_id, 'meta');
+
+                                    ?>
+                                    <div class="groups__group-details"><?php print groups_get_total_member_count($group_id);  ?> Members</div>
                                     <?php bp_group_description(); ?>
                                 </div>
                             </div>                                

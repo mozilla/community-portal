@@ -9,7 +9,11 @@ add_action('init', 'mozilla_custom_menu');
 add_action('wp_enqueue_scripts', 'mozilla_init_scripts');
 add_action('wp_ajax_nopriv_upload_group_image', 'mozilla_upload_image');
 add_action('wp_ajax_upload_group_image', 'mozilla_upload_image');
+add_action('wp_ajax_join_group', 'mozilla_join_group');
+add_action('wp_ajax_leave_group', 'mozilla_leave_group');
+add_action('wp_ajax_get_users', 'mozilla_get_users');
 
+add_action('wp_ajax_nopriv_validate_group', 'mozilla_validate_group_name');
 add_action('wp_ajax_validate_group', 'mozilla_validate_group_name');
 
 
@@ -24,6 +28,258 @@ add_filter('nav_menu_css_class', 'mozilla_add_active_page' , 10 , 2);
 // Include theme style.css file not in admin page
 if(!is_admin()) 
     wp_enqueue_style('style', get_stylesheet_uri());
+
+
+
+add_filter('redirect_canonical', function($redirect_url, $requested_url) {
+    if($requested_url == home_url('index.php')) {
+        return '';
+    }
+}, 10, 2);
+
+
+$countries = Array(
+    "AF" => "Afghanistan",
+    "AL" => "Albania",
+    "DZ" => "Algeria",
+    "AS" => "American Samoa",
+    "AD" => "Andorra",
+    "AO" => "Angola",
+    "AI" => "Anguilla",
+    "AQ" => "Antarctica",
+    "AG" => "Antigua and Barbuda",
+    "AR" => "Argentina",
+    "AM" => "Armenia",
+    "AW" => "Aruba",
+    "AU" => "Australia",
+    "AT" => "Austria",
+    "AZ" => "Azerbaijan",
+    "BS" => "Bahamas",
+    "BH" => "Bahrain",
+    "BD" => "Bangladesh",
+    "BB" => "Barbados",
+    "BY" => "Belarus",
+    "BE" => "Belgium",
+    "BZ" => "Belize",
+    "BJ" => "Benin",
+    "BM" => "Bermuda",
+    "BT" => "Bhutan",
+    "BO" => "Bolivia",
+    "BA" => "Bosnia and Herzegovina",
+    "BW" => "Botswana",
+    "BV" => "Bouvet Island",
+    "BR" => "Brazil",
+    "IO" => "British Indian Ocean Territory",
+    "BN" => "Brunei Darussalam",
+    "BG" => "Bulgaria",
+    "BF" => "Burkina Faso",
+    "BI" => "Burundi",
+    "KH" => "Cambodia",
+    "CM" => "Cameroon",
+    "CA" => "Canada",
+    "CV" => "Cape Verde",
+    "KY" => "Cayman Islands",
+    "CF" => "Central African Republic",
+    "TD" => "Chad",
+    "CL" => "Chile",
+    "CN" => "China",
+    "CX" => "Christmas Island",
+    "CC" => "Cocos (Keeling) Islands",
+    "CO" => "Colombia",
+    "KM" => "Comoros",
+    "CG" => "Congo",
+    "CD" => "Congo, the Democratic Republic of the",
+    "CK" => "Cook Islands",
+    "CR" => "Costa Rica",
+    "CI" => "Cote D'Ivoire",
+    "HR" => "Croatia",
+    "CU" => "Cuba",
+    "CY" => "Cyprus",
+    "CZ" => "Czech Republic",
+    "DK" => "Denmark",
+    "DJ" => "Djibouti",
+    "DM" => "Dominica",
+    "DO" => "Dominican Republic",
+    "EC" => "Ecuador",
+    "EG" => "Egypt",
+    "SV" => "El Salvador",
+    "GQ" => "Equatorial Guinea",
+    "ER" => "Eritrea",
+    "EE" => "Estonia",
+    "ET" => "Ethiopia",
+    "FK" => "Falkland Islands (Malvinas)",
+    "FO" => "Faroe Islands",
+    "FJ" => "Fiji",
+    "FI" => "Finland",
+    "FR" => "France",
+    "GF" => "French Guiana",
+    "PF" => "French Polynesia",
+    "TF" => "French Southern Territories",
+    "GA" => "Gabon",
+    "GM" => "Gambia",
+    "GE" => "Georgia",
+    "DE" => "Germany",
+    "GH" => "Ghana",
+    "GI" => "Gibraltar",
+    "GR" => "Greece",
+    "GL" => "Greenland",
+    "GD" => "Grenada",
+    "GP" => "Guadeloupe",
+    "GU" => "Guam",
+    "GT" => "Guatemala",
+    "GN" => "Guinea",
+    "GW" => "Guinea-Bissau",
+    "GY" => "Guyana",
+    "HT" => "Haiti",
+    "HM" => "Heard Island and Mcdonald Islands",
+    "VA" => "Holy See (Vatican City State)",
+    "HN" => "Honduras",
+    "HK" => "Hong Kong",
+    "HU" => "Hungary",
+    "IS" => "Iceland",
+    "IN" => "India",
+    "ID" => "Indonesia",
+    "IR" => "Iran, Islamic Republic of",
+    "IQ" => "Iraq",
+    "IE" => "Ireland",
+    "IL" => "Israel",
+    "IT" => "Italy",
+    "JM" => "Jamaica",
+    "JP" => "Japan",
+    "JO" => "Jordan",
+    "KZ" => "Kazakhstan",
+    "KE" => "Kenya",
+    "KI" => "Kiribati",
+    "KP" => "Korea, Democratic People's Republic of",
+    "KR" => "Korea, Republic of",
+    "KW" => "Kuwait",
+    "KG" => "Kyrgyzstan",
+    "LA" => "Lao People's Democratic Republic",
+    "LV" => "Latvia",
+    "LB" => "Lebanon",
+    "LS" => "Lesotho",
+    "LR" => "Liberia",
+    "LY" => "Libyan Arab Jamahiriya",
+    "LI" => "Liechtenstein",
+    "LT" => "Lithuania",
+    "LU" => "Luxembourg",
+    "MO" => "Macao",
+    "MK" => "Macedonia, the Former Yugoslav Republic of",
+    "MG" => "Madagascar",
+    "MW" => "Malawi",
+    "MY" => "Malaysia",
+    "MV" => "Maldives",
+    "ML" => "Mali",
+    "MT" => "Malta",
+    "MH" => "Marshall Islands",
+    "MQ" => "Martinique",
+    "MR" => "Mauritania",
+    "MU" => "Mauritius",
+    "YT" => "Mayotte",
+    "MX" => "Mexico",
+    "FM" => "Micronesia, Federated States of",
+    "MD" => "Moldova, Republic of",
+    "MC" => "Monaco",
+    "MN" => "Mongolia",
+    "MS" => "Montserrat",
+    "MA" => "Morocco",
+    "MZ" => "Mozambique",
+    "MM" => "Myanmar",
+    "NA" => "Namibia",
+    "NR" => "Nauru",
+    "NP" => "Nepal",
+    "NL" => "Netherlands",
+    "AN" => "Netherlands Antilles",
+    "NC" => "New Caledonia",
+    "NZ" => "New Zealand",
+    "NI" => "Nicaragua",
+    "NE" => "Niger",
+    "NG" => "Nigeria",
+    "NU" => "Niue",
+    "NF" => "Norfolk Island",
+    "MP" => "Northern Mariana Islands",
+    "NO" => "Norway",
+    "OM" => "Oman",
+    "PK" => "Pakistan",
+    "PW" => "Palau",
+    "PS" => "Palestinian Territory, Occupied",
+    "PA" => "Panama",
+    "PG" => "Papua New Guinea",
+    "PY" => "Paraguay",
+    "PE" => "Peru",
+    "PH" => "Philippines",
+    "PN" => "Pitcairn",
+    "PL" => "Poland",
+    "PT" => "Portugal",
+    "PR" => "Puerto Rico",
+    "QA" => "Qatar",
+    "RE" => "Reunion",
+    "RO" => "Romania",
+    "RU" => "Russian Federation",
+    "RW" => "Rwanda",
+    "SH" => "Saint Helena",
+    "KN" => "Saint Kitts and Nevis",
+    "LC" => "Saint Lucia",
+    "PM" => "Saint Pierre and Miquelon",
+    "VC" => "Saint Vincent and the Grenadines",
+    "WS" => "Samoa",
+    "SM" => "San Marino",
+    "ST" => "Sao Tome and Principe",
+    "SA" => "Saudi Arabia",
+    "SN" => "Senegal",
+    "CS" => "Serbia and Montenegro",
+    "SC" => "Seychelles",
+    "SL" => "Sierra Leone",
+    "SG" => "Singapore",
+    "SK" => "Slovakia",
+    "SI" => "Slovenia",
+    "SB" => "Solomon Islands",
+    "SO" => "Somalia",
+    "ZA" => "South Africa",
+    "GS" => "South Georgia and the South Sandwich Islands",
+    "ES" => "Spain",
+    "LK" => "Sri Lanka",
+    "SD" => "Sudan",
+    "SR" => "Suriname",
+    "SJ" => "Svalbard and Jan Mayen",
+    "SZ" => "Swaziland",
+    "SE" => "Sweden",
+    "CH" => "Switzerland",
+    "SY" => "Syrian Arab Republic",
+    "TW" => "Taiwan, Province of China",
+    "TJ" => "Tajikistan",
+    "TZ" => "Tanzania, United Republic of",
+    "TH" => "Thailand",
+    "TL" => "Timor-Leste",
+    "TG" => "Togo",
+    "TK" => "Tokelau",
+    "TO" => "Tonga",
+    "TT" => "Trinidad and Tobago",
+    "TN" => "Tunisia",
+    "TR" => "Turkey",
+    "TM" => "Turkmenistan",
+    "TC" => "Turks and Caicos Islands",
+    "TV" => "Tuvalu",
+    "UG" => "Uganda",
+    "UA" => "Ukraine",
+    "AE" => "United Arab Emirates",
+    "GB" => "United Kingdom",
+    "US" => "United States",
+    "UM" => "United States Minor Outlying Islands",
+    "UY" => "Uruguay",
+    "UZ" => "Uzbekistan",
+    "VU" => "Vanuatu",
+    "VE" => "Venezuela",
+    "VN" => "Viet Nam",
+    "VG" => "Virgin Islands, British",
+    "VI" => "Virgin Islands, U.s.",
+    "WF" => "Wallis and Futuna",
+    "EH" => "Western Sahara",
+    "YE" => "Yemen",
+    "ZM" => "Zambia",
+    "ZW" => "Zimbabwe"
+);
+
 
 function remove_admin_login_header() {
 	remove_action('wp_head', '_admin_bar_bump_cb');
@@ -49,7 +305,12 @@ function mozilla_add_active_page($classes, $item) {
 }
 
 function mozilla_init_scripts() {
+
+    // Vendor scripts
     wp_enqueue_script('dropzonejs', get_stylesheet_directory_uri()."/js/vendor/dropzone.min.js", array('jquery'));
+    wp_enqueue_script('autcomplete', get_stylesheet_directory_uri()."/js/vendor/autocomplete.js", array('jquery'));
+
+    // Custom scripts
     wp_enqueue_script('groups', get_stylesheet_directory_uri()."/js/groups.js", array('jquery'));
     wp_enqueue_script('events', get_stylesheet_directory_uri()."/js/events.js", array('jquery'));
     wp_enqueue_script('cleavejs', get_stylesheet_directory_uri()."/js/vendor/cleave.min.js", array());
@@ -136,12 +397,15 @@ function mozilla_create_group() {
                             $meta = Array();
 
                             if($group_id) {
-
                                 // Loop through optional fields and save to meta
                                 foreach($optional AS $field) {
                                     if(isset($_POST[$field]) && $_POST[$field] !== "") {
                                         $meta[$field] = trim($_POST[$field]);
                                     }
+                                }
+
+                                if(isset($_POST['group_admin_id']) && $_POST['group_admin_id']) {
+                                    groups_promote_member(intval($_POST['group_admin_id']), $group_id, 'admin');
                                 }
 
                                 // Required information but needs to be stored in meta data because buddypress does not support these fields
@@ -150,7 +414,8 @@ function mozilla_create_group() {
                                 $meta['group_address'] = trim($_POST['group_address']);
                                 $meta['group_country'] = trim($_POST['group_country']);
                                 $meta['group_type'] = trim($_POST['group_type']);
-                       
+                    
+
                                 if(isset($_POST['tags'])) {
                                     $tags = explode(',', $_POST['tags']);
                                     $meta['group_tags'] = array_filter($tags);
@@ -211,7 +476,12 @@ function mozilla_validate_group_name() {
         if(isset($_GET['q'])) {
             $query = $_GET['q'];
             $group = mozilla_search_groups($query);
-            var_dump($group);
+
+            if(isset($group['total']) && $group['total'] == 0) {
+                print json_encode(true);
+            } else {
+                print json_encode(false);
+            }
             die();
         }
     }
@@ -235,3 +505,68 @@ function add_query_vars_filter( $vars ){
   return $vars;
 }
 add_filter( 'query_vars', 'add_query_vars_filter' );
+function mozilla_get_users() {
+    $json_users = Array();
+
+    if(isset($_GET['q']) && $_GET['q']) {
+        $q = esc_attr(trim($_GET['q']));
+        $current_user_id = get_current_user_id();
+
+        $query = new WP_User_Query(Array(
+            'search'            =>  "*{$q}*",
+            'search_columns'    =>  Array(
+                'user_login'
+            ),
+            'exclude'   => Array($current_user_id)
+        ));
+
+        print json_encode($query->get_results());
+
+    }
+    die();
+}
+
+function mozilla_join_group() {
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $user = wp_get_current_user();
+        if($user) {
+            if(isset($_POST['group']) && $_POST['group']) {
+                $joined = groups_join_group(intval(trim($_POST['group'])), $user->ID);
+                if($joined) {
+                    print json_encode(Array('status'   =>  'success', 'msg'  =>  'Joined Group'));
+                } else {
+                    print json_encode(Array('status'   =>  'error', 'msg'   =>  'Could not join group'));
+                }
+                die();
+            } 
+        }
+    }
+
+    print json_encode(Array('status'    =>  'error', 'msg'  =>  'Invalid Request'));
+    die();
+}
+
+function mozilla_leave_group() {
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $user = wp_get_current_user();
+        if($user) {
+            if(isset($_POST['group']) && $_POST['group']) {
+                $group = intval(trim($_POST['group']));
+                if(!groups_is_user_admin($user->ID, $group)) {
+                    $left = groups_leave_group($group, $user->ID);
+                    if($left) {
+                        print json_encode(Array('status'   =>  'success', 'msg'  =>  'Left Group'));
+                    } else {
+                        print json_encode(Array('status'   =>  'error', 'msg'   =>  'Could not leaev group'));
+                    }
+                } else {
+                    print json_encode(Array('status'   =>  'error', 'msg'   =>  'Admin cannot leave a group'));
+                }
+                die();
+            }
+        }
+    }
+
+    print json_encode(Array('status'    =>  'error', 'msg'  =>  'Invalid Request'));
+    die();
+}

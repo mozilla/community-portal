@@ -21,12 +21,12 @@
       $field_name = "Country";
       $field_label = "Location";
       $options = $ddm_countries;
-      include(locate_template('template-parts/options.php', false, false));    
+      include(locate_template('plugins/events-manager/templates/template-parts/options.php', false, false));    
 
       $field_name =  "Tag";
       $field_label = "Tag";
       $options = $categories;
-      include(locate_template('template-parts/options.php', false, false));    
+      include(locate_template('plugins/events-manager/templates/template-parts/options.php', false, false));    
 
     ?>
   </form>
