@@ -7,36 +7,32 @@ add_action('get_header', 'remove_admin_login_header');
 // Native Wordpress Actions
 add_action('init', 'mozilla_custom_menu');
 add_action('wp_enqueue_scripts', 'mozilla_init_scripts');
+add_action('auth0_user_login', 'mozilla_post_user_creation', 10, 6);
+
+
+// Ajax Calls
 add_action('wp_ajax_nopriv_upload_group_image', 'mozilla_upload_image');
 add_action('wp_ajax_upload_group_image', 'mozilla_upload_image');
 add_action('wp_ajax_join_group', 'mozilla_join_group');
 add_action('wp_ajax_leave_group', 'mozilla_leave_group');
 add_action('wp_ajax_get_users', 'mozilla_get_users');
-
 add_action('wp_ajax_nopriv_validate_group', 'mozilla_validate_group_name');
 add_action('wp_ajax_validate_group', 'mozilla_validate_group_name');
 
 
 // Buddypress Actions
-add_action('bp_before_create_group_page', 'mozilla_create_group');
+add_action('bp_before_create_group_page', 'mozilla_create_group', 10, 1);
+add_action('bp_before_edit_member_page', 'mozilla_update_member', 10, 1);
 
 
 // Filters
 add_filter('nav_menu_link_attributes', 'mozilla_add_menu_attrs', 10, 3);
 add_filter('nav_menu_css_class', 'mozilla_add_active_page' , 10 , 2);
 
+
 // Include theme style.css file not in admin page
 if(!is_admin()) 
     wp_enqueue_style('style', get_stylesheet_uri());
-
-
-
-add_filter('redirect_canonical', function($redirect_url, $requested_url) {
-    if($requested_url == home_url('index.php')) {
-        return '';
-    }
-}, 10, 2);
-
 
 $countries = Array(
     "AF" => "Afghanistan",
@@ -280,6 +276,12 @@ $countries = Array(
     "ZW" => "Zimbabwe"
 );
 
+abstract class PrivacySettings {
+    const REGISTERED_USERS = 0;
+    const PUBLIC_USERS = 1; 
+    const PRIVATE_USERS = 2;
+}
+
 
 function remove_admin_login_header() {
 	remove_action('wp_head', '_admin_bar_bump_cb');
@@ -312,6 +314,7 @@ function mozilla_init_scripts() {
 
     // Custom scripts
     wp_enqueue_script('groups', get_stylesheet_directory_uri()."/js/groups.js", array('jquery'));
+    wp_enqueue_script('profile', get_stylesheet_directory_uri()."/js/profile.js", array('jquery'));
 
 }
 
@@ -561,4 +564,78 @@ function mozilla_leave_group() {
 
     print json_encode(Array('status'    =>  'error', 'msg'  =>  'Invalid Request'));
     die();
+}
+
+function mozilla_post_user_creation($user_id, $userinfo, $is_new, $id_token, $access_token, $refresh_token ) {
+    $meta = get_user_meta($user_id);
+
+    if($is_new || !isset($meta['agree'][0]) || (isset($meta['agree'][0]) && $meta['agree'][0] != 'I Agree')) {
+        $user = get_user_by('ID', $user_id);
+        wp_redirect("/members/{$user->data->user_nicename}/profile/edit/group/1/");
+        die();        
+    }
+}
+
+
+function mozilla_update_member() {
+    
+    // Submited Form
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if(is_user_logged_in()) {
+            $user = wp_get_current_user()->data;
+
+            // Get current meta to compare to
+            $meta = get_user_meta($user->ID);
+
+            $required = Array(
+                'username',
+                'username_visibility',
+                'first_name',
+                'first_name_visibility',
+                'last_name',
+                'last_name_visibility',
+                'email',
+                'email_visibility',
+                'agree'
+            );
+
+            if(isset($meta['agree'][0]) && $meta['agree'][0] == 'I Agree') {
+                unset($required[8]);
+            }
+
+            $error = false;
+
+            foreach($required AS $field) {
+                if(isset($_POST[$field])) {
+                    if($_POST[$field] === "" || $_POST[$field] === 0) {
+                        $error = true;
+                    }
+                }
+            }
+
+            // Create the user and save meta data
+            if($error === false) {
+                $_POST['complete'] = true;
+
+                // Update regular wordpress user data
+                $data = Array(
+                    'ID'            =>  $user->ID,
+                    'user_email'    =>  sanitize_text_field(trim($_POST['email'])),
+                    'user_nicename' =>  sanitize_text_field(trim($_POST['username'])),
+                );
+                wp_update_user($data);
+
+                // No longe need this key
+                unset($required[0]);
+
+                foreach($required AS $field) {
+                    $form_data = sanitize_text_field(trim($_POST[$field]));
+                    update_user_meta($user->ID, $field, $form_data);
+                }
+
+                $meta = get_user_meta($user->ID);
+
+            }
+        }
+    }
 }
