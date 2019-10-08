@@ -5,6 +5,10 @@
   &__container {
     max-width: 1228px;
     margin: 0 auto;
+    padding: 0 64px;
+    @media (max-width: $md) {
+      padding: 0 24px;
+    }
   }
   .hidden {
     display: none;
@@ -97,16 +101,16 @@
     justify-content: flex-start;
     list-style-type: none;
     margin: 0;
-    @media (max-width: $sm) {
+    @media (max-width: $md) {
       display: none;
     }
     &--active {
-      @media (max-width: $sm) {
+      @media (max-width: $md) {
         display: block;
       }
     }
     &__container {
-      @media (max-width: $sm) {
+      @media (max-width: $md) {
         border-bottom: 1px solid #cdcdd4;
         width: 100%;
         margin-bottom: 24px;
@@ -146,7 +150,7 @@
       display: none;
       position: relative;
       border-bottom: 2px solid $color-blue-50;
-      @media (max-width: $sm) {
+      @media (max-width: $md) {
         display: flex;
         align-items: center;
       }
@@ -172,6 +176,7 @@
   .card {
     background: white;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
     &__image {
       position: relative;
       height: 175px;
@@ -198,21 +203,55 @@
     }
 
     &__description {
-      padding: 16px 40px 24px;
+      display: flex;
+      flex-direction: column;
+      padding: 16px 32px 24px;
       &__title {
+        margin: 0;
+      }
+    }
+    .events__tags {
+      justify-self: flex-end;
+      padding: 0 32px 24px;
+      margin: 0;
+    }
+    &__location {
+      display: flex;
+      align-items: center;
+      p {
+        padding-left: 8px;
         margin: 0;
       }
     }
   }
   &__cards {
-    .events__column {
-      padding: 32px 16px;
-    }
     .events__column:not(.hidden):nth-of-type(3n) {
       padding-right: 0;
+      @media (max-width: $lg) {
+        padding-right: 16px;
+      }
     }
     .events__column:not(.hidden):nth-of-type(3n + 1) {
       padding-left: 0;
+      @media (max-width: $lg) {
+        padding-left: 16px;
+      }
+    }
+    .events__column:not(.hidden):nth-of-type(2n + 1) {
+      @media (max-width: $lg) {
+        padding-left: 0;
+      }
+    }
+    .events__column:not(.hidden):nth-of-type(2n) {
+      @media (max-width: $lg) {
+        padding-right: 0;
+      }
+    }
+    .events__column {
+      padding: 32px 16px;
+      @media (max-width: $sm) {
+        padding: 16px 0;
+      }
     }
   }
 }

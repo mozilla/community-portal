@@ -61,11 +61,28 @@ jQuery(function() {
     }
   }
 
+  function setHeightOfDivs() {
+    let t = 0;
+    let t_elem;
+    const $cards = jQuery(".events .card__description");
+    $cards.each(function() {
+      $this = jQuery(this);
+      if ($this.outerHeight() > t) {
+        t_elem = $this;
+        t = $this.outerHeight();
+      }
+    });
+    $cards.each(function() {
+      jQuery(this).css("min-height", t_elem.outerHeight());
+    });
+  }
+
   function init() {
     toggleMobileEventsNav(".events__nav__toggle", ".events__nav");
     toggleMobileEventsNav(".events__filter__toggle", ".events__filter");
     eventsMobileNav();
     applyFilters();
+    setHeightOfDivs();
   }
 
   init();
