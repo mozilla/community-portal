@@ -1,0 +1,35 @@
+.select {
+  -webkit-appearance: none;
+  padding: 8px 16px;
+  background: $color-gray-20;
+  border: 1px solid $color-gray-20;
+  border-radius: 5px;
+  line-height: 24px;
+  flex: 1 0 auto;
+  background-image: url("./images/chevron-down.png");
+  background-repeat: no-repeat;
+  background-position: calc(100% - 16px) center;
+  &__label {
+    display: inline-block;
+    font-size: 14px;
+    color: $color-gray-secondary;
+    padding-right: 8px;
+  }
+  &__icon {
+    position: absolute;
+    right: 14px;
+    top: 8px;
+  }
+}
+.label {
+  font-size: 16px;
+  font-family: "Open Sans", sans-serif;
+  color: $color-gray-secondary;
+}
+.input {
+  background-color: $color-gray-20;
+  border: 1px solid $color-gray-20;
+  border-radius: 5px;
+  height: auto;
+  padding: 10px 16px;
+}

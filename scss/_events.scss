@@ -12,9 +12,12 @@
       background-position: right;
     }
   }
-  &__title {
+  &__title,
+  &__title--edit {
     font-family: $main-font-family;
     font-size: 48px;
+  }
+  &__title {
     &::before {
       content: url("./images/Ellipse.png");
       padding-right: 15px;
@@ -257,6 +260,9 @@
     }
   }
   &__cards {
+    .css-event-form {
+      width: 100%;
+    }
     .events__column:nth-of-type(3n) {
       padding-right: 0;
       @media (max-width: $xl) {
@@ -290,6 +296,29 @@
       @media (max-width: $sm) {
         padding: 16px 0;
       }
+    }
+  }
+  &__container {
+    .events-title--edit {
+      display: none;
+    }
+    .events__text--edit {
+      display: none;
+    }
+  }
+  &__container--edit {
+    .events__title {
+      display: none;
+    }
+    .events__text {
+      display: none;
+    }
+  }
+  &__form {
+    padding: 80px 105px;
+    background: white;
+    &:nth-child(n + 2) {
+      margin-top: 32px;
     }
   }
 }
@@ -341,7 +370,7 @@
     padding: 0;
     input {
       padding-left: 30px;
-      background: url("./images/search.png");
+      background-image: url("./images/search.png");
       background-position: left;
       background-repeat: no-repeat;
       border-bottom: 1px solid $color-gray-20;
@@ -356,4 +385,55 @@
 .events__filter {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 0px 0px 5px 5px;
+}
+
+#event-form #event-name.event-creator__input {
+  padding: 10px 0;
+}
+.event-creator {
+  &__container:nth-child(n + 2) {
+    margin-top: 32px;
+  }
+  &__dropdown {
+    @extend .select;
+    width: 100%;
+  }
+  &__chevron {
+    @extend .select__icon;
+  }
+  &__input {
+    @extend .input;
+  }
+  &__label {
+    @extend .label;
+    padding-bottom: 8px;
+  }
+  &__three-up {
+    display: flex;
+    div:nth-child(n + 2) {
+      margin-left: 32px;
+    }
+    select {
+      @extend .select;
+      max-width: 100%;
+    }
+    label {
+      @extend .select__label;
+    }
+    svg {
+      @extend .select__icon;
+    }
+    .wide,
+    .thin {
+      margin-top: 32px;
+    }
+    .wide {
+      position: relative;
+      width: calc(40% - 16px);
+    }
+    .thin {
+      width: calc(20% - 64px);
+      position: relative;
+    }
+  }
 }
