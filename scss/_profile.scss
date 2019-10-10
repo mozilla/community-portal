@@ -12,17 +12,39 @@
     &__hero {
         width: 100%;
         background-color: $color-green-20;
-        height: 421px;
+        height: 430px;
         background-repeat: no-repeat;
-        background-position: right 100px center;
-        background-size: 608px 608px;
+        padding: 0 24px;
+        background-size: 450px auto;
+        background-position: bottom -210px center;
+
+        @include tablet-and-up {
+            padding: 0 64px;
+            background-position: right -100px center;
+            background-size: 65%, cover;
+            height: 387px;
+        }
+        
+        @include desktop-and-up {
+            background-position: right -40px center;
+            background-size: 50%, cover;
+            height: 421px;
+        }
     }
 
     &__hero-container {
         @extend .container; 
         max-width: 1018px;
         padding: 0;
-        padding-top: 90px;
+        padding-top: 24px;
+
+        @include tablet-and-up {
+            padding-top: 48px;   
+        }
+
+        @include desktop-and-up {
+            padding-top: 90px;
+        }
     }
 
     &__container {
@@ -42,8 +64,9 @@
     }
 
     &__title {
-        font-size: remCalc(48);
-        line-height: 56px;
+        font-size: remCalc(32);
+        line-height: 40px;
+        text-align: center;
         margin: 0;
         padding: 0;
         font-weight: 300;
@@ -52,8 +75,8 @@
         font-family: 'Zilla Slab';
         margin-bottom: 16px;
         
-
         @include tablet-and-up {
+            text-align: left;
             font-size: remCalc(36);
             line-height: 43px;
         }
@@ -65,52 +88,139 @@
     }
 
     &__hero-copy {
-        max-width: 595px;
+        text-align: center;
         font-size: remCalc(16);
         line-height: 24px;
+        margin: 0 auto;
+        max-width: 270px;
+
+        @include tablet-and-up {
+            font-size: remCalc(18);
+            margin: 0;
+            text-align: left;
+            max-width: 300px;
+        }
+
+        @include desktop-and-up {
+            max-width: 595px;
+        }
+
+        &.profile__hero-copy--small {
+            font-size: remCalc(14);
+            margin-top: 16px;
+
+            @include tablet-and-up {
+                margin-top: 24px;
+            }
+        }
     }
 
     &__form-container {
-        max-width: 1018px;
+        padding: 48px 16px;
         background-color: $color-white;
         border-radius: 4px;
         box-shadow: 0px 4px 4px #D7D7DB;
-        padding: 64px 104px 80px 104px;
         min-height: 100px;
         margin: 0 auto;
         display: flex;
         flex-wrap: wrap;
         flex-direction: row;
         justify-content: space-between;
+        min-width: 272px;
+        width: 100%;
         margin-top: 32px;
 
         &.profile__form-container--first {
-            margin-top: -112px;
+            margin-top: 20px;
+
+            @include desktop-and-up {
+                margin-top: -112px;
+            }
         }
 
         p {
             font-size: remCalc(16);
             line-height: 24px;
+
+            @include tablet-and-up {
+                font-size: remCalc(18);
+            }
+        }
+        
+        @include tablet-and-up {
+            padding: 64px 24px;
+            min-width: 640px;
+        }
+
+        @include desktop-and-up {
+            max-width: 1018px;
+            padding: 64px 104px 80px 104px;
+        }
+    }
+
+    &__form-primary {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        width: 100%;
+        padding: 0;
+        padding-bottom: 32px;
+
+        @include tablet-and-up {
+            flex-direction: row;
+            justify-content: space-between;
         }
     }
 
     &__form-title {
         font-family: Zilla Slab;
-        font-size: remCalc(32);
-        line-height: 40px;
+        font-size: remCalc(24);
+        line-height: 29px;
         margin: 0;
+        margin-bottom: 16px;
+
+        @include tablet-and-up {
+            margin-bottom: 0;
+            font-size: remCalc(32);
+            line-height: 40px;
+        }
     }
 
     &__form {
         width: 100%;
-        
+        padding: 0 24px;
+
+        @include tablet-and-up {
+            padding: 0 64px;
+        }
+    }
+
+    &__input-container {
+        width: 100%;
+
+        @include tablet-and-up {
+            margin-right: 32px;
+        }
+
+        @include desktop-and-up {
+            max-width: 600px;
+        }
     }
 
     &__form-field {
-        max-width: 598px;
         width: 100%;
         margin: 0;
         margin-bottom: 32px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+
+        @include tablet-and-up {
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+
         &.profile__form-field--header {
             display: flex;
             flex-direction: column;
@@ -150,9 +260,9 @@
 
     &__select-container {
         @extend .select-container;
-        max-width: 180px;
         width: 100%;
-        margin-top: 8px;
+        margin-top: 24px;
+
         select {
             @extend .select;
             width: 100%;
@@ -164,8 +274,15 @@
                 }
             }
         }
+
         svg {
             right: 12px;
+            top: 40px;
+        }
+
+        @include tablet-and-up {
+            margin-top: 0;
+            max-width: 180px;
         }
     }
 
@@ -182,6 +299,11 @@
         @extend .label;
         display: block;
         color: $color-gray-secondary;
+    }
+
+    &__select {
+        @extend .select;
+        margin-top: 15px;
     }
 
     &__input-desc {
