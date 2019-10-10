@@ -7,8 +7,6 @@ add_action('get_header', 'remove_admin_login_header');
 // Native Wordpress Actions
 add_action('init', 'mozilla_custom_menu');
 add_action('wp_enqueue_scripts', 'mozilla_init_scripts');
-add_action('auth0_user_login', 'mozilla_post_user_creation', 10, 6);
-
 
 // Ajax Calls
 add_action('wp_ajax_nopriv_upload_group_image', 'mozilla_upload_image');
@@ -18,12 +16,16 @@ add_action('wp_ajax_leave_group', 'mozilla_leave_group');
 add_action('wp_ajax_get_users', 'mozilla_get_users');
 add_action('wp_ajax_nopriv_validate_group', 'mozilla_validate_group_name');
 add_action('wp_ajax_validate_group', 'mozilla_validate_group_name');
+add_action('wp_ajax_check_user', 'mozilla_validate_username');
 
 
 // Buddypress Actions
 add_action('bp_before_create_group_page', 'mozilla_create_group', 10, 1);
 add_action('bp_before_edit_member_page', 'mozilla_update_member', 10, 1);
 
+
+// Auth0 Actions
+add_action('auth0_user_login', 'mozilla_post_user_creation', 10, 6);
 
 // Filters
 add_filter('nav_menu_link_attributes', 'mozilla_add_menu_attrs', 10, 3);
@@ -500,6 +502,27 @@ function mozilla_search_groups($name) {
     return $group;
 }
 
+function mozilla_validate_username() {
+
+    if($_SERVER['REQUEST_METHOD'] == 'GET') {
+        if(isset($_GET['u']) && strlen($_GET['u']) > 0) {
+            $u = sanitize_text_field(trim($_GET['u']));
+            $current_user_id = get_current_user_id();
+
+            $query = new WP_User_Query(Array(
+                'search'            =>  $u,
+                'search_columns'    =>  Array(
+                    'user_nicename'
+                ),
+                'exclude'   => Array($current_user_id)
+            ));
+   
+            print (sizeof($query->get_results()) === 0) ? json_encode(true) : json_encode(false);
+        }
+    }
+    die();
+}
+
 function mozilla_get_users() {
     $json_users = Array();
 
@@ -510,7 +533,7 @@ function mozilla_get_users() {
         $query = new WP_User_Query(Array(
             'search'            =>  "*{$q}*",
             'search_columns'    =>  Array(
-                'user_login'
+                'user_nicename'
             ),
             'exclude'   => Array($current_user_id)
         ));
@@ -615,14 +638,20 @@ function mozilla_update_member() {
 
             // Create the user and save meta data
             if($error === false) {
+
                 $_POST['complete'] = true;
 
                 // Update regular wordpress user data
                 $data = Array(
                     'ID'            =>  $user->ID,
                     'user_email'    =>  sanitize_text_field(trim($_POST['email'])),
-                    'user_nicename' =>  sanitize_text_field(trim($_POST['username'])),
                 );
+
+                // We need to udpate the user
+                if($_POST['username'] !== $user->user_nicename) {
+                    $data['user_nicename'] = sanitize_text_field(trim($_POST['username']));
+                }
+
                 wp_update_user($data);
 
                 // No longe need this key
@@ -632,9 +661,6 @@ function mozilla_update_member() {
                     $form_data = sanitize_text_field(trim($_POST[$field]));
                     update_user_meta($user->ID, $field, $form_data);
                 }
-
-                $meta = get_user_meta($user->ID);
-
             }
         }
     }

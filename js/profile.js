@@ -47,4 +47,38 @@ jQuery(function(){
                 jQuery('#email-visibility').val(0);
         }
     });
+
+
+    jQuery('#username').change(function(e) {
+        var $this = jQuery(this);
+        var value = $this.val();
+        var get = { };
+        get.u = value;
+
+        var $errorContainer = $this.next('.form__error-container');
+
+
+        jQuery.ajax({
+            url: '/wp-admin/admin-ajax.php?action=check_user',
+            data: get,
+            method: 'GET',
+            success: function(data) {
+                var response = jQuery.parseJSON(data);
+
+                // User name is no good
+                if(response == false) {
+                    $this.addClass('profile__input--error');
+                    $errorContainer.addClass('form__error-container--visible');
+                    $errorContainer.children('.form__error').text('This username is already taken');
+                } else {
+                    $this.removeClass('profile__input--error');
+                    $errorContainer.removeClass('form__error-container--visible');
+                    $errorContainer.children('.form__error').text('This field is required');
+                }
+            }
+        })
+
+
+
+    });
 });
