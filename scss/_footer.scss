@@ -14,24 +14,33 @@
     }
 
     &__container {
-        max-width: 1228px;
         width: 100%;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         margin: 0 auto;
         color: $color-white;
-        padding-top: 64px;
+        padding: 64px 24px 0;
+        
         justify-content: flex-start;
 
         @include tablet-and-up {
+            padding: 64px 64px 0;           
             flex-direction: row;
             flex-wrap: wrap;
+        }
+
+        @include desktop-and-up {
+            padding: 64px 106px;
+            max-width: 1440px;
         }
     }
 
     &__logo-container {                       
         width: 100%;
+        svg {
+            width: auto;
+        }
     }
 
     &__menu-bottom-container {
@@ -40,17 +49,17 @@
         padding-top: 32px;
         margin-top: 32px;
         margin-bottom: 64px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
     }
 
     &__menu-svg-container {
-        align-self: flex-end;
-        margin-left: 25px;
+        margin: 0;
+        margin-top: 32px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
 
         svg {
-            margin-left: 25px;
+            margin-right: 25px;
         }
     }
 
@@ -67,9 +76,19 @@
     &__menu-container {
         display: flex;
         flex-direction: column;
-        margin-top: 32px;
+        margin-top: 24px;
         @include tablet-and-up {
             flex-direction: row;
+            margin-top: 32px;
+        }
+
+
+        .menu-mozilla-container,
+        .menu-mozilla-main-menu-container {
+            margin-top: 12px;
+            @include tablet-and-up {
+                margin-top: 0;
+            }
         }
     }
 
@@ -94,19 +113,28 @@
 .footer-nav-menu {
     margin: 0;
     padding: 0;
-    margin-left: 15px;
+    width: 100%;
+
+    @include tablet-and-up {
+        width: 192px;
+    }
+
+    @include desktop-and-up {
+        margin-left: 15px;
+        width: 178px;
+    }
+
 
     &--primary {
         margin-left: 0;
     }
 
     .menu-item {
-        width: 150px;
+        width: 100%;
         text-align: left;
         margin-top: 12px;
         line-height: 32px;
         font-size: remCalc(18);
-        font-weight: 600;
 
         &:first-of-type {
             margin-top: 0;
@@ -126,12 +154,16 @@
         padding: 0;
         margin-top: 12px;
         line-height: 32px;
-        font-size: remCalc(18);
-        font-weight: 600;
-        width: 150px;
+        font-size: remCalc(16);
+        width: 178px;
         
         &:first-of-type {
             margin-top: 0;
+        }
+
+
+        @include tablet-and-up {
+            font-size: remCalc(18);
         }
     }
 }
