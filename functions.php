@@ -14,6 +14,7 @@ add_action('wp_ajax_upload_group_image', 'mozilla_upload_image');
 add_action('wp_ajax_join_group', 'mozilla_join_group');
 add_action('wp_ajax_leave_group', 'mozilla_leave_group');
 add_action('wp_ajax_get_users', 'mozilla_get_users');
+add_action('wp_ajax_validate_email', 'mozilla_validate_email');
 add_action('wp_ajax_nopriv_validate_group', 'mozilla_validate_group_name');
 add_action('wp_ajax_validate_group', 'mozilla_validate_group_name');
 add_action('wp_ajax_check_user', 'mozilla_validate_username');
@@ -316,6 +317,7 @@ function mozilla_init_scripts() {
 
     // Custom scripts
     wp_enqueue_script('groups', get_stylesheet_directory_uri()."/js/groups.js", array('jquery'));
+    wp_enqueue_script('nav', get_stylesheet_directory_uri()."/js/nav.js", array('jquery'));
     wp_enqueue_script('profile', get_stylesheet_directory_uri()."/js/profile.js", array('jquery'));
 
 }
@@ -523,6 +525,27 @@ function mozilla_validate_username() {
     die();
 }
 
+function mozilla_validate_email() {
+
+    if($_SERVER['REQUEST_METHOD'] == 'GET') {
+        if(isset($_GET['u']) && strlen($_GET['u']) > 0) {
+            $u = sanitize_text_field(trim($_GET['u']));
+            $current_user_id = get_current_user_id();
+
+            $query = new WP_User_Query(Array(
+                'search'            =>  $u,
+                'search_columns'    =>  Array(
+                    'user_email'
+                ),
+                'exclude'   => Array($current_user_id)
+            ));
+   
+            print (sizeof($query->get_results()) === 0) ? json_encode(true) : json_encode(false);
+        }
+    }
+    die();
+}
+
 function mozilla_get_users() {
     $json_users = Array();
 
@@ -601,7 +624,7 @@ function mozilla_post_user_creation($user_id, $userinfo, $is_new, $id_token, $ac
 
 
 function mozilla_update_member() {
-    
+
     // Submited Form
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         if(is_user_logged_in()) {
@@ -636,6 +659,40 @@ function mozilla_update_member() {
                 }
             }
 
+            // Validate email and username
+            if($error === false) {
+
+                $query = new WP_User_Query(Array(
+                    'search'            =>  sanitize_text_field(trim($_POST['email'])),
+                    'search_columns'    =>  Array(
+                        'user_email'
+                    ),
+                    'exclude'   => Array($user->ID)
+                ));
+
+                if(sizeof($query->get_results()) !== 0) {
+                    $error = true;
+                    $_POST['email_error_message'] = 'This email is already in use';
+                }
+
+                $query = new WP_User_Query(Array(
+                    'search'            =>  sanitize_text_field(trim($_POST['username'])),
+                    'search_columns'    =>  Array(
+                        'user_nicename'
+                    ),
+                    'exclude'   => Array($user->ID)
+                ));
+
+                // Validate email
+
+                if(sizeof($query->get_results()) !== 0) {
+                    $_POST['username_error_message'] = 'This username is already in use';
+                    $error = true;
+                }
+            }
+            
+
+           
             // Create the user and save meta data
             if($error === false) {
 
