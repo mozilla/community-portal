@@ -662,6 +662,12 @@ function mozilla_update_member() {
             // Validate email and username
             if($error === false) {
 
+                if(!filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL)) {
+                    $error = true;
+                    $_POST['email_error_message'] = 'Invalid email address';
+                }
+
+
                 $query = new WP_User_Query(Array(
                     'search'            =>  sanitize_text_field(trim($_POST['email'])),
                     'search_columns'    =>  Array(
@@ -690,8 +696,6 @@ function mozilla_update_member() {
                     $error = true;
                 }
             }
-            
-
            
             // Create the user and save meta data
             if($error === false) {

@@ -81,7 +81,6 @@
     width: 100%;
     z-index: 100;
     position: relative;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
     .nav__container {
         @extend .container;
@@ -94,7 +93,8 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        z-index: 120;
         @include tablet-and-up {
             padding: 0 64px;
         }
@@ -139,14 +139,14 @@
         background-color: $color-white;
         position: absolute;
         transform-origin: 0% 0%;
-        transform: translate(0, 0);
-        z-index: 99;
+        transform: translate(0, -20px);
+        z-index: 10;
         opacity: 0;
         width: 100%;
         height: calc(100vh - 62px);
         left: 0;
         top: 62px;
-        transition: transform 0.8s cubic-bezier(0.77, 0.2, 0.05, 1.0), opacity 1s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+        transition: transform 0.4s cubic-bezier(0.77, 0.2, 0.05, 1.0), opacity 0.8s cubic-bezier(0.77, 0.2, 0.05, 1.0);
         overflow: auto;
     }
 
@@ -280,5 +280,5 @@
 
 .menu-mozilla-main-menu-container {
     height: 100%;
-    
+
 }
