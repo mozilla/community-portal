@@ -9,6 +9,7 @@
     overflow: hidden;
     position: relative;
 
+    // Edit Profile Styles
     &__hero {
         width: 100%;
         background-color: $color-green-20;
@@ -388,6 +389,32 @@
         display: flex;
         flex-direction: row;
         justify-content: center;
+    }
+
+    // Public Profile Styles
+    &__public-container {
+        @extend .container;
+        max-width: 1018px;
+        padding: 0 24px;
+        width: 100%;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        margin-top: 25px;
+
+        @include tablet-and-up {
+            margin-top: 64px;
+            padding: 0 64px;
+        }
+
+        @include desktop-and-up {
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 0 106px;
+            max-width: 1440px;
+        }
     }
 }
 
