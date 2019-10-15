@@ -205,9 +205,7 @@
     background: white;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 4px;
-    border: 4px solid transparent;
-    transition: box-shadow 0.3s ease-in-out, border 0.2s ease-in-out;
-
+    transition: box-shadow 0.3s ease-in-out;
     &__image {
       position: relative;
       height: 175px;
@@ -255,8 +253,7 @@
       }
     }
     &:hover {
-      box-shadow: none;
-      border: 4px solid #d7d7db;
+      box-shadow: 0 0 0 4px #d7d7db;
     }
   }
   &__cards {
@@ -390,10 +387,15 @@
 #event-form #event-name.event-creator__input {
   padding: 10px 0;
 }
+
 .event-creator {
   &__container:nth-child(n + 2) {
     margin-top: 32px;
   }
+  &__container p {
+    line-height: 24px;
+  }
+  &__dropdown,
   &__dropdown {
     @extend .select;
     width: 100%;
@@ -407,9 +409,48 @@
   &__label {
     @extend .label;
     padding-bottom: 8px;
+    display: block;
+  }
+  &__fieldset {
+    @extend .fieldset;
+  }
+  &__tag {
+    @extend .tag;
+    font-size: 14px;
+    &:nth-child(n + 2) {
+      margin: 8px 15px 8px 0;
+    }
+  }
+  &__submit {
+    text-align: center;
+  }
+  &__submit-btn {
+    margin: 48px auto 0;
+  }
+  &__checkbox {
+    display: none;
+    & + .event-creator__tag {
+      background: white;
+      border: 1px solid #b1b1bc;
+      &:hover {
+        box-shadow: 0 0 0 4px #e0e0e0;
+        border: 1px solid #e0e0e0;
+      }
+    }
+    &:checked + .event-creator__tag {
+      background: $color-gray-20;
+      border: 1px solid $color-gray-20;
+    }
   }
   &__three-up {
     display: flex;
+    flex-wrap: wrap;
+    margin-top: 32px;
+
+    #end-time,
+    #start-time {
+      width: 100%;
+    }
     div:nth-child(n + 2) {
       margin-left: 32px;
     }
@@ -419,17 +460,18 @@
     }
     label {
       @extend .select__label;
+      display: block;
     }
     svg {
       @extend .select__icon;
     }
-    .wide,
-    .thin {
-      margin-top: 32px;
-    }
     .wide {
       position: relative;
       width: calc(40% - 16px);
+    }
+    .wide--double {
+      position: relative;
+      width: calc(60% - 32px);
     }
     .thin {
       width: calc(20% - 64px);

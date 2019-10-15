@@ -13,4 +13,13 @@
     color: $color-blue-50;
     border-radius: 28px;
   }
+  &--dark {
+    border: 1px solid $color-blue-50;
+    background: $color-blue-50;
+    color: white;
+  }
+  &--submit {
+    padding: 15px 35px;
+    border-radius: 28px;
+  }
 }

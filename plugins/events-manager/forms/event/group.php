@@ -18,7 +18,7 @@ if( !function_exists('bp_is_active') || !bp_is_active('groups') ) return false;
 if( count($user_groups) > 0 ){ 
 	?>
 	<div class="event-creator__container">
-    <label for="group" class="event-creator__label">Hosted By:</label>
+    <label for="group" class="event-creator__label">Hosted By</label>
     <select name="group_id" id="group" class="event-creator__dropdown">
 		<option value=""><?php _e('No group', 'events-manager'); ?></option>
 		<?php
@@ -38,7 +38,7 @@ if( count($user_groups) > 0 ){
 		?>
   </select>
   <?php if( em_wp_is_super_admin() ): ?>
-	<p><em><?php _e ( 'As a site admin, you see all group events, users will only be able to choose groups they are admins of.', 'events-manager')?></em></p>
+	<!-- <p><em><?php _e ( 'As a site admin, you see all group events, users will only be able to choose groups they are admins of.', 'events-manager')?></em></p> -->
 	<?php endif; 
 	
 }else{

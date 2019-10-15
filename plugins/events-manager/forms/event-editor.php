@@ -67,11 +67,25 @@ if( !empty($_REQUEST['success']) ){
     <div class="event-editor">
       <label class="event-form-details event-creator__label" for="event-description"><?php esc_html_e( 'Event description', 'events-manager'); ?></label>
       <textarea name="content" placeholder="Add in the details of your event’s agenda here. If this is a multi-day event, you can add in the details of each day’s schedule and start/end time." rows="10" id="event-description" class="event-creator__input" style="width:100%"><?php echo $EM_Event->post_content ?></textarea>
+      <?php if(get_option('dbem_categories_enabled')) { em_locate_template('forms/event/categories-public.php',true); }  ?>
       <?php em_locate_template('forms/event/group.php',true); ?>
     </div>
-    <div class="event-extra-details">
-      <?php if(get_option('dbem_attributes_enabled')) { em_locate_template('forms/event/attributes-public.php',true); }  ?>
-      <?php if(get_option('dbem_categories_enabled')) { em_locate_template('forms/event/categories-public.php',true); }  ?>
+  </div>
+  <div class="wrap events__form">
+    <div class="event-creator__container">
+      <p>
+      The Mozilla Project welcomes contributions from everyone who shares our goals and wants to contribute in a healthy and constructive manner within our communities. By creating an event on this platform you are agreeing to respect and adhere to <a href="#">Mozilla’s Community Participation Guidelines (“CPG”)</a> in order to help us create a safe and positive community experience for all. Events that do not share our goals, or violate the CPG in any way, will be removed from the platform and potentially subject to further consequences.
+      </p>
     </div>
+    <div class="event-creator__container">
+      <input type="checkbox" id="cpg">
+      <label for="cpg">I agree to respect and adhere to Mozilla’s Community Participation Guidelines</label>
+    </div>
+  </div>
+  <div class="submit event-creator__submit">
+    <!-- <input type="submit" class="btn btn--dark btn--submit button-primary event-creator__submit-btn" value="Create Event"> -->
+    <!-- <input type='submit' class='button-primary' value='<?php echo esc_attr(sprintf( __('Update %s','events-manager'), __('Event','events-manager') )); ?>' /> -->
+    <input type='submit' class='button-primary' value='<?php echo esc_attr(sprintf( __('Submit %s','events-manager'), __('Event','events-manager') )); ?>' />
+
   </div>		
 </form>
