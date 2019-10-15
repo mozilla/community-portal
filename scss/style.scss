@@ -13,6 +13,7 @@
 @import "group";
 @import "groups";
 @import "nav";
+@import "profile";
 
 * {
     box-sizing: border-box;  
@@ -40,4 +41,11 @@ html {
     background-color: $color-gray-20;
     width: 100%;
     height: 100%;
+
+    &.body--fixed {
+        position: fixed;
+        @include desktop-and-up {
+            position: static;
+        }
+    }
 }
