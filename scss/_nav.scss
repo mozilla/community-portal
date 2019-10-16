@@ -133,6 +133,32 @@
         }
     }
 
+    .nav__avatar-container {
+        position: absolute;
+        right: 64px;
+        top: calc(50% - 2px);
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        font-family: 'Zilla Slab';
+        font-size: remCalc(16);
+        line-height: 24px;
+
+        @include tablet-and-up {
+            right: 114px;
+        }
+    }
+
+    .nav__username {
+        display: none;
+
+        @include tablet-and-up {
+            display: block;
+        }
+    }
+
     .nav__trigger {
         display: block;
         width: 24px;
@@ -165,6 +191,10 @@
             opacity: 1;
             transform: none;
             visibility: visible;
+        }
+
+        &:checked ~ .nav__avatar-container {
+            display: none;
         }
     }
 
@@ -207,7 +237,7 @@
     .nav__user-container {
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: flex-start;
         align-items: center;
         border-top: 1px solid $color-gray-20;
         border-bottom: 1px solid $color-gray-20;
@@ -227,6 +257,7 @@
             font-size: remCalc(14);
             line-height: 22px;
             color: $color-black;
+            margin-left: auto;
         }
     }
 

@@ -1,3 +1,16 @@
+<?php 
+
+
+    $user = wp_get_current_user()->data;
+    $meta = get_user_meta($user->ID);
+
+    if(isset($meta['wp_auth0_obj']) && sizeof($meta['wp_auth0_obj']) === 1) {
+        $auth0 = json_decode($meta['wp_auth0_obj'][0]);
+        $avatar = (isset($auth0->picture)) ? $auth0->picture : false;
+    }
+
+?>
+
 <!DOCTYPE html>
 <html <?php language_attributes(); ?> class="no-js">
     <head>
@@ -42,16 +55,6 @@
                     </svg>
                     <div class="nav__login">
                         <?php if(is_user_logged_in()): ?>
-                            
-                            <?php 
-                                $user = wp_get_current_user()->data;
-                                $meta = get_user_meta($user->ID);
-
-                                if(isset($meta['wp_auth0_obj']) && sizeof($meta['wp_auth0_obj']) === 1) {
-                                    $auth0 = json_decode($meta['wp_auth0_obj'][0]);
-                                    $avatar = (isset($auth0->picture)) ? $auth0->picture : false;
-                                }
-                            ?>
                             <div class="nav__avatar" <?php if($avatar): ?>style="background-image: url('<?php print $avatar; ?>')"<?php endif; ?>></div>
                             <?php print $user->user_nicename; ?>
                             <a href="/wp-login.php?action=logout" class="nav__logout-link"><?php print __('Log Out'); ?></a>
@@ -109,6 +112,12 @@
                 </svg>
                 <div class="nav__content">
                     <input id="nav-trigger" type="checkbox" class="nav__trigger" />
+                    <div class="nav__avatar-container">
+                    <?php if(is_user_logged_in()): ?>
+                        <div class="nav__avatar" <?php if($avatar): ?>style="background-image: url('<?php print $avatar; ?>')"<?php endif; ?>></div>
+                        <span class="nav__username"><?php print $user->user_nicename; ?></span>
+                    <?php endif; ?>
+                    </div>
                     <label for="nav-trigger" class="nav__label">
                         <span class="nav__hamburger-line"></span>
                         <span class="nav__hamburger-line"></span>
@@ -120,7 +129,11 @@
                     ?>
                     <div class="nav__menu-container">
                         <div class="nav__user-container">
+                        <?php if(is_user_logged_in()): ?>
+                            <div class="nav__avatar" <?php if($avatar): ?>style="background-image: url('<?php print $avatar; ?>')"<?php endif; ?>>
+                            </div>
                             <?php print $user->user_nicename; ?>
+                        <?php endif; ?>
                             <a href="/wp-login.php?action=logout" class="nav__logout-link"><?php print __('Log Out'); ?></a>
                         </div>
                         <div class="nav__search-container">
