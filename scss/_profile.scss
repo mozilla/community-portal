@@ -449,11 +449,15 @@
 
     &__card-header-container {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: flex-start;
         flex-wrap: wrap;
         align-items: center;   
         margin-bottom: 32px;
+
+        @include tablet-and-up {
+            flex-direction: row;
+        }
     }
 
     &__link {
@@ -464,7 +468,7 @@
         align-items: center;
         flex-direction: row;
         justify-content: flex-start;
-        
+
         svg {
             margin-right: 6px;
         }
@@ -472,13 +476,23 @@
 
     &__avatar {
         border-radius: 50%!important;
-        height: 160px;
-        width: 160px;
+        height: 124px;
+        width: 124px;
         background-size: cover;
         background-position: center;
         overflow: hidden;
-        margin-right: 24px;
         background-color: $color-gray-20;
+        margin-bottom: 16px;
+
+        @include tablet-and-up {
+            margin-bottom: 0;
+            margin-right: 24px;
+        }
+
+        @include desktop-and-up {
+            height: 160px;
+            width: 160px;
+        }
     }
 
     &__user-title {
