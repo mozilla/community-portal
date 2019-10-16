@@ -395,14 +395,16 @@
     &__public-container {
         @extend .container;
         max-width: 1018px;
+        height: 100%;
         padding: 0 24px;
         width: 100%;
-        margin: 0;
+        margin: 0 auto;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
         margin-top: 25px;
+        margin-bottom: 50px;
 
         @include tablet-and-up {
             margin-top: 64px;
@@ -415,6 +417,117 @@
             padding: 0 106px;
             max-width: 1440px;
         }
+    }
+
+    &__card {
+        background-color: $color-white;
+        padding: 16px;
+        min-width: 272px;
+        width: 100%;
+        max-width: 703px;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 4px;
+
+        @include tablet-and-up {
+            padding: 24px;
+        }   
+
+        @include desktop-and-up {
+            padding: 32px;
+
+        }
+    }
+    
+    &__contact-title {
+        font-size: remCalc(14);
+        line-height: 24px;
+        color: $color-gray-secondary;
+        letter-spacing: 0.0025em;
+        display: block;
+        margin-bottom: 16px;
+    }
+
+    &__card-header-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        align-items: center;   
+        margin-bottom: 32px;
+    }
+
+    &__link {
+        color: $color-blue-50;
+        font-size: remCalc(16);
+        line-height: 24px;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: flex-start;
+        
+        svg {
+            margin-right: 6px;
+        }
+    }
+
+    &__avatar {
+        border-radius: 50%!important;
+        height: 160px;
+        width: 160px;
+        background-size: cover;
+        background-position: center;
+        overflow: hidden;
+        margin-right: 24px;
+        background-color: $color-gray-20;
+    }
+
+    &__user-title {
+        font-family: 'Zilla Slab';
+        font-size: remCalc(24);
+        line-height: 32px;
+        color: $color-off-black;
+        font-weight: 500;
+        margin: 0;
+        margin-bottom: 3px;
+    }
+
+    &__user-name {
+        display: block;
+        font-weight: 600;
+        font-size: remCalc(20);
+        line-height: 18px;
+        width: 100%;
+    }
+
+    &__edit-link-container {
+        align-self: flex-start;
+        margin-left: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+
+    &__email-icon {
+        display: inline-block;
+        margin-right: 8px;
+    }
+
+    &__email-container {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    &__email {
+        display: block;
+    }
+
+    &__details {
+        font-size: remCalc(14);
+        line-height: 20px;
+        letter-spacing: 0.0025em;
     }
 }
 
