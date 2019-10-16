@@ -69,10 +69,41 @@
         margin-left: auto;
         margin-right: 40px;
         font-family: 'Zilla Slab';
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    &__logout-link {
+        font-family: 'Open Sans';
+        display: inline-block;
+        margin-left: 24px;
+        font-size: remCalc(12);
+        line-height: 16px;
+        color: $color-black;
+    }
+
+    &__login-link {
+        text-decoration: none;
+        font-size: remCalc(16);
+        line-height: 24px;
+        color: $color-black;
     }
 
     &__logo {
         height: 48px;
+    }
+
+    &__avatar {
+        border-radius: 50%;
+        overflow: hidden;
+        width: 24px;
+        height: 24px;
+        background-color: $color-gray-20;
+        background-size: cover;
+        background-position: center;
+        margin-right: 8px;
     }
 }
 
