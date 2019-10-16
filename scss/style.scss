@@ -1,30 +1,51 @@
 @import "normalize/normalize"; 
 
-@import url('https://rsms.me/inter/inter.css');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Zilla+Slab&display=swap');
 
 @import "mixins";
 @import "vars";
+@import "forms";
 
+@import "base";
+@import "create-group";
 @import "footer";
+@import "group";
+@import "groups";
 @import "nav";
+@import "profile";
 
 * {
     box-sizing: border-box;  
 }
 
 html { 
-    font-family: 'Inter', sans-serif; 
+    font-family: 'Open Sans', sans-serif; 
+    height: 100%;
 }
 
 @supports (font-variation-settings: normal) {
     html { 
-        font-family: 'Inter var', sans-serif; 
+        font-family: 'Open Sans', sans-serif; 
     }
 }
 
 .content {
-    max-width: $container-max-width;
     width: 100%;
+    min-height: calc(100vh - 387px - 122px - 96px);
     position: relative;
+
+}
+
+.body {
+    background-color: $color-gray-20;
+    width: 100%;
     height: 100%;
+
+    &.body--fixed {
+        position: fixed;
+        @include desktop-and-up {
+            position: static;
+        }
+    }
 }

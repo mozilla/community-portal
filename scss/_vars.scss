@@ -1,14 +1,31 @@
 // Screen Sizes
 $screen-mobile-min: 320px;
-$screen-tablet-min: 600px;
-$screen-desktop-min: 972px;
+$screen-tablet-min: 768px;
+$screen-desktop-min: 1024px;
 
-$container-max-width: 1230px;
+$container-max-width: 1018px;
 
 
 // Colours
-$black: #000;
-$white: #fff;
+$color-black: #000;
+$color-white: #fff;
+$color-blue-50: #0060DF;
+$color-green-20: #B3FFE3;
 
-$border-grey: #2F2F2F;
+
+$light-blue: #F2FCFD;
+$error: #ff0039;
+
+$color-gray-secondary: #737373;
+$color-gray-10: #F9F9FA;
+$color-gray-20: #EDEDF0;
+$color-gray-30: #CDCDD4;
+$color-gray-60: #7A7A8B;
+$color-gray-80: #42425A;
+$color-off-black: #20123A;
+
+
+
+
+$border-grey: $color-black;
 $search-font-color: #CECECE;
