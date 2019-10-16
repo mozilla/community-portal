@@ -84,9 +84,7 @@
                     </svg>
                     <select id="firstname-visibility" name="first_name_visibility" class="profile__select">
                         <?php foreach($visibility_options AS $key   =>  $value): ?>
-                        <?php if($value !== 'Private'): ?>
                         <option value="<?php print $key; ?>"<?php if(isset($meta['first_name_visibility'][0]) && $meta['first_name_visibility'][0] == $key): ?> selected<?php endif; ?>><?php print $value; ?></option>
-                        <?php endif; ?>
                         <?php endforeach; ?>
                     </select>
                 </div>
