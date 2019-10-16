@@ -109,9 +109,7 @@
         position: absolute;
 
         opacity: 0;
-        // opacity: 0;
         cursor: pointer;
-        z-index: 120;
 
         &:checked ~ .nav__label {
             .nav__hamburger-line {
@@ -132,8 +130,10 @@
         }
 
         &:checked ~ .nav__menu-container {
+            z-index: 120;
             opacity: 1;
             transform: none;
+            visibility: visible;
         }
     }
 
@@ -142,7 +142,7 @@
         position: absolute;
         transform-origin: 0% 0%;
         transform: translate(0, -20px);
-        z-index: 10;
+        z-index: 1;
         opacity: 0;
         width: 100%;
         height: calc(100vh - 62px);
@@ -150,6 +150,7 @@
         top: 62px;
         transition: transform 0.4s cubic-bezier(0.77, 0.2, 0.05, 1.0), opacity 0.8s cubic-bezier(0.77, 0.2, 0.05, 1.0);
         overflow: auto;
+        visibility: hidden;
     }
 
     .nav__hamburger-line {
