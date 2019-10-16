@@ -117,9 +117,6 @@
 
                     <?php 
                         $items = wp_get_nav_menu_items('Mozilla Main Menu');
-
-                        // print_r($items);
-   
                     ?>
                     <div class="nav__menu-container">
                         <div class="nav__user-container">
