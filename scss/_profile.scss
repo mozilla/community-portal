@@ -503,6 +503,11 @@
         font-weight: 500;
         margin: 0;
         margin-bottom: 3px;
+        text-align: center;
+
+        @include tablet-and-up {
+            text-align: left;
+        }
     }
 
     &__user-name {
@@ -511,14 +516,40 @@
         font-size: remCalc(20);
         line-height: 18px;
         width: 100%;
+        text-align: center;
+
+        @include tablet-and-up {
+            text-align: left;
+        }
     }
 
     &__edit-link-container {
-        align-self: flex-start;
-        margin-left: auto;
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
+        display: none;
+
+        @include tablet-and-up {
+            align-self: flex-start;
+            margin-left: auto;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+        }
+
+        &.profile__edit-link-container--mobile {
+            display: block;
+            width: 100%;
+            text-align: right;
+            position: relative;
+            z-index: 25;
+
+            .profile__link {
+                justify-content: flex-end;
+                margin-bottom: 16px;
+            }
+
+            @include tablet-and-up {
+                display: none;
+            }
+        }
     }
 
     &__email-icon {
