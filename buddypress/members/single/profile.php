@@ -4,11 +4,6 @@
     $logged_in = mozilla_is_logged_in();
     $visibility_settings = mozilla_get_user_visibility_settings($user_id);
     $is_me = $logged_in && intval($current_user->ID) === intval($user->ID);
-
-    if(isset($meta['wp_auth0_obj']) && sizeof($meta['wp_auth0_obj']) === 1) {
-        $auth0 = json_decode($meta['wp_auth0_obj'][0]);
-        $avatar = (isset($auth0->picture)) ? $auth0->picture : false;
-    }
 ?>  
 
 <div class="profile__public-container">
@@ -25,7 +20,7 @@
                 </a>
             </div>
             <?php endif; ?>
-            <div class="profile__avatar<?php if($avatar === false): ?> profile__avatar--empty<?php endif; ?>" <?php if($is_me && $avatar || $logged_in && $avatar): ?>style="background-image: url('<?php print $avatar; ?>')"<?php endif; ?>></div>
+            <div class="profile__avatar profile__avatar--empty"></div>
             <div class="profile__name-container">
                 <h3 class="profile__user-title"><?php print $user->user_nicename; ?></h3>
                 <span class="profile__user-name">
