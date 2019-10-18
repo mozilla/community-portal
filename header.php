@@ -1,3 +1,16 @@
+<?php 
+
+
+    $user = wp_get_current_user()->data;
+    $meta = get_user_meta($user->ID);
+
+    if(isset($meta['wp_auth0_obj']) && sizeof($meta['wp_auth0_obj']) === 1) {
+        $auth0 = json_decode($meta['wp_auth0_obj'][0]);
+        $avatar = (isset($auth0->picture)) ? $auth0->picture : false;
+    }
+
+?>
+
 <!DOCTYPE html>
 <html <?php language_attributes(); ?> class="no-js">
     <head>
@@ -42,18 +55,16 @@
                     </svg>
                     <div class="nav__login">
                         <?php if(is_user_logged_in()): ?>
-                            <?php 
-                                $user = wp_get_current_user();
-                                
-                                print $user->user_nicename;
-                            ?>
+                            <div class="nav__avatar" <?php if($avatar): ?>style="background-image: url('<?php print $avatar; ?>')"<?php endif; ?>></div>
+                            <?php print $user->user_nicename; ?>
+                            <a href="/wp-login.php?action=logout" class="nav__logout-link"><?php print __('Log Out'); ?></a>
                         <?php else: ?>
-                            <?php print __("Log In / Sign Up"); ?>
+                            <a href="/wp-login.php?action=login" class="nav__login-link"><?php print __("Log In / Sign Up"); ?></a>
                         <?php endif; ?>
                     </div>
                     <div class="nav__search-container">
                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" class="nav__search-icon">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M9 5C9 7.20914 7.20914 9 5 9C2.79086 9 1 7.20914 1 5C1 2.79086 2.79086 1 5 1C7.20914 1 9 2.79086 9 5ZM8.00021 9.00021C7.16451 9.62799 6.1257 10 5 10C2.23858 10 0 7.76142 0 5C0 2.23858 2.23858 0 5 0C7.76142 0 10 2.23858 10 5C10 6.27532 9.52253 7.43912 8.73661 8.32239L11.7071 11.2929L11 12L8.00021 9.00021Z" fill="#D2D2D2"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M9 5C9 7.20914 7.20914 9 5 9C2.79086 9 1 7.20914 1 5C1 2.79086 2.79086 1 5 1C7.20914 1 9 2.79086 9 5ZM8.00021 9.00021C7.16451 9.62799 6.1257 10 5 10C2.23858 10 0 7.76142 0 5C0 2.23858 2.23858 0 5 0C7.76142 0 10 2.23858 10 5C10 6.27532 9.52253 7.43912 8.73661 8.32239L11.7071 11.2929L11 12L8.00021 9.00021Z" fill="#737373" />
                         </svg>
                         <input type="text" class="nav__search" placeholder="Seach"/>
                     </div>
@@ -101,6 +112,12 @@
                 </svg>
                 <div class="nav__content">
                     <input id="nav-trigger" type="checkbox" class="nav__trigger" />
+                    <div class="nav__avatar-container">
+                    <?php if(is_user_logged_in()): ?>
+                        <div class="nav__avatar" <?php if($avatar): ?>style="background-image: url('<?php print $avatar; ?>')"<?php endif; ?>></div>
+                        <span class="nav__username"><?php print $user->user_nicename; ?></span>
+                    <?php endif; ?>
+                    </div>
                     <label for="nav-trigger" class="nav__label">
                         <span class="nav__hamburger-line"></span>
                         <span class="nav__hamburger-line"></span>
@@ -109,18 +126,19 @@
 
                     <?php 
                         $items = wp_get_nav_menu_items('Mozilla Main Menu');
-
-                        // print_r($items);
-   
                     ?>
                     <div class="nav__menu-container">
                         <div class="nav__user-container">
+                        <?php if(is_user_logged_in()): ?>
+                            <div class="nav__avatar" <?php if($avatar): ?>style="background-image: url('<?php print $avatar; ?>')"<?php endif; ?>>
+                            </div>
                             <?php print $user->user_nicename; ?>
-                            <a href="#" class="nav__logout-link"><?php print __('Log Out'); ?></a>
+                        <?php endif; ?>
+                            <a href="/wp-login.php?action=logout" class="nav__logout-link"><?php print __('Log Out'); ?></a>
                         </div>
                         <div class="nav__search-container">
                             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" class="nav__search-icon">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M9 5C9 7.20914 7.20914 9 5 9C2.79086 9 1 7.20914 1 5C1 2.79086 2.79086 1 5 1C7.20914 1 9 2.79086 9 5ZM8.00021 9.00021C7.16451 9.62799 6.1257 10 5 10C2.23858 10 0 7.76142 0 5C0 2.23858 2.23858 0 5 0C7.76142 0 10 2.23858 10 5C10 6.27532 9.52253 7.43912 8.73661 8.32239L11.7071 11.2929L11 12L8.00021 9.00021Z" fill="#D2D2D2"/>
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M9 5C9 7.20914 7.20914 9 5 9C2.79086 9 1 7.20914 1 5C1 2.79086 2.79086 1 5 1C7.20914 1 9 2.79086 9 5ZM8.00021 9.00021C7.16451 9.62799 6.1257 10 5 10C2.23858 10 0 7.76142 0 5C0 2.23858 2.23858 0 5 0C7.76142 0 10 2.23858 10 5C10 6.27532 9.52253 7.43912 8.73661 8.32239L11.7071 11.2929L11 12L8.00021 9.00021Z" fill="#737373"/>
                             </svg>
                             <input type="text" class="nav__search" placeholder="Seach"/>
                         </div>
