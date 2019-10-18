@@ -37,34 +37,16 @@ $required = apply_filters('em_required_html','<i>*</i>');
           <option value="address">Physical Location</option>
         </select>
       </div>
-      <div class="hidden">
+      <div class="event-creator__hidden wide--double">
         <label class="event-creator__label" for="location-name"><?php _e ( 'Location Name:', 'events-manager')?></label>
         <input id='location-id' name='location_id' type='hidden' value='<?php echo esc_attr($EM_Location->location_id); ?>' size='15' />
-        <input class="event-creator__input" id="location-name" type="type" name="location_name" value="<?php echo esc_attr($EM_Location->location_name, ENT_QUOTES); ?>" />			
+        <input class="event-creator__input" id="location-name" type="type" name="location_name" value="<?php echo esc_attr($EM_Location->location_name, ENT_QUOTES); ?>" />			 
       </div>
-      <div class="em-location-data-address wide--double">
-        <label class="event-creator__label"><?php _e ( 'Online Meeting Link', 'events-manager')?></label>
+      <div class="em-location-data-address wide--double wide--full">
+        <label class="event-creator__label" id="location-address-label"><?php _e ( 'Online Meeting Link *', 'events-manager')?></label>
         <input class="event-creator__input" id="location-address" type="text" name="location_address" value="<?php echo esc_attr($EM_Location->location_address); ; ?>" />
       </div>
     </div>
-		<div class="hidden em-location-data-state">
-			<div><?php _e ( 'State/County:', 'events-manager')?>&nbsp;</div>
-			<div>
-				<input id="location-state" type="text" name="location_state" value="<?php echo esc_attr($EM_Location->location_state); ?>" />
-			</div>
-		</div>
-		<div class="hidden em-location-data-postcode">
-			<div><?php _e ( 'Postcode:', 'events-manager')?>&nbsp;</div>
-			<div>
-				<input id="location-postcode" type="text" name="location_postcode" value="<?php echo esc_attr($EM_Location->location_postcode); ?>" />
-			</div>
-		</div>
-		<div class="hidden em-location-data-region">
-			<div><?php _e ( 'Region:', 'events-manager')?>&nbsp;</div>
-			<div>
-				<input id="location-region" type="text" name="location_region" value="<?php echo esc_attr($EM_Location->location_region); ?>" />
-			</div>
-		</div>
 	</div>
 	<?php if ( get_option( 'dbem_gmap_is_active' ) ) em_locate_template('forms/map-container.php',true); ?>
 	<br style="clear:both;" />

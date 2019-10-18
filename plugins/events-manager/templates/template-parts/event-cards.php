@@ -16,9 +16,11 @@
   );
   $categories = get_the_terms($event->post_id, EM_TAXONOMY_CATEGORY);
   $allCountries = em_get_countries();
-  $allTags = array_map(function($n) {
-    return $n->name;
-  }, $categories);
+  if ($categories) {
+    $allTags = array_map(function($n) {
+      return $n->name;
+    }, $categories);
+  }
   if ($tag !== 'all' && !$categories && $tag !== '') {
     echo 'hidden';
   } else if ($tag !== 'all' && $country !== 'all' && $tag !== '' && $country !== '') {

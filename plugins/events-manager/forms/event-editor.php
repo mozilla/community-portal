@@ -5,6 +5,7 @@
  * You also must keep the _wpnonce hidden field in this form too.
  */
 global $EM_Event, $EM_Notices, $bp;
+$event_id = $_REQUEST['event_id'];
 //check that user can access this page
 if( is_object($EM_Event) && !$EM_Event->can_manage('edit_events','edit_others_events') ){
 	?>
@@ -66,7 +67,7 @@ if( !empty($_REQUEST['success']) ){
   <div class="wrap events__form">
     <div class="event-editor">
       <label class="event-form-details event-creator__label" for="event-description"><?php esc_html_e( 'Event description', 'events-manager'); ?></label>
-      <textarea name="content" placeholder="Add in the details of your event’s agenda here. If this is a multi-day event, you can add in the details of each day’s schedule and start/end time." rows="10" id="event-description" class="event-creator__input" style="width:100%"><?php echo $EM_Event->post_content ?></textarea>
+      <textarea name="content" placeholder="Add in the details of your event’s agenda here. If this is a multi-day event, you can add in the details of each day’s schedule and start/end time." rows="10" id="event-description" class="event-creator__input event-creator__textarea" style="width:100%"><?php echo $EM_Event->post_content ?></textarea>
       <?php if(get_option('dbem_categories_enabled')) { em_locate_template('forms/event/categories-public.php',true); }  ?>
       <?php em_locate_template('forms/event/group.php',true); ?>
     </div>
@@ -78,14 +79,19 @@ if( !empty($_REQUEST['success']) ){
       </p>
     </div>
     <div class="event-creator__container">
-      <input type="checkbox" id="cpg">
+      <input type="checkbox" id="cpg" <?php if ($event_id) { echo 'checked'; }?>>
       <label for="cpg">I agree to respect and adhere to Mozilla’s Community Participation Guidelines</label>
     </div>
   </div>
   <div class="submit event-creator__submit">
     <!-- <input type="submit" class="btn btn--dark btn--submit button-primary event-creator__submit-btn" value="Create Event"> -->
     <!-- <input type='submit' class='button-primary' value='<?php echo esc_attr(sprintf( __('Update %s','events-manager'), __('Event','events-manager') )); ?>' /> -->
-    <input type='submit' class='button-primary' value='<?php echo esc_attr(sprintf( __('Submit %s','events-manager'), __('Event','events-manager') )); ?>' />
-
+    <input id="event-creator__submit-btn" type='submit' class='button-primary btn btn--dark btn--submit' <?php if (!$event_id) { echo 'disabled';} ?> value='<?php echo esc_attr(sprintf( __('Create %s','events-manager'), __('Event','events-manager') )); ?>' />
+    <input type="hidden" name="event_id" value="<?php echo $EM_Event->event_id; ?>" />
+    <input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce('wpnonce_event_save'); ?>" />
+    <input type="hidden" name="action" value="event_save" />
+    <?php if( !empty($_REQUEST['redirect_to']) ): ?>
+      <input type="hidden" name="redirect_to" value="<?php echo esc_attr($_REQUEST['redirect_to']); ?>" />
+    <?php endif; ?>
   </div>		
 </form>

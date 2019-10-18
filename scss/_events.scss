@@ -385,10 +385,14 @@
 }
 
 #event-form #event-name.event-creator__input {
-  padding: 10px 0;
+  padding: 10px 16px;
+  width: 100%;
 }
 
 .event-creator {
+  &__hidden {
+    display: none;
+  }
   &__container:nth-child(n + 2) {
     margin-top: 32px;
   }
@@ -405,6 +409,9 @@
   }
   &__input {
     @extend .input;
+  }
+  &__textarea {
+    @extend .textarea;
   }
   &__label {
     @extend .label;
@@ -423,6 +430,7 @@
   }
   &__submit {
     text-align: center;
+    margin-top: 48px;
   }
   &__submit-btn {
     margin: 48px auto 0;
@@ -471,10 +479,15 @@
     }
     .wide--double {
       position: relative;
-      width: calc(60% - 32px);
+      width: calc(60% - 16px);
+      &:not(.event-creator__hidden) + .wide--double {
+        margin-left: 0;
+        margin-top: 32px;
+        width: 100%;
+      }
     }
     .thin {
-      width: calc(20% - 64px);
+      width: calc(20% - 32px);
       position: relative;
     }
   }

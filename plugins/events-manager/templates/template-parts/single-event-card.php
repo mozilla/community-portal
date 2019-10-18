@@ -41,10 +41,10 @@
             ?>
           </p>
         </div>
-      <?php 
-        if ($categories) {
-      ?>
       </div>
+      <?php 
+      if ($categories) {
+      ?>
       <ul class="events__tags">
         <?php
           foreach($categories as $category) {

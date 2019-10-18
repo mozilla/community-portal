@@ -77,12 +77,54 @@ jQuery(function() {
     });
   }
 
+  function toggleVisibility(selector, value, hidden) {
+    selector.val(value);
+    if (hidden) {
+      selector.parent().removeClass("event-creator__hidden");
+      return;
+    }
+    selector.parent().addClass("event-creator__hidden");
+  }
+
+  function toggleLocationType() {
+    const $locationTypeInput = jQuery("#location-type");
+    const $locationName = jQuery("#location-name");
+    const $locationNameLabel = jQuery("#location-address-label");
+    $locationName.val("Online");
+    $locationTypeInput.on("change", function() {
+      $this = jQuery(this);
+      if ($this.val() === "online") {
+        console.log($locationNameLabel);
+        toggleVisibility($locationName, "Online", false);
+        $locationNameLabel.text("Online Meeting Link *");
+        return;
+      }
+      toggleVisibility($locationName, "", true);
+      $locationNameLabel.text("Address");
+    });
+  }
+
+  function cpgAgreement() {
+    const $cpgCheckbox = jQuery("#cpg");
+    const $submitBtn = jQuery("#event-creator__submit-btn");
+    $cpgCheckbox.on("change", function() {
+      const $this = jQuery(this);
+      if (this.checked) {
+        $submitBtn.prop("disabled", false);
+        return;
+      }
+      $submitBtn.prop("disabled", true);
+    });
+  }
+
   function init() {
     toggleMobileEventsNav(".events__nav__toggle", ".events__nav");
     toggleMobileEventsNav(".events__filter__toggle", ".events__filter");
     eventsMobileNav();
     applyFilters();
     setHeightOfDivs();
+    toggleLocationType();
+    cpgAgreement();
   }
 
   init();
