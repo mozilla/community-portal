@@ -24,7 +24,7 @@ if( !empty($_REQUEST['success']) ){
 }
 ?>	
 <form enctype='multipart/form-data' id="event-form" class="em-event-admin-editor <?php if( $EM_Event->is_recurring() ) echo 'em-event-admin-recurring' ?>" method="post" action="<?php echo esc_url(add_query_arg(array('success'=>null))); ?>">
-	<div class="wrap events__form">
+	<div class="wrap event-creator">
 		<?php do_action('em_front_event_form_header', $EM_Event); ?>
 		<?php if(get_option('dbem_events_anonymous_submissions') && !is_user_logged_in()): ?>
 			<h3 class="event-form-submitter"><?php esc_html_e( 'Your Details', 'events-manager'); ?></h3>
@@ -64,7 +64,7 @@ if( !empty($_REQUEST['success']) ){
     </div>
     </div> 	
   </div>
-  <div class="wrap events__form">
+  <div class="wrap event-creator">
     <div class="event-editor">
       <label class="event-form-details event-creator__label" for="event-description"><?php esc_html_e( 'Event description', 'events-manager'); ?></label>
       <textarea name="content" placeholder="Add in the details of your event’s agenda here. If this is a multi-day event, you can add in the details of each day’s schedule and start/end time." rows="10" id="event-description" class="event-creator__input event-creator__textarea" style="width:100%"><?php echo $EM_Event->post_content ?></textarea>
@@ -72,7 +72,7 @@ if( !empty($_REQUEST['success']) ){
       <?php em_locate_template('forms/event/group.php',true); ?>
     </div>
   </div>
-  <div class="wrap events__form">
+  <div class="wrap event-creator">
     <div class="event-creator__container">
       <p>
       The Mozilla Project welcomes contributions from everyone who shares our goals and wants to contribute in a healthy and constructive manner within our communities. By creating an event on this platform you are agreeing to respect and adhere to <a href="#">Mozilla’s Community Participation Guidelines (“CPG”)</a> in order to help us create a safe and positive community experience for all. Events that do not share our goals, or violate the CPG in any way, will be removed from the platform and potentially subject to further consequences.

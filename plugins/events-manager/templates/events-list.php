@@ -85,7 +85,6 @@
         if ($view === 'attending') {
           include(locate_template('plugins/events-manager/templates/my-bookings.php', false, false));
         } elseif ($view === 'organized'){
-          // include(locate_template('plugins/events-manager/buddypress/my-events.php', false, false));
           em_locate_template('buddypress/my-events.php', true);
         } else {
           foreach($events as $event) {

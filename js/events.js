@@ -122,6 +122,7 @@ jQuery(function() {
     toggleMobileEventsNav(".events__filter__toggle", ".events__filter");
     eventsMobileNav();
     applyFilters();
+    window.addEventListener("resize", setHeightOfDivs);
     setHeightOfDivs();
     toggleLocationType();
     cpgAgreement();

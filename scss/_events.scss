@@ -4,18 +4,34 @@
 .events {
   &__header {
     background-color: $color-yellow-20;
+    .title,
+    &__text {
+      text-align: center;
+      font-size: 14px;
+      @media (min-width: $screen-tablet-min) {
+        text-align: left;
+      }
+    }
     .events__container {
-      padding-top: 56px;
-      padding-bottom: 88px;
-      background-image: url("./images/events-header.png");
-      background-repeat: no-repeat;
-      background-position: right;
+      padding-top: 48px;
+      padding-bottom: 215px;
+      @media (min-width: $screen-tablet-min) {
+        padding-top: 56px;
+        padding-bottom: 88px;
+        background-image: url("./images/events-header.png");
+        background-repeat: no-repeat;
+        background-position: right;
+      }
     }
   }
   &__title,
-  &__title--edit {
+  &__header .title {
     font-family: $main-font-family;
-    font-size: 48px;
+    font-size: 32px;
+    font-weight: normal;
+    @media (min-width: $screen-tablet-min) {
+      font-size: 48px;
+    }
   }
   &__title {
     &::before {
@@ -26,9 +42,9 @@
   &__container {
     max-width: 1228px;
     margin: 0 auto;
-    padding: 0 64px;
-    @media (max-width: $md) {
-      padding: 0 24px;
+    padding: 0 24px;
+    @media (min-width: $screen-tablet-min) {
+      padding: 0 64px;
     }
     &--edit {
       .em-search-wrapper,
@@ -53,8 +69,8 @@
     padding: 16px 32px;
     background: white;
     margin: 2px 0 8px;
-    display: flex;
     flex-wrap: wrap;
+    display: none;
     &__form {
       display: flex;
       flex-grow: 1;
@@ -69,10 +85,10 @@
       flex: 1 0 33.33%;
       border: 0;
       padding: 0;
-      margin-right: 32px;
       position: relative;
-      @media (max-width: $sm) {
-        margin: 8px 0;
+      margin: 8px 0;
+      @media (min-width: $screen-tablet-min) {
+        margin-right: 32px;
       }
       &:last-child {
         margin-right: 0;
@@ -99,23 +115,28 @@
     }
     &__toggle {
       margin: 24px 0 36px;
-      display: none;
-      @media (max-width: $sm) {
-        display: block;
+      display: block;
+      @media (min-width: $screen-tablet-min) {
+        display: none;
       }
     }
-    @media (max-width: $sm) {
-      display: none;
+    @media (min-width: $screen-tablet-min) {
+      display: flex;
     }
   }
   &__filter,
   &__filter__form,
   &__filter__option {
-    @media (max-width: $sm) {
-      flex-direction: column;
+    flex-direction: column;
+    select,
+    label {
+      width: 100%;
+    }
+    @media (min-width: $screen-tablet-min) {
+      flex-direction: row;
       select,
       label {
-        width: 100%;
+        width: auto;
       }
     }
     &__icon {
@@ -124,24 +145,27 @@
     }
   }
   &__nav {
-    display: flex;
     padding: 0;
     justify-content: flex-start;
     list-style-type: none;
     margin: 0;
-    @media (max-width: $md) {
-      display: none;
+    display: none;
+    @media (min-width: $screen-tablet-min) {
+      display: flex;
     }
     &--active {
-      @media (max-width: $md) {
-        display: block;
+      display: block;
+      @media (min-width: $screen-tablet-min) {
+        display: none;
       }
     }
     &__container {
-      @media (max-width: $md) {
-        border-bottom: 1px solid #cdcdd4;
-        width: 100%;
-        margin-bottom: 24px;
+      border-bottom: 1px solid #cdcdd4;
+      width: 100%;
+      margin-bottom: 24px;
+      @media (min-width: $screen-tablet-min) {
+        border-bottom: none;
+        margin-bottom: initial;
       }
     }
     &__link {
@@ -175,12 +199,12 @@
       }
     }
     &--mobile {
-      display: none;
-      position: relative;
+      display: flex;
+      align-items: center;
       border-bottom: 2px solid $color-blue-50;
-      @media (max-width: $md) {
-        display: flex;
-        align-items: center;
+      @media (min-width: $screen-tablet-min) {
+        display: none;
+        position: relative;
       }
       .events__nav__label--mobile {
         color: $color-gray-secondary;
@@ -262,36 +286,32 @@
     }
     .events__column:nth-of-type(3n) {
       padding-right: 0;
-      @media (max-width: $xl) {
+      @media (min-width: $screen-tablet-min) {
         padding-right: 16px;
       }
-      @media (max-width: $md) {
+      @media (min-width: $screen-desktop-min) {
         padding-right: 0;
       }
     }
     .events__column:nth-of-type(3n + 1) {
       padding-left: 0;
-      @media (max-width: $xl) {
+      @media (min-width: $screen-tablet-min) {
         padding-left: 16px;
       }
-      @media (max-width: $md) {
-        padding-left: 0;
-      }
-    }
-    .events__column:nth-of-type(2n + 1) {
-      @media (max-width: $xl) {
+      @media (min-width: $screen-desktop-min) {
         padding-left: 0;
       }
     }
     .events__column:nth-of-type(2n) {
-      @media (max-width: $xl) {
-        padding-right: 0;
+      padding-right: 0;
+      @media (min-width: $screen-desktop-min) {
+        padding-right: 16px;
       }
     }
     .events__column {
-      padding: 32px 16px;
-      @media (max-width: $sm) {
-        padding: 16px 0;
+      padding: 16px 0;
+      @media (min-width: $screen-tablet-min) {
+        padding: 32px 16px;
       }
     }
   }
@@ -311,13 +331,6 @@
       display: none;
     }
   }
-  &__form {
-    padding: 80px 105px;
-    background: white;
-    &:nth-child(n + 2) {
-      margin-top: 32px;
-    }
-  }
 }
 
 .css-events-admin {
@@ -326,7 +339,10 @@
 
 #em-wrapper {
   position: relative;
-  top: -15px;
+  top: -184px;
+  @media (min-width: $screen-tablet-min) {
+    top: -15px;
+  }
 }
 
 .em-search-wrapper {
@@ -335,9 +351,9 @@
     padding: 16px 30px;
   }
   .em-search-main {
-    width: calc(100% - 191px);
-    @media (max-width: $sm) {
-      width: 100%;
+    width: 100%;
+    @media (min-width: $screen-tablet-min) {
+      width: calc(100% - 191px);
     }
   }
   div.css-search div.em-search-main .em-search-submit {
@@ -351,14 +367,17 @@
     font-weight: 400;
     top: 16px;
     right: 30px;
-    @media (max-width: $sm) {
-      position: static;
-      width: 100%;
-      margin-top: 24px;
+    position: static;
+    width: 100%;
+    margin-top: 24px;
+    @media (min-width: $screen-tablet-min) {
+      position: absolute;
+      width: auto;
+      margin-top: 0;
     }
   }
   div.css-search input.em-search-text {
-    @media (max-width: $sm) {
+    @media (max-width: $screen-mobile-min) {
       width: 100%;
     }
   }
@@ -375,120 +394,5 @@
   }
   div.css-search input.em-search-text {
     line-height: 22px;
-  }
-}
-
-.em-search-wrapper .em-events-search,
-.events__filter {
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 0px 0px 5px 5px;
-}
-
-#event-form #event-name.event-creator__input {
-  padding: 10px 16px;
-  width: 100%;
-}
-
-.event-creator {
-  &__hidden {
-    display: none;
-  }
-  &__container:nth-child(n + 2) {
-    margin-top: 32px;
-  }
-  &__container p {
-    line-height: 24px;
-  }
-  &__dropdown,
-  &__dropdown {
-    @extend .select;
-    width: 100%;
-  }
-  &__chevron {
-    @extend .select__icon;
-  }
-  &__input {
-    @extend .input;
-  }
-  &__textarea {
-    @extend .textarea;
-  }
-  &__label {
-    @extend .label;
-    padding-bottom: 8px;
-    display: block;
-  }
-  &__fieldset {
-    @extend .fieldset;
-  }
-  &__tag {
-    @extend .tag;
-    font-size: 14px;
-    &:nth-child(n + 2) {
-      margin: 8px 15px 8px 0;
-    }
-  }
-  &__submit {
-    text-align: center;
-    margin-top: 48px;
-  }
-  &__submit-btn {
-    margin: 48px auto 0;
-  }
-  &__checkbox {
-    display: none;
-    & + .event-creator__tag {
-      background: white;
-      border: 1px solid #b1b1bc;
-      &:hover {
-        box-shadow: 0 0 0 4px #e0e0e0;
-        border: 1px solid #e0e0e0;
-      }
-    }
-    &:checked + .event-creator__tag {
-      background: $color-gray-20;
-      border: 1px solid $color-gray-20;
-    }
-  }
-  &__three-up {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 32px;
-
-    #end-time,
-    #start-time {
-      width: 100%;
-    }
-    div:nth-child(n + 2) {
-      margin-left: 32px;
-    }
-    select {
-      @extend .select;
-      max-width: 100%;
-    }
-    label {
-      @extend .select__label;
-      display: block;
-    }
-    svg {
-      @extend .select__icon;
-    }
-    .wide {
-      position: relative;
-      width: calc(40% - 16px);
-    }
-    .wide--double {
-      position: relative;
-      width: calc(60% - 16px);
-      &:not(.event-creator__hidden) + .wide--double {
-        margin-left: 0;
-        margin-top: 32px;
-        width: 100%;
-      }
-    }
-    .thin {
-      width: calc(20% - 32px);
-      position: relative;
-    }
   }
 }
