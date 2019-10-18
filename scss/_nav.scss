@@ -69,10 +69,41 @@
         margin-left: auto;
         margin-right: 40px;
         font-family: 'Zilla Slab';
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    &__logout-link {
+        font-family: 'Open Sans';
+        display: inline-block;
+        margin-left: 24px;
+        font-size: remCalc(12);
+        line-height: 16px;
+        color: $color-black;
+    }
+
+    &__login-link {
+        text-decoration: none;
+        font-size: remCalc(16);
+        line-height: 24px;
+        color: $color-black;
     }
 
     &__logo {
         height: 48px;
+    }
+
+    &__avatar {
+        border-radius: 50%;
+        overflow: hidden;
+        width: 24px;
+        height: 24px;
+        background-color: $color-gray-20;
+        background-size: cover;
+        background-position: center;
+        margin-right: 8px;
     }
 }
 
@@ -102,6 +133,32 @@
         }
     }
 
+    .nav__avatar-container {
+        position: absolute;
+        right: 64px;
+        top: calc(50% - 2px);
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        font-family: 'Zilla Slab';
+        font-size: remCalc(16);
+        line-height: 24px;
+
+        @include tablet-and-up {
+            right: 114px;
+        }
+    }
+
+    .nav__username {
+        display: none;
+
+        @include tablet-and-up {
+            display: block;
+        }
+    }
+
     .nav__trigger {
         display: block;
         width: 24px;
@@ -109,9 +166,7 @@
         position: absolute;
 
         opacity: 0;
-        // opacity: 0;
         cursor: pointer;
-        z-index: 120;
 
         &:checked ~ .nav__label {
             .nav__hamburger-line {
@@ -132,8 +187,14 @@
         }
 
         &:checked ~ .nav__menu-container {
+            z-index: 120;
             opacity: 1;
             transform: none;
+            visibility: visible;
+        }
+
+        &:checked ~ .nav__avatar-container {
+            display: none;
         }
     }
 
@@ -142,7 +203,7 @@
         position: absolute;
         transform-origin: 0% 0%;
         transform: translate(0, -20px);
-        z-index: 10;
+        z-index: 1;
         opacity: 0;
         width: 100%;
         height: calc(100vh - 62px);
@@ -150,6 +211,7 @@
         top: 62px;
         transition: transform 0.4s cubic-bezier(0.77, 0.2, 0.05, 1.0), opacity 0.8s cubic-bezier(0.77, 0.2, 0.05, 1.0);
         overflow: auto;
+        visibility: hidden;
     }
 
     .nav__hamburger-line {
@@ -175,7 +237,7 @@
     .nav__user-container {
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: flex-start;
         align-items: center;
         border-top: 1px solid $color-gray-20;
         border-bottom: 1px solid $color-gray-20;
@@ -195,6 +257,7 @@
             font-size: remCalc(14);
             line-height: 22px;
             color: $color-black;
+            margin-left: auto;
         }
     }
 
@@ -206,9 +269,9 @@
         }
 
         .nav__search-icon {
-            right: 35px;
+            left: 35px;
             @include tablet-and-up {
-                right: 75px;
+                left: 75px;
             }   
         }
 
