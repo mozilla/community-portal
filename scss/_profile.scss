@@ -355,6 +355,10 @@
     &__success-message-container {
         margin-top: 88px;
         text-align: center;
+
+        .profile__title {
+            text-align: center;
+        }
     }
 
     &__success-message {
