@@ -22,10 +22,10 @@
     }, $categories);
   }
   if ($tag !== 'all' && !$categories && $tag !== '') {
-    echo 'hidden';
+    return;
   } else if ($tag !== 'all' && $country !== 'all' && $tag !== '' && $country !== '') {
     if (!in_array($tag, $allTags) || $country !== $allCountries[$location->country]) {
-      echo 'hidden';
+      return;
     } else {
       include(locate_template('plugins/events-manager/templates/template-parts/single-event-card.php', false, false));
     }
@@ -37,7 +37,7 @@
     } 
   } else if ($country !== 'all' && $country !== '') {
     if ($country !== $allCountries[$location->country]) {
-      echo 'hidden';
+      return;
     } else {
       include(locate_template('plugins/events-manager/templates/template-parts/single-event-card.php', false, false));
     }

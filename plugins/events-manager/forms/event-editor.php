@@ -44,12 +44,14 @@ if( !empty($_REQUEST['success']) ){
 		<div class="inside event-form-name event">
       <div class="event-creator__container">
     	  <label class="event-form-name event-creator__label" for="event-name"><?php esc_html_e( 'Event Name', 'events-manager'); ?></label>
-        <input class="event-creator__input event-creator__input" type="text" name="event_name" id="event-name" value="<?php echo esc_attr($EM_Event->event_name,ENT_QUOTES); ?>" />
+        <input class="event-creator__input event-creator__input" type="text" name="event_name" id="event-name" required value="<?php echo esc_attr($EM_Event->event_name,ENT_QUOTES); ?>" />
       </div>
-      <div class="event-creator__container">      
-        <label class="event-form-image event-creator__label" for="event-image"><?php esc_html_e( 'Event Image', 'events-manager'); ?></label>
-        <input class="event-creator__input" type="file" id="event-image">
-      </div>
+      <?php if( $EM_Event->can_manage('upload_event_images','upload_event_images') ): ?>
+		<h3><?php esc_html_e( 'Event Image', 'events-manager'); ?></h3>
+		<div class="inside event-form-image">
+			<?php em_locate_template('forms/event/featured-image-public.php',true); ?>
+		</div>
+		<?php endif; ?>
       <?php 
 			if( empty($EM_Event->event_id) && $EM_Event->can_manage('edit_recurring_events','edit_others_recurring_events') && get_option('dbem_recurrence_enabled') ){
 				em_locate_template('forms/event/when-with-recurring.php',true);
@@ -67,7 +69,7 @@ if( !empty($_REQUEST['success']) ){
   <div class="wrap event-creator">
     <div class="event-editor">
       <label class="event-form-details event-creator__label" for="event-description"><?php esc_html_e( 'Event description', 'events-manager'); ?></label>
-      <textarea name="content" placeholder="Add in the details of your event’s agenda here. If this is a multi-day event, you can add in the details of each day’s schedule and start/end time." rows="10" id="event-description" class="event-creator__input event-creator__textarea" style="width:100%"><?php echo $EM_Event->post_content ?></textarea>
+      <textarea name="content" placeholder="Add in the details of your event’s agenda here. If this is a multi-day event, you can add in the details of each day’s schedule and start/end time." rows="10" id="event-description" class="event-creator__input event-creator__textarea" style="width:100%" required><?php echo $EM_Event->post_content ?></textarea>
       <?php if(get_option('dbem_categories_enabled')) { em_locate_template('forms/event/categories-public.php',true); }  ?>
       <?php em_locate_template('forms/event/group.php',true); ?>
     </div>
@@ -88,7 +90,7 @@ if( !empty($_REQUEST['success']) ){
     <!-- <input type='submit' class='button-primary' value='<?php echo esc_attr(sprintf( __('Update %s','events-manager'), __('Event','events-manager') )); ?>' /> -->
     <input id="event-creator__submit-btn" type='submit' class='button-primary btn btn--dark btn--submit' <?php if (!$event_id) { echo 'disabled';} ?> value='<?php echo esc_attr(sprintf( __('Create %s','events-manager'), __('Event','events-manager') )); ?>' />
     <input type="hidden" name="event_id" value="<?php echo $EM_Event->event_id; ?>" />
-    <input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce('wpnonce_event_save'); ?>" />
+    <input type="hidden" name="_wpnonce" id="my_nonce_field" value="<?php echo wp_create_nonce('wpnonce_event_save'); ?>" />
     <input type="hidden" name="action" value="event_save" />
     <?php if( !empty($_REQUEST['redirect_to']) ): ?>
       <input type="hidden" name="redirect_to" value="<?php echo esc_attr($_REQUEST['redirect_to']); ?>" />

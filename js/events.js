@@ -61,10 +61,11 @@ jQuery(function() {
     }
   }
 
-  function setHeightOfDivs() {
+  function setHeightOfDivs(selector) {
     let t = 0;
     let t_elem;
-    const $cards = jQuery(".events .card__description");
+    const element = ".events " + selector;
+    const $cards = jQuery(element);
     $cards.each(function() {
       $this = jQuery(this);
       if ($this.outerHeight() > t) {
@@ -94,7 +95,6 @@ jQuery(function() {
     $locationTypeInput.on("change", function() {
       $this = jQuery(this);
       if ($this.val() === "online") {
-        console.log($locationNameLabel);
         toggleVisibility($locationName, "Online", false);
         $locationNameLabel.text("Online Meeting Link *");
         return;
@@ -117,15 +117,46 @@ jQuery(function() {
     });
   }
 
+  function checkInputs(inputs) {
+    let $allClear = true;
+    inputs.each(function() {
+      const $this = jQuery(this);
+      if (!$this.val()) {
+        this.addClass("event-form__error");
+        $allClear = false;
+      }
+    });
+    return $allClear;
+  }
+
+  function validateForm() {
+    const $eventForm = jQuery("#event-form");
+    if ($eventForm) {
+      const $requiredInputs = jQuery("input,textarea,select").filter(
+        "[required]"
+      );
+      const $submitBtn = $eventForm.find("#event-creator__submit-btn");
+      $submitBtn.on("click", function(e) {
+        e.preventDefault();
+        const allClear = checkInputs($requiredInputs);
+        if (allClear) {
+          $eventForm.submit();
+        }
+      });
+    }
+  }
+
   function init() {
     toggleMobileEventsNav(".events__nav__toggle", ".events__nav");
     toggleMobileEventsNav(".events__filter__toggle", ".events__filter");
     eventsMobileNav();
     applyFilters();
     window.addEventListener("resize", setHeightOfDivs);
-    setHeightOfDivs();
+    setHeightOfDivs(".events__tags");
+    setHeightOfDivs(".card__description");
     toggleLocationType();
     cpgAgreement();
+    // validateForm();
   }
 
   init();

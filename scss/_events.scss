@@ -267,6 +267,9 @@
       justify-self: flex-end;
       padding: 0 32px 24px;
       margin: 0;
+      .tag {
+        margin-top: 10px;
+      }
     }
     &__location {
       display: flex;

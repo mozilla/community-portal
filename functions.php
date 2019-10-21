@@ -513,6 +513,7 @@ function add_query_vars_filter( $vars ){
   return $vars;
 }
 add_filter( 'query_vars', 'add_query_vars_filter' );
+
 function mozilla_validate_username() {
 
     if($_SERVER['REQUEST_METHOD'] == 'GET') {

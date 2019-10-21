@@ -40,11 +40,11 @@ $required = apply_filters('em_required_html','<i>*</i>');
       <div class="event-creator__hidden wide--double">
         <label class="event-creator__label" for="location-name"><?php _e ( 'Location Name:', 'events-manager')?></label>
         <input id='location-id' name='location_id' type='hidden' value='<?php echo esc_attr($EM_Location->location_id); ?>' size='15' />
-        <input class="event-creator__input" id="location-name" type="type" name="location_name" value="<?php echo esc_attr($EM_Location->location_name, ENT_QUOTES); ?>" />			 
+        <input class="event-creator__input" id="location-name" type="type" name="location_name" required value="<?php echo esc_attr($EM_Location->location_name, ENT_QUOTES); ?>" />			 
       </div>
       <div class="em-location-data-address wide--double wide--full">
-        <label class="event-creator__label" id="location-address-label"><?php _e ( 'Online Meeting Link *', 'events-manager')?></label>
-        <input class="event-creator__input" id="location-address" type="text" name="location_address" value="<?php echo esc_attr($EM_Location->location_address); ; ?>" />
+        <label class="event-creator__label" id="location-address-label"><?php _e ( 'Online Meeting Link', 'events-manager')?></label>
+        <input class="event-creator__input" id="location-address" type="text" name="location_address" required value="<?php echo esc_attr($EM_Location->location_address); ; ?>" />
       </div>
     </div>
 	</div>
