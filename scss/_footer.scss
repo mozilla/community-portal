@@ -139,6 +139,14 @@
         &:first-of-type {
             margin-top: 0;
         }
+
+        &.menu-item--active {
+            .menu-item__link {
+                &:after {
+                    display: none;
+                }
+            }
+        }
     }
 }
 
