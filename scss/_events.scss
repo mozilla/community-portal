@@ -226,10 +226,6 @@
     padding: 0;
   }
   .card {
-    background: white;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 4px;
-    transition: box-shadow 0.3s ease-in-out;
     &__image {
       position: relative;
       height: 175px;
@@ -332,6 +328,26 @@
     }
     .events__text {
       display: none;
+    }
+  }
+  &-single {
+    .card {
+      padding: 32px;
+    }
+    &__tags {
+      padding: 0;
+    }
+    &__share {
+      border-top: 1px solid $color-gray-20;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      svg {
+        position: relative;
+        top: 2px;
+      }
+    }
+    &__group {
+      margin-top: 32px;
     }
   }
 }
