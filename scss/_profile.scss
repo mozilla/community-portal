@@ -353,8 +353,17 @@
     }
 
     &__success-message-container {
+        padding: 0 24px;
         margin-top: 88px;
         text-align: center;
+
+        .profile__title {
+            text-align: center;
+        }
+
+        @include tablet-and-up {
+            padding: 0;
+        }
     }
 
     &__success-message {
@@ -370,11 +379,17 @@
         border-radius: 28px;
 
         &:first-of-type {
-            margin-right: 10px;
+            margin-bottom: 24px;
+            @include tablet-and-up {
+                margin-bottom: 0;
+                margin-right: 10px;
+            }
         }
 
         &:nth-of-type(2) {
-            margin-left: 10px;
+            @include tablet-and-up {
+                margin-left: 10px;
+            }
         }
 
         &.profile__button--secondary {
@@ -387,8 +402,13 @@
     &__button-container {
         margin-top: 43px;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: center;
+
+        @include tablet-and-up  {
+            flex-direction: row;
+        }
+
     }
 
     // Public Profile Styles
