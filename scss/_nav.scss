@@ -271,6 +271,25 @@
         text-align: left;
     }
 
+    &.menu-item--active {
+        background-color: $color-black;
+
+        width: auto;
+        display: inline-block;
+        .menu-item__link { 
+            position: relative;
+            &:after {
+                position: absolute;
+                content: '';
+                display: block;
+                left: 0;
+                bottom: -15px;
+                border-bottom: 2px solid $color-white;
+                width: 100%;
+            }
+        }
+    }
+
 }
 
 .menu-item__link {
