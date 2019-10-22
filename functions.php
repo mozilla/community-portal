@@ -33,7 +33,7 @@ add_filter('nav_menu_link_attributes', 'mozilla_add_menu_attrs', 10, 3);
 add_filter('nav_menu_css_class', 'mozilla_add_active_page' , 10 , 2);
 
 // Events Action
-add_action('save_post', 'mozilla_save_event', 10, 2);
+add_action('save_post', 'mozilla_save_event', 10, 3);
 
 
 // Include theme style.css file not in admin page
@@ -775,7 +775,7 @@ function mozilla_get_user_visibility_settings($user_id) {
     return $visibility_settings;
 }
 
-function mozilla_save_event($post_id, $post) {
+function mozilla_save_event($post_id, $post, $update) {
   if ($post->post_type === 'event') {
     update_post_meta($post_id, 'event-img-url', $_POST['image_url']);
   }

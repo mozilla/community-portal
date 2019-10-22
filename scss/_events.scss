@@ -230,6 +230,9 @@
       position: relative;
       height: 175px;
       overflow: hidden;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center 50%;
       img {
         max-width: 100%;
         display: block;

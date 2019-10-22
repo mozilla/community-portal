@@ -2,12 +2,12 @@
 <div class="col-lg-4 col-md-6 events__column">
   <div class="card">
     <a class="events__link" href="<?php echo $url?>">
-      <div class="card__image">
+      <div class="card__image"
         <?php 
-          $imgUrl = wp_get_attachment_url( get_post_thumbnail_id($event->post_id));
-          if ($imgUrl) {
+          $img_url = get_post_meta($event->post_id, 'event-img-url');
+          if ($img_url[0] && $img_url[0] !== '') {
         ?>
-          <img src="<?php echo $imgUrl ?>" alt="">
+          style="background-image: url(<?php echo $img_url[0] ?>)">
         <?php
           }
         ?>
@@ -43,21 +43,24 @@
           </p>
         </div>
       </div>
-      <?php 
-      if ($categories) {
-      ?>
       <ul class="events__tags">
         <?php
-          foreach($categories as $category) {
+          if (count($categories) <= 2): 
+            foreach($categories as $category) {
         ?>
-        <li class="tag"><?php echo $category->name ?></li>
+            <li class="tag"><?php echo $category->name ?></li>
         <?php
           }
+          elseif (count($categories) > 0):
+            ?>
+            <li class="tag"><?php echo $categories[0]->name ?></li>
+            <li class="tag"><?php echo $categories[1]->name ?></li>    
+            <li class="tag">+<?php echo count($categories) - 2 ?> more tags</li>        
+            <?php
+          endif;
+
         ?>
       </ul>
-      <?php
-        }
-      ?>
     </a>
   </div>
 </div>

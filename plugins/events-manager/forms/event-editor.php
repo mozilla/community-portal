@@ -45,14 +45,11 @@ if( !empty($_REQUEST['success']) ){
 		<?php endif; ?>
 		<div class="inside event-form-name event">
       <div class="event-creator__container">
-    	  <label class="event-form-name event-creator__label" for="event-name"><?php esc_html_e( 'Event Name', 'events-manager'); ?></label>
+        <label class="event-form-name event-creator__label" for="event-name"><?php esc_html_e( 'Event Name', 'events-manager'); ?></label>
         <input class="event-creator__input event-creator__input" type="text" name="event_name" id="event-name" required value="<?php echo esc_attr($EM_Event->event_name,ENT_QUOTES); ?>" />
       </div>
       <?php if( $EM_Event->can_manage('upload_event_images','upload_event_images') ): ?>
-		<h3><?php esc_html_e( 'Event Image', 'events-manager'); ?></h3>
-		<div class="inside event-form-image">
 			<?php em_locate_template('forms/event/featured-image-public.php',true); ?>
-		</div>
 		<?php endif; ?>
       <?php 
 			if( empty($EM_Event->event_id) && $EM_Event->can_manage('edit_recurring_events','edit_others_recurring_events') && get_option('dbem_recurrence_enabled') ){
@@ -90,7 +87,15 @@ if( !empty($_REQUEST['success']) ){
   <div class="submit event-creator__submit">
     <!-- <input type="submit" class="btn btn--dark btn--submit button-primary event-creator__submit-btn" value="Create Event"> -->
     <!-- <input type='submit' class='button-primary' value='<?php echo esc_attr(sprintf( __('Update %s','events-manager'), __('Event','events-manager') )); ?>' /> -->
-    <input id="event-creator__submit-btn" type='submit' class='button-primary btn btn--dark btn--submit' <?php if (!$event_id) { echo 'disabled';} ?> value='<?php echo esc_attr(sprintf( __('Create %s','events-manager'), __('Event','events-manager') )); ?>' />
+    <input id="event-creator__submit-btn" type='submit' class='button-primary btn btn--dark btn--submit' <?php if (!$event_id) { echo 'disabled';} ?> 
+      value='<?php 
+        if (!$event_id):
+          echo esc_attr(sprintf( __('Create %s','events-manager'), __('Event','events-manager') )); 
+        else: 
+          echo esc_attr(sprintf( __('Update %s','events-manager'), __('Event','events-manager') )); 
+        endif;
+      ?>' 
+    />
     <input type="hidden" name="event_id" value="<?php echo $EM_Event->event_id; ?>" />
     <input type="hidden" name="_wpnonce" id="my_nonce_field" value="<?php echo wp_create_nonce('wpnonce_event_save'); ?>" />
     <input type="hidden" name="action" value="event_save" />
