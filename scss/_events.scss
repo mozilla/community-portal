@@ -57,6 +57,7 @@
   &__title {
     position: relative;
     padding-left: 26px;
+    display: inline-block;
     &::before {
       content: url("./images/Ellipse.png");
       position: absolute;
@@ -347,22 +348,7 @@
       }
     }
   }
-  &__container {
-    .events-title--edit {
-      display: none;
-    }
-    .events__text--edit {
-      display: none;
-    }
-  }
-  &__container--edit {
-    .events__title {
-      display: none;
-    }
-    .events__text {
-      display: none;
-    }
-  }
+
   &-single {
     .card {
       padding: 32px;
