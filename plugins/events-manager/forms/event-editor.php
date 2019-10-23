@@ -76,14 +76,14 @@ if( !empty($_REQUEST['success']) ){
       </p>
     </div>
     <div class="event-creator__container">
-      <input type="checkbox" id="cpg" <?php if ($event_id) { echo 'checked'; }?>>
+      <input type="checkbox" id="cpg" required <?php if ($event_id) { echo 'checked'; }?>>
       <label for="cpg">I agree to respect and adhere to Mozilla’s Community Participation Guidelines</label>
     </div>
   </div>
   <div class="submit event-creator__submit">
     <!-- <input type="submit" class="btn btn--dark btn--submit button-primary event-creator__submit-btn" value="Create Event"> -->
     <!-- <input type='submit' class='button-primary' value='<?php echo esc_attr(sprintf( __('Update %s','events-manager'), __('Event','events-manager') )); ?>' /> -->
-    <input id="event-creator__submit-btn" type='submit' class='button-primary btn btn--dark btn--submit' <?php if (!$event_id) { echo 'disabled';} ?> 
+    <input id="event-creator__submit-btn" type='submit' class='button-primary btn btn--dark btn--submit' 
       value='<?php 
         if (!$event_id):
           echo esc_attr(sprintf( __('Create %s','events-manager'), __('Event','events-manager') )); 

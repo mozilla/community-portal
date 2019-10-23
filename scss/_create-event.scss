@@ -282,6 +282,9 @@
     //   display: block;
     // }
   }
+  &__error-text {
+    color: red;
+  }
 }
 #event-form p.event-creator__error__label {
   margin-top: 4px;

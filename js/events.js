@@ -106,19 +106,6 @@ jQuery(function() {
     });
   }
 
-  function cpgAgreement() {
-    const $cpgCheckbox = jQuery("#cpg");
-    const $submitBtn = jQuery("#event-creator__submit-btn");
-    $cpgCheckbox.on("change", function() {
-      const $this = jQuery(this);
-      if (this.checked) {
-        $submitBtn.prop("disabled", false);
-        return;
-      }
-      $submitBtn.prop("disabled", true);
-    });
-  }
-
   function clearErrors(input) {
     input.on("focus", function() {
       const $this = jQuery(this);
@@ -135,7 +122,13 @@ jQuery(function() {
       const $this = jQuery(this);
       clearErrors($this);
       const input_id = $this.attr("id");
-      if (!$this.val() || $this.val() === "00:00" || $this.val() === "0") {
+      if (
+        !$this.val() ||
+        $this.val() === "00:00" ||
+        $this.val() === "0" ||
+        !$this.checked
+      ) {
+        console.log(jQuery("label[for=cpg]"));
         const $label = jQuery(`label[for=${input_id}]`);
         $label.addClass("event-creator__error-text");
         $this.addClass("event-creator__error");
@@ -175,7 +168,6 @@ jQuery(function() {
     setHeightOfDivs(".events__tags");
     setHeightOfDivs(".card__description");
     toggleLocationType();
-    cpgAgreement();
     validateForm();
   }
 
