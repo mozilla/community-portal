@@ -12,7 +12,6 @@
           $id = $EM_Booking->event_id;
           $username = $EM_Person->display_name;
           $site_url = get_site_url();
-          $url = $site_url.'/members/'.$username.'/events/my-bookings/?event_id='.$id;
           if ($args['search']) {
             $args['scope'] = '';
             $eventsArray = EM_Events::get($args);
@@ -33,6 +32,12 @@
         $page = ( !empty($_GET['pno']) ) ? $_GET['pno']:1;
         $offset = ( $page > 1 ) ? ($page-1)*$limit : 0;
         echo $EM_Notices;
+      } else {
+        ?>
+        <div class="col-sm-12">
+          <p>No events.</p>
+        </div>
+        <?php
       }
     ?>
     <?php else: ?>

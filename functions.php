@@ -777,6 +777,9 @@ function mozilla_get_user_visibility_settings($user_id) {
 
 function mozilla_save_event($post_id, $post, $update) {
   if ($post->post_type === 'event') {
-    update_post_meta($post_id, 'event-img-url', $_POST['image_url']);
+    $event = new stdClass();
+    $event->image_url = $_POST['image_url'];
+    $event->location_type = $_POST['location-type'];
+    update_post_meta($post_id, 'event-meta', $event);
   }
 }

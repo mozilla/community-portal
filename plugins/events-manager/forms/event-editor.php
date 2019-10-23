@@ -23,7 +23,7 @@ if( !empty($_REQUEST['success']) ){
 	if(!get_option('dbem_events_form_reshow')) return false;
 }
 ?>	
-<form enctype='multipart/form-data' id="event-form" class="em-event-admin-editor <?php if( $EM_Event->is_recurring() ) echo 'em-event-admin-recurring' ?>" method="post" action="<?php echo esc_url(add_query_arg(array('success'=>null))); ?>">
+<form enctype='multipart/form-data' id="event-form" novalidate class="em-event-admin-editor <?php if( $EM_Event->is_recurring() ) echo 'em-event-admin-recurring' ?>" method="post" action="<?php echo esc_url(add_query_arg(array('success'=>null))); ?>">
 <?php print wp_nonce_field('protect_content', 'my_nonce_field'); ?>
 
 	<div class="wrap event-creator">
@@ -47,18 +47,13 @@ if( !empty($_REQUEST['success']) ){
       <div class="event-creator__container">
         <label class="event-form-name event-creator__label" for="event-name"><?php esc_html_e( 'Event Name', 'events-manager'); ?></label>
         <input class="event-creator__input event-creator__input" type="text" name="event_name" id="event-name" required value="<?php echo esc_attr($EM_Event->event_name,ENT_QUOTES); ?>" />
+        <p class="event-creator__error__label">Please provide event name.</p>
       </div>
       <?php if( $EM_Event->can_manage('upload_event_images','upload_event_images') ): ?>
 			<?php em_locate_template('forms/event/featured-image-public.php',true); ?>
 		<?php endif; ?>
       <?php 
-			if( empty($EM_Event->event_id) && $EM_Event->can_manage('edit_recurring_events','edit_others_recurring_events') && get_option('dbem_recurrence_enabled') ){
-				em_locate_template('forms/event/when-with-recurring.php',true);
-			}elseif( $EM_Event->is_recurring()  ){
-				em_locate_template('forms/event/recurring-when.php',true);
-			}else{
 				em_locate_template('forms/event/when.php',true);
-			}
     ?>
     <div class="inside event-form-where">
       <?php em_locate_template('forms/event/location.php',true); ?>
@@ -68,7 +63,8 @@ if( !empty($_REQUEST['success']) ){
   <div class="wrap event-creator">
     <div class="event-editor">
       <label class="event-form-details event-creator__label" for="event-description"><?php esc_html_e( 'Event description', 'events-manager'); ?></label>
-      <textarea name="content" placeholder="Add in the details of your event’s agenda here. If this is a multi-day event, you can add in the details of each day’s schedule and start/end time." rows="10" id="event-description" class="event-creator__input event-creator__textarea" style="width:100%" required><?php echo $EM_Event->post_content ?></textarea>
+      <textarea name="content" id="event-description" placeholder="Add in the details of your event’s agenda here. If this is a multi-day event, you can add in the details of each day’s schedule and start/end time." rows="10" id="event-description" class="event-creator__input event-creator__textarea" style="width:100%" required><?php echo $EM_Event->post_content ?></textarea>
+      <p class="event-creator__error__label">Please provide event description.</p>
       <?php if(get_option('dbem_categories_enabled')) { em_locate_template('forms/event/categories-public.php',true); }  ?>
       <?php em_locate_template('forms/event/group.php',true); ?>
     </div>

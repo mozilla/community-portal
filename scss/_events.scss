@@ -7,19 +7,37 @@
     .title,
     &__text {
       text-align: center;
-      font-size: 14px;
+      font-size: remCalc(16);
+      line-height: 24px;
       @media (min-width: $screen-tablet-min) {
         text-align: left;
       }
+      a {
+        color: black;
+        position: relative;
+        display: inline-block;
+        &::after {
+          content: url("./images/Vector.png");
+          text-decoration: none;
+          position: absolute;
+          right: -15px;
+        }
+        @media (min-width: $screen-desktop-min) {
+          display: inline;
+        }
+      }
     }
     .events__container {
-      padding-top: 48px;
-      padding-bottom: 215px;
+      padding-top: 24px;
+      padding-bottom: 100px;
       @media (min-width: $screen-tablet-min) {
         padding-top: 56px;
         padding-bottom: 88px;
         background-image: url("./images/events-header.png");
         background-repeat: no-repeat;
+        background-position: 200%;
+      }
+      @media (min-width: $screen-desktop-min) {
         background-position: right;
       }
     }
@@ -33,10 +51,17 @@
       font-size: 48px;
     }
   }
+  &__filter__title {
+    line-height: 34px;
+  }
   &__title {
+    position: relative;
+    padding-left: 26px;
     &::before {
       content: url("./images/Ellipse.png");
-      padding-right: 15px;
+      position: absolute;
+      left: 0;
+      top: calc(50% - 16px);
     }
   }
   &__container {
@@ -233,6 +258,7 @@
       background-repeat: no-repeat;
       background-size: cover;
       background-position: center 50%;
+      background-image: url("./images/event.jpg");
       img {
         max-width: 100%;
         display: block;
@@ -264,10 +290,14 @@
     }
     .events__tags {
       justify-self: flex-end;
+      display: flex;
+      align-items: flex-end;
+      flex-wrap: wrap;
       padding: 0 32px 24px;
       margin: 0;
       .tag {
         margin-top: 10px;
+        margin-right: 11px;
       }
     }
     &__location {
@@ -353,6 +383,9 @@
       margin-top: 32px;
     }
   }
+  &__container + .footer {
+    margin-top: 0;
+  }
 }
 
 .css-events-admin {
@@ -361,7 +394,7 @@
 
 #em-wrapper {
   position: relative;
-  top: -184px;
+  top: -85px;
   @media (min-width: $screen-tablet-min) {
     top: -15px;
   }
@@ -371,6 +404,9 @@
   border-bottom: 1px solid $color-gray-30;
   .em-events-search {
     padding: 16px 30px;
+  }
+  div.css-search input.em-events-search-text {
+    color: black;
   }
   .em-search-main {
     width: 100%;

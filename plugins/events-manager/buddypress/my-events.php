@@ -23,7 +23,7 @@
       <?php
         foreach ( $EM_Events as $EM_Event ) {
           $id = $EM_Event->event_id;
-          $url = $site_url.'/members/'.$username.'/events/my-events/?action=edit&event_id='.$id;
+          $url = $site_url.'/'.$EM_Event->event_slug;
           $event = em_get_event($id);
             include(locate_template('plugins/events-manager/templates/template-parts/event-cards.php', false, false));
           }

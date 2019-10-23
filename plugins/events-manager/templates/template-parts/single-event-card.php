@@ -4,13 +4,15 @@
     <a class="events__link" href="<?php echo $url?>">
       <div class="card__image"
         <?php 
-          $img_url = get_post_meta($event->post_id, 'event-img-url');
-          if ($img_url[0] && $img_url[0] !== '') {
+          $event_meta = get_post_meta($event->post_id, 'event-meta');
+          $img_url = $event_meta[0]->image_url;
+          if ($img_url && $img_url !== '') {
         ?>
-          style="background-image: url(<?php echo $img_url[0] ?>)">
+          style="background-image: url(<?php echo $img_url ?>)"
         <?php
           }
         ?>
+        >
         <?php 
           $month = substr($event->start_date, 5, 2);
           $date = substr($event->start_date, 8, 2);

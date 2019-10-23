@@ -66,20 +66,23 @@ jQuery(function() {
     let t_elem;
     const element = ".events " + selector;
     const $cards = jQuery(element);
-    $cards.each(function() {
-      $this = jQuery(this);
-      if ($this.outerHeight() > t) {
-        t_elem = $this;
-        t = $this.outerHeight();
-      }
-    });
-    $cards.each(function() {
-      jQuery(this).css("min-height", t_elem.outerHeight());
-    });
+    if ($cards) {
+      $cards.each(function() {
+        $this = jQuery(this);
+        if ($this.outerHeight() > t) {
+          t_elem = $this;
+          t = $this.outerHeight();
+        }
+      });
+      $cards.each(function() {
+        jQuery(this).css("min-height", t_elem.outerHeight());
+      });
+    }
   }
 
   function toggleVisibility(selector, value, hidden) {
     selector.val(value);
+    console.log(selector.val());
     if (hidden) {
       selector.parent().removeClass("event-creator__hidden");
       return;
@@ -89,18 +92,17 @@ jQuery(function() {
 
   function toggleLocationType() {
     const $locationTypeInput = jQuery("#location-type");
-    const $locationName = jQuery("#location-name");
-    const $locationNameLabel = jQuery("#location-address-label");
-    $locationName.val("Online");
+    const $locationAddress = jQuery("#location-address");
+    const $locationNameLabel = jQuery("#location-name-label");
     $locationTypeInput.on("change", function() {
       $this = jQuery(this);
       if ($this.val() === "online") {
-        toggleVisibility($locationName, "Online", false);
-        $locationNameLabel.text("Online Meeting Link *");
+        toggleVisibility($locationAddress, "Online", false);
+        $locationNameLabel.text("Online Meeting Link");
         return;
       }
-      toggleVisibility($locationName, "", true);
-      $locationNameLabel.text("Address");
+      toggleVisibility($locationAddress, "", true);
+      $locationNameLabel.text("Location Name");
     });
   }
 
@@ -117,15 +119,30 @@ jQuery(function() {
     });
   }
 
+  function clearErrors(input) {
+    input.on("focus", function() {
+      const $this = jQuery(this);
+      const input_id = $this.attr("id");
+      const $label = jQuery(`label[for=${input_id}]`);
+      $this.removeClass("event-creator__error");
+      $label.removeClass("event-creator__error-text");
+    });
+  }
+
   function checkInputs(inputs) {
     let $allClear = true;
     inputs.each(function() {
       const $this = jQuery(this);
-      if (!$this.val()) {
-        this.addClass("event-form__error");
+      clearErrors($this);
+      const input_id = $this.attr("id");
+      if (!$this.val() || $this.val() === "00:00" || $this.val() === "0") {
+        const $label = jQuery(`label[for=${input_id}]`);
+        $label.addClass("event-creator__error-text");
+        $this.addClass("event-creator__error");
         $allClear = false;
       }
     });
+
     return $allClear;
   }
 
@@ -151,12 +168,15 @@ jQuery(function() {
     toggleMobileEventsNav(".events__filter__toggle", ".events__filter");
     eventsMobileNav();
     applyFilters();
-    window.addEventListener("resize", setHeightOfDivs);
+    window.addEventListener("resize", function() {
+      setHeightOfDivs(".events__tags");
+      setHeightOfDivs(".card__description");
+    });
     setHeightOfDivs(".events__tags");
     setHeightOfDivs(".card__description");
     toggleLocationType();
     cpgAgreement();
-    // validateForm();
+    validateForm();
   }
 
   init();
