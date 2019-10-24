@@ -122,12 +122,7 @@ jQuery(function() {
       const $this = jQuery(this);
       clearErrors($this);
       const input_id = $this.attr("id");
-      if (
-        !$this.val() ||
-        $this.val() === "00:00" ||
-        $this.val() === "0" ||
-        !$this.checked
-      ) {
+      if (!$this.val() || $this.val() === "00:00" || $this.val() === "0") {
         console.log(jQuery("label[for=cpg]"));
         const $label = jQuery(`label[for=${input_id}]`);
         $label.addClass("event-creator__error-text");

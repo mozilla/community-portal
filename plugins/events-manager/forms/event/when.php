@@ -10,14 +10,14 @@ $admin_recurring = is_admin() && $EM_Event->is_recurring();
 	<div class="em-date-range event-creator__three-up">
     <div class="wide wide--md-half">
       <label for="start-date" class="em-event-text event-creator__label"><?php _e ( 'Start date ', 'events-manager'); ?></label>				
-      <input id="start-date" class="em-date-start em-date-input-loc event-creator__input" type="text" autocomplete="off" required />
+      <input id="start-date" class="em-date-start em-date-input-loc event-creator__input" type="text" autocomplete="off" <?php if ( ! is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ): echo _('required'); endif ?> />
       <p class="event-creator__error__label">Please provide start date.</p>
       <input class="em-date-input" type="hidden" name="event_start_date" value="<?php echo $EM_Event->start()->getDate(); ?>" />
 
     </div>
     <div class="wide wide--md-half">
       <label for="end-date" class="em-event-text event-creator__label"><?php _e('End Date','events-manager'); ?></label>
-      <input id="end-date" class="em-date-end em-date-input-loc event-creator__input" autocomplete="off" type="text" required />
+      <input id="end-date" class="em-date-end em-date-input-loc event-creator__input" autocomplete="off" type="text" <?php if ( ! is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ): echo _('required'); endif ?> />
       <p class="event-creator__error__label">Please provide end date.</p>
       <input class="em-date-input" type="hidden" name="event_end_date" value="<?php echo $EM_Event->end()->getDate(); ?>" />
     </div>
@@ -25,18 +25,18 @@ $admin_recurring = is_admin() && $EM_Event->is_recurring();
 	<div class="event-creator__three-up">
     <div class="wide wide--md-third">
       <label for="start-time" class="em-event-text event-creator__label"><?php _e('Start time','events-manager'); ?></label>
-      <input id="start-time" class="em-time-input em-time-start event-creator__dropdown" type="text" size="8" maxlength="8" name="event_start_time" value="<?php echo $EM_Event->start()->i18n($hours_format); ?>" required />
+      <input id="start-time" class="em-time-input em-time-start event-creator__dropdown" type="text" size="8" maxlength="8" name="event_start_time" value="<?php echo $EM_Event->start()->i18n($hours_format); ?>" <?php if ( ! is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ): echo _('required'); endif ?> />
       <p class="event-creator__error__label">Please provide start time.</p>
     </div>
     <div class="wide wide--md-third">
       <label for="end-time" class="em-event-text event-creator__label"><?php _e('End time','events-manager'); ?></label>
-      <input id="end-time" class="em-time-input em-time-end event-creator__dropdown" type="text" size="8" maxlength="8" name="event_end_time" value="<?php echo $EM_Event->end()->i18n($hours_format); ?>" required />
+      <input id="end-time" class="em-time-input em-time-end event-creator__dropdown" type="text" size="8" maxlength="8" name="event_end_time" value="<?php echo $EM_Event->end()->i18n($hours_format); ?>" <?php if ( ! is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ): echo _('required'); endif ?> />
       <p class="event-creator__error__label">Please provide end time.</p>
     </div>
     <?php if( get_option('dbem_timezone_enabled') ): ?>
       <div class="thin wide--md-third">
         <label class="event-creator__label" for="event-timezone event-creator__label"><?php esc_html_e('Timezone', 'events-manager'); ?></label>
-        <select class="" id="event-timezone" name="event_timezone" aria-describedby="timezone-description" required>
+        <select class="" id="event-timezone" name="event_timezone" aria-describedby="timezone-description" <?php if ( ! is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ): echo _('required'); endif ?>>
           <?php echo wp_timezone_choice( $EM_Event->get_timezone()->getName(), get_user_locale() ); ?>
         </select>
         <p class="event-creator__error__label">Please provide timezone.</p>

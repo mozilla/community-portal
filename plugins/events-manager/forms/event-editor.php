@@ -56,10 +56,17 @@ if( !empty($_REQUEST['success']) ){
 				em_locate_template('forms/event/when.php',true);
     ?>
     <div class="inside event-form-where">
-      <?php em_locate_template('forms/event/location.php',true); ?>
+      <?php
+        if ( ! is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ): 
+          em_locate_template('forms/event/location-moz.php',true);           
+        else:
+          em_locate_template('forms/event/location.php',true); 
+        endif
+      ?>
     </div>
     </div> 	
   </div>
+  <?php if ( ! is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ): ?>
   <div class="wrap event-creator">
     <div class="event-editor">
       <label class="event-form-details event-creator__label" for="event-description"><?php esc_html_e( 'Event description', 'events-manager'); ?></label>
@@ -69,6 +76,7 @@ if( !empty($_REQUEST['success']) ){
       <?php em_locate_template('forms/event/group.php',true); ?>
     </div>
   </div>
+        <?php endif; ?>
   <div class="wrap event-creator">
     <div class="event-creator__container">
       <p>

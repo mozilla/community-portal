@@ -1,7 +1,8 @@
 <?php 
   global $EM_Event, $bp;
   $categories = get_the_terms($EM_Event->post_id, EM_TAXONOMY_CATEGORY);  
-  $img_url = get_post_meta($EM_Event->post_id, 'event-img-url');
+  $event_meta = get_post_meta($EM_Event->post_id, 'event-meta');
+  $img_url = $event_meta[0]->image_url;
 ?>
 
 <div class="content events__container events-single">
@@ -11,7 +12,7 @@
     </div>
     <div class="col-md-7">
       <div class="card">
-        <img src="<?php echo $img_url[0] ?>" alt="">
+        <img src="<?php echo $img_url ?>" alt="">
       </div>
     </div>
     <div class="col-md-4">
@@ -60,7 +61,6 @@
       $admins = groups_get_group_admins($group->id);
       if ($admins):
         $user = get_userdata($admins[0]->user_id);
-        var_dump($user);
         $avatar = get_avatar_url($admins[0]->user_id);
       endif;
       ?> 

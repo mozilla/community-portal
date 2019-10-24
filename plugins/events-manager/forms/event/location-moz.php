@@ -46,7 +46,6 @@ endif;
         </select>
         <p class="event-creator__error__label">Please provide location type.</p>
       </div>
-      <!-- <?php var_dump($event) ?> -->
       <div class="<?php echo ($event) ? "wide wide--md-third" : "wide--double" ?>">
         <label class="event-creator__label" for="location-name" id="location-name-label"><?php _e ( 'Online Meeting Link', 'events-manager')?></label>
         <input id='location-id' name='location_id' type='hidden' value='<?php echo esc_attr($EM_Location->location_id); ?>' size='15'  />
@@ -81,4 +80,4 @@ endif;
   
 	<?php if ( get_option( 'dbem_gmap_is_active' ) ) em_locate_template('forms/map-container.php',true); ?>
 	<br style="clear:both;" />
-</div>
+</div> 

@@ -12,7 +12,7 @@
 .em-event-admin-editor {
   position: relative;
   top: -40px;
-  @media (min-width: $screen-tablet-min) {
+  @include tablet-and-up {
     top: -80px;
   }
 }
@@ -24,10 +24,10 @@
   &:nth-child(n + 2) {
     margin-top: 32px;
   }
-  @media (min-width: $screen-desktop-min) {
+  @include desktop-and-up {
     padding: 48px 55px;
   }
-  @media (min-width: $screen-desktop-min) {
+  @include desktop-and-up {
     padding: 80px 105px;
   }
   &__hidden {
@@ -35,7 +35,7 @@
   }
   &__container:nth-child(n + 2) {
     margin-top: 24px;
-    @media (min-width: $screen-tablet-min) {
+    @include tablet-and-up {
       margin-top: 32px;
     }
   }
@@ -83,10 +83,10 @@
     background-position: center;
     background-repeat: no-repeat;
     min-height: 180px;
-    @media (min-width: $screen-tablet-min) {
+    @include tablet-and-up {
       min-height: 238px;
     }
-    @media (min-width: $screen-desktop-min) {
+    @include desktop-and-up {
       min-height: 364px;
     }
   }
@@ -103,11 +103,11 @@
       background-repeat: no-repeat;
       background-size: contain;
       margin-bottom: 5px;
-      @media (min-width: $screen-tablet-min) {
+      @include tablet-and-up {
         min-height: 150px;
         margin-bottom: 10px;
       }
-      @media (min-width: $screen-desktop-min) {
+      @include desktop-and-up {
         min-height: 200px;
       }
     }
@@ -165,12 +165,12 @@
     align-items: flex-end;
     flex-wrap: wrap;
     margin-top: 24px;
-    @media (min-width: $screen-tablet-min) {
+    @include tablet-and-up {
       margin-top: 32px;
     }
     div:nth-child(n + 2) {
       margin-top: 24px;
-      @media (min-width: $screen-tablet-min) {
+      @include tablet-and-up {
         margin-top: 0;
       }
     }
@@ -180,7 +180,7 @@
       width: 100%;
     }
     div:nth-child(n + 2) {
-      @media (min-width: $screen-tablet-min) {
+      @include tablet-and-up {
         margin-left: 32px;
       }
     }
@@ -195,17 +195,17 @@
     .wide {
       position: relative;
       width: 100%;
-      @media (min-width: $screen-tablet-min) {
+      @include tablet-and-up {
         width: calc(50% - 16px);
       }
-      @media (min-width: $screen-desktop-min) {
+      @include desktop-and-up {
         width: calc(35% - 16px);
       }
       &--md-third {
-        @media (min-width: $screen-tablet-min) {
+        @include tablet-and-up {
           width: calc(33.33% - 16px);
         }
-        @media (min-width: $screen-desktop-min) {
+        @include desktop-and-up {
           width: calc(35% - 16px);
         }
       }
@@ -217,10 +217,10 @@
           margin-top: 32px;
           width: 100%;
         }
-        @media (min-width: $screen-tablet-min) {
+        @include tablet-and-up {
           width: calc(50% - 16px);
         }
-        @media (min-width: $screen-desktop-min) {
+        @include desktop-and-up {
           width: calc(65% - 16px);
         }
       }
@@ -234,10 +234,10 @@
       select {
         width: 100%;
       }
-      @media (min-width: $screen-tablet-min) {
+      @include tablet-and-up {
         width: calc(33.33% - 32px);
       }
-      @media (min-width: $screen-desktop-min) {
+      @include desktop-and-up {
         width: calc(30% - 32px);
       }
       &--bottom {

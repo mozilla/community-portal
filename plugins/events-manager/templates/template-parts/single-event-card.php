@@ -34,12 +34,12 @@
                 echo $location->address.' - '; 
               }
               if ($location->town) {
-                echo $location->town;
+                echo _($location->town);
                 if ($location->country) {
                   echo ', '.$allCountries[$location->country];
                 }
               } else {
-                echo $allCountries[$location->country];
+                echo _($allCountries[$location->country]);
               }
             ?>
           </p>
@@ -47,8 +47,9 @@
       </div>
       <ul class="events__tags">
         <?php
-          if (count($categories) <= 2): 
-            foreach($categories as $category) {
+          if (is_array($categories)): 
+            if (count($categories) <= 2): 
+              foreach($categories as $category) {
         ?>
             <li class="tag"><?php echo $category->name ?></li>
         <?php
@@ -60,7 +61,7 @@
             <li class="tag">+<?php echo count($categories) - 2 ?> more tags</li>        
             <?php
           endif;
-
+        endif;
         ?>
       </ul>
     </a>
