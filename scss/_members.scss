@@ -5,11 +5,11 @@
     &__hero {
         width: 100%;
         background-color: $color-green-20;
-        height: 430px;
+        height: 316px;
         background-repeat: no-repeat;
         padding: 0 24px;
-        background-size: 450px auto;
-        background-position: bottom -210px center;
+        background-size: 0;
+
 
         @include tablet-and-up {
             padding: 0 64px;
@@ -21,7 +21,7 @@
         @include desktop-and-up {
             background-position: right -40px center;
             background-size: 50%, cover;
-            height: 421px;
+            height: 316px;
             padding: 0 106px;
         }
     }
@@ -89,7 +89,7 @@
     &__search-container {
         position: absolute;
         left: 0;
-        bottom: -15px;
+        bottom: -50px;
         background-color: $color-white;
         width: 100%;
         padding: 16px 30px;
@@ -145,7 +145,7 @@
 
     &__container {
         @extend .container;
-        margin-top: 52px;
+        margin-top: 83px;
         max-width: 1440px;
         padding: 0 24px;
         display: flex;
