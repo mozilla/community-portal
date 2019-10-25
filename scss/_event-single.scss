@@ -1,0 +1,39 @@
+.events-single {
+  .card {
+    padding: 32px;
+    &--with-img {
+      padding: 0;
+    }
+    &__image {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-start;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    &__edit-btn {
+      margin: 24px;
+      padding: 8px;
+      background: white;
+      border-radius: 50%;
+      svg {
+        display: block;
+      }
+    }
+  }
+  &__tags {
+    padding: 0;
+  }
+  &__share {
+    border-top: 1px solid $color-gray-20;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    svg {
+      position: relative;
+      top: 2px;
+    }
+  }
+  &__group {
+    margin-top: 32px;
+  }
+}

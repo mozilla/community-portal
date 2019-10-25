@@ -359,27 +359,6 @@
       }
     }
   }
-
-  &-single {
-    .card {
-      padding: 32px;
-    }
-    &__tags {
-      padding: 0;
-    }
-    &__share {
-      border-top: 1px solid $color-gray-20;
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
-      svg {
-        position: relative;
-        top: 2px;
-      }
-    }
-    &__group {
-      margin-top: 32px;
-    }
-  }
 }
 
 .events__container + .footer,
