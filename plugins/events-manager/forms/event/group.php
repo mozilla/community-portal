@@ -1,13 +1,10 @@
 <?php
 global $EM_Event;
 if( !function_exists('bp_is_active') || !bp_is_active('groups') ) return false;
-  $user_groups = array();
-  $group_data = groups_get_user_groups(get_current_user_id());
+  $user_groups = groups_get_user_groups(get_current_user_id());
   if( !em_wp_is_super_admin() ){
     foreach( $group_data['groups'] as $group_id ){
-		if( groups_is_user_admin(get_current_user_id(), $group_id) ){
-			$user_groups[] = groups_get_group( array('group_id'=>$group_id)); 
-		}
+    $user_groups[] = groups_get_group( array('group_id'=>$group_id)); 
 	}
 	$group_count = count($user_groups);
 }else{
@@ -18,17 +15,10 @@ if( !function_exists('bp_is_active') || !bp_is_active('groups') ) return false;
 if( count($user_groups) > 0 ){ 
 	?>
 	<div class="event-creator__container">
-    <label for="group" class="event-creator__label">Hosted By</label>
+    <label for="group" class="event-creator__label"><?php echo __('Hosted By') ?></label>
     <select name="group_id" id="group" class="event-creator__dropdown">
 		<option value=""><?php _e('No group', 'events-manager'); ?></option>
 		<?php
-		//in case user isn't a group mod, but can edit other users' events
-		if( !empty($EM_Event->group_id) && !in_array($EM_Event->group_id, $group_data['groups']) ){
-			$other_group = groups_get_group( array('group_id'=>$EM_Event->group_id));
-			?>
-			<option value="<?php echo esc_attr($other_group->id); ?>" selected="selected"><?php echo __($other_group->name); ?></option>
-			<?php
-		}
 		//show user groups
 		foreach($user_groups as $BP_Group){
 			?>

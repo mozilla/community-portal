@@ -14,6 +14,15 @@
         endif;
       ?>
     >
+    <?php if ($img_url !== '' && $img_url): ?>
+    <button id="image-delete" class="btn event-creator__image-delete">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="20" fill="white"/>
+          <path d="M29 11L11 29" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M11 11L29 29" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+      <?php endif; ?>
   </div>
   <p class="event-creator__image-instructions"><?php print __("Click or drag a .PNG or .JPG above."); ?></p>
   <input type="hidden" name="image_url" id="image-url" value="<?php print ($img_url ? esc_attr($img_url) : ''  )?>" />

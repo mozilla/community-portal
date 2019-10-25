@@ -28,11 +28,27 @@
       }
     }
     .events__container {
+      max-width: 1448px;
+      @include desktop-and-up {
+        padding: 56px 106px 88px;
+      }
+    }
+    .event-creator__container {
+      margin: 0 auto;
+      @include tablet-and-up {
+        max-width: $container-max-width;
+        padding: 0 64px;
+      }
+      @include desktop-and-up {
+        max-width: calc(#{$container-max-width} + 128px);
+        padding-left: 64px;
+      }
+    }
+    .events__container,
+    .event-creator__container {
       padding-top: 24px;
       padding-bottom: 100px;
       @include tablet-and-up {
-        padding-top: 56px;
-        padding-bottom: 88px;
         background-image: url("./images/events-header.png");
         background-repeat: no-repeat;
         background-position: 450px;
@@ -66,18 +82,14 @@
     }
   }
   &__container {
-    max-width: 1228px;
+    max-width: 1448px;
     margin: 0 auto;
     padding: 0 24px;
     @include tablet-and-up {
       padding: 0 64px;
     }
-    &--edit {
-      .em-search-wrapper,
-      .events__nav__container,
-      .events__filter {
-        display: none;
-      }
+    @include desktop-and-up {
+      padding: 0 106px;
     }
   }
   .hidden {
@@ -318,7 +330,6 @@
       width: 100%;
     }
     .events__column:nth-of-type(3n) {
-      padding-right: 0;
       @include tablet-and-up {
         padding-right: 16px;
       }
@@ -327,21 +338,18 @@
       }
     }
     .events__column:nth-of-type(3n + 1) {
-      padding-left: 0;
       @include desktop-and-up {
         padding-left: 0;
       }
     }
     .events__column:nth-of-type(2n + 1) {
-      padding-left: 0;
-      @include tablet-and-up {
+      @media (min-width: $screen-tablet-min) and (max-width: $screen-desktop-min) {
         padding-left: 0;
       }
     }
     .events__column:nth-of-type(2n) {
-      padding-right: 0;
-      @include desktop-and-up {
-        padding-right: 16px;
+      @media (min-width: $screen-tablet-min) and (max-width: $screen-desktop-min) {
+        padding-right: 0px;
       }
     }
     .events__column {
@@ -372,9 +380,11 @@
       margin-top: 32px;
     }
   }
-  &__container + .footer {
-    margin-top: 0;
-  }
+}
+
+.events__container + .footer,
+.event-creator__container-main + .footer {
+  margin-top: 0;
 }
 
 .css-events-admin {

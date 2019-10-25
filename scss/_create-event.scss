@@ -9,7 +9,7 @@
   width: 100%;
 }
 
-.em-event-admin-editor {
+.css-event-form {
   position: relative;
   top: -40px;
 }
@@ -17,11 +17,19 @@
 .event-creator {
   padding: 48px 24px;
   background: white;
-  margin: 0;
+  &__container-main {
+    padding: 0 24px;
+    @include tablet-and-up {
+      padding: 0 64px;
+    }
+    @include desktop-and-up {
+      margin: 0 auto;
+    }
+  }
   &:nth-child(n + 2) {
     margin-top: 32px;
   }
-  @include desktop-and-up {
+  @include tablet-and-up {
     padding: 48px 55px;
   }
   @include desktop-and-up {
@@ -275,12 +283,37 @@
       display: none;
       position: absolute;
     }
-    // & + .event-creator__error__label {
-    //   display: block;
-    // }
   }
   &__error-text {
     color: red;
+  }
+  &__checkbox:checked + .event-creator__cpg {
+    svg {
+      display: inline-block;
+    }
+  }
+  &__cpg {
+    display: flex;
+  }
+  &__cpg .event-creator__custom-check {
+    height: 24px;
+    width: 24px;
+    padding-right: 24px;
+    display: inline-block;
+    border: 1px solid $color-gray-secondary;
+    position: relative;
+    border-radius: 2px;
+    margin-right: 8px;
+    align-items: center;
+    svg {
+      display: none;
+      position: absolute;
+    }
+  }
+  &__image-delete {
+    position: absolute;
+    top: 24px;
+    right: 24px;
   }
 }
 #event-form p.event-creator__error__label {

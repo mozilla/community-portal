@@ -85,8 +85,16 @@ if( !empty($_REQUEST['success']) ){
       </p>
     </div>
     <div class="event-creator__container">
-      <input type="checkbox" id="cpg" required <?php if ($event_id) { echo 'checked'; }?>>
-      <label for="cpg"><?php echo __('I agree to respect and adhere to Mozilla’s Community Participation Guidelines') ?></label>
+      <input class="event-creator__checkbox"type="checkbox" id="cpg" required <?php if ($event_id) { echo 'checked'; }?>>
+      <label class="event-creator__cpg" for="cpg">
+        <span class="event-creator__custom-check">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </span>
+        <span>
+          <?php echo __('I agree to respect and adhere to Mozilla’s Community Participation Guidelines') ?>
+        </span>
+      </label>
     </div>
   </div>
         <?php endif; ?>
