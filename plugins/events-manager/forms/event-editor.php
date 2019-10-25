@@ -47,7 +47,6 @@ if( !empty($_REQUEST['success']) ){
       <div class="event-creator__container">
         <label class="event-form-name event-creator__label" for="event-name"><?php esc_html_e( 'Event Name', 'events-manager'); ?></label>
         <input class="event-creator__input event-creator__input" type="text" name="event_name" id="event-name" required value="<?php echo esc_attr($EM_Event->event_name,ENT_QUOTES); ?>" />
-        <p class="event-creator__error__label">Please provide event name.</p>
       </div>
       <?php if( $EM_Event->can_manage('upload_event_images','upload_event_images') ): ?>
 			<?php em_locate_template('forms/event/featured-image-public.php',true); ?>
@@ -70,24 +69,27 @@ if( !empty($_REQUEST['success']) ){
   <div class="wrap event-creator">
     <div class="event-editor">
       <label class="event-form-details event-creator__label" for="event-description"><?php esc_html_e( 'Event description', 'events-manager'); ?></label>
-      <textarea name="content" id="event-description" placeholder="Add in the details of your event’s agenda here. If this is a multi-day event, you can add in the details of each day’s schedule and start/end time." rows="10" id="event-description" class="event-creator__input event-creator__textarea" style="width:100%" required><?php echo $EM_Event->post_content ?></textarea>
-      <p class="event-creator__error__label">Please provide event description.</p>
+      <textarea name="content" id="event-description" placeholder="Add in the details of your event’s agenda here. If this is a multi-day event, you can add in the details of each day’s schedule and start/end time." rows="10" id="event-description" class="event-creator__input event-creator__textarea" style="width:100%" required><?php echo __($EM_Event->post_content) ?></textarea>
       <?php if(get_option('dbem_categories_enabled')) { em_locate_template('forms/event/categories-public.php',true); }  ?>
       <?php em_locate_template('forms/event/group.php',true); ?>
     </div>
   </div>
-        <?php endif; ?>
+  <?php endif; ?>
+  <?php if (!$event_id): ?>
   <div class="wrap event-creator">
     <div class="event-creator__container">
       <p>
-      The Mozilla Project welcomes contributions from everyone who shares our goals and wants to contribute in a healthy and constructive manner within our communities. By creating an event on this platform you are agreeing to respect and adhere to <a href="#">Mozilla’s Community Participation Guidelines (“CPG”)</a> in order to help us create a safe and positive community experience for all. Events that do not share our goals, or violate the CPG in any way, will be removed from the platform and potentially subject to further consequences.
+        <?php echo __('The Mozilla Project welcomes contributions from everyone who shares our goals and wants to contribute in a healthy and constructive manner within our communities. By creating an event on this platform you are agreeing to respect and adhere to') ?> 
+        <a href="#"><?php echo __('Mozilla’s Community Participation Guidelines (“CPG”)') ?></a> 
+        <?php echo __('in order to help us create a safe and positive community experience for all. Events that do not share our goals, or violate the CPG in any way, will be removed from the platform and potentially subject to further consequences.') ?>
       </p>
     </div>
     <div class="event-creator__container">
       <input type="checkbox" id="cpg" required <?php if ($event_id) { echo 'checked'; }?>>
-      <label for="cpg">I agree to respect and adhere to Mozilla’s Community Participation Guidelines</label>
+      <label for="cpg"><?php echo __('I agree to respect and adhere to Mozilla’s Community Participation Guidelines') ?></label>
     </div>
   </div>
+        <?php endif; ?>
   <div class="submit event-creator__submit">
     <!-- <input type="submit" class="btn btn--dark btn--submit button-primary event-creator__submit-btn" value="Create Event"> -->
     <!-- <input type='submit' class='button-primary' value='<?php echo esc_attr(sprintf( __('Update %s','events-manager'), __('Event','events-manager') )); ?>' /> -->

@@ -12,9 +12,6 @@
 .em-event-admin-editor {
   position: relative;
   top: -40px;
-  @include tablet-and-up {
-    top: -80px;
-  }
 }
 
 .event-creator {

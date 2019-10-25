@@ -82,7 +82,6 @@ jQuery(function() {
 
   function toggleVisibility(selector, value, hidden) {
     selector.val(value);
-    console.log(selector.val());
     if (hidden) {
       selector.parent().removeClass("event-creator__hidden");
       return;
@@ -107,7 +106,7 @@ jQuery(function() {
   }
 
   function clearErrors(input) {
-    input.on("focus", function() {
+    input.one("focus", function() {
       const $this = jQuery(this);
       const input_id = $this.attr("id");
       const $label = jQuery(`label[for=${input_id}]`);
@@ -121,9 +120,9 @@ jQuery(function() {
     inputs.each(function() {
       const $this = jQuery(this);
       clearErrors($this);
+      $allClear = validateCpg($allClear);
       const input_id = $this.attr("id");
       if (!$this.val() || $this.val() === "00:00" || $this.val() === "0") {
-        console.log(jQuery("label[for=cpg]"));
         const $label = jQuery(`label[for=${input_id}]`);
         $label.addClass("event-creator__error-text");
         $this.addClass("event-creator__error");
@@ -132,6 +131,19 @@ jQuery(function() {
     });
 
     return $allClear;
+  }
+
+  function validateCpg(allClear) {
+    const $cpgCheck = jQuery("#cpg");
+    if (!$cpgCheck.prop("checked")) {
+      const $label = jQuery("label[for=cpg]");
+      $label.addClass("event-creator__error-text");
+      $cpgCheck.one("change", function() {
+        $label.removeClass("event-creator__error-text");
+      });
+      allClear = false;
+    }
+    return allClear;
   }
 
   function validateForm() {
