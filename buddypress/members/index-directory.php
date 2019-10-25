@@ -28,7 +28,7 @@
 ?>
 <div class="content">
     <div class="members">
-        <div class="members__hero" style="background-image: url('<?php print get_stylesheet_directory_uri()."/images/mozilla-create-profile.png"; ?>');">
+        <div class="members__hero">
             <div class="members__hero-container">
                 <h1 class="members__title"><?php print __("Members"); ?></h1>
                 <p class="members__hero-copy">
