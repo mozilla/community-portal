@@ -2342,12 +2342,16 @@ div.time-picker li {
   width: 100%; }
   .members__hero {
     width: 100%;
+<<<<<<< HEAD
     background-color: #b3ffe3;
     height: 430px;
+=======
+    background-color: #B3FFE3;
+    height: 316px;
+>>>>>>> 3a88c6014944b8ff153fe297b8ade138913fadf0
     background-repeat: no-repeat;
     padding: 0 24px;
-    background-size: 450px auto;
-    background-position: bottom -210px center; }
+    background-size: 0; }
     @media (min-width: 768px) {
       .members__hero {
         padding: 0 64px;
@@ -2356,19 +2360,21 @@ div.time-picker li {
         height: 387px; } }
     @media (min-width: 1024px) {
       .members__hero {
-        background-position: right -40px center;
-        background-size: 50%, cover;
-        height: 421px;
+        background-position: right -50px center;
+        background-size: 40%, cover;
+        height: 316px;
         padding: 0 106px; } }
   .members__hero-container {
     position: relative;
     max-width: 1228px;
     padding: 0;
     padding-top: 24px;
-    height: 100%; }
+    height: 100%;
+    text-align: center; }
     @media (min-width: 768px) {
       .members__hero-container {
-        padding-top: 48px; } }
+        padding-top: 48px;
+        text-align: left; } }
     @media (min-width: 1024px) {
       .members__hero-container {
         padding-top: 90px; } }
@@ -2379,10 +2385,23 @@ div.time-picker li {
     margin: 0;
     padding: 0;
     font-weight: 300;
-    display: block;
-    width: 100%;
+    display: inline-block;
+    width: auto;
     font-family: 'Zilla Slab';
-    margin-bottom: 16px; }
+    margin-bottom: 16px;
+    position: relative;
+    padding-left: 24px; }
+    .members__title:after {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background-color: #2AC3A2;
+      border-radius: 50%;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%); }
     @media (min-width: 768px) {
       .members__title {
         text-align: left;
@@ -2410,7 +2429,7 @@ div.time-picker li {
   .members__search-container {
     position: absolute;
     left: 0;
-    bottom: -15px;
+    bottom: -50px;
     background-color: #fff;
     width: 100%;
     padding: 16px 30px;
@@ -2448,7 +2467,7 @@ div.time-picker li {
         margin-bottom: 0;
         max-width: 450px; } }
   .members__container {
-    margin-top: 52px;
+    margin-top: 83px;
     max-width: 1440px;
     padding: 0 24px;
     display: flex;
