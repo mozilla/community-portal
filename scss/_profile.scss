@@ -14,38 +14,42 @@
         width: 100%;
         background-color: $color-green-20;
         height: 430px;
-        background-repeat: no-repeat;
         padding: 0 24px;
-        background-size: 450px auto;
-        background-position: bottom -210px center;
 
         @include tablet-and-up {
             padding: 0 64px;
-            background-position: right -100px center;
-            background-size: 65%, cover;
-            height: 387px;
+            height: 393px;
         }
         
         @include desktop-and-up {
-            background-position: right -40px center;
-            background-size: 50%, cover;
-            height: 421px;
+            height: 430px;
         }
     }
 
     &__hero-container {
         @extend .container; 
-        max-width: 1018px;
+        max-width: 1228px;
         padding: 0;
         padding-top: 24px;
+        height: 100%;
 
         @include tablet-and-up {
-            padding-top: 48px;   
+            padding-top: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-repeat: no-repeat;
+            background-image: url("./images/mozilla-create-profile.png");
+            text-align: left;
+            background-size: contain;
+            background-position: right -50px bottom -27px; 
         }
+    }
 
-        @include desktop-and-up {
-            padding-top: 90px;
-        }
+    &__hero-content {
+        max-width: 1018px;
+        width: 100%;
+        margin: 0 auto;
     }
 
     &__container {
@@ -132,10 +136,14 @@
         margin-top: 32px;
 
         &.profile__form-container--first {
-            margin-top: 20px;
+            margin-top: -160px;
+
+            @include tablet-and-up { 
+                margin-top: -65px;
+            }
 
             @include desktop-and-up {
-                margin-top: -112px;
+                margin-top: -100px;
             }
         }
 
