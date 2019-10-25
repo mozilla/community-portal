@@ -3,7 +3,7 @@
     <div class="row middle-md event-creator__container">
       <div class="col-md-6 events__header__text">
         <h1 class="title"><?php the_title() ?></h1>
-        <p class="events__text">*Optional information</p>
+        <p class="events__text"><?php echo __('*Optional information'); ?></p>
       </div>
     </div>
   </div>

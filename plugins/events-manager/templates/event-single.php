@@ -3,7 +3,29 @@
   $categories = get_the_terms($EM_Event->post_id, EM_TAXONOMY_CATEGORY);  
   $event_meta = get_post_meta($EM_Event->post_id, 'event-meta');
   $img_url = $event_meta[0]->image_url;
-  var_dump($img_url);
+  $location_type = $event_meta[0]->location_type;
+  $months = array(
+    '01' => 'January',
+    '02' => 'February',
+    '03' => 'March',
+    '04' => 'April',
+    '05' => 'May',
+    '06' => 'June',
+    '07' => 'July',
+    '08' => 'August',
+    '09' => 'September',
+    '10' => 'October',
+    '11' => 'November',
+    '12' => 'December',
+  );
+  $startDay = substr($EM_Event->event_start_date, 8, 2);
+  $startMonth = substr($EM_Event->event_start_date, 5, 2);
+  $startYear = substr($EM_Event->event_start_date, 0, 4);
+  if ($EM_Event->event_start_date !== $EM_Event->event_end_date):
+    $endDay = substr($EM_Event->event_end_date, 8, 2);
+    $endMonth = substr($EM_Event->event_end_date, 5, 2);
+    $endYear = substr($EM_Event->event_end_date, 0, 4);
+  endif;
 ?>
 
 <div class="content events__container events-single">
@@ -28,7 +50,48 @@
             </svg>
           </button>
         </div>
+        <div class="card__date">
+          <p>
+            <?php echo __($months[$startMonth].' '.$startDay)?>
+            <?php if ($endDay):
+                echo __(' - '.$months[$endMonth].' '.$endDay.', '.$endYear);
+              else:
+                echo __(', '.$startYear);
+            endif ?>
+          </p>
+          <p>
+            <?php echo __(substr($EM_Event->event_start_time, 0, 5)); 
+              if ($EM_Event->event_end_time !== null):
+                echo __(' to '.$EM_Event->event_end_time.' '.$EM_Event->event_timezone);
+              endif;
+            ?>
+          </p>
+        </div>
+        <button class="btn btn--dark btn--submit">
+          <?php echo __('RSVP') ?>
+        </button>
       </div>
+      <h2><?php echo __("Location") ?></h2>
+      <div class="card">
+        <div class="card__address">
+          <?php if ($location_type !== 'online'): ?>
+            <p><?php echo __($EM_Event->location->location_name) ?></p>
+            <p><?php echo __($EM_Event->location->location_address) ?></p>
+            <p><?php echo __($EM_Event->location->location_town.', '.$EM_Event->location->location_country) ?></p>
+          <?php else: ?>
+            <p><?php echo __("This is an online-only event") ?></p>
+            <a href="<?php echo esc_attr($EM_Event->location->address) ?>"><?php echo __('Meeting link') ?></a>
+          <?php endif; ?>
+        </div>
+        <?php if ($location_type !== 'online'): ?>
+          <div class="card__map">
+          </div>
+        <?php endif ?>
+      </div>
+      <h2><?php echo __('Description') ?></h2>
+      <p><?php echo __($EM_Event->post_content) ?></p>
+      <h2><?php echo __('Attendees') ?></h2>
+      <?php var_dump($EM_Event) ?>
     </div>
     <div class="col-md-4">
       <div>

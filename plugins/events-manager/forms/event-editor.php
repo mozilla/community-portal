@@ -4,7 +4,7 @@
  * To ensure compatability, it is recommended you maintain class, id and form name attributes, unless you now what you're doing. 
  * You also must keep the _wpnonce hidden field in this form too.
  */
-global $EM_Event, $EM_Notices, $bp;
+global $EM_Event, $EM_Notices, $bp, $EM_Ticket;
 $event_id = $_REQUEST['event_id'];
 //check that user can access this page
 if( is_object($EM_Event) && !$EM_Event->can_manage('edit_events','edit_others_events') ){
@@ -111,6 +111,8 @@ if( !empty($_REQUEST['success']) ){
       ?>' 
     />
     <input type="hidden" name="event_id" value="<?php echo $EM_Event->event_id; ?>" />
+    <input type="hidden" name="event_rsvp" value=<?php echo esc_attr('1') ?> />
+    <input type="hidden" name="em_tickets[0][ticket_spaces]" value=<?php echo esc_attr('1000') ?> />
     <input type="hidden" name="_wpnonce" id="my_nonce_field" value="<?php echo wp_create_nonce('wpnonce_event_save'); ?>" />
     <input type="hidden" name="action" value="event_save" />
     <?php if( !empty($_REQUEST['redirect_to']) ): ?>
