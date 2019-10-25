@@ -69,6 +69,7 @@ jQuery(function() {
     if ($cards) {
       $cards.each(function() {
         $this = jQuery(this);
+        $this.css("min-height", "0");
         if ($this.outerHeight() > t) {
           t_elem = $this;
           t = $this.outerHeight();
@@ -135,7 +136,8 @@ jQuery(function() {
 
   function validateCpg(allClear) {
     const $cpgCheck = jQuery("#cpg");
-    if (!$cpgCheck.prop("checked")) {
+    console.log($cpgCheck);
+    if ($cpgCheck.length && !$cpgCheck.prop("checked")) {
       const $label = jQuery("label[for=cpg]");
       $label.addClass("event-creator__error-text");
       $cpgCheck.one("change", function() {
@@ -163,6 +165,20 @@ jQuery(function() {
     }
   }
 
+  function clearImage() {
+    const $deleteBtn = jQuery("#image-delete");
+    const $photoUpload = jQuery("#group-photo-uploader");
+    const $imageInput = jQuery("#image-url");
+    if ($deleteBtn.length) {
+      $deleteBtn.on("click", function(e) {
+        e.preventDefault();
+        $photoUpload.css("background-image", "").css("background-size", "");
+        $imageInput.val("");
+        $deleteBtn.hide();
+      });
+    }
+  }
+
   function init() {
     toggleMobileEventsNav(".events__nav__toggle", ".events__nav");
     toggleMobileEventsNav(".events__filter__toggle", ".events__filter");
@@ -176,6 +192,7 @@ jQuery(function() {
     setHeightOfDivs(".card__description");
     toggleLocationType();
     validateForm();
+    clearImage();
   }
 
   init();

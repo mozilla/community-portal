@@ -39,8 +39,8 @@ endif;
       <div class="wide <?php echo ($event) ? esc_attr("wide--md-third") : null ?>">
         <label class="event-creator__label" for="online"><?php echo __('Where will this event be held?') ?></label>
         <select class="event-creator__dropdown" name="location-type" id="location-type" required>
-          <option value="online" <?php if ($location_type === 'online'): echo esc_attr('selected'); endif; ?> ><?php __('Online') ?></option>
-          <option value="address" <?php if ($location_type === 'address'): echo 'selected'; endif; ?>><?php __('Physical Location') ?></option>
+          <option value="online" <?php if ($location_type === 'online'): echo esc_attr('selected'); endif; ?> ><?php echo __('Online') ?></option>
+          <option value="address" <?php if ($location_type === 'address'): echo 'selected'; endif; ?>><?php echo __('Physical Location') ?></option>
         </select>
       </div>
       <div class="<?php echo ($event) ? esc_attr("wide wide--md-third") : esc_attr("wide--double") ?>">

@@ -258,40 +258,14 @@ jQuery(function() {
             .children(".form__error")
             .text("This field is required");
         }
-    });
-    
+      }
+    );
+  });
 
-    jQuery('#group-name').change(function(e) {
-        var $this = jQuery(this);
-        var name = $this.val();
+  jQuery(".group__nav-select").change(function(e) {
+    var $this = jQuery(this);
+    var value = $this.val();
 
-        var $errorContainer = $this.next('.form__error-container');
-
-        jQuery.get('/wp-admin/admin-ajax.php?action=validate_group',  { q: name }, function(response) {
-            var resp = jQuery.parseJSON(response);
-
-            // Show error
-            if(resp !== true) {
-                $this.addClass('create-group__input--error');
-
-                $errorContainer.addClass('form__error-container--visible');
-                $errorContainer.children('.form__error').text('This group name is already taken');
-            } else {
-                $this.removeClass('create-group__input--error');
-                $errorContainer.removeClass('form__error-container--visible');
-                $errorContainer.children('.form__error').text('This field is required');
-            }
-        });
-
-
-    });
-
-    jQuery('.group__nav-select').change(function(e) {
-        var $this = jQuery(this);
-        var value = $this.val();
-
-        window.location = value;
-
-    });
-
+    window.location = value;
+  });
 });
