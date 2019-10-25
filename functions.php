@@ -406,7 +406,7 @@ function mozilla_create_group() {
                                 // Loop through optional fields and save to meta
                                 foreach($optional AS $field) {
                                     if(isset($_POST[$field]) && $_POST[$field] !== "") {
-                                        $meta[$field] = trim($_POST[$field]);
+                                        $meta[$field] = trim(sanitize_text_field($_POST[$field]));
                                     }
                                 }
 
@@ -415,11 +415,11 @@ function mozilla_create_group() {
                                 }
 
                                 // Required information but needs to be stored in meta data because buddypress does not support these fields
-                                $meta['group_image_url'] = trim($_POST['image_url']);
-                                $meta['group_city'] = trim($_POST['group_city']);
-                                $meta['group_address'] = trim($_POST['group_address']);
-                                $meta['group_country'] = trim($_POST['group_country']);
-                                $meta['group_type'] = trim($_POST['group_type']);
+                                $meta['group_image_url'] = trim(sanitize_text_field($_POST['image_url']));
+                                $meta['group_city'] = trim(sanitize_text_field($_POST['group_city']));
+                                $meta['group_address'] = trim(sanitize_text_field($_POST['group_address']));
+                                $meta['group_country'] = trim(sanitize_text_field($_POST['group_country']));
+                                $meta['group_type'] = trim(sanitize_text_field($_POST['group_type']));
                     
 
                                 if(isset($_POST['tags'])) {
@@ -719,6 +719,7 @@ function mozilla_update_member() {
                 unset($required[0]);
 
                 foreach($required AS $field) {
+
                     $form_data = sanitize_text_field(trim($_POST[$field]));
                     update_user_meta($user->ID, $field, $form_data);
                 }
@@ -726,3 +727,38 @@ function mozilla_update_member() {
         }
     }
 }
+
+function mozilla_is_logged_in() {
+    $current_user = wp_get_current_user()->data;
+    return sizeof((Array)$current_user) > 0 ? true : false; 
+}
+
+
+function mozilla_get_user_visibility_settings($user_id) {
+    $user = get_user_by('ID', $user_id);
+    $meta = get_user_meta($user_id);
+
+    $visibility_fields = Array(
+                                'username',
+                                'first_name',
+                                'last_name',
+                                'email'
+    );
+
+    $visibility_settings = Array();
+
+    foreach($visibility_fields AS $field) {
+        if(isset($meta["{$field}_visibility"][0])) {
+            $visibility_settings["{$field}_visibility"] = intval($meta["{$field}_visibility"][0]);
+        } else {
+            if($field === 'username') {
+                $visibility_settings["{$field}_visobility"] = PrivacySettings::PUBLIC_USERS;
+            } else {
+                $visibility_settings["{$field}_visibility"] = PrivacySettings::REGISTERED_USERS;
+            }
+        }
+    }
+
+    return $visibility_settings;
+}
+

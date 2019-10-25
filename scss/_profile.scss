@@ -9,6 +9,7 @@
     overflow: hidden;
     position: relative;
 
+    // Edit Profile Styles
     &__hero {
         width: 100%;
         background-color: $color-green-20;
@@ -352,8 +353,17 @@
     }
 
     &__success-message-container {
+        padding: 0 24px;
         margin-top: 88px;
         text-align: center;
+
+        .profile__title {
+            text-align: center;
+        }
+
+        @include tablet-and-up {
+            padding: 0;
+        }
     }
 
     &__success-message {
@@ -369,11 +379,17 @@
         border-radius: 28px;
 
         &:first-of-type {
-            margin-right: 10px;
+            margin-bottom: 24px;
+            @include tablet-and-up {
+                margin-bottom: 0;
+                margin-right: 10px;
+            }
         }
 
         &:nth-of-type(2) {
-            margin-left: 10px;
+            @include tablet-and-up {
+                margin-left: 10px;
+            }
         }
 
         &.profile__button--secondary {
@@ -386,8 +402,197 @@
     &__button-container {
         margin-top: 43px;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: center;
+
+        @include tablet-and-up  {
+            flex-direction: row;
+        }
+
+    }
+
+    // Public Profile Styles
+    &__public-container {
+        @extend .container;
+        max-width: 1018px;
+        height: 100%;
+        padding: 0 24px;
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        margin-top: 25px;
+        margin-bottom: 50px;
+
+        @include tablet-and-up {
+            margin-top: 64px;
+            padding: 0 64px;
+        }
+
+        @include desktop-and-up {
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 0 106px;
+            max-width: 1440px;
+        }
+    }
+
+    &__card {
+        background-color: $color-white;
+        padding: 16px;
+        min-width: 272px;
+        width: 100%;
+        max-width: 703px;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 4px;
+
+        @include tablet-and-up {
+            padding: 24px;
+        }   
+
+        @include desktop-and-up {
+            padding: 32px;
+
+        }
+    }
+    
+    &__contact-title {
+        font-size: remCalc(14);
+        line-height: 24px;
+        color: $color-gray-secondary;
+        letter-spacing: 0.0025em;
+        display: block;
+        margin-bottom: 16px;
+    }
+
+    &__card-header-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        align-items: center;   
+        margin-bottom: 32px;
+
+        @include tablet-and-up {
+            flex-direction: row;
+        }
+    }
+
+    &__link {
+        color: $color-blue-50;
+        font-size: remCalc(16);
+        line-height: 24px;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: flex-start;
+
+        svg {
+            margin-right: 6px;
+        }
+    }
+
+    &__avatar {
+        border-radius: 50%!important;
+        height: 124px;
+        width: 124px;
+        background-size: cover;
+        background-position: center;
+        overflow: hidden;
+        background-color: $color-gray-20;
+        margin-bottom: 16px;
+
+        @include tablet-and-up {
+            margin-bottom: 0;
+            margin-right: 24px;
+        }
+
+        @include desktop-and-up {
+            height: 160px;
+            width: 160px;
+        }
+    }
+
+    &__user-title {
+        font-family: 'Zilla Slab';
+        font-size: remCalc(24);
+        line-height: 32px;
+        color: $color-off-black;
+        font-weight: 500;
+        margin: 0;
+        margin-bottom: 3px;
+        text-align: center;
+
+        @include tablet-and-up {
+            text-align: left;
+        }
+    }
+
+    &__user-name {
+        display: block;
+        font-weight: 600;
+        font-size: remCalc(20);
+        line-height: 18px;
+        width: 100%;
+        text-align: center;
+
+        @include tablet-and-up {
+            text-align: left;
+        }
+    }
+
+    &__edit-link-container {
+        display: none;
+
+        @include tablet-and-up {
+            align-self: flex-start;
+            margin-left: auto;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+        }
+
+        &.profile__edit-link-container--mobile {
+            display: block;
+            width: 100%;
+            text-align: right;
+            position: relative;
+            z-index: 25;
+
+            .profile__link {
+                justify-content: flex-end;
+                margin-bottom: 16px;
+            }
+
+            @include tablet-and-up {
+                display: none;
+            }
+        }
+    }
+
+    &__email-icon {
+        display: inline-block;
+        margin-right: 8px;
+    }
+
+    &__email-container {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    &__email {
+        display: block;
+    }
+
+    &__details {
+        font-size: remCalc(14);
+        line-height: 20px;
+        letter-spacing: 0.0025em;
     }
 }
 

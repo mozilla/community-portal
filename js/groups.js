@@ -219,4 +219,12 @@ jQuery(function(){
 
     });
 
+    jQuery('.group__nav-select').change(function(e) {
+        var $this = jQuery(this);
+        var value = $this.val();
+
+        window.location = value;
+
+    });
+
 });

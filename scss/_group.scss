@@ -1,21 +1,38 @@
 .group {
     width: 100%;
 
-
     &__container {
         @extend .container; 
-        max-width: 1228px;
-        padding: 0;
-    }
+        max-width: 1440px;
+        padding: 0 24px;
 
+        @include tablet-and-up { 
+            padding: 0 64px;
+        }
+
+        @include desktop-and-up {
+            padding: 0 106px;
+        }
+    }
 
     &__title {
         font-family: 'Zilla Slab';
-        font-size: remCalc(48);
-        line-height: 56px;
+        color: $color-off-black;
         font-weight: 500;
         margin: 0;
         margin-top: 30px;
+        font-size: remCalc(32);
+        line-height: 40px;
+
+        @include tablet-and-up {
+            font-size: remCalc(36);
+            line-height: 43px;
+        }
+
+        @include desktop-and-up {
+            font-size: remCalc(48);
+            line-height: 48px;;
+        }
     }
 
     &__details {
@@ -30,36 +47,135 @@
 
 
     &__nav {
-        height: 56px;
-        border-top: 1px solid $color-gray-30;
-        border-bottom: 1px solid $color-gray-30;
-        width: 100%;
-        margin-top: 32px;
+        display: none;
+
+        @include tablet-and-up {
+            height: 56px;
+            border-top: 1px solid $color-gray-30;
+            border-bottom: 1px solid $color-gray-30;
+            width: 100%;
+            margin-top: 32px;
+            display: block;
+        }
+
+        &.group__nav--mobile {
+            display: flex;
+            border-top: 1px solid $color-gray-30;
+            font-size: remCalc(14);
+            line-height: 24px;
+            color: $color-gray-secondary;
+            padding-top: 16px;
+            margin-top: 32px;
+
+            @include tablet-and-up {
+                display: none;   
+            }
+
+            .select-container {
+                flex-grow: 1;    
+                margin-left: 16px;    
+
+                svg {
+                    margin-top: 0;
+                }
+            }
+        }
     }
 
+    &__nav-select {
+        background: transparent;
+        appearance: none;
+        -webkit-appearance: none;
+        border: none;
+        box-sizing: border-box;
+    }
 
     &__info {
         display: flex;
-        flex-direction: row;
-        justify-content: space-between;
+        flex-direction: column;
         margin-top: 32px;
+
+        @include desktop-and-up {
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    }
+
+    &__community-links {
+        
+        span {
+            font-size: remCalc(14);
+            line-height: 24px;
+            display: block;
+            color: $color-gray-secondary;
+            width: 100%;
+            margin-bottom: 16px;
+
+
+        }
+
+        margin-top: 32px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: center;
+
+    }
+
+    &__community-link-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        margin-right: 32px;
+        margin-bottom: 24px;
+
+        &:last-of-type {
+            margin-right: 0;
+        }
+    }
+
+    &__meeting-location-link {
+        text-decoration: none;
+        font-size: remCalc(18);
+        line-height: 28px;
+        color: $color-blue-50;
+
+    }
+
+    &__social-link {
+        text-decoration: none;
+        font-size: remCalc(18);
+        line-height: 28px;
+        color: $color-blue-50;
+        margin-left: 8px;
     }
 
     &__left-column {
-        max-width: 703px;
         width: 100%;
+
+        @include desktop-and-up {
+            max-width: 703px;
+        }
     }
 
     &__right-column {
-        max-width: 388px;
+        margin-top: 32px;
         width: 100%;
-
         .group__card {
             margin-top: 32px;
 
             &:first-of-type {
                 margin-top: 0;
             }
+        }
+
+        @include desktop-and-up {
+            margin-top: 0;
+            width: 50%;
+            max-width: 388px;
+            margin-left: 40px;
         }
     }
 
@@ -120,6 +236,7 @@
         padding: 0;
         margin-bottom: 16px;
         margin-top: 32px;
+        font-weight: 500;
     }
 
     &__card-image {
@@ -130,15 +247,38 @@
         background-size: cover;
         border-top-left-radius: 4px;
         border-top-right-radius: 4px;
+        position: relative;
+
+        .group__edit-link {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            background-color: $color-white;
+            width: 40px;
+            height: 40px;
+            top: 32px;
+            right: 32px;
+        }
+
+    }
+
+    &__card-no-image {
+        height: 56px;
+        background-color: $color-gray-10;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        padding-right: 32px;
     }
 
     &__card-content {
         padding: 32px;
 
         &--small {
-            padding: 16px;
-
-          
+            padding: 16px; 
         }
 
         span {
@@ -150,16 +290,7 @@
             position: relative;
 
 
-            &:after {
-                content: '';
-                display: block;
-                height: 1px;
-                background-color: $color-gray-10;
-                width: 100%;
-                bottom: -16px;
-                left: 0;
-                position: absolute;
-            }
+            
 
             &.no-line {
                 &:after {
@@ -196,8 +327,8 @@
     }
 
     &__card-copy {
-        font-size: remCalc(18);
-        line-height: 28px;
+        font-size: remCalc(16);
+        line-height: 24px;    
         color: $color-off-black;
         margin: 0;
         margin-bottom: 12px;
@@ -205,15 +336,30 @@
         &:last-of-type {
             margin-bottom: 0;
         }
+
+        @include desktop-and-up {
+            font-size: remCalc(18);
+            line-height: 28px;
+        }
     }
 
     &__card-cta-container {
         display: flex;
-        flex-direction: row;
-        justify-content: space-between;
+        flex-direction: column;
         border-bottom: 1px solid $color-gray-20;
         padding-bottom: 32px;
-        margin-bottom: 32px;
+        align-items: center;
+        margin-bottom: 16px;
+
+        &.group__card-cta-container--end {
+            justify-content: flex-end;
+        }
+
+        @include tablet-and-up {
+            justify-content: space-between;
+            flex-direction: row;
+            margin-bottom: 32px;
+        }
     }
 
     &__leave-cta,
@@ -228,6 +374,12 @@
         text-align: center;
         padding: 15px 33px;
         height: 48px;
+        margin-bottom: 16px;
+        width: 188px;
+
+        @include tablet-and-up {
+            margin-bottom: 0;
+        }
     }
 
     &__share-cta {
@@ -237,11 +389,16 @@
         text-align: center;
         text-decoration: none;
         border: 2px solid $color-blue-50;
+        min-width: 160px;
         width: 188px;
         height: 48px;
         font-size: remCalc(16);
         line-height: 18px;
         position: relative;
+
+        @include tablet-and-up {
+            width: 188px;
+        }
 
         svg {
             position: absolute;
@@ -270,18 +427,56 @@
 
     &__admins {
         width: 100%;
-        margin-top: 44px;
+        margin-top: 32px;
     }
 
     &__admin {
         display: flex;
+        &:not(:first-of-type) {
+            margin-top: 40px;
+        }
 
         .avatar {
             width: 64px;
             height: 64px;
-            background-position: center;
-            background-size: cover;
+            min-width: 64px;
+            background-color: $color-gray-20;
             border-radius: 50%;
+        }
+    }
+
+    &__members-container {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    &__members {
+        display: flex;
+        flex-direction: column;
+
+        @include tablet-and-up {
+            justify-content: space-between;
+            flex-direction: row;
+        }
+    }
+
+    &__member-count-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        margin-top: 32px;
+    }
+
+    span.group__member-count {
+        font-family: 'Zilla Slab';
+        font-size: remCalc(36);
+        width: auto;
+        color: $color-blue-50;
+        margin-right: 8px;
+        &:after {
+            display: none;
         }
     }
 }
