@@ -5,23 +5,19 @@
     &__hero {
         width: 100%;
         background-color: $color-green-20;
-        height: 430px;
-        background-repeat: no-repeat;
+        height: 384px;
         padding: 0 24px;
-        background-size: 450px auto;
-        background-position: bottom -210px center;
+
 
         @include tablet-and-up {
             padding: 0 64px;
-            background-position: right -100px center;
-            background-size: 65%, cover;
-            height: 387px;
+
+            height: 404px;
         }
         
         @include desktop-and-up {
-            background-position: right -40px center;
-            background-size: 50%, cover;
-            height: 421px;
+
+            height: 316px;
             padding: 0 106px;
         }
     }
@@ -33,14 +29,19 @@
         padding: 0;
         padding-top: 24px;
         height: 100%;
+        background-repeat: no-repeat;
 
         @include tablet-and-up {
-            padding-top: 48px;   
+            padding-top: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-image: url("./images/mozilla-create-profile.png");
+            text-align: left;
+            background-size: contain;
+            background-position: right;
         }
 
-        @include desktop-and-up {
-            padding-top: 90px;
-        }
     }
 
     &__title {
@@ -89,7 +90,7 @@
     &__search-container {
         position: absolute;
         left: 0;
-        bottom: -15px;
+        bottom: -50px;
         background-color: $color-white;
         width: 100%;
         padding: 16px 30px;
@@ -145,7 +146,7 @@
 
     &__container {
         @extend .container;
-        margin-top: 52px;
+        margin-top: 83px;
         max-width: 1440px;
         padding: 0 24px;
         display: flex;
