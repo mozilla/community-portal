@@ -32,6 +32,9 @@ add_action('auth0_user_login', 'mozilla_post_user_creation', 10, 6);
 add_filter('nav_menu_link_attributes', 'mozilla_add_menu_attrs', 10, 3);
 add_filter('nav_menu_css_class', 'mozilla_add_active_page' , 10 , 2);
 
+// Events Action
+add_action('save_post', 'mozilla_save_event', 10, 3);
+
 
 // Include theme style.css file not in admin page
 if(!is_admin()) 
@@ -317,6 +320,8 @@ function mozilla_init_scripts() {
 
     // Custom scripts
     wp_enqueue_script('groups', get_stylesheet_directory_uri()."/js/groups.js", array('jquery'));
+    wp_enqueue_script('events', get_stylesheet_directory_uri()."/js/events.js", array('jquery'));
+    wp_enqueue_script('cleavejs', get_stylesheet_directory_uri()."/js/vendor/cleave.min.js", array());
     wp_enqueue_script('nav', get_stylesheet_directory_uri()."/js/nav.js", array('jquery'));
     wp_enqueue_script('profile', get_stylesheet_directory_uri()."/js/profile.js", array('jquery'));
 
@@ -503,6 +508,14 @@ function mozilla_search_groups($name) {
 
     return $group;
 }
+
+function add_query_vars_filter( $vars ){
+  $vars[] = "view";
+  $vars[] = "country";
+  $vars[] = "tag";
+  return $vars;
+}
+add_filter( 'query_vars', 'add_query_vars_filter' );
 
 function mozilla_validate_username() {
 
@@ -762,3 +775,11 @@ function mozilla_get_user_visibility_settings($user_id) {
     return $visibility_settings;
 }
 
+function mozilla_save_event($post_id, $post, $update) {
+  if ($post->post_type === 'event') {
+    $event = new stdClass();
+    $event->image_url = filter_input(INPUT_GET, $_POST['image_url']);
+    $event->location_type = $_POST['location-type'];
+    update_post_meta($post_id, 'event-meta', $event);
+  }
+}

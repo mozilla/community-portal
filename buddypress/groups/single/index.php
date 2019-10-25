@@ -335,8 +335,6 @@
         </div>
     </div>
 <?php
-
-
     do_action('bp_after_group_home_content');
     get_footer();
 ?>

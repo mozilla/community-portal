@@ -1,3 +1,5 @@
+$columns: 12;
+
 // Screen Sizes
 $screen-mobile-min: 320px;
 $screen-tablet-min: 768px;
@@ -21,6 +23,13 @@ $color-gray-30: #cdcdd4;
 $color-gray-60: #7a7a8b;
 $color-gray-80: #42425a;
 $color-off-black: #20123a;
+$color-gray-background: #ededf0;
+
+$color-yellow-20: #ffffcc;
 
 $border-grey: $color-black;
 $search-font-color: #cecece;
+
+$secondary-font: "Open Sans", sans-serif;
+
+$main-font-family: "Zilla Slab", sans-serif;
