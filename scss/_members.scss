@@ -28,9 +28,10 @@
         padding: 0;
         padding-top: 24px;
         height: 100%;
-        background-repeat: no-repeat;
+        text-align: center;;
 
         @include tablet-and-up {
+            background-repeat: no-repeat;
             padding-top: 0;
             display: flex;
             flex-direction: column;
@@ -38,7 +39,12 @@
             background-image: url("./images/mozilla-create-profile.png");
             text-align: left;
             background-size: contain;
-            background-position: right;
+            background-position: right -50px center;
+        }
+
+        @include desktop-and-up {
+            background-size: 45%;
+            background-position: right -70px center;
         }
 
     }
