@@ -4,9 +4,17 @@
     &:before {
         display: block;
         width: 100%;
-        background-color: #56CCF2;
-        height: 284px;
+        background-color: $color-blue-5;
+        height: 250px;
         content: '';
+
+        @include tablet-and-up {
+            height: 220px;
+        }
+
+        @include desktop-and-up {
+            height: 265px;
+        }
     }
 
     &__container {
