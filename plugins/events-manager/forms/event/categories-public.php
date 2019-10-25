@@ -15,15 +15,15 @@
           <input 
             name="event_categories[]" 
             class="event-creator__checkbox" 
-            id="<?php echo $category->id ?>"
+            id="<?php echo esc_attr($category->id) ?>"
             type="checkbox"  
-            value="<?php echo $category->id?>"
+            value="<?php echo esc_attr($category->id) ?>"
             <?php if (in_array($category->id, $selected)) {
-              echo 'checked'; 
+              echo esc_attr('checked'); 
             } 
             ?>
           />
-          <label class="event-creator__tag" for="<?php echo $category->id?>"><?php echo $category->name ?></label>
+          <label class="event-creator__tag" for="<?php echo esc_attr($category->id)?>"><?php echo __($category->name) ?></label>
           <?php
           }
         ?>

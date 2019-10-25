@@ -34,6 +34,6 @@
 </div>
 <div class="col-md-12">
   <button class="events__filter__toggle btn btn--large btn--light">
-    Show Filters
+    <?php echo __('Show Filters') ?>
   </button>
 </div>

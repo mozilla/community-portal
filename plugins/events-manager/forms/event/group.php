@@ -26,13 +26,13 @@ if( count($user_groups) > 0 ){
 		if( !empty($EM_Event->group_id) && !in_array($EM_Event->group_id, $group_data['groups']) ){
 			$other_group = groups_get_group( array('group_id'=>$EM_Event->group_id));
 			?>
-			<option value="<?php echo $other_group->id; ?>" selected="selected"><?php echo $other_group->name; ?></option>
+			<option value="<?php echo esc_attr($other_group->id); ?>" selected="selected"><?php echo __($other_group->name); ?></option>
 			<?php
 		}
 		//show user groups
 		foreach($user_groups as $BP_Group){
 			?>
-			<option value="<?php echo $BP_Group->id; ?>" <?php echo ($BP_Group->id == $EM_Event->group_id) ? 'selected="selected"':''; ?>><?php echo $BP_Group->name; ?></option>
+			<option value="<?php echo esc_attr($BP_Group->id); ?>" <?php echo ($BP_Group->id == $EM_Event->group_id) ? esc_attr('selected') : null; ?>><?php echo __($BP_Group->name); ?></option>
 			<?php
 		} 
 		?>
