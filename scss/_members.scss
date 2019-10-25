@@ -16,7 +16,6 @@
         }
         
         @include desktop-and-up {
-
             height: 316px;
             padding: 0 106px;
         }
@@ -51,11 +50,26 @@
         margin: 0;
         padding: 0;
         font-weight: 300;
-        display: block;
-        width: 100%;
+        display: inline-block;
+        width: auto;
         font-family: 'Zilla Slab';
         margin-bottom: 16px;
+        position: relative;
+        padding-left: 24px;
         
+        &:after {
+            content: '';
+            display: block;
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background-color: $color-green-60;
+            border-radius: 50%;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
         @include tablet-and-up {
             text-align: left;
             font-size: remCalc(36);

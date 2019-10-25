@@ -30,7 +30,7 @@
     <div class="members">
         <div class="members__hero">
             <div class="members__hero-container">
-                <h1 class="members__title"><?php print __("Members"); ?></h1>
+                <h1 class="members__title"><?php print __("People"); ?></h1>
                 <p class="members__hero-copy">
                     <?php print __("A short paragraph about why members are great and why you should become one, if you’re not. Lorem ipsum dolor sit amet, consectetur adipiscing elit."); ?>
                 </p>
