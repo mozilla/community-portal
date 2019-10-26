@@ -19,10 +19,15 @@
         @include tablet-and-up {
             padding: 0 64px;
             height: 393px;
+            background-image: url("./images/mozilla-create-profile.png");
+            background-position: right -50px center;
+            background-size: contain;
+            background-repeat: no-repeat;
         }
         
         @include desktop-and-up {
             height: 430px;
+            background-image: none;
         }
     }
 
@@ -38,11 +43,14 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            text-align: left;
+        }
+
+        @include desktop-and-up {
             background-repeat: no-repeat;
             background-image: url("./images/mozilla-create-profile.png");
-            text-align: left;
-            background-size: contain;
-            background-position: right -50px bottom -27px; 
+            background-size: 608px 608px; //45%;
+            background-position: right -85px bottom -32px;
         }
     }
 

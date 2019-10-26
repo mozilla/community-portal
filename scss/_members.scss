@@ -13,8 +13,8 @@
             padding: 0 64px;
             height: 404px;
             background-image: url("./images/mozilla-create-profile.png");
-            background-position: right -50px center;
-            background-size: contain;
+            background-position: right -140px center;
+            background-size: 470px 470px;
             background-repeat: no-repeat;
         }
         
@@ -45,8 +45,8 @@
 
         @include desktop-and-up {
             background-image: url("./images/mozilla-create-profile.png");
-            background-size: 45%;
-            background-position: right -70px bottom -35px;
+            background-size: 492px 492px;
+            background-position: right 20px bottom -50px;
         }
 
     }
@@ -179,7 +179,6 @@
         flex-direction: column;
         flex-wrap: wrap;
         justify-content: flex-start;
-
 
         @include tablet-and-up {
             margin-top: 83px;
