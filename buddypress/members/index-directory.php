@@ -50,6 +50,7 @@
             </div>
         </div>
         <div class="members__container">
+            <div class="members__people-container">
             <?php if(sizeof($members) > 0): ?>
             <?php foreach($members AS $member): ?>
             <?php 
@@ -75,6 +76,7 @@
                 </div>
             </a>
             <?php endforeach; ?>
+            </div>
             <?php else: ?>
                 <h2 class="members__title--no-members-found">No members found</h2>
             <?php endif; ?>
