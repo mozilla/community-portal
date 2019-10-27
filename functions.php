@@ -330,7 +330,6 @@ function mozilla_create_group() {
             'group_name',
             'group_type',
             'group_desc',
-            'group_address',
             'my_nonce_field'
         );
 
@@ -348,6 +347,7 @@ function mozilla_create_group() {
             'group_other'
         );
 
+        
         // If we're posting data lets create a group
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
             if(isset($_POST['step']) && isset($_POST['my_nonce_field']) && wp_verify_nonce($_REQUEST['my_nonce_field'], 'protect_content')) {
@@ -374,6 +374,7 @@ function mozilla_create_group() {
                         }
   
                         $_SESSION['form'] = $_POST;
+                       
 
                         // Cleanup
                         if($error) {
