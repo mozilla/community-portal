@@ -63,7 +63,7 @@
                         </div>
                         <div class="create-group__input-row">
                             <div class="create-group__input-container  create-group__input-container--40 create-group__input-container--vertical-spacing">
-                                <label class="create-group__label" for="group-country"><?php print __("Group Location"); ?></label>
+                                <label class="create-group__label" for="group-country"><?php print __("Group Location *"); ?></label>
                                 <div class="create-group__select-container">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <g>
