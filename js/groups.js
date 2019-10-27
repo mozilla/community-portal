@@ -1,5 +1,5 @@
 jQuery(function(){
-    Dropzone.autoDiscover = false;
+    //Dropzone.autoDiscover = false;
     
     jQuery("#group-photo-uploader").dropzone({
         url: '/wp-admin/admin-ajax.php?action=upload_group_image',
@@ -41,12 +41,15 @@ jQuery(function(){
 
     jQuery('.create-group__input, .create-group__textarea, .create-group__select').on('change keyup paste', function(e){
         var $this = jQuery(this);
-        if($this.val() != '' || $this.val() == '0') {
-            $this.removeClass('create-group__input--error');
-            $this.next('.form__error-container').removeClass('form__error-container--visible');
-        } else {
-            $this.addClass('create-group__input--error');
-            $this.next('.form__error-container').addClass('form__error-container--visible');
+
+        if($this.prop('required')) {
+            if($this.val() != '' || $this.val() == '0') {
+                $this.removeClass('create-group__input--error');
+                $this.next('.form__error-container').removeClass('form__error-container--visible');
+            } else {
+                $this.addClass('create-group__input--error');
+                $this.next('.form__error-container').addClass('form__error-container--visible');
+            }
         }
         e.stopPropagation();
 
@@ -106,10 +109,10 @@ jQuery(function(){
 
 
     jQuery('input[name="group_type"]').change(function(e){
-        var $this = $(this);
+        var $this = jQuery(this);
 
-        var countryLabel = $('label[for="group-country"]').text();
-        var cityLabel = $('label[for="group-city"]').text();
+        var countryLabel = jQuery('label[for="group-country"]').text();
+        var cityLabel = jQuery('label[for="group-city"]').text();
 
         if($this.val() == 'Offline') {
             jQuery('select[name="group_country"]').prop('required', true);
