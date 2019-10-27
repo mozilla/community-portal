@@ -4,6 +4,7 @@
     &__container {
         @extend .container;
         max-width: 1440px;
+        min-width: 320px;
         padding: 0 24px;
         display: flex;
         flex-direction: row;
@@ -30,11 +31,16 @@
         @include tablet-and-up {
             padding: 0 64px;
             height: 404px;
+            background-image: url('./images/groups-header.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: right -50px bottom -10px;
         }
         
         @include desktop-and-up {
             height: 332px;
             padding: 0 106px;
+            background-image: none;
         }
     }
     &__hero-container {
@@ -52,9 +58,12 @@
             padding-top: 0;
             display: flex;
             flex-direction: column;
-            background-image: url('./images/groups-header.png');
             text-align: left;
+        }
+
+        @include desktop-and-up {
             background-size: contain;
+            background-image: url('./images/groups-header.png');
             background-position: right;
         }
 
@@ -153,8 +162,10 @@
         span {
             display: inline-block;
             width: 100%;
+            margin-bottom: 18px;
 
             @include desktop-and-up {
+                margin-bottom: 0;
                 display: inline;
                 width: auto;
             }
@@ -162,6 +173,10 @@
 
         @include tablet-and-up {
             flex-direction: row;
+        }
+
+        @include desktop-and-up {
+            justify-content: space-between;
         }
 
     }
@@ -231,13 +246,41 @@
         }
 
         &.groups__nav--mobile {
-            display: block;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
             width: 100%;
+            position: relative;
+            color: $color-gray-secondary;
+            font-size: remCalc(14);
+            line-height: 24px;
+            border-top: 1px solid $color-gray-30;
+            border-bottom: 1px solid $color-gray-30;
+            height: 56px;
+            margin-bottom: 24px;
 
             @include tablet-and-up {
                 display: none;
             }
+
+            svg {
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+            }
         }
+    }
+
+    &__nav-select {
+        background: transparent;
+        appearance: none;
+        -webkit-appearance: none;
+        border: none;
+        box-sizing: border-box;
+        width: 100%;
+        margin-left: 8px;
     }
 
     &__menu {
@@ -260,16 +303,21 @@
         display: flex;
         flex-direction: row;
         flex-grow: 1;    
-        margin-left: 16px;    
         position: relative;
         align-items: center;
         width: 100%;
+        margin-bottom: 8px;
+        margin-left: 0;
+        flex-wrap: wrap;
 
-        @include tablet-and-up {
-            width: 45%;
+        @include tablet-and-up {            
+            margin-bottom: 0;
+            width: 40%;
         }
 
         @include desktop-and-up {
+            margin-left: 16px;    
+            flex-wrap: nowrap;
             width: auto;
         }
 
@@ -277,7 +325,11 @@
             position: absolute;
             right: 16px;
             margin-top: 0;
-            top: 8px;
+            top: 34px;
+
+            @include desktop-and-up {
+                top: 6px;
+            }
         }
     }
 
@@ -289,6 +341,15 @@
         border: none;
         box-sizing: border-box;
         padding: 8px 16px;
+
+        @include tablet-and-up {
+            margin-right: 16px;
+        }
+
+        @include desktop-and-up {
+            margin-right: 0;
+            width: 100%;
+        }
     }
 
     &__tag-select {
@@ -299,6 +360,7 @@
         border: none;
         box-sizing: border-box;
         padding: 8px 16px;
+
     }
 
 
@@ -307,5 +369,137 @@
         line-height: 22px;
         color: $color-gray-secondary;
         margin-right: 8px;
+        display: block;
+        width: 100%;
+        margin-bottom: 8px;
+        
+        @include desktop-and-up {
+            margin-bottom: 0;
+            width: auto;
+            display: inline-block;
+        }
     }
+
+    &__groups {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        width: 100%;
+        margin-top: 24px;
+
+        @include tablet-and-up {
+            flex-direction: row;
+            justify-content: flex-start;
+        }
+
+        &:after {
+            content: '';
+            flex: auto;
+        }
+    }
+
+    &__card {
+        height: 395px;
+        display: block;
+        background-color: $color-white;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 5px;
+        text-decoration: none;
+        margin-bottom: 24px;
+        overflow: hidden;
+        width: 100%;
+        flex-wrap: wrap;
+        padding-bottom: 24px;
+
+        @include tablet-and-up {
+            flex: 0 48%;
+            margin-right: 4%;
+
+            &:nth-of-type(2n) {
+                margin-right: 0;
+            }
+        }
+
+        @include desktop-and-up {
+            flex: 0 32%;
+            margin-right: 2%;
+            &:nth-of-type(2n) {
+                margin-right: 2%;
+            }
+
+            &:nth-of-type(3n) {
+                margin-right: 0;
+            }
+        }
+
+
+
+    }
+
+    &__group-image {
+        height: 122px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+
+        @include tablet-and-up {
+            height: 140px;
+        }
+
+        @include desktop-and-up {
+            height: 175px;
+        }
+    }
+
+    &__group-title {
+        font-size: remCalc(24);
+        line-height: 32px;
+        font-family: 'Zilla Slab';
+        color: $color-black;
+        margin: 0;
+        padding: 0;
+        margin-bottom: 16px;
+    }
+
+    &__card-content {
+        padding: 24px 32px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        font-size: remCalc(14);
+        line-height: 20px;
+        color: $color-gray-secondary;
+        height: 273px;
+
+        @include tablet-and-up {
+            height: 255px;
+        }
+
+        @include desktop-and-up {
+            height: 220px;
+        }
+    }
+
+    &__card-location {
+        margin-bottom: 8px;
+    }
+
+    &__card-tags {
+        margin-top: auto;
+        width: 100%;
+    }
+
+    &__tag {
+        font-size: remCalc(12);
+        line-height: 16px;
+        border-radius: 50px;
+        background-color: $color-gray-20;
+        display: inline-block;
+        padding: 6px;
+        margin-right: 8px;
+        color: $color-gray-80;
+        min-width: 80px;
+        text-align: center;
+    }
+
 }
