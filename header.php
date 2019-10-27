@@ -55,7 +55,7 @@
                     </svg>
                     <div class="nav__login">
                         <?php if(is_user_logged_in()): ?>
-                            <div class="nav__avatar" <?php if($avatar): ?>style="background-image: url('<?php print $avatar; ?>')"<?php endif; ?>></div>
+                            <div class="nav__avatar"></div>
                             <?php print $user->user_nicename; ?>
                             <a href="/wp-login.php?action=logout" class="nav__logout-link"><?php print __('Log Out'); ?></a>
                         <?php else: ?>
@@ -130,7 +130,7 @@
                     <div class="nav__menu-container">
                         <div class="nav__user-container">
                         <?php if(is_user_logged_in()): ?>
-                            <div class="nav__avatar" <?php if($avatar): ?>style="background-image: url('<?php print $avatar; ?>')"<?php endif; ?>>
+                            <div class="nav__avatar">
                             </div>
                             <?php print $user->user_nicename; ?>
                         <?php endif; ?>
