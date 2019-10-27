@@ -28,6 +28,7 @@
         @include desktop-and-up {
             height: 430px;
             background-image: none;
+            padding: 0 106px;
         }
     }
 
@@ -50,7 +51,8 @@
             background-repeat: no-repeat;
             background-image: url("./images/mozilla-create-profile.png");
             background-size: 608px 608px; //45%;
-            background-position: right -85px bottom -32px;
+            background-position: right -85px bottom -40px;
+            min-width: 1018px;
         }
     }
 
@@ -209,6 +211,10 @@
 
         @include tablet-and-up {
             padding: 0 64px;
+        }
+
+        @include desktop-and-up {
+            padding: 0 106px;
         }
     }
 
