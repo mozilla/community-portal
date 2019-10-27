@@ -5,7 +5,7 @@
 
     $c = count_users();
 
-    $members_per_page = 21;
+    $members_per_page = 20;
     $total_pages = ceil($c['total_users'] / $members_per_page);
 
     $page = isset($_GET['page']) ? intval($_GET['page']) : 0;
