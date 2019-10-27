@@ -488,6 +488,7 @@
 
         @include tablet-and-up {
             height: 160px;
+            max-width: none;
         }
 
 
@@ -565,7 +566,6 @@
         }
 
         .dz-image {
-            width: 283px;
             height: 160px;
             background-position: center center;
             background-size: cover;
