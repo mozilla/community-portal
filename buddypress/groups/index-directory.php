@@ -4,13 +4,28 @@
     // Main header template 
     get_header(); 
 
-
     // Execute actions by buddypress
     do_action('bp_before_directory_groups_page');
     do_action('bp_before_directory_groups');
 
-    $groups = groups_get_groups(Array());
 
+    $groups_per_page = 12;
+    $page = (isset($_GET['page'])) ? intval($_GET['page']) : 1;
+
+    $args = Array(
+        'per_page'  =>  12,
+        'page'      =>  $page
+    );
+
+    $q = (isset($_GET['q']) && strlen($_GET['q']) > 0) ? sanitize_text_field(trim($_GET['q'])) : false;
+    if($q) {
+        $args['search_columns'] = Array('name');
+        $args['search_terms'] = $q;
+    }
+
+    $groups = groups_get_groups($args);
+    $total_pages = ceil($groups['total'] / $groups_per_page);
+    $offset = ($page - 1) * $groups_per_page;
 
     $logged_in = mozilla_is_logged_in();
     $tags = get_tags(Array('hide_empty' => false));
@@ -44,7 +59,7 @@
                             <path d="M17.5 17.5L13.875 13.875" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
 
-                        <input type="text" name="u" id="groups-search" class="groups__search-input" placeholder="<?php print __("Search"); ?>" value="<?php if($search_user): ?><?php print $search_user; ?><?php endif; ?>" />
+                        <input type="text" name="q" id="groups-search" class="groups__search-input" placeholder="<?php print __("Search"); ?>" value="<?php if($q): ?><?php print $q; ?><?php endif; ?>" />
                         </div>
                         <input type="submit" class="groups__search-cta" value="<?php print __("Search"); ?>" />
                     </form>
@@ -156,6 +171,53 @@
             
                 <?php endforeach; ?>
                 <?php do_action('bp_after_groups_loop'); ?>
+                <?php 
+                    $range = ($page > 3) ? 3 : 5;
+                    
+                    if($page > $total_pages - 2) 
+                        $range = 5;
+                    
+                    $previous_page = ($page > 1) ? $page - 1 : 1;
+                    $next_page = ($page < $total_pages) ? $page + 1 : $total_pages;
+
+                    if($total_pages > 1 ) {
+                        $range_min = ($range % 2 == 0) ? ($range / 2) - 1 : ($range - 1) / 2;
+                        $range_max = ($range % 2 == 0) ? $range_min + 1 : $range_min;
+
+                        $page_min  = $page - $range_min;
+                        $page_max = $page + $range_max;
+
+                        $page_min = ($page_min < 1 ) ? 1 : $page_min;
+                        $page_max = ($page_max < ($page_min + $range - 1)) ? $page_min + $range - 1 : $page_max;
+
+                        if($page_max > $total_pages) {
+                            $page_min = ($page_min > 1) ? $total_pages - $range + 1 : 1;
+                            $page_max = $total_pages;
+                        }
+
+                    }
+                ?>
+                <div class="groups__pagination">
+                    <div class="groups__pagination-container">
+                        <?php if($total_pages > 1): ?>
+                        <a href="/groups/?page=<?php print $previous_page?><?php if($q): ?>&q=<?php print $q; ?><?php endif; ?>" class="groups__pagination-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M17 23L6 12L17 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                        <?php if($page_min > 1): ?><a href="/groups/?page=1<?php if($q): ?>&q=<?php print $q; ?><?php endif; ?>" class="groups__pagination-link groups__pagination-link--first"><?php print "1"; ?></a>&hellip; <?php endif; ?>
+                        <?php for($x = $page_min - 1; $x < $page_max; $x++): ?>
+                        <a href="/groups/?page=<?php print $x + 1; ?><?php if($search_user): ?>&q=<?php print $q; ?><?php endif; ?>" class="groups__pagination-link<?php if($page === $x + 1):?> groups__pagination-link--active<?php endif; ?><?php if($x === $page_max - 1):?> groups__pagination-link--last<?php endif; ?>"><?php print ($x + 1); ?></a>
+                        <?php endfor; ?>
+                        <?php if($total_pages > $range && $page < $total_pages - 1): ?>&hellip; <a href="/groups/?page=<?php print $total_pages; ?><?php if($search_user): ?>&u=<?php print $search_user; ?><?php endif; ?>" class="groups__pagination-link<?php if($page === $total_pages):?> groups__pagination-link--active<?php endif; ?>"><?php print $total_pages; ?></a><?php endif; ?>
+                        <a href="/groups/?page=<?php print $next_page; ?><?php if($q): ?>&q=<?php print $q; ?><?php endif; ?>" class="groups__pagination-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M7 23L18 12L7 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        </a>
+                        <?php endif; ?>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
