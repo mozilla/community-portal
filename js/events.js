@@ -84,10 +84,16 @@ jQuery(function() {
   function toggleVisibility(selector, value, hidden) {
     selector.val(value);
     if (hidden) {
-      selector.parent().removeClass("event-creator__hidden");
+      selector
+        .parent()
+        .parent()
+        .removeClass("event-creator__hidden");
       return;
     }
-    selector.parent().addClass("event-creator__hidden");
+    selector
+      .parent()
+      .parent()
+      .addClass("event-creator__hidden");
   }
 
   function toggleLocationType() {
@@ -136,7 +142,6 @@ jQuery(function() {
 
   function validateCpg(allClear) {
     const $cpgCheck = jQuery("#cpg");
-    console.log($cpgCheck);
     if ($cpgCheck.length && !$cpgCheck.prop("checked")) {
       const $label = jQuery("label[for=cpg]");
       $label.addClass("event-creator__error-text");
@@ -179,40 +184,60 @@ jQuery(function() {
     }
   }
 
-  function toggleInputAbility(input) {
-    if (input.prop("disabled") === true) {
+  function toggleInputAbility(input, typeValue) {
+    if (input.prop("disabled") !== false) {
       input.attr("disabled", false);
+      if (typeValue) {
+        input.val(typeValue);
+      }
       return;
     }
     input.attr("disabled", true);
   }
 
-  function toggleLocationContainer(container, location, country) {
+  function toggleLocationContainer(container, location, country, typeValue) {
+    console.log("running");
     container.toggleClass("event-creator__location-edit");
-    toggleInputAbility(location);
+    toggleInputAbility(location, typeValue);
     toggleInputAbility(country);
   }
 
-  function handleAutocomplete(container, location, country) {
+  function handleAutocomplete(container, location, country, typeValue) {
     const $autoComplete = jQuery("#ui-id-1");
     if ($autoComplete) {
       $autoComplete.on("click", function(e) {
-        if (e.target.nodeName === "A") {
-          toggleLocationContainer(container, location, country);
+        if (e.target.nodeName === "A" || e.target.nodeName === "LI") {
+          toggleLocationContainer(container, location, country, typeValue);
+          container.addClass("event-creator__location-edit");
         }
+      });
+      jQuery("#location-name").on("autocompleteselect", function(e) {
+        toggleLocationContainer(container, location, country, typeValue);
+        container.addClass("event-creator__location-edit");
       });
     }
   }
 
   function editLocation() {
     const $editBtn = jQuery("#em-location-reset a");
-    const $editContainer = jQuery(".event-creator__location-edit");
+    const $editContainer = jQuery(".event-creator__location");
     const $countryInput = jQuery("#location-country");
     const $locationType = jQuery("#location-type");
+    const $locationTypeValue = $locationType.val();
     if ($editBtn) {
-      handleAutocomplete($editContainer, $countryInput, $locationType);
+      handleAutocomplete(
+        $editContainer,
+        $countryInput,
+        $locationType,
+        $locationTypeValue
+      );
       $editBtn.on("click", function() {
-        toggleLocationContainer($editContainer, $countryInput, $locationType);
+        toggleLocationContainer(
+          $editContainer,
+          $countryInput,
+          $locationType,
+          $locationTypeValue
+        );
       });
     }
   }

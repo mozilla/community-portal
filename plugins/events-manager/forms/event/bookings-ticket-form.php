@@ -20,7 +20,6 @@ $col_count = absint($col_count); //now we know it's a number
 		<div class="ticket-price"><label><?php esc_html_e('Price','events-manager') ?></label><input type="text" name="em_tickets[<?php echo $col_count; ?>][ticket_price]" class="ticket_price" value="<?php echo esc_attr($EM_Ticket->get_price_precise(true)) ?>" /></div>
 		<div class="ticket-spaces">
 			<label title="<?php esc_attr_e('Enter a maximum number of spaces (required).','events-manager'); ?>"><?php esc_html_e('Spaces','events-manager') ?></label>
-      <?php var_dump($EM_Ticket->ticket_spaces) ?>
 			<input type="text" name="em_tickets[<?php echo $col_count; ?>][ticket_spaces]" value=<?php echo esc_attr('1000') ?> class="ticket_spaces" />
 		</div>
 	</div>

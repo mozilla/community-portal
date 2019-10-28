@@ -783,3 +783,17 @@ function mozilla_save_event($post_id, $post, $update) {
     update_post_meta($post_id, 'event-meta', $event);
   }
 }
+
+function mozilla_em_add_default_tickets($tickets, $EM_Bookings, $force_reload = false) {
+  if ( empty($tickets->tickets) ) {
+      $ticket_data = array();
+      $ticket_data[0] = array('ticket_name' => 'Free', 'ticket_description' => 'No Charge', 'ticket_spaces' => 0, 'ticket_price' => 0, 'ticket_min' => 1, 'ticket_max' => 2);
+      if (is_array($tickets->tickets)) unset($tickets->tickets);
+      foreach ($ticket_data as $ticket) {
+          $EM_Ticket = new EM_Ticket($ticket);
+          $tickets->tickets[] = $EM_Ticket;
+      }
+  }
+  return $tickets;
+}
+add_filter('em_bookings_get_tickets', 'mozilla_em_add_default_tickets', 10, 2);
