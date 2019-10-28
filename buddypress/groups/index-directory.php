@@ -104,7 +104,7 @@
                     </g>
                 </svg>               
             </div>
-            <div class="groups__filter-container groups__filter-container--hidden">
+            <div class="groups__filter-container ">
                 <span><?php print __("Filter by:"); ?></span>
                 <div class="groups__select-container">
                     <label class="groups__label">Location: </label>

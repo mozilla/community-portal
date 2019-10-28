@@ -230,4 +230,16 @@ jQuery(function(){
 
     });
 
+    jQuery('.groups__show-filter').click(function(e) {
+        e.preventDefault();
+        jQuery('.groups__filter-container').slideToggle({
+                start: function() {
+                    jQuery('.groups__filter-container').css('display','flex');
+                    jQuery('.groups__filter-container').css('flex-direction','column');
+                }
+          });
+
+        return false;
+    });
+
 });
