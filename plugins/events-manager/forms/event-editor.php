@@ -115,6 +115,7 @@ if( !empty($_REQUEST['success']) ){
     <input type="hidden" name="em_tickets[0][ticket_spaces]" value=<?php echo esc_attr('1000') ?> />
     <input type="hidden" name="_wpnonce" id="my_nonce_field" value="<?php echo wp_create_nonce('wpnonce_event_save'); ?>" />
     <input type="hidden" name="action" value="event_save" />
+    <input type="hidden" name="visibility" id="visibility-radio-public" value="public" checked="checked">
     <?php if( !empty($_REQUEST['redirect_to']) ): ?>
       <input type="hidden" name="redirect_to" value="<?php echo esc_attr($_REQUEST['redirect_to']); ?>" />
     <?php endif; ?>
