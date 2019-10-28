@@ -5,6 +5,7 @@
  */
 global $col_count, $EM_Ticket; /* @var EM_Ticket $EM_Ticket */
 $col_count = absint($col_count); //now we know it's a number
+$EM_Ticket->ticket_spaces = 1000;
 ?>
 <div class="em-ticket-form">
 	<input type="hidden" name="em_tickets[<?php echo $col_count; ?>][ticket_id]" class="ticket_id" value="<?php echo esc_attr($EM_Ticket->ticket_id) ?>" />
