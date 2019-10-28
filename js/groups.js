@@ -236,6 +236,12 @@ jQuery(function(){
                 start: function() {
                     jQuery('.groups__filter-container').css('display','flex');
                     jQuery('.groups__filter-container').css('flex-direction','column');
+
+                    if(jQuery('.groups__show-filter').text() == 'Hide Filters') {
+                        jQuery('.groups__show-filter').text('Show Filters');
+                    } else {
+                        jQuery('.groups__show-filter').text('Hide Filters');
+                    }
                 }
           });
 
