@@ -192,30 +192,20 @@ jQuery(function() {
       }
       return;
     }
-    input.attr("disabled", true);
+    input.prop("disabled", true);
   }
 
   function toggleLocationContainer(container, location, country, typeValue) {
-    console.log("running");
     container.toggleClass("event-creator__location-edit");
     toggleInputAbility(location, typeValue);
     toggleInputAbility(country);
   }
 
   function handleAutocomplete(container, location, country, typeValue) {
-    const $autoComplete = jQuery("#ui-id-1");
-    if ($autoComplete) {
-      $autoComplete.on("click", function(e) {
-        if (e.target.nodeName === "A" || e.target.nodeName === "LI") {
-          toggleLocationContainer(container, location, country, typeValue);
-          container.addClass("event-creator__location-edit");
-        }
-      });
-      jQuery("#location-name").on("autocompleteselect", function(e) {
-        toggleLocationContainer(container, location, country, typeValue);
-        container.addClass("event-creator__location-edit");
-      });
-    }
+    jQuery("#location-name").on("autocompleteselect", function(e) {
+      toggleLocationContainer(container, location, country, typeValue);
+      container.addClass("event-creator__location-edit");
+    });
   }
 
   function editLocation() {
