@@ -67,9 +67,7 @@
             ?>
           </p>
         </div>
-        <button class="btn btn--dark btn--submit">
-          <?php echo __('RSVP') ?>
-        </button>
+        <?php echo $EM_Event->output('#_BOOKINGFORM'); ?>
       </div>
       <h2><?php echo __("Location") ?></h2>
       <div class="card">
@@ -91,7 +89,6 @@
       <h2><?php echo __('Description') ?></h2>
       <p><?php echo __($EM_Event->post_content) ?></p>
       <h2><?php echo __('Attendees') ?></h2>
-      <?php var_dump($EM_Event) ?>
     </div>
     <div class="col-md-4">
       <div>
