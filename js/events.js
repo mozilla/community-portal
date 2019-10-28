@@ -179,6 +179,44 @@ jQuery(function() {
     }
   }
 
+  function toggleInputAbility(input) {
+    if (input.prop("disabled") === true) {
+      input.attr("disabled", false);
+      return;
+    }
+    input.attr("disabled", true);
+  }
+
+  function toggleLocationContainer(container, location, country) {
+    container.toggleClass("event-creator__location-edit");
+    toggleInputAbility(location);
+    toggleInputAbility(country);
+  }
+
+  function handleAutocomplete(container, location, country) {
+    const $autoComplete = jQuery("#ui-id-1");
+    if ($autoComplete) {
+      $autoComplete.on("click", function(e) {
+        if (e.target.nodeName === "A") {
+          toggleLocationContainer(container, location, country);
+        }
+      });
+    }
+  }
+
+  function editLocation() {
+    const $editBtn = jQuery("#em-location-reset a");
+    const $editContainer = jQuery(".event-creator__location-edit");
+    const $countryInput = jQuery("#location-country");
+    const $locationType = jQuery("#location-type");
+    if ($editBtn) {
+      handleAutocomplete($editContainer, $countryInput, $locationType);
+      $editBtn.on("click", function() {
+        toggleLocationContainer($editContainer, $countryInput, $locationType);
+      });
+    }
+  }
+
   function init() {
     toggleMobileEventsNav(".events__nav__toggle", ".events__nav");
     toggleMobileEventsNav(".events__filter__toggle", ".events__filter");
@@ -193,6 +231,7 @@ jQuery(function() {
     toggleLocationType();
     validateForm();
     clearImage();
+    editLocation();
   }
 
   init();

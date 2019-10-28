@@ -26,7 +26,8 @@ $col_count = absint($col_count); //now we know it's a number
 	</div>
 	<div class="em-ticket-form-advanced" style="display:none;">
 		<div class="ticket-spaces ticket-spaces-min">
-			<label title="<?php esc_attr_e('Leave either blank for no upper/lower limit.','events-manager'); ?>"><?php echo esc_html_x('At least','spaces per booking','events-manager');?></label>
+      <label title="<?php esc_attr_e('Leave either blank for no upper/lower limit.','events-manager'); ?>"><?php echo esc_html_x('At least','spaces per booking','events-manager');?></label>
+      
 			<input type="text" name="em_tickets[<?php echo $col_count; ?>][ticket_min]" value="<?php echo esc_attr($EM_Ticket->ticket_min) ?>" class="ticket_min" />
 			<?php esc_html_e('spaces per booking', 'events-manager')?>
 		</div>

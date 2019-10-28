@@ -315,6 +315,32 @@
     top: 24px;
     right: 24px;
   }
+  &__location-edit {
+    padding: 0 16px 16px;
+    border: 1px solid $color-gray-30;
+    background: $color-gray-10;
+    input,
+    select {
+      color: $color-gray-60;
+      cursor: not-allowed;
+    }
+  }
+  &__location-reset {
+    display: block;
+    width: 100%;
+    text-align: left;
+    border: 1px solid $color-gray-30;
+    margin-top: 32px;
+    a {
+      display: block;
+      padding: 16px;
+      cursor: pointer;
+    }
+    a,
+    span {
+      color: $color-blue-50;
+    }
+  }
 }
 #event-form p.event-creator__error__label {
   margin-top: 4px;
