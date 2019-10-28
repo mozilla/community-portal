@@ -21,12 +21,16 @@
     $group_count = 0;
     
 
-    if($logged_in && isset($_GET['mygroups']) && $_GET['mygroups']) {
+    if($logged_in && isset($_GET['mygroups']) && $_GET['mygroups'] == 'true') {
         $user = wp_get_current_user()->data;
         
-        $admin_groups = bp_get_user_groups($user->ID, Array('is_admin' => true));
-        $groups = bp_get_user_groups($user->ID);
-        $groups = array_merge($admin_groups, $groups);
+        $groups = Array();
+        $merged_groups = array_merge(bp_get_user_groups($user->ID, Array('is_admin' => true)), bp_get_user_groups($user->ID));
+
+        foreach($merged_groups AS $g) {
+            $group = groups_get_group($g->group_id);
+            $groups[] = $group;
+        }
 
     } else {
         if($q) {
@@ -36,16 +40,34 @@
     
         $groups = groups_get_groups($args);
         $groups = $groups['groups'];
-        $group_count = $groups['total'];
     }
 
 
-    
-    
+    $filtered_groups = Array();
+
+    foreach($groups AS $group) {
+        $meta = groups_get_groupmeta($group->id, 'meta');
+        $group->meta = $meta;
+        if(isset($_GET['tag']) && strlen($_GET['tag']) > 0) {
+            if(in_array(strtolower(trim($_GET['tag'])), array_map('strtolower', $meta['group_tags']))) {
+                $filtered_groups[] = $group;
+                continue;
+            }
+        } elseif(isset($_GET['location']) && strlen($_GET['location']) > 0) {
+            if(trim(strtolower($_GET['location'])) == strtolower($meta['group_country'])) {
+                $filtered_groups[] = $group;
+            }
+        } else {
+            $filtered_groups[] = $group;
+        }
+    }
+
+    $groups = $filtered_groups;
+    $group_count = sizeof($groups);
+
     $total_pages = ceil($group_count / $groups_per_page);
     $offset = ($page - 1) * $groups_per_page;
 
-    
     $tags = get_tags(Array('hide_empty' => false));
 ?>
 
@@ -70,7 +92,10 @@
                     <?php print __("Find a group near you below, or"); ?> <a href="/groups/create/step/group-details/" class="groups__hero-link"><?php print __('create a group'); ?></a>
                 </p>
                 <div class="groups__search-container">
-                    <form method="GET" action="/groups/" class="groups__form">
+                    <form method="GET" action="/groups/" class="groups__form" id="group-search-form">
+                        <input type="hidden" value="<?php if(isset($_GET['tag']) && strlen($_GET['tag']) > 0): print trim($_GET['tag']); endif; ?>" name="tag" id="group-tag" />
+                        <input type="hidden" value="<?php if(isset($_GET['location']) && strlen($_GET['location']) > 0): print trim($_GET['location']); endif; ?>" name="location" id="group-location" />
+                        <input type="hidden" name="mygroups" value="<?php if(isset($_GET['mygroups']) && $_GET['mygroups'] == 'true'): ?>true<?php else: ?>false<?php endif; ?>" />
                         <div class="groups__input-container">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M9.16667 15.8333C12.8486 15.8333 15.8333 12.8486 15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -79,7 +104,7 @@
 
                         <input type="text" name="q" id="groups-search" class="groups__search-input" placeholder="<?php print __("Search"); ?>" value="<?php if($q): ?><?php print $q; ?><?php endif; ?>" />
                         </div>
-                        <input type="submit" class="groups__search-cta" value="<?php print __("Search"); ?>" />
+                        <input type="button" class="groups__search-cta" value="<?php print __("Search"); ?>" />
                     </form>
                 </div>
             </div>
@@ -88,15 +113,15 @@
         <div class="groups__container">
             <div class="groups__nav">
                 <ul class="groups__menu">
-                    <li class="menu-item"><a class="groups__menu-link<?php if(!isset($_GET['mygroups'])): ?> group__menu-link--active<?php endif; ?>" href="/groups/"><?php print __("Discover Groups"); ?></a></li>
-                    <?php if($logged_in): ?><li class="menu-item"><a class="groups__menu-link<?php if(isset($_GET['mygroups']) && $_GET['mygroups']): ?> group__menu-link--active<?php endif; ?>" href="/groups/?mygroups=true"><?php print __("Groups I'm in"); ?></a></li><?php endif; ?>
+                    <li class="menu-item"><a class="groups__menu-link<?php if(!isset($_GET['mygroups']) || (isset($_GET['mygroups']) && $_GET['mygroups'] == 'false')): ?> group__menu-link--active<?php endif; ?>" href="#" data-nav=""><?php print __("Discover Groups"); ?></a></li>
+                    <?php if($logged_in): ?><li class="menu-item"><a class="groups__menu-link<?php if(isset($_GET['mygroups']) && $_GET['mygroups'] == 'true'): ?> group__menu-link--active<?php endif; ?>" href="#" data-nav="mygroups"><?php print __("Groups I'm in"); ?></a></li><?php endif; ?>
                 </ul>
             </div>
             <div class="groups__nav groups__nav--mobile">
                 Showing: 
                 <select class="groups__nav-select">
-                    <option value="/groups/"><?php print __("Discover Groups"); ?></option>
-                    <?php if($logged_in): ?><option value="/groups/?mygroups=true"><?php print __("Groups I'm in"); ?></option><?php endif; ?>
+                    <option value="all"><?php print __("Discover Groups"); ?></option>
+                    <?php if($logged_in): ?><option value="mygroups"<?php if(isset($_GET['mygroups']) && $_GET['mygroups'] == 'true'): ?>selected<?php endif; ?>><?php print __("Groups I'm in"); ?></option><?php endif; ?>
                 </select>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g>
@@ -104,15 +129,15 @@
                     </g>
                 </svg>               
             </div>
-            <div class="groups__filter-container groups__filter-container--hidden">
+                <div class="groups__filter-container<?php if(!isset($_GET['location']) && !isset($_GET['mygroups'])): ?> groups__filter-container--hidden<?php endif; ?>">
                 <span><?php print __("Filter by:"); ?></span>
                 <div class="groups__select-container">
                     <label class="groups__label">Location: </label>
                     <select class="groups__location-select">
                         <option><?php print __('All'); ?></option>
-                    <?php foreach($countries AS $code   =>  $country): ?>
-                        <option value="<?php print $code; ?>"><?php print $country; ?></option>
-                    <?php endforeach; ?>
+                        <?php foreach($countries AS $code   =>  $country): ?>
+                        <option value="<?php print $code; ?>"<?php if(isset($_GET['location']) && strlen($_GET['location']) > 0 && $_GET['location'] == $code): ?> selected<?php endif; ?>><?php print $country; ?></option>
+                        <?php endforeach; ?>
                     </select>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g>
@@ -123,10 +148,10 @@
                 <div class="groups__select-container">
                     <label class="groups__label">Tag: </label>
                     <select class="groups__tag-select">
-                    <option><?php print __('All'); ?></option>
-                    <?php foreach($tags AS $tag): ?>
-                        <option value="<?php print $tag->name; ?>"><?php print $tag->name; ?></option>
-                    <?php endforeach; ?>
+                        <option><?php print __('All'); ?></option>
+                        <?php foreach($tags AS $tag): ?>
+                        <option value="<?php print $tag->name; ?>" <?php if(isset($_GET['tag']) && strtolower(trim($_GET['tag'])) == strtolower($tag->name)): ?> selected<?php endif; ?>><?php print $tag->name; ?></option>
+                        <?php endforeach; ?>
                     </select>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g>
@@ -136,54 +161,102 @@
                 </div>
             </div>
             <div class="groups__show-filters-container">
-                <a href="#" class="groups__show-filter"><?php print __("Show Filters"); ?></a>
+                <a href="#" class="groups__show-filter"><?php if(isset($_GET['location']) || isset($_GET['mygroups'])): ?><?php print __("Hide Filters"); ?><?php else: ?><?php print __("Show Filters"); ?><?php endif; ?></a>
             </div>
             <div class="groups__groups">
                 <?php do_action('bp_before_groups_loop'); ?>
-                <?php  
-                    $index = 0;
-                ?>
+
                 <?php foreach($groups AS $group): ?>
                     <?php 
-                        $meta = groups_get_groupmeta($group->id, 'meta');
+                        $meta = $group->meta;
                         $member_count = groups_get_total_member_count($group->id);
+                        $group_name = $group->name;
+                        $group_name = "Mozilla Jawahar Navodaya Vidhyalaya Etah Vidhyalaya";
+                        if(strlen($group_name) > 45) {
+                            $group_name = substr($group_name, 0, 45)."&#133;";
+                        }
                     ?>
+
+                    <a href="/groups/<?php print $group->slug; ?>" class="groups__card">
+                        
+                        <div class="groups__group-image" style="background-image: url('<?php print $meta['image_url']; ?>');">
+                        </div>
+                        <div class="groups__card-content">
+                            <h2 class="groups__group-title"><?php print "Mozilla Jawahar Navodaya Vidhyalaya Etah"; ?></h2>
+                            
+                                <div class="groups__card-location">
+                                    <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M14 7.66699C14 12.3337 8 16.3337 8 16.3337C8 16.3337 2 12.3337 2 7.66699C2 6.07569 2.63214 4.54957 3.75736 3.42435C4.88258 2.29913 6.4087 1.66699 8 1.66699C9.5913 1.66699 11.1174 2.29913 12.2426 3.42435C13.3679 4.54957 14 6.07569 14 7.66699Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M8 9.66699C9.10457 9.66699 10 8.77156 10 7.66699C10 6.56242 9.10457 5.66699 8 5.66699C6.89543 5.66699 6 6.56242 6 7.66699C6 8.77156 6.89543 9.66699 8 9.66699Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <?php print $meta['group_city']; ?>
+                                    <?php 
+                                        if(isset($meta['group_country']) && strlen($meta['group_country']) > 0) {
+                                            if(isset($meta['group_city']) && strlen($meta['group_city']) > 0) {
+                                                print ", {$countries[$meta['group_country']]}";
+                                            } else {
+                                                print $countries[$meta['group_country']];
+                                            }
+                                        }
+                                    ?>
+                                </div>
+                                <div class="groups__card-members">
+                                    <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12.3334 14V12.6667C12.3334 11.9594 12.0525 11.2811 11.5524 10.781C11.0523 10.281 10.374 10 9.66675 10H4.33341C3.62617 10 2.94789 10.281 2.4478 10.781C1.9477 11.2811 1.66675 11.9594 1.66675 12.6667V14" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M6.99992 7.33333C8.47268 7.33333 9.66659 6.13943 9.66659 4.66667C9.66659 3.19391 8.47268 2 6.99992 2C5.52716 2 4.33325 3.19391 4.33325 4.66667C4.33325 6.13943 5.52716 7.33333 6.99992 7.33333Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M16.3333 14.0002V12.6669C16.3328 12.0761 16.1362 11.5021 15.7742 11.0351C15.4122 10.5682 14.9053 10.2346 14.3333 10.0869" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M11.6667 2.08691C12.2404 2.23378 12.7488 2.56738 13.1118 3.03512C13.4749 3.50286 13.672 4.07813 13.672 4.67025C13.672 5.26236 13.4749 5.83763 13.1118 6.30537C12.7488 6.77311 12.2404 7.10671 11.6667 7.25358" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <?php print "{$member_count}".__("Members"); ?>
+                                </div>
+                            <div class="groups__card-info">
+                                <div class="groups__card-tags">
+                                    <?php foreach($meta['group_tags'] AS $key =>  $value): ?>
+                                        <span class="groups__tag"><?php print $value; ?></span>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
                     <a href="/groups/<?php print $group->slug; ?>" class="groups__card">
                         
                         <div class="groups__group-image" style="background-image: url('<?php print $meta['image_url']; ?>');">
                         </div>
                         <div class="groups__card-content">
                             <h2 class="groups__group-title"><?php print $group->name; ?></h2>
-
-                            <div class="groups__card-location">
-                                <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M14 7.66699C14 12.3337 8 16.3337 8 16.3337C8 16.3337 2 12.3337 2 7.66699C2 6.07569 2.63214 4.54957 3.75736 3.42435C4.88258 2.29913 6.4087 1.66699 8 1.66699C9.5913 1.66699 11.1174 2.29913 12.2426 3.42435C13.3679 4.54957 14 6.07569 14 7.66699Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M8 9.66699C9.10457 9.66699 10 8.77156 10 7.66699C10 6.56242 9.10457 5.66699 8 5.66699C6.89543 5.66699 6 6.56242 6 7.66699C6 8.77156 6.89543 9.66699 8 9.66699Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                                <?php print $meta['group_city']; ?>
-                                <?php 
-                                    if(isset($meta['group_country']) && strlen($meta['group_country']) > 0) {
-                                        if(isset($meta['group_city']) && strlen($meta['group_city']) > 0) {
-                                            print ", {$countries[$meta['group_country']]}";
-                                        } else {
-                                            print $countries[$meta['group_country']];
+                            
+                                <div class="groups__card-location">
+                                    <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M14 7.66699C14 12.3337 8 16.3337 8 16.3337C8 16.3337 2 12.3337 2 7.66699C2 6.07569 2.63214 4.54957 3.75736 3.42435C4.88258 2.29913 6.4087 1.66699 8 1.66699C9.5913 1.66699 11.1174 2.29913 12.2426 3.42435C13.3679 4.54957 14 6.07569 14 7.66699Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M8 9.66699C9.10457 9.66699 10 8.77156 10 7.66699C10 6.56242 9.10457 5.66699 8 5.66699C6.89543 5.66699 6 6.56242 6 7.66699C6 8.77156 6.89543 9.66699 8 9.66699Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <?php print $meta['group_city']; ?>
+                                    <?php 
+                                        if(isset($meta['group_country']) && strlen($meta['group_country']) > 0) {
+                                            if(isset($meta['group_city']) && strlen($meta['group_city']) > 0) {
+                                                print ", {$countries[$meta['group_country']]}";
+                                            } else {
+                                                print $countries[$meta['group_country']];
+                                            }
                                         }
-                                    }
-                                ?>
-                            </div>
-                            <div class="groups__card-members">
-                                <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12.3334 14V12.6667C12.3334 11.9594 12.0525 11.2811 11.5524 10.781C11.0523 10.281 10.374 10 9.66675 10H4.33341C3.62617 10 2.94789 10.281 2.4478 10.781C1.9477 11.2811 1.66675 11.9594 1.66675 12.6667V14" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M6.99992 7.33333C8.47268 7.33333 9.66659 6.13943 9.66659 4.66667C9.66659 3.19391 8.47268 2 6.99992 2C5.52716 2 4.33325 3.19391 4.33325 4.66667C4.33325 6.13943 5.52716 7.33333 6.99992 7.33333Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M16.3333 14.0002V12.6669C16.3328 12.0761 16.1362 11.5021 15.7742 11.0351C15.4122 10.5682 14.9053 10.2346 14.3333 10.0869" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M11.6667 2.08691C12.2404 2.23378 12.7488 2.56738 13.1118 3.03512C13.4749 3.50286 13.672 4.07813 13.672 4.67025C13.672 5.26236 13.4749 5.83763 13.1118 6.30537C12.7488 6.77311 12.2404 7.10671 11.6667 7.25358" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                                <?php print "{$member_count}".__("Members"); ?>
-                            </div>
-                            <div class="groups__card-tags">
-                                <?php foreach($meta['group_tags'] AS $key =>  $value): ?>
-                                    <span class="groups__tag"><?php print $value; ?></span>
-                                <?php endforeach; ?>
+                                    ?>
+                                </div>
+                                <div class="groups__card-members">
+                                    <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12.3334 14V12.6667C12.3334 11.9594 12.0525 11.2811 11.5524 10.781C11.0523 10.281 10.374 10 9.66675 10H4.33341C3.62617 10 2.94789 10.281 2.4478 10.781C1.9477 11.2811 1.66675 11.9594 1.66675 12.6667V14" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M6.99992 7.33333C8.47268 7.33333 9.66659 6.13943 9.66659 4.66667C9.66659 3.19391 8.47268 2 6.99992 2C5.52716 2 4.33325 3.19391 4.33325 4.66667C4.33325 6.13943 5.52716 7.33333 6.99992 7.33333Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M16.3333 14.0002V12.6669C16.3328 12.0761 16.1362 11.5021 15.7742 11.0351C15.4122 10.5682 14.9053 10.2346 14.3333 10.0869" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M11.6667 2.08691C12.2404 2.23378 12.7488 2.56738 13.1118 3.03512C13.4749 3.50286 13.672 4.07813 13.672 4.67025C13.672 5.26236 13.4749 5.83763 13.1118 6.30537C12.7488 6.77311 12.2404 7.10671 11.6667 7.25358" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <?php print "{$member_count}".__("Members"); ?>
+                                </div>
+                            <div class="groups__card-info">
+                                <div class="groups__card-tags">
+                                    <?php foreach($meta['group_tags'] AS $key =>  $value): ?>
+                                        <span class="groups__tag"><?php print $value; ?></span>
+                                    <?php endforeach; ?>
+                                </div>
                             </div>
                         </div>
                     </a>
@@ -193,80 +266,42 @@
                         </div>
                         <div class="groups__card-content">
                             <h2 class="groups__group-title"><?php print $group->name; ?></h2>
-
-                            <div class="groups__card-location">
-                                <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M14 7.66699C14 12.3337 8 16.3337 8 16.3337C8 16.3337 2 12.3337 2 7.66699C2 6.07569 2.63214 4.54957 3.75736 3.42435C4.88258 2.29913 6.4087 1.66699 8 1.66699C9.5913 1.66699 11.1174 2.29913 12.2426 3.42435C13.3679 4.54957 14 6.07569 14 7.66699Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M8 9.66699C9.10457 9.66699 10 8.77156 10 7.66699C10 6.56242 9.10457 5.66699 8 5.66699C6.89543 5.66699 6 6.56242 6 7.66699C6 8.77156 6.89543 9.66699 8 9.66699Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                                <?php print $meta['group_city']; ?>
-                                <?php 
-                                    if(isset($meta['group_country']) && strlen($meta['group_country']) > 0) {
-                                        if(isset($meta['group_city']) && strlen($meta['group_city']) > 0) {
-                                            print ", {$countries[$meta['group_country']]}";
-                                        } else {
-                                            print $countries[$meta['group_country']];
+                            
+                                <div class="groups__card-location">
+                                    <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M14 7.66699C14 12.3337 8 16.3337 8 16.3337C8 16.3337 2 12.3337 2 7.66699C2 6.07569 2.63214 4.54957 3.75736 3.42435C4.88258 2.29913 6.4087 1.66699 8 1.66699C9.5913 1.66699 11.1174 2.29913 12.2426 3.42435C13.3679 4.54957 14 6.07569 14 7.66699Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M8 9.66699C9.10457 9.66699 10 8.77156 10 7.66699C10 6.56242 9.10457 5.66699 8 5.66699C6.89543 5.66699 6 6.56242 6 7.66699C6 8.77156 6.89543 9.66699 8 9.66699Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <?php print $meta['group_city']; ?>
+                                    <?php 
+                                        if(isset($meta['group_country']) && strlen($meta['group_country']) > 0) {
+                                            if(isset($meta['group_city']) && strlen($meta['group_city']) > 0) {
+                                                print ", {$countries[$meta['group_country']]}";
+                                            } else {
+                                                print $countries[$meta['group_country']];
+                                            }
                                         }
-                                    }
-                                ?>
-                            </div>
-                            <div class="groups__card-members">
-                                <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12.3334 14V12.6667C12.3334 11.9594 12.0525 11.2811 11.5524 10.781C11.0523 10.281 10.374 10 9.66675 10H4.33341C3.62617 10 2.94789 10.281 2.4478 10.781C1.9477 11.2811 1.66675 11.9594 1.66675 12.6667V14" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M6.99992 7.33333C8.47268 7.33333 9.66659 6.13943 9.66659 4.66667C9.66659 3.19391 8.47268 2 6.99992 2C5.52716 2 4.33325 3.19391 4.33325 4.66667C4.33325 6.13943 5.52716 7.33333 6.99992 7.33333Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M16.3333 14.0002V12.6669C16.3328 12.0761 16.1362 11.5021 15.7742 11.0351C15.4122 10.5682 14.9053 10.2346 14.3333 10.0869" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M11.6667 2.08691C12.2404 2.23378 12.7488 2.56738 13.1118 3.03512C13.4749 3.50286 13.672 4.07813 13.672 4.67025C13.672 5.26236 13.4749 5.83763 13.1118 6.30537C12.7488 6.77311 12.2404 7.10671 11.6667 7.25358" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                                <?php print "{$member_count}".__("Members"); ?>
-                            </div>
-                            <div class="groups__card-tags">
-                                <?php foreach($meta['group_tags'] AS $key =>  $value): ?>
-                                    <span class="groups__tag"><?php print $value; ?></span>
-                                <?php endforeach; ?>
+                                    ?>
+                                </div>
+                                <div class="groups__card-members">
+                                    <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12.3334 14V12.6667C12.3334 11.9594 12.0525 11.2811 11.5524 10.781C11.0523 10.281 10.374 10 9.66675 10H4.33341C3.62617 10 2.94789 10.281 2.4478 10.781C1.9477 11.2811 1.66675 11.9594 1.66675 12.6667V14" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M6.99992 7.33333C8.47268 7.33333 9.66659 6.13943 9.66659 4.66667C9.66659 3.19391 8.47268 2 6.99992 2C5.52716 2 4.33325 3.19391 4.33325 4.66667C4.33325 6.13943 5.52716 7.33333 6.99992 7.33333Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M16.3333 14.0002V12.6669C16.3328 12.0761 16.1362 11.5021 15.7742 11.0351C15.4122 10.5682 14.9053 10.2346 14.3333 10.0869" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M11.6667 2.08691C12.2404 2.23378 12.7488 2.56738 13.1118 3.03512C13.4749 3.50286 13.672 4.07813 13.672 4.67025C13.672 5.26236 13.4749 5.83763 13.1118 6.30537C12.7488 6.77311 12.2404 7.10671 11.6667 7.25358" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <?php print "{$member_count}".__("Members"); ?>
+                                </div>
+                            <div class="groups__card-info">
+                                <div class="groups__card-tags">
+                                    <?php foreach($meta['group_tags'] AS $key =>  $value): ?>
+                                        <span class="groups__tag"><?php print $value; ?></span>
+                                    <?php endforeach; ?>
+                                </div>
                             </div>
                         </div>
                     </a>
-                    <a href="/groups/<?php print $group->slug; ?>" class="groups__card">
-                        
-                        <div class="groups__group-image" style="background-image: url('<?php print $meta['image_url']; ?>');">
-                        </div>
-                        <div class="groups__card-content">
-                            <h2 class="groups__group-title"><?php print $group->name; ?></h2>
 
-                            <div class="groups__card-location">
-                                <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M14 7.66699C14 12.3337 8 16.3337 8 16.3337C8 16.3337 2 12.3337 2 7.66699C2 6.07569 2.63214 4.54957 3.75736 3.42435C4.88258 2.29913 6.4087 1.66699 8 1.66699C9.5913 1.66699 11.1174 2.29913 12.2426 3.42435C13.3679 4.54957 14 6.07569 14 7.66699Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M8 9.66699C9.10457 9.66699 10 8.77156 10 7.66699C10 6.56242 9.10457 5.66699 8 5.66699C6.89543 5.66699 6 6.56242 6 7.66699C6 8.77156 6.89543 9.66699 8 9.66699Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                                <?php print $meta['group_city']; ?>
-                                <?php 
-                                    if(isset($meta['group_country']) && strlen($meta['group_country']) > 0) {
-                                        if(isset($meta['group_city']) && strlen($meta['group_city']) > 0) {
-                                            print ", {$countries[$meta['group_country']]}";
-                                        } else {
-                                            print $countries[$meta['group_country']];
-                                        }
-                                    }
-                                ?>
-                            </div>
-                            <div class="groups__card-members">
-                                <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12.3334 14V12.6667C12.3334 11.9594 12.0525 11.2811 11.5524 10.781C11.0523 10.281 10.374 10 9.66675 10H4.33341C3.62617 10 2.94789 10.281 2.4478 10.781C1.9477 11.2811 1.66675 11.9594 1.66675 12.6667V14" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M6.99992 7.33333C8.47268 7.33333 9.66659 6.13943 9.66659 4.66667C9.66659 3.19391 8.47268 2 6.99992 2C5.52716 2 4.33325 3.19391 4.33325 4.66667C4.33325 6.13943 5.52716 7.33333 6.99992 7.33333Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M16.3333 14.0002V12.6669C16.3328 12.0761 16.1362 11.5021 15.7742 11.0351C15.4122 10.5682 14.9053 10.2346 14.3333 10.0869" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M11.6667 2.08691C12.2404 2.23378 12.7488 2.56738 13.1118 3.03512C13.4749 3.50286 13.672 4.07813 13.672 4.67025C13.672 5.26236 13.4749 5.83763 13.1118 6.30537C12.7488 6.77311 12.2404 7.10671 11.6667 7.25358" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                                <?php print "{$member_count}".__("Members"); ?>
-                            </div>
-                            <div class="groups__card-tags">
-                                <?php foreach($meta['group_tags'] AS $key =>  $value): ?>
-                                    <span class="groups__tag"><?php print $value; ?></span>
-                                <?php endforeach; ?>
-                            </div>
-                        </div>
-                    </a>
-                    
-                    <?php $index++; ?>
             
                 <?php endforeach; ?>
                 <?php do_action('bp_after_groups_loop'); ?>

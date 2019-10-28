@@ -248,4 +248,63 @@ jQuery(function(){
         return false;
     });
 
+
+    jQuery('.groups__search-cta').click(function(e) {
+        jQuery('input[name="tag"]').prop('disabled', true);
+        jQuery('input[name="location"]').prop('disabled', true);
+        jQuery('input[name="mygroups"]').prop('disabled', true);
+
+        jQuery('#group-search-form').submit();
+    });
+
+    jQuery('.groups__tag-select').change(function(e){
+        var tag = jQuery(this).val();
+        jQuery('input[name="tag"]').val(tag);
+        jQuery('#group-search-form').submit();
+    });
+
+    jQuery('.groups__location-select').change(function(e) {
+        var location = jQuery(this).val();
+        jQuery('input[name="location"]').val(location);
+
+        if(jQuery('input[name="tag"]').val().length === 0) {
+            jQuery('input[name="tag"]').prop('disabled', true);
+        }
+
+        if(jQuery('input[name="mygroups"]').val() == 'false') {
+            jQuery('input[name="mygroups"]').prop('disabled', true);
+        }
+
+        jQuery('#group-search-form').submit();
+
+    });
+
+    jQuery('.groups__menu-link').click(function(e) {
+        e.preventDefault();
+        var $this = jQuery(this);
+        
+        if($this.data('nav') == 'mygroups') {
+            jQuery('input[name="mygroups"]').val('true');
+        } else {
+            jQuery('input[name="mygroups"]').prop('disabled', true);
+        }
+
+        jQuery('#group-search-form').submit();
+
+
+        return false;
+    });
+
+    jQuery('.groups__nav-select').change(function(e){
+        var $this = jQuery(this);
+        
+        if($this.val() == 'mygroups') {
+            jQuery('input[name="mygroups"]').val('true');
+        } else {
+            jQuery('input[name="mygroups"]').prop('disabled', true);
+        }
+
+        jQuery('#group-search-form').submit();
+    });
+
 });

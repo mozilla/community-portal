@@ -179,13 +179,14 @@
         }
 
         @include tablet-and-up {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
+            display: flex!important;
+            flex-direction: row!important;
+            align-items: center!important;
+            flex-wrap: wrap!important;
         }
 
         @include desktop-and-up {
-            justify-content: space-between;
+            justify-content: space-between!important;
         }
 
     }
@@ -428,7 +429,7 @@
     }
 
     &__card {
-        height: 272px;
+        // height: 272px;
         display: block;
         background-color: $color-white;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -438,12 +439,11 @@
         overflow: hidden;
         width: 100%;
         flex-wrap: wrap;
-        padding-bottom: 24px;
 
         @include tablet-and-up {
             flex: 0 48%;
             margin-right: 4%;
-            height: 307px;
+            //height: 307px;
 
             &:nth-of-type(2n) {
                 margin-right: 0;
@@ -451,7 +451,7 @@
         }
 
         @include desktop-and-up {
-            height: 388px;
+            //height: 388px;
             
             flex: 0 32%;
             margin-right: 2%;
@@ -473,6 +473,7 @@
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
+
 
         @include tablet-and-up {
             height: 140px;
@@ -501,15 +502,21 @@
         font-size: remCalc(14);
         line-height: 20px;
         color: $color-gray-secondary;
-        height: 273px;
+        //height: 273px;
+        height: calc(100% - 122px);
 
         @include tablet-and-up {
-            height: 255px;
+            // height: 255px;
+            height: calc(100% - 140px);
         }
 
         @include desktop-and-up {
-            height: 220px;
+            height: calc(100% - 175px);
         }
+    }
+
+    &__card-info {
+        margin-top: auto;
     }
 
     &__card-location {
@@ -517,7 +524,7 @@
     }
 
     &__card-tags {
-        margin-top: auto;
+        margin-top: 24px;
         width: 100%;
     }
 
