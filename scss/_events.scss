@@ -264,66 +264,7 @@
     padding: 0;
   }
   .card {
-    &__image {
-      position: relative;
-      height: 175px;
-      overflow: hidden;
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center 50%;
-      background-image: url("./images/event.jpg");
-      img {
-        max-width: 100%;
-        display: block;
-      }
-    }
-    &__image__date {
-      display: inline-block;
-      position: absolute;
-      left: 24px;
-      bottom: 28px;
-      background: white;
-      text-align: center;
-      padding: 20px 35px;
-      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.08);
-      span {
-        display: block;
-        font-size: 32px;
-        line-height: 40px;
-      }
-    }
-
-    &__description {
-      display: flex;
-      flex-direction: column;
-      padding: 16px 32px 24px;
-      &__title {
-        margin: 0;
-      }
-    }
-    .events__tags {
-      justify-self: flex-end;
-      display: flex;
-      align-items: flex-end;
-      flex-wrap: wrap;
-      padding: 0 32px 24px;
-      margin: 0;
-      .tag {
-        margin-top: 10px;
-        margin-right: 11px;
-      }
-    }
-    &__location {
-      display: flex;
-      align-items: center;
-      p {
-        padding-left: 8px;
-        margin: 0;
-      }
-    }
-    &:hover {
-      box-shadow: 0 0 0 4px #d7d7db;
-    }
+    @extend .card;
   }
   &__cards {
     .css-event-form {

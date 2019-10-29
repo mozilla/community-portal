@@ -1,5 +1,6 @@
 <?php 
-  global $EM_Event, $bp;
+  global $EM_Event, $bp, $EM_Tags;;
+  
   $mapBoxAccessToken = 'pk.eyJ1Ijoia3ljYXBzdGlja3BnIiwiYSI6ImNrMmM0MnJ0ODJocHQzY3BlMmdkZGxucnYifQ.j4K7gEui7_BoPezbyGmZuw';
   $categories = get_the_terms($EM_Event->post_id, EM_TAXONOMY_CATEGORY);  
   $event_meta = get_post_meta($EM_Event->post_id, 'event-meta');
@@ -39,7 +40,7 @@
       <div class="card card--with-img">
         <div class="card__image"
           <?php 
-            if ($img_url !== ''):
+            if ($img_url && $img_url !== ''):
           ?>
           style="background-image: url(<?php echo esc_url_raw($img_url); ?>); min-height: 317px; width: 100%;"
           <?php 
@@ -52,6 +53,7 @@
             </svg>
           </button>
         </div>
+        <div class="card__details">
         <div class="card__date">
           <p>
             <?php echo __($months[$startMonth].' '.$startDay)?>
@@ -60,6 +62,7 @@
               else:
                 echo __(', '.$startYear);
             endif ?>
+            
           </p>
           <p>
             <?php echo __(substr($EM_Event->event_start_time, 0, 5)); 
@@ -68,11 +71,14 @@
               endif;
             ?>
           </p>
+
         </div>
         <?php echo $EM_Event->output('#_BOOKINGFORM'); ?>
+
+            </div>
       </div>
       <h2><?php echo __("Location") ?></h2>
-      <div class="card">
+      <div class="card events-single__location">
         <div class="card__address">
           <?php if ($location_type !== 'online'): 
             $location = $EM_Event->location;
@@ -94,10 +100,9 @@
           $body = wp_remote_retrieve_body( $request );
           $data = json_decode( $body );
           $coordinates = $data->features[0]->geometry->coordinates;
-          // var_dump($data->features[0]);
         ?>
         <?php if ($location_type !== 'online'): ?>
-          <div id='map' style='width: 400px; height: 300px;'></div>
+          <div id='map' class="card__map" style='height: 110px;'></div>
           <script>
             const geojson =  {
               type: 'FeatureCollection',
@@ -113,7 +118,6 @@
                 }
               }]
             };
-            console.log(geojson);
             mapboxgl.accessToken = "<?php echo $mapBoxAccessToken ?>";
             var map = new mapboxgl.Map({
               container: 'map', 
@@ -138,11 +142,11 @@
       <p><?php echo __($EM_Event->post_content) ?></p>
       <h2><?php echo __('Attendees') ?></h2>
       <div class="row">
-        <?php if ($EM_Event->bookings): 
+        <?php
+          if ($EM_Event->bookings): 
           foreach ($EM_Event->bookings as $booking) {
             $user = $booking->person->data;
             $avatar = get_avatar_url($user->ID);
-            var_dump($user);
             ?>
               <div class="col-md-6 events-single__member-card">
                 <?php 
@@ -165,6 +169,9 @@
           ?>
             
         <?php endif;?>
+      </div>
+      <div class="events-single__report">
+          <button>Report Event</button>
       </div>
     </div>
     <div class="col-md-4">
@@ -234,4 +241,36 @@
       endif;
     ?>
   </div>
+</div>
+<div class="events-single__related">
+  <h2><?php echo __('Related Events') ?></h2>
+  <?php 
+    $allRelatedEvents = array();
+    if (count($categories) > 0):
+      foreach ($categories as $category) {
+        $relatedEvents = EM_Events::get(array('category' => $category->id));
+        if (count($relatedEvents) > 0) {
+          foreach ($relatedEvents as $singleEvent) {
+            if ($allRelatedEvents[0] && $allRelatedEvents[0]->event_id === $singleEvent->event_id) {
+              break;
+            }
+            $allRelatedEvents[] = $singleEvent;
+            if (count($allRelatedEvents) >= 2) {
+              break;
+            }
+          }
+        }
+        if (count($allRelatedEvents) >= 2) {
+          break;
+        }
+      }
+    endif;
+    if (count($allRelatedEvents) > 0):
+      foreach($allRelatedEvents as $event) {
+        $url = $site_url.'/events/'.$event->slug;
+
+        include(locate_template('plugins/events-manager/templates/template-parts/single-event-card.php', false, false));
+      }
+    endif;
+  ?>
 </div>

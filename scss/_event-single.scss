@@ -1,6 +1,13 @@
 .events-single {
+  .hidden {
+    display: none;
+  }
+  .em-booking-form-details {
+    text-align: right;
+  }
   .card {
     padding: 32px;
+    background-color: white;
     &--with-img {
       padding: 0;
     }
@@ -10,6 +17,11 @@
       align-items: flex-start;
       background-size: cover;
       background-repeat: no-repeat;
+    }
+    &__details {
+      padding: 32px;
+      display: flex;
+      justify-content: space-between;
     }
     &__edit-btn {
       margin: 24px;
@@ -56,5 +68,15 @@
   }
   &__name {
     @extend .members__name;
+  }
+  &__location {
+    display: flex;
+    .card__address {
+      margin-right: 20px;
+      flex-basis: 40%;
+    }
+    .card__map {
+      flex-basis: 60%;
+    }
   }
 }

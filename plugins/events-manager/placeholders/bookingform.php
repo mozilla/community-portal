@@ -64,6 +64,7 @@ if( !$is_open && !is_user_logged_in() && $EM_Event->get_bookings()->is_open(true
 				?>
 				<?php if( $can_book ): ?>
 					<div class='em-booking-form-details'>
+            <div class="hidden">
 						<?php 
 							if( $show_tickets && $available_tickets_count == 1 && !get_option('dbem_bookings_tickets_single_form') ){
 								do_action('em_booking_form_before_tickets', $EM_Event); //do not delete
@@ -88,10 +89,12 @@ if( !$is_open && !is_user_logged_in() && $EM_Event->get_bookings()->is_open(true
 						<div class="em-booking-buttons">
 							<?php if( preg_match('/https?:\/\//',get_option('dbem_bookings_submit_button')) ): //Settings have an image url (we assume). Use it here as the button.?>
 							<input type="image" src="<?php echo get_option('dbem_bookings_submit_button'); ?>" class="em-booking-submit" id="em-booking-submit" />
-							<?php else: //Display normal submit button ?>
+              <?php else: //Display normal submit button ?>
+              </div>
+						</div>
+
 							<input type="submit" class="btn btn--dark btn--submit <?php if(is_admin()) echo 'button-primary '; ?>em-booking-submit" id="em-booking-submit" value="<?php echo esc_attr('RSVP'); ?>" />
 							<?php endif; ?>
-						</div>
 						<?php do_action('em_booking_form_footer_after_buttons', $EM_Event); //do not delete ?>
 					</div>
 				<?php else: ?>
