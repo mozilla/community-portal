@@ -75,6 +75,9 @@ if( !empty($_REQUEST['success']) ){
     </div>
   </div>
   <?php endif; ?>
+  <div class="event-creator__hidden">
+    <?php em_locate_template('forms/event/bookings.php',true); ?>
+  </div>
   <?php if (!$event_id): ?>
   <div class="wrap event-creator">
     <div class="event-creator__container">
@@ -98,6 +101,7 @@ if( !empty($_REQUEST['success']) ){
     </div>
   </div>
         <?php endif; ?>
+
   <div class="submit event-creator__submit">
     <!-- <input type="submit" class="btn btn--dark btn--submit button-primary event-creator__submit-btn" value="Create Event"> -->
     <!-- <input type='submit' class='button-primary' value='<?php echo esc_attr(sprintf( __('Update %s','events-manager'), __('Event','events-manager') )); ?>' /> -->
@@ -111,8 +115,7 @@ if( !empty($_REQUEST['success']) ){
       ?>' 
     />
     <input type="hidden" name="event_id" value="<?php echo $EM_Event->event_id; ?>" />
-    <input type="hidden" name="event_rsvp" value=<?php echo esc_attr('1') ?> />
-    <input type="hidden" name="em_tickets[0][ticket_spaces]" value=<?php echo esc_attr('1000') ?> />
+    <input type="hidden" name="event_rsvp" value=<?php echo ($event_id) ? null : esc_attr('1'); ?> />
     <input type="hidden" name="_wpnonce" id="my_nonce_field" value="<?php echo wp_create_nonce('wpnonce_event_save'); ?>" />
     <input type="hidden" name="action" value="event_save" />
     <input type="hidden" name="visibility" id="visibility-radio-public" value="public" checked="checked">

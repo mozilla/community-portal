@@ -317,6 +317,10 @@ function mozilla_init_scripts() {
     // Vendor scripts
     wp_enqueue_script('dropzonejs', get_stylesheet_directory_uri()."/js/vendor/dropzone.min.js", array('jquery'));
     wp_enqueue_script('autcomplete', get_stylesheet_directory_uri()."/js/vendor/autocomplete.js", array('jquery'));
+    wp_register_script('mapbox', "https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js");
+    wp_enqueue_script('mapbox');
+    wp_register_style('mapbox-css', 'https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css');
+    wp_enqueue_style('mapbox-css');
 
     // Custom scripts
     wp_enqueue_script('groups', get_stylesheet_directory_uri()."/js/groups.js", array('jquery'));
@@ -775,6 +779,22 @@ function mozilla_get_user_visibility_settings($user_id) {
     return $visibility_settings;
 }
 
+/**
+ * Changes the initial values/settings of a default ticket.
+ * @param EM_Ticket $EM_Ticket
+ */
+function mozilla_em_modify_default_ticket($EM_Ticket, $update) {
+  if ( empty($EM_Ticket->ticket_id) && !$update) {
+  //you can modify any property in $EM_Ticket such as spaces or the ticket name, add or delete lines as necessary
+  $EM_Ticket->ticket_spaces = 9999; //ticket spaces
+  $EM_Ticket->ticket_name = 'Default Ticket';  //ticket name
+  $EM_Ticket->ticket_description = 'Default Ticket';  //ticket description
+  $EM_Ticket->ticket_price = 0; //ticket price
+  //etc.
+  }
+}
+
+
 function mozilla_save_event($post_id, $post, $update) {
   if ($post->post_type === 'event') {
     $event = new stdClass();
@@ -783,4 +803,3 @@ function mozilla_save_event($post_id, $post, $update) {
     update_post_meta($post_id, 'event-meta', $event);
   }
 }
-

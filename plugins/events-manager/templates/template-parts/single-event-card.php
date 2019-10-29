@@ -1,4 +1,3 @@
-
 <div class="col-lg-4 col-md-6 events__column">
   <div class="card">
     <a class="events__link" href="<?php echo $url?>">

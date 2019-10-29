@@ -1,7 +1,9 @@
 <?php 
   global $EM_Event, $bp;
+  $mapBoxAccessToken = 'pk.eyJ1Ijoia3ljYXBzdGlja3BnIiwiYSI6ImNrMmM0MnJ0ODJocHQzY3BlMmdkZGxucnYifQ.j4K7gEui7_BoPezbyGmZuw';
   $categories = get_the_terms($EM_Event->post_id, EM_TAXONOMY_CATEGORY);  
   $event_meta = get_post_meta($EM_Event->post_id, 'event-meta');
+  $allCountries = em_get_countries();
   $img_url = $event_meta[0]->image_url;
   $location_type = $event_meta[0]->location_type;
   $months = array(
@@ -72,23 +74,98 @@
       <h2><?php echo __("Location") ?></h2>
       <div class="card">
         <div class="card__address">
-          <?php if ($location_type !== 'online'): ?>
-            <p><?php echo __($EM_Event->location->location_name) ?></p>
-            <p><?php echo __($EM_Event->location->location_address) ?></p>
-            <p><?php echo __($EM_Event->location->location_town.', '.$EM_Event->location->location_country) ?></p>
+          <?php if ($location_type !== 'online'): 
+            $location = $EM_Event->location;
+            ?>
+            <p><?php echo __($location->location_name) ?></p>
+            <p><?php echo __($location->location_address) ?></p>
+            <p><?php echo __($location->location_town.', '.$allCountries[$EM_Event->location->location_country]) ?></p>
           <?php else: ?>
             <p><?php echo __("This is an online-only event") ?></p>
             <a href="<?php echo esc_attr($EM_Event->location->address) ?>"><?php echo __('Meeting link') ?></a>
           <?php endif; ?>
         </div>
+        <?php
+          $fullLocation = rawurlencode($location->location_address.' '.$location->location_town);
+          $request = wp_remote_get('https://api.mapbox.com/geocoding/v5/mapbox.places/'.$fullLocation.'.json?types=address&access_token='.$mapBoxAccessToken);
+          if (is_wp_error($request)):
+            return false;
+          endif;
+          $body = wp_remote_retrieve_body( $request );
+          $data = json_decode( $body );
+          $coordinates = $data->features[0]->geometry->coordinates;
+          // var_dump($data->features[0]);
+        ?>
         <?php if ($location_type !== 'online'): ?>
-          <div class="card__map">
-          </div>
+          <div id='map' style='width: 400px; height: 300px;'></div>
+          <script>
+            const geojson =  {
+              type: 'FeatureCollection',
+              features: [{
+                type: 'Feature',
+                geometry: {
+                  type: 'Point',
+                  coordinates: [<?php echo $coordinates[0].', '.$coordinates[1]; ?>]
+                },
+                properties: {
+                  title: 'Mapbox',
+                  description: 'Washington, D.C.'
+                }
+              }]
+            };
+            console.log(geojson);
+            mapboxgl.accessToken = "<?php echo $mapBoxAccessToken ?>";
+            var map = new mapboxgl.Map({
+              container: 'map', 
+              style: 'mapbox://styles/mapbox/streets-v11',
+              center: [<?php echo $coordinates[0].', '.$coordinates[1]; ?> ],
+              zoom: 15,
+            });
+            geojson.features.forEach(function(marker) {
+              // create a HTML element for each feature
+              var el = document.createElement('div');
+              el.className = 'marker';
+
+              // make a marker for each feature and add to the map
+              new mapboxgl.Marker(el)
+                .setLngLat(marker.geometry.coordinates)
+                .addTo(map);
+              });
+        </script>
         <?php endif ?>
       </div>
       <h2><?php echo __('Description') ?></h2>
       <p><?php echo __($EM_Event->post_content) ?></p>
       <h2><?php echo __('Attendees') ?></h2>
+      <div class="row">
+        <?php if ($EM_Event->bookings): 
+          foreach ($EM_Event->bookings as $booking) {
+            $user = $booking->person->data;
+            $avatar = get_avatar_url($user->ID);
+            var_dump($user);
+            ?>
+              <div class="col-md-6 events-single__member-card">
+                <?php 
+                  if ($avatar):
+                ?>
+                <div class="events-single__avatar">
+                  <img src="<?php echo esc_attr($avatar)?>" alt="">                    
+                </div>
+                <div class="events-single__user-details">
+                    <p class="events-single__username"><?php echo __('@'.$user->display_name) ?></p>
+                    <p class="events-single__name"><?php echo __($user->user_nicename) ?></p>
+                
+                </div>
+            <?php
+            endif;
+            ?>
+              </div>
+            <?php
+          }
+          ?>
+            
+        <?php endif;?>
+      </div>
     </div>
     <div class="col-md-4">
       <div>

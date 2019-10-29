@@ -36,4 +36,25 @@
   &__group {
     margin-top: 32px;
   }
+  &__member-card {
+    display: flex;
+  }
+  &__avatar {
+    @extend .members__avatar;
+    margin-right: 16px;
+    img {
+      display: block;
+      max-width: 100%;
+    }
+  }
+  &__username {
+    @extend .members__username;
+    a {
+      color: black;
+      text-decoration: none;
+    }
+  }
+  &__name {
+    @extend .members__name;
+  }
 }
