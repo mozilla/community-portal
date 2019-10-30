@@ -647,7 +647,9 @@ function mozilla_update_member() {
 
             $additional_fields = Array(
                 'image_url',
-                'profile_image_visibility'
+                'profile_image_visibility',
+                'pronoun',
+                'profile_pronoun_visibility'
             );
 
             if(isset($meta['agree'][0]) && $meta['agree'][0] == 'I Agree') {

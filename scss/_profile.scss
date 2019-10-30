@@ -292,6 +292,16 @@
             margin-top: 0;
             max-width: 180px;
         }
+
+        &.profile__select-container--full {
+            @include tablet-and-up {
+                width: 100%;
+                max-width: 600px;
+                margin-right: 32px;
+            }
+        }
+
+       
     }
 
     &__cta-container {
@@ -644,6 +654,9 @@
         display: none;
     }
 
+    &__select {
+        width: 100%;
+    }
 
 }
 
