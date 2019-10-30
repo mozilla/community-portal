@@ -1,3 +1,9 @@
+<?php 
+  $categories = $event->get_categories();
+  $location = em_get_location($event->location_id);
+  $site_url = get_site_url();
+  $url = $site_url.'/'.$event->slug;  
+?> 
 <div class="col-lg-4 col-md-6 events__column">
   <div class="event-card">
     <a class="events__link" href="<?php echo $url?>">
@@ -17,7 +23,7 @@
           $date = substr($event->start_date, 8, 2);
           $year = substr($event->start_date, 0, 4);
         ?>
-        <p class="event-card__image__date"><span><?php echo __($months[$month]) ?> </span><span><?php echo __($date) ?></span></p>
+        <p class="event-card__image__date"><span><?php echo __(substr($months[$month],0,3)) ?> </span><span><?php echo __($date) ?></span></p>
       </div>
       <div class="event-card__description">
         <h3 class="event-card__description__title title--event-card"><?php echo $event->event_name; ?></h2>
@@ -46,18 +52,26 @@
       </div>
       <ul class="events__tags">
         <?php
-          if (is_array($categories)): 
-            if (count($categories) <= 2): 
-              foreach($categories as $category) {
+          if (is_array($categories->terms)): 
+            if (count($categories->terms) <= 2): 
+              foreach($categories->terms as $category) {
         ?>
             <li class="tag"><?php echo __($category->name); ?></li>
         <?php
           }
-          elseif (count($categories) > 0):
+          elseif (count($categories->terms) > 0):
+            $i = 0;
+            foreach ($categories->terms as $category) {
             ?>
-            <li class="tag"><?php echo __($categories[0]->name) ?></li>
-            <li class="tag"><?php echo __($categories[1]->name) ?></li>    
-            <li class="tag"><?php echo __('+'); echo count($categories) - 2; echo __(' more tag(s)'); ?></li>        
+              <li class="tag"><?php echo __($category->name) ?></li>
+            <?php
+              $i = $i + 1;
+              if ($i === 2) {
+                break;
+              }
+            }
+            ?>
+            <li class="tag"><?php echo __('+'); echo count($categories->terms) - 2; echo __(' more tag(s)'); ?></li>        
             <?php
           endif;
         endif;

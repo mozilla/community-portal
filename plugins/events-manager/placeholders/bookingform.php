@@ -25,28 +25,33 @@ if( !$is_open && !is_user_logged_in() && $EM_Event->get_bookings()->is_open(true
 	$show_tickets = get_option('dbem_bookings_tickets_show_unavailable') && get_option('dbem_bookings_tickets_show_member_tickets');
 }
 ?>
+
 <div id="em-booking" class="em-booking <?php if( get_option('dbem_css_rsvp') ) echo 'css-booking'; ?>">
-	<?php
+  <?php
+    $cancel = $_REQUEST['cancel'];  
 		// We are firstly checking if the user has already booked a ticket at this event, if so offer a link to view their bookings.
-		$EM_Booking = $EM_Event->get_bookings()->has_booking();
-		do_action('em_booking_form_top');
-	?>
-	<?php if( is_object($EM_Booking) && !get_option('dbem_bookings_double') ): //Double bookings not allowed ?>
-		<p>
-			<?php echo get_option('dbem_bookings_form_msg_attending'); ?>
-			<a href="<?php echo em_get_my_bookings_url(); ?>"><?php echo get_option('dbem_bookings_form_msg_bookings_link'); ?></a>
-		</p>
-	<?php elseif( !$EM_Event->event_rsvp ): //bookings not enabled ?>
-		<p><?php echo get_option('dbem_bookings_form_msg_disabled'); ?></p>
-	<?php elseif( $EM_Event->get_bookings()->get_available_spaces() <= 0 ): ?>
-		<p><?php echo get_option('dbem_bookings_form_msg_full'); ?></p>
-	<?php elseif( !$is_open ): //event has started ?>
-		<p><?php echo get_option('dbem_bookings_form_msg_closed');  ?></p>
+    $EM_Booking = $EM_Event->get_bookings()->has_booking();
+    if ($EM_Booking !== false && $cancel !== null) {
+      $EM_Booking->cancel();
+      $updatedUrl = remove_query_arg('cancel', $_SERVER['REQUEST_URI']);
+      ?> 
+      <script>
+        window.history.replaceState("","", "<?php echo $updatedUrl ?>")
+      </script>
+      <?php 
+      $EM_Booking = $EM_Event->get_bookings()->has_booking();
+    }
+  ?>
+  
+    
+  <?php if( is_object($EM_Booking) && !get_option('dbem_bookings_double') ): //Double bookings not allowed 
+    ?>
+    <a class="em-bookings-cancel btn btn--submit btn--dark" href="<?php echo esc_attr(add_query_arg(array('cancel' => true), $_SERVER['REQUEST_URI']))?>" onclick="if( !confirm(EM.booking_warning_cancel) ){ return false; }">Cancel</a>
 	<?php else: ?>
 		<?php echo $EM_Notices; ?>
 		<?php if( $tickets_count > 0) : ?>
 			<?php //Tickets exist, so we show a booking form. ?>
-			<form class="em-booking-form" name='booking-form' method='post' action='<?php echo apply_filters('em_booking_form_action_url',''); ?>#em-booking'>
+			<form class="em-booking-form" name='booking-form' method='post' action='<?php echo remove_query_arg('cancel', apply_filters('em_booking_form_action_url','')); ?>'>
 				<?php do_action('em_booking_form_header'); ?>
 			 	<input type='hidden' name='action' value='booking_add'/>
 			 	<input type='hidden' name='event_id' value='<?php echo $EM_Event->get_bookings()->event_id; ?>'/>

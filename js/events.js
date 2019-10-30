@@ -64,8 +64,7 @@ jQuery(function() {
   function setHeightOfDivs(selector) {
     let t = 0;
     let t_elem;
-    const element = ".events " + selector;
-    const $cards = jQuery(element);
+    const $cards = jQuery(selector);
     if ($cards) {
       $cards.each(function() {
         $this = jQuery(this);
@@ -232,6 +231,16 @@ jQuery(function() {
     }
   }
 
+  function cancelBooking() {
+    const $cancelBtn = jQuery(".em-bookings-cancel");
+    if ($cancelBtn) {
+      $cancelBtn.on("click", function(e) {
+        e.preventDefault();
+        console.log(e.target.href);
+      });
+    }
+  }
+
   function init() {
     toggleMobileEventsNav(".events__nav__toggle", ".events__nav");
     toggleMobileEventsNav(".events__filter__toggle", ".events__filter");
@@ -239,14 +248,15 @@ jQuery(function() {
     applyFilters();
     window.addEventListener("resize", function() {
       setHeightOfDivs(".events__tags");
-      setHeightOfDivs(".card__description");
+      setHeightOfDivs(".event-card__description");
     });
     setHeightOfDivs(".events__tags");
-    setHeightOfDivs(".card__description");
+    setHeightOfDivs(".event-card__description");
     toggleLocationType();
     validateForm();
     clearImage();
     editLocation();
+    // cancelBooking();
   }
 
   init();

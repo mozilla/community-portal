@@ -55,19 +55,18 @@
         </div>
         <div class="card__details">
         <div class="card__date">
-          <p>
-            <?php echo __($months[$startMonth].' '.$startDay)?>
+          <h2 class="title--secondary">
             <?php if ($endDay):
-                echo __(' - '.$months[$endMonth].' '.$endDay.', '.$endYear);
+                echo __($months[$startMonth].' '.$startDay.' - '.$months[$endMonth].' '.$endDay.', '.$endYear);
               else:
-                echo __(', '.$startYear);
+                echo __($months[$startMonth].' '.$startDay.', '.$startYear);
             endif ?>
             
-          </p>
-          <p>
+          </h2>
+          <p card="card__time">
             <?php echo __(substr($EM_Event->event_start_time, 0, 5)); 
               if ($EM_Event->event_end_time !== null):
-                echo __(' to '.$EM_Event->event_end_time.' '.$EM_Event->event_timezone);
+                echo __(' to '.substr($EM_Event->event_end_time, 0, 5).' '.$EM_Event->event_timezone);
               endif;
             ?>
           </p>
@@ -77,7 +76,7 @@
 
             </div>
       </div>
-      <h2><?php echo __("Location") ?></h2>
+      <h2 class="title--secondary"><?php echo __("Location") ?></h2>
       <div class="card events-single__location">
         <div class="card__address">
           <?php if ($location_type !== 'online'): 
@@ -138,13 +137,18 @@
         </script>
         <?php endif ?>
       </div>
-      <h2><?php echo __('Description') ?></h2>
-      <p><?php echo __($EM_Event->post_content) ?></p>
-      <h2><?php echo __('Attendees') ?></h2>
+      <div class="events-single__description">
+        <h2 class="title--secondary"><?php echo __('Description') ?></h2>
+        <p><?php echo __($EM_Event->post_content) ?></p>
+      </div>
+      <h2 class="title--secondary"><?php echo __('Attendees') ?></h2>
       <div class="row">
         <?php
           if ($EM_Event->bookings): 
           foreach ($EM_Event->bookings as $booking) {
+            if ($booking->booking_status === '3') {
+              break;
+            }
             $user = $booking->person->data;
             $avatar = get_avatar_url($user->ID);
             ?>
@@ -170,18 +174,15 @@
             
         <?php endif;?>
       </div>
-      <div class="events-single__report">
-          <button>Report Event</button>
-      </div>
     </div>
     <div class="col-md-4">
       <div>
-        <div class="card">
+        <div class="card events-single__attributes">
           <?php 
             if ($EM_Event->location->location_name === "Online" && $EM_Event->location->location_address):
           ?>
             <div>
-              <p>Links</p>
+              <p class="events-single__label">Links</p>
               <p><a href="<?php echo $EM_Event->location->location_address?>"><?php echo $EM_Event->location->location_address ?></a></p>
             </div>
           <?php 
@@ -189,7 +190,7 @@
           ?>
           <?php if ($categories): ?>
           <div>
-            <p>Tags</p>
+            <p class="events-single__label">Tags</p>
             <ul class="events-single__tags">
               <?php
                 foreach($categories as $category) {
@@ -202,8 +203,16 @@
           </div>
           <?php endif; ?>
           <div>
-            <p>Part of</p>
-            <a href="#">Firefox for good campaign</a>
+            <p class="events-single__label">Part of</p>
+            <div class="events-single__campaign">            
+              <svg width="24" height="24" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15.8493 9.33834L10.1925 10.7526C10.1925 10.7526 4.81846 11.8839 3.96994 12.7325C3.29111 13.4113 3.59281 14.0524 3.82851 14.2881C4.3942 14.8538 6.42124 16.8808 7.36405 17.8236" stroke="#0060DF" stroke-width="2"/>
+                <path d="M21.5061 14.9956L20.0919 20.6525C20.0919 20.6525 18.9606 26.0265 18.112 26.875C17.4332 27.5539 16.7921 27.2522 16.5564 27.0165C15.9907 26.4508 13.9637 24.4237 13.0209 23.4809" stroke="#0060DF" stroke-width="2"/>
+                <path d="M8.36987 19.6465L6.30336 21.713L7.71758 23.1272L9.13179 24.5414L11.1983 22.4749" stroke="#0060DF" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M22.7239 13.7788L13.0208 23.4819L10.1924 20.6535L7.36393 17.825L17.067 8.12197C19.3062 5.8828 22.6846 6.27564 23.6274 7.21845C24.5702 8.16126 24.963 11.5397 22.7239 13.7788Z" stroke="#0060DF" stroke-width="2"/>
+              </svg>
+              <a href="#">Firefox for good campaign</a>
+            </div>
           </div>
         </div>
         <div class="card events-single__share">
@@ -224,14 +233,14 @@
       endif;
       ?> 
       <div class="card events-single__group">
-        <p>Hosted by</p>
+        <p class="events-single__label">Hosted by</p>
         <a href="<?php echo get_site_url(null, 'groups/'.bp_get_group_slug($group)) ?>"><?php echo bp_get_group_name($group) ?></a>
         <?php 
           if ($user && $avatar):
             ?>
-            <div>
-              <img src="<?php echo $avatar ?>" alt="">
-              <p><?php echo '@'.$user->user_nicename ?></p>
+            <div class="events-single__member-card">
+              <img class="events-single__avatar" src="<?php echo $avatar ?>" alt="">
+              <p class="events-single__username"><?php echo '@'.$user->user_nicename ?></p>
             </div>
             <?
           endif;
@@ -241,9 +250,21 @@
       endif;
     ?>
   </div>
+  <div class="col-sm-12">
+    <div class="events-single__report">
+      <button class="btn events-single__report-btn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12 8V12" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="12" cy="16" r="0.5" fill="#CDCDD4" stroke="#0060DF"/>
+        </svg>
+          Report this event
+        </button>
+      </div>
+  </div>
 </div>
 <div class="events-single__related">
-  <h2><?php echo __('Related Events') ?></h2>
+  <h2 class="title--secondary"><?php echo __('Related Events') ?></h2>
   <?php 
     $allRelatedEvents = array();
     if (count($categories) > 0):
@@ -266,11 +287,17 @@
       }
     endif;
     if (count($allRelatedEvents) > 0):
+    ?>
+      <div class="row">
+      <?php
       foreach($allRelatedEvents as $event) {
         $url = $site_url.'/events/'.$event->slug;
 
         include(locate_template('plugins/events-manager/templates/template-parts/single-event-card.php', false, false));
       }
+      ?>
+      </div>
+      <?php 
     endif;
   ?>
 </div>

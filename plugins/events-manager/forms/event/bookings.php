@@ -37,9 +37,9 @@ $reschedule_warnings = !empty($EM_Event->event_id) && $EM_Event->is_recurring() 
 			    <p><?php esc_html_e( 'Modifications to event tickets will cause all bookings to individual recurrences of this event to be deleted.', 'events-manager'); ?></p>
 	    		<p>			
 			    	<a href="<?php echo esc_url( add_query_arg(array('scope'=>'all', 'recurrence_id'=>$EM_Event->event_id), em_get_events_admin_url()) ); ?>">
-						<strong><?php esc_html_e('You can edit individual recurrences and disassociate them with this recurring event.', 'events-manager'); ?></strong>
-					</a>
-                </p>
+						  <strong><?php esc_html_e('You can edit individual recurrences and disassociate them with this recurring event.', 'events-manager'); ?></strong>
+					  </a>
+          </p>
 	    	</div>
 			<?php 
 		}

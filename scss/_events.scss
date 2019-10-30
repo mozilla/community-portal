@@ -332,6 +332,9 @@
     @include tablet-and-up {
       width: calc(100% - 191px);
     }
+    div {
+      display: block;
+    }
   }
   div.css-search div.em-search-main .em-search-submit {
     background: $color-blue-50;
@@ -369,7 +372,9 @@
       border-bottom: 1px solid $color-gray-20;
     }
   }
-  div.css-search input.em-search-text {
+  div.css-search input.em-search-text,
+  div.css-search div.em-search-text {
     line-height: 22px;
+    display: block;
   }
 }
