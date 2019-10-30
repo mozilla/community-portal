@@ -645,6 +645,11 @@ function mozilla_update_member() {
                 'agree'
             );
 
+            $additional_fields = Array(
+                'image_url',
+                'profile_image_visibility'
+            );
+
             if(isset($meta['agree'][0]) && $meta['agree'][0] == 'I Agree') {
                 unset($required[8]);
             }
@@ -719,10 +724,24 @@ function mozilla_update_member() {
                 unset($required[0]);
 
                 foreach($required AS $field) {
-
                     $form_data = sanitize_text_field(trim($_POST[$field]));
                     update_user_meta($user->ID, $field, $form_data);
                 }
+
+
+                // Update other fields here
+                $addtional_meta = Array();
+
+                
+
+
+                foreach($additional_fields AS $field) {
+                    if(isset($_POST[$field])) {
+                        $additional_meta[$field] = sanitize_text_field(trim($_POST[$field]));
+                    }
+                }    
+
+                update_user_meta($user->ID, 'community-meta-fields', $additional_meta);
             }
         }
     }

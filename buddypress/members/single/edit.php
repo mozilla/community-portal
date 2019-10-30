@@ -26,6 +26,7 @@
     </div>
     
     <form class="profile__form" id="complete-profile-form" method="post" novalidate>
+        <?php print wp_nonce_field('protect_content', 'my_nonce_field'); ?>
         <section class="profile__form-container profile__form-container--first">
             <div class="profile__form-primary">
                 <h2 class="profile__form-title"><?php print __("Primary Information"); ?></h2>
@@ -43,6 +44,41 @@
                     </select>
                 </div>
             </div>
+            <?php if(isset($meta['agree'][0]) && $meta['agree'][0] == 'I Agree'): ?>
+            <hr class="profile__keyline" />
+            <div class="profile__form-field">
+                <div class="profile__input-container profile__input-container--profile">
+                    <label class="profile__label" for="username"><?php print __("Profile Photo *"); ?></label>
+                        <div id="profile-photo-uploader" class="profile__image-upload"<?php if($form && isset($form['image_url'])): ?> style="background-image: url('<?php print $form['image_url']; ?>');"<?php else: ?><?php if(is_array($community_fields) && isset($community_fields['image_url'])): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>');"<?php endif; ?><?php endif; ?>>
+                        <?php if(!is_array($community_fields) || !isset($community_fields['image_url'])): ?>
+                        <svg width="75" height="75" viewBox="0 0 75 75" fill="none" xmlns="http://www.w3.org/2000/svg" class="create-group__upload-image-svg">
+                            <path d="M59.375 9.375H15.625C12.1732 9.375 9.375 12.1732 9.375 15.625V59.375C9.375 62.8268 12.1732 65.625 15.625 65.625H59.375C62.8268 65.625 65.625 62.8268 65.625 59.375V15.625C65.625 12.1732 62.8268 9.375 59.375 9.375Z" stroke="#CDCDD4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M26.5625 31.25C29.1513 31.25 31.25 29.1513 31.25 26.5625C31.25 23.9737 29.1513 21.875 26.5625 21.875C23.9737 21.875 21.875 23.9737 21.875 26.5625C21.875 29.1513 23.9737 31.25 26.5625 31.25Z" stroke="#CDCDD4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M65.625 46.875L50 31.25L15.625 65.625" stroke="#CDCDD4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <?php endif; ?>
+                    </div>
+                    <div class="profile__image-instructions">
+                        <div><?php print __("Click or drag a photo above "); ?></div>
+                        <div><?php print __("Minimum dimensions: 175 x 175px"); ?></div>
+                    </div>
+                    <input type="hidden" name="image_url" id="image-url" value="<?php if($form && isset($form['image_url'])): ?><?php $form['image_url']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['image_url'])): ?><?php print $community_fields['image_url']; ?><?php endif; ?><?php endif; ?>" />
+                </div>
+                <div class="profile__select-container">
+                    <label class="profile__label" for=""><?php print __("Can be viewed by"); ?></label>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g>
+                            <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
+                        </g>
+                    </svg>
+                    <select id="profile-image-visibility" name="profile_image_visibility" class="profile__select">
+                        <?php foreach($visibility_options AS $key   =>  $value): ?>
+                        <option value="<?php print $key; ?>"<?php if($form && isset($form['profile_image_visibility']) && $form['profile_image_visibility'] == $key): ?> selected<?php else: ?><?php if(isset($community_fields['profile_image_visibility']) && $community_fields['profile_image_visibility'] == $key): ?> selected<?php endif; ?><?php endif; ?>><?php print $value; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <?php endif; ?>
             <hr class="profile__keyline" />
             <div class="profile__form-field">
                 <div class="profile__input-container">

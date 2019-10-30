@@ -1,4 +1,7 @@
 jQuery(function(){
+
+
+    
     jQuery('#complete-profile-form').one('submit', function(e){
         e.preventDefault();
         var error = false;
@@ -113,8 +116,43 @@ jQuery(function(){
                 }
             }
         })
+    });
 
 
+
+
+    jQuery("#profile-photo-uploader").dropzone({
+        url: '/wp-admin/admin-ajax.php?action=upload_group_image',
+        acceptedFiles: 'image/*',
+        createImageThumbnails: false,
+        addRemoveLinks: true,
+        init: function() {
+            this.on("sending", function(file, xhr, formData){
+                console.log("What?");
+                var nonce = jQuery('#my_nonce_field').val();
+                formData.append('my_nonce_field', nonce);
+            });
+        },
+        success: function (file, response) {
+            
+            file.previewElement.classList.add("dz-success");
+            file['attachment_id'] = response; // push the id for future reference
+            
+            jQuery('#image-url').val(response);
+            jQuery('#profile-photo-uploader').css('background-image', 'url(' +  response + ')');
+            jQuery('#profile-photo-uploader').addClass("profile__image-upload--complete");
+            
+        },
+        error: function (file, response) {
+            
+            file.previewElement.classList.add("dz-error");
+        },
+        sending: function(file, xhr, formData) {
+        },
+        removedfile: function(file) {
+           
+            return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;     
+        }
     });
 
 

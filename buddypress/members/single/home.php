@@ -17,11 +17,16 @@
             // Get current user
             $user = wp_get_current_user()->data;
 
-            // Get user meta data
+            // Get default user meta data
             $meta = get_user_meta($user->ID);
 
-            // Check if this is their first time / haven't completed their profile by using CPG I agree 
-            $form = $_POST;
+            if(isset($meta['community-meta-fields']) && isset($meta['community-meta-fields'][0])) {
+                $community_fields = unserialize($meta['community-meta-fields'][0]);                
+            } else {
+                $community_fields = false;
+            }
+
+            $form = ($_SERVER['REQUEST_METHOD'] === 'POST') ? $_POST : false;
 
             do_action('bp_before_edit_member_page');
 

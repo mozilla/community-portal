@@ -206,6 +206,13 @@
         @include desktop-and-up {
             max-width: 600px;
         }
+
+        &.profile__input-container--profile {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
     }
 
     &__form-field {
@@ -299,6 +306,7 @@
     &__label {
         @extend .label;
         display: block;
+        width: 100%;
         color: $color-gray-secondary;
     }
 
@@ -594,5 +602,48 @@
         line-height: 20px;
         letter-spacing: 0.0025em;
     }
+
+    #profile-photo-uploader {
+        width: 105px;
+        height: 105px;
+        background-color: $color-gray-20;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        margin-top: 8px;
+        z-index: 100;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        &:hover {
+            cursor: pointer;
+        }
+
+
+        &.profile__image-upload--complete {
+            svg {
+                display: none;
+            }
+        }
+    }
+
+    &__image-instructions {
+        margin-left: 16px;
+        font-size: remCalc(12);
+        line-height: 16px;
+        color: $color-gray-secondary;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .dz-preview {
+        z-index: 80;
+        display: none;
+    }
+
+
 }
 
