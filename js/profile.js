@@ -1,7 +1,7 @@
 jQuery(function(){
 
 
-    
+
     jQuery('#complete-profile-form').one('submit', function(e){
         e.preventDefault();
         var error = false;
@@ -155,5 +155,20 @@ jQuery(function(){
         }
     });
 
+
+
+    jQuery('.profile__input, .profile__textarea, .profile__select').on('change keyup paste', function(e){
+        var $this = jQuery(this);
+        if($this.val() != '' || $this.val() == '0') {
+            $this.removeClass('profile__input--error');
+            $this.next('.form__error-container').removeClass('form__error-container--visible');
+        } else {
+            $this.addClass('profile__input--error');
+            $this.next('.form__error-container').addClass('form__error-container--visible');
+        }
+        e.stopPropagation();
+
+        return false;
+    });
 
 });

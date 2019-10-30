@@ -334,7 +334,6 @@ function mozilla_create_group() {
             'my_nonce_field'
         );
 
-
         $optional = Array(
             'image_url',
             'group_address_type',
@@ -654,8 +653,13 @@ function mozilla_update_member() {
                 'profile_bio_visibility',
             );
 
+            // Add additional required fields after initial setup
             if(isset($meta['agree'][0]) && $meta['agree'][0] == 'I Agree') {
                 unset($required[8]);
+                $required[] = 'city';
+                $required[] = 'country';
+                $required[] = 'profile_location_visibility';
+
             }
 
             $error = false;

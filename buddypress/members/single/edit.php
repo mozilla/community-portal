@@ -1,12 +1,3 @@
-<?php 
-
-    $pronouns = Array(
-        'She/Her',
-        'He/Him',
-        'They/Them'
-    );
-?>
-
 <?php if($complete === true): ?>
     <div class="profile__container">
         <section class="profile__success-message-container"> 
@@ -133,7 +124,6 @@
                         <option value="<?php print $key; ?>"<?php if(isset($meta['first_name_visibility'][0]) && $meta['first_name_visibility'][0] == $key): ?> selected<?php endif; ?>><?php print $value; ?></option>
                         <?php endif; ?>
                         <?php endforeach; ?>
-                        
                     </select>
                 </div>
             </div>
@@ -206,6 +196,45 @@
                     <select id="profile-bio-visibility" name="profile_bio_visibility" class="profile__select">
                         <?php foreach($visibility_options AS $key   =>  $value): ?>
                         <option value="<?php print $key; ?>"<?php if($form && isset($form['profile_bio_visibility']) && $form['profile_bio_visibility'] == $key): ?> selected<?php else: ?><?php if(isset($community_fields['profile_bio_visibility']) && $community_fields['profile_bio_visibility'] == $key): ?> selected<?php endif; ?><?php endif; ?>><?php print $value; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <hr class="profile__keyline" />
+            <div class="profile__form-field">
+                <div class="profile__select-container profile__select-container--inline">
+                    <label class="profile__label" for="country"><?php print __("Country"); ?></label>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g>
+                            <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
+                        </g>
+                    </svg>
+                    <select id="country" name="country" class="profile__select<?php if($form && !isset($form['country']) || (isset($form['country']) && empty(trim($form['country'])))): ?> profile__select--error<?php endif; ?>" required>
+                        <?php foreach($countries AS $key    =>  $value): ?>
+                        <option value="<?php print $key; ?>"<?php if($form && isset($form['country']) && $form['country'] == $key): ?> selected<?php else: ?><?php if(isset($community_fields['country']) && $community_fields['country'] == $key): ?> selected<?php endif; ?><?php endif; ?>><?php print $value; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <div class="form__error-container<?php if($form && !isset($form['country']) || (isset($form['country']) && empty(trim($form['country'])))): ?> form__error-container--visible<?php endif; ?>">
+                        <div class="form__error"><?php print __("This field is required"); ?></div>
+                    </div>
+                </div>
+                <div class="profile__input-container">
+                    <label class="profile__label" for="city"><?php print __("City"); ?></label>
+                    <input type="text" name="city" id="city" class="profile__input<?php if($form && !isset($form['city']) || (isset($form['city']) && empty(trim($form['city'])) )): ?> profile__input--error<?php endif; ?>" placeholder="<?php print __("City"); ?>" value="<?php print isset($form['city']) ? $form['city'] : $community_fields['city']; ?>" required />
+                    <div class="form__error-container<?php if($form && !isset($form['last_name']) || (isset($form['city']) && empty(trim($form['city'])) )): ?> form__error-container--visible<?php endif; ?>">
+                        <div class="form__error"><?php print __("This field is required"); ?></div>
+                    </div>
+                </div>
+                <div class="profile__select-container">
+                    <label class="profile__label" for=""><?php print __("Can be viewed by"); ?></label>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g>
+                            <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
+                        </g>
+                    </svg>
+                    <select id="profile-bio-visibility" name="profile_bio_visibility" class="profile__select">
+                        <?php foreach($visibility_options AS $key   =>  $value): ?>
+                        <option value="<?php print $key; ?>"<?php if($form && isset($form['profile_location_visibility']) && $form['profile_location_visibility'] == $key): ?> selected<?php else: ?><?php if(isset($community_fields['profile_location_visibility']) && $community_fields['profile_location_visibility'] == $key): ?> selected<?php endif; ?><?php endif; ?>><?php print $value; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>

@@ -301,6 +301,10 @@
             }
         }
 
+        &.profile__select-container--inline {
+            margin-right: 32px;
+        }
+
        
     }
 
@@ -323,6 +327,10 @@
     &__select {
         @extend .select;
         margin-top: 15px;
+
+        &.profile__input--error {
+            border: 1px solid $error;
+        }
     }
 
     &__input-desc {
