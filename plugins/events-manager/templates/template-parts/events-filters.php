@@ -9,10 +9,24 @@
   asort($ddm_countries);
   foreach($ddm_countries as $country_code => $country_name);
   $categories = EM_Categories::get();
-  foreach($categories as $category) {
-    $categories[$category->id] = $category->name;
-  }
-
+  if (count($categories) > 0):
+    foreach($categories as $category) {
+      $categories[$category->id] = $category->name;
+    }
+  else: 
+    $categories = array(
+      'Localization (L10N)',
+      'User Support (SUMO)',
+      'Testing',
+      'Common Voice',
+      'Coding',
+      'Design',
+      'Advocacy',
+      'Documentation',
+      'Evangelism',
+      'Marketing',
+    );
+    endif;
 ?>
 <div class="col-md-12 events__filter">
   <p class="events__filter__title">Filter By:</p>
