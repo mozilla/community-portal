@@ -649,7 +649,9 @@ function mozilla_update_member() {
                 'image_url',
                 'profile_image_visibility',
                 'pronoun',
-                'profile_pronoun_visibility'
+                'profile_pronoun_visibility',
+                'bio',
+                'profile_bio_visibility',
             );
 
             if(isset($meta['agree'][0]) && $meta['agree'][0] == 'I Agree') {

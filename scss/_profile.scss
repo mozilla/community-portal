@@ -658,5 +658,12 @@
         width: 100%;
     }
 
+    &__textarea {
+        @extend .textarea;
+        height: 207px;
+        margin-top: 15px;
+        border-radius: 5px!important;
+    }
+
 }
 
