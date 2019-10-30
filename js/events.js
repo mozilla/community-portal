@@ -173,10 +173,10 @@ jQuery(function() {
       );
       const $submitBtn = $eventForm.find("#event-creator__submit-btn");
       $submitBtn.on("click", function(e) {
-        updateRedirect();
         e.preventDefault();
         const allClear = checkInputs($requiredInputs);
         if (allClear) {
+          updateRedirect();
           $eventForm.submit();
         }
       });
@@ -214,8 +214,20 @@ jQuery(function() {
     toggleInputAbility(country);
   }
 
+  function clearPrePopErrors(container, selector) {
+    const $errors = container.find("." + selector);
+    if ($errors.length) {
+      $errors.each(function() {
+        const $this = jQuery(this);
+        $this.removeClass(selector);
+      });
+    }
+  }
+
   function handleAutocomplete(container, location, country, typeValue) {
     jQuery("#location-name").on("autocompleteselect", function(e) {
+      clearPrePopErrors(container, "event-creator__error");
+      clearPrePopErrors(container, "event-creator__error-text");
       toggleLocationContainer(container, location, country, typeValue);
       container.addClass("event-creator__location-edit");
     });
