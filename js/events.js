@@ -99,15 +99,18 @@ jQuery(function() {
     const $locationTypeInput = jQuery("#location-type");
     const $locationAddress = jQuery("#location-address");
     const $locationNameLabel = jQuery("#location-name-label");
+    const $countryLabel = jQuery("#location-country-label");
     $locationTypeInput.on("change", function() {
       $this = jQuery(this);
       if ($this.val() === "online") {
         toggleVisibility($locationAddress, "Online", false);
         $locationNameLabel.text("Online Meeting Link");
+        $countryLabel.text("Where is this event based?");
         return;
       }
       toggleVisibility($locationAddress, "", true);
       $locationNameLabel.text("Location Name");
+      $countryLabel.text("Country");
     });
   }
 
@@ -152,6 +155,16 @@ jQuery(function() {
     return allClear;
   }
 
+  function updateRedirect() {
+    const $eventName = jQuery("#event-name");
+    const $redirect = jQuery("input[name=redirect_to]");
+    if (!$redirect.val() && $eventName.length) {
+      $redirect.val(
+        window.location.origin + "/events/" + $eventName.val().replace(" ", "-")
+      );
+    }
+  }
+
   function validateForm() {
     const $eventForm = jQuery("#event-form");
     if ($eventForm) {
@@ -160,6 +173,7 @@ jQuery(function() {
       );
       const $submitBtn = $eventForm.find("#event-creator__submit-btn");
       $submitBtn.on("click", function(e) {
+        updateRedirect();
         e.preventDefault();
         const allClear = checkInputs($requiredInputs);
         if (allClear) {
@@ -231,16 +245,6 @@ jQuery(function() {
     }
   }
 
-  function cancelBooking() {
-    const $cancelBtn = jQuery(".em-bookings-cancel");
-    if ($cancelBtn) {
-      $cancelBtn.on("click", function(e) {
-        e.preventDefault();
-        console.log(e.target.href);
-      });
-    }
-  }
-
   function init() {
     toggleMobileEventsNav(".events__nav__toggle", ".events__nav");
     toggleMobileEventsNav(".events__filter__toggle", ".events__filter");
@@ -256,7 +260,6 @@ jQuery(function() {
     validateForm();
     clearImage();
     editLocation();
-    // cancelBooking();
   }
 
   init();

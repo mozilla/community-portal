@@ -14,9 +14,7 @@
       '11' => 'Nov',
       '12' => 'Dec',
     );
-    $args['scope'] = 'past';
+    $args['scope'] = 'past';      
     foreach ($events as $event) {
-      $site_url = get_site_url();
-      $url = $site_url.'/'.$event->slug;
       include(locate_template('plugins/events-manager/templates/template-parts/event-cards.php', false, false));
     }

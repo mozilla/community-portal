@@ -139,6 +139,9 @@
         border-radius: 5px;
         line-height: 24px;
         flex: 1 0 auto;
+        background-image: url("./images/chevron-down.png");
+        background-repeat: no-repeat;
+        background-position: calc(100% - 16px) center;
       }
       label {
         display: inline-block;
@@ -169,6 +172,7 @@
     select,
     label {
       width: 100%;
+      margin-bottom: 8px;
     }
     @include tablet-and-up {
       flex-direction: row;
@@ -176,10 +180,6 @@
       label {
         width: auto;
       }
-    }
-    &__icon {
-      bottom: 14px;
-      top: auto;
     }
   }
   &__nav {
@@ -298,6 +298,22 @@
       @include tablet-and-up {
         padding: 32px 16px;
       }
+    }
+  }
+  &__zero-state {
+    padding: 106px 0;
+    p {
+      text-align: center;
+    }
+  }
+  &__search-terms {
+    padding: 0;
+    margin-top: 0;
+    p {
+      margin: 0;
+    }
+    @include tablet-and-up {
+      margin-top: 32px;
     }
   }
 }

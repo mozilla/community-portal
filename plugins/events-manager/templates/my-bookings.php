@@ -16,6 +16,12 @@
             $args['scope'] = '';
             $eventsArray = EM_Events::get($args);
             if (count($eventsArray) > 0) {
+            ?>
+              <div class="col-sm-12 events__search-terms">
+                <p><?php echo __("Results for '".$args['search']."'")?></p>
+              </div>
+              <div class="row events__cards">
+              <?php
               foreach ($eventsArray as $eventItem) {
               if ($eventItem->event_id === $id) {
                 $event = $eventItem;
@@ -24,6 +30,9 @@
             } 
             }
           } else {
+            ?>
+            <div class="row events__cards">
+            <?php
             $event = em_get_event($id);
             include(locate_template('plugins/events-manager/templates/template-parts/event-cards.php', false, false));
           }
@@ -34,8 +43,8 @@
         echo $EM_Notices;
       } else {
         ?>
-        <div class="col-sm-12">
-          <p>No events.</p>
+        <div class="events__zero-state col-sm-12">
+          <p><?php echo ($args['search'] ? __('No results found. Please try another search term.') : __('You are not currently attending any events.')) ?></p>
         </div>
         <?php
       }

@@ -52,7 +52,7 @@ endif;
     </div>
     <div class="event-creator__three-up">
       <div class="wide">
-        <label class="event-creator__label" for="location-country"><?php _e ( 'Country', 'events-manager')?></label>
+        <label id="location-country-label" class="event-creator__label" for="location-country"><?php _e ( 'Where is this event based?', 'events-manager')?></label>
         <select class="event-creator__dropdown" id="location-country" name="location_country" <?php if ($event) : echo esc_attr("disabled"); endif; ?> required>
 					<option value="0" <?php echo ( $EM_Location->location_country == '' && $EM_Location->location_id == '' && get_option('dbem_location_default_country') == '' ) ? 'selected="selected"':''; ?>><?php _e('Select','events-manager'); ?></option>
 					<?php foreach(em_get_countries() as $country_key => $country_name): ?>

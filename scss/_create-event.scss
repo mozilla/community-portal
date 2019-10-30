@@ -48,6 +48,9 @@
     @extend .select;
     width: 100%;
     background-color: $color-gray-20 !important;
+    background-image: url("./images/chevron-down.png");
+    background-repeat: no-repeat;
+    background-position: calc(100% - 16px) center;
   }
   &__chevron {
     @extend .select__icon;
@@ -189,6 +192,9 @@
     select {
       @extend .select;
       max-width: 100%;
+      background-image: url("./images/chevron-down.png");
+      background-repeat: no-repeat;
+      background-position: calc(100% - 16px) center;
     }
     label {
       @extend .select__label;

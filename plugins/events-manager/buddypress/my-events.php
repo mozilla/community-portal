@@ -1,6 +1,7 @@
 
 <?php
     global $wpdb, $current_user, $EM_Notices, $EM_Person;
+    $args = apply_filters('em_content_events_args', $args);
     if( is_user_logged_in()):
       $user_id = get_current_user_id();
       if ($args['search']) {
@@ -17,9 +18,21 @@
       ?>
       <?php
         if ( empty($EM_Events) ) {
-          echo get_option ( 'dbem_no_events_message' );
+        ?>
+          <div class="col-md-12 events__zero-state">
+            <p class="events__search-terms"><?php echo ($args['search'] ? __('No results found. Please try another search term.') :__('You do not have any organized events.')) ?></p>
+        </div>
+        <?php
         } else {
+        if ($args['search']):
+        ?>
+          <div class="col-sm-12 events__search-terms">
+            <p><?php echo __('Results for "'.$args['search'].'"')?></p>
+          </div>
+        <?php
+        endif;
       ?>
+      <div class="row events__cards">
       <?php
         foreach ( $EM_Events as $EM_Event ) {
           $id = $EM_Event->event_id;

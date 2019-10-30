@@ -38,6 +38,7 @@
           <?php echo __('Upcoming Events'); ?>
         </a>
       </li>
+      <?php if (is_user_logged_in()): ?>
       <li class="events__nav__item">
         <a 
           class="events__nav__link <?php if ($view === 'attending') echo esc_attr("events__nav__link--active") ?>" 
@@ -54,6 +55,7 @@
           <?php echo __('Events I\'ve organized'); ?>
         </a>
       </li>
+      <?php endif; ?>
       <li class="events__nav__item">
         <a 
           class="events__nav__link <?php if ($view === 'past') echo esc_attr("events__nav__link--active") ?>" 
@@ -80,17 +82,34 @@
   <?php
     include(locate_template('plugins/events-manager/templates/template-parts/events-filters.php', false, false));
     ?>
-    <div class="row events__cards">
+
       <?php
         if ($view === 'attending') {
           include(locate_template('plugins/events-manager/templates/my-bookings.php', false, false));
         } elseif ($view === 'organized'){
-          em_locate_template('buddypress/my-events.php', true);
+          include(locate_template('plugins/events-manager/buddypress/my-events.php', false, false));
         } else {
-          foreach($events as $event) {
-            $url = $site_url.'/events/'.$event->slug;
-            include(locate_template('plugins/events-manager/templates/template-parts/event-cards.php', false, false));
-          }
+          if (count($events)):
+            if ($args['search']):
+              ?>
+              <div class="col-sm-12 events__search-terms">
+                <p><?php echo __('Results for "'.$args['search'].'"')?></p>
+              </div>
+              <?php
+            endif;
+            ?>
+            <div class="row events__cards">
+            <?php
+            foreach($events as $event) {
+              include(locate_template('plugins/events-manager/templates/template-parts/event-cards.php', false, false));
+            }
+          else:
+            ?>
+            <div class="events__zero-state col-sm-12">
+              <p><?php echo ($args['search'] ? __('No results found. Please try another search term.') : __('There are currently no events.')) ?></p>
+            </div>
+            <?php
+          endif;
         }
       ?>
     </div>

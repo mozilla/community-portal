@@ -2,7 +2,7 @@
   $categories = $event->get_categories();
   $location = em_get_location($event->location_id);
   $site_url = get_site_url();
-  $url = $site_url.'/'.$event->slug;  
+  $url = $site_url.'/events/'.$event->slug;  
 ?> 
 <div class="col-lg-4 col-md-6 events__column">
   <div class="event-card">
