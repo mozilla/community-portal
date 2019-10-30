@@ -1,8 +1,11 @@
-<?php get_header(); ?>
+<?php 
+  get_header(); 
+  $event_id = $_REQUEST['event_id'];
+?>
   <div class="events__header">
     <div class="row middle-md event-creator__container">
       <div class="col-md-6 events__header__text">
-        <h1 class="title"><?php the_title() ?></h1>
+        <h1 class="title"><?php echo ($event_id ? __('Edit Event') : __('Create Event')) ?></h1>
         <p class="events__text"><?php echo __('*Optional information'); ?></p>
       </div>
     </div>
