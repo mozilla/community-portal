@@ -1,4 +1,11 @@
 .events-single {
+  a {
+    text-decoration: none;
+  }
+  .row {
+    margin-left: 0;
+    margin-right: 0;
+  }
   &.events__container {
     padding-top: 64px;
   }
@@ -16,11 +23,6 @@
   }
   .title {
     margin: 0 0 32px;
-  }
-  &__label {
-    font-size: remCalc(14);
-    color: $color-gray-secondary;
-    margin: 0 0 16px;
   }
   .hidden {
     display: none;
@@ -43,10 +45,14 @@
       align-items: flex-start;
       background-size: cover;
       background-repeat: no-repeat;
+      background-position: center;
       background-color: $color-gray-10;
     }
     &__date {
-      flex-basis: 60%;
+      flex-basis: 100%;
+      @include tablet-and-up {
+        flex-basis: 60%;
+      }
       p,
       .title--secondary {
         margin: 0;
@@ -59,11 +65,15 @@
       margin: 0;
     }
     #em-booking {
-      flex-basis: 40%;
+      flex-basis: 100%;
+      @include tablet-and-up {
+        flex-basis: 40%;
+      }
     }
     &__details {
       padding: 32px;
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
     }
     &__edit-btn {
@@ -86,20 +96,54 @@
   }
   &__tags {
     padding: 0;
+    margin: 0;
     .tag {
       font-size: remCalc(14);
       padding: 10px 20px;
       margin-bottom: 10px;
     }
   }
-  &__attributes.card {
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
+  &__attributes.card,
+  &__group.card {
+    padding: 16px;
+    margin-top: 53px;
+    p {
+      margin: 0;
+    }
+    .col-md-6 {
+      padding: 0 0 24px;
+      @include tablet-and-up {
+        padding: 16px 32px;
+      }
+    }
+    .events-single__share {
+      padding: 24px 0 0;
+      @include tablet-and-up {
+        padding: 32px 0 0;
+        padding-bottom: 0;
+        flex-basis: calc(50% - 64px);
+        margin: 0 32px 0;
+      }
+      @include desktop-and-up {
+        margin: 16px 0 0;
+        padding: 16px 32px 0;
+        flex-basis: 100%;
+      }
+    }
+    p.events-single__label {
+      font-size: remCalc(14);
+      color: $color-gray-secondary;
+      margin: 0 0 16px;
+    }
   }
-  &__share.card {
+  &__attributes.card {
+    @include desktop-and-up {
+      margin-top: 0;
+    }
+  }
+  &__share {
     border-top: 1px solid $color-gray-20;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+    padding-top: 32px;
     svg {
       position: relative;
       top: 2px;
@@ -111,7 +155,6 @@
   &__member-card {
     display: flex;
     align-items: center;
-    margin-top: 16px;
   }
   &__avatar {
     @extend .members__avatar;
@@ -131,14 +174,20 @@
   &__name {
     @extend .members__name;
   }
-  &__location {
-    display: flex;
-    .card__address {
-      margin-right: 20px;
-      flex-basis: 40%;
+  &__cancel {
+    display: block;
+    text-align: center;
+    margin-left: auto;
+    @include tablet-and-up {
+      max-width: 204px;
     }
+  }
+  &__location {
     .card__map {
-      flex-basis: 60%;
+      flex-basis: 100%;
+      @include tablet-and-up {
+        flex-basis: 58.333333%;
+      }
     }
   }
   &__campaign {
@@ -160,7 +209,9 @@
     text-align: right;
   }
   &__description {
-    padding-right: 32px;
+    @include desktop-and-up {
+      padding-right: 32px;
+    }
   }
   &__report {
     text-align: right;

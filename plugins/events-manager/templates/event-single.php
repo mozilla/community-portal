@@ -130,7 +130,8 @@
       </div>
       <h2 class="title--secondary"><?php echo __("Location") ?></h2>
       <div class="card events-single__location">
-        <div class="card__address">
+        <div class="row">
+        <div class="card__address col-md-5 col-sm-12">
           <?php if ($location_type !== 'online'): 
             $location = $EM_Event->location;
             ?>
@@ -153,7 +154,7 @@
           $coordinates = $data->features[0]->geometry->coordinates;
         ?>
         <?php if ($location_type !== 'online'): ?>
-          <div id='map' class="card__map" style='height: 110px;'></div>
+          <div id='map' class="card__map col-md-7 col-sm-12" style='height: 110px;'></div>
           <script>
             const geojson =  {
               type: 'FeatureCollection',
@@ -187,6 +188,7 @@
               });
         </script>
         <?php endif ?>
+      </div>
       </div>
       <div class="events-single__description">
         <h2 class="title--secondary"><?php echo __('Description') ?></h2>
@@ -228,10 +230,11 @@
     <div class="col-lg-4 col-sm-12">
       <div>
         <div class="card events-single__attributes">
+          <div class="row">
           <?php 
             // if ($EM_Event->location->location_name === "Online" && $EM_Event->location->location_address):
           ?>
-            <div>
+            <div class="col-lg-12 col-md-6 col-sm-12">
               <p class="events-single__label">Links</p>
               <p><a href="<?php echo $EM_Event->location->location_address?>"><?php echo $EM_Event->location->location_address ?></a></p>
             </div>
@@ -239,7 +242,7 @@
             // endif;
           ?>
           <?php if ($categories): ?>
-          <div>
+          <div class="col-lg-12 col-md-6 col-sm-12">
             <p class="events-single__label">Tags</p>
             <ul class="events-single__tags">
               <?php
@@ -255,7 +258,7 @@
             endif; 
             // if (isset($campaign)):
           ?>
-          <div>
+          <div class="col-lg-12 col-md-6 col-sm-12">
             <p class="events-single__label">Part of</p>
             <div class="events-single__campaign">            
               <svg width="24" height="24" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -270,31 +273,35 @@
           <?php 
             // endif 
           ?>
-        </div>
-        <div class="card events-single__share">
+          <div class="events-single__share col-lg-12 col-md-6 col-sm-12">
           <button class="btn btn--light btn--share">
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M3 9V15C3 15.3978 3.15804 15.7794 3.43934 16.0607C3.72064 16.342 4.10218 16.5 4.5 16.5H13.5C13.8978 16.5 14.2794 16.342 14.5607 16.0607C14.842 15.7794 15 15.3978 15 15V9M12 4.5L9 1.5M9 1.5L6 4.5M9 1.5V11.25" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
             Share
           </button>
+          </div>
         </div>
-    </div>
-    <?php if ($EM_Event->group_id):
-      $group = new BP_Groups_Group($EM_Event->group_id);
-      $admins = groups_get_group_admins($group->id);
-      if ($admins):
-        $user = get_userdata($admins[0]->user_id);
-        $avatar = get_avatar_url($admins[0]->user_id);
-      endif;
+        </div>
+      </div>
+      <?php if ($EM_Event->group_id):
+        $group = new BP_Groups_Group($EM_Event->group_id);
+        $admins = groups_get_group_admins($group->id);
+        if ($admins):
+          $user = get_userdata($admins[0]->user_id);
+          $avatar = get_avatar_url($admins[0]->user_id);
+        endif;
       ?> 
       <div class="card events-single__group">
-        <p class="events-single__label">Hosted by</p>
-        <a href="<?php echo get_site_url(null, 'groups/'.bp_get_group_slug($group)) ?>"><?php echo bp_get_group_name($group) ?></a>
+        <div class="row">
+        <div class="col-lg-12 col-md-6 col-sm-12">
+          <p class="events-single__label">Hosted by</p>
+          <a href="<?php echo get_site_url(null, 'groups/'.bp_get_group_slug($group)) ?>"><?php echo bp_get_group_name($group) ?></a>
+        </div>
         <?php 
           if ($user && $avatar):
             ?>
-            <div class="events-single__member-card">
+            <div class="events-single__member-card col-lg-12 col-md-6 col-sm-12">
               <img class="events-single__avatar" src="<?php echo $avatar ?>" alt="">
               <p class="events-single__username"><?php echo '@'.$user->user_nicename ?></p>
             </div>
@@ -305,6 +312,7 @@
       <?php
       endif;
     ?>
+    </div>
   </div>
   </div>
   <div class="row">
