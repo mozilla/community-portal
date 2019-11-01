@@ -666,7 +666,14 @@ function mozilla_update_member() {
                 'profile_github_visibility',
                 'telegram',
                 'profile_telegram_visibility',
-                'languages'
+                'languages',
+                'profile_languages_visibility',
+                'tags',
+                'profile_tags_visibility',
+                'profile_groups_joined_visibility',
+                'profile_events_attended_visibility',
+                'profile_events_organized_visibility',
+                'profile_campaigns_visibility'
             );
 
             // Add additional required fields after initial setup
@@ -755,7 +762,6 @@ function mozilla_update_member() {
 
                 // Update other fields here
                 $addtional_meta = Array();
-
 
                 foreach($additional_fields AS $field) {
                     if(isset($_POST[$field])) {

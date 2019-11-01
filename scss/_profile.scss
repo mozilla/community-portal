@@ -335,6 +335,8 @@
         }
         
         &.profile__select-container--mobile {
+            margin-bottom: 32px;
+
             @include tablet-and-up {
                 display: none;
             }
@@ -360,6 +362,7 @@
 
     &__add-language-container {
         margin-top: 8px;
+        margin-bottom: 18px;
     }
 
     &__add-language {
@@ -758,6 +761,55 @@
         height: 207px;
         margin-top: 15px;
         border-radius: 5px!important;
+    }
+
+    &__tag-container {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-top: 16px;
+
+        @include tablet-and-up {
+            margin-top: 4px;
+        }
+    }
+
+    .profile__tag {
+        background: $color-white;
+        border: 1px solid $color-gray-secondary;
+        border-radius: 25px;
+        display: inline-block;
+        font-size: remCalc(14);
+        line-height: 24px;
+        color: $color-off-black;
+        padding: 8px 16px;
+        margin-top: 12px;
+        margin-right: 16px; 
+        text-decoration: none;
+        transition: all 0.3s ease-in;
+        letter-spacing: 0.0025em;
+        
+
+        &:hover {
+            border-color: rgba(215,215,219,1);
+            box-shadow: 0px 0px 0px 4px $color-gray-30!important;
+        }
+
+
+        &--active {
+            background-color: $color-gray-20;
+            border-color: $color-gray-20;
+            color: $color-black;
+        }
+    }
+
+    &__copy {
+        font-size: remCalc(20);
+        line-height: 28px;
+        color: $color-black;
+        padding: 0;
+        margin: 0;
     }
 
 }

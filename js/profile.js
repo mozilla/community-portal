@@ -131,6 +131,24 @@ jQuery(function(){
         return false;
     });
 
+    jQuery('.profile__tag').click(function(e) {
+        e.preventDefault();
+        var $this = jQuery(this);
+        var tag = $this.data('value');
+        var current = jQuery('#tags').val();
+
+        if(!$this.hasClass('profile__tag--active'))
+            jQuery('#tags').val(current + ',' + tag);
+        
+        if($this.hasClass('profile__tag--active'))
+            jQuery('#tags').val(current.replace(',' + tag, ''));
+
+        $this.toggleClass('profile__tag--active');
+
+        return false;
+    });
+
+
     jQuery('#username').on('change keyup paste', function(e) {
         var $this = jQuery(this);
         var value = $this.val();

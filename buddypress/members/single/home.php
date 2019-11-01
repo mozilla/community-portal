@@ -444,7 +444,8 @@
         'za' => 'Zhuang, Chuang',
         'zu' => 'Zulu'
     );
-    
+
+    $tags = get_tags(array('hide_empty' => false));
 ?>
 
 <div class="profile">
@@ -462,8 +463,18 @@
                 $community_fields = false;
             }
 
-
             $form = ($_SERVER['REQUEST_METHOD'] === 'POST') ? $_POST : false;
+
+            if($form && isset($form['tags'])) {
+                $form_tags = array_filter(explode(',', $form['tags']));
+            } else {
+
+                if($community_fields && isset($community_fields['tags'])) {
+                    $form_tags = array_filter(explode(',', $community_fields['tags']));
+                } else {
+                    $form_tags = Array();
+                }
+            }
 
             do_action('bp_before_edit_member_page');
 
