@@ -55,24 +55,14 @@ jQuery(function(){
                 jQuery('#profile-location-visibility').val(2);
                 jQuery('#profile-phone-visibility').val(2);
                 break;
-            case 1:
-                jQuery('#firstname-visibility').val(1);
-                jQuery('#lastname-visibility').val(1);
-                jQuery('#email-visibility').val(1);
-                jQuery('#profile-pronoun-visibility').val(1);
-                jQuery('#profile-bio-visibility').val(1);
-                jQuery('#profile-location-visibility').val(1);
-                jQuery('#profile-phone-visibility').val(1);
-
-                break;
             default:
-                jQuery('#firstname-visibility').val(0);
-                jQuery('#lastname-visibility').val(0);
-                jQuery('#email-visibility').val(0);
-                jQuery('#profile-pronoun-visibility').val(0);
-                jQuery('#profile-bio-visibility').val(0);
-                jQuery('#profile-location-visibility').val(0);
-                jQuery('#profile-phone-visibility').val(0);
+                jQuery('#firstname-visibility').val(value);
+                jQuery('#lastname-visibility').val(value);
+                jQuery('#email-visibility').val(value);
+                jQuery('#profile-pronoun-visibility').val(value);
+                jQuery('#profile-bio-visibility').val(value);
+                jQuery('#profile-location-visibility').val(value);
+                jQuery('#profile-phone-visibility').val(value);
         }
     });
 
@@ -80,18 +70,33 @@ jQuery(function(){
         var $this = jQuery(this);
         var value = parseInt($this.val());
 
-        switch(value) {
-            case 2:
-                
-                break;
-            case 1:
-                
-                break;
-            default:
-                
-        }
+        jQuery('#profile-discourse-visibility').val(value);
+        jQuery('#profile-facebook-visibility').val(value);
+        jQuery('#profile-twitter-visibility').val(value);
+        jQuery('#profile-linkedin-visibility').val(value);
+        jQuery('#profile-github-visibility').val(value);
+        jQuery('#profile-telegram-visibility').val(value);
     });
 
+    jQuery('#communication-visibility').change(function(e) {
+        var $this = jQuery(this);
+        var value = parseInt($this.val());
+
+        jQuery('#profile-languages-visibility').val(value);
+        jQuery('#profile-tags-visibility').val(value);
+       
+    });
+
+
+    jQuery('#portal-visibility').change(function(e) {
+        var $this = jQuery(this);
+        var value = parseInt($this.val());
+
+        jQuery('#profile-groups-joined-visibility').val(value);
+        jQuery('#profile-events-attended-visibility').val(value);
+        jQuery('#profile-events-organized-visibility').val(value);
+        jQuery('#profile-campaigns-visibility').val(value);
+    });
 
     jQuery('.profile__add-language').click(function(e) {
         e.preventDefault();
@@ -214,7 +219,6 @@ jQuery(function(){
         addRemoveLinks: true,
         init: function() {
             this.on("sending", function(file, xhr, formData){
-                console.log("What?");
                 var nonce = jQuery('#my_nonce_field').val();
                 formData.append('my_nonce_field', nonce);
             });
