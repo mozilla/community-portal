@@ -279,6 +279,7 @@ $countries = Array(
     "ZW" => "Zimbabwe"
 );
 
+
 abstract class PrivacySettings {
     const REGISTERED_USERS = 0;
     const PUBLIC_USERS = 1; 
@@ -651,6 +652,21 @@ function mozilla_update_member() {
                 'profile_pronoun_visibility',
                 'bio',
                 'profile_bio_visibility',
+                'phone',
+                'profile_phone_visibility',
+                'discourse',
+                'profile_discourse_visibility',
+                'facebook',
+                'profile_facebook_visibility',
+                'twitter',
+                'profile_twitter_visibility',
+                'linkedin',
+                'profile_linkedin_visibility',
+                'github',
+                'profile_github_visibility',
+                'telegram',
+                'profile_telegram_visibility',
+                'languages'
             );
 
             // Add additional required fields after initial setup
@@ -740,12 +756,14 @@ function mozilla_update_member() {
                 // Update other fields here
                 $addtional_meta = Array();
 
-                
-
 
                 foreach($additional_fields AS $field) {
                     if(isset($_POST[$field])) {
-                        $additional_meta[$field] = sanitize_text_field(trim($_POST[$field]));
+                        if(is_array($_POST[$field])) {
+                            $additional_meta[$field] = array_map('sanitize_text_field', array_filter($_POST[$field]));
+                        } else {
+                            $additional_meta[$field] = sanitize_text_field(trim($_POST[$field]));
+                        }
                     }
                 }    
 

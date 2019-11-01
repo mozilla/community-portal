@@ -234,6 +234,15 @@
             flex-direction: column;
             justify-content: center;
         }
+
+        &.profile__form-field--tight {
+            margin-bottom: 8px;
+        }
+
+        &.profile__form-field--hidden {
+            display: none;
+        }
+
     }
 
     &__keyline {
@@ -281,6 +290,10 @@
                     background-color: $color-white;
                 }
             }
+
+            &.profile__select--short {
+                margin-top: 0;
+            }
         }
 
         svg {
@@ -294,10 +307,13 @@
         }
 
         &.profile__select-container--full {
+            margin-top: 0;
+
             @include tablet-and-up {
                 width: 100%;
                 max-width: 600px;
                 margin-right: 32px;
+
             }
         }
 
@@ -305,7 +321,73 @@
             margin-right: 32px;
         }
 
-       
+        &.profile__select-container--no-label {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            max-width: none;
+            margin-top: 8px;
+            svg {
+                top: 0;
+                right: 50px;
+            }
+        }
+        
+        &.profile__select-container--mobile {
+            @include tablet-and-up {
+                display: none;
+            }
+        }
+
+        &.profile__select-container--hide-mobile {
+            display: none;
+            @include tablet-and-up {
+                display: block;
+            }
+        }
+
+        &.profile__select-container--empty {
+            margin: 0;
+
+            @include tablet-and-up {
+                margin-top: 24px;
+            }
+        }
+
+
+    }
+
+    &__add-language-container {
+        margin-top: 8px;
+    }
+
+    &__add-language {
+        font-size: remCalc(14);
+        line-height: 22px;
+        color: $color-blue-50;
+        position: relative;
+        &:after {
+
+            content: '';
+            display: block;
+            width: 100%;
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            border: 1px solid $color-blue-50;
+
+        }
+    }
+
+    &__remove-language {
+        width: 40px;
+        height: 40px;
+        border-radius: 5px;
+        background-color: $color-white;
+        border: 2px solid $color-gray-20;
+        margin-left: 8px;
+        color: $error;  
     }
 
     &__cta-container {
@@ -330,6 +412,10 @@
 
         &.profile__input--error {
             border: 1px solid $error;
+        }
+
+        &.profile__select--hide {
+            display: none;
         }
     }
 
@@ -663,7 +749,8 @@
     }
 
     &__select {
-        width: 100%;
+        width: 95%;
+        
     }
 
     &__textarea {

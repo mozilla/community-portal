@@ -50,17 +50,85 @@ jQuery(function(){
                 jQuery('#firstname-visibility').val(0);
                 jQuery('#lastname-visibility').val(2);
                 jQuery('#email-visibility').val(2);
+                jQuery('#profile-pronoun-visibility').val(2);
+                jQuery('#profile-bio-visibility').val(2);
+                jQuery('#profile-location-visibility').val(2);
+                jQuery('#profile-phone-visibility').val(2);
                 break;
             case 1:
                 jQuery('#firstname-visibility').val(1);
                 jQuery('#lastname-visibility').val(1);
                 jQuery('#email-visibility').val(1);
+                jQuery('#profile-pronoun-visibility').val(1);
+                jQuery('#profile-bio-visibility').val(1);
+                jQuery('#profile-location-visibility').val(1);
+                jQuery('#profile-phone-visibility').val(1);
+
                 break;
             default:
                 jQuery('#firstname-visibility').val(0);
                 jQuery('#lastname-visibility').val(0);
                 jQuery('#email-visibility').val(0);
+                jQuery('#profile-pronoun-visibility').val(0);
+                jQuery('#profile-bio-visibility').val(0);
+                jQuery('#profile-location-visibility').val(0);
+                jQuery('#profile-phone-visibility').val(0);
         }
+    });
+
+    jQuery('#social-visibility').change(function(e) {
+        var $this = jQuery(this);
+        var value = parseInt($this.val());
+
+        switch(value) {
+            case 2:
+                
+                break;
+            case 1:
+                
+                break;
+            default:
+                
+        }
+    });
+
+
+    jQuery('.profile__add-language').click(function(e) {
+        e.preventDefault();
+        var $element = jQuery('.profile__form-field--tight:last');
+
+        if($element.hasClass('profile__form-field--hidden')) {
+            $element.removeClass('profile__form-field--hidden');
+        } else {
+            var $newLanguage = $element.clone(true);
+            $newLanguage.addClass('profile__form-field--new');
+            $newLanguage.insertBefore('.profile__add-language-container');
+        }
+
+        jQuery('.profile__form-field--new').find('.profile__select').val('');
+        jQuery('.profile__form-field--new').removeClass('profile__form-field--new');
+        $element.find(".profile__select--short:first").removeClass("profile__select--hide");
+
+        return false;
+    });
+
+    jQuery('.profile__remove-language').click(function(e) {
+    
+        e.preventDefault();
+
+        var $element = jQuery(this).parent().parent();
+        jQuery(this).prev('.profile__select').addClass('profile__select--hide');
+
+        if(jQuery('.profile__form-field--tight').length === 2) {
+            $element.addClass('profile__form-field--hidden');
+        } else {
+            $element.remove();
+        }
+
+        jQuery(".profile__select--hide").val("");
+
+
+        return false;
     });
 
     jQuery('#username').on('change keyup paste', function(e) {

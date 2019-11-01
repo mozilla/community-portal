@@ -211,7 +211,7 @@
                     </svg>
                     <select id="country" name="country" class="profile__select<?php if($form && !isset($form['country']) || (isset($form['country']) && empty(trim($form['country'])))): ?> profile__select--error<?php endif; ?>" required>
                         <?php foreach($countries AS $key    =>  $value): ?>
-                        <option value="<?php print $key; ?>"<?php if($form && isset($form['country']) && $form['country'] == $key): ?> selected<?php else: ?><?php if(isset($community_fields['country']) && $community_fields['country'] == $key): ?> selected<?php endif; ?><?php endif; ?>><?php print $value; ?></option>
+                        <option value="<?php print $key; ?>"<?php if($form && isset($form['country']) && $form['country'] == $key): ?> selected<?php else: ?><?php if(isset($meta['country'][0]) && $meta['country'][0] == $key): ?> selected<?php endif; ?><?php endif; ?>><?php print $value; ?></option>
                         <?php endforeach; ?>
                     </select>
                     <div class="form__error-container<?php if($form && !isset($form['country']) || (isset($form['country']) && empty(trim($form['country'])))): ?> form__error-container--visible<?php endif; ?>">
@@ -220,7 +220,7 @@
                 </div>
                 <div class="profile__input-container">
                     <label class="profile__label" for="city"><?php print __("City"); ?></label>
-                    <input type="text" name="city" id="city" class="profile__input<?php if($form && !isset($form['city']) || (isset($form['city']) && empty(trim($form['city'])) )): ?> profile__input--error<?php endif; ?>" placeholder="<?php print __("City"); ?>" value="<?php print isset($form['city']) ? $form['city'] : $community_fields['city']; ?>" required />
+                    <input type="text" name="city" id="city" class="profile__input<?php if($form && !isset($form['city']) || (isset($form['city']) && empty(trim($form['city'])) )): ?> profile__input--error<?php endif; ?>" placeholder="<?php print __("City"); ?>" value="<?php print isset($form['city']) ? $form['city'] : $meta['city'][0]; ?>" required />
                     <div class="form__error-container<?php if($form && !isset($form['last_name']) || (isset($form['city']) && empty(trim($form['city'])) )): ?> form__error-container--visible<?php endif; ?>">
                         <div class="form__error"><?php print __("This field is required"); ?></div>
                     </div>
@@ -232,9 +232,9 @@
                             <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
                         </g>
                     </svg>
-                    <select id="profile-bio-visibility" name="profile_bio_visibility" class="profile__select">
+                    <select id="profile-location-visibility" name="profile_location_visibility" class="profile__select">
                         <?php foreach($visibility_options AS $key   =>  $value): ?>
-                        <option value="<?php print $key; ?>"<?php if($form && isset($form['profile_location_visibility']) && $form['profile_location_visibility'] == $key): ?> selected<?php else: ?><?php if(isset($community_fields['profile_location_visibility']) && $community_fields['profile_location_visibility'] == $key): ?> selected<?php endif; ?><?php endif; ?>><?php print $value; ?></option>
+                        <option value="<?php print $key; ?>"<?php if($form && isset($form['profile_location_visibility']) && $form['profile_location_visibility'] == $key): ?> selected<?php else: ?><?php if(isset($meta['profile_location_visibility'][0]) && $meta['profile_location_visibility'][0] == $key): ?> selected<?php endif; ?><?php endif; ?>><?php print $value; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -250,7 +250,7 @@
                     </div>
                 </div>
                 <div class="profile__select-container">
-                    <label class="profile__label" for=""><?php print __("Can be viewed by"); ?></label>
+                    <label class="profile__label" for="email-visibility"><?php print __("Can be viewed by"); ?></label>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g>
                             <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
@@ -263,7 +263,312 @@
                     </select>
                 </div>
             </div>
+            <?php if(isset($meta['agree'][0]) && $meta['agree'][0] == 'I Agree'): ?>
+            <div class="profile__form-field">
+                <div class="profile__input-container">
+                    <label class="profile__label" for="phone"><?php print __("Phone contact *"); ?></label>
+                    <input type="text" name="phone" id="phone" class="profile__input" value="<?php if($form && isset($form['phone'])): ?><?php $form['phone']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['phone'])): ?><?php print $community_fields['phone']; ?><?php endif; ?><?php endif; ?>"/>
+                </div>
+                <div class="profile__select-container">
+                    <label class="profile__label" for="profile-phone-visibility"><?php print __("Can be viewed by"); ?></label>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g>
+                            <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
+                        </g>
+                    </svg>
+                    <select id="profile-phone-visibility" name="profile_phone_visibility" class="profile__select">
+                        <?php foreach($visibility_options AS $key   =>  $value): ?>
+                        <option value="<?php print $key; ?>"<?php if(isset($community_fields['profile_phone_visibility']) && $community_fields['profile_phone_visibility'] == $key): ?> selected<?php endif; ?>><?php print $value; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <?php endif; ?>
         </section>
+        <?php if(isset($meta['agree'][0]) && $meta['agree'][0] == 'I Agree'): ?>
+        <section class="profile__form-container">
+            <div class="profile__form-primary">
+                <h2 class="profile__form-title"><?php print __("Social Links *"); ?></h2>
+                <div class="profile__select-container">
+                    <label class="profile__label"><?php print __('Visibility Settings'); ?></label>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g>
+                            <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
+                        </g>
+                    </svg>
+                    <select id="social-visibility" name="social_visibility" class="profile__select">
+                        <?php foreach($visibility_options AS $key   =>  $value): ?>
+                        <option value="<?php print $key; ?>"><?php print $value; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <hr class="profile__keyline" />
+            <div class="profile__form-field">
+                <div class="profile__input-container">
+                    <label class="profile__label" for="discourse"><?php print __("Discourse profile URL"); ?></label>
+                    <input type="text" name="discourse" id="discourse" class="profile__input" value="<?php if($form && isset($form['discourse'])): ?><?php $form['discourse']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['discourse'])): ?><?php print $community_fields['discourse']; ?><?php endif; ?><?php endif; ?>"/>
+                </div>
+                <div class="profile__select-container">
+                    <label class="profile__label" for="profile-discourse-visibility"><?php print __("Can be viewed by"); ?></label>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g>
+                            <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
+                        </g>
+                    </svg>
+                    <select id="profile-discourse-visibility" name="profile_discourse_visibility" class="profile__select">
+                        <?php foreach($visibility_options AS $key   =>  $value): ?>
+                        <option value="<?php print $key; ?>"<?php if(isset($community_fields['profile_discourse_visibility']) && $community_fields['profile_discourse_visibility'] == $key): ?> selected<?php endif; ?>><?php print $value; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <hr class="profile__keyline" />
+            <div class="profile__form-field">
+                <div class="profile__input-container">
+                    <label class="profile__label" for="facebook"><?php print __("Facebook profile URL"); ?></label>
+                    <input type="text" name="facebook" id="facebook" class="profile__input" value="<?php if($form && isset($form['facebook'])): ?><?php $form['facebook']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['facebook'])): ?><?php print $community_fields['facebook']; ?><?php endif; ?><?php endif; ?>"/>
+                </div>
+                <div class="profile__select-container">
+                    <label class="profile__label" for="profile-facebook-visibility"><?php print __("Can be viewed by"); ?></label>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g>
+                            <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
+                        </g>
+                    </svg>
+                    <select id="profile-facebook-visibility" name="profile_facebook_visibility" class="profile__select">
+                        <?php foreach($visibility_options AS $key   =>  $value): ?>
+                        <option value="<?php print $key; ?>"<?php if(isset($community_fields['profile_facebook_visibility']) && $community_fields['profile_facebook_visibility'] == $key): ?> selected<?php endif; ?>><?php print $value; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <hr class="profile__keyline" />
+            <div class="profile__form-field">
+                <div class="profile__input-container">
+                    <label class="profile__label" for="twitter"><?php print __("Twitter profile URL"); ?></label>
+                    <input type="text" name="twitter" id="twitter" class="profile__input" value="<?php if($form && isset($form['facebook'])): ?><?php $form['twitter']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['twitter'])): ?><?php print $community_fields['twitter']; ?><?php endif; ?><?php endif; ?>"/>
+                </div>
+                <div class="profile__select-container">
+                    <label class="profile__label" for="profile-twitter-visibility"><?php print __("Can be viewed by"); ?></label>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g>
+                            <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
+                        </g>
+                    </svg>
+                    <select id="profile-twitter-visibility" name="profile_twitter_visibility" class="profile__select">
+                        <?php foreach($visibility_options AS $key   =>  $value): ?>
+                        <option value="<?php print $key; ?>"<?php if(isset($community_fields['profile_twitter_visibility']) && $community_fields['profile_twitter_visibility'] == $key): ?> selected<?php endif; ?>><?php print $value; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <hr class="profile__keyline" />
+            <div class="profile__form-field">
+                <div class="profile__input-container">
+                    <label class="profile__label" for="linkedin"><?php print __("LinkedIn profile URL"); ?></label>
+                    <input type="text" name="linkedin" id="linkedin" class="profile__input" value="<?php if($form && isset($form['linkedin'])): ?><?php $form['linkedin']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['linkedin'])): ?><?php print $community_fields['linkedin']; ?><?php endif; ?><?php endif; ?>"/>
+                </div>
+                <div class="profile__select-container">
+                    <label class="profile__label" for="profile-linkedin-visibility"><?php print __("Can be viewed by"); ?></label>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g>
+                            <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
+                        </g>
+                    </svg>
+                    <select id="profile-linkedin-visibility" name="profile_linkedin_visibility" class="profile__select">
+                        <?php foreach($visibility_options AS $key   =>  $value): ?>
+                        <option value="<?php print $key; ?>"<?php if(isset($community_fields['profile_linkedin_visibility']) && $community_fields['profile_linkedin_visibility'] == $key): ?> selected<?php endif; ?>><?php print $value; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <hr class="profile__keyline" />
+            <div class="profile__form-field">
+                <div class="profile__input-container">
+                    <label class="profile__label" for="github"><?php print __("Github profile URL"); ?></label>
+                    <input type="text" name="github" id="github" class="profile__input" value="<?php if($form && isset($form['github'])): ?><?php $form['github']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['github'])): ?><?php print $community_fields['github']; ?><?php endif; ?><?php endif; ?>"/>
+                </div>
+                <div class="profile__select-container">
+                    <label class="profile__label" for="profile-github-visibility"><?php print __("Can be viewed by"); ?></label>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g>
+                            <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
+                        </g>
+                    </svg>
+                    <select id="profile-github-visibility" name="profile_github_visibility" class="profile__select">
+                        <?php foreach($visibility_options AS $key   =>  $value): ?>
+                        <option value="<?php print $key; ?>"<?php if(isset($community_fields['profile_github_visibility']) && $community_fields['profile_github_visibility'] == $key): ?> selected<?php endif; ?>><?php print $value; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <hr class="profile__keyline" />
+            <div class="profile__form-field">
+                <div class="profile__input-container">
+                    <label class="profile__label" for="telegram"><?php print __("Telegram profile URL"); ?></label>
+                    <input type="text" name="github" id="telegram" class="profile__input" value="<?php if($form && isset($form['telegram'])): ?><?php $form['telegram']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['telegram'])): ?><?php print $community_fields['telegram']; ?><?php endif; ?><?php endif; ?>"/>
+                </div>
+                <div class="profile__select-container">
+                    <label class="profile__label" for="profile-telegram-visibility"><?php print __("Can be viewed by"); ?></label>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g>
+                            <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
+                        </g>
+                    </svg>
+                    <select id="profile-telegram-visibility" name="profile_telegram_visibility" class="profile__select">
+                        <?php foreach($visibility_options AS $key   =>  $value): ?>
+                        <option value="<?php print $key; ?>"<?php if(isset($community_fields['profile_telegram_visibility']) && $community_fields['profile_telegram_visibility'] == $key): ?> selected<?php endif; ?>><?php print $value; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+        </section>
+        <section class="profile__form-container">
+            <div class="profile__form-primary">
+                <h2 class="profile__form-title"><?php print __("Communication & Interests *"); ?></h2>
+                <div class="profile__select-container">
+                    <label class="profile__label"><?php print __('Visibility Settings'); ?></label>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g>
+                            <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
+                        </g>
+                    </svg>
+                    <select id="communication-visibility" name="communication_visibility" class="profile__select">
+                        <?php foreach($visibility_options AS $key   =>  $value): ?>
+                        <option value="<?php print $key; ?>"><?php print $value; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <?php 
+        
+                if($form && isset($form['languages']) && is_array($form['languages'])) {
+                    $languages_spoken = $form['languages'];
+                } else {
+                    if(is_array($community_fields) && isset($community_fields['languages']) && is_array($community_fields['languages'])) {
+                        $languages_spoken = array_filter($community_fields['languages']);
+                    } else {
+                        $languages_spoken = Array();  
+                    }
+                }
+            ?>
+
+            <?php if(sizeof($languages_spoken) < 2 ): ?>
+                <hr class="profile__keyline" />
+                <div class="profile__form-field profile__form-field--tight">
+                    <div class="profile__select-container profile__select-container--full">
+                        <label class="profile__label" for="pronoun"><?php print __("Languages spoken"); ?></label>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g>
+                                <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
+                            </g>
+                        </svg>
+                        <select id="languages-1" name="languages[]" class="profile__select">
+                            <option value=""><?php print __('Make Selection'); ?>
+                            <?php foreach($languages AS $key    =>  $language): ?>
+                            <option value="<?php print $key; ?>"<?php if($form && isset($form['langauges'][0]) && $form['languages'][0] == $key): ?> selected<?php else: ?><?php if(isset($community_fields['languages'][0]) && $community_fields['languages'][0] == $key): ?> selected<?php endif; ?><?php endif; ?>><?php print $language; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="profile__select-container profile__select-container--hide-mobile">
+                        <label class="profile__label" for=""><?php print __("Can be viewed by"); ?></label>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g>
+                                <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
+                            </g>
+                        </svg>
+                        <select id="profile-pronoun-visibility" name="profile_pronoun_visibility" class="profile__select">
+                            <?php foreach($visibility_options AS $key   =>  $value): ?>
+                            <option value="<?php print $key; ?>"<?php if($form && isset($form['profile_pronoun_visibility']) && $form['profile_pronoun_visibility'] == $key): ?> selected<?php else: ?><?php if(isset($community_fields['profile_pronoun_visibility']) && $community_fields['profile_pronoun_visibility'] == $key): ?> selected<?php endif; ?><?php endif; ?>><?php print $value; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="profile__form-field profile__form-field--tight profile__form-field--hidden">
+                    <div class="profile__select-container profile__select-container--full profile__select-container--no-label">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g>
+                                <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
+                            </g>
+                        </svg>
+                        <select id="languages-<?php print $index; ?>" name="languages[]" class="profile__select profile__select--short profile__select--hide">
+                            <option value=""><?php print __('Make Selection'); ?>
+                            <?php foreach($languages AS $key    =>  $language): ?>
+                            <option value="<?php print $key; ?>"><?php print $language; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <button class="profile__remove-language">&mdash;</button>
+                    </div>
+                    <div class="profile__select-container profile__select-container--empty">
+                    </div>                      
+                </div>
+                <div class="profile__add-language-container"> 
+                    <a href="#" class="profile__add-language">Add Another Language</a>
+                </div>
+            <?php else: ?>
+                <hr class="profile__keyline" />
+                <?php foreach($languages_spoken AS $index =>  $value): ?>
+                    <div class="profile__form-field profile__form-field--tight">
+                        <div class="profile__select-container profile__select-container--full<?php if($index > 0): ?> profile__select-container--no-label<?php endif; ?>">
+                        <?php if($index === 0): ?><label class="profile__label" for="pronoun"><?php print __("Languages spoken"); ?></label><?php endif; ?>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g>
+                                    <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
+                                </g>
+                            </svg>
+                            <select id="languages-<?php print $index; ?>" name="languages[]" class="profile__select<?php if($index > 0): ?> profile__select--short<?php endif; ?>">
+                                <option value=""><?php print __('Make Selection'); ?>
+                                <?php foreach($languages AS $key    =>  $language): ?>
+                                <option value="<?php print $key; ?>"<?php if($form && isset($form['languages'][$index]) && $form['languages'][$index] == $key): ?> selected<?php else: ?><?php if(isset($community_fields['languages'][$index]) && $community_fields['languages'][$index] == $key): ?> selected<?php endif; ?><?php endif; ?>><?php print $language; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <?php if($index > 0): ?>
+                            <button class="profile__remove-language">&mdash;</button>
+                            <?php endif; ?>
+                        </div>
+                        <?php if($index === 0 ): ?>
+                        <div class="profile__select-container profile__select-container--hide-mobile">
+                            <label class="profile__label" for=""><?php print __("Can be viewed by"); ?></label>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g>
+                                    <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
+                                </g>
+                            </svg>
+                            <select id="profile-pronoun-visibility" name="profile_pronoun_visibility" class="profile__select">
+                                <option value=""><?php print __('Make Selection'); ?>
+                                <?php foreach($visibility_options AS $key   =>  $value): ?>
+                                <option value="<?php print $key; ?>"<?php if($form && isset($form['profile_pronoun_visibility']) && $form['profile_pronoun_visibility'] == $key): ?> selected<?php else: ?><?php if(isset($community_fields['profile_pronoun_visibility']) && $community_fields['profile_pronoun_visibility'] == $key): ?> selected<?php endif; ?><?php endif; ?>><?php print $value; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <?php else: ?>
+                            <div class="profile__select-container profile__select-container--empty">
+                            </div>  
+                        <?php endif; ?>
+                    </div>
+                    <?php if(($index + 1) === sizeof($languages_spoken)): ?>
+                    <div class="profile__add-language-container"> 
+                        <a href="#" class="profile__add-language">Add Another Language</a>
+                    </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            <?php endif; ?>
+            <div class="profile__select-container profile__select-container--mobile">
+                    <label class="profile__label" for=""><?php print __("Can be viewed by"); ?></label>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g>
+                            <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
+                        </g>
+                    </svg>
+                    <select id="profile-pronoun-visibility" name="profile_pronoun_visibility" class="profile__select">
+                        <?php foreach($visibility_options AS $key   =>  $value): ?>
+                        <option value="<?php print $key; ?>"<?php if($form && isset($form['profile_pronoun_visibility']) && $form['profile_pronoun_visibility'] == $key): ?> selected<?php else: ?><?php if(isset($community_fields['profile_pronoun_visibility']) && $community_fields['profile_pronoun_visibility'] == $key): ?> selected<?php endif; ?><?php endif; ?>><?php print $value; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+        </section>  
+        <?php endif; ?>
         <?php
             $category_id = get_cat_ID('Community Participation Guidelines');
 
