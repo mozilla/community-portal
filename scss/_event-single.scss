@@ -126,7 +126,7 @@
       }
       @include desktop-and-up {
         margin: 16px 0 0;
-        padding: 16px 32px 0;
+        padding: 32px 32px 16px;
         flex-basis: 100%;
       }
     }
@@ -155,6 +155,10 @@
   &__member-card {
     display: flex;
     align-items: center;
+    margin-bottom: 22px;
+    @include tablet-and-up {
+      margin-bottom: 32px;
+    }
   }
   &__avatar {
     @extend .members__avatar;
@@ -185,7 +189,9 @@
   &__location {
     .card__map {
       flex-basis: 100%;
+      padding-top: 21px;
       @include tablet-and-up {
+        padding-top: 0;
         flex-basis: 58.333333%;
       }
     }
@@ -218,11 +224,17 @@
     border-bottom: 1px solid #b1b1bc;
   }
   &__report-btn {
-    padding: 16px 0;
+    padding: 32px 0;
     color: $color-blue-50;
     svg {
       position: relative;
       top: 6px;
+    }
+    @include tablet-and-up {
+      padding: 24px 0;
+    }
+    @include desktop-and-up {
+      padding: 16px 0;
     }
   }
   &__related {

@@ -257,6 +257,24 @@ jQuery(function() {
     }
   }
 
+  function toggleLightboxVisibility(lightbox) {
+    lightbox.toggleClass("lightbox-show");
+  }
+
+  function toggleAttendeesLightbox() {
+    const $lightbox = jQuery("#attendees-lightbox");
+    if ($lightbox) {
+      const $openBtn = jQuery("#open-attendees-lightbox");
+      const $closeBtn = jQuery("#close-attendees-lightbox");
+      $openBtn.on("click", function() {
+        toggleLightboxVisibility($lightbox);
+      });
+      $closeBtn.on("click", function() {
+        toggleLightboxVisibility($lightbox);
+      });
+    }
+  }
+
   function init() {
     toggleMobileEventsNav(".events__nav__toggle", ".events__nav");
     toggleMobileEventsNav(".events__filter__toggle", ".events__filter");
@@ -272,6 +290,7 @@ jQuery(function() {
     validateForm();
     clearImage();
     editLocation();
+    toggleAttendeesLightbox();
   }
 
   init();

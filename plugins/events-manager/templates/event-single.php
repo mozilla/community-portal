@@ -197,9 +197,10 @@
       <h2 class="title--secondary"><?php echo __('Attendees') ?></h2>
       <div class="row">
         <?php
-          if ($EM_Event->bookings):
+          if (isset($EM_Event->bookings)):
+            $count = 0;
             foreach ($EM_Event->bookings as $booking) {
-              if ($booking->booking_status !== '3'):
+              if ($booking->booking_status !== '3' && $count < 8):
             $user = $booking->person->data;
             $avatar = get_avatar_url($user->ID);
             ?>
@@ -216,10 +217,22 @@
                 
                 </div>
             <?php
+            $count = $count + 1;
             endif;
             ?>
               </div>
             <?php
+            elseif ($count >= 8):
+              if ($count === 8):  
+              ?>
+              <button id="open-attendees-lightbox" class="btn btn--submit btn--light">
+                <?php echo __('View all attendees.') ?>
+              </button>
+              <?php
+                $count = $count + 1;
+              else: 
+                $count = $count + 1;
+              endif;
             endif;
           }
           ?>
@@ -314,7 +327,6 @@
     ?>
     </div>
   </div>
-  </div>
   <div class="row">
   <div class="col-sm-12">
     <div class="events-single__report">
@@ -329,8 +341,8 @@
       </div>
   </div>
 </div>
-  <?php 
-    if (count($allRelatedEvents) > 0):
+<?php 
+  if (count($allRelatedEvents) > 0):
     ?>
     <div class="events-single__related">
     <h2 class="title--secondary"><?php echo __('Related Events') ?></h2>
@@ -343,7 +355,52 @@
       ?>
     </div>
 </div>
+<?php 
+  endif;
+?>
+<?php
+  if (isset($EM_Event->bookings)):
 
-      <?php 
-    endif;
+?>
+<div id="attendees-lightbox" class="lightbox">
+    <div class="lightbox__container">
+    <p class="title--secondary"><?php echo __($count.' Attendees') ?></p>
+    <button id="close-attendees-lightbox" class="btn btn--close">
+      <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M25 1L1 25" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M1 1L25 25" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <div class="row">
+  <?php 
+    foreach ($EM_Event->bookings as $booking) {
+        if ($booking->booking_status !== '3'):
+      $user = $booking->person->data;
+      $avatar = get_avatar_url($user->ID);
+      ?>
+        <div class="col-md-6 events-single__member-card">
+          <?php 
+            if ($avatar):
+          ?>
+          <div class="events-single__avatar">
+            <img src="<?php echo esc_attr($avatar)?>" alt="">                    
+          </div>
+          <div class="events-single__user-details">
+              <p class="events-single__username"><?php echo __('@'.$user->display_name) ?></p>
+              <p class="events-single__name"><?php echo __($user->user_nicename) ?></p>
+          
+          </div>
+      <?php
+      endif;
+      ?>
+        </div>
+      <?php
+      endif;
+    }
   ?>
+  </div>
+  </div>
+  </div>
+<?php endif;
+?>
+</div>
