@@ -309,6 +309,26 @@ jQuery(function() {
     });
   }
 
+  function handleCopyToClipboardClick() {
+    const $copyTrigger = jQuery("#copy-share-link");
+    $copyTrigger.on("click", function(e) {
+      e.preventDefault();
+      copyToClipboard();
+    });
+  }
+
+  function copyToClipboard() {
+    const el = document.createElement("textarea");
+    el.value = location.href;
+    el.setAttribute("readonly", "");
+    el.style.position = "absolute";
+    el.style.left = "-9999px";
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand("copy");
+    document.body.removeChild(el);
+  }
+
   function init() {
     toggleMobileEventsNav(".events__nav__toggle", ".events__nav");
     toggleMobileEventsNav(".events__filter__toggle", ".events__filter");
@@ -336,6 +356,7 @@ jQuery(function() {
       "#close-events-share-lightbox",
       "a"
     );
+    handleCopyToClipboardClick();
   }
 
   init();
