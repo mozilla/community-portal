@@ -14,9 +14,11 @@
     width: 80%;
     background: white;
     padding: 48px;
-    max-height: 80vh;
-    overflow: scroll;
     position: relative;
+    .row {
+      max-height: 60vh;
+      overflow: scroll;
+    }
     p {
       margin-top: 0;
     }

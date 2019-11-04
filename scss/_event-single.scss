@@ -156,6 +156,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 22px;
+    flex-wrap: wrap;
     @include tablet-and-up {
       margin-bottom: 32px;
     }
@@ -163,6 +164,8 @@
   &__avatar {
     @extend .members__avatar;
     margin-right: 16px;
+    flex-basis: 80px;
+    flex-shrink: 0;
     img {
       display: block;
       max-width: 100%;
@@ -170,6 +173,7 @@
   }
   &__username {
     @extend .members__username;
+    padding-top: 16px;
     a {
       color: black;
       text-decoration: none;
@@ -244,7 +248,17 @@
     }
   }
   .events__column {
-    padding: 0 16px 32px;
+    padding: 0 0 32px;
+    &:nth-child(2n + 1) {
+      @include tablet-and-up {
+        padding: 0 17px 0 0;
+      }
+    }
+    &:nth-child(2n) {
+      @include tablet-and-up {
+        padding: 0 0 0 17px;
+      }
+    }
   }
   @include desktop-and-up {
     .events__column {
@@ -260,5 +274,12 @@
         padding-right: 0;
       }
     }
+  }
+  &__share-link-container {
+    padding: 0;
+  }
+  &__share-link {
+    padding: 0;
+    list-style-type: none;
   }
 }

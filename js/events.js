@@ -261,18 +261,52 @@ jQuery(function() {
     lightbox.toggleClass("lightbox-show");
   }
 
-  function toggleAttendeesLightbox() {
-    const $lightbox = jQuery("#attendees-lightbox");
+  function toggleLightbox(lightboxID, openBtnID, closeBtnID, firstSelector) {
+    const $lightbox = jQuery(lightboxID);
     if ($lightbox) {
-      const $openBtn = jQuery("#open-attendees-lightbox");
-      const $closeBtn = jQuery("#close-attendees-lightbox");
+      const $openBtn = jQuery(openBtnID);
+      const $closeBtn = jQuery(closeBtnID);
+      const $firstBtn = $lightbox.find(firstSelector).first();
       $openBtn.on("click", function() {
         toggleLightboxVisibility($lightbox);
+        $firstBtn.focus();
+        jQuery("body").addClass("noscroll");
       });
       $closeBtn.on("click", function() {
+        $openBtn.focus();
         toggleLightboxVisibility($lightbox);
+        jQuery("body").removeClass("noscroll");
       });
+      const $lastBtn = jQuery(firstSelector).last();
+      trapFocus($closeBtn, $lastBtn);
+      closeByKeyboard($lightbox);
     }
+  }
+
+  function closeByKeyboard($lightbox) {
+    $lightbox.on("keyup", e => {
+      e.preventDefault();
+      if (e.keyCode === 27) {
+        toggleLightboxVisibility($lightbox);
+        jQuery("body").removeClass("noscroll");
+      }
+    });
+  }
+
+  function trapFocus($closeBtn, $lastBtn) {
+    $closeBtn.on("keydown", e => {
+      if (e.keyCode === 9 && e.shiftKey) {
+        e.preventDefault();
+        $lastBtn.focus();
+      }
+    });
+
+    $lastBtn.on("keydown", function(e) {
+      if (e.keyCode === 9 && !e.shiftKey) {
+        e.preventDefault();
+        $closeBtn.focus();
+      }
+    });
   }
 
   function init() {
@@ -290,7 +324,18 @@ jQuery(function() {
     validateForm();
     clearImage();
     editLocation();
-    toggleAttendeesLightbox();
+    toggleLightbox(
+      "#attendees-lightbox",
+      "#open-attendees-lightbox",
+      "#close-attendees-lightbox",
+      ".events-single__username a"
+    );
+    toggleLightbox(
+      "#events-share-lightbox",
+      "#open-events-share-lightbox",
+      "#close-events-share-lightbox",
+      "a"
+    );
   }
 
   init();

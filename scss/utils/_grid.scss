@@ -48,8 +48,6 @@ $half-gutter-width: $gutter-width * 0.5;
 [class^="col-"] {
   box-sizing: border-box;
   flex: 0 1 auto;
-  padding-right: $half-gutter-width;
-  padding-left: $half-gutter-width;
   max-width: 100%;
   flex-basis: 100%;
 }
