@@ -90,6 +90,9 @@
                 </p>
                 <p class="groups__hero-copy">
                     <?php print __("Find a group near you below, or"); ?> <a href="/groups/create/step/group-details/" class="groups__hero-link"><?php print __('create a group'); ?></a>
+                    <svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2.33337 8.66634L6.00004 4.99967L2.33337 1.33301" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                 </p>
                 <div class="groups__search-container">
                     <form method="GET" action="/groups/" class="groups__form" id="group-search-form">
