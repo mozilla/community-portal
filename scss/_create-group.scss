@@ -465,7 +465,13 @@
         font-size: remCalc(16);
         line-height: 20px;
         color: $color-gray-secondary;
-        margin-top: 24px;
+        margin-top: 14px;
+
+        span {
+            font-size: remCalc(12);
+            display: block;
+            color: $color-gray-secondary;
+        }
 
         &--hide {
             display: none;
