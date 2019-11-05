@@ -192,11 +192,10 @@
                                         <path d="M14 7.66699C14 12.3337 8 16.3337 8 16.3337C8 16.3337 2 12.3337 2 7.66699C2 6.07569 2.63214 4.54957 3.75736 3.42435C4.88258 2.29913 6.4087 1.66699 8 1.66699C9.5913 1.66699 11.1174 2.29913 12.2426 3.42435C13.3679 4.54957 14 6.07569 14 7.66699Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                         <path d="M8 9.66699C9.10457 9.66699 10 8.77156 10 7.66699C10 6.56242 9.10457 5.66699 8 5.66699C6.89543 5.66699 6 6.56242 6 7.66699C6 8.77156 6.89543 9.66699 8 9.66699Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
-                                    <?php print $meta['group_city']; ?>
-                                    <?php 
+                                    <?php print trim($meta['group_city']);?><?php 
                                         if(isset($meta['group_country']) && strlen($meta['group_country']) > 0) {
                                             if(isset($meta['group_city']) && strlen($meta['group_city']) > 0) {
-                                                print ", {$countries[$meta['group_country']]}";
+                                                print trim(", {$countries[$meta['group_country']]}");
                                             } else {
                                                 print $countries[$meta['group_country']];
                                             }
