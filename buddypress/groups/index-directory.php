@@ -62,6 +62,8 @@
         }
     }
 
+
+
     $groups = $filtered_groups;
     $group_count = sizeof($groups);
 
@@ -137,7 +139,7 @@
                 <div class="groups__select-container">
                     <label class="groups__label">Location </label>
                     <select class="groups__location-select">
-                        <option><?php print __('All'); ?></option>
+                        <option value=""><?php print __('All'); ?></option>
                         <?php foreach($countries AS $code   =>  $country): ?>
                         <option value="<?php print $code; ?>"<?php if(isset($_GET['location']) && strlen($_GET['location']) > 0 && $_GET['location'] == $code): ?> selected<?php endif; ?>><?php print $country; ?></option>
                         <?php endforeach; ?>
@@ -151,9 +153,9 @@
                 <div class="groups__select-container">
                     <label class="groups__label">Tag </label>
                     <select class="groups__tag-select">
-                        <option><?php print __('All'); ?></option>
+                        <option value=""><?php print __('All'); ?></option>
                         <?php foreach($tags AS $tag): ?>
-                        <option value="<?php print $tag->name; ?>" <?php if(isset($_GET['tag']) && strtolower(trim($_GET['tag'])) == strtolower($tag->name)): ?> selected<?php endif; ?>><?php print $tag->name; ?></option>
+                        <option value="<?php print $tag->slug; ?>" <?php if(isset($_GET['tag']) && strtolower(trim($_GET['tag'])) == strtolower($tag->slug)): ?> selected<?php endif; ?>><?php print $tag->name; ?></option>
                         <?php endforeach; ?>
                     </select>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
