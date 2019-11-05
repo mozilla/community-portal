@@ -466,7 +466,7 @@
         line-height: 20px;
         color: $color-gray-secondary;
         margin-top: 14px;
-
+        text-align: center;
         span {
             font-size: remCalc(12);
             display: block;
@@ -475,10 +475,6 @@
 
         &--hide {
             display: none;
-        }
-
-        @include tablet-and-up {
-            text-align: center;
         }
     }
 
@@ -490,7 +486,7 @@
         cursor: pointer;
         border-radius: 5px;
         border: 1px solid $color-gray-20;
-        max-width: 234px;
+        
 
         @include tablet-and-up {
             height: 160px;
