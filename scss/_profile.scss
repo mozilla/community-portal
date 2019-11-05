@@ -50,10 +50,15 @@
         @include desktop-and-up {
             background-repeat: no-repeat;
             background-image: url("./images/mozilla-create-profile.png");
-            background-size: 608px 608px; //45%;
-            background-position: right -85px bottom -40px;
+            background-size: 600px;
+            background-position: right -160px bottom -40px;
             min-width: 1018px;
         }
+    }
+
+    &__hero-link {
+        color: $color-black;
+        text-decoration: underline!important;
     }
 
     &__hero-content {
@@ -108,6 +113,10 @@
         line-height: 24px;
         margin: 0 auto;
         max-width: 270px;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
 
         @include tablet-and-up {
             font-size: remCalc(18);
@@ -118,14 +127,49 @@
 
         @include desktop-and-up {
             max-width: 595px;
+            span {
+                display: inline-block;
+                margin-left: 16px;
+            }
         }
 
         &.profile__hero-copy--small {
             font-size: remCalc(14);
             margin-top: 16px;
+            text-align: center;
+            max-width: none;
 
             @include tablet-and-up {
+                max-width: 300px;
                 margin-top: 24px;
+                text-align: left;
+            }
+        }
+
+        &.profile__hero-copy--green {
+            background-color: #B0EED7;
+            padding: 16px;
+            border-radius: 4px;
+            max-width: none;
+            font-size: remCalc(16);
+            line-height: 24px;
+
+            span {
+                text-align: left;
+            }
+
+            @include tablet-and-up {
+                max-width: 345px;
+            }
+
+
+            @include desktop-and-up {
+                max-width: 595px;
+            }
+
+            svg {
+                flex-shrink: 0;
+                margin-right: 10px;
             }
         }
     }
@@ -616,5 +660,7 @@
         line-height: 20px;
         letter-spacing: 0.0025em;
     }
+
+    
 }
 
