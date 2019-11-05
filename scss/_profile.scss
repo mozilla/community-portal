@@ -337,6 +337,8 @@
 
             &.select {
                 &.select--disabled {
+                    color: $color-gray-secondary;
+                    border-color: $color-gray-secondary;
                     background-color: $color-white;
                 }
             }
