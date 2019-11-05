@@ -135,7 +135,7 @@
                 <div class="groups__filter-container<?php if(!isset($_GET['location']) && !isset($_GET['mygroups'])): ?> groups__filter-container--hidden<?php endif; ?>">
                 <span><?php print __("Filter by:"); ?></span>
                 <div class="groups__select-container">
-                    <label class="groups__label">Location: </label>
+                    <label class="groups__label">Location </label>
                     <select class="groups__location-select">
                         <option><?php print __('All'); ?></option>
                         <?php foreach($countries AS $code   =>  $country): ?>
@@ -149,7 +149,7 @@
                     </svg>
                 </div>
                 <div class="groups__select-container">
-                    <label class="groups__label">Tag: </label>
+                    <label class="groups__label">Tag </label>
                     <select class="groups__tag-select">
                         <option><?php print __('All'); ?></option>
                         <?php foreach($tags AS $tag): ?>

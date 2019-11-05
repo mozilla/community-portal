@@ -156,6 +156,7 @@
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         border-radius: 5px;
         margin-bottom: 24px;
+        
 
         span {
             display: inline-block;
@@ -253,6 +254,7 @@
 
         @include tablet-and-up {
             display: block;
+            border-bottom: 1px solid $color-gray-30;
         }
 
         &.groups__nav--mobile {
