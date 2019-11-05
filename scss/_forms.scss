@@ -137,11 +137,13 @@
 
 .radio-container input:checked ~ .radio:after {
     display: block;
+    background-color: $color-blue-50;
 }
 
 
 .radio-container input:checked ~ .radio {
-    background-color: $color-blue-50;
+    background-color: $color-white;
+    border-color: $color-blue-50;
 }
   
 
@@ -157,11 +159,11 @@
     position: absolute;
     top: 0;
     left: 0;
-    height: 25px;
-    width: 25px;
+    height: 24px;
+    width: 24px;
     background-color: $color-white;
     border-radius: 50%;
-    border: 1px solid $color-gray-secondary;
+    border: 2px solid $color-gray-40;
 
     &:after {
         content: '';
@@ -171,10 +173,11 @@
 }
 
 .radio-container .radio:after {
-    top: 8px;
-	left: 8px;
-	width: 8px;
-	height: 8px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+	width: 17px;
+	height: 17px;
 	border-radius: 50%;
 	background: $color-white;
 }
