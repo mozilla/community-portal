@@ -622,7 +622,7 @@ function mozilla_post_user_creation($user_id, $userinfo, $is_new, $id_token, $ac
 }
 
 
-function mozilla_update_member() {
+function mozilla_update_member() {  
 
     // Submited Form
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
