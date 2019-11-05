@@ -59,6 +59,7 @@
     if ($admins):
       $user = get_userdata($admins[0]->user_id);
       $avatar = get_avatar_url($admins[0]->user_id);
+      $users = get_current_user_id();
     endif;
   endif;
 ?>
@@ -240,7 +241,7 @@
                 if ($count === 8):  
               ?>
                 <button id="open-attendees-lightbox" class="btn btn--submit btn--light">
-                  <?php echo __('View all attendees.') ?>
+                  <?php echo __('View all attendees') ?>
                 </button>
               <?php
                 $count = $count + 1;
@@ -253,7 +254,7 @@
       </div>
       <?php endif ?>
     </div>
-    <div class="col-lg-4 col-sm-12">
+    <div class="col-lg-4 col-sm-12 events-single__sidebar">
       <div>
         <div class="card events-single__attributes">
           <div class="row">

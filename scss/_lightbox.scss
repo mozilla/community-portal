@@ -13,8 +13,11 @@
     max-width: 810px;
     width: 80%;
     background: white;
-    padding: 48px;
+    padding: 24px;
     position: relative;
+    @include tablet-and-up {
+      padding: 48px;
+    }
     .row {
       max-height: 60vh;
       overflow: scroll;
