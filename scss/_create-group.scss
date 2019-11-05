@@ -363,6 +363,7 @@
     &__checkbox-container {
         @extend .checkbox-container; 
         margin-top: 15px;
+        line-height: 24px;
     }
 
     &__checkbox-container input {
@@ -372,6 +373,7 @@
         cursor: pointer;
         height: 0;
         width: 0;
+        line-height: 24px;
     }
 
     &__radio-container {
@@ -598,7 +600,7 @@
 
     &__terms {
         font-size: remCalc(16);
-        line-height: 20px;
+        line-height: 24px;
         color: $color-black;
     }
     
