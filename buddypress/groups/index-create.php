@@ -184,11 +184,20 @@
                         </div>
                     </section>
                     <section class="create-group__details<?php if($step == 1): ?> create-group__details--hidden<?php endif; ?>">
-                        <div class="create-group__section-title"><?php print __("Secondary Group Contact *"); ?></div>
+                        <div class="create-group__section-title">
+                            <?php print __("Secondary Group Contact *"); ?>
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <title>Secondary group contact</title>
+                                <path d="M9 16.5C13.1421 16.5 16.5 13.1421 16.5 9C16.5 4.85786 13.1421 1.5 9 1.5C4.85786 1.5 1.5 4.85786 1.5 9C1.5 13.1421 4.85786 16.5 9 16.5Z" stroke="#CDCDD4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M9 6V9" stroke="#CDCDD4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="9" cy="12" r="0.75" fill="#CDCDD4"/>
+                            </svg>
+
+                        </div>
                         <div class="create-group__input-row">
                             <div class="create-group__input-container create-group__input-container--full">
                                 <label class="create-group__label"><?php print __("Username"); ?></label>
-                                <input type="text" name="group_admin" id="group-admin" class="create-group__input" value="<?php print isset($form['group_admin']) ? $form['group_admin'] : ''; ?>" placeholder="Username" />
+                                <input type="text" name="group_admin" id="group-admin" class="create-group__input" value="<?php print isset($form['group_admin']) ? $form['group_admin'] : ''; ?>" placeholder="@Username" />
                                 <input type="hidden" name="group_admin_id" id="group-admin-id" value="<?php print isset($form['group_admin_id']) ? $form['group_admin_id'] : ''; ?>" />
                             </div>
                         </div>

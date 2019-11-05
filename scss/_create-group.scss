@@ -169,10 +169,19 @@
     }
 
     &__section-title {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
         font-size: remCalc(20);
         line-height: 28px;
         font-weight: 600;
         color: $color-black;
+
+        svg {
+            margin-left: 8px;
+            flex-shrink: 0;
+        }
     }
 
     &__input-container {
