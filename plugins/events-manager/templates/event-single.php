@@ -62,6 +62,7 @@
       $users = get_current_user_id();
     endif;
   endif;
+
 ?>
 
 <div class="content events__container events-single">
@@ -199,7 +200,7 @@
       </div>
       <div class="events-single__description">
         <h2 class="title--secondary"><?php echo __('Description') ?></h2>
-        <p><?php echo __($EM_Event->post_content) ?></p>
+        <p><?php echo __(wpautop($EM_Event->post_content)) ?></p>
       </div>
       <?php
         $activeBookings = array();
