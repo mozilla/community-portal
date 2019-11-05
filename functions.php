@@ -800,6 +800,7 @@ function mozilla_save_event($post_id, $post, $update) {
     $event = new stdClass();
     $event->image_url = esc_url_raw($_POST['image_url']);
     $event->location_type = sanitize_text_field($_POST['location-type']);
+    $event->external_url = sanitize_text_field($_POST['event_external_link']);
     update_post_meta($post_id, 'event-meta', $event);
   }
 }
