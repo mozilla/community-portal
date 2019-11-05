@@ -482,9 +482,10 @@ function mozilla_validate_group_name() {
     if($_SERVER['REQUEST_METHOD'] == 'GET') {
         if(isset($_GET['q'])) {
             $query = $_GET['q'];
-            $group = mozilla_search_groups($query);
+            $found = mozilla_search_groups($query);
 
-            if(isset($group['total']) && $group['total'] == 0) {
+    
+            if($found == false) {
                 print json_encode(true);
             } else {
                 print json_encode(false);
@@ -498,11 +499,15 @@ function mozilla_search_groups($name) {
     $groups = groups_get_groups();
     $group_array = $groups['groups'];
 
-    $group = array_filter($groups, function($object) {
-        return trim(strtolower($object->name)) === trim(strtolower($name));
-    });
+    $found = false;
+    foreach($group_array AS $g) {
+        if(trim(strtolower($g->name)) == trim(strtolower($name))) {
+            $found = true;
+            break;
+        }
+    }
 
-    return $group;
+    return $found;
 }
 
 function mozilla_validate_username() {

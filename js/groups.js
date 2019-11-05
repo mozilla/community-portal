@@ -207,7 +207,7 @@ jQuery(function(){
             var resp = jQuery.parseJSON(response);
 
             // Show error
-            if(resp !== true) {
+            if(resp != true) {
                 $this.addClass('create-group__input--error');
 
                 $errorContainer.addClass('form__error-container--visible');
