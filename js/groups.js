@@ -39,7 +39,7 @@ jQuery(function(){
         }
     });
 
-    jQuery('.create-group__input, .create-group__textarea, .create-group__select').on('change keyup paste', function(e){
+    jQuery('.create-group__input, .create-group__textarea, .create-group__select').on('change keyup', function(e){
         var $this = jQuery(this);
 
         if($this.prop('required')) {
