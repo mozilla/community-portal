@@ -4,18 +4,18 @@
     &__hero {
         width: 100%;
         background-color: $color-blue-5;
-        height: 250px;
+        height: 253px;
         padding: 0 24px;
         padding-top: 11px;
 
         @include tablet-and-up {
             padding: 0 64px;
-            height: 220px;
+            height: 255px;
             padding-top: 26px;
         }
         
         @include desktop-and-up {
-            height: 265px;
+            height: 292px;
             padding: 0 106px;
             padding-top: 55px;
         }
