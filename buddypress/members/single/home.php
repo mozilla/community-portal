@@ -458,7 +458,7 @@
             $meta = get_user_meta($user->ID);
 
             if(isset($meta['community-meta-fields']) && isset($meta['community-meta-fields'][0])) {
-                $community_fields = unserialize($meta['community-meta-fields'][0]);                
+                $community_fields = unserialize($meta['community-meta-fields'][0]);
             } else {
                 $community_fields = false;
             }

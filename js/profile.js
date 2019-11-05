@@ -6,7 +6,7 @@ jQuery(function(){
         e.preventDefault();
         var error = false;
 
-        jQuery(':input[required]').each(function(index, element){
+        jQuery(':input[required]').each(function(index, element) {
             var $ele = jQuery(element);
             var $errorMsg = $ele.next('.form__error-container');
 

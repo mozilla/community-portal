@@ -71,9 +71,9 @@
                             <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
                         </g>
                     </svg>
-                    <select id="profile-image-visibility" name="profile_image_visibility" class="profile__select">
+                    <select id="profile-image-visibility" name="profile_image_url_visibility" class="profile__select">
                         <?php foreach($visibility_options AS $key   =>  $value): ?>
-                        <option value="<?php print $key; ?>"<?php if($form && isset($form['profile_image_visibility']) && $form['profile_image_visibility'] == $key): ?> selected<?php else: ?><?php if(isset($community_fields['profile_image_visibility']) && $community_fields['profile_image_visibility'] == $key): ?> selected<?php endif; ?><?php endif; ?>><?php print $value; ?></option>
+                        <option value="<?php print $key; ?>"<?php if($form && isset($form['profile_image_url_visibility']) && $form['profile_image_url_visibility'] == $key): ?> selected<?php else: ?><?php if(isset($community_fields['profile_image_url_visibility']) && $community_fields['profile_image_url_visibility'] == $key): ?> selected<?php endif; ?><?php endif; ?>><?php print $value; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -407,7 +407,7 @@
             <div class="profile__form-field">
                 <div class="profile__input-container">
                     <label class="profile__label" for="telegram"><?php print __("Telegram profile URL"); ?></label>
-                    <input type="text" name="github" id="telegram" class="profile__input" value="<?php if($form && isset($form['telegram'])): ?><?php $form['telegram']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['telegram'])): ?><?php print $community_fields['telegram']; ?><?php endif; ?><?php endif; ?>"/>
+                    <input type="text" name="telegram" id="telegram" class="profile__input" value="<?php if($form && isset($form['telegram'])): ?><?php $form['telegram']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['telegram'])): ?><?php print $community_fields['telegram']; ?><?php endif; ?><?php endif; ?>"/>
                 </div>
                 <div class="profile__select-container">
                     <label class="profile__label" for="profile-telegram-visibility"><?php print __("Can be viewed by"); ?></label>
