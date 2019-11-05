@@ -106,7 +106,10 @@
                                         <path d="M65.625 46.875L50 31.25L15.625 65.625" stroke="#CDCDD4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
                                 </div>
-                                <div class="create-group__image-instructions"><?php print __("Click or drag a photo above"); ?></div>
+                                <div class="create-group__image-instructions">
+                                    <?php print __("Click or drag a photo above"); ?>
+                                    <span><?php print __('min dimensions 703px by 400px'); ?></span>
+                                </div>
                                 <input type="hidden" name="image_url" id="image-url" value="<?php print (isset($form['image_url'])) ? $form['image_url'] : '' ?>" />
                             </div>
                         </div>
@@ -224,7 +227,7 @@
                     </section>
                     <?php endif; ?>
                     <section class="create-group__cta-container">
-                        <input type="submit" class="create-group__cta" value="<?php print strtoupper(__("Continue")); ?>" />
+                        <input type="submit" class="create-group__cta" value="<?php print __("Continue"); ?>" />
                     </section>
                 
                 <?php endif; ?>
