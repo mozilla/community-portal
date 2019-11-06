@@ -12,6 +12,8 @@ add_action('wp_enqueue_scripts', 'mozilla_init_scripts');
 add_action('wp_ajax_nopriv_upload_group_image', 'mozilla_upload_image');
 add_action('wp_ajax_upload_group_image', 'mozilla_upload_image');
 add_action('wp_ajax_join_group', 'mozilla_join_group');
+add_action('wp_ajax_nopriv_join_group', 'mozilla_join_group');
+
 add_action('wp_ajax_leave_group', 'mozilla_leave_group');
 add_action('wp_ajax_get_users', 'mozilla_get_users');
 add_action('wp_ajax_validate_email', 'mozilla_validate_email');
@@ -568,9 +570,10 @@ function mozilla_get_users() {
 }
 
 function mozilla_join_group() {
-    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+   if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = wp_get_current_user();
-        if($user) {
+        
+        if($user->ID) {
             if(isset($_POST['group']) && $_POST['group']) {
                 $joined = groups_join_group(intval(trim($_POST['group'])), $user->ID);
                 if($joined) {
@@ -580,6 +583,9 @@ function mozilla_join_group() {
                 }
                 die();
             } 
+        } else {
+            print json_encode(Array('status'    =>  'error', 'msg'  =>  'Not Logged In'));
+            die();
         }
     }
 
@@ -590,7 +596,7 @@ function mozilla_join_group() {
 function mozilla_leave_group() {
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = wp_get_current_user();
-        if($user) {
+        if($user->ID) {
             if(isset($_POST['group']) && $_POST['group']) {
                 $group = intval(trim($_POST['group']));
                 if(!groups_is_user_admin($user->ID, $group)) {
@@ -605,6 +611,9 @@ function mozilla_leave_group() {
                 }
                 die();
             }
+        } else {
+            print json_encode(Array('status'    =>  'error', 'msg'  =>  'Not Logged In'));
+            die();
         }
     }
 

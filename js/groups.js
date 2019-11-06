@@ -153,6 +153,10 @@ jQuery(function(){
                     }     
 
                     jQuery('.group__member-count').text(memberCount);
+                } else {
+                    if(response.status === 'error' && response.msg === 'Not Logged In') {
+                        window.location = '/login';
+                    }
                 }
             }
         });
