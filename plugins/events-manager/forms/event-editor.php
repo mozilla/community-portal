@@ -107,8 +107,6 @@ if( !empty($_REQUEST['success']) ){
         <?php endif; ?>
 
   <div class="submit event-creator__submit">
-    <!-- <input type="submit" class="btn btn--dark btn--submit button-primary event-creator__submit-btn" value="Create Event"> -->
-    <!-- <input type='submit' class='button-primary' value='<?php echo esc_attr(sprintf( __('Update %s','events-manager'), __('Event','events-manager') )); ?>' /> -->
     <input id="event-creator__submit-btn" type='submit' class='button-primary btn btn--dark btn--submit' 
       value='<?php 
         if (!$event_id):
@@ -122,7 +120,6 @@ if( !empty($_REQUEST['success']) ){
     <input type="hidden" name="event_rsvp" value=<?php echo ($event_id) ? null : esc_attr('1'); ?> />
     <input type="hidden" name="_wpnonce" id="my_nonce_field" value="<?php echo wp_create_nonce('wpnonce_event_save'); ?>" />
     <input type="hidden" name="action" value="event_save" />
-    <input type="hidden" name="visibility" id="visibility-radio-public" value="public" checked="checked">
     <?php if( !empty($_REQUEST['redirect_to']) ): 
         
       ?>
