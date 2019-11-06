@@ -22,8 +22,11 @@ add_action('wp_ajax_check_user', 'mozilla_validate_username');
 
 // Buddypress Actions
 add_action('bp_before_create_group_page', 'mozilla_create_group', 10, 1);
+add_action('bp_before_edit_group_page', 'mozilla_edit_group', 10, 1);
 add_action('bp_before_edit_member_page', 'mozilla_update_member', 10, 1);
 
+// Removed cause it was causing styling conflicts
+remove_action('init', 'bp_nouveau_get_container_classes');
 
 // Auth0 Actions
 add_action('auth0_user_login', 'mozilla_post_user_creation', 10, 6);
@@ -31,6 +34,7 @@ add_action('auth0_user_login', 'mozilla_post_user_creation', 10, 6);
 // Filters
 add_filter('nav_menu_link_attributes', 'mozilla_add_menu_attrs', 10, 3);
 add_filter('nav_menu_css_class', 'mozilla_add_active_page' , 10 , 2);
+
 
 
 // Include theme style.css file not in admin page
@@ -336,7 +340,6 @@ function mozilla_create_group() {
 
 
         $optional = Array(
-            'image_url',
             'group_address_type',
             'group_address',
             'group_meeting_details',
@@ -345,7 +348,9 @@ function mozilla_create_group() {
             'group_telegram',
             'group_github',
             'group_twitter',
-            'group_other'
+            'group_other',
+            'group_country',
+            'group_city'
         );
 
         // If we're posting data lets create a group
@@ -395,8 +400,8 @@ function mozilla_create_group() {
                                 'group_id'  =>  0,
                             );
                             
-                            $args['name'] = $_POST['group_name'];
-                            $args['description'] = $_POST['group_desc'];
+                            $args['name'] = sanitize_text_field($_POST['group_name']);
+                            $args['description'] = sanitize_text_field($_POST['group_desc']);
                             $args['status'] = 'private';
                             
                             $group_id = groups_create_group($args);
@@ -416,9 +421,6 @@ function mozilla_create_group() {
 
                                 // Required information but needs to be stored in meta data because buddypress does not support these fields
                                 $meta['group_image_url'] = trim(sanitize_text_field($_POST['image_url']));
-                                $meta['group_city'] = trim(sanitize_text_field($_POST['group_city']));
-                                $meta['group_address'] = trim(sanitize_text_field($_POST['group_address']));
-                                $meta['group_country'] = trim(sanitize_text_field($_POST['group_country']));
                                 $meta['group_type'] = trim(sanitize_text_field($_POST['group_type']));
                     
 
@@ -478,12 +480,15 @@ function mozilla_upload_image() {
 }
 
 function mozilla_validate_group_name() {
+
     if($_SERVER['REQUEST_METHOD'] == 'GET') {
         if(isset($_GET['q'])) {
             $query = $_GET['q'];
-            $group = mozilla_search_groups($query);
+            $gid = isset($_GET['gid']) && $_GET['gid'] != 'false' ? intval($_GET['gid']) : false;
 
-            if(isset($group['total']) && $group['total'] == 0) {
+            $found = mozilla_search_groups($query, $gid);
+
+            if($found == false) {
                 print json_encode(true);
             } else {
                 print json_encode(false);
@@ -493,15 +498,24 @@ function mozilla_validate_group_name() {
     }
 }
 
-function mozilla_search_groups($name) {
+function mozilla_search_groups($name, $gid) {
     $groups = groups_get_groups();
     $group_array = $groups['groups'];
 
-    $group = array_filter($groups, function($object) {
-        return trim(strtolower($object->name)) === trim(strtolower($name));
-    });
+    $found = false;
+    foreach($group_array AS $g) {
+        if($gid && $gid == $g->id) {
+            continue;
+        } else {
+            $x = trim(strtolower($g->name));
+            $y = trim(strtolower($name));
+            if(sanitize_text_field($x) ==  sanitize_text_field($y))
+                return true;
+                    
+        }
+    }
 
-    return $group;
+    return $found;
 }
 
 function mozilla_validate_username() {
@@ -762,3 +776,78 @@ function mozilla_get_user_visibility_settings($user_id) {
     return $visibility_settings;
 }
 
+function mozilla_edit_group() {
+
+    $group_id = bp_get_current_group_id();
+    $user = wp_get_current_user();
+
+    if($group_id && $user) {
+
+        $is_admin = groups_is_user_admin($user->ID, $group_id);
+
+        if($is_admin !== false) {
+            if($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $required = Array(
+                    'group_name',
+                    'group_type',
+                    'group_desc',
+                    'group_address',
+                    'my_nonce_field'
+                );
+       
+                foreach($required AS $field) {
+                    if(isset($_POST[$field])) {
+                        if($_POST[$field] === "" || $_POST[$field] === 0) {
+                            $error = true;
+                        }
+                    }
+                }
+      
+                if(isset($_POST['group_name'])) {
+                    $error = mozilla_search_groups($_POST['group_name'], $group_id);
+                    if($error) {
+                        $_POST['group_name_error'] = 'This group name is already taken';
+                    }
+                }
+
+                // Lets update
+                if($error === false) {
+                    $args = Array(
+                        'group_id'      =>  $group_id,
+                        'name'          =>  sanitize_text_field($_POST['group_name']),
+                        'description'   =>  sanitize_text_field($_POST['group_desc']),
+                    );
+
+                    // Update the group
+                    groups_create_group($args);
+
+                    // Update group meta data
+                    $meta = Array();
+                    $meta['group_image_url'] = isset($_POST['image_url']) ? sanitize_text_field($_POST['image_url']) : '';
+                    $meta['group_address_type'] = isset($_POST['group_address_type']) ? sanitize_text_field($_POST['group_address_type']) : 'Address';
+                    $meta['group_address'] = isset($_POST['group_address']) ? sanitize_text_field($_POST['group_address']) : '';
+                    $meta['group_meeting_details'] = isset($_POST['group_meeting_details']) ? sanitize_text_field($_POST['group_meeting_details']) : '';
+                    $meta['group_city'] = isset($_POST['group_city']) ? sanitize_text_field($_POST['group_city']) : '';
+                    $meta['group_country'] = isset($_POST['group_country']) ? sanitize_text_field($_POST['group_country']): '';
+                    $meta['group_type'] = isset($_POST['group_type']) ? sanitize_text_field($_POST['group_type']) : 'Online';
+
+                    if(isset($_POST['tags'])) {
+                        $tags = array_filter(explode(',', $_POST['tags']));
+                        $meta['group_tags'] = $tags;
+                    }
+
+                    $meta['group_discourse'] = isset($_POST['group_discourse']) ? sanitize_text_field($_POST['group_discourse']) : '';
+                    $meta['group_facebook'] = isset($_POST['group_facebook']) ? sanitize_text_field($_POST['group_facebook']) : '';
+                    $meta['group_telegram'] = isset($_POST['group_telegram']) ? sanitize_text_field($_POST['group_telegram']) : '';
+                    $meta['group_github'] = isset($_POST['group_github']) ? sanitize_text_field($_POST['group_github']) : '';
+                    $meta['group_twitter'] = isset($_POST['group_twitter']) ? sanitize_text_field($_POST['group_twitter']) : '';
+                    $meta['group_other'] = isset($_POST['group_other']) ? sanitize_text_field($_POST['group_other']) : '';
+
+                    groups_update_groupmeta($group_id, 'meta', $meta);
+                }
+        
+            }
+        }
+    }
+    
+}
