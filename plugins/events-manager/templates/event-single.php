@@ -1,12 +1,13 @@
 <?php 
-  global $EM_Event, $bp, $EM_Tags;;
+  global $EM_Event, $bp, $EM_Tags;
   $mapBoxAccessToken = 'pk.eyJ1Ijoia3ljYXBzdGlja3BnIiwiYSI6ImNrMmM0MnJ0ODJocHQzY3BlMmdkZGxucnYifQ.j4K7gEui7_BoPezbyGmZuw';
   $categories = get_the_terms($EM_Event->post_id, EM_TAXONOMY_CATEGORY);  
   $event_meta = get_post_meta($EM_Event->post_id, 'event-meta');
   $allCountries = em_get_countries();
   $img_url = $event_meta[0]->image_url;
   $location_type = $event_meta[0]->location_type;
-  $campaign = $event_meta->campaign;
+  $external_url = $event_meta[0]->external_url;
+  $campaign = $event_meta[0]->campaign;
   $months = array(
     '01' => 'January',
     '02' => 'February',
@@ -260,14 +261,14 @@
         <div class="card events-single__attributes">
           <div class="row">
           <?php 
-            // if ($EM_Event->location->location_name === "Online" && $EM_Event->location->location_address):
+            if (isset($external_url)):
           ?>
             <div class="col-lg-12 col-md-6 col-sm-12">
               <p class="events-single__label">Links</p>
-              <p><a href="<?php echo $EM_Event->location->location_address?>"><?php echo $EM_Event->location->location_address ?></a></p>
+              <p><a href="<?php echo esc_attr($external_url) ?>"><?php echo __($external_url) ?></a></p>
             </div>
           <?php 
-            // endif;
+            endif;
           ?>
           <?php if ($categories): ?>
           <div class="col-lg-12 col-md-6 col-sm-12">
@@ -284,7 +285,7 @@
           </div>
           <?php 
             endif; 
-            // if (isset($campaign)):
+            if (isset($campaign)):
           ?>
           <div class="col-lg-12 col-md-6 col-sm-12">
             <p class="events-single__label">Part of</p>
@@ -299,7 +300,7 @@
             </div>
           </div>
           <?php 
-            // endif 
+            endif 
           ?>
           <div class="events-single__share col-lg-12 col-md-6 col-sm-12">
           <button id="open-events-share-lightbox" class="btn btn--light btn--share">

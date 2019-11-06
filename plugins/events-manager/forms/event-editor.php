@@ -6,6 +6,11 @@
  */
 global $EM_Event, $EM_Notices, $bp, $EM_Ticket;
 $event_id = $_REQUEST['event_id'];
+if (isset($event_id)):
+  $event_meta = get_post_meta($EM_Event->post_id, 'event-meta');
+  $external_url = $event_meta[0]->external_url;
+  $event_campaign = $event_meta[0]->campaign;
+endif;
 //check that user can access this page
 if( is_object($EM_Event) && !$EM_Event->can_manage('edit_events','edit_others_events') ){
 	?>
@@ -70,10 +75,17 @@ if( !empty($_REQUEST['success']) ){
     <div class="event-editor">
       <label class="event-form-details event-creator__label" for="event-description"><?php esc_html_e( 'Event description', 'events-manager'); ?></label>
       <textarea name="content" id="event-description" placeholder="Add in the details of your event’s agenda here. If this is a multi-day event, you can add in the details of each day’s schedule and start/end time." rows="10" id="event-description" class="event-creator__input event-creator__textarea" style="width:100%" required><?php echo __($EM_Event->post_content) ?></textarea>
+      <div class="event-creator__container">
+          <label class="event-creator__label" for="event-campaign"><?php _e ( 'Is this event part of an initiative?', 'events-manager')?></label>
+          <select class="event-creator__dropdown" id="event-campaign" name="event_campaign">
+            <option value="No" <?php echo (!isset($event_campaign) || $event_campaign === '') ? esc_attr('selected') : null;?>><?php _e('No','events-manager'); ?></option>
+            <option value="1" <?php echo ($event_campaign === '1') ? esc_attr('selected') : null; ?>>Firefox For Good</option>
+        </select>
+      </div>
       <?php if(get_option('dbem_categories_enabled')) { em_locate_template('forms/event/categories-public.php',true); }  ?>
       <div class="event-creator__container">
         <label class="event-creator__label" for="event-creator-link"><?php esc_html_e('External link URL*', 'events-manager'); ?></label>
-        <input type="text" class="event-creator__input" name="event_external_link" id="event-creator-link" />
+        <input type="text" class="event-creator__input" name="event_external_link" id="event-creator-link" value="<?php echo (isset($external_url) && $external_url !== '') ? esc_attr($external_url) : '' ;?>" />
       </div>
       <?php em_locate_template('forms/event/group.php',true); ?>
     </div>
