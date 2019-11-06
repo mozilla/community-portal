@@ -261,7 +261,7 @@
         <div class="card events-single__attributes">
           <div class="row">
           <?php 
-            if (isset($external_url)):
+            if (isset($external_url) && $external_url !== ''):
           ?>
             <div class="col-lg-12 col-md-6 col-sm-12">
               <p class="events-single__label">Links</p>
@@ -285,7 +285,8 @@
           </div>
           <?php 
             endif; 
-            if (isset($campaign)):
+
+            if (isset($campaign) && $campaign !== 'No'):
           ?>
           <div class="col-lg-12 col-md-6 col-sm-12">
             <p class="events-single__label">Part of</p>
