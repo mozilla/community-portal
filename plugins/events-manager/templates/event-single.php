@@ -68,7 +68,7 @@
 <div class="content events__container events-single">
   <div class="row">
     <div class="col-sm-12">
-      <h1 class="title"><?php echo the_title() ?></h1>
+      <h1 class="title"><?php echo __($EM_Event->event_name) ?></h1>
     </div>
   </div>
   <div class="row events-single__two-up">

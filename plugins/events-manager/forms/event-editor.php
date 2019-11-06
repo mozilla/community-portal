@@ -71,6 +71,10 @@ if( !empty($_REQUEST['success']) ){
       <label class="event-form-details event-creator__label" for="event-description"><?php esc_html_e( 'Event description', 'events-manager'); ?></label>
       <textarea name="content" id="event-description" placeholder="Add in the details of your event’s agenda here. If this is a multi-day event, you can add in the details of each day’s schedule and start/end time." rows="10" id="event-description" class="event-creator__input event-creator__textarea" style="width:100%" required><?php echo __($EM_Event->post_content) ?></textarea>
       <?php if(get_option('dbem_categories_enabled')) { em_locate_template('forms/event/categories-public.php',true); }  ?>
+      <div class="event-creator__container">
+        <label class="event-creator__label" for="event-creator-link"><?php esc_html_e('External link URL*', 'events-manager'); ?></label>
+        <input type="text" class="event-creator__input" name="event_external_link" id="event-creator-link" />
+      </div>
       <?php em_locate_template('forms/event/group.php',true); ?>
     </div>
   </div>
@@ -103,8 +107,6 @@ if( !empty($_REQUEST['success']) ){
         <?php endif; ?>
 
   <div class="submit event-creator__submit">
-    <!-- <input type="submit" class="btn btn--dark btn--submit button-primary event-creator__submit-btn" value="Create Event"> -->
-    <!-- <input type='submit' class='button-primary' value='<?php echo esc_attr(sprintf( __('Update %s','events-manager'), __('Event','events-manager') )); ?>' /> -->
     <input id="event-creator__submit-btn" type='submit' class='button-primary btn btn--dark btn--submit' 
       value='<?php 
         if (!$event_id):
@@ -118,7 +120,6 @@ if( !empty($_REQUEST['success']) ){
     <input type="hidden" name="event_rsvp" value=<?php echo ($event_id) ? null : esc_attr('1'); ?> />
     <input type="hidden" name="_wpnonce" id="my_nonce_field" value="<?php echo wp_create_nonce('wpnonce_event_save'); ?>" />
     <input type="hidden" name="action" value="event_save" />
-    <input type="hidden" name="visibility" id="visibility-radio-public" value="public" checked="checked">
     <?php if( !empty($_REQUEST['redirect_to']) ): 
         
       ?>
