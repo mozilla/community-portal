@@ -314,6 +314,7 @@ function mozilla_init_scripts() {
     // Vendor scripts
     wp_enqueue_script('dropzonejs', get_stylesheet_directory_uri()."/js/vendor/dropzone.min.js", array('jquery'));
     wp_enqueue_script('autcomplete', get_stylesheet_directory_uri()."/js/vendor/autocomplete.js", array('jquery'));
+    wp_enqueue_script('identicon', get_stylesheet_directory_uri()."/js/vendor/identicon.js", array());
 
     // Custom scripts
     wp_enqueue_script('groups', get_stylesheet_directory_uri()."/js/groups.js", array('jquery'));

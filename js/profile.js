@@ -1,6 +1,15 @@
 jQuery(function(){
 
 
+    jQuery('.members__avatar--identicon').each(function(index, ele) {
+
+        var $ele = jQuery(ele);
+        var user = $ele.data('username');
+ 
+        var avatar = new Identicon(btoa(user + 'mozilla'), { format: 'svg' }).toString();
+        $ele.css({'background-image': "url('data:image/svg+xml;base64," + avatar + "')"});
+
+    });
 
     jQuery('#complete-profile-form').one('submit', function(e){
         e.preventDefault();
