@@ -7,6 +7,7 @@ add_action('get_header', 'remove_admin_login_header');
 // Native Wordpress Actions
 add_action('init', 'mozilla_custom_menu');
 add_action('wp_enqueue_scripts', 'mozilla_init_scripts');
+add_action('edit_user_profile', 'mozilla_user_box');
 
 // Ajax Calls
 add_action('wp_ajax_nopriv_upload_group_image', 'mozilla_upload_image');
@@ -762,3 +763,7 @@ function mozilla_get_user_visibility_settings($user_id) {
     return $visibility_settings;
 }
 
+function mozilla_user_box() {
+    $template_dir = get_template_directory();
+    include("{$template_dir}/admin-templates/user.php");
+}
