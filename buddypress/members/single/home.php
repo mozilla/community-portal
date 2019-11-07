@@ -1,6 +1,5 @@
 <?php
 
-
     $visibility_options = Array(
         PrivacySettings::REGISTERED_USERS   =>  __('Registered Users'),
         PrivacySettings::PUBLIC_USERS   =>  __('Public (Everyone)'),
