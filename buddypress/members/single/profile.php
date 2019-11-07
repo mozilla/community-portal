@@ -12,7 +12,6 @@
     $community_fields['city'] = isset($meta['city'][0]) ? $meta['city'][0] : '';
     $community_fields['country'] = isset($meta['country'][0]) ? $meta['country'][0] : '';
     
-
     $fields = Array(
         'username',
         'image_url',
@@ -45,14 +44,6 @@
         $field_visibility_name = ($field === 'city' || $field === 'country') ? 'profile_location_visibility' : $field_visibility_name;
         $visibility_settings[$field_visibility_name] = $visibility;
     }
-    
-
-    // print "<pre>";
-    // print_r($community_fields);
-    // print "</pre>";
-    // print "<pre>";
-    // print_r($visibility_settings);
-    // print "</pre>";
 
 ?>  
 
@@ -71,7 +62,7 @@
                 </a>
             </div>
             <?php endif; ?>
-            <div class="profile__avatar<?php if(!isset($community_fields['image_url']) || (isset($community_fields['image_url']) && strlen($community_fields['image_url']) <= 0)): ?> profile__avatar--empty<?php endif; ?>"<?php if($visibility_settings['image_url_visibility']): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?>>
+            <div class="profile__avatar<?php if(!isset($community_fields['image_url']) || (isset($community_fields['image_url']) && strlen($community_fields['image_url']) <= 0 || !$visibility_settings['image_url_visibility'])): ?> profile__avatar--empty<?php endif; ?>"<?php if($visibility_settings['image_url_visibility']): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-user="<?php print $user->user_nicename; ?>">
             </div>
             <div class="profile__name-container">
                 <h3 class="profile__user-title"><?php print $user->user_nicename; ?></h3>
@@ -211,10 +202,10 @@
                     <?php print groups_get_total_member_count($gid);  ?> Members
                 </div>
             </div>
-            <?php if($groups['total'] > 1 && $group_count > 1): ?>
+            <?php $group_count++; ?>
+            <?php if( $group_count > 0 && $group_count < $groups['total']): ?>
             <hr class="profile__group-line" />
             <?php endif; ?>
-            <?php $group_count++; ?>
             <?php endforeach; ?>
         </div>
         <?php endif; ?>

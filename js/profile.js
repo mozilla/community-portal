@@ -11,6 +11,12 @@ jQuery(function(){
 
     });
 
+    if(jQuery('.profile__avatar--empty').length > 0) {
+        var user = jQuery('.profile__avatar--empty').data('user');
+        var avatar = new Identicon(btoa(user + 'mozilla'), { format: 'svg' }).toString();
+        jQuery('.profile__avatar--empty').css({'background-image': "url('data:image/svg+xml;base64," + avatar + "')"});
+    };
+
     jQuery('#complete-profile-form').one('submit', function(e){
         e.preventDefault();
         var error = false;
