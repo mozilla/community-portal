@@ -6,14 +6,14 @@ jQuery(function(){
         var $ele = jQuery(ele);
         var user = $ele.data('username');
  
-        var avatar = new Identicon(btoa(user + 'mozilla'), { format: 'svg' }).toString();
+        var avatar = new Identicon(btoa(user + 'mozilla-community-portal'), { format: 'svg' }).toString();
         $ele.css({'background-image': "url('data:image/svg+xml;base64," + avatar + "')"});
 
     });
 
     if(jQuery('.profile__avatar--empty').length > 0) {
         var user = jQuery('.profile__avatar--empty').data('user');
-        var avatar = new Identicon(btoa(user + 'mozilla'), { format: 'svg' }).toString();
+        var avatar = new Identicon(btoa(user + 'mozilla-community-portal'), { format: 'svg' }).toString();
         jQuery('.profile__avatar--empty').css({'background-image': "url('data:image/svg+xml;base64," + avatar + "')"});
     };
 

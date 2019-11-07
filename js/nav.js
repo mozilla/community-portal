@@ -15,7 +15,7 @@ jQuery(function(){
 
     if(jQuery('.nav__avatar--empty').length > 0) {
         var user = jQuery('.nav__avatar--empty').data('user');
-        var avatar = new Identicon(btoa(user + 'mozilla'), { format: 'svg' }).toString();
+        var avatar = new Identicon(btoa(user + 'mozilla-community-portal'), { format: 'svg' }).toString();
         jQuery('.nav__avatar--empty').css({'background-image': "url('data:image/svg+xml;base64," + avatar + "')"});
     }
 
