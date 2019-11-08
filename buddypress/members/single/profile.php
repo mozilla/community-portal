@@ -94,7 +94,9 @@
         </div>
         <?php endif; ?>
         <div class="profile__card-contact-container">
+            <?php if($visibility_settings['profile_location_visibility'] || $visibility_settings['email_visibility'] || $visibility_settings['phone_visibility']): ?>
             <span class="profile__contact-title"><?php print __('Contact Information'); ?></span>
+            <?php endif; ?>
             <?php if($visibility_settings['profile_location_visibility']): ?>
             <div class="profile__location-container">
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="profile__location-icon">
