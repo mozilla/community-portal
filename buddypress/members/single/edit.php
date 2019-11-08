@@ -731,7 +731,7 @@
         <?php endif; ?>
         <?php endif; ?>
         <section class="profile__cta-container">
-            <input type="submit" class="profile__cta" value="<?php print strtoupper(__("Complete Profile")); ?>" />
+            <input type="submit" class="profile__cta" value="<?php print __("Complete Profile"); ?>" />
         </section>
     </form>
     <?php endif; ?>
