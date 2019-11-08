@@ -43,6 +43,11 @@
         font-family: 'Open Sans', sans-serif;
         margin: 0;
         margin-top: 16px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        flex-wrap: wrap;
     }
 
 
@@ -101,6 +106,21 @@
         }
     }
 
+    &__status {
+        text-decoration: underline;
+        color: $color-black;
+        display: inline-block;
+        margin-left: 4px;
+
+    }
+
+    &__created,
+    &__location {
+        display: inline-block;
+        margin-left: 4px;
+
+    }
+
     &__community-links {
         
         span {
@@ -134,6 +154,16 @@
         &:last-of-type {
             margin-right: 0;
         }
+
+        svg {
+            width: 24px;
+            height: 24px;
+
+            @include desktop-and-up {
+                width: 32px;
+                height: 32px;
+            }
+        }
     }
 
     &__meeting-location-link {
@@ -146,10 +176,20 @@
 
     &__social-link {
         text-decoration: none;
-        font-size: remCalc(18);
-        line-height: 28px;
+        font-size: remCalc(14);
+        line-height: 20px;
         color: $color-blue-50;
         margin-left: 8px;
+
+        @include tablet-and-up {
+            font-size: remCalc(16);
+            line-height: 24px;
+        }
+
+        @include desktop-and-up {
+            font-size: remCalc(18);
+            line-height: 28px;
+        }
     }
 
     &__left-column {
@@ -289,9 +329,6 @@
             width: 100%;
             position: relative;
 
-
-            
-
             &.no-line {
                 &:after {
                     display: none;
@@ -301,8 +338,8 @@
 
             &.username {
                 font-family: 'Zilla Slab';
-                font-size: remCalc(24);
-                line-height: 32px;
+                font-size: remCalc(20);
+                line-height: 28px;
                 color: $color-black;
                 max-width: 285px;
                 width: 100%;
@@ -395,6 +432,7 @@
         font-size: remCalc(16);
         line-height: 18px;
         position: relative;
+        color: $color-blue-50;
 
         @include tablet-and-up {
             width: 188px;
