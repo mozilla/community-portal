@@ -130,10 +130,6 @@
                         </div>  
                     </div>
                     <?php else: ?>
-                    <?php 
-                        //$group_meta['image_url'] = 'http://localhost:8080/wp-content/uploads/2019/10/71932764_10162748598690529_1954844366090534912_o.jpg';
-                    
-                    ?>
                     <div class="group__left-column">
                         <div class="group__card">
                             <?php if(isset($group_meta['image_url']) && strlen($group_meta['image_url']) > 0): ?>
