@@ -18,19 +18,25 @@
     );
 
     $q = (isset($_GET['q']) && strlen($_GET['q']) > 0) ? sanitize_text_field(trim($_GET['q'])) : false;
+    if($q) {
+        $args['search_columns'] = Array('name');
+        $args['search_terms'] = $q;
+    }
+
     $group_count = 0;
-    
 
     if($logged_in && isset($_GET['mygroups']) && $_GET['mygroups'] == 'true') {
         $user = wp_get_current_user()->data;
         
         $groups = Array();
         $merged_groups = array_merge(bp_get_user_groups($user->ID, Array('is_admin' => true)), bp_get_user_groups($user->ID));
-
+        $group_ids = Array();
         foreach($merged_groups AS $g) {
-            $group = groups_get_group($g->group_id);
-            $groups[] = $group;
+            $group_ids[] = $g->group_id;
         }
+        $args['include'] = $group_ids;
+        $groups = groups_get_groups($args);
+
 
     } else {
         if($q) {
@@ -39,9 +45,8 @@
         }
     
         $groups = groups_get_groups($args);
-        $groups = $groups['groups'];
     }
-
+    $groups = $groups['groups'];
 
     $filtered_groups = Array();
 
