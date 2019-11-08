@@ -10,11 +10,11 @@
     $logged_in = mozilla_is_logged_in();
 
     $groups_per_page = 12;
-    $page = (isset($_GET['page'])) ? intval($_GET['page']) : 1;
+    $p = (isset($_GET['page'])) ? intval($_GET['page']) : 1;
 
     $args = Array(
         'per_page'  =>  12,
-        'page'      =>  $page
+        'page'      =>  $p
     );
 
     $q = (isset($_GET['q']) && strlen($_GET['q']) > 0) ? sanitize_text_field(trim($_GET['q'])) : false;
@@ -68,7 +68,7 @@
     $group_count = sizeof($groups);
 
     $total_pages = ceil($group_count / $groups_per_page);
-    $offset = ($page - 1) * $groups_per_page;
+    $offset = ($p - 1) * $groups_per_page;
 
     $tags = get_tags(Array('hide_empty' => false));
 ?>
@@ -225,15 +225,15 @@
                 <?php endforeach; ?>
                 <?php do_action('bp_after_groups_loop'); ?>
                 <?php 
-                    $range = ($page > 3) ? 3 : 5;
+                    $range = ($p > 3) ? 3 : 5;
                     
-                    if($page > $total_pages - 2) 
+                    if($p > $total_pages - 2) 
                         $range = 5;
                     
-                    $previous_page = ($page > 1) ? $page - 1 : 1;
-                    $next_page = ($page < $total_pages) ? $page + 1 : $total_pages;
+                    $previous_page = ($p > 1) ? $p - 1 : 1;
+                    $next_page = ($p <= $total_pages) ? $p + 1 : $total_pages;
 
-                    if($total_pages > 1 ) {
+                    if($total_pages >= 1 ) {
                         $range_min = ($range % 2 == 0) ? ($range / 2) - 1 : ($range - 1) / 2;
                         $range_max = ($range % 2 == 0) ? $range_min + 1 : $range_min;
 
@@ -249,20 +249,21 @@
                         }
 
                     }
+
                 ?>
                 <div class="groups__pagination">
                     <div class="groups__pagination-container">
-                        <?php if($total_pages > 1): ?>
+                        <?php if($total_pages >= 1): ?>
                         <a href="/groups/?page=<?php print $previous_page?><?php if($q): ?>&q=<?php print $q; ?><?php endif; ?><?php if(isset($_GET['mygroups'])): ?>&mygroups=<?php print $_GET['mygroups']; ?><?php endif; ?><?php if(isset($_GET['tag'])): ?>&tag=<?php print $_GET['tag']; ?><?php endif; ?><?php if(isset($_GET['location'])): ?>&location=<?php print $_GET['location']; ?><?php endif; ?>" class="groups__pagination-link">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                 <path d="M17 23L6 12L17 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </a>
                         <?php if($page_min > 1): ?><a href="/groups/?page=1<?php if($q): ?>&q=<?php print $q; ?><?php endif; ?><?php if(isset($_GET['mygroups'])): ?>&mygroups=<?php print $_GET['mygroups']; ?><?php endif; ?><?php if(isset($_GET['tag'])): ?>&tag=<?php print $_GET['tag']; ?><?php endif; ?><?php if(isset($_GET['location'])): ?>&location=<?php print $_GET['location']; ?><?php endif; ?>" class="groups__pagination-link groups__pagination-link--first"><?php print "1"; ?></a>&hellip; <?php endif; ?>
-                        <?php for($x = $page_min - 1; $x < $page_max; $x++): ?>
-                        <a href="/groups/?page=<?php print $x + 1; ?><?php if($q): ?>&q=<?php print $q; ?><?php endif; ?><?php if(isset($_GET['mygroups'])): ?>&mygroups=<?php print $_GET['mygroups']; ?><?php endif; ?><?php if(isset($_GET['tag'])): ?>&tag=<?php print $_GET['tag']; ?><?php endif; ?><?php if(isset($_GET['location'])): ?>&location=<?php print $_GET['location']; ?><?php endif; ?>" class="groups__pagination-link<?php if($page === $x + 1):?> groups__pagination-link--active<?php endif; ?><?php if($x === $page_max - 1):?> groups__pagination-link--last<?php endif; ?>"><?php print ($x + 1); ?></a>
+                        <?php for($x = $page_min - 1; $x <= $page_max; $x++): ?>
+                        <a href="/groups/?page=<?php print $x + 1; ?><?php if($q): ?>&q=<?php print $q; ?><?php endif; ?><?php if(isset($_GET['mygroups'])): ?>&mygroups=<?php print $_GET['mygroups']; ?><?php endif; ?><?php if(isset($_GET['tag'])): ?>&tag=<?php print $_GET['tag']; ?><?php endif; ?><?php if(isset($_GET['location'])): ?>&location=<?php print $_GET['location']; ?><?php endif; ?>" class="groups__pagination-link<?php if($p == $x + 1):?> groups__pagination-link--active<?php endif; ?><?php if($x === $page_max - 1):?> groups__pagination-link--last<?php endif; ?>"><?php print ($x + 1); ?></a>
                         <?php endfor; ?>
-                        <?php if($total_pages > $range && $page < $total_pages - 1): ?>&hellip; <a href="/groups/?page=<?php print $total_pages; ?><?php if($q): ?>&q=<?php print $q; ?><?php endif; ?><?php if($_GET['mygroups']): ?>&mygroups=<?php print $_GET['mygroups']; ?><?php endif; ?><?php if($_GET['tag']): ?>&tag=<?php print $_GET['tag']; ?><?php endif; ?><?php if(isset($_GET['location'])): ?>&location=<?php print $_GET['location']; ?><?php endif; ?>" class="groups__pagination-link<?php if($page === $total_pages):?> groups__pagination-link--active<?php endif; ?>"><?php print $total_pages; ?></a><?php endif; ?>
+                        <?php if($total_pages > $range && $p < $total_pages - 1): ?>&hellip; <a href="/groups/?page=<?php print $total_pages; ?><?php if($q): ?>&q=<?php print $q; ?><?php endif; ?><?php if($_GET['mygroups']): ?>&mygroups=<?php print $_GET['mygroups']; ?><?php endif; ?><?php if($_GET['tag']): ?>&tag=<?php print $_GET['tag']; ?><?php endif; ?><?php if(isset($_GET['location'])): ?>&location=<?php print $_GET['location']; ?><?php endif; ?>" class="groups__pagination-link<?php if($p === $total_pages):?> groups__pagination-link--active<?php endif; ?>"><?php print $total_pages; ?></a><?php endif; ?>
                         <a href="/groups/?page=<?php print $next_page; ?><?php if($q): ?>&q=<?php print $q; ?><?php endif; ?><?php if(isset($_GET['mygroups'])): ?>&mygroups=<?php print $_GET['mygroups']; ?><?php endif; ?><?php if(isset($_GET['tag'])): ?>&tag=<?php print $_GET['tag']; ?><?php endif; ?><?php if(isset($_GET['location'])): ?>&location=<?php print $_GET['location']; ?><?php endif; ?>" class="groups__pagination-link">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path d="M7 23L18 12L7 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
