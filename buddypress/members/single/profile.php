@@ -281,6 +281,13 @@
         <?php endif; ?>
     </section>
     <section class="profile__section profile__section--right">
+        <?php if($visibility_settings['profile_telegram_visibility']
+        || $visibility_settings['profile_facebook_visibility']
+        || $visibility_settings['profile_twitter_visibility']
+        || $visibility_settings['profile_linkedin_visibility']
+        || $visibility_settings['profile_discourse_visibility']
+        || $visibility_settings['profile_github_visibility']
+        ): ?>
         <div class="profile__social-card">
             <?php print __("Social Handles"); ?>
             <div class="profile__social-container">
@@ -359,6 +366,7 @@
                 <?php endif; ?>
             </div>
         </div>
+        <?php endif; ?>
         <?php if(isset($community_fields['languages']) && sizeof($community_fields['languages']) > 0 && $visibility_settings['languages_visibility']): ?>
         <div class="profile__languages-card">
             <?php print __('Languages spoken'); ?>
