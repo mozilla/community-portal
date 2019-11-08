@@ -20,12 +20,35 @@
     $members = groups_get_group_members($args); 
     $is_admin = groups_is_user_admin($user->ID, $group->id);
 
+    switch($group->status) {
+        case 'public':
+            $verified = true;
+            break;
+        case 'private':
+            $verified = false;
+        default: 
+            $verified = false;
+    }
 ?>
     <div class="content">
         <div class="group">
             <div class="group__container">
                 <h1 class="group__title"><?php print __($group->name); ?></h1>
                 <div class="group__details">
+                    <?php if($verified): ?>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <ellipse cx="8" cy="7.97569" rx="8" ry="7.97569" fill="#0060DF"/>
+                            <path d="M8 5.5L8.7725 7.065L10.5 7.3175L9.25 8.535L9.545 10.255L8 9.4425L6.455 10.255L6.75 8.535L5.5 7.3175L7.2275 7.065L8 5.5Z" fill="white" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span class="group__status">Verified</span>&nbsp;|
+                    <?php else: ?>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15.5 7.97569C15.5 12.103 12.1436 15.4514 8 15.4514C3.85643 15.4514 0.5 12.103 0.5 7.97569C0.5 3.84842 3.85643 0.5 8 0.5C12.1436 0.5 15.5 3.84842 15.5 7.97569Z" stroke="#B1B1BC"/>
+                            <path d="M8 5.5L8.7725 7.065L10.5 7.3175L9.25 8.535L9.545 10.255L8 9.4425L6.455 10.255L6.75 8.535L5.5 7.3175L7.2275 7.065L8 5.5Z" fill="#B1B1BC" stroke="#B1B1BC" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span class="group__status">Unverified</span>&nbsp;|
+                    <?php endif; ?>
+                    <span class="group__location">
                     <?php 
                         if(isset($group_meta['group_city'])) {
                             print $group_meta['group_city'];
@@ -41,9 +64,14 @@
                                 print "{$country} | ";
                             }
                         }
+                    ?>
+                    </span>
+                    <span class="group__created">
+                    <?php
                         $created = date("F d, Y", strtotime($group->date_created));
                         print "<span> Created {$created}";
                     ?>
+                    </span>
                 </div>
                 <div class="group__nav">
                     <ul class="group__menu">
