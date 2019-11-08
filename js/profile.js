@@ -169,7 +169,7 @@ jQuery(function(){
     });
 
 
-    jQuery('#username').on('change keyup paste', function(e) {
+    jQuery('#username').on('change keyup', function(e) {
         var $this = jQuery(this);
         var value = $this.val();
         var get = { };
@@ -198,7 +198,7 @@ jQuery(function(){
     });
 
 
-    jQuery('#email').on('change keyup paste', function(e) {
+    jQuery('#email').on('change keyup', function(e) {
         var $this = jQuery(this);
         var value = $this.val();
         var get = { };
@@ -262,7 +262,7 @@ jQuery(function(){
 
 
 
-    jQuery('.profile__input, .profile__textarea, .profile__select').on('change keyup paste', function(e){
+    jQuery('.profile__input, .profile__textarea, .profile__select').on('change keyup', function(e){
         var $this = jQuery(this);
         if($this.val() != '' || $this.val() == '0') {
             $this.removeClass('profile__input--error');
