@@ -264,6 +264,7 @@
                 </div>
             </div>
             <?php if(isset($meta['agree'][0]) && $meta['agree'][0] == 'I Agree'): ?>
+            <hr class="profile__keyline" />
             <div class="profile__form-field">
                 <div class="profile__input-container">
                     <label class="profile__label" for="phone"><?php print __("Phone contact *"); ?></label>
