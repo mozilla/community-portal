@@ -170,6 +170,7 @@
                                     <?php print __('Share Group'); ?>
                                 </a>
                                 </div>
+                                <hr class="group__keyline" />
                                 <h2 class="group__card-title"><?php print __("About Us"); ?></h2>
                                 <p class="group__card-copy">
                                     <?php print $group->description; ?>
