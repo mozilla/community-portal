@@ -7,7 +7,4 @@ jQuery(function(){
 
     jQuery("label[for='bp-group-status-public']").html($public_input).append('Verified');
     jQuery("label[for='bp-group-status-private']").html($private_input).append('Unverified');
-
-
-
 });
