@@ -806,11 +806,14 @@ function mozilla_get_user_visibility_settings($user_id) {
 
 function mozilla_save_event($post_id, $post, $update) {
   if ($post->post_type === 'event') {
+    var_dump($_POST);
     $event = new stdClass();
     $event->image_url = esc_url_raw($_POST['image_url']);
     $event->location_type = sanitize_text_field($_POST['location-type']);
     update_post_meta($post_id, 'event-meta', $event);
   }
+}
+
 function mozilla_edit_group() {
 
     $group_id = bp_get_current_group_id();
@@ -829,7 +832,6 @@ function mozilla_edit_group() {
                     'group_address',
                     'my_nonce_field'
                 );
-       
                 foreach($required AS $field) {
                     if(isset($_POST[$field])) {
                         if($_POST[$field] === "" || $_POST[$field] === 0) {

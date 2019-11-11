@@ -1,4 +1,52 @@
 jQuery(function() {
+  Dropzone.autoDiscover = false;
+
+  jQuery("#event-creator-photo-uploader").dropzone({
+    url: "/wp-admin/admin-ajax.php?action=upload_group_image",
+    acceptedFiles: "image/*",
+    maxFiles: null,
+    createImageThumbnails: false,
+    addRemoveLinks: false,
+    init: function() {
+      this.on("sending", function(file, xhr, formData) {
+        var nonce = jQuery("#my_nonce_field").val();
+        formData.append("my_nonce_field", nonce);
+      });
+    },
+    success: function(file, response) {
+      file.previewElement.classList.add("dz-success");
+      file["attachment_id"] = response; // push the id for future reference
+
+      jQuery(".dz-preview").remove();
+      jQuery("#image-delete").show();
+      jQuery("#image-url").val(response);
+      jQuery(".event-creator__image-upload")
+        .css("background-image", "url(" + response + ")")
+        .css("background-size", "cover");
+
+      jQuery(".create-group__image-upload").removeClass(
+        "create-group__image-upload--uploading"
+      );
+      jQuery(".create-group__image-upload").addClass(
+        "create-group__image-upload--done"
+      );
+      jQuery(".create-group__image-instructions").addClass(
+        "create-group__image-instructions--hide"
+      );
+    },
+    error: function(file, response) {
+      file.previewElement.classList.add("dz-error");
+    },
+    sending: function(file, xhr, formData) {
+      jQuery(".create-group__image-upload").removeClass(
+        "create-group__image-upload--done"
+      );
+      jQuery(".create-group__image-upload").addClass(
+        "create-group__image-upload--uploading"
+      );
+    }
+  });
+
   function getFilter(option) {
     const filter = option.dataset.filter;
     return filter;
@@ -81,7 +129,7 @@ jQuery(function() {
   }
 
   function toggleVisibility(selector, value, hidden) {
-    selector.val(value);
+    jQuery(selector).val(value);
     if (hidden) {
       selector
         .parent()
@@ -121,24 +169,52 @@ jQuery(function() {
       const $label = jQuery(`label[for=${input_id}]`);
       $this.removeClass("event-creator__error");
       $label.removeClass("event-creator__error-text");
+      const $parent = $label.parent();
+      toggleError($parent);
+    });
+  }
+
+  function toggleError(parent) {
+    const $errorPresent = parent.find("> .event-creator__error-field");
+    if (!$errorPresent.length > 0) {
+      const $errorText = jQuery(
+        '<p class="event-creator__error-field"> Please provide this field </p>'
+      );
+      parent.append($errorText);
+      return;
+    }
+    $errorPresent.each(function() {
+      $this = jQuery(this);
+      $this.remove();
     });
   }
 
   function checkInputs(inputs) {
     let $allClear = true;
+    let $first = true;
     inputs.each(function() {
       const $this = jQuery(this);
       clearErrors($this);
       $allClear = validateCpg($allClear);
       const input_id = $this.attr("id");
       if (!$this.val() || $this.val() === "00:00" || $this.val() === "0") {
+        if ($first) {
+          jQuery("html, body").animate(
+            {
+              scrollTop: $this.parent().offset().top
+            },
+            1000
+          );
+          $first = false;
+        }
         const $label = jQuery(`label[for=${input_id}]`);
+        const $parent = $label.parent();
+        toggleError($parent);
         $label.addClass("event-creator__error-text");
         $this.addClass("event-creator__error");
         $allClear = false;
       }
     });
-
     return $allClear;
   }
 
@@ -171,21 +247,17 @@ jQuery(function() {
       const $requiredInputs = jQuery("input,textarea,select").filter(
         "[required]"
       );
-      const $submitBtn = $eventForm.find("#event-creator__submit-btn");
-      $submitBtn.on("click", function(e) {
-        e.preventDefault();
-        const allClear = checkInputs($requiredInputs);
-        if (allClear) {
-          updateRedirect();
-          $eventForm.submit();
-        }
-      });
+      const allClear = checkInputs($requiredInputs);
+      if (allClear) {
+        updateRedirect();
+        $eventForm.submit();
+      }
     }
   }
 
   function clearImage() {
     const $deleteBtn = jQuery("#image-delete");
-    const $photoUpload = jQuery("#group-photo-uploader");
+    const $photoUpload = jQuery("#event-creator-photo-uploader");
     const $imageInput = jQuery("#image-url");
     if ($deleteBtn.length) {
       $deleteBtn.on("click", function(e) {
@@ -226,6 +298,11 @@ jQuery(function() {
 
   function handleAutocomplete(container, location, country, typeValue) {
     jQuery("#location-name").on("autocompleteselect", function(e) {
+      const $errors = container.find(".event-creator__error-field");
+      $errors.each(function() {
+        const $this = jQuery(this);
+        toggleError($this.parent());
+      });
       clearPrePopErrors(container, "event-creator__error");
       clearPrePopErrors(container, "event-creator__error-text");
       toggleLocationContainer(container, location, country, typeValue);
@@ -257,6 +334,16 @@ jQuery(function() {
     }
   }
 
+  function handleSubmit() {
+    const $submitBtn = jQuery("#event-creator__submit-btn");
+    if ($submitBtn) {
+      $submitBtn.on("click", function(e) {
+        e.preventDefault();
+        validateForm();
+      });
+    }
+  }
+
   function init() {
     toggleMobileEventsNav(".events__nav__toggle", ".events__nav");
     toggleMobileEventsNav(".events__filter__toggle", ".events__filter");
@@ -269,7 +356,7 @@ jQuery(function() {
     setHeightOfDivs(".events__tags");
     setHeightOfDivs(".event-card__description");
     toggleLocationType();
-    validateForm();
+    handleSubmit();
     clearImage();
     editLocation();
   }

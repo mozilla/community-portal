@@ -40,8 +40,8 @@
         padding: 0 64px;
       }
       @include desktop-and-up {
-        max-width: calc(#{$container-max-width} + 128px);
-        padding-left: 64px;
+        max-width: calc(1018px + 212px);
+        padding: 0 106px;
       }
     }
     .events__container,
