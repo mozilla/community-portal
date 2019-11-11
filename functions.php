@@ -811,7 +811,6 @@ function mozilla_is_logged_in() {
 
 function mozilla_determine_field_visibility($field, $visibility_field, $community_fields, $is_me, $logged_in) {
     
-
     if(isset($community_fields[$field]) 
         || $field === 'city' 
         || $field === 'username' 
@@ -845,6 +844,7 @@ function mozilla_determine_field_visibility($field, $visibility_field, $communit
     }
 
     return $display;
+}
 
 
 function mozilla_edit_group() {

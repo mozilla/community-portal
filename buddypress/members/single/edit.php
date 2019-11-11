@@ -15,7 +15,8 @@
     <?php else: ?>
     <div class="profile__hero" style="background-image: url('<?php print get_stylesheet_directory_uri()."/images/mozilla-create-profile.png"; ?>');">
         <div class="profile__hero-container">
-            <h1 class="profile__title"><?php print __("Complete Profile"); ?></h1>
+        
+            <h1 class="profile__title"><?php print (isset($meta['agree'][0]) && $meta['agree'][0] == 'I Agree') ? __("Edit Profile") : __("Complete Profile"); ?></h1>
             <p class="profile__hero-copy">
                 <?php print __("Here’s a brief explanation on privacy settings. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus massa mauris, interdum vitae convallis."); ?>
             </p>
