@@ -210,7 +210,7 @@ jQuery(function() {
         const $label = jQuery(`label[for=${input_id}]`);
         const $parent = $label.parent();
         toggleError($parent);
-        $label.addClass("event-creator__error-text");
+        //$label.addClass("event-creator__error-text");
         $this.addClass("event-creator__error");
         $allClear = false;
       }
@@ -222,7 +222,7 @@ jQuery(function() {
     const $cpgCheck = jQuery("#cpg");
     if ($cpgCheck.length && !$cpgCheck.prop("checked")) {
       const $label = jQuery("label[for=cpg]");
-      $label.addClass("event-creator__error-text");
+      //$label.addClass("event-creator__error-text");
       $cpgCheck.one("change", function() {
         $label.removeClass("event-creator__error-text");
       });
