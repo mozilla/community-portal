@@ -1,3 +1,5 @@
+
+
 .create-group {
     width: 100%;
 
@@ -181,6 +183,10 @@
             margin-top: 0;
         }
 
+        .dz-hide {
+            display: none;
+        }
+
         @include desktop-and-up {
  
             max-width: 490px;
@@ -274,7 +280,7 @@
 
         &:hover {
             border-color: rgba(215,215,219,1);
-            box-shadow: 0px 0px 0px 4px $color-gray-30;
+            box-shadow: 0px 0px 0px 4px $color-gray-30!important;
         }
 
 
@@ -403,6 +409,7 @@
 
     &__cta {
         @extend .cta;
+        border-radius: 28px!important;
     }
 
 
@@ -432,13 +439,17 @@
         cursor: pointer;
         border-radius: 5px;
         border: 1px solid $color-gray-20;
-
+        background-size: cover;
 
         .create-group__upload-image-svg {
             position: absolute;
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
+
+            &.create-group__upload-image-svg--hide {
+                display: none;
+            }
         }
 
         &:after {
@@ -478,52 +489,6 @@
             .create-group__upload-image-svg {
                 display: none;
             }
-    
-
-
-            .dz-preview {
-                .dz-remove {
-                    box-sizing: content-box;
-                    display: block;
-                    width: 127px;
-                    height: 36px;
-                    border-radius: 28px;
-                    border: 2px solid $color-black;
-                    background-color: $color-white;
-                    text-align: center;
-                    line-height: 36px;
-                    font-size: remCalc(14);
-                    text-decoration: none;
-                    color: $color-black;
-                    margin: 0 auto;
-                    margin-top: 15px;
-                }
-            }
-        }
-
-        .dz-error-mark, 
-        .dz-success-mark {
-            display: none;
-            position: relative;
-        }
-
-        .dz-image {
-            width: 283px;
-            height: 160px;
-            background-position: center center;
-            background-size: cover;
-            border-radius: 2px;
-            border: 1px solid $color-gray-secondary;
-        }
-
-        .dz-preview {
-            height: 100%;
-            width: 100%;
-        }
-        
-        .dz-remove, 
-        .dz-details {
-            display: none;
         }
             
     }
@@ -534,4 +499,29 @@
         color: $color-black;
     }
     
+    .dz-preview {
+        display: none;
+    }
+
+    .dz-remove {
+        box-sizing: content-box;
+        display: block;
+        width: 127px;
+        height: 36px;
+        border-radius: 28px;
+        border: 2px solid $color-black;
+        background-color: $color-white;
+        text-align: center;
+        line-height: 36px;
+        font-size: remCalc(14);
+        text-decoration: none;
+        color: $color-black;
+        margin: 0 auto;
+        margin-top: 15px;
+
+        &--hide {
+            display: none;
+        }
+    }
+
 }

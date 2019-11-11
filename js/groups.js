@@ -4,9 +4,9 @@ jQuery(function(){
     jQuery("#group-photo-uploader").dropzone({
         url: '/wp-admin/admin-ajax.php?action=upload_group_image',
         acceptedFiles: 'image/*',
-        maxFiles: 1,
+        maxFiles: null,
         createImageThumbnails: false,
-        addRemoveLinks: true,
+        addRemoveLinks: false,
         init: function() {
             this.on("sending", function(file, xhr, formData){
                 var nonce = jQuery('#my_nonce_field').val();
@@ -14,29 +14,28 @@ jQuery(function(){
             });
         },
         success: function (file, response) {
-        
             file.previewElement.classList.add("dz-success");
             file['attachment_id'] = response; // push the id for future reference
-            
+
+            jQuery('.dz-preview').remove();
+            jQuery('.dz-remove').removeClass('dz-remove--hide');
             jQuery('#image-url').val(response);
-            jQuery('.dz-image').css('background-image', 'url(' +  response + ')');
+            jQuery('.create-group__image-upload').css('background-image', 'url(' +  response + ')');
 
             jQuery('.create-group__image-upload').removeClass('create-group__image-upload--uploading');
             jQuery('.create-group__image-upload').addClass('create-group__image-upload--done');
             jQuery('.create-group__image-instructions').addClass('create-group__image-instructions--hide');
+        
         },
         error: function (file, response) {
             file.previewElement.classList.add("dz-error");
         },
         sending: function(file, xhr, formData) {
+            
             jQuery('.create-group__image-upload').removeClass('create-group__image-upload--done');
             jQuery('.create-group__image-upload').addClass('create-group__image-upload--uploading');
         },
-        removedfile: function(file) {
-            jQuery('.create-group__image-upload').removeClass('create-group__image-upload--done');   
-            jQuery('.create-group__image-instructions--hide').removeClass('create-group__image-instructions--hide');
-            return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;     
-        }
+
     });
 
     jQuery('.create-group__input, .create-group__textarea, .create-group__select').on('change keyup paste', function(e){
@@ -70,6 +69,18 @@ jQuery(function(){
         return false;
     });
 
+
+    jQuery('.dz-remove').click(function(e){
+        e.preventDefault();
+        jQuery('#group-photo-uploader').css('background-image', 'none');
+        jQuery('.create-group__image-upload').removeClass('create-group__image-upload--done');
+        jQuery('.dz-preview').addClass('dz-hide');
+        jQuery('.create-group__upload-image-svg').removeClass('.create-group__upload-image-svg--hide');
+        jQuery('.create-group__image-instructions').removeClass('create-group__image-instructions--hide');
+        jQuery('.dz-remove').addClass('dz-remove--hide');
+        jQuery('#image-url').val('');
+        return false;
+    });
 
 
     jQuery('#create-group-form').one('submit', function(e){
@@ -199,14 +210,16 @@ jQuery(function(){
         var name = $this.val();
 
         var $errorContainer = $this.next('.form__error-container');
+        
+        var get = { q: name };
+        get['gid'] = jQuery('#current-group').length > 0 ? jQuery('#current-group').val() : false;
 
-        jQuery.get('/wp-admin/admin-ajax.php?action=validate_group',  { q: name }, function(response) {
+        jQuery.get('/wp-admin/admin-ajax.php?action=validate_group',  get, function(response) {
             var resp = jQuery.parseJSON(response);
 
             // Show error
             if(resp !== true) {
                 $this.addClass('create-group__input--error');
-
                 $errorContainer.addClass('form__error-container--visible');
                 $errorContainer.children('.form__error').text('This group name is already taken');
             } else {
