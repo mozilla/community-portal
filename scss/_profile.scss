@@ -338,6 +338,10 @@
         &.profile__select-container--full {
             margin-top: 0;
 
+            svg {
+                right: 2px;
+            }
+
             @include tablet-and-up {
                 width: 100%;
                 max-width: 600px;
@@ -371,10 +375,21 @@
             }
         }
 
+        &.profile__select-container--flex {
+
+            @include tablet-and-up {
+                max-width: 227px;
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+                flex-wrap: wrap;
+            }
+        }
+
         &.profile__select-container--hide-mobile {
             display: none;
             @include tablet-and-up {
-                display: block;
+                display: flex;
             }
         }
 
@@ -436,11 +451,23 @@
         display: block;
         width: 100%;
         color: $color-gray-secondary;
+
+        &.profile__label--full {
+            width: 100%;
+            margin-left: 50px;
+        }
     }
 
     &__select {
         @extend .select;
         margin-top: 15px;
+
+        &.profile__select--flex {
+            @include tablet-and-up {
+                max-width: 180px;
+            }
+        }
+
 
         &.profile__input--error {
             border: 1px solid $error;
