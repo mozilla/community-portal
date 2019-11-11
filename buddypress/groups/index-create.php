@@ -1,8 +1,10 @@
 <?php
+
     session_start();
     // Main header template 
     get_header(); 
     do_action('bp_before_create_group_page'); 
+
 
     if(isset($_POST['step'])) {
         $step = $_POST['step'];
@@ -241,9 +243,11 @@
                 
                 <?php endif; ?>
                 <?php if($step === 3): ?>
-                    <section class="create-group__details">
-                    <h1 class="create-group__title"><?php print __("Group Created"); ?></h1>
-                    <section>
+                    <script type="text/javascript">
+                        jQuery(function(){
+                            window.location = "/groups/<?php print $_POST['group_slug']; ?>";
+                        });
+                    </script>
             </div>
         </form>
         <?php endif; ?>

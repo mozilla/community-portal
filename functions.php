@@ -442,11 +442,13 @@ function mozilla_create_group() {
                                 }
 
                                 $result = groups_update_groupmeta($group_id, 'meta', $meta);
-                                // Could not update group information so reset form
+                    
                                 if($result) {
                                     unset($_SESSION['form']);
                                     $_POST = Array();
                                     $_POST['step'] = 3;
+                                    $group = groups_get_group(Array('group_id' => $group_id ));
+                                    $_POST['group_slug'] = $group->slug;
                                 } else {
                                     groups_delete_group($group_id);
                                     $_POST['step'] = 0;
