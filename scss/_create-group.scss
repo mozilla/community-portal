@@ -1,3 +1,5 @@
+
+
 .create-group {
     width: 100%;
 
@@ -341,7 +343,7 @@
 
         &:hover {
             border-color: rgba(215,215,219,1);
-            box-shadow: 0px 0px 0px 4px $color-gray-30;
+            box-shadow: 0px 0px 0px 4px $color-gray-30!important;
         }
 
 
@@ -464,6 +466,7 @@
 
     &__cta {
         @extend .cta;
+        border-radius: 28px!important;
     }
 
 
@@ -510,6 +513,10 @@
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
+
+            &.create-group__upload-image-svg--hide {
+                display: none;
+            }
         }
 
         &:after {
@@ -604,4 +611,29 @@
         color: $color-black;
     }
     
+    .dz-preview {
+        display: none;
+    }
+
+    .dz-remove {
+        box-sizing: content-box;
+        display: block;
+        width: 127px;
+        height: 36px;
+        border-radius: 28px;
+        border: 2px solid $color-black;
+        background-color: $color-white;
+        text-align: center;
+        line-height: 36px;
+        font-size: remCalc(14);
+        text-decoration: none;
+        color: $color-black;
+        margin: 0 auto;
+        margin-top: 15px;
+
+        &--hide {
+            display: none;
+        }
+    }
+
 }
