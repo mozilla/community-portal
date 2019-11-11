@@ -25,13 +25,13 @@
   $startDay = substr($EM_Event->event_start_date, 8, 2);
   $startMonth = substr($EM_Event->event_start_date, 5, 2);
   $startYear = substr($EM_Event->event_start_date, 0, 4);
-  if ($EM_Event->event_start_date !== $EM_Event->event_end_date):
+  if ($EM_Event->event_start_date !== $EM_Event->event_end_date) {
     $endDay = substr($EM_Event->event_end_date, 8, 2);
     $endMonth = substr($EM_Event->event_end_date, 5, 2);
     $endYear = substr($EM_Event->event_end_date, 0, 4);
-  endif;
+  }
   $allRelatedEvents = array();
-  if (is_array($categories) && count($categories) > 0):
+  if (is_array($categories) && count($categories) > 0) {
     foreach ($categories as $category) {
       $relatedEvents = EM_Events::get(array('category' => $category->term_id));
       if (count($relatedEvents) > 0) {
@@ -40,7 +40,6 @@
             continue;
           }
           if ($singleEvent->event_id === $EM_Event->event_id) {
-
             continue;
           }
           $allRelatedEvents[] = $singleEvent;
@@ -53,17 +52,16 @@
         break;
       }
     }
-  endif;
-  if ($EM_Event->group_id):
+  }
+  if (isset($EM_Event->group_id)) {
     $group = new BP_Groups_Group($EM_Event->group_id);
     $admins = groups_get_group_admins($group->id);
-    if ($admins):
+    if (isset($admins)) {
       $user = get_userdata($admins[0]->user_id);
       $avatar = get_avatar_url($admins[0]->user_id);
       $users = get_current_user_id();
-    endif;
-  endif;
-
+    }
+  }
 ?>
 
 <div class="content events__container events-single">
@@ -77,126 +75,131 @@
       <div class="card card--with-img">
         <div class="card__image"
           <?php 
-            if ($img_url && $img_url !== ''):
+            if ($img_url && $img_url !== '') {
           ?>
             style="background-image: url(<?php echo esc_url_raw($img_url); ?>); min-height: 317px; width: 100%;"
           <?php 
-            endif;
+            }
           ?>
         >
-          <?php 
-            $current_user = get_current_user_id();
-            if (strval($current_user) == $EM_Event->owner): 
+        <?php 
+          $current_user = get_current_user_id();
+          if (strval($current_user) == $EM_Event->owner) { 
           ?>
-          <a class="btn card__edit-btn" href="<?php echo esc_attr(get_site_url().'/events/edit-event/?action=edit&event_id='.$EM_Event->event_id)?>">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M23.64 6.36L17.64 0.36C17.16 -0.12 16.44 -0.12 15.96 0.36L0.36 15.96C0.12 16.2 0 16.44 0 16.8V22.8C0 23.52 0.48 24 1.2 24H7.2C7.56 24 7.8 23.88 8.04 23.64L23.64 8.04C24.12 7.56 24.12 6.84 23.64 6.36ZM6.72 21.6H2.4V17.28L16.8 2.88L21.12 7.2L6.72 21.6Z"  fill="#0060DF"/>
-            </svg>
-          </a>
-          <?php 
-            elseif (isset($admins)):
-              foreach($admins as $admin) {
-                if ($admin->user_id === $current_user):
-                ?>
-                  <a class="btn card__edit-btn" href="<?php echo esc_attr($_SERVER['REQUEST_URI'].'events/edit-event/?action=edit&event_id='.$EM_Event->event_id)?>">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M23.64 6.36L17.64 0.36C17.16 -0.12 16.44 -0.12 15.96 0.36L0.36 15.96C0.12 16.2 0 16.44 0 16.8V22.8C0 23.52 0.48 24 1.2 24H7.2C7.56 24 7.8 23.88 8.04 23.64L23.64 8.04C24.12 7.56 24.12 6.84 23.64 6.36ZM6.72 21.6H2.4V17.28L16.8 2.88L21.12 7.2L6.72 21.6Z"  fill="#0060DF"/>
-                    </svg>
-                  </a>
-                <?php
-                  endif;
-                }
-              endif; 
-            ?>
-        </div>
-        <div class="card__details">
-          <div class="card__date">
-            <h2 class="title--secondary">
-              <?php 
-                if ($endDay):
-                  echo __($months[$startMonth].' '.$startDay.' - '.$months[$endMonth].' '.$endDay.', '.$endYear);
-                else:
-                  echo __($months[$startMonth].' '.$startDay.', '.$startYear);
-                endif 
+            <a class="btn card__edit-btn" href="<?php echo esc_attr(get_site_url().'/events/edit-event/?action=edit&event_id='.$EM_Event->event_id)?>">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M23.64 6.36L17.64 0.36C17.16 -0.12 16.44 -0.12 15.96 0.36L0.36 15.96C0.12 16.2 0 16.44 0 16.8V22.8C0 23.52 0.48 24 1.2 24H7.2C7.56 24 7.8 23.88 8.04   23.64L23.64 8.04C24.12 7.56 24.12 6.84 23.64 6.36ZM6.72 21.6H2.4V17.28L16.8 2.88L21.12 7.2L6.72 21.6Z"  fill="#0060DF"/>
+              </svg>
+            </a>
+            <?php 
+          } else if (isset($admins)) {
+            foreach($admins as $admin) {
+              if ($admin->user_id === $current_user) {
               ?>
-            </h2>
-            <p card="card__time">
-              <?php echo __(substr($EM_Event->event_start_time, 0, 5)); 
-                if ($EM_Event->event_end_time !== null):
-                  echo __(' to '.substr($EM_Event->event_end_time, 0, 5).' '.$EM_Event->event_timezone);
-                endif;
-              ?>
-            </p>
-          </div>
-          <?php 
-            if (is_user_logged_in()):
-              echo $EM_Event->output('#_BOOKINGFORM'); 
-            endif;
-          ?>
-        </div>
+                <a class="btn card__edit-btn" href="<?php echo esc_attr($_SERVER['REQUEST_URI'].'events/edit-event/?action=edit&event_id='.$EM_Event->event_id)?>">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M23.64 6.36L17.64 0.36C17.16 -0.12 16.44 -0.12 15.96 0.36L0.36 15.96C0.12 16.2 0 16.44 0 16.8V22.8C0 23.52 0.48 24 1.2 24H7.2C7.56 24 7.8 23.88 8.04 23.64L23.64 8.04C24.12 7.56 24.12 6.84 23.64 6.36ZM6.72 21.6H2.4V17.28L16.8 2.88L21.12 7.2L6.72 21.6Z"  fill="#0060DF"/>
+                  </svg>
+                </a>
+              <?php
+              }
+            }
+          }
+        ?>
       </div>
-      <h2 class="title--secondary"><?php echo __("Location") ?></h2>
-      <div class="card events-single__location">
-        <div class="row">
-          <div class="card__address col-md-5 col-sm-12">
-            <?php if ($location_type !== 'online'): 
+      <div class="card__details">
+        <div class="card__date">
+          <h2 class="title--secondary">
+            <?php 
+              if ($endDay) {
+                echo __($months[$startMonth].' '.$startDay.' - '.$months[$endMonth].' '.$endDay.', '.$endYear);
+              } else {
+                echo __($months[$startMonth].' '.$startDay.', '.$startYear);
+              } 
+            ?>
+          </h2>
+          <p card="card__time">
+            <?php echo __(substr($EM_Event->event_start_time, 0, 5)); 
+              if ($EM_Event->event_end_time !== null) {
+                echo __(' to '.substr($EM_Event->event_end_time, 0, 5).' '.$EM_Event->event_timezone);
+              }
+            ?>
+          </p>
+        </div>
+        <?php 
+          if (is_user_logged_in()) {
+            echo $EM_Event->output('#_BOOKINGFORM'); 
+          }
+        ?>
+      </div>
+    </div>
+    <h2 class="title--secondary"><?php echo __("Location") ?></h2>
+    <div class="card events-single__location">
+      <div class="row">
+        <div class="card__address col-md-5 col-sm-12">
+          <?php 
+            if ($location_type !== 'online') {
               $location = $EM_Event->location;
             ?>
               <p><?php echo __($location->location_name) ?></p>
               <p><?php echo __($location->location_address) ?></p>
               <p><?php echo __($location->location_town.', '.$allCountries[$EM_Event->location->location_country]) ?></p>
-            <?php else: ?>
+            <?php 
+            } else { 
+            ?>
               <p><?php echo __("This is an online-only event") ?></p>
               <a href="<?php echo esc_attr($EM_Event->location->address) ?>"><?php echo __('Meeting link') ?></a>
-            <?php endif; ?>
-          </div>
-          <?php
-            $fullLocation = rawurlencode($location->location_address.' '.$location->location_town);
-            $request = wp_remote_get('https://api.mapbox.com/geocoding/v5/mapbox.places/'.$fullLocation.'.json?types=address&access_token='.$mapBoxAccessToken);
-            if (is_wp_error($request)):
-              return false;
-            endif;
-            $body = wp_remote_retrieve_body( $request );
-            $data = json_decode( $body );
-            $coordinates = $data->features[0]->geometry->coordinates;
+            <?php 
+            } 
           ?>
-          <?php 
-            if ($location_type !== 'online'): 
+        </div>
+        <?php
+          $fullLocation = rawurlencode($location->location_address.' '.$location->location_town);
+          $request = wp_remote_get('https://api.mapbox.com/geocoding/v5/mapbox.places/'.$fullLocation.'.json?types=address&access_token='.$mapBoxAccessToken);
+          if (is_wp_error($request)) {
+            return false;
+          }
+          $body = wp_remote_retrieve_body( $request );
+          $data = json_decode( $body );
+          $coordinates = $data->features[0]->geometry->coordinates; 
+          if ($location_type !== 'online') {
           ?>
-          <div id='map' class="card__map col-md-7 col-sm-12" style='height: 110px;'></div>
-          <script>
-            const geojson =  {
-              type: 'FeatureCollection',
-              features: [{
-                type: 'Feature',
-                geometry: {
-                  type: 'Point',
-                  coordinates: [<?php echo $coordinates[0].', '.$coordinates[1]; ?>]
-                },
-                properties: {
-                  title: 'Mapbox',
-                  description: 'Washington, D.C.'
-                }
-              }]
-            };
-            mapboxgl.accessToken = "<?php echo $mapBoxAccessToken ?>";
-            var map = new mapboxgl.Map({
-              container: 'map', 
-              style: 'mapbox://styles/mapbox/streets-v11',
-              center: [<?php echo $coordinates[0].', '.$coordinates[1]; ?> ],
-              zoom: 15,
-            });
-            geojson.features.forEach(function(marker) {
-              // create a HTML element for each feature
-              var el = document.createElement('div');
-              el.className = 'marker';
-              // make a marker for each feature and add to the map
-              new mapboxgl.Marker(el)
-                .setLngLat(marker.geometry.coordinates)
-                .addTo(map);
+            <div id='map' class="card__map col-md-7 col-sm-12" style='height: 110px;'></div>
+            <script>
+              const geojson =  {
+                type: 'FeatureCollection',
+                features: [{
+                  type: 'Feature',
+                  geometry: {
+                    type: 'Point',
+                    coordinates: [<?php echo $coordinates[0].', '.$coordinates[1]; ?>]
+                  },
+                  properties: {
+                    title: 'Mapbox',
+                    description: 'Washington, D.C.'
+                  }
+                }]
+              };
+              mapboxgl.accessToken = "<?php echo $mapBoxAccessToken ?>";
+              var map = new mapboxgl.Map({
+                container: 'map', 
+                style: 'mapbox://styles/mapbox/streets-v11',
+                center: [<?php echo $coordinates[0].', '.$coordinates[1]; ?> ],
+                zoom: 15,
               });
-          </script>
-          <?php endif ?>
+              geojson.features.forEach(function(marker) {
+                // create a HTML element for each feature
+                var el = document.createElement('div');
+                el.className = 'marker';
+                // make a marker for each feature and add to the map
+                new mapboxgl.Marker(el)
+                  .setLngLat(marker.geometry.coordinates)
+                  .addTo(map);
+                });
+            </script>
+          <?php 
+          } 
+          ?>
         </div>
       </div>
       <div class="events-single__description">
@@ -205,56 +208,59 @@
       </div>
       <?php
         $activeBookings = array();
-        foreach ($EM_Event->bookings as $booking) {
-          if ($booking->booking_status !== '3' && $count < 8):
-            $activeBookings[] = $booking;
-          endif;
+        if (isset($EM_Event->bookings)) {
+          foreach ($EM_Event->bookings as $booking) {
+            if ($booking->booking_status !== '3' && $count < 8) {
+              $activeBookings[] = $booking;
+            }
+          }
         }
-        if (count($activeBookings) > 0):
-      ?>
-      <h2 class="title--secondary"><?php echo __('Attendees') ?></h2>
-      <div class="row">
-        <?php
+        if (is_array($activeBookings) && count($activeBookings) > 0) {
+        ?>
+          <h2 class="title--secondary"><?php echo __('Attendees') ?></h2>
+          <div class="row">
+          <?php
             $count = 0;
             foreach ($activeBookings as $booking) {
-              if ($booking->booking_status !== '3' && $count < 8):
+              if ($booking->booking_status !== '3' && $count < 8) {
                 $activeBookings[] = $booking;
                 $user = $booking->person->data;
                 $avatar = get_avatar_url($user->ID);
         ?>
               <div class="col-md-6 events-single__member-card">
                 <?php 
-                  if ($avatar):
+                  if (isset($avatar)) {
                 ?>
                   <div class="events-single__avatar">
                     <img src="<?php echo esc_attr($avatar)?>" alt="">                    
                   </div>
+                </php } ?>
                   <div class="events-single__user-details">
                     <p class="events-single__username"><?php echo __('@'.$user->display_name) ?></p>
                     <p class="events-single__name"><?php echo __($user->user_nicename) ?></p>
                 </div>
             <?php
               $count = $count + 1;
-              endif;
+              }
             ?>
               </div>
               <?php
-              elseif ($count >= 8):
-                if ($count === 8):  
+            } else if ($count >= 8) {
+                if ($count === 8) {
               ?>
                 <button id="open-attendees-lightbox" class="btn btn--submit btn--light">
                   <?php echo __('View all attendees') ?>
                 </button>
               <?php
                 $count = $count + 1;
-              else: 
+                } else { 
                 $count = $count + 1;
-              endif;
-            endif;
+                }
+              }
           }
           ?>
       </div>
-      <?php endif ?>
+        <?php } ?>
     </div>
     <div class="col-lg-4 col-sm-12 events-single__sidebar">
       <div>
