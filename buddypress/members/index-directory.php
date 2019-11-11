@@ -87,7 +87,7 @@
                     <div class="members__username"><?php print $member->data->user_nicename; ?></div>
                     <div class="members__name">
                         <?php 
-                            if($visibility_settings['first_name_visibility']) {
+                            if($visibility_settings['first_name_visibility'] || $logged_in) {
                                 print $meta['first_name'][0];
                             }
                             if($visibility_settings['last_name_visibility']) {

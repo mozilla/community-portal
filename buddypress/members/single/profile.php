@@ -67,7 +67,7 @@
             <div class="profile__name-container">
                 <h3 class="profile__user-title"><?php print $user->user_nicename; ?></h3>
                 <span class="profile__user-name">
-                    <?php if($visibility_settings['first_name_visibility']): ?>
+                    <?php if($visibility_settings['first_name_visibility'] || $logged_in): ?>
                     <?php print "{$community_fields['first_name']}"; ?>
                     <?php endif; ?>
                     <?php if($visibility_settings['last_name_visibility']): ?>
