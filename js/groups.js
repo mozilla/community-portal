@@ -320,4 +320,30 @@ jQuery(function(){
         jQuery('#group-search-form').submit();
     });
 
+
+    jQuery('.create-group__menu-link').click(function(e) {
+        e.preventDefault();
+        var $step = jQuery('input[name="step"]');
+
+        if($step.val() == '2') {
+            $step.val(0);
+        }
+
+        jQuery('#create-group-form').submit();
+        return false;
+
+    });
+
+    jQuery('#create-group-mobile-nav').change(function(e){
+        var $step = jQuery('input[name="step"]');
+
+        if($step.val() == '2') {
+            $step.val(0);
+        }
+
+        jQuery('#agree').removeAttr('required');
+        jQuery('#create-group-form').submit();
+
+    });
+
 });

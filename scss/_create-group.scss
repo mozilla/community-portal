@@ -8,18 +8,18 @@
         background-color: $color-blue-5;
         height: 253px;
         padding: 0 24px;
-        padding-top: 11px;
+        padding-top: 33px;
 
         @include tablet-and-up {
             padding: 0 64px;
             height: 255px;
-            padding-top: 26px;
+            padding-top: 48px;
         }
         
         @include desktop-and-up {
             height: 292px;
             padding: 0 106px;
-            padding-top: 55px;
+            padding-top: 58px;
         }
 
     }
@@ -34,8 +34,12 @@
         @extend .container; 
         padding: 0;
         max-width: 1018px;
-        margin-top: -155px;
+        margin-top: -135px;
         width: 100%;
+
+        @include tablet-and-up {
+            margin-top: -155px;
+        }
     }
 
     &__nav {
@@ -82,6 +86,40 @@
             height: 58px;
             border-top: 1px solid $color-gray-30;
             border-bottom: 1px solid $color-gray-30;
+        }
+
+        &.create-group__menu--mobile {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-top: 1px solid $color-gray-30;
+            border-bottom: 1px solid $color-gray-30;
+            position: relative;
+            height: 56px;
+
+            &:after {
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                display: block;
+                width: 100%;
+                content: '';
+                border-bottom: 2px solid $color-black;
+            }
+
+            .create-group__select-container {
+                margin: 0;
+   
+                .create-group__select {
+                    background-color: transparent;
+                    border: none;
+                    box-shadow: none;
+                }
+            }
+
+            @include tablet-and-up {
+                display: none;
+            };
         }
     }
 
@@ -159,6 +197,7 @@
         width: 100%;
         font-family: 'Zilla Slab';
 
+
         @include tablet-and-up {
             font-size: remCalc(36);
             line-height: 43px;
@@ -183,6 +222,32 @@
         svg {
             margin-left: 8px;
             flex-shrink: 0;
+        }
+    }
+
+    &__menu-link {
+        font-size: remCalc(14);
+        color: $color-black;
+        line-height: 22px;
+        font-weight: 600;
+        text-decoration: none;
+        position: relative;
+
+        &:after {
+            content: '';
+            border-top: 2px solid $color-black;
+            width: 112%;
+            position: absolute;
+            bottom: -19px;
+            left: -15px;
+        }
+
+        &.create-group__menu-link--disabled {
+            font-weight: 400;
+
+            &:after {
+                display: none;
+            }
         }
     }
 
