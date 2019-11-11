@@ -356,7 +356,7 @@
 
         &.profile__select-container--half {
             margin-bottom: 24px;
-            
+
             @include tablet-and-up {
                 margin-bottom: 0;
                 max-width: 300px;
@@ -1058,6 +1058,7 @@
         color: $color-blue-50;
         margin-bottom: 28px;
         margin-right: 16px;
+        min-width: 120px;
 
         svg {
             margin-right: 8px;
