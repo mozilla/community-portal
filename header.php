@@ -56,8 +56,10 @@
                     </svg>
                     <div class="nav__login">
                         <?php if(is_user_logged_in()): ?>
-                            <div class="nav__avatar<?php if(!$avatar): ?> nav__avatar--empty<?php endif; ?>" <?php if($avatar): ?>style="background-image: url('<?php print $avatar; ?>')"<?php endif; ?> data-user="<?php print $user->user_nicename; ?>"></div>
-                            <?php print $user->user_nicename; ?>
+                            <a href="/members/<?php print $user->user_nicename; ?>" class="nav__avatar-link">
+                                <div class="nav__avatar<?php if(!$avatar): ?> nav__avatar--empty<?php endif; ?>" <?php if($avatar): ?>style="background-image: url('<?php print $avatar; ?>')"<?php endif; ?> data-user="<?php print $user->user_nicename; ?>"></div>
+                                <?php print $user->user_nicename; ?>
+                            </a>
                             <a href="/wp-login.php?action=logout" class="nav__logout-link"><?php print __('Log Out'); ?></a>
                         <?php else: ?>
                             <a href="/wp-login.php?action=login" class="nav__login-link"><?php print __("Log In / Sign Up"); ?></a>
@@ -115,8 +117,11 @@
                     <input id="nav-trigger" type="checkbox" class="nav__trigger" />
                     <div class="nav__avatar-container">
                     <?php if(is_user_logged_in()): ?>
+                        <a href="/members/<?php print $user->user_nicename; ?>" class="nav__avatar-link">
                         <div class="nav__avatar<?php if(!$avatar): ?> nav__avatar--empty<?php endif; ?>" <?php if($avatar): ?>style="background-image: url('<?php print $avatar; ?>')"<?php endif; ?>></div>
                         <span class="nav__username"><?php print $user->user_nicename; ?></span>
+                        </a>
+
                     <?php endif; ?>
                     </div>
                     <label for="nav-trigger" class="nav__label">
@@ -131,9 +136,11 @@
                     <div class="nav__menu-container">
                         <div class="nav__user-container">
                         <?php if(is_user_logged_in()): ?>
-                            <div class="nav__avatar<?php if(!$avatar): ?> nav__avatar--empty<?php endif; ?>" <?php if($avatar): ?>style="background-image: url('<?php print $avatar; ?>')"<?php endif; ?>>
-                            </div>
-                            <?php print $user->user_nicename; ?>
+                            <a href="/members/<?php print $user->user_nicename; ?>" class="nav__avatar-link">
+                                <div class="nav__avatar<?php if(!$avatar): ?> nav__avatar--empty<?php endif; ?>" <?php if($avatar): ?>style="background-image: url('<?php print $avatar; ?>')"<?php endif; ?>>
+                                </div>
+                                <?php print $user->user_nicename; ?>
+                            </a>
                         <?php endif; ?>
                             <a href="/wp-login.php?action=logout" class="nav__logout-link"><?php print __('Log Out'); ?></a>
                         </div>

@@ -91,6 +91,14 @@
         color: $color-black;
     }
 
+    &__avatar-link {
+        color: $color-black;
+        text-decoration: none;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+
     &__logo {
         height: 48px;
     }
