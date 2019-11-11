@@ -1,6 +1,21 @@
 #em-wrapper .row {
   margin: 0;
 }
+
+#em-wrapper {
+  p {
+    display: none;
+  }
+}
+
+#em-wrapper ~ p {
+  display: none;
+}
+
+.events__container ~ p {
+  display: none;
+}
+
 .events {
   &__header {
     background-color: $color-yellow-20;
@@ -33,6 +48,7 @@
         padding: 56px 106px 88px;
       }
     }
+
     .event-creator__container {
       margin: 0 auto;
       @include tablet-and-up {
@@ -206,6 +222,8 @@
         margin-bottom: initial;
       }
     }
+
+
     &__link {
       display: inline-block;
       padding: 20px 16px;
