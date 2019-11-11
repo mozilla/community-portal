@@ -354,6 +354,15 @@
             margin-right: 32px;
         }
 
+        &.profile__select-container--half {
+            margin-bottom: 24px;
+            
+            @include tablet-and-up {
+                margin-bottom: 0;
+                max-width: 300px;
+            }
+        }
+
         &.profile__select-container--no-label {
             display: flex;
             flex-direction: row;

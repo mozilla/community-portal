@@ -202,7 +202,7 @@
             </div>
             <hr class="profile__keyline" />
             <div class="profile__form-field">
-                <div class="profile__select-container profile__select-container--inline">
+                <div class="profile__select-container profile__select-container--inline profile__select-container--half">
                     <label class="profile__label" for="country"><?php print __("Country"); ?></label>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g>
