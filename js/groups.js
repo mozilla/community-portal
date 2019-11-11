@@ -4,9 +4,9 @@ jQuery(function() {
   jQuery("#group-photo-uploader").dropzone({
     url: "/wp-admin/admin-ajax.php?action=upload_group_image",
     acceptedFiles: "image/*",
-    maxFiles: 1,
+    maxFiles: null,
     createImageThumbnails: false,
-    addRemoveLinks: true,
+    addRemoveLinks: false,
     init: function() {
       this.on("sending", function(file, xhr, formData) {
         var nonce = jQuery("#my_nonce_field").val();
@@ -17,8 +17,13 @@ jQuery(function() {
       file.previewElement.classList.add("dz-success");
       file["attachment_id"] = response; // push the id for future reference
 
+      jQuery(".dz-preview").remove();
+      jQuery(".dz-remove").removeClass("dz-remove--hide");
       jQuery("#image-url").val(response);
-      jQuery(".dz-image").css("background-image", "url(" + response + ")");
+      jQuery(".create-group__image-upload").css(
+        "background-image",
+        "url(" + response + ")"
+      );
 
       jQuery(".create-group__image-upload").removeClass(
         "create-group__image-upload--uploading"
@@ -40,17 +45,6 @@ jQuery(function() {
       jQuery(".create-group__image-upload").addClass(
         "create-group__image-upload--uploading"
       );
-    },
-    removedfile: function(file) {
-      jQuery(".create-group__image-upload").removeClass(
-        "create-group__image-upload--done"
-      );
-      jQuery(".create-group__image-instructions--hide").removeClass(
-        "create-group__image-instructions--hide"
-      );
-      return (_ref = file.previewElement) != null
-        ? _ref.parentNode.removeChild(file.previewElement)
-        : void 0;
     }
   });
 
@@ -88,6 +82,24 @@ jQuery(function() {
 
     $this.toggleClass("create-group__tag--active");
 
+    return false;
+  });
+
+  jQuery(".dz-remove").click(function(e) {
+    e.preventDefault();
+    jQuery("#group-photo-uploader").css("background-image", "none");
+    jQuery(".create-group__image-upload").removeClass(
+      "create-group__image-upload--done"
+    );
+    jQuery(".dz-preview").addClass("dz-hide");
+    jQuery(".create-group__upload-image-svg").removeClass(
+      ".create-group__upload-image-svg--hide"
+    );
+    jQuery(".create-group__image-instructions").removeClass(
+      "create-group__image-instructions--hide"
+    );
+    jQuery(".dz-remove").addClass("dz-remove--hide");
+    jQuery("#image-url").val("");
     return false;
   });
 
@@ -237,29 +249,30 @@ jQuery(function() {
 
     var $errorContainer = $this.next(".form__error-container");
 
-    jQuery.get(
-      "/wp-admin/admin-ajax.php?action=validate_group",
-      { q: name },
-      function(response) {
-        var resp = jQuery.parseJSON(response);
+    var get = { q: name };
+    get["gid"] =
+      jQuery("#current-group").length > 0
+        ? jQuery("#current-group").val()
+        : false;
 
-        // Show error
-        if (resp !== true) {
-          $this.addClass("create-group__input--error");
+    jQuery.get("/wp-admin/admin-ajax.php?action=validate_group", get, function(
+      response
+    ) {
+      var resp = jQuery.parseJSON(response);
 
-          $errorContainer.addClass("form__error-container--visible");
-          $errorContainer
-            .children(".form__error")
-            .text("This group name is already taken");
-        } else {
-          $this.removeClass("create-group__input--error");
-          $errorContainer.removeClass("form__error-container--visible");
-          $errorContainer
-            .children(".form__error")
-            .text("This field is required");
-        }
+      // Show error
+      if (resp !== true) {
+        $this.addClass("create-group__input--error");
+        $errorContainer.addClass("form__error-container--visible");
+        $errorContainer
+          .children(".form__error")
+          .text("This group name is already taken");
+      } else {
+        $this.removeClass("create-group__input--error");
+        $errorContainer.removeClass("form__error-container--visible");
+        $errorContainer.children(".form__error").text("This field is required");
       }
-    );
+    });
   });
 
   jQuery(".group__nav-select").change(function(e) {
