@@ -8,6 +8,7 @@ add_action('get_header', 'remove_admin_login_header');
 add_action('init', 'mozilla_custom_menu');
 add_action('wp_enqueue_scripts', 'mozilla_init_scripts');
 add_action('admin_enqueue_scripts', 'mozilla_init_admin_scripts');
+add_filter('nav_menu_css_class', 'mozilla_menu_class', 10, 4);
 
 // Ajax Calls
 add_action('wp_ajax_nopriv_upload_group_image', 'mozilla_upload_image');
@@ -35,6 +36,9 @@ add_action('auth0_user_login', 'mozilla_post_user_creation', 10, 6);
 // Filters
 add_filter('nav_menu_link_attributes', 'mozilla_add_menu_attrs', 10, 3);
 add_filter('nav_menu_css_class', 'mozilla_add_active_page' , 10 , 2);
+
+// Events Action
+add_action('save_post', 'mozilla_save_event', 10, 3);
 
 
 
@@ -330,9 +334,15 @@ function mozilla_init_scripts() {
     wp_enqueue_script('dropzonejs', get_stylesheet_directory_uri()."/js/vendor/dropzone.min.js", array('jquery'));
     wp_enqueue_script('autcomplete', get_stylesheet_directory_uri()."/js/vendor/autocomplete.js", array('jquery'));
     wp_enqueue_script('identicon', get_stylesheet_directory_uri()."/js/vendor/identicon.js", array());
+    wp_register_script('mapbox', "https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js");
+    wp_enqueue_script('mapbox');
+    wp_register_style('mapbox-css', 'https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css');
+    wp_enqueue_style('mapbox-css');
 
     // Custom scripts
     wp_enqueue_script('groups', get_stylesheet_directory_uri()."/js/groups.js", array('jquery'));
+    wp_enqueue_script('events', get_stylesheet_directory_uri()."/js/events.js", array('jquery'));
+    wp_enqueue_script('cleavejs', get_stylesheet_directory_uri()."/js/vendor/cleave.min.js", array());
     wp_enqueue_script('nav', get_stylesheet_directory_uri()."/js/nav.js", array('jquery'));
     wp_enqueue_script('profile', get_stylesheet_directory_uri()."/js/profile.js", array('jquery'));
 
@@ -528,6 +538,14 @@ function mozilla_search_groups($name, $gid) {
 
     return $found;
 }
+
+function add_query_vars_filter( $vars ){
+  $vars[] = "view";
+  $vars[] = "country";
+  $vars[] = "tag";
+  return $vars;
+}
+add_filter( 'query_vars', 'add_query_vars_filter' );
 
 function mozilla_validate_username() {
 
@@ -851,6 +869,36 @@ function mozilla_determine_field_visibility($field, $visibility_field, $communit
 }
 
 
+function mozilla_save_event($post_id, $post, $update) {
+  if ($post->post_type === 'event') {
+    $event = new stdClass();
+    $event->image_url = esc_url_raw($_POST['image_url']);
+    $event->location_type = sanitize_text_field($_POST['location-type']);
+    update_post_meta($post_id, 'event-meta', $event);
+  }
+}
+
+function mozilla_match_categories() {
+  $cat_terms = get_terms(EM_TAXONOMY_CATEGORY, array('hide_empty'=>false));
+  $wp_terms = get_terms('post_tag', array('hide_empty'=>false));
+  $cat_terms_name = array_map(function($n) {
+    return $n->name;
+  }, $cat_terms);
+  $wp_terms = array_map(function($n) {
+    return $n->name;
+  }, $wp_terms);
+  foreach ($wp_terms as $wp_term) {
+    if (!in_array($wp_term, $cat_terms_name)) {
+      wp_insert_term($wp_term, EM_TAXONOMY_CATEGORY);
+    }
+  }
+  foreach ($cat_terms as $cat_term) {
+    if (!in_array($cat_term->name, $wp_terms)) {
+      wp_delete_term($cat_term->term_id, EM_TAXONOMY_CATEGORY);
+    }
+  }
+}
+
 function mozilla_edit_group() {
 
     $group_id = bp_get_current_group_id();
@@ -869,7 +917,6 @@ function mozilla_edit_group() {
                     'group_address',
                     'my_nonce_field'
                 );
-       
                 foreach($required AS $field) {
                     if(isset($_POST[$field])) {
                         if($_POST[$field] === "" || $_POST[$field] === 0) {
@@ -924,5 +971,21 @@ function mozilla_edit_group() {
             }
         }
     }
-
 }
+    
+function mozilla_menu_class($classes, $item, $args) {
+
+    $path_items = array_filter(explode('/', $_SERVER['REQUEST_URI']));
+    $menu_url = strtolower(str_replace('/', '', $item->url));
+
+    if(sizeof($path_items) > 0) {
+        if(strtolower($path_items[1]) === $menu_url) {
+            $item->current = true;
+            $classes[] = 'menu-item--active';
+        }
+    }
+
+    return $classes;
+}
+
+?>
