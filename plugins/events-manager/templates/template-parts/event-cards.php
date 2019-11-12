@@ -16,7 +16,7 @@
   );
   $categories = get_the_terms($event->post_id, EM_TAXONOMY_CATEGORY);
   $allCountries = em_get_countries();
-  if ($categories) {
+  if (isset($categories) && is_array($categories)) {
     $allTags = array_map(function($n) {
       return $n->name;
     }, $categories);

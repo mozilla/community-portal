@@ -1,6 +1,7 @@
 #em-wrapper .row {
   margin: 0;
 }
+
 .events {
   &__header {
     background-color: $color-yellow-20;
@@ -33,6 +34,7 @@
         padding: 56px 106px 88px;
       }
     }
+
     .event-creator__container {
       margin: 0 auto;
       @include tablet-and-up {
@@ -40,8 +42,8 @@
         padding: 0 64px;
       }
       @include desktop-and-up {
-        max-width: calc(#{$container-max-width} + 128px);
-        padding-left: 64px;
+        max-width: calc(1018px + 212px);
+        padding: 0 106px;
       }
     }
     .events__container,
@@ -206,6 +208,7 @@
         margin-bottom: initial;
       }
     }
+
     &__link {
       display: inline-block;
       padding: 20px 16px;

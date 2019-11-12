@@ -45,7 +45,7 @@ endif;
     </div>
     <div class="event-creator__three-up <?php if ($location_type === 'online' || !$event_id): echo esc_attr('event-creator__hidden') ; endif; ?>">
       <div class="em-location-data-address wide--full">
-        <label class="event-creator__label"><?php _e ( 'Address', 'events-manager')?></label>
+        <label class="event-creator__label" for="location-address"><?php _e ( 'Address', 'events-manager')?></label>
         <input class="event-creator__input" id="location-address" type="text" name="location_address" required value="<?php echo $EM_Location->location_address ? esc_attr($EM_Location->location_address) : esc_attr("Online")  ; ?>" required/>
 
       </div>

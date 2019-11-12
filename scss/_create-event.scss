@@ -17,6 +17,9 @@
 .event-creator {
   padding: 48px 24px;
   background: white;
+  .hidden {
+    display: none;
+  }
   &__container-main {
     padding: 0 24px;
     @include tablet-and-up {
@@ -24,6 +27,7 @@
     }
     @include desktop-and-up {
       margin: 0 auto;
+      padding: 0 106px;
     }
   }
   &:nth-child(n + 2) {
@@ -73,6 +77,7 @@
   &__tag {
     @extend .tag;
     font-size: 14px;
+    transition: all 0.3s ease-in;
     &:nth-child(n + 2) {
       margin: 8px 15px 8px 0;
     }
@@ -94,6 +99,9 @@
     @include desktop-and-up {
       min-height: 364px;
     }
+  }
+  .dz-remove--hide {
+    display: none;
   }
   .dz-preview {
     position: absolute;
@@ -200,6 +208,10 @@
       @extend .select__label;
       display: block;
     }
+    .wide,
+    .wide--double {
+      margin-bottom: auto;
+    }
     .wide {
       position: relative;
       width: 100%;
@@ -290,8 +302,12 @@
       position: absolute;
     }
   }
-  &__error-text {
+
+  &__error-field {
     color: red;
+  }
+  &__error-field {
+    font-size: remCalc(12);
   }
   &__checkbox:checked + .event-creator__cpg {
     svg {

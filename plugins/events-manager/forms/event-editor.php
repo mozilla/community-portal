@@ -5,6 +5,7 @@
  * You also must keep the _wpnonce hidden field in this form too.
  */
 global $EM_Event, $EM_Notices, $bp, $EM_Ticket;
+mozilla_match_categories();
 $event_id = $_REQUEST['event_id'];
 if (isset($event_id)):
   $event_meta = get_post_meta($EM_Event->post_id, 'event-meta');
@@ -87,6 +88,11 @@ if( !empty($_REQUEST['success']) ){
         <label class="event-creator__label" for="event-creator-link"><?php esc_html_e('External link URL*', 'events-manager'); ?></label>
         <input type="text" class="event-creator__input" name="event_external_link" id="event-creator-link" value="<?php echo (isset($external_url) && $external_url !== '') ? esc_attr($external_url) : '' ;?>" />
       </div>
+      <div>
+        <label class="event-form-details event-creator__label" for="event-description"><?php esc_html_e( 'Event description', 'events-manager'); ?></label>
+        <textarea name="content" id="event-description" placeholder="Add in the details of your event’s agenda here. If this is a multi-day event, you can add in the details of each day’s schedule and start/end time." rows="10" id="event-description" class="event-creator__input event-creator__textarea" style="width:100%" required><?php echo __($EM_Event->post_content) ?></textarea>
+      </div>
+      <?php em_locate_template('forms/event/categories-public.php',true);  ?>
       <?php em_locate_template('forms/event/group.php',true); ?>
     </div>
   </div>
@@ -135,7 +141,7 @@ if( !empty($_REQUEST['success']) ){
     <?php if( !empty($_REQUEST['redirect_to']) ): 
         
       ?>
-      <input type="hidden" name="redirect_to" value="<?php echo ($event_id ? esc_attr(get_site_url().'/events/'.$EM_Event->event_slug) : esc_attr(null) ); ?>" />
+      <input type="hidden" name="redirect_to" value="<?php echo ($event_id ? esc_attr(get_site_url().'/events/'.$EM_Event->event_slug) : esc_attr(get_site_url().'/events/') ); ?>" />
     <?php endif; ?>
   </div>		
 </form>
