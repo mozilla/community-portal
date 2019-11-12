@@ -77,6 +77,7 @@
   &__tag {
     @extend .tag;
     font-size: 14px;
+    transition: all 0.3s ease-in;
     &:nth-child(n + 2) {
       margin: 8px 15px 8px 0;
     }
