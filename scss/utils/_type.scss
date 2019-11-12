@@ -1,0 +1,33 @@
+.title {
+  font-family: $main-font-family;
+  font-size: remCalc(48);
+  font-weight: normal;
+}
+
+p {
+  line-height: remCalc(24);
+}
+.text--small {
+  font-size: 14px;
+}
+
+.tag {
+  font-size: 12px;
+}
+
+.text--light {
+  color: $color-gray-secondary;
+  line-height: 18px;
+  vertical-align: center;
+}
+
+.title--card {
+  font-size: 24px;
+  font-family: "Zilla Slab", sans-serif;
+}
+
+.title--secondary {
+  font-family: $main-font-family;
+  font-weight: normal;
+  font-size: remCalc(32);
+}
