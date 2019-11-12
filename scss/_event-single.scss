@@ -235,8 +235,17 @@
       display: inline;
     }
   }
-  &__name {
+  &__name,
+  &__country {
     @extend .members__name;
+  }
+  p.events-single__country {
+    padding-top: 8px;
+    &::before {
+      content: url('./images/map-pin.svg');
+      position: relative;
+      top: 3px;
+    }
   }
   &__cancel {
     display: block;

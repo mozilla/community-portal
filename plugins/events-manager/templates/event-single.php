@@ -229,7 +229,6 @@
                 if ($booking->booking_status !== '3' && $count < 8) {
                   $activeBookings[] = $booking;
                   $user = $booking->person->data;
-                  var_dump($user);
                   $avatar = get_avatar_url($user->ID);
                   $meta = get_user_meta($user->ID);
                   $logged_in = mozilla_is_logged_in();
@@ -241,6 +240,7 @@
                   $community_fields['email'] = isset($meta['email'][0]) ? $meta['email'][0] : '';
                   $community_fields['city'] = isset($meta['city'][0]) ? $meta['city'][0] : '';
                   $community_fields['country'] = isset($meta['country'][0]) ? $meta['country'][0] : '';
+
                 $fields = Array(
                   'username',
                   'image_url',
@@ -253,12 +253,10 @@
                 $visibility_settings = Array();
                 foreach($fields AS $field) {
                     $field_visibility_name = "{$field}_visibility";
-                    var_dump($field, $field_visibility_name, $community_fields, $is_me, $logged_in);
                     $visibility = mozilla_determine_field_visibility($field, $field_visibility_name, $community_fields, $is_me, $logged_in);
                     $field_visibility_name = ($field === 'city' || $field === 'country') ? 'profile_location_visibility' : $field_visibility_name;
                     $visibility_settings[$field_visibility_name] = $visibility;
                 }
-                var_dump($visibility_settings);
             ?>
             <div class="col-md-6 events-single__member-card">
               <a href="<?php echo esc_attr(get_site_url().'/members/'.$user->user_nicename)?>")>
@@ -271,7 +269,15 @@
                   </php } ?>
                     <div class="events-single__user-details"> 
                       <p class="events-single__username"><?php echo __($user->display_name) ?></p>
-                      <p class="events-single__name"><?php echo __($user->user_nicename) ?></p>
+                      <?php if (isset($community_fields['first_name']) && isset($community_fields['last_name'])): ?>
+                      <p class="events-single__name"><?php echo __($community_fields['first_name'].' '.$community_fields['last_name']) ?></p>
+                      <?php endif; ?>
+                      <?php if (isset($community_fields['country'])): 
+                      ?>
+                        <p class="events-single__country">
+                          <?php echo __($allCountries[$community_fields['country']]) ?>
+                        </p>
+                      <?php endif ?>
                   </div>
                 <?php
                   $count = $count + 1;
