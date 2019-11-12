@@ -1,5 +1,3 @@
-
-
 .create-group {
     width: 100%;
 
@@ -351,6 +349,7 @@
 
         &--error {
             @extend .input--error;
+            border-color: $error!important;
         }
     }
 
@@ -565,6 +564,7 @@
         cursor: pointer;
         border-radius: 5px;
         border: 1px solid $color-gray-20;
+        background-size: cover;
         
 
         @include tablet-and-up {

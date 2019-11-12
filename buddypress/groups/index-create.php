@@ -1,21 +1,15 @@
 <?php
-
     session_start();
     // Main header template 
     get_header(); 
     do_action('bp_before_create_group_page'); 
-
-
     if(isset($_POST['step'])) {
         $step = $_POST['step'];
     }
-
     if(isset($_SESSION['form'])) {
         $form = $_SESSION['form'];
     }
-
     $form_tags = isset($form['tags']) ? array_filter(explode(',', $form['tags']), 'strlen') : Array();
-
 ?>
 <div class="content">
     <div class="create-group">
@@ -121,6 +115,7 @@
                                         <path d="M65.625 46.875L50 31.25L15.625 65.625" stroke="#CDCDD4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
                                 </div>
+                                <a class="dz-remove<?php if(!isset($form['image_url']) || strlen($form['image_url']) === 0): ?> dz-remove--hide<?php endif; ?>" href="#" data-dz-remove="" >Remove file</a>
                                 <div class="create-group__image-instructions">
                                     <?php print __("Click or drag a photo above"); ?>
                                     <span><?php print __('min dimensions 703px by 400px'); ?></span>
@@ -221,7 +216,6 @@
                     <section class="create-group__details">
                         <?php
                             $category_id = get_cat_ID('Group Terms of Service');
-
                             $terms_of_service_posts = get_posts(Array(
                                 'numberposts'   =>  1,
                                 'category'      =>  $category_id
@@ -269,6 +263,4 @@
 <?php 
     do_action('bp_after_create_group_page');
     get_footer();
-
 ?>
-
