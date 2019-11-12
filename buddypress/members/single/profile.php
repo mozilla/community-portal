@@ -40,7 +40,11 @@
     $visibility_settings = Array();
     foreach($fields AS $field) {
         $field_visibility_name = "{$field}_visibility";
+        if($field == 'image_url') {
+            $field_visibility_name = 'profile_image_url_visibility';
+        }
         $visibility = mozilla_determine_field_visibility($field, $field_visibility_name, $community_fields, $is_me, $logged_in);
+
         $field_visibility_name = ($field === 'city' || $field === 'country') ? 'profile_location_visibility' : $field_visibility_name;
         $visibility_settings[$field_visibility_name] = $visibility;
     }
@@ -62,7 +66,7 @@
                 </a>
             </div>
             <?php endif; ?>
-            <div class="profile__avatar<?php if(!isset($community_fields['image_url']) || (isset($community_fields['image_url']) && strlen($community_fields['image_url']) <= 0 || !$visibility_settings['image_url_visibility'])): ?> profile__avatar--empty<?php endif; ?>"<?php if($visibility_settings['image_url_visibility']): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-user="<?php print $user->user_nicename; ?>">
+            <div class="profile__avatar<?php if(!isset($community_fields['image_url']) || (isset($community_fields['image_url']) && strlen($community_fields['image_url']) <= 0 || !$visibility_settings['profile_image_url_visibility'])): ?> profile__avatar--empty<?php endif; ?>"<?php if($visibility_settings['profile_image_url_visibility']): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-user="<?php print $user->user_nicename; ?>">
             </div>
             <div class="profile__name-container">
                 <h3 class="profile__user-title"><?php print $user->user_nicename; ?></h3>
@@ -261,10 +265,8 @@
         <?php endif; ?>
 
         <?php 
-
             $args = array('owner' => $user->ID, 'scope' => 'all');
-            $events_organized = EM_Events::get($event_ids);
-
+            $events_organized = EM_Events::get($args);
             $events_organized_count = 0;
         ?>
         <?php if($visibility_settings['profile_events_organized_visibility']): ?>
