@@ -8,6 +8,7 @@ add_action('get_header', 'remove_admin_login_header');
 add_action('init', 'mozilla_custom_menu');
 add_action('wp_enqueue_scripts', 'mozilla_init_scripts');
 add_action('admin_enqueue_scripts', 'mozilla_init_admin_scripts');
+add_filter('nav_menu_css_class', 'mozilla_menu_class', 10, 4);
 
 // Ajax Calls
 add_action('wp_ajax_nopriv_upload_group_image', 'mozilla_upload_image');
@@ -35,6 +36,9 @@ add_action('auth0_user_login', 'mozilla_post_user_creation', 10, 6);
 // Filters
 add_filter('nav_menu_link_attributes', 'mozilla_add_menu_attrs', 10, 3);
 add_filter('nav_menu_css_class', 'mozilla_add_active_page' , 10 , 2);
+
+// Events Action
+add_action('save_post', 'mozilla_save_event', 10, 3);
 
 
 
@@ -284,12 +288,12 @@ $countries = Array(
     "ZW" => "Zimbabwe"
 );
 
+
 abstract class PrivacySettings {
     const REGISTERED_USERS = 0;
     const PUBLIC_USERS = 1; 
     const PRIVATE_USERS = 2;
 }
-
 
 function remove_admin_login_header() {
 	remove_action('wp_head', '_admin_bar_bump_cb');
@@ -329,9 +333,16 @@ function mozilla_init_scripts() {
     // Vendor scripts
     wp_enqueue_script('dropzonejs', get_stylesheet_directory_uri()."/js/vendor/dropzone.min.js", array('jquery'));
     wp_enqueue_script('autcomplete', get_stylesheet_directory_uri()."/js/vendor/autocomplete.js", array('jquery'));
+    wp_enqueue_script('identicon', get_stylesheet_directory_uri()."/js/vendor/identicon.js", array());
+    wp_register_script('mapbox', "https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js");
+    wp_enqueue_script('mapbox');
+    wp_register_style('mapbox-css', 'https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css');
+    wp_enqueue_style('mapbox-css');
 
     // Custom scripts
     wp_enqueue_script('groups', get_stylesheet_directory_uri()."/js/groups.js", array('jquery'));
+    wp_enqueue_script('events', get_stylesheet_directory_uri()."/js/events.js", array('jquery'));
+    wp_enqueue_script('cleavejs', get_stylesheet_directory_uri()."/js/vendor/cleave.min.js", array());
     wp_enqueue_script('nav', get_stylesheet_directory_uri()."/js/nav.js", array('jquery'));
     wp_enqueue_script('profile', get_stylesheet_directory_uri()."/js/profile.js", array('jquery'));
 
@@ -347,7 +358,6 @@ function mozilla_create_group() {
             'group_desc',
             'my_nonce_field'
         );
-
 
         $optional = Array(
             'group_address_type',
@@ -532,6 +542,14 @@ function mozilla_search_groups($name, $gid) {
     return $found;
 }
 
+function add_query_vars_filter( $vars ){
+  $vars[] = "view";
+  $vars[] = "country";
+  $vars[] = "tag";
+  return $vars;
+}
+add_filter( 'query_vars', 'add_query_vars_filter' );
+
 function mozilla_validate_username() {
 
     if($_SERVER['REQUEST_METHOD'] == 'GET') {
@@ -651,7 +669,7 @@ function mozilla_post_user_creation($user_id, $userinfo, $is_new, $id_token, $ac
 }
 
 
-function mozilla_update_member() {
+function mozilla_update_member() {  
 
     // Submited Form
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -673,8 +691,44 @@ function mozilla_update_member() {
                 'agree'
             );
 
+            $additional_fields = Array(
+                'image_url',
+                'profile_image_url_visibility',
+                'pronoun',
+                'profile_pronoun_visibility',
+                'bio',
+                'profile_bio_visibility',
+                'phone',
+                'profile_phone_visibility',
+                'discourse',
+                'profile_discourse_visibility',
+                'facebook',
+                'profile_facebook_visibility',
+                'twitter',
+                'profile_twitter_visibility',
+                'linkedin',
+                'profile_linkedin_visibility',
+                'github',
+                'profile_github_visibility',
+                'telegram',
+                'profile_telegram_visibility',
+                'languages',
+                'profile_languages_visibility',
+                'tags',
+                'profile_tags_visibility',
+                'profile_groups_joined_visibility',
+                'profile_events_attended_visibility',
+                'profile_events_organized_visibility',
+                'profile_campaigns_visibility',
+                'profile_location_visibility'
+            );
+
+            // Add additional required fields after initial setup
             if(isset($meta['agree'][0]) && $meta['agree'][0] == 'I Agree') {
                 unset($required[8]);
+                $required[] = 'city';
+                $required[] = 'country';
+                $required[] = 'profile_location_visibility';
             }
 
             $error = false;
@@ -747,10 +801,25 @@ function mozilla_update_member() {
                 unset($required[0]);
 
                 foreach($required AS $field) {
-
                     $form_data = sanitize_text_field(trim($_POST[$field]));
                     update_user_meta($user->ID, $field, $form_data);
                 }
+
+
+                // Update other fields here
+                $addtional_meta = Array();
+
+                foreach($additional_fields AS $field) {
+                    if(isset($_POST[$field])) {
+                        if(is_array($_POST[$field])) {
+                            $additional_meta[$field] = array_map('sanitize_text_field', array_filter($_POST[$field]));
+                        } else {
+                            $additional_meta[$field] = sanitize_text_field(trim($_POST[$field]));
+                        }
+                    }
+                }    
+
+                update_user_meta($user->ID, 'community-meta-fields', $additional_meta);
             }
         }
     }
@@ -761,33 +830,76 @@ function mozilla_is_logged_in() {
     return sizeof((Array)$current_user) > 0 ? true : false; 
 }
 
+function mozilla_determine_field_visibility($field, $visibility_field, $community_fields, $is_me, $logged_in) {
+    
+    if(isset($community_fields[$field]) 
+        || $field === 'city' 
+        || $field === 'username' 
+        || $field === 'country'
+        || $field === 'profile_groups_joined'
+        || $field === 'profile_events_attended' 
+        || $field === 'profile_events_organized'
+        || $field === 'profile_campaigns'
+        || $field === 'profile_telegram'
+        || $field === 'profile_facebook' 
+        || $field === 'profile_twitter' 
+        || $field === 'profile_discourse'
+        || $field === 'profile_github'
+        || $field === 'profile_linkedin') {   
+        
+        if($field === 'city' || $field === 'country') {
+            $visibility_field = 'profile_location_visibility';
+        }
 
-function mozilla_get_user_visibility_settings($user_id) {
-    $user = get_user_by('ID', $user_id);
-    $meta = get_user_meta($user_id);
-
-    $visibility_fields = Array(
-                                'username',
-                                'first_name',
-                                'last_name',
-                                'email'
-    );
-
-    $visibility_settings = Array();
-
-    foreach($visibility_fields AS $field) {
-        if(isset($meta["{$field}_visibility"][0])) {
-            $visibility_settings["{$field}_visibility"] = intval($meta["{$field}_visibility"][0]);
+        if($is_me) {
+            $display = true;
         } else {
-            if($field === 'username') {
-                $visibility_settings["{$field}_visobility"] = PrivacySettings::PUBLIC_USERS;
+            if(($logged_in && isset($community_fields[$visibility_field]) && $community_fields[$visibility_field] === PrivacySettings::REGISTERED_USERS) || $community_fields[$visibility_field] === PrivacySettings::PUBLIC_USERS) {
+                $display = true;
             } else {
-                $visibility_settings["{$field}_visibility"] = PrivacySettings::REGISTERED_USERS;
+                $display = false;
+            }
+
+            if($logged_in && $field === 'first_name') {
+                $dispaly = true;
             }
         }
+    } else {
+        $display = false;
     }
 
-    return $visibility_settings;
+    return $display;
+}
+
+
+function mozilla_save_event($post_id, $post, $update) {
+  if ($post->post_type === 'event') {
+    $event = new stdClass();
+    $event->image_url = esc_url_raw($_POST['image_url']);
+    $event->location_type = sanitize_text_field($_POST['location-type']);
+    update_post_meta($post_id, 'event-meta', $event);
+  }
+}
+
+function mozilla_match_categories() {
+  $cat_terms = get_terms(EM_TAXONOMY_CATEGORY, array('hide_empty'=>false));
+  $wp_terms = get_terms('post_tag', array('hide_empty'=>false));
+  $cat_terms_name = array_map(function($n) {
+    return $n->name;
+  }, $cat_terms);
+  $wp_terms = array_map(function($n) {
+    return $n->name;
+  }, $wp_terms);
+  foreach ($wp_terms as $wp_term) {
+    if (!in_array($wp_term, $cat_terms_name)) {
+      wp_insert_term($wp_term, EM_TAXONOMY_CATEGORY);
+    }
+  }
+  foreach ($cat_terms as $cat_term) {
+    if (!in_array($cat_term->name, $wp_terms)) {
+      wp_delete_term($cat_term->term_id, EM_TAXONOMY_CATEGORY);
+    }
+  }
 }
 
 function mozilla_edit_group() {
@@ -808,7 +920,6 @@ function mozilla_edit_group() {
                     'group_address',
                     'my_nonce_field'
                 );
-       
                 foreach($required AS $field) {
                     if(isset($_POST[$field])) {
                         if($_POST[$field] === "" || $_POST[$field] === 0) {
@@ -863,5 +974,21 @@ function mozilla_edit_group() {
             }
         }
     }
-    
 }
+    
+function mozilla_menu_class($classes, $item, $args) {
+
+    $path_items = array_filter(explode('/', $_SERVER['REQUEST_URI']));
+    $menu_url = strtolower(str_replace('/', '', $item->url));
+
+    if(sizeof($path_items) > 0) {
+        if(strtolower($path_items[1]) === $menu_url) {
+            $item->current = true;
+            $classes[] = 'menu-item--active';
+        }
+    }
+
+    return $classes;
+}
+
+?>

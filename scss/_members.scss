@@ -260,6 +260,19 @@
         background-color: $color-gray-20;
         overflow: hidden;
         border-radius: 50%;
+        background-size: cover;
+    }
+
+    &__location {
+        font-size: remCalc(14);
+        line-height: 20px;
+        letter-spacing: 0.0025em;
+        color: $color-gray-secondary;
+        margin-top: 8px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
     }
 
     &__username {
