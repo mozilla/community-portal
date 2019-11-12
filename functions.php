@@ -288,12 +288,12 @@ $countries = Array(
     "ZW" => "Zimbabwe"
 );
 
+
 abstract class PrivacySettings {
     const REGISTERED_USERS = 0;
     const PUBLIC_USERS = 1; 
     const PRIVATE_USERS = 2;
 }
-
 
 function remove_admin_login_header() {
 	remove_action('wp_head', '_admin_bar_bump_cb');
@@ -333,6 +333,7 @@ function mozilla_init_scripts() {
     // Vendor scripts
     wp_enqueue_script('dropzonejs', get_stylesheet_directory_uri()."/js/vendor/dropzone.min.js", array('jquery'));
     wp_enqueue_script('autcomplete', get_stylesheet_directory_uri()."/js/vendor/autocomplete.js", array('jquery'));
+    wp_enqueue_script('identicon', get_stylesheet_directory_uri()."/js/vendor/identicon.js", array());
     wp_register_script('mapbox', "https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js");
     wp_enqueue_script('mapbox');
     wp_register_style('mapbox-css', 'https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css');
@@ -359,7 +360,6 @@ function mozilla_create_group() {
             'group_address',
             'my_nonce_field'
         );
-
 
         $optional = Array(
             'group_address_type',
@@ -667,7 +667,7 @@ function mozilla_post_user_creation($user_id, $userinfo, $is_new, $id_token, $ac
 }
 
 
-function mozilla_update_member() {
+function mozilla_update_member() {  
 
     // Submited Form
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -689,8 +689,44 @@ function mozilla_update_member() {
                 'agree'
             );
 
+            $additional_fields = Array(
+                'image_url',
+                'profile_image_url_visibility',
+                'pronoun',
+                'profile_pronoun_visibility',
+                'bio',
+                'profile_bio_visibility',
+                'phone',
+                'profile_phone_visibility',
+                'discourse',
+                'profile_discourse_visibility',
+                'facebook',
+                'profile_facebook_visibility',
+                'twitter',
+                'profile_twitter_visibility',
+                'linkedin',
+                'profile_linkedin_visibility',
+                'github',
+                'profile_github_visibility',
+                'telegram',
+                'profile_telegram_visibility',
+                'languages',
+                'profile_languages_visibility',
+                'tags',
+                'profile_tags_visibility',
+                'profile_groups_joined_visibility',
+                'profile_events_attended_visibility',
+                'profile_events_organized_visibility',
+                'profile_campaigns_visibility',
+                'profile_location_visibility'
+            );
+
+            // Add additional required fields after initial setup
             if(isset($meta['agree'][0]) && $meta['agree'][0] == 'I Agree') {
                 unset($required[8]);
+                $required[] = 'city';
+                $required[] = 'country';
+                $required[] = 'profile_location_visibility';
             }
 
             $error = false;
@@ -763,10 +799,25 @@ function mozilla_update_member() {
                 unset($required[0]);
 
                 foreach($required AS $field) {
-
                     $form_data = sanitize_text_field(trim($_POST[$field]));
                     update_user_meta($user->ID, $field, $form_data);
                 }
+
+
+                // Update other fields here
+                $addtional_meta = Array();
+
+                foreach($additional_fields AS $field) {
+                    if(isset($_POST[$field])) {
+                        if(is_array($_POST[$field])) {
+                            $additional_meta[$field] = array_map('sanitize_text_field', array_filter($_POST[$field]));
+                        } else {
+                            $additional_meta[$field] = sanitize_text_field(trim($_POST[$field]));
+                        }
+                    }
+                }    
+
+                update_user_meta($user->ID, 'community-meta-fields', $additional_meta);
             }
         }
     }
@@ -777,33 +828,45 @@ function mozilla_is_logged_in() {
     return sizeof((Array)$current_user) > 0 ? true : false; 
 }
 
+function mozilla_determine_field_visibility($field, $visibility_field, $community_fields, $is_me, $logged_in) {
+    
+    if(isset($community_fields[$field]) 
+        || $field === 'city' 
+        || $field === 'username' 
+        || $field === 'country'
+        || $field === 'profile_groups_joined'
+        || $field === 'profile_events_attended' 
+        || $field === 'profile_events_organized'
+        || $field === 'profile_campaigns'
+        || $field === 'profile_telegram'
+        || $field === 'profile_facebook' 
+        || $field === 'profile_twitter' 
+        || $field === 'profile_discourse'
+        || $field === 'profile_github'
+        || $field === 'profile_linkedin') {   
+        
+        if($field === 'city' || $field === 'country') {
+            $visibility_field = 'profile_location_visibility';
+        }
 
-function mozilla_get_user_visibility_settings($user_id) {
-    $user = get_user_by('ID', $user_id);
-    $meta = get_user_meta($user_id);
-
-    $visibility_fields = Array(
-                                'username',
-                                'first_name',
-                                'last_name',
-                                'email'
-    );
-
-    $visibility_settings = Array();
-
-    foreach($visibility_fields AS $field) {
-        if(isset($meta["{$field}_visibility"][0])) {
-            $visibility_settings["{$field}_visibility"] = intval($meta["{$field}_visibility"][0]);
+        if($is_me) {
+            $display = true;
         } else {
-            if($field === 'username') {
-                $visibility_settings["{$field}_visobility"] = PrivacySettings::PUBLIC_USERS;
+            if(($logged_in && isset($community_fields[$visibility_field]) && $community_fields[$visibility_field] === PrivacySettings::REGISTERED_USERS) || $community_fields[$visibility_field] === PrivacySettings::PUBLIC_USERS) {
+                $display = true;
             } else {
-                $visibility_settings["{$field}_visibility"] = PrivacySettings::REGISTERED_USERS;
+                $display = false;
+            }
+
+            if($logged_in && $field === 'first_name') {
+                $dispaly = true;
             }
         }
+    } else {
+        $display = false;
     }
 
-    return $visibility_settings;
+    return $display;
 }
 
 
