@@ -473,16 +473,16 @@
                             <?php endforeach; ?>
                         </select>
                     </div>
-                    <div class="profile__select-container profile__select-container--hide-mobile">
-                        <label class="profile__label" for=""><?php print __("Can be viewed by"); ?></label>
+                    <div class="profile__select-container profile__select-container--hide-mobile profile__select-container--flex">
+                        <label class="profile__label profile__label--full" for="profile-languages-visibility"><?php print __("Can be viewed by"); ?></label>
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g>
                                 <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
                             </g>
                         </svg>
-                        <select id="profile-pronoun-visibility" name="profile_pronoun_visibility" class="profile__select">
+                        <select id="profile-languages-visibility" name="profile_languages_visibility" class="profile__select profile__select--flex">
                             <?php foreach($visibility_options AS $key   =>  $value): ?>
-                            <option value="<?php print $key; ?>"<?php if($form && isset($form['profile_pronoun_visibility']) && $form['profile_pronoun_visibility'] == $key): ?> selected<?php else: ?><?php if(isset($community_fields['profile_pronoun_visibility']) && $community_fields['profile_pronoun_visibility'] == $key): ?> selected<?php endif; ?><?php endif; ?>><?php print $value; ?></option>
+                            <option value="<?php print $key; ?>"<?php if($form && isset($form['profile_languages_visibility']) && $form['profile_languages_visibility'] == $key): ?> selected<?php else: ?><?php if(isset($community_fields['profile_languages_visibility']) && $community_fields['profile_languages_visibility'] == $key): ?> selected<?php endif; ?><?php endif; ?>><?php print $value; ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -513,7 +513,7 @@
                 <?php foreach($languages_spoken AS $index =>  $value): ?>
                     <div class="profile__form-field profile__form-field--tight">
                         <div class="profile__select-container profile__select-container--full<?php if($index > 0): ?> profile__select-container--no-label<?php endif; ?>">
-                        <?php if($index === 0): ?><label class="profile__label" for="pronoun"><?php print __("Languages spoken"); ?></label><?php endif; ?>
+                        <?php if($index === 0): ?><label class="profile__label" for="languages"><?php print __("Languages spoken"); ?></label><?php endif; ?>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g>
                                     <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
@@ -531,7 +531,7 @@
                         </div>
                         <?php if($index === 0 ): ?>
                         <div class="profile__select-container profile__select-container--hide-mobile profile__select-container--flex">
-                            <label class="profile__label profile__label--full" for=""><?php print __("Can be viewed by"); ?></label>
+                            <label class="profile__label profile__label--full" for="profile-languages-visibility"><?php print __("Can be viewed by"); ?></label>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g>
                                     <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
