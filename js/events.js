@@ -415,6 +415,15 @@ jQuery(function() {
         }
     }
 
+    function trackLocationType() {
+      const $locationTypeInput = jQuery('#location-type-placeholder');
+      const $locationType = jQuery('#location-type');
+      $locationType.change(function() {
+        const $this = jQuery(this);
+        $locationTypeInput.val($this.val());
+      });
+    }
+
     function init() {
         toggleMobileEventsNav(".events__nav__toggle", ".events__nav");
         toggleMobileEventsNav(".events__filter__toggle", ".events__filter");
@@ -434,7 +443,7 @@ jQuery(function() {
             "#attendees-lightbox",
             "#open-attendees-lightbox",
             "#close-attendees-lightbox",
-            ".events-single__username a"
+            ".events-single__member-card a"
         );
         toggleLightbox(
             "#events-share-lightbox",
@@ -443,6 +452,7 @@ jQuery(function() {
             "a"
         );
         handleCopyToClipboardClick();
+        trackLocationType();
     }
 
     init();

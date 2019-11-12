@@ -1,4 +1,11 @@
 .events-single {
+  padding-bottom: 36px;
+  @include tablet-and-up {
+    padding-bottom: 88px;
+  }
+  @include desktop-and-up {
+    padding-bottom: 64px;
+  }
   a {
     text-decoration: none;
   }
@@ -88,9 +95,16 @@
       }
     }
     &__address {
-      p {
+      p,
+      a {
         margin: 0;
-        line-height: remCalc(24);
+        line-height: remCalc(28);
+      }
+      a:visited {
+        color: $color-blue-50;
+      }
+      a svg {
+        margin-left: 3px;
       }
     }
   }
@@ -106,14 +120,33 @@
   &__attributes.card,
   &__group.card {
     padding: 16px;
-    margin-top: 53px;
+    margin-top: 32px;
+
+    a:visited {
+      color: $color-blue-50;
+    }
     p {
       margin: 0;
     }
     .col-md-6 {
       padding: 0 0 24px;
       @include tablet-and-up {
+        padding: 32px 24px;
+      }
+      @include desktop-and-up {
         padding: 16px 32px;
+      }
+    }
+    .events-single__member-card {
+      a, 
+      a:visited {
+        color: black;
+      }
+      a {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0;
+
       }
     }
     .events-single__share {
@@ -122,12 +155,22 @@
         padding: 32px 0 0;
         padding-bottom: 0;
         flex-basis: calc(50% - 64px);
-        margin: 0 32px 0;
+        margin: 0 24px 32px;
       }
       @include desktop-and-up {
         margin: 16px 0 0;
-        padding: 32px 32px 16px;
+        padding: 32px;
         flex-basis: 100%;
+      }
+      &:first-child {
+        margin-top: 0;
+      }
+      &.only-share {
+        border-top: 0;
+        padding-top: 0;
+        @include tablet-and-up {
+          padding-top: 32px;
+        }
       }
     }
     p.events-single__label {
@@ -135,15 +178,24 @@
       color: $color-gray-secondary;
       margin: 0 0 16px;
     }
-  }
-  &__sidebar {
-    @include desktop-and-up {
-      margin-left: 40px;
+    @include tablet-and-up {
+      padding: 0;
+      margin-top: 53px;
     }
   }
   &__attributes.card {
     @include desktop-and-up {
       margin-top: 0;
+    }
+  }
+  &__group.card {
+    @include desktop-and-up {
+      padding: 16px 0;  
+    }
+  }
+  &__sidebar {
+    @include desktop-and-up {
+      margin-left: 40px;
     }
   }
   &__share {
@@ -157,7 +209,7 @@
   &__group {
     margin-top: 32px;
   }
-  &__member-card {
+  &__member-card a {
     display: flex;
     align-items: center;
     margin-bottom: 22px;
@@ -178,10 +230,9 @@
   }
   &__username {
     @extend .members__username;
-    padding-top: 16px;
-    a {
-      color: black;
-      text-decoration: none;
+    &::before {
+      content: "@";
+      display: inline;
     }
   }
   &__name {
@@ -247,7 +298,7 @@
     }
   }
   &__related {
-    padding: 56px 0 64px;
+    padding: 56px 0 0;
     .title--secondary {
       margin-top: 0;
     }

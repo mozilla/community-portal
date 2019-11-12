@@ -138,7 +138,7 @@
       <div class="row">
         <div class="card__address col-md-5 col-sm-12">
           <?php 
-            if ($location_type !== 'online') {
+            if (isset($location_type) && strlen($location_type) > 0 && $location_type !== 'online') {
               $location = $EM_Event->location;
             ?>
               <p><?php echo __($location->location_name) ?></p>
@@ -148,7 +148,11 @@
             } else { 
             ?>
               <p><?php echo __("This is an online-only event") ?></p>
-              <a href="<?php echo esc_attr($EM_Event->location->address) ?>"><?php echo __('Meeting link') ?></a>
+              <a href="<?php echo esc_attr($EM_Event->location->name) ?>"><?php echo __('Meeting link') ?>
+                <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1.33325 8.66732L4.99992 5.00065L1.33325 1.33398" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
             <?php 
             } 
           ?>
@@ -162,7 +166,7 @@
           $body = wp_remote_retrieve_body( $request );
           $data = json_decode( $body );
           $coordinates = $data->features[0]->geometry->coordinates; 
-          if ($location_type !== 'online') {
+          if (isset($location_type) && strlen($location_type) && $location_type !== 'online') {
           ?>
             <div id='map' class="card__map col-md-7 col-sm-12" style='height: 110px;'></div>
             <script>
@@ -219,44 +223,75 @@
         ?>
           <h2 class="title--secondary"><?php echo __('Attendees') ?></h2>
           <div class="row">
-          <?php
-            $count = 0;
-            foreach ($activeBookings as $booking) {
-              if ($booking->booking_status !== '3' && $count < 8) {
-                $activeBookings[] = $booking;
-                $user = $booking->person->data;
-                $avatar = get_avatar_url($user->ID);
-        ?>
-              <div class="col-md-6 events-single__member-card">
+            <?php
+              $count = 0;
+              foreach ($activeBookings as $booking) {
+                if ($booking->booking_status !== '3' && $count < 8) {
+                  $activeBookings[] = $booking;
+                  $user = $booking->person->data;
+                  var_dump($user);
+                  $avatar = get_avatar_url($user->ID);
+                  $meta = get_user_meta($user->ID);
+                  $logged_in = mozilla_is_logged_in();
+                  $is_me = $logged_in && intval($current_user) === intval($user->ID);
+                  $community_fields = isset($meta['community-meta-fields'][0]) ? unserialize($meta['community-meta-fields'][0]) : Array('f');
+                  $community_fields['username'] =  $user->user_nicename;
+                  $community_fields['first_name'] = isset($meta['first_name'][0]) ? $meta['first_name'][0] : '';
+                  $community_fields['last_name'] = isset($meta['last_name'][0]) ? $meta['last_name'][0] : '';
+                  $community_fields['email'] = isset($meta['email'][0]) ? $meta['email'][0] : '';
+                  $community_fields['city'] = isset($meta['city'][0]) ? $meta['city'][0] : '';
+                  $community_fields['country'] = isset($meta['country'][0]) ? $meta['country'][0] : '';
+                $fields = Array(
+                  'username',
+                  'image_url',
+                  'first_name',
+                  'last_name',
+                  'city',
+                  'country',
+                );
+
+                $visibility_settings = Array();
+                foreach($fields AS $field) {
+                    $field_visibility_name = "{$field}_visibility";
+                    var_dump($field, $field_visibility_name, $community_fields, $is_me, $logged_in);
+                    $visibility = mozilla_determine_field_visibility($field, $field_visibility_name, $community_fields, $is_me, $logged_in);
+                    $field_visibility_name = ($field === 'city' || $field === 'country') ? 'profile_location_visibility' : $field_visibility_name;
+                    $visibility_settings[$field_visibility_name] = $visibility;
+                }
+                var_dump($visibility_settings);
+            ?>
+            <div class="col-md-6 events-single__member-card">
+              <a href="<?php echo esc_attr(get_site_url().'/members/'.$user->user_nicename)?>")>
                 <?php 
                   if (isset($avatar)) {
                 ?>
                   <div class="events-single__avatar">
                     <img src="<?php echo esc_attr($avatar)?>" alt="">                    
                   </div>
-                </php } ?>
-                  <div class="events-single__user-details">
-                    <p class="events-single__username"><?php echo __('@'.$user->display_name) ?></p>
-                    <p class="events-single__name"><?php echo __($user->user_nicename) ?></p>
-                </div>
+                  </php } ?>
+                    <div class="events-single__user-details"> 
+                      <p class="events-single__username"><?php echo __($user->display_name) ?></p>
+                      <p class="events-single__name"><?php echo __($user->user_nicename) ?></p>
+                  </div>
+                <?php
+                  $count = $count + 1;
+                  }
+                ?>
+              </a>
+            </div>
+            <?php
+              } else if ($count >= 8) {
+                if ($count === 8) {
+            ?>
+              <button id="open-attendees-lightbox" class="btn btn--submit btn--light">
+                <?php echo __('View all attendees') ?>
+              </button>
             <?php
               $count = $count + 1;
+              } else { 
+              $count = $count + 1;
               }
-            ?>
-              </div>
-              <?php
-            } else if ($count >= 8) {
-                if ($count === 8) {
-              ?>
-                <button id="open-attendees-lightbox" class="btn btn--submit btn--light">
-                  <?php echo __('View all attendees') ?>
-                </button>
-              <?php
-                $count = $count + 1;
-                } else { 
-                $count = $count + 1;
-                }
-              }
+            }
           }
           ?>
       </div>
@@ -267,7 +302,7 @@
         <div class="card events-single__attributes">
           <div class="row">
           <?php 
-            if (isset($external_url) && $external_url !== ''):
+            if (isset($external_url) && strlen($external_url) > 0):
           ?>
             <div class="col-lg-12 col-md-6 col-sm-12">
               <p class="events-single__label">Links</p>
@@ -276,7 +311,7 @@
           <?php 
             endif;
           ?>
-          <?php if ($categories): ?>
+          <?php if (is_array($categories)): ?>
           <div class="col-lg-12 col-md-6 col-sm-12">
             <p class="events-single__label">Tags</p>
             <ul class="events-single__tags">
@@ -309,7 +344,7 @@
           <?php 
             endif 
           ?>
-          <div class="events-single__share col-lg-12 col-md-6 col-sm-12">
+          <div class="events-single__share col-lg-12 col-md-6 col-sm-12 <?php echo (!isset($campaign) && !isset($external_url) && !is_array($categories) && !strlen($external_url) > 0 ? esc_attr('only-share') : null )?>">
           <button id="open-events-share-lightbox" class="btn btn--light btn--share">
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M3 9V15C3 15.3978 3.15804 15.7794 3.43934 16.0607C3.72064 16.342 4.10218 16.5 4.5 16.5H13.5C13.8978 16.5 14.2794 16.342 14.5607 16.0607C14.842 15.7794 15 15.3978 15 15V9M12 4.5L9 1.5M9 1.5L6 4.5M9 1.5V11.25" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -326,6 +361,29 @@
         if ($admins) {
           $user = get_userdata($admins[0]->user_id);
           $avatar = get_avatar_url($admins[0]->user_id);
+          $meta = get_user_meta($admins[0]->user_id);
+          $logged_in = mozilla_is_logged_in();
+          $is_me = $logged_in && intval($current_user) === intval($admins[0]->user_id);
+
+          $community_fields = isset($meta['community-meta-fields'][0]) ? unserialize($meta['community-meta-fields'][0]) : Array('f');
+          $community_fields['username'] =  $user->user_nicename;
+          $community_fields['first_name'] = isset($meta['first_name'][0]) ? $meta['first_name'][0] : '';
+          $community_fields['last_name'] = isset($meta['last_name'][0]) ? $meta['last_name'][0] : '';
+          $fields = Array(
+            'username',
+            'image_url',
+            'first_name',
+            'last_name',
+            'country',
+          );
+
+          $visibility_settings = Array();
+          foreach($fields AS $field) {
+            $field_visibility_name = "{$field}_visibility";
+            $visibility = mozilla_determine_field_visibility($field, $field_visibility_name, $community_fields, $is_me, $logged_in);
+            $field_visibility_name = ($field === 'city' || $field === 'country') ? 'profile_location_visibility' : $field_visibility_name;
+            $visibility_settings[$field_visibility_name] = $visibility;
+          }
         }
 
       ?> 
@@ -339,8 +397,10 @@
           if ($user && $avatar):
             ?>
             <div class="events-single__member-card col-lg-12 col-md-6 col-sm-12">
-              <img class="events-single__avatar" src="<?php echo $avatar ?>" alt="">
-              <p class="events-single__username"><?php echo '@'.$user->user_nicename ?></p>
+              <a href="<?php echo esc_attr(get_site_url().'/members/'.$user->user_nicename)?>">
+                <img class="events-single__avatar" src="<?php echo $avatar ?>" alt="">
+                <p class="events-single__username"><?php echo __($user->user_nicename) ?></p>
+              </a>
             </div>
             <?php
           endif;
@@ -404,14 +464,16 @@
           <?php 
             if ($avatar):
           ?>
-          <div class="events-single__avatar">
-            <img src="<?php echo esc_attr($avatar)?>" alt="">                    
-          </div>
-          <div class="events-single__user-details">
-              <p class="events-single__username"><?php echo __('@'.$user->display_name) ?></p>
-              <p class="events-single__name"><?php echo __($user->user_nicename) ?></p>
-          
-          </div>
+          <a href="<?php echo esc_attr(get_site_url().'/members/'.$user->user_nicename)?>">
+            <div class="events-single__avatar">
+              <img src="<?php echo esc_attr($avatar)?>" alt="">                    
+            </div>
+            <div class="events-single__user-details">
+                <p class="events-single__username"><?php echo __($user->display_name) ?></p>
+                <p class="events-single__name"><?php echo __($user->user_nicename) ?></p>
+            
+            </div>
+          </a>
       <?php
       endif;
       ?>
