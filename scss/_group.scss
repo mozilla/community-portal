@@ -322,6 +322,7 @@
         justify-content: flex-end;
         align-items: center;
         padding-right: 32px;
+        border-bottom: 1px solid $color-gray-20;
     }
 
     &__card-content {
@@ -366,6 +367,17 @@
             height: 0;
             border-top: 1px solid $color-gray-20;
             margin: 24px 0;
+
+            &.group__keyline {
+                margin: 0 -24px;
+                margin-bottom: 24px;
+                
+                @include tablet-and-up {
+                    margin: 0 -32px;
+                    margin-bottom: 32px;
+                    
+                }
+            }
         }
 
         .group__card-title {
@@ -393,8 +405,7 @@
     &__card-cta-container {
         display: flex;
         flex-direction: column;
-        border-bottom: 1px solid $color-gray-20;
-        padding-bottom: 32px;
+
         align-items: center;
         margin-bottom: 16px;
 
@@ -429,6 +440,8 @@
         }
     }
 
+
+
     &__share-cta {
         border-radius: 28px;
         padding: 15px 33px;
@@ -436,6 +449,7 @@
         text-align: center;
         text-decoration: none;
         border: 2px solid $color-blue-50;
+        color: $color-blue-50;
         min-width: 160px;
         width: 188px;
         height: 48px;

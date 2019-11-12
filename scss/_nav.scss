@@ -344,7 +344,6 @@
 
   &.menu-item--active {
     background-color: $color-black;
-
     display: inline-block;
     .menu-item__link { 
         position: relative;
@@ -358,7 +357,7 @@
             width: 100%;
         }
     }
-}
+  }
 }
 
 .menu-item__link {

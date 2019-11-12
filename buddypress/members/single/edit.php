@@ -13,16 +13,25 @@
         </section>
     </div>
     <?php else: ?>
-    <div class="profile__hero" style="background-image: url('<?php print get_stylesheet_directory_uri()."/images/mozilla-create-profile.png"; ?>');">
+    <div class="profile__hero">
         <div class="profile__hero-container">
-        
-            <h1 class="profile__title"><?php print (isset($meta['agree'][0]) && $meta['agree'][0] == 'I Agree') ? __("Edit Profile") : __("Complete Profile"); ?></h1>
-            <p class="profile__hero-copy">
-                <?php print __("Here’s a brief explanation on privacy settings. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus massa mauris, interdum vitae convallis."); ?>
-            </p>
-            <p class="profile__hero-copy profile__hero-copy--small">
-                <?php print __('* Optional Information'); ?>
-            </p>
+            <div class="profile__hero-content">
+                <h1 class="profile__title"><?php print (isset($meta['agree'][0]) && $meta['agree'][0] == 'I Agree') ? __("Edit Profile") : __("Complete Profile"); ?></h1>
+                <p class="profile__hero-copy profile__hero-copy--green">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 16V12" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="12" cy="8" r="1" fill="black"/>
+                    </svg>
+                    <span>
+                        <?php print __("We’ve pre-populated some of your information via your connected account with"); ?>
+                        <a href="#" class="profile__hero-link">Mozilla SSO.</a>
+                    </span>
+                </p>
+                <p class="profile__hero-copy profile__hero-copy--small">
+                    <?php print __('* Optional Information'); ?>
+                </p>
+            </div>
         </div>
     </div>
     
