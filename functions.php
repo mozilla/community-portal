@@ -8,6 +8,7 @@ add_action('get_header', 'remove_admin_login_header');
 add_action('init', 'mozilla_custom_menu');
 add_action('wp_enqueue_scripts', 'mozilla_init_scripts');
 add_action('admin_enqueue_scripts', 'mozilla_init_admin_scripts');
+add_filter('nav_menu_css_class', 'mozilla_menu_class', 10, 4);
 
 // Ajax Calls
 add_action('wp_ajax_nopriv_upload_group_image', 'mozilla_upload_image');
@@ -860,5 +861,21 @@ function mozilla_edit_group() {
             }
         }
     }
-    
 }
+    
+function mozilla_menu_class($classes, $item, $args) {
+
+    $path_items = array_filter(explode('/', $_SERVER['REQUEST_URI']));
+    $menu_url = strtolower(str_replace('/', '', $item->url));
+
+    if(sizeof($path_items) > 0) {
+        if(strtolower($path_items[1]) === $menu_url) {
+            $item->current = true;
+            $classes[] = 'menu-item--active';
+        }
+    }
+
+    return $classes;
+}
+
+?>
