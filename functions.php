@@ -804,13 +804,34 @@ function mozilla_get_user_visibility_settings($user_id) {
     return $visibility_settings;
 }
 
+
 function mozilla_save_event($post_id, $post, $update) {
   if ($post->post_type === 'event') {
-    var_dump($_POST);
     $event = new stdClass();
     $event->image_url = esc_url_raw($_POST['image_url']);
     $event->location_type = sanitize_text_field($_POST['location-type']);
     update_post_meta($post_id, 'event-meta', $event);
+  }
+}
+
+function mozilla_match_categories() {
+  $cat_terms = get_terms(EM_TAXONOMY_CATEGORY, array('hide_empty'=>false));
+  $wp_terms = get_terms('post_tag', array('hide_empty'=>false));
+  $cat_terms_name = array_map(function($n) {
+    return $n->name;
+  }, $cat_terms);
+  $wp_terms = array_map(function($n) {
+    return $n->name;
+  }, $wp_terms);
+  foreach ($wp_terms as $wp_term) {
+    if (!in_array($wp_term, $cat_terms_name)) {
+      wp_insert_term($wp_term, EM_TAXONOMY_CATEGORY);
+    }
+  }
+  foreach ($cat_terms as $cat_term) {
+    if (!in_array($cat_term->name, $wp_terms)) {
+      wp_delete_term($cat_term->term_id, EM_TAXONOMY_CATEGORY);
+    }
   }
 }
 

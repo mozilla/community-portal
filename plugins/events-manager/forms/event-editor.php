@@ -5,6 +5,7 @@
  * You also must keep the _wpnonce hidden field in this form too.
  */
 global $EM_Event, $EM_Notices, $bp, $EM_Ticket;
+mozilla_match_categories();
 $event_id = $_REQUEST['event_id'];
 //check that user can access this page
 if( is_object($EM_Event) && !$EM_Event->can_manage('edit_events','edit_others_events') ){
@@ -72,7 +73,7 @@ if( !empty($_REQUEST['success']) ){
         <label class="event-form-details event-creator__label" for="event-description"><?php esc_html_e( 'Event description', 'events-manager'); ?></label>
         <textarea name="content" id="event-description" placeholder="Add in the details of your event’s agenda here. If this is a multi-day event, you can add in the details of each day’s schedule and start/end time." rows="10" id="event-description" class="event-creator__input event-creator__textarea" style="width:100%" required><?php echo __($EM_Event->post_content) ?></textarea>
       </div>
-      <?php if(get_option('dbem_categories_enabled')) { em_locate_template('forms/event/categories-public.php',true); }  ?>
+      <?php em_locate_template('forms/event/categories-public.php',true);  ?>
       <?php em_locate_template('forms/event/group.php',true); ?>
     </div>
   </div>
