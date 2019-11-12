@@ -821,6 +821,16 @@
         font-size: remCalc(14);
         line-height: 20px;
         letter-spacing: 0.0025em;
+        width: 100%;
+    }
+
+    &__email {
+        padding-left: 40px;
+        display: inline-block;
+    }
+
+    &__city-country {
+        display: block;
     }
 
     #profile-photo-uploader {
