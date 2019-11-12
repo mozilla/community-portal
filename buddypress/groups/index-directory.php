@@ -29,14 +29,8 @@
         $user = wp_get_current_user()->data;
         
         $groups = Array();
-        $merged_groups = array_merge(bp_get_user_groups($user->ID, Array('is_admin' => true)), bp_get_user_groups($user->ID));
-        $group_ids = Array();
-        foreach($merged_groups AS $g) {
-            $group_ids[] = $g->group_id;
-        }
-        $args['include'] = $group_ids;
+        $args['user_id'] = $user->ID;
         $groups = groups_get_groups($args);
-
 
     } else {
         if($q) {
@@ -49,7 +43,7 @@
     
     $group_count = $groups['total'];
     $groups = $groups['groups'];
-    
+
     $filtered_groups = Array();
 
     foreach($groups AS $group) {
