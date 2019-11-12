@@ -43,7 +43,6 @@
     
     $group_count = $groups['total'];
     $groups = $groups['groups'];
-
     $filtered_groups = Array();
 
     foreach($groups AS $group) {
@@ -63,7 +62,12 @@
         }
     }
 
+    if(isset($_GET['tag']) || isset($_GET['location'])) {
+        $group_count = sizeof($filtered_groups);
+    }
+
     $groups = $filtered_groups;
+    
     $total_pages = ceil($group_count / $groups_per_page);
     $offset = ($p - 1) * $groups_per_page;
 
