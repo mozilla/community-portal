@@ -1,7 +1,6 @@
 <?php
     get_header(); 
-    //$logged_in = mozilla_is_logged_in();
-    $logged_in = true;
+    $logged_in = mozilla_is_logged_in();
 
     $c = count_users();
 
@@ -19,7 +18,7 @@
 
     $search_user = isset($_GET['u']) && strlen(trim($_GET['u'])) > 0 ? sanitize_text_field(trim($_GET['u'])) : false;
     if($search_user) {
-        $args['search'] = "{$search_user}";
+        $args['search'] = "*{$search_user}*";
         $args['search_columns'] = Array('nicename');
     }
 
