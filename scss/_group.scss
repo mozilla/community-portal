@@ -43,6 +43,11 @@
         font-family: 'Open Sans', sans-serif;
         margin: 0;
         margin-top: 16px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        flex-wrap: wrap;
     }
 
 
@@ -101,6 +106,21 @@
         }
     }
 
+    &__status {
+        text-decoration: underline;
+        color: $color-black;
+        display: inline-block;
+        margin-left: 4px;
+
+    }
+
+    &__created,
+    &__location {
+        display: inline-block;
+        margin-left: 4px;
+
+    }
+
     &__community-links {
         
         span {
@@ -134,6 +154,16 @@
         &:last-of-type {
             margin-right: 0;
         }
+
+        svg {
+            width: 24px;
+            height: 24px;
+
+            @include desktop-and-up {
+                width: 32px;
+                height: 32px;
+            }
+        }
     }
 
     &__meeting-location-link {
@@ -146,10 +176,20 @@
 
     &__social-link {
         text-decoration: none;
-        font-size: remCalc(18);
-        line-height: 28px;
+        font-size: remCalc(14);
+        line-height: 20px;
         color: $color-blue-50;
         margin-left: 8px;
+
+        @include tablet-and-up {
+            font-size: remCalc(16);
+            line-height: 24px;
+        }
+
+        @include desktop-and-up {
+            font-size: remCalc(18);
+            line-height: 28px;
+        }
     }
 
     &__left-column {
@@ -241,13 +281,23 @@
 
     &__card-image {
         width: 100%;
-        height: 235px;
+        min-height: 128px;
+        height: 100%;
+        max-height: 298px;
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
         border-top-left-radius: 4px;
         border-top-right-radius: 4px;
         position: relative;
+
+        @include tablet-and-up {
+            height: 298px;
+        }
+
+        @include desktop-and-up {
+            height: 328px;
+        }
 
         .group__edit-link {
             position: absolute;
@@ -272,6 +322,7 @@
         justify-content: flex-end;
         align-items: center;
         padding-right: 32px;
+        border-bottom: 1px solid $color-gray-20;
     }
 
     &__card-content {
@@ -289,9 +340,6 @@
             width: 100%;
             position: relative;
 
-
-            
-
             &.no-line {
                 &:after {
                     display: none;
@@ -301,8 +349,8 @@
 
             &.username {
                 font-family: 'Zilla Slab';
-                font-size: remCalc(24);
-                line-height: 32px;
+                font-size: remCalc(20);
+                line-height: 28px;
                 color: $color-black;
                 max-width: 285px;
                 width: 100%;
@@ -319,6 +367,17 @@
             height: 0;
             border-top: 1px solid $color-gray-20;
             margin: 24px 0;
+
+            &.group__keyline {
+                margin: 0 -24px;
+                margin-bottom: 24px;
+                
+                @include tablet-and-up {
+                    margin: 0 -32px;
+                    margin-bottom: 32px;
+                    
+                }
+            }
         }
 
         .group__card-title {
@@ -346,8 +405,7 @@
     &__card-cta-container {
         display: flex;
         flex-direction: column;
-        border-bottom: 1px solid $color-gray-20;
-        padding-bottom: 32px;
+
         align-items: center;
         margin-bottom: 16px;
 
@@ -382,6 +440,8 @@
         }
     }
 
+
+
     &__share-cta {
         border-radius: 28px;
         padding: 15px 33px;
@@ -389,12 +449,14 @@
         text-align: center;
         text-decoration: none;
         border: 2px solid $color-blue-50;
+        color: $color-blue-50;
         min-width: 160px;
         width: 188px;
         height: 48px;
         font-size: remCalc(16);
         line-height: 18px;
         position: relative;
+        color: $color-blue-50;
 
         @include tablet-and-up {
             width: 188px;

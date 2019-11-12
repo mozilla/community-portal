@@ -5,22 +5,21 @@
     &__hero {
         width: 100%;
         background-color: $color-green-20;
-        height: 316px;
-        background-repeat: no-repeat;
+        height: 388px;
         padding: 0 24px;
-        background-size: 0;
 
 
         @include tablet-and-up {
             padding: 0 64px;
-            background-position: right -100px center;
-            background-size: 65%, cover;
-            height: 387px;
+            height: 404px;
+            background-image: url("./images/mozilla-create-profile.png");
+            background-position: right -140px center;
+            background-size: 470px 470px;
+            background-repeat: no-repeat;
         }
         
         @include desktop-and-up {
-            background-position: right -50px center;
-            background-size: 40%, cover;
+            background-image: none;
             height: 316px;
             padding: 0 106px;
         }
@@ -33,16 +32,23 @@
         padding: 0;
         padding-top: 24px;
         height: 100%;
-        text-align: center;
+        text-align: center;;
 
         @include tablet-and-up {
-            padding-top: 48px;   
+            background-repeat: no-repeat;
+            padding-top: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             text-align: left;
         }
 
         @include desktop-and-up {
-            padding-top: 90px;
+            background-image: url("./images/mozilla-create-profile.png");
+            background-size: 440px 440px;
+            background-position: right -40px bottom -40px;
         }
+
     }
 
     &__title {
@@ -57,7 +63,7 @@
         font-family: 'Zilla Slab';
         margin-bottom: 16px;
         position: relative;
-        padding-left: 24px;
+        padding-left: 30px;
         
         &:after {
             content: '';
@@ -87,7 +93,7 @@
     &__hero-copy {
         text-align: center;
         font-size: remCalc(16);
-        line-height: 24px;
+        line-height: 28px;
         margin: 0 auto;
         max-width: 270px;
 
@@ -99,19 +105,23 @@
         }
 
         @include desktop-and-up {
-            max-width: 595px;
+            max-width: 493px;
         }
     }
 
     &__search-container {
         position: absolute;
         left: 0;
-        bottom: -50px;
+        bottom: -5px;
         background-color: $color-white;
         width: 100%;
         padding: 16px 30px;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         border-radius: 5px;
+
+        @include tablet-and-up {
+            bottom: -45px;
+        }
 
 
         @include desktop-and-up {
@@ -161,23 +171,42 @@
     }
 
     &__container {
-        @extend .container;
-        margin-top: 83px;
-        max-width: 1440px;
-        padding: 0 24px;
+        padding: 0;
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
         justify-content: flex-start;
+        padding: 0 24px;
+        margin: 0;
+        margin-top: 32px;
+        width: 100%;
 
         @include tablet-and-up {
-            flex-direction: row;
-            padding: 0 64px;    
-            justify-content: space-between;
+            margin-top: 83px;
+            padding: 0 64px;
         }
 
         @include desktop-and-up {
             padding: 0 106px;
+        }
+    }
+
+    &__people-container {
+        @extend .container;
+        max-width: 1228px;
+        padding: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+
+        @include tablet-and-up {
+            flex-direction: row;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        @include desktop-and-up {
+            
         }
     }
 
@@ -231,6 +260,19 @@
         background-color: $color-gray-20;
         overflow: hidden;
         border-radius: 50%;
+        background-size: cover;
+    }
+
+    &__location {
+        font-size: remCalc(14);
+        line-height: 20px;
+        letter-spacing: 0.0025em;
+        color: $color-gray-secondary;
+        margin-top: 8px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
     }
 
     &__username {
