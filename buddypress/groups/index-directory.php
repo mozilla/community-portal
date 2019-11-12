@@ -62,7 +62,7 @@
         }
     }
 
-    if(isset($_GET['tag']) || isset($_GET['location'])) {
+    if(isset($_GET['tag']) && strlen($_GET['tag']) > 0 || isset($_GET['location']) && strlen($_GET['location']) > 0) {
         $group_count = sizeof($filtered_groups);
     }
 
@@ -174,6 +174,11 @@
                 <?php if(sizeof($groups) === 0): ?>
                     <div class="groups__no-results"><?php print __('No results found.  Please try another search term.'); ?></div>
                 <?php else: ?>
+                <?php if($q): ?>
+                <div class="groups__results-query">
+                <?php print __("Results for ")."\"{$q}\""; ?>
+                </div>
+                <?php endif; ?>
                 <?php foreach($groups AS $group): ?>
                     <?php 
                         $meta = $group->meta;

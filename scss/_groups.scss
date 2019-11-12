@@ -610,4 +610,11 @@
         }
     }
 
+    &__results-query {
+        width: 100%;
+        font-size: remCalc(20);
+        line-height: 28px;
+        margin-bottom: 32px;
+    }
+
 }
