@@ -323,10 +323,11 @@
       <?php if ($EM_Event->group_id):
         $group = new BP_Groups_Group($EM_Event->group_id);
         $admins = groups_get_group_admins($group->id);
-        if ($admins):
+        if ($admins) {
           $user = get_userdata($admins[0]->user_id);
           $avatar = get_avatar_url($admins[0]->user_id);
-        endif;
+        }
+
       ?> 
       <div class="card events-single__group">
         <div class="row">
@@ -341,7 +342,7 @@
               <img class="events-single__avatar" src="<?php echo $avatar ?>" alt="">
               <p class="events-single__username"><?php echo '@'.$user->user_nicename ?></p>
             </div>
-            <?
+            <?php
           endif;
           ?>
       </div>
