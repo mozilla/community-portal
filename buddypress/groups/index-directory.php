@@ -171,7 +171,9 @@
             </div>
             <div class="groups__groups">
                 <?php do_action('bp_before_groups_loop'); ?>
-
+                <?php if(sizeof($groups) === 0): ?>
+                    <div class="groups__no-results"><?php print __('No results found.  Please try another search term.'); ?></div>
+                <?php else: ?>
                 <?php foreach($groups AS $group): ?>
                     <?php 
                         $meta = $group->meta;
@@ -224,6 +226,7 @@
                         </div>
                     </a>
                 <?php endforeach; ?>
+                <?php endif; ?>
                 <?php do_action('bp_after_groups_loop'); ?>
                 <?php 
                     $range = ($p > 3) ? 3 : 5;

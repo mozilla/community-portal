@@ -594,4 +594,20 @@
 
     }
 
+    &__no-results {
+        font-size: remCalc(20);
+        line-height: 28px;
+        text-align: center;
+        width: 100%;
+        margin-top: 24px;
+
+        @include tablet-and-up {
+            margin-top: 64px;
+        }
+
+        @include desktop-and-up {
+            margin-top: 106px;
+        }
+    }
+
 }
