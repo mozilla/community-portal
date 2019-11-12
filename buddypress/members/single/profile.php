@@ -212,6 +212,10 @@
         <?php 
             $event_user = new EM_Person($user->ID);
             $events = $event_user->get_bookings();
+
+            // print "<pre>";
+            // print_r($events);
+            // print "</pre>";
         ?>
         <?php if($visibility_settings['profile_events_attended_visibility']): ?>
         <h2 class="profile__heading"><?php print __("Latest Events Attended"); ?></h2>
@@ -253,30 +257,57 @@
                     </div>
                 </div>
             </div>
-        </div>
-        
+        </div>        
         <?php endif; ?>
+
+        <?php 
+
+            $args = array('owner' => $user->ID, 'scope' => 'all');
+            $events_organized = EM_Events::get($event_ids);
+
+            $events_organized_count = 0;
+        ?>
         <?php if($visibility_settings['profile_events_organized_visibility']): ?>
         <h2 class="profile__heading"><?php print __("Latest Events Organized"); ?></h2>
         <div class="profile__card">
+            <?php foreach($events_organized AS $event): ?>
+            <?php
+                $event_time = strtotime($event->start_date);
+                $event_date = date("M d", $event_time);
+
+                $location = em_get_location($event->location_id);
+            ?>
             <div class="profile__event">
                 <div class="profile__event-date">
-                      Aug 24  
+                      <?php print $event_date; ?>
                 </div>
                 <div class="profile__event-info">
-                    <div class="profile__event-title">Build your own Extension for Firefox at AUST</div>
+                    <div class="profile__event-title"><?php print $event->event_name; ?></div>
                     <div class="profile__event-time">
-                        Aug 24, 2019 ∙ 10:00 UTC
+                        <?php print date("M d, Y")." ∙ {$event->start_time}"; ?>
                     </div>
                     <div class="profile__event-location">
                         <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                        Dhaka, Bangladesh
+                        <?php if($location->location_region && $location->location_country): ?>
+                            <?php print "{$location->location_region}, {$countries[$location->location_country]}"; ?>
+                        <?php elseif($location->location_region && !$location->location_country): ?>
+                            <?php print "{$location->location_region}"; ?>
+                        <?php elseif(!$location->location_region && $location->location_country): ?>
+                            <?php print "{$countries[$location->location_country]}"; ?>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
+            <?php 
+                $events_organized_count++;
+            ?>
+            <?php if($events_organized_count < sizeof($events_organized)): ?>
+                <hr class="profile__group-line" />
+            <?php endif; ?>
+            <?php endforeach; ?>
         </div>
         <?php endif; ?>
     </section>
