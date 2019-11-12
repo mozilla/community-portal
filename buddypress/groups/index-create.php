@@ -43,9 +43,6 @@
                             <option value="1"<?php if($step != 1): ?> selected<?php endif; ?>><?php print __("Basic Information"); ?></option>
                             <option value="2"<?php if($step == 1): ?> selected<?php endif; ?>><?php print __("Terms & Responsibilities"); ?></option>
                         </select>
-                        <div class="form__error-container<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && $form['group_type'] === 'offline' && !isset($form['group_country']) || (isset($form['group_country']) && $form['group_country'] == "0" )): ?> form__error-container--visible<?php endif; ?>">
-                            <div class="form__error"><?php print __("This field is required"); ?></div>
-                        </div>
                     </div>
                 </div>
                 <?php do_action('bp_before_create_group_content_template'); ?>
