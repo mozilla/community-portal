@@ -862,7 +862,7 @@ function mozilla_determine_field_visibility($field, $visibility_field, $communit
             }
 
             if($logged_in && $field === 'first_name') {
-                $dispaly = true;
+                $display = true;
             }
         }
     } else {

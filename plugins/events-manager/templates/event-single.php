@@ -227,7 +227,7 @@
         ?>
           <h2 class="title--secondary"><?php echo __('Attendees') ?></h2>
           <div class="row">
-            <?php
+          <?php
               $count = 0;
               foreach ($activeBookings as $booking) {
                 if ($booking->booking_status !== '3' && $count < 8) {
@@ -262,17 +262,17 @@
                 }
             ?>
             <div class="col-md-6 events-single__member-card">
-              <a href="<?php echo esc_attr(get_site_url().'/members/'.$community_fields['username'])?>")>
+            <a href="<?php echo esc_attr(get_site_url().'/members/'.$community_fields['username'])?>")>
               <div class="events-single__avatar<?php if(!$visibility_settings['image_url_visibility'] || !strlen($community_fields['image_url']) > 0) : ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['image_url_visibility'] && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $community_fields['username']; ?>">
-                </div>
-                    <div class="events-single__user-details"> 
+              </div>
+              <div class="events-single__user-details"> 
                       <p class="events-single__username"><?php echo __($community_fields['username']) ?></p>
                       <?php if (strlen($community_fields['first_name']) > 0 && strlen($community_fields['last_name'] > 0)): ?>
 
                         <p class="events-single__name">
-                          <?php if ($visibility_settings['first_name_visibility'] !== false): ?>
+                        <?php if ($visibility_settings['first_name_visibility'] !== false): ?>
                             <?php echo __($community_fields['first_name']); ?>
-                          <?endif; ?>
+                          <?php endif; ?>
                           <?php if ($visibility_settings['last_name_visibility'] !== false): ?>
                             <?php $community_fields['last_name']; ?>
                       <?php endif; ?>
@@ -304,6 +304,7 @@
               }
             }
           }
+          
           ?>
       </div>
         <?php } ?>

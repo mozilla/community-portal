@@ -24,6 +24,7 @@
 
     $members = get_users($args);
     $logged_in = mozilla_is_logged_in();
+
 ?>
 <div class="content">
     <div class="members">
@@ -74,14 +75,20 @@
 
                 foreach($fields AS $field) {
                     $field_visibility_name = "{$field}_visibility";
+                    if($field == 'image_url') {
+                        $field_visibility_name = 'profile_image_url_visibility';
+               
+                    }
                     $visibility = mozilla_determine_field_visibility($field, $field_visibility_name, $community_fields, $is_me, $logged_in);
                     $field_visibility_name = ($field === 'country') ? 'profile_location_visibility' : $field_visibility_name;
                     $visibility_settings[$field_visibility_name] = $visibility;
                 }
 
+                
+
             ?>
             <a href="/members/<?php print $member->data->user_nicename; ?>" class="members__member-card">
-                <div class="members__avatar<?php if(!$visibility_settings['image_url_visibility']): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['image_url_visibility'] && isset($community_fields['image_url'])): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $member->data->user_nicename; ?>">
+                <div class="members__avatar<?php if(!$visibility_settings['profile_image_url_visibility']): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url'])): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $member->data->user_nicename; ?>">
                 </div>
                 <div class="members__member-info">
                     <div class="members__username"><?php print $member->data->user_nicename; ?></div>
