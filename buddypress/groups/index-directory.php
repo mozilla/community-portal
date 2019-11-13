@@ -225,8 +225,6 @@
                                 <div class="groups__card-tags">
                                     <?php 
                                         $tag_counter = 0;
-
-                        
                                     ?>
                                     <?php foreach($meta['group_tags'] AS $key =>  $value): ?>
                                         <span class="groups__tag"><?php print $value; ?></span>
