@@ -440,6 +440,7 @@ function mozilla_create_group() {
                                 }
 
                                 if(isset($_POST['group_admin_id']) && $_POST['group_admin_id']) {
+                                    groups_join_group($group_id, intval($_POST['group_admin_id']));
                                     groups_promote_member(intval($_POST['group_admin_id']), $group_id, 'admin');
                                 }
 
@@ -872,7 +873,8 @@ function mozilla_determine_field_visibility($field, $visibility_field, $communit
         if($is_me) {
             $display = true;
         } else {
-            if(($logged_in && isset($community_fields[$visibility_field]) && $community_fields[$visibility_field] === PrivacySettings::REGISTERED_USERS) || $community_fields[$visibility_field] === PrivacySettings::PUBLIC_USERS) {
+            if(($logged_in && isset($community_fields[$visibility_field]) && intval($community_fields[$visibility_field]) === PrivacySettings::REGISTERED_USERS) || intval($community_fields[$visibility_field]) === PrivacySettings::PUBLIC_USERS) {
+
                 $display = true;
             } else {
                 $display = false;
