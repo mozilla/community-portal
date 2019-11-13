@@ -36,6 +36,7 @@ endif;
           <option value="online" <?php if ($location_type === 'online'): echo esc_attr('selected'); endif; ?> default ><?php echo __('Online') ?></option>
           <option value="address" <?php if ($location_type === 'address'): echo 'selected'; endif; ?>><?php echo __('Physical Location') ?></option>
         </select>
+        <input id="location-type-placeholder" type="hidden" name="location-type" value=<?php echo (isset($location_type) && strlen($location_type) >0 ? esc_attr($location_type) : null) ?>>
       </div>
       <div class="wide--double">
         <label class="event-creator__label" for="location-name" id="location-name-label"><?php _e ( 'Online Meeting Link', 'events-manager')?></label>

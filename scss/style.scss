@@ -17,6 +17,7 @@
 @import "create-group";
 @import "footer";
 @import "events";
+@import "event-single";
 @import "groups";
 @import "group";
 @import "members";
@@ -24,6 +25,7 @@
 @import "tags";
 @import "profile";
 @import "cards";
+@import "lightbox";
 
 * {
   box-sizing: border-box;
@@ -32,6 +34,10 @@
 html {
   font-family: "Open Sans", sans-serif;
   height: 100%;
+}
+
+body.noscroll {
+  overflow: hidden;
 }
 
 @supports (font-variation-settings: normal) {

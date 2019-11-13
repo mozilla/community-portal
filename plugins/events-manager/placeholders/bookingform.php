@@ -46,7 +46,7 @@ if( !$is_open && !is_user_logged_in() && $EM_Event->get_bookings()->is_open(true
     
   <?php if( is_object($EM_Booking) && !get_option('dbem_bookings_double') ): //Double bookings not allowed 
     ?>
-    <a class="em-bookings-cancel btn btn--submit btn--dark" href="<?php echo esc_attr(add_query_arg(array('cancel' => true), $_SERVER['REQUEST_URI']))?>" onclick="if( !confirm(EM.booking_warning_cancel) ){ return false; }">Cancel</a>
+    <a class="em-bookings-cancel events-single__cancel btn btn--submit btn--dark" href="<?php echo esc_attr(add_query_arg(array('cancel' => true), $_SERVER['REQUEST_URI']))?>" onclick="if( !confirm(EM.booking_warning_cancel) ){ return false; }">Cancel</a>
 	<?php else: ?>
 		<?php echo $EM_Notices; ?>
 		<?php if( $tickets_count > 0) : ?>
