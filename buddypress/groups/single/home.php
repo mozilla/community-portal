@@ -21,6 +21,7 @@
 
     $edit_group = bp_is_group_admin_page() && $is_admin;
     $template_dir = get_template_directory();
+    $is_events = false;
 
     $countries = Array(
         "AF" => "Afghanistan",
@@ -267,6 +268,17 @@
     if($edit_group) {
         include("{$template_dir}/buddypress/groups/single/edit.php");
     } else {
+        $url = $_SERVER['REQUEST_URI'];
+        $url_parts = array_filter(explode('/', $url));
+
+        if(sizeof($url_parts) === 3) {
+            if(strtolower($url_parts[3]) === 'events')  {
+                $is_events = true;
+            }
+        } else {
+            $is_events = false;
+        }
+
         include("{$template_dir}/buddypress/groups/single/group.php");
     }
 

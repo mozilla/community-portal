@@ -13,6 +13,9 @@
     $admins = groups_get_group_admins($group->id);   
     $admin_count = sizeof($admins);
 
+
+    $logged_in = mozilla_is_logged_in();
+
     $args = Array(
         'group_id'      =>  $group->id,
         'group_role'    =>  Array('member')
@@ -30,6 +33,7 @@
         default: 
             $verified = false;
     }
+
 ?>
     <div class="content">
         <div class="group">
@@ -77,7 +81,7 @@
                 <div class="group__nav">
                     <ul class="group__menu">
                     <li class="menu-item"><a class="group__menu-link<?php if(bp_is_group_home()): ?> group__menu-link--active<?php endif; ?>" href="/groups/<?php print $group->slug; ?>"><?php print __("About us"); ?></a></li>
-                        <li class="menu-item"><a class="group__menu-link" href=""><?php print __("Our Events"); ?></a></li>
+                        <li class="menu-item"><a class="group__menu-link<?php if($is_events): ?> group__menu-link--active<?php endif; ?>" href="/groups/<?php print $group->slug; ?>/events/"><?php print __("Our Events"); ?></a></li>
                     <li class="menu-item"><a class="group__menu-link<?php if(bp_is_group_members()): ?> group__menu-link--active<?php endif; ?>" href="/groups/<?php print $group->slug; ?>/members"><?php print __("Our Members"); ?></a></li>
                     </ul>
                 </div>
@@ -91,7 +95,7 @@
                         </svg>
                         <select class="group__nav-select">
                             <option value="/groups/<?php print $group->slug; ?>"<?php if(bp_is_group_home()): ?> selected<?php endif; ?>><?php print __("About us"); ?></option>
-                            <option value=""><?php print __("Our Events"); ?></option>
+                            <option value="/groups/<?php print $group->slug; ?>/events/"<?php if($is_events): ?> selected<?php endif; ?>><?php print __("Our Events"); ?></option>
                             <option value="/groups/<?php print $group->slug; ?>"<?php if(bp_is_group_members()): ?> selected<?php endif; ?>><?php print __("Our Members"); ?></option>
                         </select>
                     </div>
@@ -99,28 +103,53 @@
                 <section class="group__info">
                     <?php if(bp_is_group_members()): ?>
                     <div class="group__members-container">
-
                         <h2 class="group__card-title"><?php print __("Group Contacts")." ({$admin_count})"; ?></h2>
                         <div class="group__members">
                             <?php foreach($admins AS $admin): ?>
                             <?php 
                                 $a = get_user_by('ID', $admin->user_id);
-
-                                // Get Meta for visibility otions
+                                $visibility_settings = Array();
+                                $community_fields = Array();
+    
+                                $fields = Array(
+                                    'image_url',
+                                    'first_name',
+                                    'last_name'
+                                );
+              
+                                $is_me = $logged_in && intval($user->ID) === intval($admin->user_id);
                                 $meta = get_user_meta($a->ID);
+
+                                $community_fields = isset($meta['community-meta-fields'][0]) ? unserialize($meta['community-meta-fields'][0]) : Array();
+                                $community_fields['first_name'] = isset($meta['first_name'][0]) ? $meta['first_name'][0] : '';
+                                $community_fields['last_name'] = isset($meta['last_name'][0]) ? $meta['last_name'][0] : '';
+                                $community_fields['first_name_visibility'] = isset($meta['first_name_visibility'][0]) ? $meta['first_name_visibility'][0] : false;
+                                $community_fields['last_name_visibility'] = isset($meta['last_name_visibility'][0]) ? $meta['last_name_visibility'][0] : false;
+
+                                foreach($fields AS $field) {
+                                    $field_visibility_name = "{$field}_visibility";
+                                    if($field == 'image_url') {
+                                        $field_visibility_name = 'profile_image_url_visibility';
+    
+                                    }
+                                    $visibility = mozilla_determine_field_visibility($field, $field_visibility_name, $community_fields, $is_me, $logged_in);
+                                    $visibility_settings[$field_visibility_name] = $visibility;
+                                }
+                    
                             ?>
                             <a href="/members/<?php print $a->user_nicename; ?>" class="members__member-card">
-                                <div class="members__avatar">
+                                <div class="members__avatar<?php if(!$visibility_settings['profile_image_url_visibility']): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url'])): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $member->data->user_nicename; ?>">
 
                                 </div>
                                 <div class="members__member-info">
                                     <div class="members__username"><?php print $a->user_nicename; ?></div>
                                     <div class="members__name">
                                         <?php 
-                                            if($logged_in || PrivacySettings::PUBLIC_USERS) {
+                                           
+                                            if($visibility_settings['first_name_visibility']) {
                                                 print $meta['first_name'][0];
                                             }
-                                            if($logged_in && $meta['last_name_visibility'][0] === PrivacySettings::REGISTERED_USERS || PrivacySettings::PUBLIC_USERS) {
+                                            if($visibility_settings['last_name_visibility'] && $meta['last_name'][0]) {
                                                 print " {$meta['last_name'][0]}";
                                             }
                                         ?>
@@ -136,19 +165,47 @@
                             <?php
                                 // Get Meta for visibility otions
                                 $meta = get_user_meta($member->ID);
+                                $visibility_settings = Array();
+                                $community_fields = Array();
+    
+                                $fields = Array(
+                                    'image_url',
+                                    'first_name',
+                                    'last_name'
+                                );
+              
+                                $is_me = $logged_in && intval($user->ID) === intval($member->ID);
+
+                                $community_fields = isset($meta['community-meta-fields'][0]) ? unserialize($meta['community-meta-fields'][0]) : Array();
+                                $community_fields['first_name'] = isset($meta['first_name'][0]) ? $meta['first_name'][0] : '';
+                                $community_fields['last_name'] = isset($meta['last_name'][0]) ? $meta['last_name'][0] : '';
+                                $community_fields['first_name_visibility'] = isset($meta['first_name_visibility'][0]) ? $meta['first_name_visibility'][0] : false;
+                                $community_fields['last_name_visibility'] = isset($meta['last_name_visibility'][0]) ? $meta['last_name_visibility'][0] : false;
+
+                                foreach($fields AS $field) {
+                                    $field_visibility_name = "{$field}_visibility";
+                                    if($field == 'image_url') {
+                                        $field_visibility_name = 'profile_image_url_visibility';
+    
+                                    }
+                                    $visibility = mozilla_determine_field_visibility($field, $field_visibility_name, $community_fields, $is_me, $logged_in);
+                                    $visibility_settings[$field_visibility_name] = $visibility;
+                                }
+                    
+
                             ?>
                             <a href="/members/<?php print $member->user_nicename; ?>" class="members__member-card">
-                                <div class="members__avatar">
+                                <div class="members__avatar<?php if(!$visibility_settings['profile_image_url_visibility']): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url'])): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $member->data->user_nicename; ?>">
 
                                 </div>
                                 <div class="members__member-info">
                                     <div class="members__username"><?php print $member->user_nicename; ?></div>
                                     <div class="members__name">
                                         <?php 
-                                            if($logged_in || PrivacySettings::PUBLIC_USERS) {
+                                            if($visibility_settings['first_name_visibility']) {
                                                 print $meta['first_name'][0];
                                             }
-                                            if($logged_in && $meta['last_name_visibility'][0] === PrivacySettings::REGISTERED_USERS || PrivacySettings::PUBLIC_USERS) {
+                                            if($visibility_settings['last_name_visibility']) {
                                                 print " {$meta['last_name'][0]}";
                                             }
                                         ?>
@@ -157,6 +214,94 @@
                             </a>
                             <?php endforeach; ?>
                         </div>  
+                    </div>
+                    <?php elseif($is_events === true): ?>
+                    <?php 
+
+                        $args = Array('group'   =>  $group->id);      
+                        $events = EM_Events::get($args);                                            
+                    ?>
+                    <div class="row events__cards">
+                    <?php foreach($events AS $event): ?>
+                       
+                        <?php 
+                            $categories = $event->get_categories();
+                            $location = em_get_location($event->location_id);
+                            $site_url = get_site_url();
+                            $url = $site_url.'/events/'.$event->slug;  
+                        ?> 
+                            <div class="col-lg-4 col-md-6 events__column">
+                                <div class="event-card">
+                                    <a class="events__link" href="<?php echo $url?>">
+                                        <div class="event-card__image"
+                                            <?php 
+                                                $event_meta = get_post_meta($event->post_id, 'event-meta');
+                                                $img_url = $event_meta[0]->image_url;
+                                                if($img_url && $img_url !== ''):?>style="background-image: url(<?php echo $img_url ?>)"<?php endif; ?>
+                                        >
+                                            <?php 
+                                                $month = substr($event->start_date, 5, 2);
+                                                $date = substr($event->start_date, 8, 2);
+                                                $year = substr($event->start_date, 0, 4);
+                                            ?>
+                                            <p class="event-card__image__date"><span><?php echo __(substr($months[$month],0,3)) ?> </span><span><?php echo __($date) ?></span></p>
+                                        </div>
+                                        <div class="event-card__description">
+                                            <h3 class="event-card__description__title title--event-card"><?php echo $event->event_name; ?></h2>
+                                            <p><?php echo __($months[$month].' '.$date.', '.$year.' @ '.substr($event->event_start_time, 0, 5).' - '.substr($event->event_end_time, 0, 5).' '.$event->event_timezone); ?></p>
+                                            <div class="event-card__location">
+                                                <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                                <p class="text--light text--small">
+                                                    <?php
+                                                    if ($location->address) {
+                                                        echo __($location->address.' - '); 
+                                                    }
+                                                    if ($location->town) {
+                                                        echo __($location->town);
+                                                        if ($location->country) {
+                                                        echo __(', '.$allCountries[$location->country]);
+                                                        }
+                                                    } else {
+                                                        echo __($allCountries[$location->country]);
+                                                    }
+                                                    ?>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <ul class="events__tags">
+                                            <?php
+                                            if (is_array($categories->terms)): 
+                                                if (count($categories->terms) <= 2): 
+                                                foreach($categories->terms as $category) {
+                                            ?>
+                                                <li class="tag"><?php echo __($category->name); ?></li>
+                                            <?php
+                                            }
+                                            elseif (count($categories->terms) > 0):
+                                                $i = 0;
+                                                foreach ($categories->terms as $category) {
+                                                ?>
+                                                <li class="tag"><?php echo __($category->name) ?></li>
+                                                <?php
+                                                $i = $i + 1;
+                                                if ($i === 2) {
+                                                    break;
+                                                }
+                                                }
+                                                ?>
+                                                <li class="tag"><?php echo __('+'); echo count($categories->terms) - 2; echo __(' more tag(s)'); ?></li>        
+                                                <?php
+                                            endif;
+                                            endif;
+                                            ?>
+                                        </ul>
+                                    </a>
+                                </div>
+                            </div>
+                    <?php endforeach; ?>
                     </div>
                     <?php else: ?>
                     <div class="group__left-column">
@@ -316,29 +461,123 @@
                         <div class="group__card">
                             <div class="group__card-content group__card-content--small">
                                 <span><?php print __('Activity'); ?></span>
+                                <?php 
+                                    $args = Array(
+                                        'group'     => $group->id,
+                                        'scope'     => 'month',
+                                    );
+
+                                    $events = EM_Events::get($args);
+                                    $event_count = sizeof($events);
+                                ?>
                                 <div class="group__member-count-container">
-                                    <span class="group__member-count"><?php print $member_count; ?></span>
+                                    <span class="group__member-count"><?php print $event_count; ?></span>
+                                    Events this month
+                                </div>
+                                <div class="group__member-count-container">
+                                    <span class="group__member-count"><?php print $member_count + 1; ?></span>
                                     Members
                                 </div>
                             </div>
                         </div>
+                        <?php 
+                            $args = Array(
+                                'group'     => $group->id,
+                                'orderby'   => 'event_start_date',
+                                'order'     => 'DESC'
+                            );
+                            $events = EM_Events::get($args);
+                            $event = isset($events[0]) ? $events[0] : false;
+                            $event_time = strtotime($event->start_date);
+                            $event_date = date("M d", $event_time);
+
+                            $location = em_get_location($event->location_id);
+                        ?>
+                        <?php if($event): ?>
                         <div class="group__card">
                             <div class="group__card-content group__card-content--small">
                                 <span><?php print __('Related Events'); ?></span>
+                                <div class="group__event">
+                                    <div class="group__event-date">
+                                        <?php print $event_date; ?>
+                                    </div>
+                                    <div class="group__event-info">
+                                        <div class="group__event-title"><?php print $event->event_name; ?></div>
+                                        <div class="group__event-time">
+                                            <?php print date("M d, Y")." ∙ {$event->start_time}"; ?>
+                                        </div>
+                                        <div class="group__event-location">
+                                            <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                            <?php if($location->location_region && $location->location_country): ?>
+                                                <?php print "{$location->location_region}, {$countries[$location->location_country]}"; ?>
+                                            <?php elseif($location->location_region && !$location->location_country): ?>
+                                                <?php print "{$location->location_region}"; ?>
+                                            <?php elseif(!$location->location_region && $location->location_country): ?>
+                                                <?php print "{$countries[$location->location_country]}"; ?>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="/groups/<?php print $group->slug; ?>/events/" class="group__events-link">
+                                    <?php print __('View more events'); ?>
+                                    <svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </a>
                             </div>
                         </div>
+                        <?php endif; ?>
                         <div class="group__card">
                             <div class="group__card-content group__card-content--small">
                                 <span><?php print __('Group Admins'); ?></span> 
                                 <div class="group__admins">
                                     <?php foreach($admins AS $admin): ?>
                                     <?php
-                                        $user = get_userdata($admin->user_id);
+                                        $u = get_userdata($admin->user_id);
                                         
+                                        $meta = get_user_meta($admin->user_id);
+                                        $visibility_settings = Array();
+                                        $community_fields = Array();
+                          
+                                        $fields = Array(
+                                            'image_url',
+                                            'first_name',
+                                            'last_name'
+                                        );
+                      
+                                        $is_me = $logged_in && intval($user->ID) === intval($admin->user_id);
+        
+                                        $community_fields = isset($meta['community-meta-fields'][0]) ? unserialize($meta['community-meta-fields'][0]) : Array();
+                                        $community_fields['first_name'] = isset($meta['first_name'][0]) ? $meta['first_name'][0] : '';
+                                        $community_fields['last_name'] = isset($meta['last_name'][0]) ? $meta['last_name'][0] : '';
+                                        $community_fields['first_name_visibility'] = isset($meta['first_name_visibility'][0]) ? $meta['first_name_visibility'][0] : false;
+                                        $community_fields['last_name_visibility'] = isset($meta['last_name_visibility'][0]) ? $meta['last_name_visibility'][0] : false;
+                                        //print_r($community_fields);
+                                        foreach($fields AS $field) {
+                                            $field_visibility_name = "{$field}_visibility";
+                                            if($field == 'image_url') {
+                                                $field_visibility_name = 'profile_image_url_visibility';
+            
+                                            }
+                                            $visibility = mozilla_determine_field_visibility($field, $field_visibility_name, $community_fields, $is_me, $logged_in);
+                                            $visibility_settings[$field_visibility_name] = $visibility;
+                                        }
+                                
                                     ?>
                                     <div class="group__admin">
-                                        <div class="avatar"></div>
-                                        <span class="username"><?php print "@{$user->user_nicename}"; ?></span>
+                                        <div class="members__avatar<?php if(!$visibility_settings['profile_image_url_visibility']): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url'])): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $member->data->user_nicename; ?>">
+
+                                        </div>
+                                        <div class="username">
+                                            <div><?php print "@{$u->user_nicename}"; ?></div>
+                                            <div class="group__admin-name">
+                                                <?php if($visibility_settings['first_name_visibility']): print $community_fields['first_name'];?><?php endif; ?>
+                                                <?php if($visibility_settings['last_name_visibility']): print $community_fields['last_name']?><?php endif; ?>
+                                            </div>
+                                        </div>
                                     </div>
                                     <?php endforeach; ?>
                                 </div>

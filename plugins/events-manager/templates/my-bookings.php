@@ -4,10 +4,7 @@
     if( is_user_logged_in()):
       $user_id = get_current_user_id();
       $EM_Person = new EM_Person($user_id);
-      $bookingArgs = array(
-        'search' => 're',
-      );
-      $bookings = EM_Events::get($bookingArgs);
+      $bookings = EM_Events::get();
       $EM_Bookings = $EM_Person->get_bookings();
       function compareArrays($item, $bookings) {
         foreach($bookings as $booking) {
