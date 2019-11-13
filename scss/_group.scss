@@ -224,7 +224,7 @@
         border-radius: 4px;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         overflow: hidden;
-
+        
 
         &.group__card--community-link {
             height: 88px;
@@ -329,7 +329,10 @@
         padding: 32px;
 
         &--small {
-            padding: 16px; 
+            padding: 24px 24px 0 24px; 
+            @include desktop-and-up {
+                padding: 32px 32px 0 32px; 
+            }
         }
 
         span {
@@ -473,7 +476,12 @@
     &__tags {
         height: 100%;
         width: 100%;
-        margin-top: 44px;
+        margin-top: 16px;
+        margin-bottom: 24px;
+
+        @include desktop-and-up {
+            margin-bottom: 32px;
+        }
     }
 
     &__tag {
@@ -489,7 +497,13 @@
 
     &__admins {
         width: 100%;
-        margin-top: 32px;
+        margin-top: 24px;
+        margin-bottom: 24px;
+
+        @include desktop-and-up {
+            margin-top: 32px;
+            margin-bottom: 32px;
+        }
     }
 
     &__admin {
@@ -528,10 +542,19 @@
         flex-direction: row;
         justify-content: flex-start;
         align-items: center;
-        margin-top: 32px;
+        margin-top: 24px;
+        margin: 0 -24px;
+        padding: 24px 24px;
         border-top: 1px solid $color-gray-background;
-        margin: 0 -16px;
-        padding: 32px 16px;
+
+
+        @include desktop-and-up {
+            margin-top: 32px;
+            margin: 0 -32px;
+            padding: 32px 32px;
+        }
+
+
 
         &:first-of-type {
             border-top: none;
@@ -553,10 +576,14 @@
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
-        padding: 24px 16px;
+        padding: 24px 32px;
         border-top: 1px solid $color-gray-background;
         border-bottom: 1px solid $color-gray-background;
-        margin: 16px -16px;
+        margin: 24px -24px;
+
+        @include desktop-and-up {
+            margin: 32px -32px;
+        }
     }
  
     &__event-date {
@@ -590,6 +617,11 @@
         color: $color-blue-50;
         font-size: remCalc(16);
         line-height: 24px;
+        margin-bottom: 24px;
+        display: inline-block;
 
+        @include desktop-and-up {
+            margin-bottom: 32px;
+        }
     }
 }
