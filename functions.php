@@ -1013,4 +1013,7 @@ function mozilla_menu_class($classes, $item, $args) {
     return $classes;
 }
 
+
+remove_action('em_event_save','bp_em_group_event_save',1,2);
+
 ?>
