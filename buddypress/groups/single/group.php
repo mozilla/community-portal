@@ -490,14 +490,14 @@
                             $event = isset($events[0]) ? $events[0] : false;
                             $event_time = strtotime($event->start_date);
                             $event_date = date("M d", $event_time);
-
+           
                             $location = em_get_location($event->location_id);
                         ?>
                         <?php if($event): ?>
                         <div class="group__card">
                             <div class="group__card-content group__card-content--small">
                                 <span><?php print __('Related Events'); ?></span>
-                                <div class="group__event">
+                                <a class="group__event" href="/events/<?php print $event->event_slug; ?>"> 
                                     <div class="group__event-date">
                                         <?php print $event_date; ?>
                                     </div>
@@ -520,7 +520,7 @@
                                             <?php endif; ?>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                                 <a href="/groups/<?php print $group->slug; ?>/events/" class="group__events-link">
                                     <?php print __('View more events'); ?>
                                     <svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
