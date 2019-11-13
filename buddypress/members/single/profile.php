@@ -217,8 +217,9 @@
             $event_user = new EM_Person($user->ID);
             $events = $event_user->get_bookings();
             $events_attended_count = 0;
+
         ?>
-        <?php if($visibility_settings['profile_events_attended_visibility']): ?>
+        <?php if($visibility_settings['profile_events_attended_visibility'] && sizeof($events->bookings) > 0): ?>
         <h2 class="profile__heading"><?php print __("Latest Events Attended"); ?></h2>
         <div class="profile__card">
             <?php foreach($events AS $event_booking): ?>
@@ -273,7 +274,7 @@
             $events_organized_count = 0;
 
         ?>
-        <?php if($visibility_settings['profile_events_organized_visibility']): ?>
+        <?php if($visibility_settings['profile_events_organized_visibility'] && sizeof($events_organized) > 0): ?>
         <h2 class="profile__heading"><?php print __("Latest Events Organized"); ?></h2>
         <div class="profile__card">
             <?php foreach($events_organized AS $event): ?>
