@@ -1,0 +1,31 @@
+.btn {
+  -webkit-appearance: none;
+  border: none;
+  background: none;
+  &:hover {
+    cursor: pointer;
+  }
+  &--large {
+    width: 100%;
+    padding: 10px 0;
+    line-height: 22px;
+    font-weight: lighter;
+  }
+  &--light {
+    border: 1px solid $color-blue-50;
+    color: $color-blue-50;
+    border-radius: 28px;
+  }
+  &--dark {
+    border: 1px solid $color-blue-50;
+    background: $color-blue-50;
+    color: white;
+  }
+  &--submit {
+    padding: 15px 35px;
+    border-radius: 28px;
+  }
+  &--share {
+    padding: 9px 24px;
+  }
+}

@@ -1,3 +1,5 @@
+$columns: 12;
+
 // Screen Sizes
 $screen-mobile-min: 320px;
 $screen-tablet-min: 768px;
@@ -8,8 +10,12 @@ $container-max-width: 1018px;
 // Colours
 $color-black: #000000;
 $color-white: #fff;
-$color-blue-50: #0060df;
-$color-green-20: #b3ffe3;
+$color-blue-5:  #AAF2FF;
+$color-blue-30: #00B3F4;
+$color-blue-50: #0060DF;
+$color-green-20: #B3FFE3;
+$color-green-60: #2AC3A2;
+
 
 $light-blue: #f2fcfd;
 $error: #ff0039;
@@ -18,9 +24,17 @@ $color-gray-secondary: #737373;
 $color-gray-10: #f9f9fa;
 $color-gray-20: #ededf0;
 $color-gray-30: #cdcdd4;
+$color-gray-40: #B1B1BC;
 $color-gray-60: #7a7a8b;
 $color-gray-80: #42425a;
 $color-off-black: #20123a;
+$color-gray-background: #ededf0;
+
+$color-yellow-20: #ffffcc;
 
 $border-grey: $color-black;
 $search-font-color: #cecece;
+
+$secondary-font: "Open Sans", sans-serif;
+
+$main-font-family: "Zilla Slab", sans-serif;
