@@ -316,17 +316,75 @@
                         <div class="group__card">
                             <div class="group__card-content group__card-content--small">
                                 <span><?php print __('Activity'); ?></span>
+                                <?php 
+                                    $args = Array(
+                                        'group'     => $group->id,
+                                        'scope'     => 'month',
+                                    );
+
+                                    $events = EM_Events::get($args);
+                                    $event_count = sizeof($events);
+                                ?>
+                                <div class="group__member-count-container">
+                                    <span class="group__member-count"><?php print $event_count; ?></span>
+                                    Events this month
+                                </div>
                                 <div class="group__member-count-container">
                                     <span class="group__member-count"><?php print $member_count; ?></span>
                                     Members
                                 </div>
                             </div>
                         </div>
+                        <?php 
+                            $args = Array(
+                                'group'     => $group->id,
+                                'orderby'   => 'event_start_date',
+                                'order'     => 'DESC'
+                            );
+                            $events = EM_Events::get($args);
+                            $event = isset($events[0]) ? $events[0] : false;
+                            $event_time = strtotime($event->start_date);
+                            $event_date = date("M d", $event_time);
+
+                            $location = em_get_location($event->location_id);
+                        ?>
+                        <?php if($event): ?>
                         <div class="group__card">
                             <div class="group__card-content group__card-content--small">
                                 <span><?php print __('Related Events'); ?></span>
+                                <div class="group__event">
+                                    <div class="group__event-date">
+                                        <?php print $event_date; ?>
+                                    </div>
+                                    <div class="group__event-info">
+                                        <div class="group__event-title"><?php print $event->event_name; ?></div>
+                                        <div class="group__event-time">
+                                            <?php print date("M d, Y")." ∙ {$event->start_time}"; ?>
+                                        </div>
+                                        <div class="group__event-location">
+                                            <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                            <?php if($location->location_region && $location->location_country): ?>
+                                                <?php print "{$location->location_region}, {$countries[$location->location_country]}"; ?>
+                                            <?php elseif($location->location_region && !$location->location_country): ?>
+                                                <?php print "{$location->location_region}"; ?>
+                                            <?php elseif(!$location->location_region && $location->location_country): ?>
+                                                <?php print "{$countries[$location->location_country]}"; ?>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="/events/" class="group__events-link">
+                                    <?php print __('View more events'); ?>
+                                    <svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </a>
                             </div>
                         </div>
+                        <?php endif; ?>
                         <div class="group__card">
                             <div class="group__card-content group__card-content--small">
                                 <span><?php print __('Group Admins'); ?></span> 

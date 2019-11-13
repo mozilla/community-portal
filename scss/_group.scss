@@ -529,6 +529,13 @@
         justify-content: flex-start;
         align-items: center;
         margin-top: 32px;
+        border-top: 1px solid $color-gray-background;
+        margin: 0 -16px;
+        padding: 32px 16px;
+
+        &:first-of-type {
+            border-top: none;
+        }
     }
 
     span.group__member-count {
@@ -540,5 +547,49 @@
         &:after {
             display: none;
         }
+    }
+
+    &__event {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        padding: 24px 16px;
+        border-top: 1px solid $color-gray-background;
+        border-bottom: 1px solid $color-gray-background;
+        margin: 16px -16px;
+    }
+ 
+    &__event-date {
+        color: $color-blue-50;
+        font-size: remCalc(20);
+        line-height: 28px;
+        width: 36px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        margin-right: 24px;
+    }
+ 
+    &__event-title {
+        font-size: remCalc(16);
+        line-height: 24px;
+        margin-bottom: 8px;
+        font-weight: 600;
+    }
+ 
+    &__event-location,
+    &__event-time {
+        font-size: remCalc(14);
+        line-height: 20px;
+        color: $color-gray-secondary;
+        margin-bottom: 8px;
+    }
+
+    &__events-link {
+        color: $color-blue-50;
+        font-size: remCalc(16);
+        line-height: 24px;
+
     }
 }
