@@ -11,7 +11,7 @@ if (isset($event_id)):
   $event_meta = get_post_meta($EM_Event->post_id, 'event-meta');
   $external_url = $event_meta[0]->external_url;
   $event_campaign = $event_meta[0]->campaign;
-endif;
+  endif;
 //check that user can access this page
 if( is_object($EM_Event) && !$EM_Event->can_manage('edit_events','edit_others_events') ){
 	?>
