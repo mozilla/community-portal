@@ -411,7 +411,6 @@
                   <p class="events-single__username"><?php echo __($user->user_nicename) ?></p>
                 </a>
               </div>
-            </div>
           <?php
         }
       }
@@ -420,7 +419,8 @@
     <?php
       endif;
     ?>
-    </div>
+  </div>
+  </div>
   </div>
   <div class="col-sm-12">
     <div class="events-single__report">
@@ -589,5 +589,4 @@
     </div>
   </div>
 
-</div>
 </div>
