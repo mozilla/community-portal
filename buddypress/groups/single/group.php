@@ -306,8 +306,8 @@
                     <?php else: ?>
                     <div class="group__left-column">
                         <div class="group__card">
-                            <?php if(isset($group_meta['image_url']) && strlen($group_meta['image_url']) > 0): ?>
-                            <div class="group__card-image" style="background-image: url('<?php print $group_meta['image_url']; ?>');">
+                            <?php if(isset($group_meta['group_image_url']) && strlen($group_meta['group_image_url']) > 0): ?>
+                            <div class="group__card-image" style="background-image: url('<?php print $group_meta['group_image_url']; ?>');">
                                 <?php if($is_admin): ?>
                                 <a href="/groups/<?php print $group->slug; ?>/admin/edit-details/" class="group__edit-link">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
