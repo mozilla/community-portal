@@ -40,14 +40,17 @@ jQuery(function(){
 
   jQuery('.create-group__input, .create-group__textarea, .create-group__select').on('change keyup paste', function(e){
     var $this = jQuery(this);
-    if($this.val() != '' || $this.val() == '0') {
-        $this.removeClass('create-group__input--error');
-        $this.next('.form__error-container').removeClass('form__error-container--visible');
-    } else {
-        $this.addClass('create-group__input--error');
-        $this.next('.form__error-container').addClass('form__error-container--visible');
+
+    if($this.prop('required')) {
+        if($this.val() != '' || $this.val() == '0') {
+            $this.removeClass('create-group__input--error');
+            $this.next('.form__error-container').removeClass('form__error-container--visible');
+        } else {
+            $this.addClass('create-group__input--error');
+            $this.next('.form__error-container').addClass('form__error-container--visible');
+        }
+        e.stopPropagation();
     }
-    e.stopPropagation();
 
     return false;
   });
