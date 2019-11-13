@@ -217,9 +217,8 @@
             $event_user = new EM_Person($user->ID);
             $events = $event_user->get_bookings();
 
-            // print "<pre>";
-            // print_r($events);
-            // print "</pre>";
+
+          
         ?>
         <?php if($visibility_settings['profile_events_attended_visibility']): ?>
         <h2 class="profile__heading"><?php print __("Latest Events Attended"); ?></h2>
@@ -265,9 +264,14 @@
         <?php endif; ?>
 
         <?php 
-            $args = array('owner' => $user->ID, 'scope' => 'all');
+            $args = array('owner' => $user->ID, 'scope' => 'all', 'private_only' =>  true, 'pagination'  =>  false);
+            $private_events_organized = EM_Events::get($args);
+            $args = array('owner' => $user->ID, 'scope' => 'all', 'private' =>  false, 'pagination'  =>  false);
             $events_organized = EM_Events::get($args);
+            $events_organized = array_merge($events_organized, $private_events_organized);
+
             $events_organized_count = 0;
+
         ?>
         <?php if($visibility_settings['profile_events_organized_visibility']): ?>
         <h2 class="profile__heading"><?php print __("Latest Events Organized"); ?></h2>
