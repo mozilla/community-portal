@@ -33,6 +33,7 @@
         default: 
             $verified = false;
     }
+
 ?>
     <div class="content">
         <div class="group">
@@ -80,7 +81,7 @@
                 <div class="group__nav">
                     <ul class="group__menu">
                     <li class="menu-item"><a class="group__menu-link<?php if(bp_is_group_home()): ?> group__menu-link--active<?php endif; ?>" href="/groups/<?php print $group->slug; ?>"><?php print __("About us"); ?></a></li>
-                        <li class="menu-item"><a class="group__menu-link" href=""><?php print __("Our Events"); ?></a></li>
+                        <li class="menu-item"><a class="group__menu-link<?php if($is_events): ?> group__menu-link--active<?php endif; ?>" href="/groups/<?php print $group->slug; ?>/events/"><?php print __("Our Events"); ?></a></li>
                     <li class="menu-item"><a class="group__menu-link<?php if(bp_is_group_members()): ?> group__menu-link--active<?php endif; ?>" href="/groups/<?php print $group->slug; ?>/members"><?php print __("Our Members"); ?></a></li>
                     </ul>
                 </div>
@@ -94,7 +95,7 @@
                         </svg>
                         <select class="group__nav-select">
                             <option value="/groups/<?php print $group->slug; ?>"<?php if(bp_is_group_home()): ?> selected<?php endif; ?>><?php print __("About us"); ?></option>
-                            <option value=""><?php print __("Our Events"); ?></option>
+                            <option value="/groups/<?php print $group->slug; ?>/events/"<?php if($is_events): ?> selected<?php endif; ?>><?php print __("Our Events"); ?></option>
                             <option value="/groups/<?php print $group->slug; ?>"<?php if(bp_is_group_members()): ?> selected<?php endif; ?>><?php print __("Our Members"); ?></option>
                         </select>
                     </div>
@@ -213,6 +214,11 @@
                             </a>
                             <?php endforeach; ?>
                         </div>  
+                    </div>
+                    <?php elseif($is_events === true): ?>
+                    <div class="group__events">
+                                            EVENTS
+
                     </div>
                     <?php else: ?>
                     <div class="group__left-column">
