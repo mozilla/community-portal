@@ -14,22 +14,21 @@
         width: 100%;
         background-color: $color-green-20;
         height: 430px;
-        background-repeat: no-repeat;
         padding: 0 24px;
-        background-size: 450px auto;
-        background-position: bottom -210px center;
 
         @include tablet-and-up {
             padding: 0 64px;
-            background-position: right -100px center;
-            background-size: 65%, cover;
-            height: 387px;
+            height: 393px;
+            background-image: url("./images/mozilla-create-profile.png");
+            background-position: right -50px center;
+            background-size: contain;
+            background-repeat: no-repeat;
         }
         
         @include desktop-and-up {
-            background-position: right -40px center;
-            background-size: 50%, cover;
-            height: 421px;
+            height: 430px;
+            background-image: none;
+            padding: 0 106px;
         }
     }
 
@@ -61,17 +60,37 @@
 
     &__hero-container {
         @extend .container; 
-        max-width: 1018px;
+        max-width: 1228px;
         padding: 0;
         padding-top: 24px;
+        height: 100%;
 
         @include tablet-and-up {
-            padding-top: 48px;   
+            padding-top: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: left;
         }
 
         @include desktop-and-up {
-            padding-top: 90px;
+            background-repeat: no-repeat;
+            background-image: url("./images/mozilla-create-profile.png");
+            background-size: 600px;
+            background-position: right -160px bottom -40px;
+            min-width: 1018px;
         }
+    }
+
+    &__hero-link {
+        color: $color-black;
+        text-decoration: underline!important;
+    }
+
+    &__hero-content {
+        max-width: 1018px;
+        width: 100%;
+        margin: 0 auto;
     }
 
     &__container {
@@ -120,6 +139,10 @@
         line-height: 24px;
         margin: 0 auto;
         max-width: 270px;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
 
         @include tablet-and-up {
             font-size: remCalc(18);
@@ -130,14 +153,49 @@
 
         @include desktop-and-up {
             max-width: 595px;
+            span {
+                display: inline-block;
+                margin-left: 16px;
+            }
         }
 
         &.profile__hero-copy--small {
             font-size: remCalc(14);
             margin-top: 16px;
+            text-align: center;
+            max-width: none;
 
             @include tablet-and-up {
+                max-width: 300px;
                 margin-top: 24px;
+                text-align: left;
+            }
+        }
+
+        &.profile__hero-copy--green {
+            background-color: #B0EED7;
+            padding: 16px;
+            border-radius: 4px;
+            max-width: none;
+            font-size: remCalc(16);
+            line-height: 24px;
+
+            span {
+                text-align: left;
+            }
+
+            @include tablet-and-up {
+                max-width: 345px;
+            }
+
+
+            @include desktop-and-up {
+                max-width: 595px;
+            }
+
+            svg {
+                flex-shrink: 0;
+                margin-right: 10px;
             }
         }
     }
@@ -158,10 +216,14 @@
         margin-top: 32px;
 
         &.profile__form-container--first {
-            margin-top: 20px;
+            margin-top: -160px;
+
+            @include tablet-and-up { 
+                margin-top: -65px;
+            }
 
             @include desktop-and-up {
-                margin-top: -112px;
+                margin-top: -100px;
             }
         }
 
@@ -222,6 +284,10 @@
 
         @include tablet-and-up {
             padding: 0 64px;
+        }
+
+        @include desktop-and-up {
+            padding: 0 106px;
         }
     }
 
@@ -316,6 +382,8 @@
 
             &.select {
                 &.select--disabled {
+                    color: $color-gray-secondary;
+                    border-color: $color-gray-secondary;
                     background-color: $color-white;
                 }
             }

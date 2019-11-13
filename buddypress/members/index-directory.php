@@ -4,7 +4,7 @@
 
     $c = count_users();
 
-    $members_per_page = 21;
+    $members_per_page = 20;
     $total_pages = ceil($c['total_users'] / $members_per_page);
 
     $page = isset($_GET['page']) ? intval($_GET['page']) : 0;
@@ -27,7 +27,7 @@
 ?>
 <div class="content">
     <div class="members">
-        <div class="members__hero" style="background-image: url('<?php print get_stylesheet_directory_uri()."/images/mozilla-create-profile.png"; ?>');">
+        <div class="members__hero">
             <div class="members__hero-container">
                 <h1 class="members__title"><?php print __("People"); ?></h1>
                 <p class="members__hero-copy">
@@ -49,6 +49,7 @@
             </div>
         </div>
         <div class="members__container">
+            <div class="members__people-container">
             <?php if(sizeof($members) > 0): ?>
             <?php foreach($members AS $member): ?>
             <?php 
@@ -108,6 +109,7 @@
                 </div>
             </a>
             <?php endforeach; ?>
+            </div>
             <?php else: ?>
                 <h2 class="members__title--no-members-found">No members found</h2>
             <?php endif; ?>

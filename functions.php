@@ -357,7 +357,6 @@ function mozilla_create_group() {
             'group_name',
             'group_type',
             'group_desc',
-            'group_address',
             'my_nonce_field'
         );
 
@@ -375,6 +374,7 @@ function mozilla_create_group() {
             'group_city'
         );
 
+        
         // If we're posting data lets create a group
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
             if(isset($_POST['step']) && isset($_POST['my_nonce_field']) && wp_verify_nonce($_REQUEST['my_nonce_field'], 'protect_content')) {
@@ -401,6 +401,7 @@ function mozilla_create_group() {
                         }
   
                         $_SESSION['form'] = $_POST;
+                       
 
                         // Cleanup
                         if($error) {
@@ -452,11 +453,13 @@ function mozilla_create_group() {
                                 }
 
                                 $result = groups_update_groupmeta($group_id, 'meta', $meta);
-                                // Could not update group information so reset form
+                    
                                 if($result) {
                                     unset($_SESSION['form']);
                                     $_POST = Array();
                                     $_POST['step'] = 3;
+                                    $group = groups_get_group(Array('group_id' => $group_id ));
+                                    $_POST['group_slug'] = $group->slug;
                                 } else {
                                     groups_delete_group($group_id);
                                     $_POST['step'] = 0;
