@@ -13,6 +13,9 @@
     $admins = groups_get_group_admins($group->id);   
     $admin_count = sizeof($admins);
 
+
+    $logged_in = mozilla_is_logged_in();
+
     $args = Array(
         'group_id'      =>  $group->id,
         'group_role'    =>  Array('member')
@@ -99,28 +102,53 @@
                 <section class="group__info">
                     <?php if(bp_is_group_members()): ?>
                     <div class="group__members-container">
-
                         <h2 class="group__card-title"><?php print __("Group Contacts")." ({$admin_count})"; ?></h2>
                         <div class="group__members">
                             <?php foreach($admins AS $admin): ?>
                             <?php 
                                 $a = get_user_by('ID', $admin->user_id);
-
-                                // Get Meta for visibility otions
+                                $visibility_settings = Array();
+                                $community_fields = Array();
+    
+                                $fields = Array(
+                                    'image_url',
+                                    'first_name',
+                                    'last_name'
+                                );
+              
+                                $is_me = $logged_in && intval($user->ID) === intval($admin->user_id);
                                 $meta = get_user_meta($a->ID);
+
+                                $community_fields = isset($meta['community-meta-fields'][0]) ? unserialize($meta['community-meta-fields'][0]) : Array();
+                                $community_fields['first_name'] = isset($meta['first_name'][0]) ? $meta['first_name'][0] : '';
+                                $community_fields['last_name'] = isset($meta['last_name'][0]) ? $meta['last_name'][0] : '';
+                                $community_fields['first_name_visibility'] = isset($meta['first_name_visibility'][0]) ? $meta['first_name_visibility'][0] : false;
+                                $community_fields['last_name_visibility'] = isset($meta['last_name_visibility'][0]) ? $meta['last_name_visibility'][0] : false;
+
+                                foreach($fields AS $field) {
+                                    $field_visibility_name = "{$field}_visibility";
+                                    if($field == 'image_url') {
+                                        $field_visibility_name = 'profile_image_url_visibility';
+    
+                                    }
+                                    $visibility = mozilla_determine_field_visibility($field, $field_visibility_name, $community_fields, $is_me, $logged_in);
+                                    $visibility_settings[$field_visibility_name] = $visibility;
+                                }
+                    
                             ?>
                             <a href="/members/<?php print $a->user_nicename; ?>" class="members__member-card">
-                                <div class="members__avatar">
+                                <div class="members__avatar<?php if(!$visibility_settings['profile_image_url_visibility']): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url'])): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $member->data->user_nicename; ?>">
 
                                 </div>
                                 <div class="members__member-info">
                                     <div class="members__username"><?php print $a->user_nicename; ?></div>
                                     <div class="members__name">
                                         <?php 
-                                            if($logged_in || PrivacySettings::PUBLIC_USERS) {
+                                           
+                                            if($visibility_settings['first_name_visibility']) {
                                                 print $meta['first_name'][0];
                                             }
-                                            if($logged_in && $meta['last_name_visibility'][0] === PrivacySettings::REGISTERED_USERS || PrivacySettings::PUBLIC_USERS) {
+                                            if($visibility_settings['last_name_visibility'] && $meta['last_name'][0]) {
                                                 print " {$meta['last_name'][0]}";
                                             }
                                         ?>
@@ -136,6 +164,8 @@
                             <?php
                                 // Get Meta for visibility otions
                                 $meta = get_user_meta($member->ID);
+                                
+                                
                             ?>
                             <a href="/members/<?php print $member->user_nicename; ?>" class="members__member-card">
                                 <div class="members__avatar">
