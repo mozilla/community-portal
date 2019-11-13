@@ -345,6 +345,7 @@ function mozilla_init_scripts() {
     wp_enqueue_script('cleavejs', get_stylesheet_directory_uri()."/js/vendor/cleave.min.js", array());
     wp_enqueue_script('nav', get_stylesheet_directory_uri()."/js/nav.js", array('jquery'));
     wp_enqueue_script('profile', get_stylesheet_directory_uri()."/js/profile.js", array('jquery'));
+    
 
 }
 
@@ -877,6 +878,8 @@ function mozilla_save_event($post_id, $post, $update) {
     $event = new stdClass();
     $event->image_url = esc_url_raw($_POST['image_url']);
     $event->location_type = sanitize_text_field($_POST['location-type']);
+    $event->external_url = esc_url_raw($_POST['event_external_link']);
+    $event->campaign = sanitize_text_field($_POST['event_campaign']);
     update_post_meta($post_id, 'event-meta', $event);
   }
 }

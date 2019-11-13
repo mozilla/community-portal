@@ -1,0 +1,38 @@
+.lightbox {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 10;
+  &__container {
+    max-width: 810px;
+    width: 80%;
+    background: white;
+    padding: 24px;
+    position: relative;
+    @include tablet-and-up {
+      padding: 48px;
+    }
+    .row {
+      max-height: 60vh;
+      overflow: scroll;
+    }
+    p {
+      margin-top: 0;
+    }
+  }
+  .btn--close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 24px;
+  }
+  &-show {
+    display: flex;
+  }
+}

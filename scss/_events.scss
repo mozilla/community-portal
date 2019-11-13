@@ -319,6 +319,22 @@
       margin-top: 32px;
     }
   }
+  &__pagination {
+    display: flex;
+    justify-content: center;
+    a {
+      text-decoration: none;
+      padding: 0 12px;
+      display: inline-block;
+    }
+    .current::after {
+      content: "";
+      background-color: #000;
+      height: 1px;
+      width: 10px;
+      display: block;
+    }
+  }
 }
 
 .events__container + .footer,
