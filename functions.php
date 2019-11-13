@@ -35,7 +35,7 @@ add_action('auth0_user_login', 'mozilla_post_user_creation', 10, 6);
 
 // Filters
 add_filter('nav_menu_link_attributes', 'mozilla_add_menu_attrs', 10, 3);
-add_filter('nav_menu_css_class', 'mozilla_add_active_page' , 10 , 2);
+//add_filter('nav_menu_css_class', 'mozilla_add_active_page' , 10 , 2);
 
 // Events Action
 add_action('save_post', 'mozilla_save_event', 10, 3);
@@ -306,16 +306,6 @@ function mozilla_custom_menu() {
 function mozilla_add_menu_attrs($attrs, $item, $args) {
     $attrs['class'] = 'menu-item__link';
     return $attrs;
-}
-
-function mozilla_add_active_page($classes, $item) {
-
-    $pagename = strtolower(get_query_var('pagename'));  
-    if($pagename === strtolower($item->post_name)) {
-        $classes[] = 'menu-item--active';
-    }
-
-    return $classes;
 }
 
 function mozilla_init_admin_scripts() {
@@ -984,7 +974,9 @@ function mozilla_menu_class($classes, $item, $args) {
     $path_items = array_filter(explode('/', $_SERVER['REQUEST_URI']));
     $menu_url = strtolower(str_replace('/', '', $item->url));
 
+    
     if(sizeof($path_items) > 0) {
+        
         if(strtolower($path_items[1]) === $menu_url) {
             $item->current = true;
             $classes[] = 'menu-item--active';
