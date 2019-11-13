@@ -855,16 +855,15 @@ function mozilla_determine_field_visibility($field, $visibility_field, $communit
         if($is_me) {
             $display = true;
         } else {
-            if(($logged_in && isset($community_fields[$visibility_field]) && $community_fields[$visibility_field] === PrivacySettings::REGISTERED_USERS) || $community_fields[$visibility_field] === PrivacySettings::PUBLIC_USERS) {
-                $display = true;
-            } else {
-                $display = false;
-            }
-
-            if($logged_in && $field === 'first_name') {
-                $dispaly = true;
-            }
-        }
+          if(($logged_in && isset($community_fields[$visibility_field]) && intval($community_fields[$visibility_field]) === intval(PrivacySettings::REGISTERED_USERS)) || intval($community_fields[$visibility_field]) === intval(PrivacySettings::PUBLIC_USERS)) {
+            $display = true;
+          } else {
+            $display = false;
+          }
+          if($logged_in && $field === 'first_name') {
+            $display = true;
+          }
+      }
     } else {
         $display = false;
     }

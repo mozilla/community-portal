@@ -9,7 +9,6 @@
       );
       $bookings = EM_Events::get($bookingArgs);
       $EM_Bookings = $EM_Person->get_bookings();
-      var_dump(count($EM_Bookings->bookings));
       function compareArrays($item, $bookings) {
         foreach($bookings as $booking) {
           if ($booking->event_id === $item->event_id) {
@@ -18,7 +17,6 @@
         }
       }
       $matches = array_filter($EM_Bookings->bookings, function($item) use ($bookings) { return compareArrays($item, $bookings); });
-      var_dump($matches);
       $bookings_count = count($EM_Bookings->bookings);
       if($bookings_count > 0) {
 			  //Get events here in one query to speed things up
