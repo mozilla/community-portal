@@ -185,7 +185,7 @@
                     $group = new BP_Groups_Group($gid);
                     $group_meta = groups_get_groupmeta($gid, 'meta');
                 ?>
-                <h2 class="profile__group-title"><?php print $group->name; ?></h2>
+                <h2 class="profile__group-title"><?php print stripslashes($group->name); ?></h2>
                 <div class="profile__group-location">
                     <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
