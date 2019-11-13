@@ -473,12 +473,13 @@
         $meta = get_user_meta($userObject->ID);
         $logged_in = mozilla_is_logged_in();
         $is_me = $logged_in && intval($current_user) === intval($userObject->ID);
-
         
         $community_fields = isset($meta['community-meta-fields'][0]) ? unserialize($meta['community-meta-fields'][0]) : Array('f');
         $community_fields['username'] =  $userObject->user_nicename;
         $community_fields['first_name'] = isset($meta['first_name'][0]) ? $meta['first_name'][0] : '';
         $community_fields['last_name'] = isset($meta['last_name'][0]) ? $meta['last_name'][0] : '';
+        $community_fields['first_name_visibility'] = isset($meta['first_name_visibility'][0]) ? $meta['first_name_visibility'][0] : '';
+        $community_fields['last_name_visibility'] = isset($meta['last_name_visibility'][0]) ? $meta['last_name_visibility'][0] : '';
         $community_fields['country'] = isset($meta['country'][0]) ? $meta['country'][0] : '';
         $fields = Array(
           'username',

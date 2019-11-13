@@ -733,7 +733,6 @@ function mozilla_update_member() {
             }
 
             $error = false;
-
             foreach($required AS $field) {
                 if(isset($_POST[$field])) {
                     if($_POST[$field] === "" || $_POST[$field] === 0) {
@@ -851,7 +850,6 @@ function mozilla_determine_field_visibility($field, $visibility_field, $communit
         if($field === 'city' || $field === 'country') {
             $visibility_field = 'profile_location_visibility';
         }
-
         if($is_me) {
             $display = true;
         } else {
