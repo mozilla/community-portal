@@ -241,7 +241,8 @@
                   $community_fields['username'] =  $user->user_nicename;
                   $community_fields['first_name'] = isset($meta['first_name'][0]) ? $meta['first_name'][0] : '';
                   $community_fields['last_name'] = isset($meta['last_name'][0]) ? $meta['last_name'][0] : '';
-                  $community_fields['email'] = isset($meta['email'][0]) ? $meta['email'][0] : '';
+                  $community_fields['first_name_visibility'] = isset($meta['first_name_visibility'][0]) ? $meta['first_name_visibility'][0] : '';
+                  $community_fields['last_name_visibility'] = isset($meta['last_name_visibility'][0]) ? $meta['last_name_visibility'][0] : '';
                   $community_fields['city'] = isset($meta['city'][0]) ? $meta['city'][0] : '';
                   $community_fields['country'] = isset($meta['country'][0]) ? $meta['country'][0] : '';
                 $fields = Array(
@@ -267,19 +268,19 @@
               </div>
               <div class="events-single__user-details"> 
                       <p class="events-single__username"><?php echo __($community_fields['username']) ?></p>
-                      <?php if (strlen($community_fields['first_name']) > 0 && strlen($community_fields['last_name'] > 0)): ?>
+                      <?php if (strlen($community_fields['first_name']) > 0 && strlen($community_fields['last_name']) > 0): ?>
 
                         <p class="events-single__name">
                         <?php if ($visibility_settings['first_name_visibility'] !== false): ?>
                             <?php echo __($community_fields['first_name']); ?>
                           <?php endif; ?>
                           <?php if ($visibility_settings['last_name_visibility'] !== false): ?>
-                            <?php $community_fields['last_name']; ?>
+                            <?php echo __($community_fields['last_name']); ?>
                       <?php endif; ?>
                           </p>
                       <?php 
                         endif; 
-                        if (strlen($community_fields['country'] > 0) && $visibility_settings['profile_location_visibility'] !== false): 
+                        if (strlen($community_fields['country']) > 0 && $visibility_settings['profile_location_visibility'] !== false): 
                       ?>
                         <p class="events-single__country">
                           <?php echo __($allCountries[$community_fields['country']]); ?>
