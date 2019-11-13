@@ -18,7 +18,7 @@
 
     $args = Array(
         'group_id'      =>  $group->id,
-        'group_role'    =>  Array('member')
+     
     );
     
     $members = groups_get_group_members($args); 
@@ -137,8 +137,9 @@
                                 }
                     
                             ?>
+                    
                             <a href="/members/<?php print $a->user_nicename; ?>" class="members__member-card">
-                                <div class="members__avatar<?php if(!$visibility_settings['profile_image_url_visibility']): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url'])): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $member->data->user_nicename; ?>">
+                                <div class="members__avatar<?php if($visibility_settings['profile_image_url_visibility'] === false || !isset($community_fields['image_url']) || strlen($community_fields['image_url']) === 0): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $member->data->user_nicename; ?>">
 
                                 </div>
                                 <div class="members__member-info">
@@ -160,6 +161,8 @@
                         </div>
                         <h2 class="group__card-title"><?php print __("People")." ({$members['count']})"; ?></h2>
                         <div class="group__members">
+                      
+
                             <?php foreach($members['members'] AS $member): ?>
 
                             <?php
@@ -182,20 +185,19 @@
                                 $community_fields['first_name_visibility'] = isset($meta['first_name_visibility'][0]) ? $meta['first_name_visibility'][0] : false;
                                 $community_fields['last_name_visibility'] = isset($meta['last_name_visibility'][0]) ? $meta['last_name_visibility'][0] : false;
 
+     
                                 foreach($fields AS $field) {
                                     $field_visibility_name = "{$field}_visibility";
                                     if($field == 'image_url') {
                                         $field_visibility_name = 'profile_image_url_visibility';
-    
                                     }
                                     $visibility = mozilla_determine_field_visibility($field, $field_visibility_name, $community_fields, $is_me, $logged_in);
                                     $visibility_settings[$field_visibility_name] = $visibility;
                                 }
                     
-
                             ?>
                             <a href="/members/<?php print $member->user_nicename; ?>" class="members__member-card">
-                                <div class="members__avatar<?php if(!$visibility_settings['profile_image_url_visibility']): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url'])): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $member->data->user_nicename; ?>">
+                                <div class="members__avatar<?php if($visibility_settings['profile_image_url_visibility'] === false || !isset($community_fields['image_url']) || strlen($community_fields['image_url']) === 0): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $member->data->user_nicename; ?>">
 
                                 </div>
                                 <div class="members__member-info">
@@ -475,7 +477,7 @@
                                     Events this month
                                 </div>
                                 <div class="group__member-count-container">
-                                    <span class="group__member-count"><?php print $member_count + 1; ?></span>
+                                    <span class="group__member-count"><?php print $member_count; ?></span>
                                     Members
                                 </div>
                             </div>
@@ -568,7 +570,7 @@
                                 
                                     ?>
                                     <div class="group__admin">
-                                        <div class="members__avatar<?php if(!$visibility_settings['profile_image_url_visibility']): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url'])): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $member->data->user_nicename; ?>">
+                                        <div class="members__avatar<?php if($visibility_settings['profile_image_url_visibility'] === false || !isset($community_fields['image_url']) || strlen($community_fields['image_url']) === 0): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $member->data->user_nicename; ?>">
 
                                         </div>
                                         <div class="username">
