@@ -192,7 +192,7 @@
 
                     <a href="/groups/<?php print $group->slug; ?>" class="groups__card">
                         
-                        <div class="groups__group-image" style="background-image: url('<?php print (isset($meta['image_url']) && strlen($meta['image_url']) > 0) ? $meta['image_url'] : get_stylesheet_directory_uri().'/images/group.png'; ?>');">
+                        <div class="groups__group-image" style="background-image: url('<?php print (isset($meta['group_image_url']) && strlen($meta['group_image_url']) > 0) ? $meta['group_image_url'] : get_stylesheet_directory_uri().'/images/group.png'; ?>');">
                         </div>
                         <div class="groups__card-content">
                             <h2 class="groups__group-title"><?php print $group_name; ?></h2>
