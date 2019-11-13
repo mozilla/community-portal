@@ -508,16 +508,22 @@
 
     &__admin {
         display: flex;
+        align-items: center;
+        
         &:not(:first-of-type) {
             margin-top: 40px;
         }
 
-        .avatar {
+        .members__avatar {
             width: 64px;
             height: 64px;
             min-width: 64px;
             background-color: $color-gray-20;
-            border-radius: 50%;
+            border-radius: 50%!important;
+        }
+
+        .username {
+            margin-left: 8px;
         }
     }
 
@@ -623,5 +629,12 @@
         @include desktop-and-up {
             margin-bottom: 32px;
         }
+    }
+
+    &__admin-name {
+        font-size: remCalc(14)   ;
+        line-height: 20px;
+        color: $color-gray-secondary;
+        margin-top: 8px;
     }
 }
