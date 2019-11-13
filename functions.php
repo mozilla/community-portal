@@ -14,6 +14,8 @@ add_filter('nav_menu_css_class', 'mozilla_menu_class', 10, 4);
 add_action('wp_ajax_nopriv_upload_group_image', 'mozilla_upload_image');
 add_action('wp_ajax_upload_group_image', 'mozilla_upload_image');
 add_action('wp_ajax_join_group', 'mozilla_join_group');
+add_action('wp_ajax_nopriv_join_group', 'mozilla_join_group');
+
 add_action('wp_ajax_leave_group', 'mozilla_leave_group');
 add_action('wp_ajax_get_users', 'mozilla_get_users');
 add_action('wp_ajax_validate_email', 'mozilla_validate_email');
@@ -301,6 +303,15 @@ function remove_admin_login_header() {
 
 function mozilla_custom_menu() {
     register_nav_menu('mozilla-theme-menu', __('Mozilla Custom Theme Menu'));
+
+    $user = wp_get_current_user()->data;
+    // Not logged in
+    if(!isset($user->ID)) {
+        if(isset($_GET['redirect_to'])) {
+            setcookie("mozilla-redirect", $_GET['redirect_to'], 0, "/");
+        }
+    }
+
 }
 
 function mozilla_add_menu_attrs($attrs, $item, $args) {
@@ -615,9 +626,10 @@ function mozilla_get_users() {
 }
 
 function mozilla_join_group() {
-    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+   if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = wp_get_current_user();
-        if($user) {
+        
+        if($user->ID) {
             if(isset($_POST['group']) && $_POST['group']) {
                 $joined = groups_join_group(intval(trim($_POST['group'])), $user->ID);
                 if($joined) {
@@ -627,6 +639,10 @@ function mozilla_join_group() {
                 }
                 die();
             } 
+        } else {
+            setcookie('mozilla-redirect', $_SERVER['HTTP_REFERER'], 0, "/");
+            print json_encode(Array('status'    =>  'error', 'msg'  =>  'Not Logged In'));
+            die();
         }
     }
 
@@ -637,7 +653,7 @@ function mozilla_join_group() {
 function mozilla_leave_group() {
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = wp_get_current_user();
-        if($user) {
+        if($user->ID) {
             if(isset($_POST['group']) && $_POST['group']) {
                 $group = intval(trim($_POST['group']));
                 if(!groups_is_user_admin($user->ID, $group)) {
@@ -652,6 +668,9 @@ function mozilla_leave_group() {
                 }
                 die();
             }
+        } else {
+            print json_encode(Array('status'    =>  'error', 'msg'  =>  'Not Logged In'));
+            die();
         }
     }
 
@@ -662,10 +681,18 @@ function mozilla_leave_group() {
 function mozilla_post_user_creation($user_id, $userinfo, $is_new, $id_token, $access_token, $refresh_token ) {
     $meta = get_user_meta($user_id);
 
+
     if($is_new || !isset($meta['agree'][0]) || (isset($meta['agree'][0]) && $meta['agree'][0] != 'I Agree')) {
         $user = get_user_by('ID', $user_id);
         wp_redirect("/members/{$user->data->user_nicename}/profile/edit/group/1/");
         die();        
+    }
+
+    if(isset($_COOKIE['mozilla-redirect']) && strlen($_COOKIE['mozilla-redirect']) > 0) {
+        $redirect = $_COOKIE['mozilla-redirect'];
+        unset($_COOKIE['mozilla-redirect']);
+        wp_redirect($redirect);
+        die();
     }
 }
 

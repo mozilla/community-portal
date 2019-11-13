@@ -111,6 +111,42 @@ jQuery(function(){
         return true;
     }  
   });
+  
+  jQuery('.group__join-cta').click(function(e) {
+        e.preventDefault();
+        var $this = jQuery(this);
+        var group = $this.data('group');
+        var post = { 
+            'group': group
+        };
+
+        var url = $this.text() == 'Join Group' ? '/wp-admin/admin-ajax.php?action=join_group' : '/wp-admin/admin-ajax.php?action=leave_group'
+
+        jQuery.ajax({
+            url: url,
+            data: post,
+            method: 'POST',
+            success: function(response) {
+                response = jQuery.parseJSON(response);
+
+                if(response.status == 'success') {
+                    var memberCount = parseInt(jQuery('.group__member-count').text());
+                    if($this.text() == 'Join Group') {
+                        memberCount++;
+                        $this.text('Leave Group');
+                    } else {
+                        memberCount--;
+                        $this.text('Join Group');
+                    }     
+
+                    jQuery('.group__member-count').text(memberCount);
+                } else {
+                    if(response.status === 'error' && response.msg === 'Not Logged In') {
+                        window.location = '/login';
+                    }
+                }
+            }
+        });
 
   jQuery('input[name="group_type"]').change(function(e){
     var $this = $(this);
