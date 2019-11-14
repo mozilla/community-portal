@@ -584,6 +584,7 @@
                                 </div>
                             </div>
                         </div>
+                        <?php if(sizeof($group_meta['group_tags']) > 0): ?>
                         <div class="group__card">
                             <div class="group__card-content group__card-content--small">
                                 <span><?php print __('Tags'); ?></span>
@@ -594,6 +595,7 @@
                                 </div>
                             </div>
                         </div>
+                        <?php endif; ?>
                     </div>
                     <?php endif; ?>
                 </section>
