@@ -7,6 +7,7 @@
     "compile": "./node_modules/.bin/node-sass scss/style.scss -o ./ --importer ./node_modules/node-sass-import",
     "prefix": "postcss --use autoprefixer -b 'last 10 versions' style.css -o style.css",
     "build": "npm-run-all compile prefix",
+    "blocks": "./node_modules/.bin/babel ./blocks --out-dir ./dist",
     "watch": "./node_modules/.bin/nodemon -e scss -x \"npm run build\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
