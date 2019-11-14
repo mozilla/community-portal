@@ -179,7 +179,10 @@
     p.events-single__label {
       font-size: remCalc(14);
       color: $color-gray-secondary;
-      margin: 0 0 16px;
+    }
+    .events-single__host {
+      margin-top: 16px;
+      display: block;
     }
     @include tablet-and-up {
       padding: 0;
