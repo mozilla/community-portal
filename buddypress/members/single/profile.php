@@ -180,12 +180,12 @@
         <?php $group_count = 0; ?>
         <div class="profile__card">
             <?php foreach($groups['groups'] AS $gid): ?>
-            <div class="profile__group">
-                <?php
+            <?php
                     $group = new BP_Groups_Group($gid);
                     $group_meta = groups_get_groupmeta($gid, 'meta');
-                ?>
-                <h2 class="profile__group-title"><?php print stripslashes($group->name); ?></h2>
+            ?>
+            <a class="profile__group" href="/groups/<?php print $group->slug; ?>">
+                <h2 class="profile__group-title"><?php print str_replace('\\', '', stripslashes($group->name)); ?></h2>
                 <div class="profile__group-location">
                     <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -205,7 +205,7 @@
 
                     <?php print groups_get_total_member_count($gid);  ?> Members
                 </div>
-            </div>
+            </a>
             <?php $group_count++; ?>
             <?php if( $group_count > 0 && $group_count < $groups['total']): ?>
             <hr class="profile__group-line" />
@@ -230,7 +230,7 @@
 
                 $location = em_get_location($event->location_id);
             ?>
-           <div class="profile__event">
+           <a class="profile__event" href="/events/<?php print $event->slug; ?>">
                 <div class="profile__event-date">
                       <?php print $event_date; ?>
                 </div>
@@ -253,7 +253,7 @@
                         <?php endif; ?>
                     </div>
                 </div>
-            </div>
+                    </a>
             <?php 
                 $events_attended_count++;
             ?>
@@ -284,7 +284,7 @@
 
                 $location = em_get_location($event->location_id);
             ?>
-            <div class="profile__event">
+            <a class="profile__event" href="/events/<?php print $event->slug; ?>">
                 <div class="profile__event-date">
                       <?php print $event_date; ?>
                 </div>
@@ -307,7 +307,7 @@
                         <?php endif; ?>
                     </div>
                 </div>
-            </div>
+            </a>
             <?php 
                 $events_organized_count++;
             ?>
