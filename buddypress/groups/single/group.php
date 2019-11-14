@@ -37,7 +37,7 @@
     <div class="content">
         <div class="group">
             <div class="group__container">
-                <h1 class="group__title"><?php print __(stripslashes($group->name)); ?></h1>
+                <h1 class="group__title"><?php print __(str_replace('\\', '', stripslashes($group->name))); ?></h1>
                 <div class="group__details">
                     <?php if($verified): ?>
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
