@@ -62,6 +62,7 @@
   &__input {
     @extend .input;
     background-color: $color-gray-20 !important;
+    line-height: remCalc(20);
   }
   &__textarea {
     @extend .textarea;
