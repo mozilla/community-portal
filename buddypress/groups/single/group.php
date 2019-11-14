@@ -556,7 +556,7 @@
                                         $community_fields['last_name'] = isset($meta['last_name'][0]) ? $meta['last_name'][0] : '';
                                         $community_fields['first_name_visibility'] = isset($meta['first_name_visibility'][0]) ? $meta['first_name_visibility'][0] : false;
                                         $community_fields['last_name_visibility'] = isset($meta['last_name_visibility'][0]) ? $meta['last_name_visibility'][0] : false;
-                                        //print_r($community_fields);
+                                        
                                         foreach($fields AS $field) {
                                             $field_visibility_name = "{$field}_visibility";
                                             if($field == 'image_url') {
