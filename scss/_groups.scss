@@ -442,7 +442,8 @@
         overflow: hidden;
         width: 100%;
         flex-wrap: wrap;
-
+        transition: box-shadow 0.3s ease-in-out;
+        
         @include tablet-and-up {
             flex: 0 48%;
             margin-right: 4%;
@@ -467,8 +468,9 @@
             }
         }
 
-
-
+        &:hover {
+            box-shadow: 0 0 0 4px #d7d7db;
+        }
     }
 
     &__group-image {

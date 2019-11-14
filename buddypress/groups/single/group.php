@@ -13,7 +13,6 @@
     $admins = groups_get_group_admins($group->id);   
     $admin_count = sizeof($admins);
 
-
     $logged_in = mozilla_is_logged_in();
 
     $args = Array(
@@ -38,7 +37,7 @@
     <div class="content">
         <div class="group">
             <div class="group__container">
-                <h1 class="group__title"><?php print __($group->name); ?></h1>
+                <h1 class="group__title"><?php print __(stripslashes($group->name)); ?></h1>
                 <div class="group__details">
                     <?php if($verified): ?>
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -139,7 +138,7 @@
                             ?>
                     
                             <a href="/members/<?php print $a->user_nicename; ?>" class="members__member-card">
-                                <div class="members__avatar<?php if($visibility_settings['profile_image_url_visibility'] === false || !isset($community_fields['image_url']) || strlen($community_fields['image_url']) === 0): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $member->data->user_nicename; ?>">
+                                <div class="members__avatar<?php if($visibility_settings['profile_image_url_visibility'] === false || !isset($community_fields['image_url']) || strlen($community_fields['image_url']) === 0): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $a->user_nicename; ?>">
 
                                 </div>
                                 <div class="members__member-info">
@@ -197,7 +196,7 @@
                     
                             ?>
                             <a href="/members/<?php print $member->user_nicename; ?>" class="members__member-card">
-                                <div class="members__avatar<?php if($visibility_settings['profile_image_url_visibility'] === false || !isset($community_fields['image_url']) || strlen($community_fields['image_url']) === 0): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $member->data->user_nicename; ?>">
+                                <div class="members__avatar<?php if($visibility_settings['profile_image_url_visibility'] === false || !isset($community_fields['image_url']) || strlen($community_fields['image_url']) === 0): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $member->user_nicename; ?>">
 
                                 </div>
                                 <div class="members__member-info">
@@ -557,7 +556,7 @@
                                         $community_fields['last_name'] = isset($meta['last_name'][0]) ? $meta['last_name'][0] : '';
                                         $community_fields['first_name_visibility'] = isset($meta['first_name_visibility'][0]) ? $meta['first_name_visibility'][0] : false;
                                         $community_fields['last_name_visibility'] = isset($meta['last_name_visibility'][0]) ? $meta['last_name_visibility'][0] : false;
-                                        //print_r($community_fields);
+                                        
                                         foreach($fields AS $field) {
                                             $field_visibility_name = "{$field}_visibility";
                                             if($field == 'image_url') {
@@ -569,7 +568,7 @@
                                         }
                                 
                                     ?>
-                                    <div class="group__admin">
+                                    <a class="group__admin" href="/members/<?php print $u->user_nicename; ?>">
                                         <div class="members__avatar<?php if($visibility_settings['profile_image_url_visibility'] === false || !isset($community_fields['image_url']) || strlen($community_fields['image_url']) === 0): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $member->data->user_nicename; ?>">
 
                                         </div>
@@ -580,11 +579,12 @@
                                                 <?php if($visibility_settings['last_name_visibility']): print $community_fields['last_name']?><?php endif; ?>
                                             </div>
                                         </div>
-                                    </div>
+                                    </a>
                                     <?php endforeach; ?>
                                 </div>
                             </div>
                         </div>
+                        <?php if(sizeof($group_meta['group_tags']) > 0): ?>
                         <div class="group__card">
                             <div class="group__card-content group__card-content--small">
                                 <span><?php print __('Tags'); ?></span>
@@ -595,6 +595,7 @@
                                 </div>
                             </div>
                         </div>
+                        <?php endif; ?>
                     </div>
                     <?php endif; ?>
                 </section>

@@ -5,7 +5,7 @@
 add_action('get_header', 'remove_admin_login_header');
 
 // Native Wordpress Actions
-add_action('init', 'mozilla_custom_menu');
+add_action('init', 'mozilla_init');
 add_action('wp_enqueue_scripts', 'mozilla_init_scripts');
 add_action('admin_enqueue_scripts', 'mozilla_init_admin_scripts');
 add_filter('nav_menu_css_class', 'mozilla_menu_class', 10, 4);
@@ -15,7 +15,6 @@ add_action('wp_ajax_nopriv_upload_group_image', 'mozilla_upload_image');
 add_action('wp_ajax_upload_group_image', 'mozilla_upload_image');
 add_action('wp_ajax_join_group', 'mozilla_join_group');
 add_action('wp_ajax_nopriv_join_group', 'mozilla_join_group');
-
 add_action('wp_ajax_leave_group', 'mozilla_leave_group');
 add_action('wp_ajax_get_users', 'mozilla_get_users');
 add_action('wp_ajax_validate_email', 'mozilla_validate_email');
@@ -41,7 +40,6 @@ add_filter('nav_menu_link_attributes', 'mozilla_add_menu_attrs', 10, 3);
 
 // Events Action
 add_action('save_post', 'mozilla_save_event', 10, 3);
-
 
 
 // Include theme style.css file not in admin page
@@ -301,7 +299,7 @@ function remove_admin_login_header() {
 	remove_action('wp_head', '_admin_bar_bump_cb');
 }
 
-function mozilla_custom_menu() {
+function mozilla_init() {
     register_nav_menu('mozilla-theme-menu', __('Mozilla Custom Theme Menu'));
 
     $user = wp_get_current_user()->data;
@@ -390,15 +388,16 @@ function mozilla_create_group() {
                                 }
                             }
                             
-                            if(isset($_POST['group_type']) && trim(strtolower($_POST['group_type'])) == 'offline') {
-                                if(!isset($_POST['group_country']) || $_POST['group_country'] == '0')  {
-                                    $error = true;
-                                }
+                            // @todo: Lets revisit this logic 
+                            // if(isset($_POST['group_type']) && trim(strtolower($_POST['group_type'])) == 'offline') {
+                            //     if(!isset($_POST['group_country']) || $_POST['group_country'] == '0')  {
+                            //         $error = true;
+                            //     }
 
-                                if(!isset($_POST['group_city']) || $_POST['group_city'] === '') {
-                                    $error = true;
-                                }
-                            }
+                            //     if(!isset($_POST['group_city']) || $_POST['group_city'] === '') {
+                            //         $error = true;
+                            //     }
+                            // }
                         }
   
                         $_SESSION['form'] = $_POST;
@@ -751,7 +750,6 @@ function mozilla_update_member() {
             }
 
             $error = false;
-
             foreach($required AS $field) {
                 if(isset($_POST[$field])) {
                     if($_POST[$field] === "" || $_POST[$field] === 0) {
@@ -869,7 +867,6 @@ function mozilla_determine_field_visibility($field, $visibility_field, $communit
         if($field === 'city' || $field === 'country') {
             $visibility_field = 'profile_location_visibility';
         }
-
         if($is_me) {
             $display = true;
         } else {
@@ -1014,5 +1011,8 @@ function mozilla_menu_class($classes, $item, $args) {
 
     return $classes;
 }
+
+
+remove_action('em_event_save','bp_em_group_event_save',1,2);
 
 ?>

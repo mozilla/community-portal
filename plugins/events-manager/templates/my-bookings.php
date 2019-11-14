@@ -4,12 +4,9 @@
     if( is_user_logged_in()):
       $user_id = get_current_user_id();
       $EM_Person = new EM_Person($user_id);
-      $bookingArgs = array(
-        'search' => 're',
-      );
-      $bookings = EM_Events::get($bookingArgs);
-      $EM_Bookings = $EM_Person->get_bookings();
+      $bookings = EM_Events::get();
 
+      $EM_Bookings = $EM_Person->get_bookings();
       function compareArrays($item, $bookings) {
         foreach($bookings as $booking) {
           if ($booking->event_id === $item->event_id) {
@@ -18,7 +15,6 @@
         }
       }
       $matches = array_filter($EM_Bookings->bookings, function($item) use ($bookings) { return compareArrays($item, $bookings); });
-
       $bookings_count = count($EM_Bookings->bookings);
       if($bookings_count > 0) {
 			  //Get events here in one query to speed things up
