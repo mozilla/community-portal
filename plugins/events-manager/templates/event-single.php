@@ -62,6 +62,7 @@
       $users = get_current_user_id();
     }
   }
+  var_dump(get_post_meta($EM_Event->post_id));
 ?>
 
 <div class="content events__container events-single">
