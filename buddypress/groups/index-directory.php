@@ -192,10 +192,10 @@
 
                     <a href="/groups/<?php print $group->slug; ?>" class="groups__card">
                         
-                        <div class="groups__group-image" style="background-image: url('<?php print (isset($meta['image_url']) && strlen($meta['image_url']) > 0) ? $meta['image_url'] : get_stylesheet_directory_uri().'/images/group.png'; ?>');">
+                        <div class="groups__group-image" style="background-image: url('<?php print (isset($meta['group_image_url']) && strlen($meta['group_image_url']) > 0) ? $meta['group_image_url'] : get_stylesheet_directory_uri().'/images/group.png'; ?>');">
                         </div>
                         <div class="groups__card-content">
-                            <h2 class="groups__group-title"><?php print $group_name; ?></h2>
+                            <h2 class="groups__group-title"><?php print stripslashes($group_name); ?></h2>
                             
                                 <div class="groups__card-location">
                                     <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -223,8 +223,16 @@
                                 </div>
                             <div class="groups__card-info">
                                 <div class="groups__card-tags">
+                                    <?php 
+                                        $tag_counter = 0;
+                                    ?>
                                     <?php foreach($meta['group_tags'] AS $key =>  $value): ?>
                                         <span class="groups__tag"><?php print $value; ?></span>
+                                        <?php $tag_counter++; ?>
+                                        <?php if($tag_counter === 2 && sizeof($meta['group_tags']) > 2): ?>
+                                        <span class="groups__tag">+ <?php print sizeof($meta['group_tags']) - 2; ?> <?php print __(' more tags'); ?></span>
+                                        <?php break; ?>
+                                        <?php endif; ?>
                                     <?php endforeach; ?>
                                 </div>
                             </div>

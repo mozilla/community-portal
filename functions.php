@@ -5,7 +5,7 @@
 add_action('get_header', 'remove_admin_login_header');
 
 // Native Wordpress Actions
-add_action('init', 'mozilla_custom_menu');
+add_action('init', 'mozilla_init');
 add_action('wp_enqueue_scripts', 'mozilla_init_scripts');
 add_action('admin_enqueue_scripts', 'mozilla_init_admin_scripts');
 add_filter('nav_menu_css_class', 'mozilla_menu_class', 10, 4);
@@ -14,6 +14,7 @@ add_filter('nav_menu_css_class', 'mozilla_menu_class', 10, 4);
 add_action('wp_ajax_nopriv_upload_group_image', 'mozilla_upload_image');
 add_action('wp_ajax_upload_group_image', 'mozilla_upload_image');
 add_action('wp_ajax_join_group', 'mozilla_join_group');
+add_action('wp_ajax_nopriv_join_group', 'mozilla_join_group');
 add_action('wp_ajax_leave_group', 'mozilla_leave_group');
 add_action('wp_ajax_get_users', 'mozilla_get_users');
 add_action('wp_ajax_validate_email', 'mozilla_validate_email');
@@ -35,11 +36,10 @@ add_action('auth0_user_login', 'mozilla_post_user_creation', 10, 6);
 
 // Filters
 add_filter('nav_menu_link_attributes', 'mozilla_add_menu_attrs', 10, 3);
-add_filter('nav_menu_css_class', 'mozilla_add_active_page' , 10 , 2);
+//add_filter('nav_menu_css_class', 'mozilla_add_active_page' , 10 , 2);
 
 // Events Action
 add_action('save_post', 'mozilla_save_event', 10, 3);
-
 
 
 // Include theme style.css file not in admin page
@@ -299,23 +299,22 @@ function remove_admin_login_header() {
 	remove_action('wp_head', '_admin_bar_bump_cb');
 }
 
-function mozilla_custom_menu() {
+function mozilla_init() {
     register_nav_menu('mozilla-theme-menu', __('Mozilla Custom Theme Menu'));
+
+    $user = wp_get_current_user()->data;
+    // Not logged in
+    if(!isset($user->ID)) {
+        if(isset($_GET['redirect_to'])) {
+            setcookie("mozilla-redirect", $_GET['redirect_to'], 0, "/");
+        }
+    }
+
 }
 
 function mozilla_add_menu_attrs($attrs, $item, $args) {
     $attrs['class'] = 'menu-item__link';
     return $attrs;
-}
-
-function mozilla_add_active_page($classes, $item) {
-
-    $pagename = strtolower(get_query_var('pagename'));  
-    if($pagename === strtolower($item->post_name)) {
-        $classes[] = 'menu-item--active';
-    }
-
-    return $classes;
 }
 
 function mozilla_init_admin_scripts() {
@@ -439,6 +438,7 @@ function mozilla_create_group() {
                                 }
 
                                 if(isset($_POST['group_admin_id']) && $_POST['group_admin_id']) {
+                                    groups_join_group($group_id, intval($_POST['group_admin_id']));
                                     groups_promote_member(intval($_POST['group_admin_id']), $group_id, 'admin');
                                 }
 
@@ -615,9 +615,10 @@ function mozilla_get_users() {
 }
 
 function mozilla_join_group() {
-    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+   if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = wp_get_current_user();
-        if($user) {
+        
+        if($user->ID) {
             if(isset($_POST['group']) && $_POST['group']) {
                 $joined = groups_join_group(intval(trim($_POST['group'])), $user->ID);
                 if($joined) {
@@ -627,6 +628,10 @@ function mozilla_join_group() {
                 }
                 die();
             } 
+        } else {
+            setcookie('mozilla-redirect', $_SERVER['HTTP_REFERER'], 0, "/");
+            print json_encode(Array('status'    =>  'error', 'msg'  =>  'Not Logged In'));
+            die();
         }
     }
 
@@ -637,7 +642,7 @@ function mozilla_join_group() {
 function mozilla_leave_group() {
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = wp_get_current_user();
-        if($user) {
+        if($user->ID) {
             if(isset($_POST['group']) && $_POST['group']) {
                 $group = intval(trim($_POST['group']));
                 if(!groups_is_user_admin($user->ID, $group)) {
@@ -652,6 +657,9 @@ function mozilla_leave_group() {
                 }
                 die();
             }
+        } else {
+            print json_encode(Array('status'    =>  'error', 'msg'  =>  'Not Logged In'));
+            die();
         }
     }
 
@@ -662,10 +670,18 @@ function mozilla_leave_group() {
 function mozilla_post_user_creation($user_id, $userinfo, $is_new, $id_token, $access_token, $refresh_token ) {
     $meta = get_user_meta($user_id);
 
+
     if($is_new || !isset($meta['agree'][0]) || (isset($meta['agree'][0]) && $meta['agree'][0] != 'I Agree')) {
         $user = get_user_by('ID', $user_id);
         wp_redirect("/members/{$user->data->user_nicename}/profile/edit/group/1/");
         die();        
+    }
+
+    if(isset($_COOKIE['mozilla-redirect']) && strlen($_COOKIE['mozilla-redirect']) > 0) {
+        $redirect = $_COOKIE['mozilla-redirect'];
+        unset($_COOKIE['mozilla-redirect']);
+        wp_redirect($redirect);
+        die();
     }
 }
 
@@ -733,7 +749,6 @@ function mozilla_update_member() {
             }
 
             $error = false;
-
             foreach($required AS $field) {
                 if(isset($_POST[$field])) {
                     if($_POST[$field] === "" || $_POST[$field] === 0) {
@@ -851,11 +866,11 @@ function mozilla_determine_field_visibility($field, $visibility_field, $communit
         if($field === 'city' || $field === 'country') {
             $visibility_field = 'profile_location_visibility';
         }
-
         if($is_me) {
             $display = true;
         } else {
-            if(($logged_in && isset($community_fields[$visibility_field]) && $community_fields[$visibility_field] === PrivacySettings::REGISTERED_USERS) || $community_fields[$visibility_field] === PrivacySettings::PUBLIC_USERS) {
+            if(($logged_in && isset($community_fields[$visibility_field]) && intval($community_fields[$visibility_field]) === PrivacySettings::REGISTERED_USERS) || intval($community_fields[$visibility_field]) === PrivacySettings::PUBLIC_USERS) {
+
                 $display = true;
             } else {
                 $display = false;
@@ -984,7 +999,9 @@ function mozilla_menu_class($classes, $item, $args) {
     $path_items = array_filter(explode('/', $_SERVER['REQUEST_URI']));
     $menu_url = strtolower(str_replace('/', '', $item->url));
 
+    
     if(sizeof($path_items) > 0) {
+        
         if(strtolower($path_items[1]) === $menu_url) {
             $item->current = true;
             $classes[] = 'menu-item--active';
@@ -993,5 +1010,8 @@ function mozilla_menu_class($classes, $item, $args) {
 
     return $classes;
 }
+
+
+remove_action('em_event_save','bp_em_group_event_save',1,2);
 
 ?>

@@ -13,12 +13,11 @@
     $admins = groups_get_group_admins($group->id);   
     $admin_count = sizeof($admins);
 
-
     $logged_in = mozilla_is_logged_in();
 
     $args = Array(
         'group_id'      =>  $group->id,
-        'group_role'    =>  Array('member')
+     
     );
     
     $members = groups_get_group_members($args); 
@@ -38,7 +37,7 @@
     <div class="content">
         <div class="group">
             <div class="group__container">
-                <h1 class="group__title"><?php print __($group->name); ?></h1>
+                <h1 class="group__title"><?php print __(stripslashes($group->name)); ?></h1>
                 <div class="group__details">
                     <?php if($verified): ?>
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -137,8 +136,9 @@
                                 }
                     
                             ?>
+                    
                             <a href="/members/<?php print $a->user_nicename; ?>" class="members__member-card">
-                                <div class="members__avatar<?php if(!$visibility_settings['profile_image_url_visibility']): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url'])): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $member->data->user_nicename; ?>">
+                                <div class="members__avatar<?php if($visibility_settings['profile_image_url_visibility'] === false || !isset($community_fields['image_url']) || strlen($community_fields['image_url']) === 0): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $a->user_nicename; ?>">
 
                                 </div>
                                 <div class="members__member-info">
@@ -160,6 +160,8 @@
                         </div>
                         <h2 class="group__card-title"><?php print __("People")." ({$members['count']})"; ?></h2>
                         <div class="group__members">
+                      
+
                             <?php foreach($members['members'] AS $member): ?>
 
                             <?php
@@ -182,20 +184,19 @@
                                 $community_fields['first_name_visibility'] = isset($meta['first_name_visibility'][0]) ? $meta['first_name_visibility'][0] : false;
                                 $community_fields['last_name_visibility'] = isset($meta['last_name_visibility'][0]) ? $meta['last_name_visibility'][0] : false;
 
+     
                                 foreach($fields AS $field) {
                                     $field_visibility_name = "{$field}_visibility";
                                     if($field == 'image_url') {
                                         $field_visibility_name = 'profile_image_url_visibility';
-    
                                     }
                                     $visibility = mozilla_determine_field_visibility($field, $field_visibility_name, $community_fields, $is_me, $logged_in);
                                     $visibility_settings[$field_visibility_name] = $visibility;
                                 }
                     
-
                             ?>
                             <a href="/members/<?php print $member->user_nicename; ?>" class="members__member-card">
-                                <div class="members__avatar<?php if(!$visibility_settings['profile_image_url_visibility']): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url'])): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $member->data->user_nicename; ?>">
+                                <div class="members__avatar<?php if($visibility_settings['profile_image_url_visibility'] === false || !isset($community_fields['image_url']) || strlen($community_fields['image_url']) === 0): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $member->user_nicename; ?>">
 
                                 </div>
                                 <div class="members__member-info">
@@ -306,10 +307,10 @@
                     <?php else: ?>
                     <div class="group__left-column">
                         <div class="group__card">
-                            <?php if(isset($group_meta['image_url']) && strlen($group_meta['image_url']) > 0): ?>
-                            <div class="group__card-image" style="background-image: url('<?php print $group_meta['image_url']; ?>');">
+                            <?php if(isset($group_meta['group_image_url']) && strlen($group_meta['group_image_url']) > 0): ?>
+                            <div class="group__card-image" style="background-image: url('<?php print $group_meta['group_image_url']; ?>');">
                                 <?php if($is_admin): ?>
-                                <a href="#" class="group__edit-link">
+                                <a href="/groups/<?php print $group->slug; ?>/admin/edit-details/" class="group__edit-link">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M23.64 6.36L17.64 0.36C17.16 -0.12 16.44 -0.12 15.96 0.36L0.36 15.96C0.12 16.2 0 16.44 0 16.8V22.8C0 23.52 0.48 24 1.2 24H7.2C7.56 24 7.8 23.88 8.04 23.64L23.64 8.04C24.12 7.56 24.12 6.84 23.64 6.36ZM6.72 21.6H2.4V17.28L16.8 2.88L21.12 7.2L6.72 21.6Z" fill="#0060DF"/>
                                     </svg>
@@ -319,7 +320,7 @@
                             <?php else: ?>
                             <div class="group__card-no-image">
                                 <?php if($is_admin): ?>
-                                <a href="" class="group__edit-link">
+                                <a href="/groups/<?php print $group->slug; ?>/admin/edit-details/" class="group__edit-link">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M23.64 6.36L17.64 0.36C17.16 -0.12 16.44 -0.12 15.96 0.36L0.36 15.96C0.12 16.2 0 16.44 0 16.8V22.8C0 23.52 0.48 24 1.2 24H7.2C7.56 24 7.8 23.88 8.04 23.64L23.64 8.04C24.12 7.56 24.12 6.84 23.64 6.36ZM6.72 21.6H2.4V17.28L16.8 2.88L21.12 7.2L6.72 21.6Z" fill="#0060DF"/>
                                     </svg>
@@ -490,14 +491,14 @@
                             $event = isset($events[0]) ? $events[0] : false;
                             $event_time = strtotime($event->start_date);
                             $event_date = date("M d", $event_time);
-
+           
                             $location = em_get_location($event->location_id);
                         ?>
                         <?php if($event): ?>
                         <div class="group__card">
                             <div class="group__card-content group__card-content--small">
                                 <span><?php print __('Related Events'); ?></span>
-                                <div class="group__event">
+                                <a class="group__event" href="/events/<?php print $event->event_slug; ?>"> 
                                     <div class="group__event-date">
                                         <?php print $event_date; ?>
                                     </div>
@@ -520,8 +521,8 @@
                                             <?php endif; ?>
                                         </div>
                                     </div>
-                                </div>
-                                <a href="/events/" class="group__events-link">
+                                </a>
+                                <a href="/groups/<?php print $group->slug; ?>/events/" class="group__events-link">
                                     <?php print __('View more events'); ?>
                                     <svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -555,7 +556,7 @@
                                         $community_fields['last_name'] = isset($meta['last_name'][0]) ? $meta['last_name'][0] : '';
                                         $community_fields['first_name_visibility'] = isset($meta['first_name_visibility'][0]) ? $meta['first_name_visibility'][0] : false;
                                         $community_fields['last_name_visibility'] = isset($meta['last_name_visibility'][0]) ? $meta['last_name_visibility'][0] : false;
-                                        //print_r($community_fields);
+                                        
                                         foreach($fields AS $field) {
                                             $field_visibility_name = "{$field}_visibility";
                                             if($field == 'image_url') {
@@ -568,7 +569,7 @@
                                 
                                     ?>
                                     <div class="group__admin">
-                                        <div class="members__avatar<?php if(!$visibility_settings['profile_image_url_visibility']): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url'])): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $member->data->user_nicename; ?>">
+                                        <div class="members__avatar<?php if($visibility_settings['profile_image_url_visibility'] === false || !isset($community_fields['image_url']) || strlen($community_fields['image_url']) === 0): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $member->data->user_nicename; ?>">
 
                                         </div>
                                         <div class="username">

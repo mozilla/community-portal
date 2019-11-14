@@ -237,7 +237,11 @@
         align-items: center;
         margin-bottom: 32px;
         text-decoration: none;
+        transition: box-shadow 0.3s ease-in-out;
 
+        &:hover {
+            box-shadow: 0 0 0 4px #d7d7db;
+        }
 
         @include tablet-and-up {
             width: 48%;
@@ -259,7 +263,7 @@
         height: 80px;
         background-color: $color-gray-20;
         overflow: hidden;
-        border-radius: 50%;
+        border-radius: 50%!important;
         background-size: cover;
     }
 
