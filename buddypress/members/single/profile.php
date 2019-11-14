@@ -319,17 +319,23 @@
         <?php endif; ?>
     </section>
     <section class="profile__section profile__section--right">
-        <?php if($visibility_settings['profile_telegram_visibility']
+        <?php if(($visibility_settings['profile_telegram_visibility']
         || $visibility_settings['profile_facebook_visibility']
         || $visibility_settings['profile_twitter_visibility']
         || $visibility_settings['profile_linkedin_visibility']
         || $visibility_settings['profile_discourse_visibility']
-        || $visibility_settings['profile_github_visibility']
-        ): ?>
+        || $visibility_settings['profile_github_visibility'])
+        && (isset($community_fields['telegram']) && strlen($community_fields['telegram'])
+        || isset($community_fields['facebook']) && strlen($community_fields['facebook'])
+        || isset($community_fields['twitter']) && strlen($community_fields['twitter'])
+        || isset($community_fields['linkedin']) && strlen($community_fields['linkedin'])
+        || isset($community_fields['discourse']) && strlen($community_fields['discourse'])
+        || isset($community_fields['github']) && strlen($community_fields['github'])
+        )): ?>
         <div class="profile__social-card">
             <?php print __("Social Handles"); ?>
             <div class="profile__social-container">
-                <?php if(isset($community_fields['telegram']) && strlen($community_fields['telegram']) > 0 && $visibility_settings['profile_telegram_visibility']): ?>
+                <?php if(isset($community_fields['telegram']) && strlen($community_fields['telegram']) > 0 && $visibility_settings['profile_telegram_visibility'] !== false): ?>
                 <a href="<?php print $community_fields['telegram']; ?>" class="profile__social-link">
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>

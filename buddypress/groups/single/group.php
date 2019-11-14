@@ -13,7 +13,6 @@
     $admins = groups_get_group_admins($group->id);   
     $admin_count = sizeof($admins);
 
-
     $logged_in = mozilla_is_logged_in();
 
     $args = Array(
