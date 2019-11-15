@@ -209,7 +209,6 @@ jQuery(function() {
                 const $label = jQuery(`label[for=${input_id}]`);
                 const $parent = $label.parent();
                 toggleError($parent);
-                //$label.addClass("event-creator__error-text");
                 $this.addClass("event-creator__error");
                 $allClear = false;
             }
@@ -316,7 +315,6 @@ jQuery(function() {
         const $locationTypePlaceholder = jQuery('#location-type-placeholder');
         const $locationAddress = jQuery('#location-address');
         const $locationTypeValue = $locationType.val();
-        console.log($locationType);
         if ($editBtn) {
             handleAutocomplete(
                 $editContainer,
