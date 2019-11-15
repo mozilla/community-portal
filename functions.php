@@ -920,29 +920,16 @@ function mozilla_determine_field_visibility($field, $visibility_field, $communit
 
 function mozilla_save_event($post_id, $post, $update) {
   if ($post->post_type === 'event') {
-    var_dump($_POST);
     $event = new stdClass();
     $event->image_url = esc_url_raw($_POST['image_url']);
     $event->location_type = sanitize_text_field($_POST['location-type']);
     $event->external_url = esc_url_raw($_POST['event_external_link']);
     $event->campaign = sanitize_text_field($_POST['event_campaign']);
-    update_post_meta($post_id, 'event-meta', $event);
-    add_action('em_location_save', 
-      function() use ($event) { mozilla_update_location_data($event); });
-    do_action('em_location_save');
+    update_post_meta($post_id, 'event-meta', $event);  
   }
 }
 
 add_action('save_post', 'mozilla_save_event', 10, 3);
-
-function mozilla_update_location_data($id) {
-  // $location = em_get_location($event->location_id);
-  var_dump($_POST);
-  $location = em_get_location($_POST['location_id']);
-  update_post_meta($location->post_id, 'location-type', $event->location_type);
-  var_dump(get_post_meta($location->post_id));
-  die();
-}
 
 function mozilla_match_categories() {
   $cat_terms = get_terms(EM_TAXONOMY_CATEGORY, array('hide_empty'=>false));

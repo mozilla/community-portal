@@ -2,11 +2,6 @@
 global $EM_Event;
 $required = apply_filters('em_required_html','<i>*</i>');
 $event = $_REQUEST['event_id'];
-if ($event):
-  $event = em_get_event($event); 
-  $event_meta = get_post_meta($event->post_id, 'event-meta');
-  $location_type = $event_meta[0]->location_type;
-endif;
 ?>
 <div id="em-location-data" class="em-location-data">
   <div>
@@ -22,21 +17,19 @@ endif;
 		<?php 
 			global $EM_Location;
 			if( $EM_Event->location_id !== 0 ){
-				$EM_Location = $EM_Event->get_location();
-			}elseif(get_option('dbem_default_location') > 0){
-				$EM_Location = em_get_location(get_option('dbem_default_location'));
-			}else{
+        $EM_Location = $EM_Event->get_location();
+      }else{
 				$EM_Location = new EM_Location();
 			}
     ?>
     <div class="event-creator__three-up">
       <div class="wide <?php echo ($event) ? esc_attr("wide--md-third") : null ?>">
         <label class="event-creator__label" for="online"><?php echo __('Where will this event be held?') ?></label>
-        <select class="event-creator__dropdown" name="location-type" id="location-type" <?php echo ($event) ? esc_attr('disabled') : null ?> required>
-          <option value="online" <?php if ($location_type === 'online'): echo esc_attr('selected'); endif; ?> default ><?php echo __('Online') ?></option>
-          <option value="address" <?php if ($location_type === 'address'): echo 'selected'; endif; ?>><?php echo __('Physical Location') ?></option>
+        <select class="event-creator__dropdown" name="location_region" id="location-type" <?php echo ($event) ? esc_attr('disabled') : null ?> required>
+          <option value="online" <?php if ($EM_Location->location_region === 'online'): echo esc_attr('selected'); endif; ?> default ><?php echo __('Online') ?></option>
+          <option value="address" <?php if ($EM_Location->location_region === 'address'): echo 'selected'; endif; ?>><?php echo __('Physical Location') ?></option>
         </select>
-        <input id="location-type-placeholder" type="hidden" name="location-type" value=<?php echo (isset($location_type) && strlen($location_type) >0 ? esc_attr($location_type) : null) ?>>
+        <input id="location-type-placeholder" type="hidden" name="location_region" value=<?php echo (isset($EM_Location->location_region) && strlen($EM_Location->location_region) >0 ? esc_attr($EM_Location->location_region) : 'online') ?>>
       </div>
       <div class="wide--double">
         <label class="event-creator__label" for="location-name" id="location-name-label"><?php _e ( 'Online Meeting Link', 'events-manager')?></label>
@@ -54,12 +47,13 @@ endif;
     <div class="event-creator__three-up">
       <div class="wide">
         <label id="location-country-label" class="event-creator__label" for="location-country"><?php _e ( 'Where is this event based?', 'events-manager')?></label>
-        <select class="event-creator__dropdown" id="location-country" name="location_country" <?php if ($event) : echo esc_attr("disabled"); endif; ?> required>
+        <select class="event-creator__dropdown" id="location-country" name="location-country" <?php if ($event) : echo esc_attr("disabled"); endif; ?> required>
 					<option value="0" <?php echo ( $EM_Location->location_country == '' && $EM_Location->location_id == '' && get_option('dbem_location_default_country') == '' ) ? 'selected="selected"':''; ?>><?php _e('Select','events-manager'); ?></option>
 					<?php foreach(em_get_countries() as $country_key => $country_name): ?>
 					<option value="<?php echo esc_attr($country_key); ?>" <?php echo ( $EM_Location->location_country == $country_key || ($EM_Location->location_country == '' && $EM_Location->location_id == '' && get_option('dbem_location_default_country')==$country_key) ) ? 'selected="selected"':''; ?>><?php echo esc_html($country_name); ?></option>
           <?php endforeach; ?>
         </select>
+        <input id="location-country-placeholder" type="hidden" name="location_country" value=<?php echo (isset($EM_Location->location_country) && strlen($EM_Location->location_country) >0 ? esc_attr($EM_Location->location_country) : null) ?>>
       </div>
       <div class="wide--double">
         <label class="event-creator__label" for="location-town"><?php _e ( 'City', 'events-manager')?></label>

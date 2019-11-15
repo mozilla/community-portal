@@ -62,7 +62,6 @@
       $users = get_current_user_id();
     }
   }
-  var_dump(get_post_meta($EM_Event->post_id));
 ?>
 
 <div class="content events__container events-single">
@@ -139,8 +138,8 @@
       <div class="row">
         <div class="card__address col-md-5 col-sm-12">
           <?php 
-            if (isset($location_type) && strlen($location_type) > 0 && $location_type !== 'online') {
-              $location = $EM_Event->location;
+            $location = $EM_Event->location;
+            if (isset($location->location_region) && strlen($location->location_region) > 0 && $location->location_region !== 'online') {
             ?>
               <p><?php echo __($location->location_name) ?></p>
               <p><?php echo __($location->location_address) ?></p>
@@ -171,7 +170,7 @@
           $body = wp_remote_retrieve_body( $request );
           $data = json_decode( $body );
           $coordinates = $data->features[0]->geometry->coordinates; 
-          if (isset($location_type) && strlen($location_type) && $location_type !== 'online') {
+          if (isset($location->location_region) && strlen($location->location_region) && $location->location_region !== 'online') {
           ?>
             <div id='map' class="card__map col-md-7 col-sm-12" style='height: 110px;'></div>
             <script>

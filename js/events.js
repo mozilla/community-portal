@@ -221,7 +221,6 @@ jQuery(function() {
         const $cpgCheck = jQuery("#cpg");
         if ($cpgCheck.length && !$cpgCheck.prop("checked")) {
             const $label = jQuery("label[for=cpg]");
-            //$label.addClass("event-creator__error-text");
             $cpgCheck.one("change", function() {
                 $label.removeClass("event-creator__error-text");
             });
@@ -314,7 +313,10 @@ jQuery(function() {
         const $editContainer = jQuery(".event-creator__location");
         const $countryInput = jQuery("#location-country");
         const $locationType = jQuery("#location-type");
+        const $locationTypePlaceholder = jQuery('#location-type-placeholder');
+        const $locationAddress = jQuery('#location-address');
         const $locationTypeValue = $locationType.val();
+        console.log($locationType);
         if ($editBtn) {
             handleAutocomplete(
                 $editContainer,
@@ -323,6 +325,8 @@ jQuery(function() {
                 $locationTypeValue
             );
             $editBtn.on("click", function() {
+              $locationTypePlaceholder.val('online');
+              $locationAddress.val('online');
                 toggleLocationContainer(
                     $editContainer,
                     $countryInput,
@@ -415,14 +419,15 @@ jQuery(function() {
         }
     }
 
-    function trackLocationType() {
-      const $locationTypeInput = jQuery('#location-type-placeholder');
-      const $locationType = jQuery('#location-type');
+    function trackLocationType(inputId, input) {
+      const $locationTypeInput = jQuery(inputId);
+      const $locationType = jQuery(input);
       $locationType.change(function() {
         const $this = jQuery(this);
         $locationTypeInput.val($this.val());
       });
     }
+
 
     function init() {
         toggleMobileEventsNav(".events__nav__toggle", ".events__nav");
@@ -452,7 +457,9 @@ jQuery(function() {
             "a"
         );
         handleCopyToClipboardClick();
-        trackLocationType();
+        trackLocationType('#location-type-placeholder', '#location-type');        
+        trackLocationType('#location-country-placeholder', '#location-country');
+
     }
 
     init();

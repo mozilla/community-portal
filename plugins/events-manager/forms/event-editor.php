@@ -28,6 +28,8 @@ echo $EM_Notices;
 if( !empty($_REQUEST['success']) ){
 	if(!get_option('dbem_events_form_reshow')) return false;
 }
+
+
 ?>	
 <form enctype='multipart/form-data' id="event-form" novalidate class="em-event-admin-editor <?php if( $EM_Event->is_recurring() ) echo 'em-event-admin-recurring' ?>" method="post" action="<?php echo esc_url(add_query_arg(array('success'=>null))); ?>">
 <?php print wp_nonce_field('protect_content', 'my_nonce_field'); ?>
