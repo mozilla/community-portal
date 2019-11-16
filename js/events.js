@@ -293,8 +293,23 @@ jQuery(function() {
         }
     }
 
+    function updateLocationType(locationValue) {
+      const $locationType = jQuery('#location-type');
+      $locationType.val(locationValue);
+      const $locationAddress = jQuery("#location-address");
+      if (locationValue === 'address') {
+        toggleVisibility($locationAddress, "", true);
+        return;
+      }
+      toggleVisibility($locationAddress, "Online", false);
+    }
+
     function handleAutocomplete(container, location, country, typeValue) {
-        jQuery("#location-name").on("autocompleteselect", function(e) {
+        jQuery("#location-name").on("autocompleteselect", function(e, ui) {
+          if (ui.item.region) {
+            
+            updateLocationType(ui.item.region);
+          }
             const $errors = container.find(".event-creator__error-field");
             $errors.each(function() {
                 const $this = jQuery(this);
@@ -324,6 +339,7 @@ jQuery(function() {
             );
             $editBtn.on("click", function() {
               $locationTypePlaceholder.val('online');
+              toggleVisibility($locationAddress, "Online", false);
               $locationAddress.val('online');
                 toggleLocationContainer(
                     $editContainer,

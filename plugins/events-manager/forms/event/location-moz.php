@@ -23,7 +23,7 @@ $event = $_REQUEST['event_id'];
 			}
     ?>
     <div class="event-creator__three-up">
-      <div class="wide <?php echo ($event) ? esc_attr("wide--md-third") : null ?>">
+      <div class="wide">
         <label class="event-creator__label" for="online"><?php echo __('Where will this event be held?') ?></label>
         <select class="event-creator__dropdown" name="location_region" id="location-type" <?php echo ($event) ? esc_attr('disabled') : null ?> required>
           <option value="online" <?php if ($EM_Location->location_region === 'online'): echo esc_attr('selected'); endif; ?> default ><?php echo __('Online') ?></option>
