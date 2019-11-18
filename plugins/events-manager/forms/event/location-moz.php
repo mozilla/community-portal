@@ -31,7 +31,7 @@ endif;
     ?>
     <div class="event-creator__three-up">
       <div class="wide <?php echo ($event) ? esc_attr("wide--md-third") : null ?>">
-        <label class="event-creator__label" for="online"><?php echo __('Where will this event be held?') ?></label>
+        <label class="event-creator__label" for="online"><?php echo __('Is this event online or on location?') ?></label>
         <select class="event-creator__dropdown" name="location-type" id="location-type" <?php echo ($event) ? esc_attr('disabled') : null ?> required>
           <option value="online" <?php if ($location_type === 'online'): echo esc_attr('selected'); endif; ?> default ><?php echo __('Online') ?></option>
           <option value="address" <?php if ($location_type === 'address'): echo 'selected'; endif; ?>><?php echo __('Physical Location') ?></option>
@@ -53,7 +53,7 @@ endif;
     </div>
     <div class="event-creator__three-up">
       <div class="wide">
-        <label id="location-country-label" class="event-creator__label" for="location-country"><?php _e ( 'Where is this event based?', 'events-manager')?></label>
+        <label id="location-country-label" class="event-creator__label" for="location-country"><?php _e ( 'Where will this event be held?', 'events-manager')?></label>
         <select class="event-creator__dropdown" id="location-country" name="location_country" <?php if ($event) : echo esc_attr("disabled"); endif; ?> required>
 					<option value="0" <?php echo ( $EM_Location->location_country == '' && $EM_Location->location_id == '' && get_option('dbem_location_default_country') == '' ) ? 'selected="selected"':''; ?>><?php _e('Select','events-manager'); ?></option>
 					<?php foreach(em_get_countries() as $country_key => $country_name): ?>

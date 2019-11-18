@@ -153,7 +153,7 @@ jQuery(function() {
             if ($this.val() === "online") {
                 toggleVisibility($locationAddress, "Online", false);
                 $locationNameLabel.text("Online Meeting Link");
-                $countryLabel.text("Where is this event based?");
+                $countryLabel.text("Where will this event be held?");
                 return;
             }
             toggleVisibility($locationAddress, "", true);

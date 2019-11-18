@@ -8,7 +8,9 @@
     width: 100%;
     overflow: hidden;
     position: relative;
-
+    a {
+      text-decoration: none;
+    }
     // Edit Profile Styles
     &__hero {
         width: 100%;
