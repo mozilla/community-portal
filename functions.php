@@ -1015,14 +1015,4 @@ function mozilla_menu_class($classes, $item, $args) {
 
 remove_action('em_event_save','bp_em_group_event_save',1,2);
 
-function mozilla_events_redirect($location) {
-  if (strpos($location, 'edit-event') !== false) {
-    $location = get_site_url(null, 'events/');
-    return $location;
-  }
-  return $location;
-}
-
-add_filter('wp_redirect', 'mozilla_events_redirect')
-
 ?>
