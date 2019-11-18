@@ -390,7 +390,7 @@
             $visibility_settings[$field_visibility_name] = $visibility;
           }
       ?>
-      <div class="col-lg-6 col-md-12 events-single__member-card">
+      <div class="col-md-6 events-single__member-card">
         <a href="<?php echo esc_attr(get_site_url().'/members/'.$userObject->user_nicename)?>")>
         <div class="events-single__avatar<?php if(!$visibility_settings['image_url_visibility'] || !strlen($community_fields['image_url']) > 0) : ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['image_url_visibility'] && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $community_fields['username']; ?>">
                 </div>
