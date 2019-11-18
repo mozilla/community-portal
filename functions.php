@@ -1023,6 +1023,10 @@ function mozilla_events_redirect($location) {
   return $location;
 }
 
-add_filter('wp_redirect', 'mozilla_events_redirect')
+add_filter('wp_redirect', 'mozilla_events_redirect');
+
+function mozilla_is_site_admin(){
+  return in_array('administrator',  wp_get_current_user()->roles);
+}
 
 ?>

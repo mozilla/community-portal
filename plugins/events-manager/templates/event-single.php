@@ -84,7 +84,7 @@
         >
         <?php 
           $current_user = get_current_user_id();
-          if (strval($current_user) == $EM_Event->owner) { 
+          if (strval($current_user) == $EM_Event->owner || mozilla_is_site_admin()) { 
           ?>
             <a class="btn card__edit-btn" href="<?php echo esc_attr(get_site_url().'/events/edit-event/?action=edit&event_id='.$EM_Event->event_id)?>">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
