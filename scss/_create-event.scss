@@ -374,6 +374,10 @@
       display: none;
     }
   }
+  &__cancel {
+    text-decoration: none;
+    margin-right: 32px;
+  }
 }
 #event-form p.event-creator__error__label {
   margin-top: 4px;

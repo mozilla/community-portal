@@ -120,6 +120,9 @@ if( !empty($_REQUEST['success']) ){
         <?php endif; ?>
 
   <div class="submit event-creator__submit">
+    <a class="btn btn--light btn--submit event-creator__cancel em-event-delete" href="<?php echo add_query_arg(array('action'=>'event_delete', 'event_id' => $event_id, '_wpnonce' => wp_create_nonce('event_delete_'.$event_id)), get_site_url(null, 'events/edit-event/')) ?>">
+      <?php echo __('Cancel Event') ?>
+    </a>
     <input id="event-creator__submit-btn" type='submit' class='button-primary btn btn--dark btn--submit' 
       value='<?php 
         if (!$event_id):
@@ -134,7 +137,6 @@ if( !empty($_REQUEST['success']) ){
     <input type="hidden" name="_wpnonce" id="my_nonce_field" value="<?php echo wp_create_nonce('wpnonce_event_save'); ?>" />
     <input type="hidden" name="action" value="event_save" />
     <?php if( !empty($_REQUEST['redirect_to']) ): 
-        
       ?>
       <input type="hidden" name="redirect_to" value="<?php echo ($event_id ? esc_attr(get_site_url().'/events/'.$EM_Event->event_slug) : esc_attr(get_site_url().'/events/') ); ?>" />
     <?php endif; ?>
