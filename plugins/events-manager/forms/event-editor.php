@@ -15,7 +15,7 @@ if (isset($event_id)):
 //check that user can access this page
 if( is_object($EM_Event) && !$EM_Event->can_manage('edit_events','edit_others_events') ){
 	?>
-	<div class="wrap"><h2><?php esc_html_e('Unauthorized Access','events-manager'); ?></h2><p><?php echo sprintf(__('You do not have the rights to manage this %s.','events-manager'),__('Event','events-manager')); ?></p></div>
+	<div class="event-creator wrap"><h2><?php esc_html_e('Unauthorized Access','events-manager'); ?></h2><p><?php echo sprintf(__('You do not have the rights to manage this %s.','events-manager'),__('Event','events-manager')); ?></p></div>
 	<?php
 	return false;
 }elseif( !is_object($EM_Event) ){
@@ -119,10 +119,20 @@ if( !empty($_REQUEST['success']) ){
   </div>
         <?php endif; ?>
 
+
   <div class="submit event-creator__submit">
-    <a class="btn btn--light btn--submit event-creator__cancel em-event-delete" href="<?php echo add_query_arg(array('action'=>'event_delete', 'event_id' => $event_id, '_wpnonce' => wp_create_nonce('event_delete_'.$event_id)), get_site_url(null, 'events/edit-event/')) ?>">
-      <?php echo __('Cancel Event') ?>
-    </a>
+
+    <?php 
+      if (isset($event_id)):
+      if (intval(get_current_user_id()) === intval($EM_Event->event_owner) || current_user_can('edit_post')): 
+    ?>
+      <a class="btn btn--light btn--submit event-creator__cancel em-event-delete" href="<?php echo add_query_arg(array('action'=>'event_delete', 'event_id' => $event_id, '_wpnonce' => wp_create_nonce('event_delete_'.$event_id)), get_site_url(null, 'events/edit-event/')) ?>">
+        <?php echo __('Cancel Event') ?>
+      </a>
+    <?php 
+      endif;
+      endif;
+    ?>
     <input id="event-creator__submit-btn" type='submit' class='button-primary btn btn--dark btn--submit' 
       value='<?php 
         if (!$event_id):

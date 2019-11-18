@@ -94,7 +94,7 @@
             <?php 
           } else if (isset($admins)) {
             foreach($admins as $admin) {
-              if ($admin->user_id === $current_user) {
+              if ($admin->user_id === $current_user || intval(get_current_user_id()) === intval($EM_Event->event_owner) || current_user_can('edit_post')) {
               ?>
                 <a class="btn card__edit-btn" href="<?php echo esc_attr($_SERVER['REQUEST_URI'].'events/edit-event/?action=edit&event_id='.$EM_Event->event_id)?>">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
