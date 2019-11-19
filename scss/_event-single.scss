@@ -178,6 +178,7 @@
     }
     p.events-single__label {
       font-size: remCalc(14);
+      margin-bottom: 16px;
       color: $color-gray-secondary;
     }
     .events-single__host {
@@ -195,6 +196,9 @@
     }
   }
   &__group.card {
+    p.events-single__label {
+      margin-bottom: 0;
+    }
     @include desktop-and-up {
       padding: 16px 0;  
     }

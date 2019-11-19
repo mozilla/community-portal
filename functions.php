@@ -310,6 +310,39 @@ function mozilla_init() {
         }
     }
 
+    // Create Activities
+    $labels = Array(
+        'name'              =>  __('Activities'),
+        'singular_name'     =>  __('Activity')
+    );
+
+    $args = Array(
+        'labels'             => $labels,
+        'public'             => true,
+        'show_in_menu'       => true,
+        'show_in_rest'       => true,
+        'menu_icon'          => 'dashicons-chart-line',
+        'rewrite'            =>  Array('slug'    =>  'activities')
+    );
+
+    register_post_type('activity', $args);
+
+    // Create Campaigns
+    $labels = Array(
+        'name'              =>  __('Campaigns'),
+        'singular_name'     =>  __('Campaign')
+    );
+
+    $args = Array(
+        'labels'             => $labels,
+        'public'             => true,
+        'show_in_menu'       => true,
+        'show_in_rest'       => true,
+        'menu_icon'          => 'dashicons-admin-site-alt3',
+        'rewrite'            =>  Array('slug'    =>  'campaigns')
+    );
+
+    register_post_type('campaign', $args);
 }
 
 function mozilla_add_menu_attrs($attrs, $item, $args) {
@@ -1014,5 +1047,19 @@ function mozilla_menu_class($classes, $item, $args) {
 
 
 remove_action('em_event_save','bp_em_group_event_save',1,2);
+
+function mozilla_events_redirect($location) {
+  if (strpos($location, 'event_id') !== false) {
+    $location = get_site_url(null, 'events/');
+    return $location;
+  }
+  return $location;
+}
+
+add_filter('wp_redirect', 'mozilla_events_redirect');
+
+function mozilla_is_site_admin(){
+  return in_array('administrator',  wp_get_current_user()->roles);
+}
 
 ?>

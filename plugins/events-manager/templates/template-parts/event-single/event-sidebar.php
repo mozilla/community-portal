@@ -3,7 +3,7 @@
         <div class="card events-single__attributes">
           <div class="row">
           <?php 
-            if (isset($external_url) && strlen($external_url) > 0):
+            if (isset($external_url) && strlen($external_url) > 0 && filter_var($external_url, FILTER_VALIDATE_URL)):
           ?>
             <div class="col-lg-12 col-md-6 col-sm-12">
               <p class="events-single__label"><?php echo __('Links') ?></p>

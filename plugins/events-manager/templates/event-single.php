@@ -84,7 +84,7 @@
         >
         <?php 
           $current_user = get_current_user_id();
-          if (strval($current_user) == $EM_Event->owner) { 
+          if (strval($current_user) == $EM_Event->owner || mozilla_is_site_admin()) { 
           ?>
             <a class="btn card__edit-btn" href="<?php echo esc_attr(get_site_url().'/events/edit-event/?action=edit&event_id='.$EM_Event->event_id)?>">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -94,7 +94,7 @@
             <?php 
           } else if (isset($admins)) {
             foreach($admins as $admin) {
-              if ($admin->user_id === $current_user) {
+              if ($admin->user_id === $current_user || intval(get_current_user_id()) === intval($EM_Event->event_owner) || current_user_can('edit_post')) {
               ?>
                 <a class="btn card__edit-btn" href="<?php echo esc_attr($_SERVER['REQUEST_URI'].'events/edit-event/?action=edit&event_id='.$EM_Event->event_id)?>">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -390,7 +390,7 @@
             $visibility_settings[$field_visibility_name] = $visibility;
           }
       ?>
-      <div class="col-lg-6 col-md-12 events-single__member-card">
+      <div class="col-md-6 events-single__member-card">
         <a href="<?php echo esc_attr(get_site_url().'/members/'.$userObject->user_nicename)?>")>
         <div class="events-single__avatar<?php if(!$visibility_settings['image_url_visibility'] || !strlen($community_fields['image_url']) > 0) : ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['image_url_visibility'] && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $community_fields['username']; ?>">
                 </div>
