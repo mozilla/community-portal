@@ -14,12 +14,12 @@
             </a>
           </li>
           <li class="share-link">
-            <a href="#" class="btn btn--light btn--share share-link__facebook">
+            <a href="<?php echo esc_attr('https://www.facebook.com/sharer/sharer.php?u='.$url)?>" class="btn btn--light btn--share share-link__facebook" target="_blank">
               <?php echo __('Share to Facebook') ?>
             </a>
           </li>
           <li class="share-link">
-            <a href="<?php echo esc_attr('https://twitter.com/intent/tweet?url='.$url) ?>" class="btn btn--light btn--share share-link__twitter">
+            <a href="<?php echo esc_attr('https://twitter.com/intent/tweet?url='.$url) ?>" class="btn btn--light btn--share share-link__twitter" target="_blank">
               <?php echo __('Share to Twitter') ?>
             </a>
           </li>
@@ -29,7 +29,7 @@
             </a>
           </li>
           <li class="share-link">
-            <a href="" class="btn btn--light btn--share share-link__telegram">
+            <a href="<?php echo esc_attr('https://telegram.me/share/url?url='.$url) ?>" class="btn btn--light btn--share share-link__telegram" target="_blank">
               <?php echo __('Share to Telegram') ?>
             </a>
           </li>
