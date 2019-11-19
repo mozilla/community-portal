@@ -21,8 +21,11 @@ jQuery(function(){
             }
         }
     });
+
+    var $public_count = jQuery('li.public').find('.count');
+    var $private_count = jQuery('li.private').find('.count');
     
-    jQuery('li.public').find('a').html(jQuery('li.public').find('a').html().replace("Public", "Verified"));
-    jQuery('li.private').find('a').html(jQuery('li.private').find('a').html().replace("Private", "Unverified"));
+    jQuery('li.public').find('a').insertBefore($public_count.insertBefore('Verified '));
+    jQuery('li.private').find('a').insertBefore($private_count.insertBefore('Unverified'));
 
 });
