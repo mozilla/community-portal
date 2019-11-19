@@ -427,16 +427,15 @@ function mozilla_create_group() {
                                 }
                             }
                             
-                            // @todo: Lets revisit this logic 
-                            // if(isset($_POST['group_type']) && trim(strtolower($_POST['group_type'])) == 'offline') {
-                            //     if(!isset($_POST['group_country']) || $_POST['group_country'] == '0')  {
-                            //         $error = true;
-                            //     }
+                            if(isset($_POST['group_type']) && trim(strtolower($_POST['group_type'])) == 'offline') {
+                                if(!isset($_POST['group_country']) || $_POST['group_country'] == '0')  {
+                                    $error = true;
+                                }
 
-                            //     if(!isset($_POST['group_city']) || $_POST['group_city'] === '') {
-                            //         $error = true;
-                            //     }
-                            // }
+                                if(!isset($_POST['group_city']) || $_POST['group_city'] === '') {
+                                    $error = true;
+                                }
+                            }
                         }
   
                         $_SESSION['form'] = $_POST;
