@@ -1,0 +1,15 @@
+.homepage {
+  &__hero__image {
+    img {
+    border-radius: 50%;
+    display: block;
+    max-width: 100%;
+    position: relative;
+    }
+    &::before {
+      content: url('./images/homepage-hero-shape.svg');
+      position: absolute;
+      z-index: 9000;
+    }
+  }
+}

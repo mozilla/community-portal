@@ -13,9 +13,9 @@ if (isset($event_id)):
   $event_campaign = $event_meta[0]->campaign;
   endif;
 //check that user can access this page
-if( is_object($EM_Event) && !$EM_Event->can_manage('edit_events','edit_others_events') ){
+if(is_object($EM_Event) && !$EM_Event->can_manage('edit_events','edit_others_events') ){
 	?>
-	<div class="wrap"><h2><?php esc_html_e('Unauthorized Access','events-manager'); ?></h2><p><?php echo sprintf(__('You do not have the rights to manage this %s.','events-manager'),__('Event','events-manager')); ?></p></div>
+	<div class="event-creator wrap"><h2><?php esc_html_e('Unauthorized Access','events-manager'); ?></h2><p><?php echo sprintf(__('You do not have the rights to manage this %s.','events-manager'),__('Event','events-manager')); ?></p></div>
 	<?php
 	return false;
 }elseif( !is_object($EM_Event) ){
@@ -76,13 +76,13 @@ if( !empty($_REQUEST['success']) ){
     <div class="event-editor">
       <label class="event-form-details event-creator__label" for="event-description"><?php esc_html_e( 'Event description', 'events-manager'); ?></label>
       <textarea name="content" id="event-description" placeholder="Add in the details of your event’s agenda here. If this is a multi-day event, you can add in the details of each day’s schedule and start/end time." rows="10" id="event-description" class="event-creator__input event-creator__textarea" style="width:100%" required><?php echo __($EM_Event->post_content) ?></textarea>
-      <div class="event-creator__container">
+      <!-- <div class="event-creator__container">
           <label class="event-creator__label" for="event-campaign"><?php _e ( 'Is this event part of an initiative?', 'events-manager')?></label>
           <select class="event-creator__dropdown" id="event-campaign" name="event_campaign">
             <option value="No" <?php echo (!isset($event_campaign) || $event_campaign === '') ? esc_attr('selected') : null;?>><?php _e('No','events-manager'); ?></option>
             <option value="1" <?php echo ($event_campaign === '1') ? esc_attr('selected') : null; ?>>Firefox For Good</option>
         </select>
-      </div>
+      </div> -->
       <?php if(get_option('dbem_categories_enabled')) { em_locate_template('forms/event/categories-public.php',true); }  ?>
       <div class="event-creator__container">
         <label class="event-creator__label" for="event-creator-link"><?php esc_html_e('External link URL*', 'events-manager'); ?></label>
@@ -119,10 +119,23 @@ if( !empty($_REQUEST['success']) ){
   </div>
         <?php endif; ?>
 
+
   <div class="submit event-creator__submit">
+
+    <?php 
+      if (isset($event_id)):
+        if (intval(get_current_user_id()) === intval($EM_Event->event_owner) || mozilla_is_site_admin()): 
+    ?>
+      <a class="btn btn--light btn--submit event-creator__cancel em-event-delete" href="<?php echo add_query_arg(array('action'=>'event_delete', 'event_id' => $event_id, '_wpnonce' => wp_create_nonce('event_delete_'.$event_id)), get_site_url(null, 'events/edit-event/')) ?>">
+        <?php echo __('Cancel Event') ?>
+      </a>
+    <?php 
+      endif;
+      endif;
+    ?>
     <input id="event-creator__submit-btn" type='submit' class='button-primary btn btn--dark btn--submit' 
       value='<?php 
-        if (!$event_id):
+        if (!isset($event_id)):
           echo esc_attr(sprintf( __('Create %s','events-manager'), __('Event','events-manager') )); 
         else: 
           echo esc_attr(sprintf( __('Update %s','events-manager'), __('Event','events-manager') )); 
