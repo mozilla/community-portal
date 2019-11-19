@@ -154,26 +154,25 @@ jQuery(function(){
 
     });
 
-  jQuery('input[name="group_type"]').change(function(e){
-    var $this = $(this);
+//   Revisit this logic down
+//   jQuery('input[name="group_type"]').change(function(e){
+//     var $this = $(this);
 
-    var countryLabel = $('label[for="group-country"]').text();
-    var cityLabel = $('label[for="group-city"]').text();
+//     var countryLabel = $('label[for="group-country"]').text();
+//     var cityLabel = $('label[for="group-city"]').text();
 
-    if($this.val() == 'Offline') {
-        jQuery('select[name="group_country"]').prop('required', true);
-        jQuery('label[for="group-country"]').text(countryLabel.replace('*', ''));
-        jQuery('input[name="group_city"]').prop('required', true);
-        jQuery('label[for="group-city"]').text(cityLabel.replace('*', ''));
-    } else {
-        jQuery('select[name="group_country"]').prop('required', false);
-        jQuery('label[for="group-country"]').text(countryLabel.concat(' *'));
-        jQuery('input[name="group_city"]').prop('required', false);
-        jQuery('label[for="group-city"]').text(cityLabel.concat(' *'));
-    }
-});
-
-
+//     if($this.val() == 'Offline') {
+//         jQuery('select[name="group_country"]').prop('required', true);
+//         jQuery('label[for="group-country"]').text(countryLabel.replace('*', ''));
+//         jQuery('input[name="group_city"]').prop('required', true);
+//         jQuery('label[for="group-city"]').text(cityLabel.replace('*', ''));
+//     } else {
+//         jQuery('select[name="group_country"]').prop('required', false);
+//         jQuery('label[for="group-country"]').text(countryLabel.concat(' *'));
+//         jQuery('input[name="group_city"]').prop('required', false);
+//         jQuery('label[for="group-city"]').text(cityLabel.concat(' *'));
+//     }
+// });
 
   jQuery("#group-name").change(function(e) {
     var $this = jQuery(this);
