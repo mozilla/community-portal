@@ -14,6 +14,13 @@
   top: -40px;
 }
 
+.css-events-admin-login {
+  padding: 48px 24px;
+  background: white;  
+  max-width: $container-max-width;
+  margin: 0 auto;
+}
+
 .event-creator {
   padding: 48px 24px;
   background: white;
@@ -62,6 +69,7 @@
   &__input {
     @extend .input;
     background-color: $color-gray-20 !important;
+    line-height: remCalc(20);
   }
   &__textarea {
     @extend .textarea;
@@ -372,6 +380,10 @@
     &.hidden {
       display: none;
     }
+  }
+  &__cancel {
+    text-decoration: none;
+    margin-right: 32px;
   }
 }
 #event-form p.event-creator__error__label {
