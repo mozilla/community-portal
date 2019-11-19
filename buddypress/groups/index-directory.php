@@ -195,7 +195,7 @@
                         <div class="groups__group-image" style="background-image: url('<?php print (isset($meta['group_image_url']) && strlen($meta['group_image_url']) > 0) ? $meta['group_image_url'] : get_stylesheet_directory_uri().'/images/group.png'; ?>');">
                         </div>
                         <div class="groups__card-content">
-                            <h2 class="groups__group-title"><?php print stripslashes($group_name); ?></h2>
+                            <h2 class="groups__group-title"><?php print str_replace('\\', '', stripslashes($group_name)); ?></h2>
                             
                                 <div class="groups__card-location">
                                     <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">

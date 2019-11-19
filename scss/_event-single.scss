@@ -138,6 +138,9 @@
       }
     }
     .events-single__member-card {
+      &:first-of-type {
+        padding-left: 0;
+      }
       a, 
       a:visited {
         color: black;
@@ -175,8 +178,12 @@
     }
     p.events-single__label {
       font-size: remCalc(14);
+      margin-bottom: 16px;
       color: $color-gray-secondary;
-      margin: 0 0 16px;
+    }
+    .events-single__host {
+      margin-top: 16px;
+      display: block;
     }
     @include tablet-and-up {
       padding: 0;
@@ -189,6 +196,9 @@
     }
   }
   &__group.card {
+    p.events-single__label {
+      margin-bottom: 0;
+    }
     @include desktop-and-up {
       padding: 16px 0;  
     }

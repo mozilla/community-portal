@@ -388,15 +388,16 @@ function mozilla_create_group() {
                                 }
                             }
                             
-                            if(isset($_POST['group_type']) && trim(strtolower($_POST['group_type'])) == 'offline') {
-                                if(!isset($_POST['group_country']) || $_POST['group_country'] == '0')  {
-                                    $error = true;
-                                }
+                            // @todo: Lets revisit this logic 
+                            // if(isset($_POST['group_type']) && trim(strtolower($_POST['group_type'])) == 'offline') {
+                            //     if(!isset($_POST['group_country']) || $_POST['group_country'] == '0')  {
+                            //         $error = true;
+                            //     }
 
-                                if(!isset($_POST['group_city']) || $_POST['group_city'] === '') {
-                                    $error = true;
-                                }
-                            }
+                            //     if(!isset($_POST['group_city']) || $_POST['group_city'] === '') {
+                            //         $error = true;
+                            //     }
+                            // }
                         }
   
                         $_SESSION['form'] = $_POST;
@@ -1013,5 +1014,19 @@ function mozilla_menu_class($classes, $item, $args) {
 
 
 remove_action('em_event_save','bp_em_group_event_save',1,2);
+
+function mozilla_events_redirect($location) {
+  if (strpos($location, 'event_id') !== false) {
+    $location = get_site_url(null, 'events/');
+    return $location;
+  }
+  return $location;
+}
+
+add_filter('wp_redirect', 'mozilla_events_redirect');
+
+function mozilla_is_site_admin(){
+  return in_array('administrator',  wp_get_current_user()->roles);
+}
 
 ?>
