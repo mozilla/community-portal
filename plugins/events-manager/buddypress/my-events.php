@@ -49,10 +49,12 @@
     <?php else: ?>
       <p><?php echo sprintf(__('Please <a href="%s">Log In</a> to view your bookings.','events-manager'),site_url('wp-login.php?redirect_to=' . urlencode(get_permalink()), 'login'))?></p>
     <?php endif; 
+    if ($total_bookings > 12):
     ?>
     <div class="events__pagination col-sm-12">
       <?php
         echo EM_Events::get_pagination_links($args, $total_bookings, $search_action = 'search_events',$default_args = array());
       ?>
     </div>
+    <?php endif; ?>
   </div>

@@ -114,11 +114,17 @@
               include(locate_template('plugins/events-manager/templates/template-parts/event-cards.php', false, false));
             }
             ?>
+      <?php
+        if ($total_pages > 12):
+      ?>
       <div class="events__pagination col-sm-12">
       <?php 
         echo EM_Events::get_pagination_links($args, $total_pages, $search_action = 'search_events',$default_args = array());
       ?>
     </div>
+    <?php
+    endif;
+    ?>
     <?php
           else:
             ?>
