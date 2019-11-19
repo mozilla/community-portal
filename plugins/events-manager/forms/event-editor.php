@@ -122,7 +122,7 @@ if( !empty($_REQUEST['success']) ){
   <div class="submit event-creator__submit">
     <input id="event-creator__submit-btn" type='submit' class='button-primary btn btn--dark btn--submit' 
       value='<?php 
-        if (!$event_id):
+        if (!isset($event_id)):
           echo esc_attr(sprintf( __('Create %s','events-manager'), __('Event','events-manager') )); 
         else: 
           echo esc_attr(sprintf( __('Update %s','events-manager'), __('Event','events-manager') )); 
