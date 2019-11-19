@@ -22,6 +22,12 @@ add_action('wp_ajax_nopriv_validate_group', 'mozilla_validate_group_name');
 add_action('wp_ajax_validate_group', 'mozilla_validate_group_name');
 add_action('wp_ajax_check_user', 'mozilla_validate_username');
 
+// Gutenberg Setup 
+function pg_blocks() {
+  wp_enqueue_script('blocks-scripts', get_template_directory_uri() . '/js/gutenberg.js', array('wp-blocks', 'wp-dom-ready', 'wp-edit-post', 'wp-element', 'wp-editor', 'wp-i18n', 'jquery'), false, true);
+ }
+ add_action('enqueue_block_editor_assets', 'pg_blocks', 10, 1);
+
 
 // Buddypress Actions
 add_action('bp_before_create_group_page', 'mozilla_create_group', 10, 1);
@@ -310,6 +316,39 @@ function mozilla_init() {
         }
     }
 
+    // Create Activities
+    $labels = Array(
+        'name'              =>  __('Activities'),
+        'singular_name'     =>  __('Activity')
+    );
+
+    $args = Array(
+        'labels'             => $labels,
+        'public'             => true,
+        'show_in_menu'       => true,
+        'show_in_rest'       => true,
+        'menu_icon'          => 'dashicons-chart-line',
+        'rewrite'            =>  Array('slug'    =>  'activities')
+    );
+
+    register_post_type('activity', $args);
+
+    // Create Campaigns
+    $labels = Array(
+        'name'              =>  __('Campaigns'),
+        'singular_name'     =>  __('Campaign')
+    );
+
+    $args = Array(
+        'labels'             => $labels,
+        'public'             => true,
+        'show_in_menu'       => true,
+        'show_in_rest'       => true,
+        'menu_icon'          => 'dashicons-admin-site-alt3',
+        'rewrite'            =>  Array('slug'    =>  'campaigns')
+    );
+
+    register_post_type('campaign', $args);
 }
 
 function mozilla_add_menu_attrs($attrs, $item, $args) {
