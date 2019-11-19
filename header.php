@@ -27,7 +27,7 @@
         <?php wp_head(); ?>
         <?php  if($google_analytics_id && strlen($google_analytics_id) > 0):  ?>
         <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-152873431-1"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=<?php print $google_analytics_id; ?>"></script>
         <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
