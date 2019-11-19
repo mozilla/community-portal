@@ -94,14 +94,14 @@
                         </div>
                         <div class="create-group__input-row">
                             <div class="create-group__input-container create-group__input-container--60 create-group__input-container--vertical-spacing">
-                                <label class="create-group__label" for="group-desc"><?php print __("Description"); ?></label>
+                                <label class="create-group__label" for="group-desc"><?php print __("Provide a short group description"); ?></label>
                                 <textarea name="group_desc" id="group-desc" class="create-group__textarea<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_desc']) || (isset($form['group_desc']) && empty(trim($form['group_desc'])) )): ?> create-group__input--error<?php endif; ?>" required ><?php print isset($form['group_desc']) ? $form['group_desc'] : ''; ?></textarea>
                                 <div class="form__error-container<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_desc']) || (isset($form['group_desc']) && empty(trim($form['group_desc'])) )): ?> form__error-container--visible<?php endif; ?>">
                                     <div class="form__error"><?php print __("This field is required"); ?></div>
                                 </div>
                             </div>
                             <div class="create-group__input-container create-group__input-container--40 create-group__input-container--vertical-spacing">
-                                <label class="create-group__label" for="group-desc"><?php print __("Group Photo"); ?></label>
+                                <label class="create-group__label" for="group-desc"><?php print __("Select an image *"); ?></label>
                                 <div id="group-photo-uploader" class="create-group__image-upload">
                                     <svg width="75" height="75" viewBox="0 0 75 75" fill="none" xmlns="http://www.w3.org/2000/svg" class="create-group__upload-image-svg">
                                         <path d="M59.375 9.375H15.625C12.1732 9.375 9.375 12.1732 9.375 15.625V59.375C9.375 62.8268 12.1732 65.625 15.625 65.625H59.375C62.8268 65.625 65.625 62.8268 65.625 59.375V15.625C65.625 12.1732 62.8268 9.375 59.375 9.375Z" stroke="#CDCDD4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

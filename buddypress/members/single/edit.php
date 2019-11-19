@@ -24,7 +24,7 @@
                         <circle cx="12" cy="8" r="1" fill="black"/>
                     </svg>
                     <span>
-                        <?php print __("We’ve pre-populated some of your information via your connected account with"); ?>
+                        <?php print __("We'll get you started with profile info available from "); ?>
                         <a href="#" class="profile__hero-link">Mozilla SSO.</a>
                     </span>
                 </p>
@@ -97,7 +97,7 @@
                     <div class="form__error-container<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['username']) || (isset($form['username']) && empty(trim($form['username'])) || isset($form['username_error_message']))): ?> form__error-container--visible<?php endif; ?>">
                         <div class="form__error"><?php if(isset($form['username_error_message'])): ?><?php print __($form['username_error_message']); ?><?php else: ?><?php print __("This field is required"); ?><?php endif; ?></div>
                     </div>
-                    <span class="profile__input-desc"><?php print __('Usernames must be public'); ?></span>
+                    <span class="profile__input-desc"><?php print __('Usernames are public'); ?></span>
                 </div>
                 <div class="profile__select-container">
                     <label class="profile__label" for=""><?php print __("Can be viewed by"); ?></label>
@@ -119,7 +119,7 @@
                     <div class="form__error-container<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['first_name']) || (isset($form['first_name']) && empty(trim($form['first_name'])) )): ?> form__error-container--visible<?php endif; ?>">
                         <div class="form__error"><?php print __("This field is required"); ?></div>
                     </div>
-                    <span class="profile__input-desc"><?php print __('Your first name cannot be hidden from registered users'); ?></span>
+                    <span class="profile__input-desc"><?php print __('Your first name is always visible to registered users'); ?></span>
                 </div>
                 <div class="profile__select-container">
                     <label class="profile__label" for=""><?php print __("Can be viewed by"); ?></label>
@@ -253,7 +253,7 @@
             <hr class="profile__keyline" />
             <div class="profile__form-field">
                 <div class="profile__input-container">
-                    <label class="profile__label" for="email"><?php print __("Email contact"); ?></label>
+                    <label class="profile__label" for="email"><?php print __("Email"); ?></label>
                     <input type="email" name="email" id="email" class="profile__input<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['email']) || (isset($form['email']) && empty(trim($form['email'])) || isset($form['email_error_message']))): ?> profile__input--error<?php endif; ?>" placeholder="<?php print __("Email"); ?>" value="<?php print isset($form['email']) ? $form['email'] : $user->user_email; ?>" required/>
                     <div class="form__error-container<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['email']) || (isset($form['email']) && empty(trim($form['email'])) || isset($form['email_error_message']))): ?> form__error-container--visible<?php endif; ?>">
                         <div class="form__error"><?php if(isset($form['email_error_message'])): ?><?php print __($form['email_error_message']); ?><?php else: ?><?php print __("This field is required"); ?><?php endif; ?></div>
@@ -277,7 +277,7 @@
             <hr class="profile__keyline" />
             <div class="profile__form-field">
                 <div class="profile__input-container">
-                    <label class="profile__label" for="phone"><?php print __("Phone contact *"); ?></label>
+                    <label class="profile__label" for="phone"><?php print __("Phone number *"); ?></label>
                     <input type="text" name="phone" id="phone" class="profile__input" value="<?php if($form && isset($form['phone'])): ?><?php $form['phone']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['phone'])): ?><?php print $community_fields['phone']; ?><?php endif; ?><?php endif; ?>"/>
                 </div>
                 <div class="profile__select-container">
@@ -337,7 +337,7 @@
             <hr class="profile__keyline" />
             <div class="profile__form-field">
                 <div class="profile__input-container">
-                    <label class="profile__label" for="facebook"><?php print __("Facebook profile URL"); ?></label>
+                    <label class="profile__label" for="facebook"><?php print __("Facebook profile"); ?></label>
                     <input type="text" name="facebook" id="facebook" class="profile__input" value="<?php if($form && isset($form['facebook'])): ?><?php $form['facebook']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['facebook'])): ?><?php print $community_fields['facebook']; ?><?php endif; ?><?php endif; ?>"/>
                 </div>
                 <div class="profile__select-container">
@@ -357,7 +357,7 @@
             <hr class="profile__keyline" />
             <div class="profile__form-field">
                 <div class="profile__input-container">
-                    <label class="profile__label" for="twitter"><?php print __("Twitter profile URL"); ?></label>
+                    <label class="profile__label" for="twitter"><?php print __("Twitter account"); ?></label>
                     <input type="text" name="twitter" id="twitter" class="profile__input" value="<?php if($form && isset($form['facebook'])): ?><?php $form['twitter']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['twitter'])): ?><?php print $community_fields['twitter']; ?><?php endif; ?><?php endif; ?>"/>
                 </div>
                 <div class="profile__select-container">
@@ -377,7 +377,7 @@
             <hr class="profile__keyline" />
             <div class="profile__form-field">
                 <div class="profile__input-container">
-                    <label class="profile__label" for="linkedin"><?php print __("LinkedIn profile URL"); ?></label>
+                    <label class="profile__label" for="linkedin"><?php print __("LinkedIn profile"); ?></label>
                     <input type="text" name="linkedin" id="linkedin" class="profile__input" value="<?php if($form && isset($form['linkedin'])): ?><?php $form['linkedin']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['linkedin'])): ?><?php print $community_fields['linkedin']; ?><?php endif; ?><?php endif; ?>"/>
                 </div>
                 <div class="profile__select-container">
@@ -397,7 +397,7 @@
             <hr class="profile__keyline" />
             <div class="profile__form-field">
                 <div class="profile__input-container">
-                    <label class="profile__label" for="github"><?php print __("Github profile URL"); ?></label>
+                    <label class="profile__label" for="github"><?php print __("Github profile"); ?></label>
                     <input type="text" name="github" id="github" class="profile__input" value="<?php if($form && isset($form['github'])): ?><?php $form['github']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['github'])): ?><?php print $community_fields['github']; ?><?php endif; ?><?php endif; ?>"/>
                 </div>
                 <div class="profile__select-container">
@@ -417,7 +417,7 @@
             <hr class="profile__keyline" />
             <div class="profile__form-field">
                 <div class="profile__input-container">
-                    <label class="profile__label" for="telegram"><?php print __("Telegram profile URL"); ?></label>
+                    <label class="profile__label" for="telegram"><?php print __("Telegram profile"); ?></label>
                     <input type="text" name="telegram" id="telegram" class="profile__input" value="<?php if($form && isset($form['telegram'])): ?><?php $form['telegram']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['telegram'])): ?><?php print $community_fields['telegram']; ?><?php endif; ?><?php endif; ?>"/>
                 </div>
                 <div class="profile__select-container">

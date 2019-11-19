@@ -65,7 +65,7 @@
           class="events__nav__link <?php if ($view === 'organized') echo esc_attr("events__nav__link--active") ?>" 
           href="<?php echo add_query_arg(array('view' => 'organized', 'country' => $country, 'tag' => $tag), get_site_url('', 'events'), get_site_url('','events')) ?>"
         >
-          <?php echo __('Events I\'ve organized'); ?>
+          <?php echo __('My Events'); ?>
         </a>
       </li>
       <?php endif; ?>
