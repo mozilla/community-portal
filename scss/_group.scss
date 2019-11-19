@@ -530,7 +530,7 @@
     &__admin {
         display: flex;
         align-items: center;
-        
+
         &:not(:first-of-type) {
             margin-top: 40px;
         }
@@ -545,6 +545,7 @@
 
         .username {
             margin-left: 8px;
+            color: $color-black;
         }
     }
 
