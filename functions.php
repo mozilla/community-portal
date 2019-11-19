@@ -1048,8 +1048,19 @@ function mozilla_menu_class($classes, $item, $args) {
 }
 
 function mozilla_theme_settings() {
-    
+    $theme_dir = get_template_directory();
 
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if(isset($_POST['admin_nonce_field']) && wp_verify_nonce($_REQUEST['admin_nonce_field'], 'protect_content')) {
+            if(isset($_POST['google_analytics_id'])) {
+                update_option('google_analytics_id', sanitize_text_field($_POST['google_analytics_id']));
+            }
+        }
+    }
+
+    $options = wp_load_alloptions();
+    
+    include "{$theme_dir}/templates/settings.php";
 
 }
 
