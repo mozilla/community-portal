@@ -352,6 +352,15 @@ jQuery(function() {
       });
     }
 
+    function confirmDelete() {
+      const $deleteBtn = jQuery('.event-creator__cancel');
+      if ($deleteBtn.length > 0) {
+        $deleteBtn.click(function() {
+          return confirm('Would you like to delete this event?');
+        });
+      }
+    }
+
     function init() {
         toggleMobileEventsNav(".events__nav__toggle", ".events__nav");
         toggleMobileEventsNav(".events__filter__toggle", ".events__filter");
@@ -368,6 +377,7 @@ jQuery(function() {
         clearImage();
         editLocation();
         trackLocationType();
+        confirmDelete();
     }
 
     init();

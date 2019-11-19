@@ -27,6 +27,7 @@
 @import "cards";
 @import "lightbox";
 @import "share-lightbox";
+@import "homepage";
 
 * {
   box-sizing: border-box;
@@ -57,7 +58,6 @@ body.noscroll {
   background-color: $color-gray-20;
   width: 100%;
   height: 100%;
-
   &.body--fixed {
     position: fixed;
     @include desktop-and-up {
