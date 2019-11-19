@@ -474,6 +474,7 @@ jQuery(function() {
         trackLocationType('#location-type-placeholder', '#location-type');        
         trackLocationType('#location-country-placeholder', '#location-country');
 
+        confirmDelete();
     }
 
     init();
