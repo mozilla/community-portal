@@ -8,7 +8,7 @@ add_action('get_header', 'remove_admin_login_header');
 add_action('init', 'mozilla_init');
 add_action('wp_enqueue_scripts', 'mozilla_init_scripts');
 add_action('admin_enqueue_scripts', 'mozilla_init_admin_scripts');
-add_filter('nav_menu_css_class', 'mozilla_menu_class', 10, 4);
+add_action('admin_menu', 'mozilla_add_menu_item');
 
 // Ajax Calls
 add_action('wp_ajax_nopriv_upload_group_image', 'mozilla_upload_image');
@@ -30,12 +30,15 @@ add_action('bp_before_edit_member_page', 'mozilla_update_member', 10, 1);
 
 // Removed cause it was causing styling conflicts
 remove_action('init', 'bp_nouveau_get_container_classes');
+remove_action('em_event_save','bp_em_group_event_save', 1, 2);
+
 
 // Auth0 Actions
 add_action('auth0_user_login', 'mozilla_post_user_creation', 10, 6);
 
 // Filters
 add_filter('nav_menu_link_attributes', 'mozilla_add_menu_attrs', 10, 3);
+add_filter('nav_menu_css_class', 'mozilla_menu_class', 10, 4);
 //add_filter('nav_menu_css_class', 'mozilla_add_active_page' , 10 , 2);
 
 // Events Action
@@ -1044,7 +1047,17 @@ function mozilla_menu_class($classes, $item, $args) {
     return $classes;
 }
 
+function mozilla_theme_settings() {
+    
 
-remove_action('em_event_save','bp_em_group_event_save',1,2);
+
+}
+
+function mozilla_add_menu_item() {
+    add_menu_page('Mozilla Settings', 'Mozilla Settings', 'manage_options', 'theme-panel', 'mozilla_theme_settings', null, 99);
+}
+
+
+
 
 ?>
