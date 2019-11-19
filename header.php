@@ -10,6 +10,9 @@
     } else {
         $avatar = false;
     }
+
+    $google_analytics_id = get_option('google_analytics_id');
+
 ?>
 
 <!DOCTYPE html>
@@ -22,6 +25,16 @@
         <link rel="pingback" href="<?php echo esc_url(get_bloginfo('pingback_url')); ?>">
         <?php endif; ?>
         <?php wp_head(); ?>
+        <?php  if($google_analytics_id && strlen($google_analytics_id) > 0):  ?>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-152873431-1"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '<?php print $google_analytics_id; ?>');
+        </script>
+        <?php endif; ?>
         <title><?php print get_bloginfo('name'); ?> - <?php print get_bloginfo('description'); ?></title>
     </head>
     <body class="body" <?php body_class(); ?>>

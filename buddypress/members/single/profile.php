@@ -176,7 +176,7 @@
             $groups = groups_get_user_groups($user->ID);
         ?>
         <?php if($groups['total'] > 0 && $visibility_settings['profile_groups_joined_visibility']): ?>
-        <h2 class="profile__heading"><?php print __("Groups I'm In"); ?></h2>
+        <h2 class="profile__heading"><?php print __("My Groups"); ?></h2>
         <?php $group_count = 0; ?>
         <div class="profile__card">
             <?php foreach($groups['groups'] AS $gid): ?>
@@ -220,7 +220,7 @@
 
         ?>
         <?php if($visibility_settings['profile_events_attended_visibility'] && sizeof($events->bookings) > 0): ?>
-        <h2 class="profile__heading"><?php print __("Latest Events Attended"); ?></h2>
+        <h2 class="profile__heading"><?php print __("Recent Events"); ?></h2>
         <div class="profile__card">
             <?php foreach($events AS $event_booking): ?>
             <?php
@@ -257,7 +257,7 @@
             <?php 
                 $events_attended_count++;
             ?>
-            <?php if($events_attended_count < sizeof($events)): ?>
+            <?php if(is_array($events) && $events_attended_count < sizeof($events)): ?>
                 <hr class="profile__group-line" />
             <?php endif; ?>
             <?php endforeach; ?>
@@ -275,7 +275,7 @@
 
         ?>
         <?php if($visibility_settings['profile_events_organized_visibility'] && sizeof($events_organized) > 0): ?>
-        <h2 class="profile__heading"><?php print __("Latest Events Organized"); ?></h2>
+        <h2 class="profile__heading"><?php print __("Organized Events"); ?></h2>
         <div class="profile__card">
             <?php foreach($events_organized AS $event): ?>
             <?php
