@@ -478,6 +478,7 @@
             do_action('bp_before_edit_member_page');
 
             $complete = ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['complete']) && $_POST['complete'] === true) ? true :  false;
+            $edit = ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit']) && $_POST['edit'] === true) ? true :  false;
             $updated_username = isset($form['username']) ? $form['username'] : false;
 
             include("{$template_dir}/buddypress/members/single/edit.php");
