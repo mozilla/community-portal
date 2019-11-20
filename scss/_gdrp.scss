@@ -1,0 +1,120 @@
+.gdrp {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: $color-black;
+    min-height: 387px;
+
+
+    @include tablet-and-up {
+
+    }
+
+    @include desktop-and-up {
+        min-height: none;
+    }
+    
+    left: 0;
+    border-top: 1px solid $color-gray-secondary;
+
+    
+    &__container {
+        margin: 0 auto;
+        position: relative;
+        padding: 48px 24px;
+
+        p {
+            color: $color-white;
+            margin: 0;
+            padding: 0;
+            margin-bottom: 8px;
+            font-size: remCalc(16);
+            line-height: 28px;
+        }
+
+        a {
+            color: $color-white;
+
+        }
+
+        @include tablet-and-up {
+            padding: 48px 64px;
+        }
+        
+        @include desktop-and-up {
+            max-width: 1440px;
+            padding: 64px 106px 83px 106px;
+        }
+    }
+
+    &__title {
+        font-family: 'Zilla Slab';
+        color: $color-white;
+        font-size: remCalc(24);
+        line-height: 29px;
+
+        @include desktop-and-up {
+            font-size: remCalc(32);
+            line-height: 40px;
+            
+        }
+    }
+
+    &__cta-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+        margin-top: 16px;
+
+        @include tablet-and-up {
+            flex-direction: row;
+            justify-content: flex-start;
+        }
+    }
+
+    &__cta {
+        background-color: $color-blue-50;
+        text-decoration: none;
+        color: $color-white;
+        font-size: remCalc(14);
+        line-height: 22px;
+        width: 100%;
+        border-radius: 28px;
+        padding: 10px 0;
+        text-align: center;
+        margin-bottom: 16px;
+
+        @include tablet-and-up {
+            font-size: remCalc(16);
+            padding: 15px 0;
+            line-height: 18px;
+            margin-bottom: 0;
+            max-width: 146px;
+            margin-right: 16px;
+        }
+    }
+
+    &__link {
+        text-decoration: none;
+        svg {
+            margin-left: 0;
+        }
+    }
+
+    &__close {
+        position: absolute;
+        top: 54px;
+        right: 24px;
+
+        @include tablet-and-up {
+
+        }
+
+        @include desktop-and-up {
+            top: 76px;
+            right: 106px;
+        }
+    }
+}

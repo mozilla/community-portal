@@ -1,4 +1,43 @@
         <footer class="footer">
+            <?php
+
+                $args = Array(
+                    'category_name'  =>  'GDRP',
+                );
+
+                $gdrp_post = get_posts($args);
+            ?>
+
+            <?php if(sizeof($gdrp_post) > 0): ?>
+            <?php
+
+            ?>
+            <div class="gdrp">
+                <div class="gdrp__container">
+                    <a href="#" class="gdrp__close">
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17 1L1 17" stroke="#F9F9FA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M1 1L17 17" stroke="#F9F9FA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+
+                    <h2 class="gdrp__title"><?php print $gdrp_post[0]->post_title; ?></h2>
+                    <?php 
+                        $content = apply_filters( 'the_content', $gdrp_post[0]->post_content);
+                        $content = str_replace( ']]>', ']]&gt;', $content );
+                        print $content;
+                    ?>
+                    <div class="gdrp__cta-container">
+                        <a href="#" class="gdrp__cta"><?php print __("Accept"); ?></a>
+                        <a href="#" class="gdrp__link">
+                            <?php print __("More Information"); ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2.33325 8.66683L5.99992 5.00016L2.33325 1.3335" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <?php endif; ?>
             <div class="footer__container">
                 <div class="footer__logo-container">
                     <img src="<?php print get_stylesheet_directory_uri(); ?>/images/footer-logo.png"  class="footer__logo" alt="Mozilla Logo" />
