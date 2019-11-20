@@ -22,10 +22,8 @@
                     </a>
 
                     <h2 class="gdrp__title"><?php print $gdrp_post[0]->post_title; ?></h2>
-                    <?php 
-                        $content = apply_filters( 'the_content', $gdrp_post[0]->post_content);
-                        $content = str_replace( ']]>', ']]&gt;', $content );
-                        print $content;
+                    <?php
+                        print  $gdrp_post[0]->post_content;
                     ?>
                     <div class="gdrp__cta-container">
                         <a href="#" class="gdrp__cta"><?php print __("Accept"); ?></a>
