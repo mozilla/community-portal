@@ -629,6 +629,7 @@
     &__button {
         @extend .cta;
         border-radius: 28px;
+        text-decoration: none;
 
         &:first-of-type {
             margin-bottom: 24px;
@@ -648,6 +649,7 @@
             background-color: transparent;
             border: 1px solid $color-blue-50;
             color: $color-blue-50;
+            text-decoration: none;
         }
     }
 
