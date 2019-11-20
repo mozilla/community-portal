@@ -1,4 +1,4 @@
-<?php if($complete === true): ?>
+<?php if($complete === true && $edit === false): ?>
     <div class="profile__container">
         <section class="profile__success-message-container"> 
             <h1 class="profile__title"><?php print __('Profile Created'); ?></h1>
@@ -12,7 +12,11 @@
             </div>
         </section>
     </div>
-    <?php else: ?>
+<?php elseif($complete === true && $edit === true): ?>
+    <script type="text/javascript">
+        window.location = "/members/<?php print $user->user_nicename;?>";
+    </script>
+<?php else: ?>
     <div class="profile__hero">
         <div class="profile__hero-container">
             <div class="profile__hero-content">
@@ -31,7 +35,6 @@
             </div>
         </div>
     </div>
-    
     <form class="profile__form" id="complete-profile-form" method="post" novalidate>
         <?php print wp_nonce_field('protect_content', 'my_nonce_field'); ?>
         <section class="profile__form-container profile__form-container--first">
@@ -216,7 +219,7 @@
                             <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
                         </g>
                     </svg>
-                    <select id="country" name="country" class="profile__select<?php if($form && !isset($form['country']) || (isset($form['country']) && empty(trim($form['country'])))): ?> profile__select--error<?php endif; ?>" required>
+                    <select id="country" name="country" class="profile__select<?php if($form && !isset($form['country']) || (isset($form['country']) && empty(trim($form['country'])))): ?> profile__select--error<?php endif; ?>">
                         <?php foreach($countries AS $key    =>  $value): ?>
                         <option value="<?php print $key; ?>"<?php if($form && isset($form['country']) && $form['country'] == $key): ?> selected<?php else: ?><?php if(isset($meta['country'][0]) && $meta['country'][0] == $key): ?> selected<?php endif; ?><?php endif; ?>><?php print $value; ?></option>
                         <?php endforeach; ?>
@@ -227,7 +230,7 @@
                 </div>
                 <div class="profile__input-container">
                     <label class="profile__label" for="city"><?php print __("City (optional)"); ?></label>
-                    <input type="text" name="city" id="city" class="profile__input<?php if($form && !isset($form['city']) || (isset($form['city']) && empty(trim($form['city'])) )): ?> profile__input--error<?php endif; ?>" placeholder="<?php print __("City"); ?>" value="<?php print isset($form['city']) ? $form['city'] : $meta['city'][0]; ?>" required />
+                    <input type="text" name="city" id="city" class="profile__input<?php if($form && !isset($form['city']) || (isset($form['city']) && empty(trim($form['city'])) )): ?> profile__input--error<?php endif; ?>" placeholder="<?php print __("City"); ?>" value="<?php print isset($form['city']) ? $form['city'] : $meta['city'][0]; ?>" />
                     <div class="form__error-container<?php if($form && !isset($form['last_name']) || (isset($form['city']) && empty(trim($form['city'])) )): ?> form__error-container--visible<?php endif; ?>">
                         <div class="form__error"><?php print __("This field is required"); ?></div>
                     </div>

@@ -736,6 +736,7 @@ function mozilla_update_member() {
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         if(is_user_logged_in()) {
             $user = wp_get_current_user()->data;
+            $edit = false;
 
             // Get current meta to compare to
             $meta = get_user_meta($user->ID);
@@ -787,9 +788,8 @@ function mozilla_update_member() {
             // Add additional required fields after initial setup
             if(isset($meta['agree'][0]) && $meta['agree'][0] == 'I Agree') {
                 unset($required[8]);
-                $required[] = 'city';
-                $required[] = 'country';
                 $required[] = 'profile_location_visibility';
+                $_POST['edit'] = true;
             }
 
             $error = false;
@@ -880,6 +880,7 @@ function mozilla_update_member() {
                 }    
 
                 update_user_meta($user->ID, 'community-meta-fields', $additional_meta);
+
             }
         }
     }
