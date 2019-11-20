@@ -1,3 +1,4 @@
+<?php $url = get_site_url().$_SERVER['REQUEST_URI'] ?>
 <div class="lightbox__container">
       <button id="close-share-lightbox" class="btn btn--close">
         <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -24,7 +25,7 @@
             </a>
           </li>
           <li class="share-link">
-            <a href="" class="btn btn--light btn--share share-link__discourse">
+            <a href="<?php echo esc_attr('https://discourse.mozilla.org/new-topic?title='.$url)?>" target="_blank" class="btn btn--light btn--share share-link__discourse">
               <?php echo __('Share to Discourse') ?>
             </a>
           </li>
