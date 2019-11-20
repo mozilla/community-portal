@@ -387,6 +387,7 @@ function mozilla_init_scripts() {
     wp_enqueue_script('nav', get_stylesheet_directory_uri()."/js/nav.js", array('jquery'));
     wp_enqueue_script('profile', get_stylesheet_directory_uri()."/js/profile.js", array('jquery'));
     wp_enqueue_script('lightbox', get_stylesheet_directory_uri()."/js/lightbox.js", array('jquery'));
+    wp_enqueue_script('gdrp', get_stylesheet_directory_uri()."/js/gdrp.js", array('jquery'));
     
 
 }
