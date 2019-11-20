@@ -5,19 +5,13 @@
     background-color: $color-black;
     min-height: 387px;
 
-
-    @include tablet-and-up {
-
-    }
-
     @include desktop-and-up {
-        min-height: none;
+        min-height: 0;
     }
     
     left: 0;
     border-top: 1px solid $color-gray-secondary;
 
-    
     &__container {
         margin: 0 auto;
         position: relative;
@@ -34,16 +28,15 @@
 
         a {
             color: $color-white;
-
         }
 
         @include tablet-and-up {
-            padding: 48px 64px;
+            padding: 32px 64px;
         }
         
         @include desktop-and-up {
             max-width: 1440px;
-            padding: 64px 106px 83px 106px;
+            padding: 32px 106px 32px 106px;
         }
     }
 
@@ -52,11 +45,13 @@
         color: $color-white;
         font-size: remCalc(24);
         line-height: 29px;
+        margin: 0;
+        padding: 0;
+        margin-bottom: 16px;
 
         @include desktop-and-up {
             font-size: remCalc(32);
             line-height: 40px;
-            
         }
     }
 
@@ -109,12 +104,16 @@
         right: 24px;
 
         @include tablet-and-up {
-
+            top: 38px;
         }
 
         @include desktop-and-up {
-            top: 76px;
+            top: 44px;
             right: 106px;
         }
+    }
+
+    &--hide {
+        display: none;
     }
 }
