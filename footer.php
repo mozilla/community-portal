@@ -1,17 +1,17 @@
         <footer class="footer">
             <?php
-
-                $args = Array(
-                    'category_name'  =>  'GDRP',
-                );
-
-                $gdrp_post = get_posts($args);
+                if(!isset($_COOKIE['gdrp'])) {
+                    $args = Array(
+                        'category_name'  =>  'GDRP',
+                    );
+    
+                    $gdrp_post = get_posts($args);
+                } else {
+                    $gdrp_post = Array();
+                }
             ?>
 
             <?php if(sizeof($gdrp_post) > 0): ?>
-            <?php
-
-            ?>
             <div class="gdrp">
                 <div class="gdrp__container">
                     <a href="#" class="gdrp__close">
@@ -29,11 +29,6 @@
                     ?>
                     <div class="gdrp__cta-container">
                         <a href="#" class="gdrp__cta"><?php print __("Accept"); ?></a>
-                        <a href="#" class="gdrp__link">
-                            <?php print __("More Information"); ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M2.33325 8.66683L5.99992 5.00016L2.33325 1.3335" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </a>
                     </div>
                 </div>
             </div>
