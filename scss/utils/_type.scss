@@ -10,6 +10,13 @@
   }
 }
 
+.subheader {
+  font-size: remCalc(32);
+  line-height: remCalc(36);
+  font-family: $main-font-family;
+  font-weight: normal;
+}
+
 .subtitle {
   font-size: remCalc(16);
   line-height: remCalc(24);

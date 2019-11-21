@@ -8,7 +8,9 @@
           'hero_cta_existing',
           'hero_cta_new',
           'hero_cta_text',
-          'featured_events'
+          'featured_events',
+          'featured_events_title',
+          'featured_events_cta_text'
         );
         $fieldValues = new stdClass();
         foreach ($fields as $field) {
@@ -20,10 +22,18 @@
           <div class="col-md-4 col-sm-offset-1 homepage__hero__image">
             <img src="<?php echo $fieldValues->hero_image['url'] ?>" alt="<?php echo $fieldValues->hero_image['alt'] ?>">
           </div>
-          <div class="col-md-5 col-md-offset-1">
+          <div class="col-md-5 col-md-offset-1 homepage__hero__text">
             <h1 class="homepage__hero__title title title--main"><?php echo preg_replace('/\b(Community)\b/i', '<span>$0</span>', $fieldValues->hero_title); ?></h1>
             <p class="homepage__hero__subtitle subtitle"><?php echo $fieldValues->hero_subtitle ?></p>
-            <a href="<?php echo (is_user_logged_in() ? esc_attr($fieldValues->hero_cta_existing) : esc_attr($fieldValues->hero_cta_new)) ?>"class="btn btn--dark btn--submit btn--small homepage__hero__cta"><?php echo __($fieldValues->hero_cta_text) ?></a>
+            <a href="<?php echo (is_user_logged_in() ? esc_attr($fieldValues->hero_cta_existing) : esc_attr($fieldValues->hero_cta_new)) ?>"class="btn btn--dark btn--small homepage__hero__cta"><?php echo __($fieldValues->hero_cta_text) ?></a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <h2 class="subheader homepage__events__subheader"><?php echo __($fieldValues->featured_events_title)?></h2>
+          </div>
+          <div class="col-md-6 col-sm-12 homepage__events__cta">
+            <a href="/events" class="btn btn--small btn--dark"><?php echo __($fieldValues->featured_events_cta_text); ?></a>
           </div>
         </div>
         <div class="row homepage__events">

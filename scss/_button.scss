@@ -28,6 +28,7 @@
   }
   &--small {
     padding: 10px 32px;
+    border-radius: 28px;
     @include desktop-and-up {
       padding: 15px 48px;
     }

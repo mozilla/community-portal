@@ -1,7 +1,14 @@
 .homepage {
   &__container {
+    @extend .container;
     max-width: 1440px;
-    margin: 0 auto;
+    padding: 0 24px;
+    @include tablet-and-up {
+      padding: 0 64px;
+    }
+    @include desktop-and-up {
+      padding: 0 106px;
+    }
   }
   a {
     text-decoration: none;
@@ -16,6 +23,12 @@
       width: 80%;
       span {
         font-weight: bold;
+      }
+    }
+    &__text {
+      @include tablet-and-up {
+        padding-right: 8.33333%;
+
       }
     }
     &__subtitle {
@@ -60,10 +73,50 @@
       background-position: top center;
       background-repeat: no-repeat;
       @include tablet-and-up {
-        left: -15%;        
+        top: -80px;
+      }
+    }
+  }
+  &__events {
+    .events__column:nth-of-type(3n) {
+      @include tablet-and-up {
+        padding-right: 16px;
       }
       @include desktop-and-up {
-        left: -20%;
+        padding-right: 0;
+      }
+    }
+    .events__column:nth-of-type(3n + 1) {
+      @include desktop-and-up {
+        padding-left: 0;
+      }
+    }
+    .events__column:nth-of-type(2n + 1) {
+      @media (min-width: $screen-tablet-min) and (max-width: $screen-desktop-min) {
+        padding-left: 0;
+      }
+    }
+    .events__column:nth-of-type(2n) {
+      @media (min-width: $screen-tablet-min) and (max-width: $screen-desktop-min) {
+        padding-right: 0px;
+      }
+    }
+    .events__column {
+      padding: 16px 0;
+      @include tablet-and-up {
+        padding: 32px 16px;
+      }
+    }
+    &__subheader {
+      max-width: 50%;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    &__cta {
+      @include tablet-and-up {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
       }
     }
   }
