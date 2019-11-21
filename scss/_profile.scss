@@ -8,7 +8,9 @@
     width: 100%;
     overflow: hidden;
     position: relative;
-
+    a {
+      text-decoration: none;
+    }
     // Edit Profile Styles
     &__hero {
         width: 100%;
@@ -390,6 +392,7 @@
 
             &.profile__select--short {
                 margin-top: 0;
+                width: auto;
             }
         }
 
@@ -442,6 +445,10 @@
                 top: 0;
                 right: 50px;
             }
+
+            @include desktop-and-up {
+                margin-right: 77px;
+            }
         }
         
         &.profile__select-container--mobile {
@@ -455,7 +462,7 @@
         &.profile__select-container--flex {
 
             @include tablet-and-up {
-                max-width: 227px;
+                max-width: 180px;
                 display: flex;
                 flex-direction: row;
                 justify-content: flex-end;
@@ -476,6 +483,11 @@
 
             @include tablet-and-up {
                 margin-top: 24px;
+            }
+
+            @include desktop-and-up {
+                max-width: none;
+                width: 180px;
             }
         }
 
@@ -533,7 +545,7 @@
 
         &.profile__label--full {
             width: 100%;
-            margin-left: 49px;
+            max-width: 180px;
         }
     }
 
@@ -627,6 +639,7 @@
     &__button {
         @extend .cta;
         border-radius: 28px;
+        text-decoration: none;
 
         &:first-of-type {
             margin-bottom: 24px;
@@ -646,6 +659,7 @@
             background-color: transparent;
             border: 1px solid $color-blue-50;
             color: $color-blue-50;
+            text-decoration: none;
         }
     }
 

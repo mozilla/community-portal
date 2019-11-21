@@ -71,7 +71,7 @@
             <div class="profile__name-container">
                 <h3 class="profile__user-title"><?php print $user->user_nicename; ?></h3>
                 <span class="profile__user-name">
-                    <?php if($visibility_settings['first_name_visibility'] || $logged_in): ?>
+                    <?php if($visibility_settings['first_name_visibility'] || $is_me): ?>
                     <?php print "{$community_fields['first_name']}"; ?>
                     <?php endif; ?>
                     <?php if($visibility_settings['last_name_visibility']): ?>
@@ -100,6 +100,7 @@
             <span class="profile__contact-title"><?php print __('Contact Information'); ?></span>
             <?php endif; ?>
             <?php if($visibility_settings['profile_location_visibility']): ?>
+            <?php if(isset($community_fields['city']) && strlen($community_fields['city']) > 0 || isset($community_fields['country']) && strlen($community_fields['country']) > 0): ?>
             <div class="profile__location-container">
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="profile__location-icon">
                     <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
@@ -117,20 +118,22 @@
                     <?php print __('Location'); ?>
                     <span class="profile__city-country">
                     <?php 
-                        if(isset($community_fields['city']))
+                        if(isset($community_fields['city']) && strlen($community_fields['city']) > 0)
                             print $community_fields['city'];
 
-                        if(isset($community_fields['city']) && isset($community_fields['country'])) {
+                        if(isset($community_fields['city']) && strlen($community_fields['city']) > 0 && isset($community_fields['country']) && strlen($community_fields['country']) > 0) {
                             print ", {$community_fields['country']}";
                         } else {
-                            if(isset($community_fields['country'])) {
+                            if(isset($community_fields['country']) && strlen($community_fields['country']) > 0) {
                                 print $community_fields['country'];
                             }
                         }
                     ?>
                     </span>
+                    
                 </div>
             </div>
+            <?php endif; ?>
             <?php endif; ?>
             <?php if($visibility_settings['email_visibility']): ?>
             <div class="profile__email-container">
@@ -143,7 +146,7 @@
                 <div class="profile__details">
                     <span class="profile__email">
                     <?php 
-                        if(isset($community_fields['email']))
+                        if(isset($community_fields['email']) && strlen($community_fields['email']) > 0)
                             print $community_fields['email'];
                     ?>
                     </span>
@@ -151,7 +154,7 @@
 
             </div>
             <?php endif; ?>
-            <?php if($visibility_settings['phone_visibility']): ?>
+            <?php if($visibility_settings['phone_visibility'] && isset($community_fields['phone']) && strlen($community_fields['phone']) > 0): ?>
             <div class="profile__phone-container">
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="profile__phone-icon">
                     <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
@@ -176,7 +179,7 @@
             $groups = groups_get_user_groups($user->ID);
         ?>
         <?php if($groups['total'] > 0 && $visibility_settings['profile_groups_joined_visibility']): ?>
-        <h2 class="profile__heading"><?php print __("Groups I'm In"); ?></h2>
+        <h2 class="profile__heading"><?php print __("My Groups"); ?></h2>
         <?php $group_count = 0; ?>
         <div class="profile__card">
             <?php foreach($groups['groups'] AS $gid): ?>
@@ -220,7 +223,7 @@
 
         ?>
         <?php if($visibility_settings['profile_events_attended_visibility'] && sizeof($events->bookings) > 0): ?>
-        <h2 class="profile__heading"><?php print __("Latest Events Attended"); ?></h2>
+        <h2 class="profile__heading"><?php print __("Recent Events"); ?></h2>
         <div class="profile__card">
             <?php foreach($events AS $event_booking): ?>
             <?php
@@ -257,7 +260,7 @@
             <?php 
                 $events_attended_count++;
             ?>
-            <?php if($events_attended_count < sizeof($events)): ?>
+            <?php if(is_array($events) && $events_attended_count < sizeof($events)): ?>
                 <hr class="profile__group-line" />
             <?php endif; ?>
             <?php endforeach; ?>
@@ -275,7 +278,7 @@
 
         ?>
         <?php if($visibility_settings['profile_events_organized_visibility'] && sizeof($events_organized) > 0): ?>
-        <h2 class="profile__heading"><?php print __("Latest Events Organized"); ?></h2>
+        <h2 class="profile__heading"><?php print __("Organized Events"); ?></h2>
         <div class="profile__card">
             <?php foreach($events_organized AS $event): ?>
             <?php

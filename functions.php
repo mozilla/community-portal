@@ -8,7 +8,7 @@ add_action('get_header', 'remove_admin_login_header');
 add_action('init', 'mozilla_init');
 add_action('wp_enqueue_scripts', 'mozilla_init_scripts');
 add_action('admin_enqueue_scripts', 'mozilla_init_admin_scripts');
-add_filter('nav_menu_css_class', 'mozilla_menu_class', 10, 4);
+add_action('admin_menu', 'mozilla_add_menu_item');
 
 // Ajax Calls
 add_action('wp_ajax_nopriv_upload_group_image', 'mozilla_upload_image');
@@ -36,12 +36,15 @@ add_action('bp_before_edit_member_page', 'mozilla_update_member', 10, 1);
 
 // Removed cause it was causing styling conflicts
 remove_action('init', 'bp_nouveau_get_container_classes');
+remove_action('em_event_save','bp_em_group_event_save', 1, 2);
+
 
 // Auth0 Actions
 add_action('auth0_user_login', 'mozilla_post_user_creation', 10, 6);
 
 // Filters
 add_filter('nav_menu_link_attributes', 'mozilla_add_menu_attrs', 10, 3);
+add_filter('nav_menu_css_class', 'mozilla_menu_class', 10, 4);
 //add_filter('nav_menu_css_class', 'mozilla_add_active_page' , 10 , 2);
 
 // Events Action
@@ -383,6 +386,7 @@ function mozilla_init_scripts() {
     wp_enqueue_script('cleavejs', get_stylesheet_directory_uri()."/js/vendor/cleave.min.js", array());
     wp_enqueue_script('nav', get_stylesheet_directory_uri()."/js/nav.js", array('jquery'));
     wp_enqueue_script('profile', get_stylesheet_directory_uri()."/js/profile.js", array('jquery'));
+    wp_enqueue_script('lightbox', get_stylesheet_directory_uri()."/js/lightbox.js", array('jquery'));
     
 
 }
@@ -732,6 +736,7 @@ function mozilla_update_member() {
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         if(is_user_logged_in()) {
             $user = wp_get_current_user()->data;
+            $edit = false;
 
             // Get current meta to compare to
             $meta = get_user_meta($user->ID);
@@ -783,9 +788,8 @@ function mozilla_update_member() {
             // Add additional required fields after initial setup
             if(isset($meta['agree'][0]) && $meta['agree'][0] == 'I Agree') {
                 unset($required[8]);
-                $required[] = 'city';
-                $required[] = 'country';
                 $required[] = 'profile_location_visibility';
+                $_POST['edit'] = true;
             }
 
             $error = false;
@@ -876,6 +880,7 @@ function mozilla_update_member() {
                 }    
 
                 update_user_meta($user->ID, 'community-meta-fields', $additional_meta);
+
             }
         }
     }
@@ -1051,8 +1056,29 @@ function mozilla_menu_class($classes, $item, $args) {
     return $classes;
 }
 
+function mozilla_theme_settings() {
+    $theme_dir = get_template_directory();
 
-remove_action('em_event_save','bp_em_group_event_save',1,2);
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if(isset($_POST['admin_nonce_field']) && wp_verify_nonce($_REQUEST['admin_nonce_field'], 'protect_content')) {
+            if(isset($_POST['google_analytics_id'])) {
+                update_option('google_analytics_id', sanitize_text_field($_POST['google_analytics_id']));
+            }
+        }
+    }
+
+    $options = wp_load_alloptions();
+    
+    include "{$theme_dir}/templates/settings.php";
+
+}
+
+function mozilla_add_menu_item() {
+    add_menu_page('Mozilla Settings', 'Mozilla Settings', 'manage_options', 'theme-panel', 'mozilla_theme_settings', null, 99);
+}
+
+
+
 
 function mozilla_events_redirect($location) {
   if (strpos($location, 'event_id') !== false) {

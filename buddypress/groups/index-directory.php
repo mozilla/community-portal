@@ -120,7 +120,7 @@
             <div class="groups__nav">
                 <ul class="groups__menu">
                     <li class="menu-item"><a class="groups__menu-link<?php if(!isset($_GET['mygroups']) || (isset($_GET['mygroups']) && $_GET['mygroups'] == 'false')): ?> group__menu-link--active<?php endif; ?>" href="#" data-nav=""><?php print __("Discover Groups"); ?></a></li>
-                    <?php if($logged_in): ?><li class="menu-item"><a class="groups__menu-link<?php if(isset($_GET['mygroups']) && $_GET['mygroups'] == 'true'): ?> group__menu-link--active<?php endif; ?>" href="#" data-nav="mygroups"><?php print __("Groups I'm in"); ?></a></li><?php endif; ?>
+                    <?php if($logged_in): ?><li class="menu-item"><a class="groups__menu-link<?php if(isset($_GET['mygroups']) && $_GET['mygroups'] == 'true'): ?> group__menu-link--active<?php endif; ?>" href="#" data-nav="mygroups"><?php print __("My Groups"); ?></a></li><?php endif; ?>
                 </ul>
             </div>
             <div class="groups__nav groups__nav--mobile">

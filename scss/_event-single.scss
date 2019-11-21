@@ -350,39 +350,4 @@
       }
     }
   }
-  &__share-lightbox {
-    text-align: center;
-  }
-  &__share-link-container {
-    padding: 0;
-  }
-  &__share-link {
-    padding: 0;
-    list-style-type: none;
-    position: relative;
-    svg {
-      position: absolute;
-      left: 15px;
-      top: 12px;
-      @include tablet-and-up {
-        left: 43px;
-      }
-    }
-    .btn {
-      border: 2px solid #000;
-      display: inline-block;
-      position: relative;
-      min-width: 200px;
-      color: #000;
-      margin-bottom: 16px;
-      padding: 15px 0 15px 45px;
-      font-size: remCalc(14);
-      text-align: left;
-      @include tablet-and-up {
-        font-size: remCalc(16);
-        min-width: 256px;
-        padding: 15px 0 15px 82px;
-      }
-    }
-  }
 }
