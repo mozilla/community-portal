@@ -73,7 +73,10 @@
       background-position: top center;
       background-repeat: no-repeat;
       @include tablet-and-up {
-        top: -80px;
+        left: -15%;
+      }
+      @include desktop-and-up {
+        left: -20%;
       }
     }
   }
