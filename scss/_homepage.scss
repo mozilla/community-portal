@@ -1,4 +1,8 @@
 .homepage {
+  &__container {
+    @extend .container;
+    max-width: 1440px;
+  }
   a {
     text-decoration: none;
   }
@@ -12,6 +16,12 @@
       width: 80%;
       span {
         font-weight: bold;
+      }
+    }
+    &__text {
+      @include tablet-and-up {
+        padding-right: 8.33333%;
+
       }
     }
     &__subtitle {
@@ -51,16 +61,10 @@
       width: 100%;
       z-index: -1;
       left: -10%;
-      top: -50px;
+      top: -80px;
       background-size: contain;
       background-position: top center;
       background-repeat: no-repeat;
-      @include tablet-and-up {
-        left: -15%;        
-      }
-      @include desktop-and-up {
-        left: -20%;
-      }
     }
   }
 }
