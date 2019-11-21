@@ -1,4 +1,7 @@
 .homepage {
+  a {
+    text-decoration: none;
+  }
   &__hero {
     min-height: calc(100vh - 138px);
     display: flex;
