@@ -329,7 +329,6 @@
                             </div>
                             <?php endif; ?>
                             <div class="group__card-content">
-
                                 <div class="group__card-cta-container<?php if($is_admin): ?> group__card-cta-container--end<?php endif; ?>">
                                 <?php if(!$is_admin): ?>
                                     <?php if($is_member): ?>
@@ -350,10 +349,15 @@
                                 <p class="group__card-copy">
                                     <?php print $group->description; ?>
                                 </p>
-                                <?php if(isset($group_meta['group_telegram']) || isset($group_meta['group_facebook']) || isset($group_meta['group_discourse']) || isset($group_meta['group_github']) || isset($group_meta['group_twitter']) || isset($group_meta['group_other'])): ?>
+                                <?php if((isset($group_meta['group_telegram']) && strlen($group_meta['group_telegram']) > 0 ) 
+                                || (isset($group_meta['group_facebook']) && strlen(trim($group_meta['group_facebook'])) > 0 ) 
+                                || (isset($group_meta['group_discourse']) && strlen(trim($group_meta['group_discourse'])) > 0 ) 
+                                || (isset($group_meta['group_github']) && strlen(trim($group_meta['group_github'])) > 0) 
+                                || (isset($group_meta['group_twitter']) && strlen(trim($group_meta['group_twitter'])) > 0 ) 
+                                || (isset($group_meta['group_other']) && strlen($group_meta['group_other']) > 0)): ?>
                                 <div class="group__community-links">
                                     <span class="no-line"><?php print __("Community Links"); ?></span>
-                                    <?php if(isset($group_meta['group_telegram'])): ?>
+                                    <?php if(isset($group_meta['group_telegram']) && strlen($group_meta['group_telegram']) > 0): ?>
                                         <div class="group__community-link-container">
                                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
@@ -363,7 +367,7 @@
                                             <a href="<?php print $group_meta['group_telegram']; ?>" class="group__social-link"><?php print __("Telegram"); ?></a>
                                         </div>
                                     <?php endif; ?>
-                                    <?php if(isset($group_meta['group_facebook'])): ?>
+                                    <?php if(isset($group_meta['group_facebook']) && strlen(trim($group_meta['group_facebook'])) > 0): ?>
                                         <div class="group__community-link-container">
                                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
@@ -372,7 +376,7 @@
                                             <a href="<?php print $group_meta['group_facebook']; ?>" class="group__social-link"><?php print __("Facebook"); ?></a>
                                         </div>
                                     <?php endif; ?>
-                                    <?php if(isset($group_meta['group_discourse'])): ?>
+                                    <?php if(isset($group_meta['group_discourse']) && strlen(trim($group_meta['group_discourse'])) > 0): ?>
                                         <div class="group__community-link-container">
                                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
@@ -381,7 +385,7 @@
                                             <a href="<?php print $group_meta['group_discourse']; ?>" class="group__social-link"><?php print __("Discourse"); ?></a>
                                         </div>
                                     <?php endif; ?>
-                                    <?php if(isset($group_meta['group_github'])): ?>
+                                    <?php if(isset($group_meta['group_github']) && strlen(trim($group_meta['group_github'])) > 0): ?>
                                         <div class="group__community-link-container">
                                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
@@ -397,7 +401,7 @@
                                             <a href="<?php print $group_meta['group_github']; ?>" class="group__social-link"><?php print __("Github"); ?></a>
                                         </div>
                                     <?php endif; ?>
-                                    <?php if(isset($group_meta['group_twitter'])): ?>
+                                    <?php if(isset($group_meta['group_twitter']) && strlen(trim($group_meta['group_twitter'])) > 0): ?>
                                         <div class="group__community-link-container">
                                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
@@ -406,7 +410,7 @@
                                             <a href="<?php print $group_meta['group_twitter']; ?>" class="group__social-link"><?php print __("Twitter"); ?></a>
                                         </div>
                                     <?php endif; ?>
-                                    <?php if(isset($group_meta['group_other'])): ?>
+                                    <?php if(isset($group_meta['group_other']) && strlen($group_meta['group_other']) > 0): ?>
                                         <div class="group__community-link-container">
                                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
@@ -569,7 +573,7 @@
                                 
                                     ?>
                                     <a class="group__admin" href="/members/<?php print $u->user_nicename; ?>">
-                                        <div class="members__avatar<?php if($visibility_settings['profile_image_url_visibility'] === false || !isset($community_fields['image_url']) || strlen($community_fields['image_url']) === 0): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $member->data->user_nicename; ?>">
+                                        <div class="members__avatar<?php if($visibility_settings['profile_image_url_visibility'] === false || !isset($community_fields['image_url']) || strlen($community_fields['image_url']) === 0): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $u->user_nicename; ?>">
 
                                         </div>
                                         <div class="username">
