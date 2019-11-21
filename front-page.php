@@ -8,7 +8,7 @@
       <div class="homepage container">
         <div class="row homepage__hero">
           <div class="col-md-4 col-sm-offset-1 homepage__hero__image">
-            <img src="<?php echo $heroImage ?>" alt="">
+            <img src="<?php echo $heroImage['url'] ?>" alt="<?php echo $heroImage['alt'] ?>">
           </div>
           <div class="col-md-5 col-md-offset-1">
             <h1 class="homepage__hero__title title title--main"><?php echo preg_replace('/\b(Community)\b/i', '<span>$0</span>', $heroTitle); ?></h1>
