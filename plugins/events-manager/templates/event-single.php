@@ -138,12 +138,16 @@
       <div class="row">
         <div class="card__address col-md-5 col-sm-12">
           <?php 
-            if (isset($location_type) && strlen($location_type) > 0 && $location_type !== 'online') {
               $location = $EM_Event->location;
+            if (isset($location_type) && strlen($location_type) > 0 && $location_type !== 'online' && $location->location_country !== 'OE') {
             ?>
               <p><?php echo __($location->location_name) ?></p>
               <p><?php echo __($location->location_address) ?></p>
-              <p><?php echo __($location->location_town.', '.$allCountries[$EM_Event->location->location_country]) ?></p>
+              <?php if ($location->location_country === 'OE'): ?>
+                <p><?php echo __('Online Event') ?></p>
+              <?php else: ?>
+                <p><?php echo __($location->location_town.', '.$allCountries[$EM_Event->location->location_country]) ?></p>
+              <?php endif ?>
             <?php 
             } else { 
             ?>
@@ -170,7 +174,7 @@
           $body = wp_remote_retrieve_body( $request );
           $data = json_decode( $body );
           $coordinates = $data->features[0]->geometry->coordinates; 
-          if (isset($location_type) && strlen($location_type) && $location_type !== 'online') {
+          if (isset($location_type) && strlen($location_type) && $location_type !== 'online' && $location->location_country !== 'OE') {
           ?>
             <div id='map' class="card__map col-md-7 col-sm-12" style='height: 110px;'></div>
             <script>
