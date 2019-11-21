@@ -475,7 +475,7 @@
                                 <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
                             </g>
                         </svg>
-                        <select id="languages-1" name="languages[]" class="profile__select">
+                        <select id="languages-1" name="languages[]" class="profile__select profile__select--languages">
                             <option value=""><?php print __('Make Selection'); ?>
                             <?php foreach($languages AS $key    =>  $language): ?>
                             <option value="<?php print $key; ?>"<?php if($form && isset($form['langauges'][0]) && $form['languages'][0] == $key): ?> selected<?php else: ?><?php if(isset($community_fields['languages'][0]) && $community_fields['languages'][0] == $key): ?> selected<?php endif; ?><?php endif; ?>><?php print $language; ?></option>
@@ -512,6 +512,7 @@
                         <button class="profile__remove-language">&mdash;</button>
                     </div>
                     <div class="profile__select-container profile__select-container--empty">
+          
                     </div>                      
                 </div>
                 <div class="profile__add-language-container"> 
@@ -555,6 +556,7 @@
                         </div>
                         <?php else: ?>
                             <div class="profile__select-container profile__select-container--empty">
+                  
                             </div>  
                         <?php endif; ?>
                     </div>
