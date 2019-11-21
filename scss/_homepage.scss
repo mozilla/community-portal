@@ -2,6 +2,13 @@
   &__container {
     @extend .container;
     max-width: 1440px;
+    padding: 0 24px;
+    @include tablet-and-up {
+      padding: 0 64px;
+    }
+    @include desktop-and-up {
+      padding: 0 106px;
+    }
   }
   a {
     text-decoration: none;
