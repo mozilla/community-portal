@@ -61,10 +61,13 @@
       width: 100%;
       z-index: -1;
       left: -10%;
-      top: -80px;
+      top: -50px;
       background-size: contain;
       background-position: top center;
       background-repeat: no-repeat;
+      @include tablet-and-up {
+        top: -80px;
+      }
     }
   }
 }
