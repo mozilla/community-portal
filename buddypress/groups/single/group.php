@@ -219,7 +219,7 @@
                     <?php elseif($is_events === true): ?>
                     <?php 
 
-                        $args = Array('group'   =>  $group->id);      
+                        $args = Array('group'   =>  $group->id, 'scope' =>  'all');      
                         $events = EM_Events::get($args);                                            
                     ?>
                     <div class="row events__cards">
