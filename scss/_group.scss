@@ -559,9 +559,11 @@
         display: flex;
         flex-direction: column;
 
+
         @include tablet-and-up {
             justify-content: space-between;
             flex-direction: row;
+            flex-wrap: wrap;
         }
     }
 
