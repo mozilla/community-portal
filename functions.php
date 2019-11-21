@@ -49,7 +49,7 @@ add_filter('nav_menu_css_class', 'mozilla_menu_class', 10, 4);
 
 // Events Action
 add_action('save_post', 'mozilla_save_event', 10, 3);
-
+remove_filter('template_redirect','redirect_canonical');
 
 // Include theme style.css file not in admin page
 if(!is_admin()) 
