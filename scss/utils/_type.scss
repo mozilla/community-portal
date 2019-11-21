@@ -2,6 +2,31 @@
   font-family: $main-font-family;
   font-size: remCalc(48);
   font-weight: normal;
+  &--main {
+    font-size: remCalc(40);
+    @include desktop-and-up {
+      font-size: remCalc(64);
+    }
+  }
+}
+
+.subtitle {
+  font-size: remCalc(16);
+  line-height: remCalc(24);
+  @include desktop-and-up {
+    font-size: remCalc(18);
+    line-height: remCalc(28);
+  }
+}
+
+.btn--small {
+  font-size: remCalc(14);
+  font-weight: normal;
+  line-height: remCalc(22);
+  @include desktop-and-up {
+    font-size: remCalc(16);
+    line-height: remCalc(18);
+  }
 }
 
 p {
