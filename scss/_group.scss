@@ -112,6 +112,9 @@
         display: inline-block;
         margin-left: 4px;
 
+        &.group__status--unverified {
+            text-decoration: underline!important;
+        }
     }
 
     &__created,
