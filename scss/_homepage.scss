@@ -86,12 +86,22 @@
     margin-bottom: 36px;
     &__background {
       position: absolute;
-      top: 200px;
-      left: 200px;
-      height: calc(100% - 94px);
-      width: calc(100% - 94px);
       background-color: $color-yellow-20;
       z-index: -1;
+      top: 190px;
+      left: -24px;
+      width: 100vw;
+      height: calc(100% - 160px);
+      @include tablet-and-up {
+        height: calc(100% - 150px);
+        width: calc(100%);
+        top: 200px;
+        left: 70px;
+      }
+      @include desktop-and-up {      
+        height: calc(100% - 94px);
+        top: 200px;
+      }
     }
     @include tablet-and-up {
       margin-top: 48px;

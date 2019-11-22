@@ -370,9 +370,12 @@ jQuery(function() {
         window.addEventListener("resize", function() {
             setHeightOfDivs(".events__tags");
             setHeightOfDivs(".event-card__description");
+            setHeightOfDivs(".homepage__events .events__column");
+
         });
         setHeightOfDivs(".events__tags");
         setHeightOfDivs(".event-card__description");
+        setHeightOfDivs(".homepage__events .events__column");
         toggleLocationType();
         handleSubmit();
         clearImage();

@@ -1074,10 +1074,8 @@ function mozilla_theme_settings() {
 }
 
 function mozilla_add_menu_item() {
-    add_menu_page('Mozilla Settings', 'Mozilla Settings', 'manage_options', 'theme-panel', 'mozilla_theme_settings', null, 99);
+  add_menu_page('Mozilla Settings', 'Mozilla Settings', 'manage_options', 'theme-panel', 'mozilla_theme_settings', null, 99);
 }
-
-
 
 
 function mozilla_events_redirect($location) {
@@ -1093,5 +1091,29 @@ add_filter('wp_redirect', 'mozilla_events_redirect');
 function mozilla_is_site_admin(){
   return in_array('administrator',  wp_get_current_user()->roles);
 }
+
+function mozilla_delete_events($id, $post) {
+  $post_id = $post->post_id;
+  wp_delete_post($post_id);
+  return $post;
+}
+
+add_filter('em_event_delete', 'mozilla_delete_events', 10, 2);
+
+function mozilla_verify_deleted_events() {
+  $args = array(
+    'post_type' => 'event',
+    'posts_per_page' => 1000,
+  );
+  $allPosts = new WP_Query($args);
+  foreach($allPosts->posts as $post):
+    $event = EM_Events::get(array('post_id' => $post->ID));
+    if (count($event) === 0):
+      wp_delete_post($post->ID);
+    endif;
+  endforeach;
+}
+
+add_action('init', 'mozilla_verify_deleted_events', 10)
 
 ?>
