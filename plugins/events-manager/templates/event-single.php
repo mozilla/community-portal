@@ -144,6 +144,7 @@
               <p><?php echo __($location->location_name) ?></p>
               <p><?php echo __($location->location_address) ?></p>
               <p><?php echo __($location->location_town.', '.$allCountries[$EM_Event->location->location_country]) ?></p>
+              <p><a href="/events/?country=<?php print $allCountries[$EM_Event->location->location_country]; ?>">View more events in <?php print $allCountries[$EM_Event->location->location_country]; ?></a></p>
             <?php 
             } else { 
             ?>
