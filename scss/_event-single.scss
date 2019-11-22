@@ -8,6 +8,12 @@
   }
   a {
     text-decoration: none;
+    .events-single__tag-link {
+      color: $color-black;
+      &:visited {
+        color: $color-black;
+      }
+    }
   }
   .row {
     margin-left: 0;
@@ -115,7 +121,14 @@
       font-size: remCalc(14);
       padding: 10px 20px;
       margin-bottom: 10px;
+      .events-single__tag-link {
+        color: $color-black;
+        &:visited {
+          color: $color-black;
+        }
+      }
     }
+    
   }
   &__attributes.card,
   &__group.card {
@@ -350,4 +363,5 @@
       }
     }
   }
+
 }

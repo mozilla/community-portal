@@ -19,7 +19,7 @@
               <?php
                 foreach($categories as $category) {
                 ?>
-                <li class="tag"><?php echo $category->name ?></li>
+                <li class="tag"><a class="events-single__tag-link" href="/events/?tag=<?php print $category->name; ?>"><?php echo $category->name ?></a></li>
                 <?php
               }
             ?>

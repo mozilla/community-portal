@@ -620,7 +620,7 @@
                                 <span><?php print __('Tags'); ?></span>
                                 <div class="group__tags">
                                     <?php foreach($group_meta['group_tags'] AS $tag): ?>
-                                    <a class="group__tag"><?php print $tag; ?></a>
+                                    <a href="/groups/?tag=<?php print $tag; ?>" class="group__tag"><?php print $tag; ?></a>
                                     <?php endforeach; ?>
                                 </div>
                             </div>
