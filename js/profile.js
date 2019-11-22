@@ -245,6 +245,7 @@ jQuery(function(){
             
             jQuery('#image-url').val(response);
             jQuery('#profile-photo-uploader').css('background-image', 'url(' +  response + ')');
+            jQuery('#profile-photo-uploader').css('background-size', 'cover');
             jQuery('#profile-photo-uploader').addClass("profile__image-upload--complete");
             
         },
