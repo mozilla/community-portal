@@ -231,7 +231,20 @@
                     </div>
                     <?php elseif($is_events === true): ?>
                     <?php 
-
+                        $months = array(
+                            '01' => 'Jan',
+                            '02' => 'Feb',
+                            '03' => 'Mar',
+                            '04' => 'Apr',
+                            '05' => 'May',
+                            '06' => 'Jun',
+                            '07' => 'Jul',
+                            '08' => 'Aug',
+                            '09' => 'Sep',
+                            '10' => 'Oct',
+                            '11' => 'Nov',
+                            '12' => 'Dec',
+                        );
                         $args = Array('group'   =>  $group->id, 'scope' =>  'all');      
                         $events = EM_Events::get($args);                                            
                     ?>
@@ -254,11 +267,13 @@
                                                 if($img_url && $img_url !== ''):?>style="background-image: url(<?php echo $img_url ?>)"<?php endif; ?>
                                         >
                                             <?php 
+
                                                 $month = substr($event->start_date, 5, 2);
                                                 $date = substr($event->start_date, 8, 2);
                                                 $year = substr($event->start_date, 0, 4);
+                                             
                                             ?>
-                                            <p class="event-card__image__date"><span><?php echo __(substr($months[$month],0,3)) ?> </span><span><?php echo __($date) ?></span></p>
+                                            <p class="event-card__image__date"><span><?php echo __(substr($months[intval($month)],0,3)) ?> </span><span><?php echo __($date) ?></span></p>
                                         </div>
                                         <div class="event-card__description">
                                             <h3 class="event-card__description__title title--event-card"><?php echo $event->event_name; ?></h2>
