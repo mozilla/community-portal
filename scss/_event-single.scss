@@ -310,6 +310,12 @@
     float: none;
     width: auto;
   }
+  .em-booking-submit {
+    width: 100%;
+    @include tablet-and-up {
+      width: auto;
+    }
+  }
   .em-booking {
     text-align: right;
   }

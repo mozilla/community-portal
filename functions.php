@@ -1094,4 +1094,14 @@ function mozilla_is_site_admin(){
   return in_array('administrator',  wp_get_current_user()->roles);
 }
 
+function mozilla_approve_booking($EM_Booking) {
+  if (intval($EM_Booking->booking_status) === 0) {
+    $EM_Booking->booking_status = 1;
+    return $EM_Booking;
+  }
+  return $EM_Booking;
+}
+
+add_filter('em_booking_save_pre','mozilla_approve_booking', 100, 2);
+
 ?>
