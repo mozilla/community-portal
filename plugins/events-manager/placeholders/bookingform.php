@@ -39,7 +39,7 @@
       <input type='hidden' name='action' value='booking_add'/>
       <input type='hidden' name='event_id' value='<?php echo $EM_Event->get_bookings()->event_id; ?>'/>
       <input type='hidden' name='_wpnonce' value='<?php echo wp_create_nonce('booking_add'); ?>'/>
-      <?
+      <?php
         $count = 0;
         foreach ($EM_Tickets as $ticket) {
           if ($count < 1) {
