@@ -526,9 +526,12 @@
         }
     }
 
+
+
     &__admin {
         display: flex;
         align-items: center;
+        text-decoration: none;
 
         &:not(:first-of-type) {
             margin-top: 40px;
@@ -608,6 +611,7 @@
     }
 
     &__event {
+        text-decoration: none;
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
