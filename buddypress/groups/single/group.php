@@ -44,13 +44,13 @@
                             <ellipse cx="8" cy="7.97569" rx="8" ry="7.97569" fill="#0060DF"/>
                             <path d="M8 5.5L8.7725 7.065L10.5 7.3175L9.25 8.535L9.545 10.255L8 9.4425L6.455 10.255L6.75 8.535L5.5 7.3175L7.2275 7.065L8 5.5Z" fill="white" stroke="white" stroke-width="2" stroke-linecap="round"/>
                         </svg>
-                        <span class="group__status">Verified</span>&nbsp;|
+                        <a href="https://discourse.mozilla.org/t/frequently-asked-questions-portal-edition-faq/43224" class="group__status">Verified</a>&nbsp;|
                     <?php else: ?>
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M15.5 7.97569C15.5 12.103 12.1436 15.4514 8 15.4514C3.85643 15.4514 0.5 12.103 0.5 7.97569C0.5 3.84842 3.85643 0.5 8 0.5C12.1436 0.5 15.5 3.84842 15.5 7.97569Z" stroke="#B1B1BC"/>
                             <path d="M8 5.5L8.7725 7.065L10.5 7.3175L9.25 8.535L9.545 10.255L8 9.4425L6.455 10.255L6.75 8.535L5.5 7.3175L7.2275 7.065L8 5.5Z" fill="#B1B1BC" stroke="#B1B1BC" stroke-width="2" stroke-linecap="round"/>
                         </svg>
-                        <span class="group__status">Unverified</span>&nbsp;|
+                        <a href="https://discourse.mozilla.org/t/frequently-asked-questions-portal-edition-faq/43224" class="group__status">Unverified</a>&nbsp;|
                     <?php endif; ?>
                     <span class="group__location">
                     <?php 
@@ -173,7 +173,8 @@
                                 $fields = Array(
                                     'image_url',
                                     'first_name',
-                                    'last_name'
+                                    'last_name',
+                                    'country'
                                 );
               
                                 $is_me = $logged_in && intval($user->ID) === intval($member->ID);
@@ -191,6 +192,7 @@
                                         $field_visibility_name = 'profile_image_url_visibility';
                                     }
                                     $visibility = mozilla_determine_field_visibility($field, $field_visibility_name, $community_fields, $is_me, $logged_in);
+                                    $field_visibility_name = ($field === 'country') ? 'profile_location_visibility' : $field_visibility_name;
                                     $visibility_settings[$field_visibility_name] = $visibility;
                                 }
                     
@@ -211,6 +213,17 @@
                                             }
                                         ?>
                                     </div>
+                                    <?php if($visibility_settings['profile_location_visibility'] !== false && isset($community_fields['country']) && strlen($community_fields['country']) > 0): ?>
+                                        <div class="members__location">
+                                            <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>&nbsp;
+                                            <?php 
+                                                print $countries[$community_fields['country']];    
+                                            ?>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                             </a>
                             <?php endforeach; ?>
@@ -218,8 +231,21 @@
                     </div>
                     <?php elseif($is_events === true): ?>
                     <?php 
-
-                        $args = Array('group'   =>  $group->id);      
+                        $months = array(
+                            '01' => 'Jan',
+                            '02' => 'Feb',
+                            '03' => 'Mar',
+                            '04' => 'Apr',
+                            '05' => 'May',
+                            '06' => 'Jun',
+                            '07' => 'Jul',
+                            '08' => 'Aug',
+                            '09' => 'Sep',
+                            '10' => 'Oct',
+                            '11' => 'Nov',
+                            '12' => 'Dec',
+                        );
+                        $args = Array('group'   =>  $group->id, 'scope' =>  'all');      
                         $events = EM_Events::get($args);                                            
                     ?>
                     <div class="row events__cards">
@@ -241,11 +267,13 @@
                                                 if($img_url && $img_url !== ''):?>style="background-image: url(<?php echo $img_url ?>)"<?php endif; ?>
                                         >
                                             <?php 
+
                                                 $month = substr($event->start_date, 5, 2);
                                                 $date = substr($event->start_date, 8, 2);
                                                 $year = substr($event->start_date, 0, 4);
+                                             
                                             ?>
-                                            <p class="event-card__image__date"><span><?php echo __(substr($months[$month],0,3)) ?> </span><span><?php echo __($date) ?></span></p>
+                                            <p class="event-card__image__date"><span><?php echo __(substr($months[intval($month)],0,3)) ?> </span><span><?php echo __($date) ?></span></p>
                                         </div>
                                         <div class="event-card__description">
                                             <h3 class="event-card__description__title title--event-card"><?php echo $event->event_name; ?></h2>
@@ -550,7 +578,8 @@
                                         $fields = Array(
                                             'image_url',
                                             'first_name',
-                                            'last_name'
+                                            'last_name',
+                                            'country'
                                         );
                       
                                         $is_me = $logged_in && intval($user->ID) === intval($admin->user_id);
@@ -565,9 +594,10 @@
                                             $field_visibility_name = "{$field}_visibility";
                                             if($field == 'image_url') {
                                                 $field_visibility_name = 'profile_image_url_visibility';
-            
                                             }
+
                                             $visibility = mozilla_determine_field_visibility($field, $field_visibility_name, $community_fields, $is_me, $logged_in);
+                                            $field_visibility_name = ($field === 'country') ? 'profile_location_visibility' : $field_visibility_name;
                                             $visibility_settings[$field_visibility_name] = $visibility;
                                         }
                                 
@@ -583,6 +613,17 @@
                                                 <?php if($visibility_settings['last_name_visibility']): print $community_fields['last_name']?><?php endif; ?>
                                             </div>
                                         </div>
+                                        <?php if($visibility_settings['profile_location_visibility'] !== false && isset($community_fields['country']) && strlen($community_fields['country']) > 0): ?>
+                                        <div class="members__location">
+                                            <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>&nbsp;
+                                            <?php 
+                                                print $countries[$community_fields['country']];    
+                                            ?>
+                                        </div>
+                                        <?php endif; ?>
                                     </a>
                                     <?php endforeach; ?>
                                 </div>
