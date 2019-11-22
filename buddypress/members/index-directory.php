@@ -59,8 +59,6 @@
                 $community_fields = isset($meta['community-meta-fields'][0]) ? unserialize($meta['community-meta-fields'][0]) : Array();
                 $community_fields['first_name'] = isset($meta['first_name'][0]) ? $meta['first_name'][0] : '';
                 $community_fields['last_name'] = isset($meta['last_name'][0]) ? $meta['last_name'][0] : '';
-                $community_fields['city'] = isset($meta['city'][0]) ? $meta['city'][0] : '';
-                $community_fields['country'] = isset($meta['country'][0]) ? $meta['country'][0] : '';
 
                 $visibility_settings = Array();
 
