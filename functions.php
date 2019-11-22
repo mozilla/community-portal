@@ -309,7 +309,6 @@ function remove_admin_login_header() {
 
 function mozilla_init() {
     register_nav_menu('mozilla-theme-menu', __('Mozilla Custom Theme Menu'));
-    session_start();
     $user = wp_get_current_user()->data;
     // Not logged in
     if(!isset($user->ID)) {
