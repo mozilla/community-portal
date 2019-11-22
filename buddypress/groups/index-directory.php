@@ -196,7 +196,7 @@
                         </div>
                         <div class="groups__card-content">
                             <h2 class="groups__group-title"><?php print str_replace('\\', '', stripslashes($group_name)); ?></h2>
-                            
+                                <?php if(isset($meta['group_city']) && strlen(trim($meta['group_city'])) > 0 || isset($meta['group_country']) && $meta['group_country'] != "0"): ?>
                                 <div class="groups__card-location">
                                     <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M14 7.66699C14 12.3337 8 16.3337 8 16.3337C8 16.3337 2 12.3337 2 7.66699C2 6.07569 2.63214 4.54957 3.75736 3.42435C4.88258 2.29913 6.4087 1.66699 8 1.66699C9.5913 1.66699 11.1174 2.29913 12.2426 3.42435C13.3679 4.54957 14 6.07569 14 7.66699Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -212,6 +212,7 @@
                                         }
                                     ?>
                                 </div>
+                                <?php endif; ?>
                                 <div class="groups__card-members">
                                     <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M12.3334 14V12.6667C12.3334 11.9594 12.0525 11.2811 11.5524 10.781C11.0523 10.281 10.374 10 9.66675 10H4.33341C3.62617 10 2.94789 10.281 2.4478 10.781C1.9477 11.2811 1.66675 11.9594 1.66675 12.6667V14" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
