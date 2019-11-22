@@ -309,7 +309,7 @@ function remove_admin_login_header() {
 
 function mozilla_init() {
     register_nav_menu('mozilla-theme-menu', __('Mozilla Custom Theme Menu'));
-
+    session_start();
     $user = wp_get_current_user()->data;
     // Not logged in
     if(!isset($user->ID)) {
@@ -393,7 +393,6 @@ function mozilla_init_scripts() {
 
 // If the create group page is called create a group 
 function mozilla_create_group() {
-
     if(is_user_logged_in()) {
         $required = Array(
             'group_name',
