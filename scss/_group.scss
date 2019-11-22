@@ -526,6 +526,8 @@
         }
     }
 
+
+
     &__admin {
         display: flex;
         align-items: center;
@@ -609,6 +611,7 @@
     }
 
     &__event {
+        text-decoration: none;
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
