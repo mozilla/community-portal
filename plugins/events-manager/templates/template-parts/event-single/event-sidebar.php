@@ -30,7 +30,7 @@
 
             if (isset($campaign) && $campaign !== 'No'):
           ?>
-          <div class="col-lg-12 col-md-6 col-sm-12">
+          <!-- <div class="col-lg-12 col-md-6 col-sm-12">
             <p class="events-single__label"><?php echo __('Part of') ?></p>
             <div class="events-single__campaign">            
               <svg width="24" height="24" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -41,7 +41,7 @@
               </svg>
               <a href="#"><?php echo __('Firefox for good campaign') ?></a>
             </div>
-          </div>
+          </div> -->
           <?php 
             endif 
           ?>
