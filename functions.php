@@ -1114,6 +1114,24 @@ function mozilla_verify_deleted_events() {
   endforeach;
 }
 
-add_action('init', 'mozilla_verify_deleted_events', 10)
+add_action('init', 'mozilla_verify_deleted_events', 10);
+
+
+function acf_load_bp_groups( $field ) {
+  $allGroups = groups_get_groups(array());
+  foreach ($allGroups['groups'] as $group):
+    $groups[] = $group->name.'_'.$group->id;
+  endforeach; 
+  // Populate choices
+  foreach( $groups as $group ) {
+    $groupvalues = explode('_', $group);
+    $field['choices'][ $groupvalues[1] ] = $groupvalues[0];
+  }
+  
+  // Return choices
+  return $field;
+}
+// Populate select field using filter
+add_filter('acf/load_field/name=featured_group', 'acf_load_bp_groups', 10, 1);
 
 ?>
