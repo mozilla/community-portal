@@ -755,6 +755,8 @@ function mozilla_update_member() {
                 'image_url',
                 'profile_image_url_visibility',
                 'pronoun',
+                'city',
+                'country',
                 'profile_pronoun_visibility',
                 'bio',
                 'profile_bio_visibility',
@@ -863,7 +865,6 @@ function mozilla_update_member() {
                     update_user_meta($user->ID, $field, $form_data);
                 }
 
-
                 // Update other fields here
                 $addtional_meta = Array();
 
@@ -875,7 +876,7 @@ function mozilla_update_member() {
                             $additional_meta[$field] = sanitize_text_field(trim($_POST[$field]));
                         }
                     }
-                }    
+                }   
 
                 update_user_meta($user->ID, 'community-meta-fields', $additional_meta);
 
