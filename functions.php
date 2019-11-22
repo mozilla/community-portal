@@ -1094,6 +1094,21 @@ function mozilla_is_site_admin(){
   return in_array('administrator',  wp_get_current_user()->roles);
 }
 
+function mozilla_add_online_to_countries($countries) {
+  $countries = array('OE' => 'Online Event') + $countries;
+  return $countries;
+}
+
+add_filter('em_get_countries', 'mozilla_add_online_to_countries', 10, 1);
+add_filter('em_location_get_countries', 'mozilla_add_online_to_countries', 10, 1);
+
+function mozilla_update_events_copy($string) {
+  $string = 'Please <a href="/wp-login.php?action=login">log in</a> to create or join events';
+  return $string;
+}; 
+
+add_filter('em_event_submission_login', "mozilla_update_events_copy", 10, 1);
+
 function mozilla_approve_booking($EM_Booking) {
   if (intval($EM_Booking->booking_status) === 0) {
     $EM_Booking->booking_status = 1;
