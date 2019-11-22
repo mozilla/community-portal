@@ -1031,6 +1031,7 @@ function mozilla_edit_group() {
                     $meta['group_other'] = isset($_POST['group_other']) ? sanitize_text_field($_POST['group_other']) : '';
 
                     groups_update_groupmeta($group_id, 'meta', $meta);
+                    $_POST['done'] = true;
                 }
         
             }
