@@ -1,4 +1,36 @@
         <footer class="footer">
+            <?php
+                if(!isset($_COOKIE['gdrp'])) {
+                    $args = Array(
+                        'category_name'  =>  'GDRP',
+                    );
+    
+                    $gdrp_post = get_posts($args);
+                } else {
+                    $gdrp_post = Array();
+                }
+            ?>
+
+            <?php if(sizeof($gdrp_post) > 0): ?>
+            <div class="gdrp">
+                <div class="gdrp__container">
+                    <a href="#" class="gdrp__close">
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17 1L1 17" stroke="#F9F9FA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M1 1L17 17" stroke="#F9F9FA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+
+                    <h2 class="gdrp__title"><?php print $gdrp_post[0]->post_title; ?></h2>
+                    <?php
+                        print  $gdrp_post[0]->post_content;
+                    ?>
+                    <div class="gdrp__cta-container">
+                        <a href="#" class="gdrp__cta"><?php print __("Accept"); ?></a>
+                    </div>
+                </div>
+            </div>
+            <?php endif; ?>
             <div class="footer__container">
                 <div class="footer__logo-container">
                     <img src="<?php print get_stylesheet_directory_uri(); ?>/images/footer-logo.png"  class="footer__logo" alt="Mozilla Logo" />

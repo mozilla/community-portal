@@ -50,7 +50,6 @@ add_filter('nav_menu_css_class', 'mozilla_menu_class', 10, 4);
 // Events Action
 add_action('save_post', 'mozilla_save_event', 10, 3);
 
-
 // Include theme style.css file not in admin page
 if(!is_admin()) 
     wp_enqueue_style('style', get_stylesheet_uri());
@@ -310,7 +309,6 @@ function remove_admin_login_header() {
 
 function mozilla_init() {
     register_nav_menu('mozilla-theme-menu', __('Mozilla Custom Theme Menu'));
-
     $user = wp_get_current_user()->data;
     // Not logged in
     if(!isset($user->ID)) {
@@ -387,13 +385,13 @@ function mozilla_init_scripts() {
     wp_enqueue_script('nav', get_stylesheet_directory_uri()."/js/nav.js", array('jquery'));
     wp_enqueue_script('profile', get_stylesheet_directory_uri()."/js/profile.js", array('jquery'));
     wp_enqueue_script('lightbox', get_stylesheet_directory_uri()."/js/lightbox.js", array('jquery'));
+    wp_enqueue_script('gdrp', get_stylesheet_directory_uri()."/js/gdrp.js", array('jquery'));
     
 
 }
 
 // If the create group page is called create a group 
 function mozilla_create_group() {
-
     if(is_user_logged_in()) {
         $required = Array(
             'group_name',
@@ -757,6 +755,8 @@ function mozilla_update_member() {
                 'image_url',
                 'profile_image_url_visibility',
                 'pronoun',
+                'city',
+                'country',
                 'profile_pronoun_visibility',
                 'bio',
                 'profile_bio_visibility',
@@ -865,7 +865,6 @@ function mozilla_update_member() {
                     update_user_meta($user->ID, $field, $form_data);
                 }
 
-
                 // Update other fields here
                 $addtional_meta = Array();
 
@@ -877,7 +876,7 @@ function mozilla_update_member() {
                             $additional_meta[$field] = sanitize_text_field(trim($_POST[$field]));
                         }
                     }
-                }    
+                }   
 
                 update_user_meta($user->ID, 'community-meta-fields', $additional_meta);
 
@@ -1032,6 +1031,7 @@ function mozilla_edit_group() {
                     $meta['group_other'] = isset($_POST['group_other']) ? sanitize_text_field($_POST['group_other']) : '';
 
                     groups_update_groupmeta($group_id, 'meta', $meta);
+                    $_POST['done'] = true;
                 }
         
             }
