@@ -81,45 +81,104 @@
     }
   }
   &__events {
-    .events__column:nth-of-type(3n) {
-      @include tablet-and-up {
-        padding-right: 16px;
+    position: relative;
+    margin-top: 36px;
+    margin-bottom: 36px;
+    &__background {
+      position: absolute;
+      top: 200px;
+      left: 200px;
+      height: calc(100% - 94px);
+      width: calc(100% - 94px);
+      background-color: $color-yellow-20;
+      z-index: -1;
+    }
+    @include tablet-and-up {
+      margin-top: 48px;
+      margin-bottom: 48px;
+    }
+    @include desktop-and-up {
+      margin-top: 80px;
+      margin-bottom: 80px;
+    }
+    &__grid {
+      .events__column:nth-of-type(3n) {
+        @include tablet-and-up {
+          padding-right: 16px;
+        }
+        @include desktop-and-up {
+          padding-right: 0;
+        }
       }
-      @include desktop-and-up {
-        padding-right: 0;
+      .events__column:nth-of-type(3n + 1) {
+        @include desktop-and-up {
+          padding-left: 0;
+        }
+      }
+      .events__column:nth-of-type(2n + 1) {
+        @media (min-width: $screen-tablet-min) and (max-width: $screen-desktop-min) {
+          padding-left: 0;
+        }
+      }
+      .events__column:nth-of-type(2n) {
+        @media (min-width: $screen-tablet-min) and (max-width: $screen-desktop-min) {
+          padding-right: 0px;
+        }
+      }
+      .events__column {
+        padding: 16px 0;
+        @include tablet-and-up {
+          padding: 32px 16px;
+        }
       }
     }
-    .events__column:nth-of-type(3n + 1) {
-      @include desktop-and-up {
-        padding-left: 0;
-      }
-    }
-    .events__column:nth-of-type(2n + 1) {
-      @media (min-width: $screen-tablet-min) and (max-width: $screen-desktop-min) {
-        padding-left: 0;
-      }
-    }
-    .events__column:nth-of-type(2n) {
-      @media (min-width: $screen-tablet-min) and (max-width: $screen-desktop-min) {
-        padding-right: 0px;
-      }
-    }
-    .events__column {
-      padding: 16px 0;
-      @include tablet-and-up {
-        padding: 32px 16px;
-      }
-    }
+  
     &__subheader {
-      max-width: 50%;
       margin-top: 0;
-      margin-bottom: 0;
+      margin-bottom: 24px;
+      text-align: center;
+      @include tablet-and-up {
+        margin-bottom: 0;
+        max-width: 50%;
+        text-align: left;
+      }
     }
     &__cta {
       @include tablet-and-up {
         display: flex;
         justify-content: flex-end;
         align-items: flex-end;
+      }
+    }
+    &__meta {
+      margin-bottom: 32px;
+      @include tablet-and-up {
+        margin-bottom: 32px;
+      }
+      @include desktop-and-up {
+        margin-bottom: 40px;
+      }
+    }
+    &__count {
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &__span {
+        display: block;
+        text-align: center;
+        margin-bottom: 32px;
+      }
+      &__link,
+      &__link:visited {
+        color: $color-blue-50;
+        &::after {
+          content: url('./images/chevron-right-2.svg');
+          display: inline-block;
+          padding-left: 4px;
+          position: relative;
+          top: 3px;
+        }
       }
     }
   }

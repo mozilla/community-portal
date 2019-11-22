@@ -29,6 +29,11 @@
   &--small {
     padding: 10px 32px;
     border-radius: 28px;
+    width: 100%;
+    text-align: center;
+    @include tablet-and-up {
+      width: auto;
+    }
     @include desktop-and-up {
       padding: 15px 48px;
     }

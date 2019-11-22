@@ -117,14 +117,15 @@ jQuery(function() {
             $cards.each(function() {
                 $this = jQuery(this);
                 $this.css("min-height", "0");
-                if ($this.outerHeight() > t) {
+                if ($this.outerHeight(true) > t) {
                     t_elem = $this;
-                    t = $this.outerHeight();
+                    t = $this.outerHeight(true);
                 }
             });
-            $cards.each(function() {
+            setTimeout(function() {
+              $cards.each(function() {
                 jQuery(this).css("min-height", t_elem.outerHeight());
-            });
+            }) }, 10);
         }
     }
 

@@ -15,6 +15,14 @@
   line-height: remCalc(36);
   font-family: $main-font-family;
   font-weight: normal;
+  @include tablet-and-up {
+    font-size: remCalc(36);
+    line-height: remCalc(43);
+  }
+  @include desktop-and-up {
+    font-size: remCalc(48);
+    line-height: remCalc(48);
+  }
 }
 
 .subtitle {
@@ -41,6 +49,13 @@ p {
 }
 .text--small {
   font-size: 14px;
+}
+
+.large-number {
+  font-family: $main-font-family;
+  font-size: remCalc(104);
+  font-weight: bold;
+  line-height: 1;
 }
 
 .tag {
