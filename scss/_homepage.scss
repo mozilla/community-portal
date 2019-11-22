@@ -1,4 +1,14 @@
+body.home-page {
+  background: white;
+  overflow-x: hidden;
+
+  a {
+    text-decoration: none;
+  }
+}
 .homepage {
+
+  position: relative;
   &__container {
     @extend .container;
     max-width: 1440px;
@@ -10,14 +20,17 @@
       padding: 0 106px;
     }
   }
-  a {
-    text-decoration: none;
-  }
+  
   &__hero {
-    min-height: calc(100vh - 138px);
     display: flex;
     align-items: center;
-    padding: 40px 0;
+    padding: 40px 0 32px;
+    margin-bottom: 40px;
+    position: relative;
+    &__background {
+      top: 0;
+      height: 100%;
+    }
     &__title {
       margin: 0;
       width: 80%;
@@ -46,12 +59,18 @@
     }
     @include tablet-and-up {
       padding: 70px 0 40px;
+      margin-bottom: 48px;
+    }
+    @include desktop-and-up {
+      margin-bottom: 64px;
     }
   }
-  &__hero__image {
+  &__hero__splash {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  &__hero__image {   
     position: relative;
     margin-top: 50px;
     margin-bottom: 48px;
@@ -59,6 +78,8 @@
       border-radius: 50%;
       display: block;
       max-width: 100%;
+      position: relative;
+      z-index: 2;
     }
     &::before {
       content: '';
@@ -66,7 +87,6 @@
       position: absolute;
       height: 100%;
       width: 100%;
-      z-index: -1;
       left: -10%;
       top: -50px;
       background-size: contain;
@@ -80,39 +100,22 @@
       }
     }
   }
-  &__events {
+  &__events,
+  &__groups {
     position: relative;
     margin-top: 36px;
-    margin-bottom: 36px;
-    &__background {
-      position: absolute;
-      background-color: $color-yellow-20;
-      z-index: -1;
-      top: 190px;
-      left: -24px;
-      width: 100vw;
-      height: calc(100% - 160px);
-      @include tablet-and-up {
-        height: calc(100% - 150px);
-        width: calc(100%);
-        top: 200px;
-        left: 70px;
-      }
-      @include desktop-and-up {      
-        height: calc(100% - 94px);
-        top: 200px;
-      }
-    }
+    padding-bottom: 36px;
     @include tablet-and-up {
       margin-top: 48px;
-      margin-bottom: 48px;
+      padding-bottom: 98px;
     }
     @include desktop-and-up {
       margin-top: 80px;
-      margin-bottom: 80px;
+      margin-bottom: 186px;
     }
     &__grid {
-      .events__column:nth-of-type(3n) {
+      .events__column:nth-of-type(3n),
+      .groups__column:nth-of-type(3n) {
         @include tablet-and-up {
           padding-right: 16px;
         }
@@ -120,21 +123,25 @@
           padding-right: 0;
         }
       }
-      .events__column:nth-of-type(3n + 1) {
+      .events__column:nth-of-type(3n + 1),
+      .groups__column:nth-of-type(3n + 1)  {
         @include desktop-and-up {
           padding-left: 0;
         }
       }
+      .groups__column:nth-of-type(2n + 1),
       .events__column:nth-of-type(2n + 1) {
         @media (min-width: $screen-tablet-min) and (max-width: $screen-desktop-min) {
           padding-left: 0;
         }
       }
+      .groups__column:nth-of-type(2n),
       .events__column:nth-of-type(2n) {
         @media (min-width: $screen-tablet-min) and (max-width: $screen-desktop-min) {
           padding-right: 0px;
         }
       }
+      .groups__column,
       .events__column {
         padding: 16px 0;
         @include tablet-and-up {
@@ -191,5 +198,43 @@
         }
       }
     }
+  }
+  &__events, 
+  &__hero, 
+  &__groups {
+    &__background {
+      border-bottom-left-radius: 30px;
+      position: absolute;
+      z-index: -1;
+      left: -24px;
+      width: 100vw;
+      @include tablet-and-up {
+        left: 70px;
+      }
+    }
+  }
+  &__events, 
+  &__groups {
+    &__background {
+      top: 190px;
+      height: calc(100% - 232px);
+      @include tablet-and-up {
+        height: calc(100% - 248px);
+        top: 200px;
+      }
+      @include desktop-and-up {      
+        top: 200px;
+      }
+    }
+  }
+  &__events {
+    margin-top: 0;
+    &__background {
+      background-color: $color-yellow-20;
+    }
+  }
+  &__groups__background,
+  &__hero__background {
+    background-color: #F2FCFD;
   }
 }

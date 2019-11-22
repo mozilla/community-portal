@@ -371,11 +371,13 @@ jQuery(function() {
             setHeightOfDivs(".events__tags");
             setHeightOfDivs(".event-card__description");
             setHeightOfDivs(".homepage__events .events__column");
-
+            setHeightOfDivs(".groups__card-tags");
         });
         setHeightOfDivs(".events__tags");
+        setHeightOfDivs(".groups__card-tags");
         setHeightOfDivs(".event-card__description");
         setHeightOfDivs(".homepage__events .events__column");
+
         toggleLocationType();
         handleSubmit();
         clearImage();

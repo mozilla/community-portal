@@ -37,7 +37,7 @@
         <?php endif; ?>
         <title><?php print get_bloginfo('name'); ?> - <?php print get_bloginfo('description'); ?></title>
     </head>
-    <body class="body" <?php body_class(); ?>>
+    <body <?php body_class(); ?>>
         <nav class="nav">
             <div class="nav__header">
                 <div class="nav__container">

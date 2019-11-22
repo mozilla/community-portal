@@ -1100,21 +1100,29 @@ function mozilla_delete_events($id, $post) {
 
 add_filter('em_event_delete', 'mozilla_delete_events', 10, 2);
 
-function mozilla_verify_deleted_events() {
-  $args = array(
-    'post_type' => 'event',
-    'posts_per_page' => 1000,
-  );
-  $allPosts = new WP_Query($args);
-  foreach($allPosts->posts as $post):
-    $event = EM_Events::get(array('post_id' => $post->ID));
-    if (count($event) === 0):
-      wp_delete_post($post->ID);
-    endif;
-  endforeach;
+// function mozilla_verify_deleted_events() {
+//   $args = array(
+//     'post_type' => 'event',
+//     'posts_per_page' => 1000,
+//   );
+//   $allPosts = new WP_Query($args);
+//   foreach($allPosts->posts as $post):
+//     $event = EM_Events::get(array('post_id' => $post->ID));
+//     if (count($event) === 0):
+//       wp_delete_post($post->ID);
+//     endif;
+//   endforeach;
+// }
+
+// add_action('init', 'mozilla_verify_deleted_events', 10);
+
+
+function mozilla_update_body_class( $classes ) {
+  $classes[] = "body";
+  return $classes; 
 }
 
-add_action('init', 'mozilla_verify_deleted_events', 10);
+add_filter( 'body_class', 'mozilla_update_body_class');
 
 
 function acf_load_bp_groups( $field ) {
