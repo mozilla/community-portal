@@ -31,7 +31,7 @@
 
     }
 
-    $form_tags = isset($form['tags']) ? array_filter($form['tags'], 'strlen') : Array();
+    $form_tags = isset($form['tags']) ? array_unique(array_filter($form['tags'], 'strlen')) : Array();
 ?>
 <div class="content">
     <?php if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['done']) && $_POST['done'] == true): ?>

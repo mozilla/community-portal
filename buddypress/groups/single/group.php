@@ -614,12 +614,12 @@
                                 </div>
                             </div>
                         </div>
-                        <?php if(sizeof($group_meta['group_tags']) > 0): ?>
+                        <?php if(sizeof(array_unique($group_meta['group_tags'])) > 0): ?>
                         <div class="group__card">
                             <div class="group__card-content group__card-content--small">
                                 <span><?php print __('Tags'); ?></span>
                                 <div class="group__tags">
-                                    <?php foreach($group_meta['group_tags'] AS $tag): ?>
+                                    <?php foreach(array_unique($group_meta['group_tags']) AS $tag): ?>
                                     <a class="group__tag"><?php print $tag; ?></a>
                                     <?php endforeach; ?>
                                 </div>
