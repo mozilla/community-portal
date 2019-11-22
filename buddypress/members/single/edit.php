@@ -171,6 +171,7 @@
                         </g>
                     </svg>
                     <select id="pronoun" name="pronoun" class="profile__select">
+                        <option value=""><?php print __('Preferred Pronoun'); ?></option> 
                         <?php foreach($pronouns AS $p): ?>
                         <option value="<?php print $p; ?>"<?php if($form && isset($form['pronoun']) && $form['pronoun'] == $p): ?> selected<?php else: ?><?php if(isset($community_fields['pronoun']) && $community_fields['pronoun'] == $p): ?> selected<?php endif; ?><?php endif; ?>><?php print $p; ?></option>
                         <?php endforeach; ?>
