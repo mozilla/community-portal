@@ -163,6 +163,24 @@ jQuery(function() {
         });
     }
 
+    function handleCityForOnline($country, $city) {
+      if ($country.val() === 'OE') {
+        $city.val('Online Event');
+      } else if ($city.val() === 'Online Event') {
+        $city.val('');
+      }
+    }
+    function handleOnlineEvent() {
+      const $locationCountry = jQuery('#location-country');
+      const $locationCity = jQuery('#location-town')
+      if ($locationCountry.length > 0) {
+        $locationCountry.on('change', function(e) {
+          const $this = jQuery(this);
+          handleCityForOnline($this, $locationCity);
+        });
+      }
+    }
+
     function clearErrors(input) {
         input.one("focus", function() {
             const $this = jQuery(this);
@@ -210,7 +228,6 @@ jQuery(function() {
                 const $label = jQuery(`label[for=${input_id}]`);
                 const $parent = $label.parent();
                 toggleError($parent);
-                //$label.addClass("event-creator__error-text");
                 $this.addClass("event-creator__error");
                 $allClear = false;
             }
@@ -222,7 +239,6 @@ jQuery(function() {
         const $cpgCheck = jQuery("#cpg");
         if ($cpgCheck.length && !$cpgCheck.prop("checked")) {
             const $label = jQuery("label[for=cpg]");
-            //$label.addClass("event-creator__error-text");
             $cpgCheck.one("change", function() {
                 $label.removeClass("event-creator__error-text");
             });
@@ -353,15 +369,6 @@ jQuery(function() {
       });
     }
 
-    function confirmDelete() {
-      const $deleteBtn = jQuery('.event-creator__cancel');
-      if ($deleteBtn.length > 0) {
-        $deleteBtn.click(function() {
-          return confirm('Would you like to delete this event?');
-        });
-      }
-    }
-
     function init() {
         toggleMobileEventsNav(".events__nav__toggle", ".events__nav");
         toggleMobileEventsNav(".events__filter__toggle", ".events__filter");
@@ -383,7 +390,7 @@ jQuery(function() {
         clearImage();
         editLocation();
         trackLocationType();
-        confirmDelete();
+        handleOnlineEvent();
     }
 
     init();

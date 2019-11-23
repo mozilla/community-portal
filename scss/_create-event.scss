@@ -161,8 +161,17 @@ div.time-picker ul li {
     color: $color-gray-secondary;
   }
   &__submit {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     margin-top: 48px;
+    flex-direction: column;
+    flex-grow: 0;
+    @include tablet-and-up {
+      flex-direction: row;
+    }
   }
   &__submit-btn {
     margin: 48px auto 0;
@@ -387,7 +396,10 @@ div.time-picker ul li {
   }
   &__cancel {
     text-decoration: none;
-    margin-right: 32px;
+    margin-bottom: 32px;
+    @include tablet-and-up {
+      margin: 0 32px 0 0 ;
+    }
   }
 }
 #event-form p.event-creator__error__label {

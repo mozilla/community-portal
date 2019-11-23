@@ -61,13 +61,13 @@
               <?php 
                 $eventsTotal = count(EM_Events::get());
                 if ($eventsTotal > 15 && $eventsTotal <= 105):
-                  $eventsTotal = floor(($eventsTotal / 15)) * 15;
+                  $eventsTotal = floor(($eventsTotal / 10)) * 10;
                   $eventsTotal .= '+';
                 elseif ($eventsTotal > 105 && $eventsTotal <= 1005):
-                  $eventsTotal = floor(($eventsTotal) / 105) * 105;
+                  $eventsTotal = floor(($eventsTotal) / 100) * 100;
                   $eventsTotal .= '+';
                 elseif ($eventsTotal > 1005): 
-                  $eventsTotal = floor(($eventsTotal / 1005) * 1005);
+                  $eventsTotal = floor(($eventsTotal / 1000) * 1000);
                   $eventsTotal .= '+';
                 else: 
                   $eventsTotal = 10;

@@ -23,9 +23,7 @@ endif;
 			global $EM_Location;
 			if( $EM_Event->location_id !== 0 ){
 				$EM_Location = $EM_Event->get_location();
-			}elseif(get_option('dbem_default_location') > 0){
-				$EM_Location = em_get_location(get_option('dbem_default_location'));
-			}else{
+			} else {
 				$EM_Location = new EM_Location();
 			}
     ?>
@@ -55,10 +53,19 @@ endif;
       <div class="wide">
         <label id="location-country-label" class="event-creator__label" for="location-country"><?php _e ( 'Where will this event be held?', 'events-manager')?></label>
         <select class="event-creator__dropdown" id="location-country" name="location_country" <?php if ($event) : echo esc_attr("disabled"); endif; ?> required>
-					<option value="0" <?php echo ( $EM_Location->location_country == '' && $EM_Location->location_id == '' && get_option('dbem_location_default_country') == '' ) ? 'selected="selected"':''; ?>><?php _e('Select','events-manager'); ?></option>
-					<?php foreach(em_get_countries() as $country_key => $country_name): ?>
-					<option value="<?php echo esc_attr($country_key); ?>" <?php echo ( $EM_Location->location_country == $country_key || ($EM_Location->location_country == '' && $EM_Location->location_id == '' && get_option('dbem_location_default_country')==$country_key) ) ? 'selected="selected"':''; ?>><?php echo esc_html($country_name); ?></option>
-          <?php endforeach; ?>
+					<option value="0" <?php echo ( $EM_Location->location_country == '' && $EM_Location->location_id == '') ? 'selected="selected"':''; ?>><?php _e('Select','events-manager'); ?></option>
+          <optgroup label="Online">
+            <option value="OE" <?php echo ( $EM_Location->location_country == 'OE') ? 'selected="selected"':''; ?>><?php _e('Online Event','events-manager'); ?></option>
+          </optgroup>
+          <optgroup label="On Location">
+            <?php foreach(em_get_countries() as $country_key => $country_name): 
+                if ($country_key === 'OE'):
+                  continue;
+                endif;
+              ?>
+              <option value="<?php echo esc_attr($country_key); ?>" <?php echo ( $EM_Location->location_country == $country_key ) ? 'selected="selected"':''; ?>><?php echo esc_html($country_name); ?></option>
+            <?php endforeach; ?>
+          </optgroup>
         </select>
       </div>
       <div class="wide--double">
@@ -67,7 +74,4 @@ endif;
       </div>
     </div>
 	</div>
-  
-	<?php if ( get_option( 'dbem_gmap_is_active' ) ) em_locate_template('forms/map-container.php',true); ?>
-	<br style="clear:both;" />
 </div> 

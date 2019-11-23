@@ -1100,23 +1100,6 @@ function mozilla_delete_events($id, $post) {
 
 add_filter('em_event_delete', 'mozilla_delete_events', 10, 2);
 
-// function mozilla_verify_deleted_events() {
-//   $args = array(
-//     'post_type' => 'event',
-//     'posts_per_page' => 1000,
-//   );
-//   $allPosts = new WP_Query($args);
-//   foreach($allPosts->posts as $post):
-//     $event = EM_Events::get(array('post_id' => $post->ID));
-//     if (count($event) === 0):
-//       wp_delete_post($post->ID);
-//     endif;
-//   endforeach;
-// }
-
-// add_action('init', 'mozilla_verify_deleted_events', 10);
-
-
 function mozilla_update_body_class( $classes ) {
   $classes[] = "body";
   return $classes; 
@@ -1141,5 +1124,30 @@ function acf_load_bp_groups( $field ) {
 }
 // Populate select field using filter
 add_filter('acf/load_field/name=featured_group', 'acf_load_bp_groups', 10, 1);
+
+function mozilla_add_online_to_countries($countries) {
+  $countries = array('OE' => 'Online Event') + $countries;
+  return $countries;
+}
+
+add_filter('em_get_countries', 'mozilla_add_online_to_countries', 10, 1);
+add_filter('em_location_get_countries', 'mozilla_add_online_to_countries', 10, 1);
+
+function mozilla_update_events_copy($string) {
+  $string = 'Please <a href="/wp-login.php?action=login">log in</a> to create or join events';
+  return $string;
+}; 
+
+add_filter('em_event_submission_login', "mozilla_update_events_copy", 10, 1);
+
+function mozilla_approve_booking($EM_Booking) {
+  if (intval($EM_Booking->booking_status) === 0) {
+    $EM_Booking->booking_status = 1;
+    return $EM_Booking;
+  }
+  return $EM_Booking;
+}
+
+add_filter('em_booking_save_pre','mozilla_approve_booking', 100, 2);
 
 ?>

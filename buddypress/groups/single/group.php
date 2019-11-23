@@ -5,6 +5,20 @@
     // Lets get the group data
     do_action('bp_before_directory_groups_page');
     global $bp;
+    $months = array(
+      '01' => 'Jan',
+      '02' => 'Feb',
+      '03' => 'Mar',
+      '04' => 'Apr',
+      '05' => 'May',
+      '06' => 'Jun',
+      '07' => 'Jul',
+      '08' => 'Aug',
+      '09' => 'Sep',
+      '10' => 'Oct',
+      '11' => 'Nov',
+      '12' => 'Dec',
+    );
     $group = $bp->groups->current_group;
     $group_meta = groups_get_groupmeta($group->id, 'meta');
     $member_count = groups_get_total_member_count($group->id);
@@ -54,18 +68,21 @@
                     <?php endif; ?>
                     <span class="group__location">
                     <?php 
-                        if(isset($group_meta['group_city'])) {
-                            print $group_meta['group_city'];
-                            if(isset($group_meta['group_country'])) {
+                        if(isset($group_meta['group_city']) && strlen($group_meta['group_city']) > 0) {
+                            if(isset($group_meta['group_country']) && strlen($group_meta['group_country']) > 1) {
+                                print "<a href=\"/groups/?location={$group_meta['group_country']}\" class=\"group__status\">";
+                            }
+                            print "{$group_meta['group_city']}";
+                            if(isset($group_meta['group_country']) && strlen($group_meta['group_country']) > 1) {
                                 $country = $countries[$group_meta['group_country']];
-                                print ", {$country} | ";
+                                print ", {$country}</a> | ";
                             } else {
                                 print "|";
                             }
                         } else {
-                            if(isset($group_meta['group_country'])) {
+                            if(isset($group_meta['group_country']) && strlen($group_meta['group_country']) > 1) {
                                 $country = $countries[$group_meta['group_country']];
-                                print "{$country} | ";
+                                print "<a href=\"/groups/?location={$group_meta['group_country']}\" class=\"group__status\">{$country}</a> | ";
                             }
                         }
                     ?>
@@ -250,12 +267,12 @@
                     ?>
                     <div class="row events__cards">
                     <?php foreach($events AS $event): ?>
-                       
                         <?php 
                             $categories = $event->get_categories();
                             $location = em_get_location($event->location_id);
                             $site_url = get_site_url();
                             $url = $site_url.'/events/'.$event->slug;  
+                            $allCountries = em_get_countries();
                         ?> 
                             <div class="col-lg-4 col-md-6 events__column">
                                 <div class="event-card">
@@ -285,17 +302,22 @@
                                                 </svg>
                                                 <p class="text--light text--small">
                                                     <?php
-                                                    if ($location->address) {
-                                                        echo __($location->address.' - '); 
-                                                    }
-                                                    if ($location->town) {
-                                                        echo __($location->town);
-                                                        if ($location->country) {
-                                                        echo __(', '.$allCountries[$location->country]);
-                                                        }
+                                                    if ($location->country === 'OE') {
+                                                      echo __('Online Event');
                                                     } else {
-                                                        echo __($allCountries[$location->country]);
+                                                      if ($location->address) {
+                                                        echo __($location->address.' - '); 
+                                                      }
+                                                      if (strlen($location->town) > 0) {
+                                                          echo __($location->town);
+                                                          if ($location->country) {
+                                                            echo __(', '.$allCountries[$location->country]);
+                                                          }
+                                                      } else {
+                                                          echo __($allCountries[$location->country]);
+                                                      }
                                                     }
+                                                    
                                                     ?>
                                                 </p>
                                             </div>
@@ -544,11 +566,13 @@
                                                 <path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                                 <path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                             </svg>
-                                            <?php if($location->location_region && $location->location_country): ?>
-                                                <?php print "{$location->location_region}, {$countries[$location->location_country]}"; ?>
-                                            <?php elseif($location->location_region && !$location->location_country): ?>
-                                                <?php print "{$location->location_region}"; ?>
-                                            <?php elseif(!$location->location_region && $location->location_country): ?>
+                                            <?php if($location->location_country === 'OE'): ?>
+                                              <?php print __("Online Event"); ?>
+                                            <?php elseif($location->location_town && $location->location_country): ?>
+                                                <?php print "{$location->location_town}, {$countries[$location->location_country]}"; ?>
+                                            <?php elseif($location->location_town && !$location->location_country): ?>
+                                                <?php print "{$location->location_town}"; ?>
+                                            <?php elseif(!$location->location_town && $location->location_country): ?>
                                                 <?php print "{$countries[$location->location_country]}"; ?>
                                             <?php endif; ?>
                                         </div>
@@ -613,17 +637,7 @@
                                                 <?php if($visibility_settings['last_name_visibility']): print $community_fields['last_name']?><?php endif; ?>
                                             </div>
                                         </div>
-                                        <?php if($visibility_settings['profile_location_visibility'] !== false && isset($community_fields['country']) && strlen($community_fields['country']) > 0): ?>
-                                        <div class="members__location">
-                                            <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>&nbsp;
-                                            <?php 
-                                                print $countries[$community_fields['country']];    
-                                            ?>
-                                        </div>
-                                        <?php endif; ?>
+                              
                                     </a>
                                     <?php endforeach; ?>
                                 </div>
@@ -635,7 +649,7 @@
                                 <span><?php print __('Tags'); ?></span>
                                 <div class="group__tags">
                                     <?php foreach($group_meta['group_tags'] AS $tag): ?>
-                                    <a class="group__tag"><?php print $tag; ?></a>
+                                    <a href="/groups/?tag=<?php print $tag; ?>" class="group__tag"><?php print $tag; ?></a>
                                     <?php endforeach; ?>
                                 </div>
                             </div>

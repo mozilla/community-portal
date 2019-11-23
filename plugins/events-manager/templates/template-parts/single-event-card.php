@@ -51,16 +51,20 @@
           </svg>
           <p class="text--light text--small">
             <?php
-              if ($location->address) {
-                echo __($location->address.' - '); 
-              }
-              if ($location->town) {
-                echo __($location->town);
-                if ($location->country) {
-                  echo __(', '.$allCountries[$location->country]);
-                }
+              if ($location->country === 'OE') {
+                echo __('Online Event');
               } else {
-                echo __($allCountries[$location->country]);
+                if ($location->address) {
+                  echo __($location->address.' - '); 
+                }
+                if ($location->town) {
+                  echo __($location->town);
+                  if ($location->country) {
+                    echo __(', '.$allCountries[$location->country]);
+                  }
+                } else {
+                  echo __($allCountries[$location->country]);
+                }
               }
             ?>
           </p>
