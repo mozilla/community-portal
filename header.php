@@ -20,6 +20,17 @@
     <head>
         <meta charset="<?php bloginfo('charset'); ?>">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <meta property="og:title" content="Mission Driven Mozillians">
+        <meta property="og:description" content="A description of mission driven mozillians">
+        <meta property="og:image" content="<?php print get_stylesheet_directory_uri(); ?>/images/homepage-hero.jpg">
+        <meta property="og:url" content="<?php echo __($_SERVER['REQUEST_URI']) ?>">
+        <meta name="twitter:card" content="summary_large_image">
+
+        <!--  Non-Essential, But Recommended -->
+
+        <meta property="og:site_name" content="Mission Driver Mozillians">
+        <meta name="twitter:image:alt" content="Alt text for image">
         <link rel="profile" href="http://gmpg.org/xfn/11">
         <?php if (is_singular() && pings_open( get_queried_object())) : ?>
         <link rel="pingback" href="<?php echo esc_url(get_bloginfo('pingback_url')); ?>">

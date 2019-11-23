@@ -7,7 +7,7 @@
   $img_url = $event_meta[0]->image_url;
   $location_type = $event_meta[0]->location_type;
   $external_url = $event_meta[0]->external_url;
-  $campaign = $event_meta[0]->campaign;
+  $campaign = null;
   $months = array(
     '01' => 'January',
     '02' => 'February',
