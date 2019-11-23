@@ -94,7 +94,7 @@
         </div>
         <?php endif; ?>
         <div class="profile__card-contact-container">
-            <?php if($visibility_settings['profile_location_visibility'] || $visibility_settings['email_visibility'] || $visibility_settings['phone_visibility']): ?>
+            <?php if(($visibility_settings['profile_location_visibility'] && (isset($community_fields['city']) && strlen($community_fields['city']) > 0) || (isset($community_fields['country']) && strlen($community_fields['country']) > 0)) || $visibility_settings['email_visibility'] || ($visibility_settings['phone_visibility']) && strlen($community_fields['phone']) > 0): ?>
             <span class="profile__contact-title"><?php print __('Contact Information'); ?></span>
             <?php endif; ?>
             <?php if($visibility_settings['profile_location_visibility']): ?>
@@ -163,7 +163,7 @@
                     <?php print __('Phone'); ?>
                     <span class="profile__phone">
                     <?php 
-                        if(isset($community_fields['phone']))
+                        if(isset($community_fields['phone']) && strlen($community_fields['phone']) > 0)
                             print $community_fields['phone'];
                     ?>
                     </span>
