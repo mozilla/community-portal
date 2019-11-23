@@ -15,22 +15,22 @@
             </a>
           </li>
           <li class="share-link">
-            <a href="<?php echo esc_attr('https://www.facebook.com/sharer/sharer.php?u='.$url)?>" class="btn btn--light btn--share share-link__facebook" target="_blank">
+            <a href="<?php echo esc_attr('https://www.facebook.com/sharer/sharer.php?u='.$url)?>" class="btn btn--light btn--share share-link__facebook">
               <?php echo __('Share to Facebook') ?>
             </a>
           </li>
           <li class="share-link">
-            <a href="<?php echo esc_attr('https://twitter.com/intent/tweet?url='.$url) ?>" class="btn btn--light btn--share share-link__twitter" target="_blank">
+            <a href="<?php echo esc_attr('https://twitter.com/intent/tweet?url='.$url) ?>" class="btn btn--light btn--share share-link__twitter">
               <?php echo __('Share to Twitter') ?>
             </a>
           </li>
           <li class="share-link">
-            <a href="<?php echo esc_attr('https://discourse.mozilla.org/new-topic?title='.$url)?>" target="_blank" class="btn btn--light btn--share share-link__discourse">
+            <a href="<?php echo esc_attr('https://discourse.mozilla.org/new-topic?title='.$url)?>" class="btn btn--light btn--share share-link__discourse">
               <?php echo __('Share to Discourse') ?>
             </a>
           </li>
           <li class="share-link">
-            <a href="<?php echo esc_attr('https://telegram.me/share/url?url='.$url) ?>" class="btn btn--light btn--share share-link__telegram" target="_blank">
+            <a href="<?php echo esc_attr('https://telegram.me/share/url?url='.$url) ?>" class="btn btn--light btn--share share-link__telegram" >
               <?php echo __('Share to Telegram') ?>
             </a>
           </li>
