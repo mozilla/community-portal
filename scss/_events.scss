@@ -322,17 +322,54 @@
   &__pagination {
     display: flex;
     justify-content: center;
-    a {
+    align-items: center;
+    padding-top: 17px;
+    a, strong {
       text-decoration: none;
       padding: 0 12px;
       display: inline-block;
+      color: black;
     }
-    .current::after {
-      content: "";
-      background-color: #000;
-      height: 1px;
-      width: 10px;
-      display: block;
+    .current {
+      display: inline-block;
+      text-align: center;
+      position: relative;
+      padding: 0 6px;
+      &::after {
+        content: "";
+        background-color: #000;
+        height: 1px;
+        width: 100%;
+        display: block;
+        position: absolute;
+        bottom: -7px;
+        left: 0;
+        right: 0;
+      }
+    }
+    .next,
+    .prev {
+      color: transparent;
+      position: relative;
+    }
+    .next::after,
+    .prev::before {
+      content: '';
+      display: inline-block;
+      height: 24px;
+      padding-right: 24px;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .next {
+      margin-left: 12px;
+      &::after {
+        background-image: url('./images/chevron-right.svg');
+      }
+    }
+    .prev::before {
+      background-image: url('./images/chevron-left.svg');
     }
   }
 }
@@ -412,4 +449,9 @@
     line-height: 22px;
     display: block;
   }
+
+}
+
+.em-pagination {
+  display: block;
 }

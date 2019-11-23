@@ -1,6 +1,11 @@
 <div class="card events-single__group">
+  <?php if ($EM_Event->group_id):
+    $group = new BP_Groups_Group($EM_Event->group_id);
+    $admins = groups_get_group_admins($group->id);
+  endif; 
+  ?>
   <div class="row">
-      <div class="col-lg-12 col-md-6 col-sm-12">
+      <div class="<?php if (is_array($admins) && count($admins) < 2): echo __('col-lg-12 col-md-6'); else: echo __('events-single__hosts--multiple'); endif; ?> col-sm-12 events-single__hosts">
         <p class="events-single__label"><?php echo __('Hosted by') ?></p>
         <?php if (isset($group)): ?>
           <a class="events-single__host" href="<?php echo get_site_url(null, 'groups/'.bp_get_group_slug($group)) ?>">
@@ -9,8 +14,6 @@
         <?php endif; ?>
       </div>
         <?php if ($EM_Event->group_id):
-          $group = new BP_Groups_Group($EM_Event->group_id);
-          $admins = groups_get_group_admins($group->id);
           if (is_array($admins)) {
             foreach($admins AS $admin) {
               $user = get_userdata($admin->user_id);

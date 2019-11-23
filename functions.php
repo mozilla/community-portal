@@ -8,7 +8,7 @@ add_action('get_header', 'remove_admin_login_header');
 add_action('init', 'mozilla_init');
 add_action('wp_enqueue_scripts', 'mozilla_init_scripts');
 add_action('admin_enqueue_scripts', 'mozilla_init_admin_scripts');
-add_filter('nav_menu_css_class', 'mozilla_menu_class', 10, 4);
+add_action('admin_menu', 'mozilla_add_menu_item');
 
 // Ajax Calls
 add_action('wp_ajax_nopriv_upload_group_image', 'mozilla_upload_image');
@@ -22,6 +22,12 @@ add_action('wp_ajax_nopriv_validate_group', 'mozilla_validate_group_name');
 add_action('wp_ajax_validate_group', 'mozilla_validate_group_name');
 add_action('wp_ajax_check_user', 'mozilla_validate_username');
 
+// Gutenberg Setup 
+function pg_blocks() {
+  wp_enqueue_script('blocks-scripts', get_template_directory_uri() . '/js/gutenberg.js', array('wp-blocks', 'wp-dom-ready', 'wp-edit-post', 'wp-element', 'wp-editor', 'wp-i18n', 'jquery'), false, true);
+ }
+ add_action('enqueue_block_editor_assets', 'pg_blocks', 10, 1);
+
 
 // Buddypress Actions
 add_action('bp_before_create_group_page', 'mozilla_create_group', 10, 1);
@@ -30,13 +36,19 @@ add_action('bp_before_edit_member_page', 'mozilla_update_member', 10, 1);
 
 // Removed cause it was causing styling conflicts
 remove_action('init', 'bp_nouveau_get_container_classes');
+remove_action('em_event_save','bp_em_group_event_save', 1, 2);
+
 
 // Auth0 Actions
 add_action('auth0_user_login', 'mozilla_post_user_creation', 10, 6);
 
 // Filters
 add_filter('nav_menu_link_attributes', 'mozilla_add_menu_attrs', 10, 3);
+add_filter('nav_menu_css_class', 'mozilla_menu_class', 10, 4);
 //add_filter('nav_menu_css_class', 'mozilla_add_active_page' , 10 , 2);
+
+// Events Action
+add_action('save_post', 'mozilla_save_event', 10, 3);
 
 // Include theme style.css file not in admin page
 if(!is_admin()) 
@@ -297,7 +309,6 @@ function remove_admin_login_header() {
 
 function mozilla_init() {
     register_nav_menu('mozilla-theme-menu', __('Mozilla Custom Theme Menu'));
-
     $user = wp_get_current_user()->data;
     // Not logged in
     if(!isset($user->ID)) {
@@ -373,13 +384,14 @@ function mozilla_init_scripts() {
     wp_enqueue_script('cleavejs', get_stylesheet_directory_uri()."/js/vendor/cleave.min.js", array());
     wp_enqueue_script('nav', get_stylesheet_directory_uri()."/js/nav.js", array('jquery'));
     wp_enqueue_script('profile', get_stylesheet_directory_uri()."/js/profile.js", array('jquery'));
+    wp_enqueue_script('lightbox', get_stylesheet_directory_uri()."/js/lightbox.js", array('jquery'));
+    wp_enqueue_script('gdrp', get_stylesheet_directory_uri()."/js/gdrp.js", array('jquery'));
     
 
 }
 
 // If the create group page is called create a group 
 function mozilla_create_group() {
-
     if(is_user_logged_in()) {
         $required = Array(
             'group_name',
@@ -722,6 +734,7 @@ function mozilla_update_member() {
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         if(is_user_logged_in()) {
             $user = wp_get_current_user()->data;
+            $edit = false;
 
             // Get current meta to compare to
             $meta = get_user_meta($user->ID);
@@ -742,6 +755,8 @@ function mozilla_update_member() {
                 'image_url',
                 'profile_image_url_visibility',
                 'pronoun',
+                'city',
+                'country',
                 'profile_pronoun_visibility',
                 'bio',
                 'profile_bio_visibility',
@@ -773,9 +788,8 @@ function mozilla_update_member() {
             // Add additional required fields after initial setup
             if(isset($meta['agree'][0]) && $meta['agree'][0] == 'I Agree') {
                 unset($required[8]);
-                $required[] = 'city';
-                $required[] = 'country';
                 $required[] = 'profile_location_visibility';
+                $_POST['edit'] = true;
             }
 
             $error = false;
@@ -851,7 +865,6 @@ function mozilla_update_member() {
                     update_user_meta($user->ID, $field, $form_data);
                 }
 
-
                 // Update other fields here
                 $addtional_meta = Array();
 
@@ -863,9 +876,10 @@ function mozilla_update_member() {
                             $additional_meta[$field] = sanitize_text_field(trim($_POST[$field]));
                         }
                     }
-                }    
+                }   
 
                 update_user_meta($user->ID, 'community-meta-fields', $additional_meta);
+
             }
         }
     }
@@ -1019,6 +1033,7 @@ function mozilla_edit_group() {
                     $meta['group_other'] = isset($_POST['group_other']) ? sanitize_text_field($_POST['group_other']) : '';
 
                     groups_update_groupmeta($group_id, 'meta', $meta);
+                    $_POST['done'] = true;
                 }
         
             }
@@ -1043,8 +1058,29 @@ function mozilla_menu_class($classes, $item, $args) {
     return $classes;
 }
 
+function mozilla_theme_settings() {
+    $theme_dir = get_template_directory();
 
-remove_action('em_event_save','bp_em_group_event_save',1,2);
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if(isset($_POST['admin_nonce_field']) && wp_verify_nonce($_REQUEST['admin_nonce_field'], 'protect_content')) {
+            if(isset($_POST['google_analytics_id'])) {
+                update_option('google_analytics_id', sanitize_text_field($_POST['google_analytics_id']));
+            }
+        }
+    }
+
+    $options = wp_load_alloptions();
+    
+    include "{$theme_dir}/templates/settings.php";
+
+}
+
+function mozilla_add_menu_item() {
+    add_menu_page('Mozilla Settings', 'Mozilla Settings', 'manage_options', 'theme-panel', 'mozilla_theme_settings', null, 99);
+}
+
+
+
 
 function mozilla_events_redirect($location) {
   if (strpos($location, 'event_id') !== false) {
@@ -1059,5 +1095,30 @@ add_filter('wp_redirect', 'mozilla_events_redirect');
 function mozilla_is_site_admin(){
   return in_array('administrator',  wp_get_current_user()->roles);
 }
+
+function mozilla_add_online_to_countries($countries) {
+  $countries = array('OE' => 'Online Event') + $countries;
+  return $countries;
+}
+
+add_filter('em_get_countries', 'mozilla_add_online_to_countries', 10, 1);
+add_filter('em_location_get_countries', 'mozilla_add_online_to_countries', 10, 1);
+
+function mozilla_update_events_copy($string) {
+  $string = 'Please <a href="/wp-login.php?action=login">log in</a> to create or join events';
+  return $string;
+}; 
+
+add_filter('em_event_submission_login', "mozilla_update_events_copy", 10, 1);
+
+function mozilla_approve_booking($EM_Booking) {
+  if (intval($EM_Booking->booking_status) === 0) {
+    $EM_Booking->booking_status = 1;
+    return $EM_Booking;
+  }
+  return $EM_Booking;
+}
+
+add_filter('em_booking_save_pre','mozilla_approve_booking', 100, 2);
 
 ?>

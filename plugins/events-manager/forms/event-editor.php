@@ -78,13 +78,13 @@ if( !empty($_REQUEST['success']) ){
     <div class="event-editor">
       <label class="event-form-details event-creator__label" for="event-description"><?php esc_html_e( 'Event description', 'events-manager'); ?></label>
       <textarea name="content" id="event-description" placeholder="Add in the details of your event’s agenda here. If this is a multi-day event, you can add in the details of each day’s schedule and start/end time." rows="10" id="event-description" class="event-creator__input event-creator__textarea" style="width:100%" required><?php echo __($EM_Event->post_content) ?></textarea>
-      <div class="event-creator__container">
+      <!-- <div class="event-creator__container">
           <label class="event-creator__label" for="event-campaign"><?php _e ( 'Is this event part of an initiative?', 'events-manager')?></label>
           <select class="event-creator__dropdown" id="event-campaign" name="event_campaign">
             <option value="No" <?php echo (!isset($event_campaign) || $event_campaign === '') ? esc_attr('selected') : null;?>><?php _e('No','events-manager'); ?></option>
             <option value="1" <?php echo ($event_campaign === '1') ? esc_attr('selected') : null; ?>>Firefox For Good</option>
         </select>
-      </div>
+      </div> -->
       <?php if(get_option('dbem_categories_enabled')) { em_locate_template('forms/event/categories-public.php',true); }  ?>
       <div class="event-creator__container">
         <label class="event-creator__label" for="event-creator-link"><?php esc_html_e('External link URL*', 'events-manager'); ?></label>
@@ -149,6 +149,7 @@ if( !empty($_REQUEST['success']) ){
     <input type="hidden" name="_wpnonce" id="my_nonce_field" value="<?php echo wp_create_nonce('wpnonce_event_save'); ?>" />
     <input type="hidden" name="action" value="event_save" />
     <?php if( !empty($_REQUEST['redirect_to']) ): 
+        
       ?>
       <input type="hidden" name="redirect_to" value="<?php echo ($event_id ? esc_attr(get_site_url().'/events/'.$EM_Event->event_slug) : esc_attr(get_site_url().'/events/') ); ?>" />
     <?php endif; ?>

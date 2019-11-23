@@ -1,4 +1,4 @@
-<?php if($complete === true): ?>
+<?php if($complete === true && $edit === false): ?>
     <div class="profile__container">
         <section class="profile__success-message-container"> 
             <h1 class="profile__title"><?php print __('Profile Created'); ?></h1>
@@ -12,7 +12,11 @@
             </div>
         </section>
     </div>
-    <?php else: ?>
+<?php elseif($complete === true && $edit === true): ?>
+    <script type="text/javascript">
+        window.location = "/members/<?php print $user->user_nicename;?>";
+    </script>
+<?php else: ?>
     <div class="profile__hero">
         <div class="profile__hero-container">
             <div class="profile__hero-content">
@@ -24,17 +28,13 @@
                         <circle cx="12" cy="8" r="1" fill="black"/>
                     </svg>
                     <span>
-                        <?php print __("We’ve pre-populated some of your information via your connected account with"); ?>
+                        <?php print __("We'll get you started with profile info available from "); ?>
                         <a href="#" class="profile__hero-link">Mozilla SSO.</a>
                     </span>
-                </p>
-                <p class="profile__hero-copy profile__hero-copy--small">
-                    <?php print __('* Optional Information'); ?>
                 </p>
             </div>
         </div>
     </div>
-    
     <form class="profile__form" id="complete-profile-form" method="post" novalidate>
         <?php print wp_nonce_field('protect_content', 'my_nonce_field'); ?>
         <section class="profile__form-container profile__form-container--first">
@@ -58,14 +58,10 @@
             <hr class="profile__keyline" />
             <div class="profile__form-field">
                 <div class="profile__input-container profile__input-container--profile">
-                    <label class="profile__label" for="image-url"><?php print __("Profile Photo *"); ?></label>
-                        <div id="profile-photo-uploader" class="profile__image-upload"<?php if($form && isset($form['image_url'])): ?> style="background-image: url('<?php print $form['image_url']; ?>');"<?php else: ?><?php if(is_array($community_fields) && isset($community_fields['image_url'])): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>');"<?php endif; ?><?php endif; ?>>
+                    <label class="profile__label" for="image-url"><?php print __("Profile Photo (optional)"); ?></label>
+                        <div id="profile-photo-uploader" class="profile__image-upload"<?php if($form && isset($form['image_url'])): ?> style="background: url('<?php print $form['image_url']; ?>') cover;"<?php else: ?><?php if(is_array($community_fields) && isset($community_fields['image_url'])): ?> style="background: url('<?php print $community_fields['image_url']; ?>') cover;"<?php endif; ?><?php endif; ?>>
                         <?php if(!is_array($community_fields) || !isset($community_fields['image_url'])): ?>
-                        <svg width="75" height="75" viewBox="0 0 75 75" fill="none" xmlns="http://www.w3.org/2000/svg" class="create-group__upload-image-svg">
-                            <path d="M59.375 9.375H15.625C12.1732 9.375 9.375 12.1732 9.375 15.625V59.375C9.375 62.8268 12.1732 65.625 15.625 65.625H59.375C62.8268 65.625 65.625 62.8268 65.625 59.375V15.625C65.625 12.1732 62.8268 9.375 59.375 9.375Z" stroke="#CDCDD4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M26.5625 31.25C29.1513 31.25 31.25 29.1513 31.25 26.5625C31.25 23.9737 29.1513 21.875 26.5625 21.875C23.9737 21.875 21.875 23.9737 21.875 26.5625C21.875 29.1513 23.9737 31.25 26.5625 31.25Z" stroke="#CDCDD4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M65.625 46.875L50 31.25L15.625 65.625" stroke="#CDCDD4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+        
                         <?php endif; ?>
                     </div>
                     <div class="profile__image-instructions">
@@ -92,12 +88,12 @@
             <hr class="profile__keyline" />
             <div class="profile__form-field">
                 <div class="profile__input-container">
-                    <label class="profile__label" for="username"><?php print __("Username"); ?></label>
+                    <label class="profile__label" for="username"><?php print __("Username (required)"); ?></label>
                     <input type="text" name="username" id="username" class="profile__input<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['username']) || (isset($form['username']) && empty(trim($form['username'])) || isset($form['username_error_message']) )): ?> profile__input--error<?php endif; ?>" placeholder="<?php print __("Username"); ?>" value="<?php print isset($form['username']) ? $form['username'] : $user->user_nicename; ?>"  required/>
                     <div class="form__error-container<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['username']) || (isset($form['username']) && empty(trim($form['username'])) || isset($form['username_error_message']))): ?> form__error-container--visible<?php endif; ?>">
                         <div class="form__error"><?php if(isset($form['username_error_message'])): ?><?php print __($form['username_error_message']); ?><?php else: ?><?php print __("This field is required"); ?><?php endif; ?></div>
                     </div>
-                    <span class="profile__input-desc"><?php print __('Usernames must be public'); ?></span>
+                    <span class="profile__input-desc"><?php print __('Usernames are public'); ?></span>
                 </div>
                 <div class="profile__select-container">
                     <label class="profile__label" for=""><?php print __("Can be viewed by"); ?></label>
@@ -114,12 +110,12 @@
             <hr class="profile__keyline" />
             <div class="profile__form-field">
                 <div class="profile__input-container">
-                    <label class="profile__label" for="first-name"><?php print __("First Name"); ?></label>
+                    <label class="profile__label" for="first-name"><?php print __("First Name (required)"); ?></label>
                     <input type="text" name="first_name" id="first-name" class="profile__input<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['first_name']) || (isset($form['first_name']) && empty(trim($form['first_name'])) )): ?> profile__input--error<?php endif; ?>" placeholder="<?php print __("First Name"); ?>" value="<?php print isset($form['first_name']) ? $form['first_name'] : $meta['first_name'][0]; ?>" required />
                     <div class="form__error-container<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['first_name']) || (isset($form['first_name']) && empty(trim($form['first_name'])) )): ?> form__error-container--visible<?php endif; ?>">
                         <div class="form__error"><?php print __("This field is required"); ?></div>
                     </div>
-                    <span class="profile__input-desc"><?php print __('Your first name cannot be hidden from registered users'); ?></span>
+                    <span class="profile__input-desc"><?php print __('Your first name is always visible to registered users'); ?></span>
                 </div>
                 <div class="profile__select-container">
                     <label class="profile__label" for=""><?php print __("Can be viewed by"); ?></label>
@@ -140,7 +136,7 @@
             <hr class="profile__keyline" />
             <div class="profile__form-field">
                 <div class="profile__input-container">
-                    <label class="profile__label" for="last-name"><?php print __("Last Name"); ?></label>
+                    <label class="profile__label" for="last-name"><?php print __("Last Name (required)"); ?></label>
                     <input type="text" name="last_name" id="first-name" class="profile__input<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['last_name']) || (isset($form['last_name']) && empty(trim($form['last_name'])) )): ?> profile__input--error<?php endif; ?>" placeholder="<?php print __("Last Name"); ?>" value="<?php print isset($form['last_name']) ? $form['last_name'] : $meta['last_name'][0]; ?>" required />
                     <div class="form__error-container<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['last_name']) || (isset($form['last_name']) && empty(trim($form['last_name'])) )): ?> form__error-container--visible<?php endif; ?>">
                         <div class="form__error"><?php print __("This field is required"); ?></div>
@@ -164,7 +160,7 @@
             <hr class="profile__keyline" />
             <div class="profile__form-field">
                 <div class="profile__select-container profile__select-container--full">
-                    <label class="profile__label" for="pronoun"><?php print __("Preferred Pronouns *"); ?></label>
+                    <label class="profile__label" for="pronoun"><?php print __("Preferred Pronouns (optional)"); ?></label>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g>
                             <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
@@ -193,7 +189,7 @@
             <hr class="profile__keyline" />
             <div class="profile__form-field">
                 <div class="profile__input-container">
-                    <label class="profile__label" for="bio"><?php print __("Bio*"); ?></label>
+                    <label class="profile__label" for="bio"><?php print __("Bio (optional)"); ?></label>
                     <textarea name="bio" id="bio" class="profile__textarea"><?php if($form && isset($form['bio'])): ?><?php $form['bio']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['bio'])): ?><?php print $community_fields['bio']; ?><?php endif; ?><?php endif; ?></textarea>
                 </div>
                 <div class="profile__select-container">
@@ -213,15 +209,15 @@
             <hr class="profile__keyline" />
             <div class="profile__form-field">
                 <div class="profile__select-container profile__select-container--inline profile__select-container--half">
-                    <label class="profile__label" for="country"><?php print __("Country"); ?></label>
+                    <label class="profile__label" for="country"><?php print __("Country (optional)"); ?></label>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g>
                             <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
                         </g>
                     </svg>
-                    <select id="country" name="country" class="profile__select<?php if($form && !isset($form['country']) || (isset($form['country']) && empty(trim($form['country'])))): ?> profile__select--error<?php endif; ?>" required>
+                    <select id="country" name="country" class="profile__select<?php if($form && !isset($form['country']) || (isset($form['country']) && empty(trim($form['country'])))): ?> profile__select--error<?php endif; ?>">
                         <?php foreach($countries AS $key    =>  $value): ?>
-                        <option value="<?php print $key; ?>"<?php if($form && isset($form['country']) && $form['country'] == $key): ?> selected<?php else: ?><?php if(isset($meta['country'][0]) && $meta['country'][0] == $key): ?> selected<?php endif; ?><?php endif; ?>><?php print $value; ?></option>
+                        <option value="<?php print $key; ?>"<?php if($form && isset($form['country']) && $form['country'] == $key): ?> selected<?php else: ?><?php if(isset($community_fields['country']) && $community_fields['country'] == $key): ?> selected<?php endif; ?><?php endif; ?>><?php print $value; ?></option>
                         <?php endforeach; ?>
                     </select>
                     <div class="form__error-container<?php if($form && !isset($form['country']) || (isset($form['country']) && empty(trim($form['country'])))): ?> form__error-container--visible<?php endif; ?>">
@@ -229,8 +225,8 @@
                     </div>
                 </div>
                 <div class="profile__input-container">
-                    <label class="profile__label" for="city"><?php print __("City"); ?></label>
-                    <input type="text" name="city" id="city" class="profile__input<?php if($form && !isset($form['city']) || (isset($form['city']) && empty(trim($form['city'])) )): ?> profile__input--error<?php endif; ?>" placeholder="<?php print __("City"); ?>" value="<?php print isset($form['city']) ? $form['city'] : $meta['city'][0]; ?>" required />
+                    <label class="profile__label" for="city"><?php print __("City (optional)"); ?></label>
+                    <input type="text" name="city" id="city" class="profile__input<?php if($form && !isset($form['city']) || (isset($form['city']) && empty(trim($form['city'])) )): ?> profile__input--error<?php endif; ?>" placeholder="<?php print __("City"); ?>" value="<?php print isset($form['city']) ? $form['city'] : $community_fields['city']; ?>" />
                     <div class="form__error-container<?php if($form && !isset($form['last_name']) || (isset($form['city']) && empty(trim($form['city'])) )): ?> form__error-container--visible<?php endif; ?>">
                         <div class="form__error"><?php print __("This field is required"); ?></div>
                     </div>
@@ -253,7 +249,7 @@
             <hr class="profile__keyline" />
             <div class="profile__form-field">
                 <div class="profile__input-container">
-                    <label class="profile__label" for="email"><?php print __("Email contact"); ?></label>
+                    <label class="profile__label" for="email"><?php print __("Email contact (required)"); ?></label>
                     <input type="email" name="email" id="email" class="profile__input<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['email']) || (isset($form['email']) && empty(trim($form['email'])) || isset($form['email_error_message']))): ?> profile__input--error<?php endif; ?>" placeholder="<?php print __("Email"); ?>" value="<?php print isset($form['email']) ? $form['email'] : $user->user_email; ?>" required/>
                     <div class="form__error-container<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['email']) || (isset($form['email']) && empty(trim($form['email'])) || isset($form['email_error_message']))): ?> form__error-container--visible<?php endif; ?>">
                         <div class="form__error"><?php if(isset($form['email_error_message'])): ?><?php print __($form['email_error_message']); ?><?php else: ?><?php print __("This field is required"); ?><?php endif; ?></div>
@@ -268,7 +264,7 @@
                     </svg>
                     <select id="email-visibility" name="email_visibility" class="profile__select">
                         <?php foreach($visibility_options AS $key   =>  $value): ?>
-                        <option value="<?php print $key; ?>"<?php if(isset($meta['email_visibility'][0]) && $meta['email_visibility'][0] == $key): ?> selected<?php endif; ?>><?php print $value; ?></option>
+                        <option value="<?php print $key; ?>"<?php if(isset($community_fields['email_visibility']) && $community_fields['email_visibility'] == $key): ?> selected<?php endif; ?>><?php print $value; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -277,7 +273,7 @@
             <hr class="profile__keyline" />
             <div class="profile__form-field">
                 <div class="profile__input-container">
-                    <label class="profile__label" for="phone"><?php print __("Phone contact *"); ?></label>
+                    <label class="profile__label" for="phone"><?php print __("Phone contact (optional)"); ?></label>
                     <input type="text" name="phone" id="phone" class="profile__input" value="<?php if($form && isset($form['phone'])): ?><?php $form['phone']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['phone'])): ?><?php print $community_fields['phone']; ?><?php endif; ?><?php endif; ?>"/>
                 </div>
                 <div class="profile__select-container">
@@ -299,7 +295,7 @@
         <?php if(isset($meta['agree'][0]) && $meta['agree'][0] == 'I Agree'): ?>
         <section class="profile__form-container">
             <div class="profile__form-primary">
-                <h2 class="profile__form-title"><?php print __("Social Links *"); ?></h2>
+                <h2 class="profile__form-title"><?php print __("Social Links"); ?></h2>
                 <div class="profile__select-container">
                     <label class="profile__label"><?php print __('Visibility Settings'); ?></label>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -317,7 +313,7 @@
             <hr class="profile__keyline" />
             <div class="profile__form-field">
                 <div class="profile__input-container">
-                    <label class="profile__label" for="discourse"><?php print __("Discourse profile URL"); ?></label>
+                    <label class="profile__label" for="discourse"><?php print __("Discourse profile URL (optional)"); ?></label>
                     <input type="text" name="discourse" id="discourse" class="profile__input" value="<?php if($form && isset($form['discourse'])): ?><?php $form['discourse']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['discourse'])): ?><?php print $community_fields['discourse']; ?><?php endif; ?><?php endif; ?>"/>
                 </div>
                 <div class="profile__select-container">
@@ -337,7 +333,7 @@
             <hr class="profile__keyline" />
             <div class="profile__form-field">
                 <div class="profile__input-container">
-                    <label class="profile__label" for="facebook"><?php print __("Facebook profile URL"); ?></label>
+                    <label class="profile__label" for="facebook"><?php print __("Facebook profile URL (optional)"); ?></label>
                     <input type="text" name="facebook" id="facebook" class="profile__input" value="<?php if($form && isset($form['facebook'])): ?><?php $form['facebook']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['facebook'])): ?><?php print $community_fields['facebook']; ?><?php endif; ?><?php endif; ?>"/>
                 </div>
                 <div class="profile__select-container">
@@ -357,7 +353,7 @@
             <hr class="profile__keyline" />
             <div class="profile__form-field">
                 <div class="profile__input-container">
-                    <label class="profile__label" for="twitter"><?php print __("Twitter profile URL"); ?></label>
+                    <label class="profile__label" for="twitter"><?php print __("Twitter account (optional)"); ?></label>
                     <input type="text" name="twitter" id="twitter" class="profile__input" value="<?php if($form && isset($form['facebook'])): ?><?php $form['twitter']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['twitter'])): ?><?php print $community_fields['twitter']; ?><?php endif; ?><?php endif; ?>"/>
                 </div>
                 <div class="profile__select-container">
@@ -377,7 +373,7 @@
             <hr class="profile__keyline" />
             <div class="profile__form-field">
                 <div class="profile__input-container">
-                    <label class="profile__label" for="linkedin"><?php print __("LinkedIn profile URL"); ?></label>
+                    <label class="profile__label" for="linkedin"><?php print __("LinkedIn profile (optional)"); ?></label>
                     <input type="text" name="linkedin" id="linkedin" class="profile__input" value="<?php if($form && isset($form['linkedin'])): ?><?php $form['linkedin']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['linkedin'])): ?><?php print $community_fields['linkedin']; ?><?php endif; ?><?php endif; ?>"/>
                 </div>
                 <div class="profile__select-container">
@@ -397,7 +393,7 @@
             <hr class="profile__keyline" />
             <div class="profile__form-field">
                 <div class="profile__input-container">
-                    <label class="profile__label" for="github"><?php print __("Github profile URL"); ?></label>
+                    <label class="profile__label" for="github"><?php print __("Github profile (optional)"); ?></label>
                     <input type="text" name="github" id="github" class="profile__input" value="<?php if($form && isset($form['github'])): ?><?php $form['github']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['github'])): ?><?php print $community_fields['github']; ?><?php endif; ?><?php endif; ?>"/>
                 </div>
                 <div class="profile__select-container">
@@ -417,7 +413,7 @@
             <hr class="profile__keyline" />
             <div class="profile__form-field">
                 <div class="profile__input-container">
-                    <label class="profile__label" for="telegram"><?php print __("Telegram profile URL"); ?></label>
+                    <label class="profile__label" for="telegram"><?php print __("Telegram profile (optional)"); ?></label>
                     <input type="text" name="telegram" id="telegram" class="profile__input" value="<?php if($form && isset($form['telegram'])): ?><?php $form['telegram']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['telegram'])): ?><?php print $community_fields['telegram']; ?><?php endif; ?><?php endif; ?>"/>
                 </div>
                 <div class="profile__select-container">
@@ -437,7 +433,7 @@
         </section>
         <section class="profile__form-container">
             <div class="profile__form-primary">
-                <h2 class="profile__form-title"><?php print __("Communication & Interests *"); ?></h2>
+                <h2 class="profile__form-title"><?php print __("Communication & Interests"); ?></h2>
                 <div class="profile__select-container">
                     <label class="profile__label"><?php print __('Visibility Settings'); ?></label>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -469,7 +465,7 @@
                 <hr class="profile__keyline" />
                 <div class="profile__form-field profile__form-field--tight">
                     <div class="profile__select-container profile__select-container--full">
-                        <label class="profile__label" for="pronoun"><?php print __("Languages spoken"); ?></label>
+                        <label class="profile__label" for="pronoun"><?php print __("Languages spoken (optional)"); ?></label>
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g>
                                 <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
@@ -504,7 +500,7 @@
                             </g>
                         </svg>
                         <select id="languages-<?php print $index; ?>" name="languages[]" class="profile__select profile__select--short profile__select--hide">
-                            <option value=""><?php print __('Make Selection'); ?>
+                            <option value=""><?php print __('Make Selection (optional)'); ?>
                             <?php foreach($languages AS $key    =>  $language): ?>
                             <option value="<?php print $key; ?>"><?php print $language; ?></option>
                             <?php endforeach; ?>
@@ -522,7 +518,7 @@
                 <?php foreach($languages_spoken AS $index =>  $value): ?>
                     <div class="profile__form-field profile__form-field--tight">
                         <div class="profile__select-container profile__select-container--full<?php if($index > 0): ?> profile__select-container--no-label<?php endif; ?>">
-                        <?php if($index === 0): ?><label class="profile__label" for="languages"><?php print __("Languages spoken"); ?></label><?php endif; ?>
+                        <?php if($index === 0): ?><label class="profile__label" for="languages"><?php print __("Languages spoken (optional)"); ?></label><?php endif; ?>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g>
                                     <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
@@ -581,7 +577,7 @@
             <hr class="profile__keyline" />
             <div class="profile__form-field">
                 <div>
-                    <label class="profile__label" for=""><?php print __("Skills and interests"); ?></label>
+                    <label class="profile__label" for=""><?php print __("Skills and interests (optional)"); ?></label>
                     <div class="profile__tag-container">
                         <?php foreach($tags AS $tag): ?>
                         <a href="#" class="profile__tag<?php if(in_array($tag->slug, $form_tags)): ?> profile__tag--active<?php endif; ?>" data-value="<?php print __($tag->slug); ?>"> <?php print __($tag->name); ?></a>
@@ -606,7 +602,7 @@
         </section>
         <section class="profile__form-container">
             <div class="profile__form-primary">
-                <h2 class="profile__form-title"><?php print __("Community Portal Activity *"); ?></h2>
+                <h2 class="profile__form-title"><?php print __("Community Portal Activity"); ?></h2>
                 <div class="profile__select-container">
                     <label class="profile__label"><?php print __('Visibility Settings'); ?></label>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

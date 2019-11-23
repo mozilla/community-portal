@@ -8,7 +8,9 @@
     width: 100%;
     overflow: hidden;
     position: relative;
-
+    a {
+      text-decoration: none;
+    }
     // Edit Profile Styles
     &__hero {
         width: 100%;
@@ -627,6 +629,7 @@
     &__button {
         @extend .cta;
         border-radius: 28px;
+        text-decoration: none;
 
         &:first-of-type {
             margin-bottom: 24px;
@@ -646,6 +649,7 @@
             background-color: transparent;
             border: 1px solid $color-blue-50;
             color: $color-blue-50;
+            text-decoration: none;
         }
     }
 
@@ -912,9 +916,11 @@
         overflow: hidden;
         margin-top: 8px;
         z-index: 100;
-        background-size: cover;
+        background-size: 75px 75px;
         background-position: center center;
         background-repeat: no-repeat;
+        background-image: url('/wp-content/themes/community-portal/images/upload-image.svg');
+
         &:hover {
             cursor: pointer;
         }

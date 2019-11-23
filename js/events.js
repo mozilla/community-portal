@@ -153,13 +153,31 @@ jQuery(function() {
             if ($this.val() === "online") {
                 toggleVisibility($locationAddress, "Online", false);
                 $locationNameLabel.text("Online Meeting Link");
-                $countryLabel.text("Where is this event based?");
+                $countryLabel.text("Where will this event be held?");
                 return;
             }
             toggleVisibility($locationAddress, "", true);
             $locationNameLabel.text("Location Name");
             $countryLabel.text("Country");
         });
+    }
+
+    function handleCityForOnline($country, $city) {
+      if ($country.val() === 'OE') {
+        $city.val('Online Event');
+      } else if ($city.val() === 'Online Event') {
+        $city.val('');
+      }
+    }
+    function handleOnlineEvent() {
+      const $locationCountry = jQuery('#location-country');
+      const $locationCity = jQuery('#location-town')
+      if ($locationCountry.length > 0) {
+        $locationCountry.on('change', function(e) {
+          const $this = jQuery(this);
+          handleCityForOnline($this, $locationCity);
+        });
+      }
     }
 
     function clearErrors(input) {
@@ -351,78 +369,6 @@ jQuery(function() {
         }
     }
 
-    function toggleLightboxVisibility(lightbox) {
-        lightbox.toggleClass("lightbox-show");
-    }
-
-    function toggleLightbox(lightboxID, openBtnID, closeBtnID, firstSelector) {
-        const $lightbox = jQuery(lightboxID);
-        if ($lightbox) {
-            const $openBtn = jQuery(openBtnID);
-            const $closeBtn = jQuery(closeBtnID);
-            const $firstBtn = $lightbox.find(firstSelector).first();
-            $openBtn.on("click", function() {
-                toggleLightboxVisibility($lightbox);
-                $firstBtn.focus();
-                jQuery("body").addClass("noscroll");
-            });
-            $closeBtn.on("click", function() {
-                $openBtn.focus();
-                toggleLightboxVisibility($lightbox);
-                jQuery("body").removeClass("noscroll");
-            });
-            const $lastBtn = jQuery(firstSelector).last();
-            trapFocus($closeBtn, $lastBtn);
-            closeByKeyboard($lightbox);
-        }
-    }
-
-    function closeByKeyboard($lightbox) {
-        $lightbox.on("keyup", e => {
-            e.preventDefault();
-            if (e.keyCode === 27) {
-                toggleLightboxVisibility($lightbox);
-                jQuery("body").removeClass("noscroll");
-            }
-        });
-    }
-
-    function trapFocus($closeBtn, $lastBtn) {
-        $closeBtn.on("keydown", e => {
-            if (e.keyCode === 9 && e.shiftKey) {
-                e.preventDefault();
-                $lastBtn.focus();
-            }
-        });
-
-        $lastBtn.on("keydown", function(e) {
-            if (e.keyCode === 9 && !e.shiftKey) {
-                e.preventDefault();
-                $closeBtn.focus();
-            }
-        });
-    }
-
-    function handleCopyToClipboardClick() {
-        const $copyTrigger = jQuery("#copy-share-link");
-        $copyTrigger.on("click", function(e) {
-            e.preventDefault();
-            copyToClipboard();
-        });
-    }
-
-    function copyToClipboard() {
-        const el = document.createElement("textarea");
-        el.value = location.href;
-        el.setAttribute("readonly", "");
-        el.style.position = "absolute";
-        el.style.left = "-9999px";
-        document.body.appendChild(el);
-        el.select();
-        document.execCommand("copy");
-        document.body.removeChild(el);
-    }
-
     function handleSubmit() {
         const $submitBtn = jQuery("#event-creator__submit-btn");
         if ($submitBtn) {
@@ -442,7 +388,6 @@ jQuery(function() {
       });
     }
 
-
     function init() {
         toggleMobileEventsNav(".events__nav__toggle", ".events__nav");
         toggleMobileEventsNav(".events__filter__toggle", ".events__filter");
@@ -458,23 +403,10 @@ jQuery(function() {
         handleSubmit();
         clearImage();
         editLocation();
-        toggleLightbox(
-            "#attendees-lightbox",
-            "#open-attendees-lightbox",
-            "#close-attendees-lightbox",
-            ".events-single__member-card a"
-        );
-        toggleLightbox(
-            "#events-share-lightbox",
-            "#open-events-share-lightbox",
-            "#close-events-share-lightbox",
-            "a"
-        );
-        handleCopyToClipboardClick();
         trackLocationType('#location-type-placeholder', '#location-type');        
         trackLocationType('#location-country-placeholder', '#location-country');
-
-        confirmDelete();
+        trackLocationType();
+        handleOnlineEvent();
     }
 
     init();

@@ -99,6 +99,10 @@
     font-size: remCalc(16);
     line-height: 24px;
     color: $color-black;
+
+    &.nav__login-link--mobile {
+      margin-left: auto;
+    }
   }
 
   &__logo {
@@ -123,6 +127,7 @@
   width: 100%;
   z-index: 100;
   position: relative;
+  min-width: 320px;
 
   .nav__container {
     @extend .container;

@@ -32,10 +32,13 @@
     }
 
     $form_tags = isset($form['tags']) ? array_filter($form['tags'], 'strlen') : Array();
-
-
 ?>
 <div class="content">
+    <?php if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['done']) && $_POST['done'] == true): ?>
+    <script type="text/javascript">
+        window.location = '/groups/<?php print $group->slug; ?>';
+    </script>
+    <?php else: ?>
     <div class="create-group">
         <div class="create-group__hero">
             <div class="create-group__hero-container">
@@ -210,4 +213,5 @@
             </section>
         </form>
     </div>
+<?php endif; ?>
 </div>

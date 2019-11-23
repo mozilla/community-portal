@@ -10,6 +10,9 @@
     } else {
         $avatar = false;
     }
+
+    $google_analytics_id = get_option('google_analytics_id');
+
 ?>
 
 <!DOCTYPE html>
@@ -22,6 +25,16 @@
         <link rel="pingback" href="<?php echo esc_url(get_bloginfo('pingback_url')); ?>">
         <?php endif; ?>
         <?php wp_head(); ?>
+        <?php  if($google_analytics_id && strlen($google_analytics_id) > 0):  ?>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=<?php print $google_analytics_id; ?>"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '<?php print $google_analytics_id; ?>');
+        </script>
+        <?php endif; ?>
         <title><?php print get_bloginfo('name'); ?> - <?php print get_bloginfo('description'); ?></title>
     </head>
     <body class="body" <?php body_class(); ?>>
@@ -122,10 +135,9 @@
                     <div class="nav__avatar-container">
                     <?php if(is_user_logged_in()): ?>
                         <a href="/members/<?php print $user->user_nicename; ?>" class="nav__avatar-link">
-                        <div class="nav__avatar<?php if(!$avatar): ?> nav__avatar--empty<?php endif; ?>" <?php if($avatar): ?>style="background-image: url('<?php print $avatar; ?>')"<?php endif; ?>></div>
-                        <span class="nav__username"><?php print $user->user_nicename; ?></span>
+                            <div class="nav__avatar<?php if(!$avatar): ?> nav__avatar--empty<?php endif; ?>" <?php if($avatar): ?>style="background-image: url('<?php print $avatar; ?>')"<?php endif; ?>></div>
+                            <span class="nav__username"><?php print $user->user_nicename; ?></span>
                         </a>
-
                     <?php endif; ?>
                     </div>
                     <label for="nav-trigger" class="nav__label">
@@ -145,8 +157,11 @@
                                 </div>
                                 <?php print $user->user_nicename; ?>
                             </a>
-                        <?php endif; ?>
                             <a href="/wp-login.php?action=logout" class="nav__logout-link"><?php print __('Log Out'); ?></a>
+                        <?php else: ?>
+                            <a href="/wp-login.php?action=login" class="nav__login-link nav__login-link--mobile"><?php print __("Log In / Sign Up"); ?></a>
+                        <?php endif; ?>
+                        
                         </div>
                         <div class="nav__search-container">
                             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" class="nav__search-icon">

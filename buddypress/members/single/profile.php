@@ -9,8 +9,6 @@
     $community_fields['first_name'] = isset($meta['first_name'][0]) ? $meta['first_name'][0] : '';
     $community_fields['last_name'] = isset($meta['last_name'][0]) ? $meta['last_name'][0] : '';
     $community_fields['email'] = isset($meta['email'][0]) ? $meta['email'][0] : '';
-    $community_fields['city'] = isset($meta['city'][0]) ? $meta['city'][0] : '';
-    $community_fields['country'] = isset($meta['country'][0]) ? $meta['country'][0] : '';
     
     $fields = Array(
         'username',
@@ -71,7 +69,7 @@
             <div class="profile__name-container">
                 <h3 class="profile__user-title"><?php print $user->user_nicename; ?></h3>
                 <span class="profile__user-name">
-                    <?php if($visibility_settings['first_name_visibility'] || $logged_in): ?>
+                    <?php if($visibility_settings['first_name_visibility'] || $is_me): ?>
                     <?php print "{$community_fields['first_name']}"; ?>
                     <?php endif; ?>
                     <?php if($visibility_settings['last_name_visibility']): ?>
@@ -100,6 +98,7 @@
             <span class="profile__contact-title"><?php print __('Contact Information'); ?></span>
             <?php endif; ?>
             <?php if($visibility_settings['profile_location_visibility']): ?>
+            <?php if(isset($community_fields['city']) && strlen($community_fields['city']) > 0 || isset($community_fields['country']) && strlen($community_fields['country']) > 0): ?>
             <div class="profile__location-container">
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="profile__location-icon">
                     <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
@@ -117,20 +116,22 @@
                     <?php print __('Location'); ?>
                     <span class="profile__city-country">
                     <?php 
-                        if(isset($community_fields['city']))
+                        if(isset($community_fields['city']) && strlen($community_fields['city']) > 0)
                             print $community_fields['city'];
 
-                        if(isset($community_fields['city']) && isset($community_fields['country'])) {
+                        if(isset($community_fields['city']) && strlen($community_fields['city']) > 0 && isset($community_fields['country']) && strlen($community_fields['country']) > 0) {
                             print ", {$community_fields['country']}";
                         } else {
-                            if(isset($community_fields['country'])) {
+                            if(isset($community_fields['country']) && strlen($community_fields['country']) > 0) {
                                 print $community_fields['country'];
                             }
                         }
                     ?>
                     </span>
+                    
                 </div>
             </div>
+            <?php endif; ?>
             <?php endif; ?>
             <?php if($visibility_settings['email_visibility']): ?>
             <div class="profile__email-container">
@@ -143,7 +144,7 @@
                 <div class="profile__details">
                     <span class="profile__email">
                     <?php 
-                        if(isset($community_fields['email']))
+                        if(isset($community_fields['email']) && strlen($community_fields['email']) > 0)
                             print $community_fields['email'];
                     ?>
                     </span>
@@ -151,7 +152,7 @@
 
             </div>
             <?php endif; ?>
-            <?php if($visibility_settings['phone_visibility']): ?>
+            <?php if($visibility_settings['phone_visibility'] && isset($community_fields['phone']) && strlen($community_fields['phone']) > 0): ?>
             <div class="profile__phone-container">
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="profile__phone-icon">
                     <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
@@ -176,7 +177,7 @@
             $groups = groups_get_user_groups($user->ID);
         ?>
         <?php if($groups['total'] > 0 && $visibility_settings['profile_groups_joined_visibility']): ?>
-        <h2 class="profile__heading"><?php print __("Groups I'm In"); ?></h2>
+        <h2 class="profile__heading"><?php print __("My Groups"); ?></h2>
         <?php $group_count = 0; ?>
         <div class="profile__card">
             <?php foreach($groups['groups'] AS $gid): ?>
@@ -217,10 +218,9 @@
             $event_user = new EM_Person($user->ID);
             $events = $event_user->get_bookings();
             $events_attended_count = 0;
-
         ?>
         <?php if($visibility_settings['profile_events_attended_visibility'] && sizeof($events->bookings) > 0): ?>
-        <h2 class="profile__heading"><?php print __("Latest Events Attended"); ?></h2>
+        <h2 class="profile__heading"><?php print __("Recent Events"); ?></h2>
         <div class="profile__card">
             <?php foreach($events AS $event_booking): ?>
             <?php
@@ -244,11 +244,13 @@
                             <path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                        <?php if($location->location_region && $location->location_country): ?>
-                            <?php print "{$location->location_region}, {$countries[$location->location_country]}"; ?>
-                        <?php elseif($location->location_region && !$location->location_country): ?>
-                            <?php print "{$location->location_region}"; ?>
-                        <?php elseif(!$location->location_region && $location->location_country): ?>
+                        <?php if($location->location_country === 'OE'): ?>
+                          <?php print __("Online Event"); ?>
+                        <?php elseif($location->location_town && $location->location_country): ?>
+                            <?php print "{$location->location_town}, {$countries[$location->location_country]}"; ?>
+                        <?php elseif($location->location_town && !$location->location_country): ?>
+                            <?php print "{$location->location_town}"; ?>
+                        <?php elseif(!$location->location_town && $location->location_country): ?>
                             <?php print "{$countries[$location->location_country]}"; ?>
                         <?php endif; ?>
                     </div>
@@ -257,7 +259,7 @@
             <?php 
                 $events_attended_count++;
             ?>
-            <?php if($events_attended_count < sizeof($events)): ?>
+            <?php if(is_array($events) && $events_attended_count < sizeof($events)): ?>
                 <hr class="profile__group-line" />
             <?php endif; ?>
             <?php endforeach; ?>
@@ -275,7 +277,7 @@
 
         ?>
         <?php if($visibility_settings['profile_events_organized_visibility'] && sizeof($events_organized) > 0): ?>
-        <h2 class="profile__heading"><?php print __("Latest Events Organized"); ?></h2>
+        <h2 class="profile__heading"><?php print __("Organized Events"); ?></h2>
         <div class="profile__card">
             <?php foreach($events_organized AS $event): ?>
             <?php
@@ -298,11 +300,13 @@
                             <path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                        <?php if($location->location_region && $location->location_country): ?>
-                            <?php print "{$location->location_region}, {$countries[$location->location_country]}"; ?>
-                        <?php elseif($location->location_region && !$location->location_country): ?>
-                            <?php print "{$location->location_region}"; ?>
-                        <?php elseif(!$location->location_region && $location->location_country): ?>
+                        <?php if($location->location_country === 'OE'): ?>
+                          <?php print __("Online Event"); ?>
+                        <?php elseif($location->location_town && $location->location_country): ?>
+                            <?php print "{$location->location_town}, {$countries[$location->location_country]}"; ?>
+                        <?php elseif($location->location_town && !$location->location_country): ?>
+                            <?php print "{$location->location_town}"; ?>
+                        <?php elseif(!$location->location_town && $location->location_country): ?>
                             <?php print "{$countries[$location->location_country]}"; ?>
                         <?php endif; ?>
                     </div>
