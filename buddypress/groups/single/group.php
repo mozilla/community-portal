@@ -5,6 +5,20 @@
     // Lets get the group data
     do_action('bp_before_directory_groups_page');
     global $bp;
+    $months = array(
+      '01' => 'Jan',
+      '02' => 'Feb',
+      '03' => 'Mar',
+      '04' => 'Apr',
+      '05' => 'May',
+      '06' => 'Jun',
+      '07' => 'Jul',
+      '08' => 'Aug',
+      '09' => 'Sep',
+      '10' => 'Oct',
+      '11' => 'Nov',
+      '12' => 'Dec',
+    );
     $group = $bp->groups->current_group;
     $group_meta = groups_get_groupmeta($group->id, 'meta');
     $member_count = groups_get_total_member_count($group->id);
@@ -44,28 +58,31 @@
                             <ellipse cx="8" cy="7.97569" rx="8" ry="7.97569" fill="#0060DF"/>
                             <path d="M8 5.5L8.7725 7.065L10.5 7.3175L9.25 8.535L9.545 10.255L8 9.4425L6.455 10.255L6.75 8.535L5.5 7.3175L7.2275 7.065L8 5.5Z" fill="white" stroke="white" stroke-width="2" stroke-linecap="round"/>
                         </svg>
-                        <span class="group__status">Verified</span>&nbsp;|
+                        <a href="https://discourse.mozilla.org/t/frequently-asked-questions-portal-edition-faq/43224" class="group__status">Verified</a>&nbsp;|
                     <?php else: ?>
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M15.5 7.97569C15.5 12.103 12.1436 15.4514 8 15.4514C3.85643 15.4514 0.5 12.103 0.5 7.97569C0.5 3.84842 3.85643 0.5 8 0.5C12.1436 0.5 15.5 3.84842 15.5 7.97569Z" stroke="#B1B1BC"/>
                             <path d="M8 5.5L8.7725 7.065L10.5 7.3175L9.25 8.535L9.545 10.255L8 9.4425L6.455 10.255L6.75 8.535L5.5 7.3175L7.2275 7.065L8 5.5Z" fill="#B1B1BC" stroke="#B1B1BC" stroke-width="2" stroke-linecap="round"/>
                         </svg>
-                        <span class="group__status">Unverified</span>&nbsp;|
+                        <a href="https://discourse.mozilla.org/t/frequently-asked-questions-portal-edition-faq/43224" class="group__status">Unverified</a>&nbsp;|
                     <?php endif; ?>
                     <span class="group__location">
                     <?php 
-                        if(isset($group_meta['group_city'])) {
-                            print $group_meta['group_city'];
-                            if(isset($group_meta['group_country'])) {
+                        if(isset($group_meta['group_city']) && strlen($group_meta['group_city']) > 0) {
+                            if(isset($group_meta['group_country']) && strlen($group_meta['group_country']) > 1) {
+                                print "<a href=\"/groups/?location={$group_meta['group_country']}\" class=\"group__status\">";
+                            }
+                            print "{$group_meta['group_city']}";
+                            if(isset($group_meta['group_country']) && strlen($group_meta['group_country']) > 1) {
                                 $country = $countries[$group_meta['group_country']];
-                                print ", {$country} | ";
+                                print ", {$country}</a> | ";
                             } else {
                                 print "|";
                             }
                         } else {
-                            if(isset($group_meta['group_country'])) {
+                            if(isset($group_meta['group_country']) && strlen($group_meta['group_country']) > 1) {
                                 $country = $countries[$group_meta['group_country']];
-                                print "{$country} | ";
+                                print "<a href=\"/groups/?location={$group_meta['group_country']}\" class=\"group__status\">{$country}</a> | ";
                             }
                         }
                     ?>
@@ -173,7 +190,8 @@
                                 $fields = Array(
                                     'image_url',
                                     'first_name',
-                                    'last_name'
+                                    'last_name',
+                                    'country'
                                 );
               
                                 $is_me = $logged_in && intval($user->ID) === intval($member->ID);
@@ -191,6 +209,7 @@
                                         $field_visibility_name = 'profile_image_url_visibility';
                                     }
                                     $visibility = mozilla_determine_field_visibility($field, $field_visibility_name, $community_fields, $is_me, $logged_in);
+                                    $field_visibility_name = ($field === 'country') ? 'profile_location_visibility' : $field_visibility_name;
                                     $visibility_settings[$field_visibility_name] = $visibility;
                                 }
                     
@@ -211,6 +230,17 @@
                                             }
                                         ?>
                                     </div>
+                                    <?php if($visibility_settings['profile_location_visibility'] !== false && isset($community_fields['country']) && strlen($community_fields['country']) > 0): ?>
+                                        <div class="members__location">
+                                            <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>&nbsp;
+                                            <?php 
+                                                print $countries[$community_fields['country']];    
+                                            ?>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                             </a>
                             <?php endforeach; ?>
@@ -218,18 +248,31 @@
                     </div>
                     <?php elseif($is_events === true): ?>
                     <?php 
-
-                        $args = Array('group'   =>  $group->id);      
+                        $months = array(
+                            '01' => 'Jan',
+                            '02' => 'Feb',
+                            '03' => 'Mar',
+                            '04' => 'Apr',
+                            '05' => 'May',
+                            '06' => 'Jun',
+                            '07' => 'Jul',
+                            '08' => 'Aug',
+                            '09' => 'Sep',
+                            '10' => 'Oct',
+                            '11' => 'Nov',
+                            '12' => 'Dec',
+                        );
+                        $args = Array('group'   =>  $group->id, 'scope' =>  'all');      
                         $events = EM_Events::get($args);                                            
                     ?>
                     <div class="row events__cards">
                     <?php foreach($events AS $event): ?>
-                       
                         <?php 
                             $categories = $event->get_categories();
                             $location = em_get_location($event->location_id);
                             $site_url = get_site_url();
                             $url = $site_url.'/events/'.$event->slug;  
+                            $allCountries = em_get_countries();
                         ?> 
                             <div class="col-lg-4 col-md-6 events__column">
                                 <div class="event-card">
@@ -241,11 +284,13 @@
                                                 if($img_url && $img_url !== ''):?>style="background-image: url(<?php echo $img_url ?>)"<?php endif; ?>
                                         >
                                             <?php 
+
                                                 $month = substr($event->start_date, 5, 2);
                                                 $date = substr($event->start_date, 8, 2);
                                                 $year = substr($event->start_date, 0, 4);
+                                             
                                             ?>
-                                            <p class="event-card__image__date"><span><?php echo __(substr($months[$month],0,3)) ?> </span><span><?php echo __($date) ?></span></p>
+                                            <p class="event-card__image__date"><span><?php echo __(substr($months[intval($month)],0,3)) ?> </span><span><?php echo __($date) ?></span></p>
                                         </div>
                                         <div class="event-card__description">
                                             <h3 class="event-card__description__title title--event-card"><?php echo $event->event_name; ?></h2>
@@ -257,17 +302,22 @@
                                                 </svg>
                                                 <p class="text--light text--small">
                                                     <?php
-                                                    if ($location->address) {
-                                                        echo __($location->address.' - '); 
-                                                    }
-                                                    if ($location->town) {
-                                                        echo __($location->town);
-                                                        if ($location->country) {
-                                                        echo __(', '.$allCountries[$location->country]);
-                                                        }
+                                                    if ($location->country === 'OE') {
+                                                      echo __('Online Event');
                                                     } else {
-                                                        echo __($allCountries[$location->country]);
+                                                      if ($location->address) {
+                                                        echo __($location->address.' - '); 
+                                                      }
+                                                      if (strlen($location->town) > 0) {
+                                                          echo __($location->town);
+                                                          if ($location->country) {
+                                                            echo __(', '.$allCountries[$location->country]);
+                                                          }
+                                                      } else {
+                                                          echo __($allCountries[$location->country]);
+                                                      }
                                                     }
+                                                    
                                                     ?>
                                                 </p>
                                             </div>
@@ -329,7 +379,6 @@
                             </div>
                             <?php endif; ?>
                             <div class="group__card-content">
-
                                 <div class="group__card-cta-container<?php if($is_admin): ?> group__card-cta-container--end<?php endif; ?>">
                                 <?php if(!$is_admin): ?>
                                     <?php if($is_member): ?>
@@ -350,10 +399,15 @@
                                 <p class="group__card-copy">
                                     <?php print $group->description; ?>
                                 </p>
-                                <?php if(isset($group_meta['group_telegram']) || isset($group_meta['group_facebook']) || isset($group_meta['group_discourse']) || isset($group_meta['group_github']) || isset($group_meta['group_twitter']) || isset($group_meta['group_other'])): ?>
+                                <?php if((isset($group_meta['group_telegram']) && strlen($group_meta['group_telegram']) > 0 ) 
+                                || (isset($group_meta['group_facebook']) && strlen(trim($group_meta['group_facebook'])) > 0 ) 
+                                || (isset($group_meta['group_discourse']) && strlen(trim($group_meta['group_discourse'])) > 0 ) 
+                                || (isset($group_meta['group_github']) && strlen(trim($group_meta['group_github'])) > 0) 
+                                || (isset($group_meta['group_twitter']) && strlen(trim($group_meta['group_twitter'])) > 0 ) 
+                                || (isset($group_meta['group_other']) && strlen($group_meta['group_other']) > 0)): ?>
                                 <div class="group__community-links">
                                     <span class="no-line"><?php print __("Community Links"); ?></span>
-                                    <?php if(isset($group_meta['group_telegram'])): ?>
+                                    <?php if(isset($group_meta['group_telegram']) && strlen($group_meta['group_telegram']) > 0): ?>
                                         <div class="group__community-link-container">
                                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
@@ -363,7 +417,7 @@
                                             <a href="<?php print $group_meta['group_telegram']; ?>" class="group__social-link"><?php print __("Telegram"); ?></a>
                                         </div>
                                     <?php endif; ?>
-                                    <?php if(isset($group_meta['group_facebook'])): ?>
+                                    <?php if(isset($group_meta['group_facebook']) && strlen(trim($group_meta['group_facebook'])) > 0): ?>
                                         <div class="group__community-link-container">
                                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
@@ -372,7 +426,7 @@
                                             <a href="<?php print $group_meta['group_facebook']; ?>" class="group__social-link"><?php print __("Facebook"); ?></a>
                                         </div>
                                     <?php endif; ?>
-                                    <?php if(isset($group_meta['group_discourse'])): ?>
+                                    <?php if(isset($group_meta['group_discourse']) && strlen(trim($group_meta['group_discourse'])) > 0): ?>
                                         <div class="group__community-link-container">
                                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
@@ -381,7 +435,7 @@
                                             <a href="<?php print $group_meta['group_discourse']; ?>" class="group__social-link"><?php print __("Discourse"); ?></a>
                                         </div>
                                     <?php endif; ?>
-                                    <?php if(isset($group_meta['group_github'])): ?>
+                                    <?php if(isset($group_meta['group_github']) && strlen(trim($group_meta['group_github'])) > 0): ?>
                                         <div class="group__community-link-container">
                                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
@@ -397,7 +451,7 @@
                                             <a href="<?php print $group_meta['group_github']; ?>" class="group__social-link"><?php print __("Github"); ?></a>
                                         </div>
                                     <?php endif; ?>
-                                    <?php if(isset($group_meta['group_twitter'])): ?>
+                                    <?php if(isset($group_meta['group_twitter']) && strlen(trim($group_meta['group_twitter'])) > 0): ?>
                                         <div class="group__community-link-container">
                                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
@@ -406,7 +460,7 @@
                                             <a href="<?php print $group_meta['group_twitter']; ?>" class="group__social-link"><?php print __("Twitter"); ?></a>
                                         </div>
                                     <?php endif; ?>
-                                    <?php if(isset($group_meta['group_other'])): ?>
+                                    <?php if(isset($group_meta['group_other']) && strlen($group_meta['group_other']) > 0): ?>
                                         <div class="group__community-link-container">
                                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
@@ -512,11 +566,13 @@
                                                 <path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                                 <path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                             </svg>
-                                            <?php if($location->location_region && $location->location_country): ?>
-                                                <?php print "{$location->location_region}, {$countries[$location->location_country]}"; ?>
-                                            <?php elseif($location->location_region && !$location->location_country): ?>
-                                                <?php print "{$location->location_region}"; ?>
-                                            <?php elseif(!$location->location_region && $location->location_country): ?>
+                                            <?php if($location->location_country === 'OE'): ?>
+                                              <?php print __("Online Event"); ?>
+                                            <?php elseif($location->location_town && $location->location_country): ?>
+                                                <?php print "{$location->location_town}, {$countries[$location->location_country]}"; ?>
+                                            <?php elseif($location->location_town && !$location->location_country): ?>
+                                                <?php print "{$location->location_town}"; ?>
+                                            <?php elseif(!$location->location_town && $location->location_country): ?>
                                                 <?php print "{$countries[$location->location_country]}"; ?>
                                             <?php endif; ?>
                                         </div>
@@ -546,7 +602,8 @@
                                         $fields = Array(
                                             'image_url',
                                             'first_name',
-                                            'last_name'
+                                            'last_name',
+                                            'country'
                                         );
                       
                                         $is_me = $logged_in && intval($user->ID) === intval($admin->user_id);
@@ -561,15 +618,16 @@
                                             $field_visibility_name = "{$field}_visibility";
                                             if($field == 'image_url') {
                                                 $field_visibility_name = 'profile_image_url_visibility';
-            
                                             }
+
                                             $visibility = mozilla_determine_field_visibility($field, $field_visibility_name, $community_fields, $is_me, $logged_in);
+                                            $field_visibility_name = ($field === 'country') ? 'profile_location_visibility' : $field_visibility_name;
                                             $visibility_settings[$field_visibility_name] = $visibility;
                                         }
                                 
                                     ?>
                                     <a class="group__admin" href="/members/<?php print $u->user_nicename; ?>">
-                                        <div class="members__avatar<?php if($visibility_settings['profile_image_url_visibility'] === false || !isset($community_fields['image_url']) || strlen($community_fields['image_url']) === 0): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $member->data->user_nicename; ?>">
+                                        <div class="members__avatar<?php if($visibility_settings['profile_image_url_visibility'] === false || !isset($community_fields['image_url']) || strlen($community_fields['image_url']) === 0): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $u->user_nicename; ?>">
 
                                         </div>
                                         <div class="username">
@@ -579,6 +637,7 @@
                                                 <?php if($visibility_settings['last_name_visibility']): print $community_fields['last_name']?><?php endif; ?>
                                             </div>
                                         </div>
+                              
                                     </a>
                                     <?php endforeach; ?>
                                 </div>
@@ -590,7 +649,7 @@
                                 <span><?php print __('Tags'); ?></span>
                                 <div class="group__tags">
                                     <?php foreach($group_meta['group_tags'] AS $tag): ?>
-                                    <a class="group__tag"><?php print $tag; ?></a>
+                                    <a href="/groups/?tag=<?php print $tag; ?>" class="group__tag"><?php print $tag; ?></a>
                                     <?php endforeach; ?>
                                 </div>
                             </div>

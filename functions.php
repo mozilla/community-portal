@@ -50,7 +50,6 @@ add_filter('nav_menu_css_class', 'mozilla_menu_class', 10, 4);
 // Events Action
 add_action('save_post', 'mozilla_save_event', 10, 3);
 
-
 // Include theme style.css file not in admin page
 if(!is_admin()) 
     wp_enqueue_style('style', get_stylesheet_uri());
@@ -310,7 +309,6 @@ function remove_admin_login_header() {
 
 function mozilla_init() {
     register_nav_menu('mozilla-theme-menu', __('Mozilla Custom Theme Menu'));
-
     $user = wp_get_current_user()->data;
     // Not logged in
     if(!isset($user->ID)) {
@@ -387,13 +385,13 @@ function mozilla_init_scripts() {
     wp_enqueue_script('nav', get_stylesheet_directory_uri()."/js/nav.js", array('jquery'));
     wp_enqueue_script('profile', get_stylesheet_directory_uri()."/js/profile.js", array('jquery'));
     wp_enqueue_script('lightbox', get_stylesheet_directory_uri()."/js/lightbox.js", array('jquery'));
+    wp_enqueue_script('gdrp', get_stylesheet_directory_uri()."/js/gdrp.js", array('jquery'));
     
 
 }
 
 // If the create group page is called create a group 
 function mozilla_create_group() {
-
     if(is_user_logged_in()) {
         $required = Array(
             'group_name',
@@ -736,6 +734,7 @@ function mozilla_update_member() {
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         if(is_user_logged_in()) {
             $user = wp_get_current_user()->data;
+            $edit = false;
 
             // Get current meta to compare to
             $meta = get_user_meta($user->ID);
@@ -756,6 +755,8 @@ function mozilla_update_member() {
                 'image_url',
                 'profile_image_url_visibility',
                 'pronoun',
+                'city',
+                'country',
                 'profile_pronoun_visibility',
                 'bio',
                 'profile_bio_visibility',
@@ -787,9 +788,8 @@ function mozilla_update_member() {
             // Add additional required fields after initial setup
             if(isset($meta['agree'][0]) && $meta['agree'][0] == 'I Agree') {
                 unset($required[8]);
-                $required[] = 'city';
-                $required[] = 'country';
                 $required[] = 'profile_location_visibility';
+                $_POST['edit'] = true;
             }
 
             $error = false;
@@ -865,7 +865,6 @@ function mozilla_update_member() {
                     update_user_meta($user->ID, $field, $form_data);
                 }
 
-
                 // Update other fields here
                 $addtional_meta = Array();
 
@@ -877,9 +876,10 @@ function mozilla_update_member() {
                             $additional_meta[$field] = sanitize_text_field(trim($_POST[$field]));
                         }
                     }
-                }    
+                }   
 
                 update_user_meta($user->ID, 'community-meta-fields', $additional_meta);
+
             }
         }
     }
@@ -1031,6 +1031,7 @@ function mozilla_edit_group() {
                     $meta['group_other'] = isset($_POST['group_other']) ? sanitize_text_field($_POST['group_other']) : '';
 
                     groups_update_groupmeta($group_id, 'meta', $meta);
+                    $_POST['done'] = true;
                 }
         
             }
@@ -1092,5 +1093,30 @@ add_filter('wp_redirect', 'mozilla_events_redirect');
 function mozilla_is_site_admin(){
   return in_array('administrator',  wp_get_current_user()->roles);
 }
+
+function mozilla_add_online_to_countries($countries) {
+  $countries = array('OE' => 'Online Event') + $countries;
+  return $countries;
+}
+
+add_filter('em_get_countries', 'mozilla_add_online_to_countries', 10, 1);
+add_filter('em_location_get_countries', 'mozilla_add_online_to_countries', 10, 1);
+
+function mozilla_update_events_copy($string) {
+  $string = 'Please <a href="/wp-login.php?action=login">log in</a> to create or join events';
+  return $string;
+}; 
+
+add_filter('em_event_submission_login', "mozilla_update_events_copy", 10, 1);
+
+function mozilla_approve_booking($EM_Booking) {
+  if (intval($EM_Booking->booking_status) === 0) {
+    $EM_Booking->booking_status = 1;
+    return $EM_Booking;
+  }
+  return $EM_Booking;
+}
+
+add_filter('em_booking_save_pre','mozilla_approve_booking', 100, 2);
 
 ?>

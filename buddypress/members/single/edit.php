@@ -1,4 +1,4 @@
-<?php if($complete === true): ?>
+<?php if($complete === true && $edit === false): ?>
     <div class="profile__container">
         <section class="profile__success-message-container"> 
             <h1 class="profile__title"><?php print __('Profile Created'); ?></h1>
@@ -12,7 +12,11 @@
             </div>
         </section>
     </div>
-    <?php else: ?>
+<?php elseif($complete === true && $edit === true): ?>
+    <script type="text/javascript">
+        window.location = "/members/<?php print $user->user_nicename;?>";
+    </script>
+<?php else: ?>
     <div class="profile__hero">
         <div class="profile__hero-container">
             <div class="profile__hero-content">
@@ -31,7 +35,6 @@
             </div>
         </div>
     </div>
-    
     <form class="profile__form" id="complete-profile-form" method="post" novalidate>
         <?php print wp_nonce_field('protect_content', 'my_nonce_field'); ?>
         <section class="profile__form-container profile__form-container--first">
@@ -56,13 +59,9 @@
             <div class="profile__form-field">
                 <div class="profile__input-container profile__input-container--profile">
                     <label class="profile__label" for="image-url"><?php print __("Profile Photo (optional)"); ?></label>
-                        <div id="profile-photo-uploader" class="profile__image-upload"<?php if($form && isset($form['image_url'])): ?> style="background-image: url('<?php print $form['image_url']; ?>');"<?php else: ?><?php if(is_array($community_fields) && isset($community_fields['image_url'])): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>');"<?php endif; ?><?php endif; ?>>
+                        <div id="profile-photo-uploader" class="profile__image-upload"<?php if($form && isset($form['image_url'])): ?> style="background: url('<?php print $form['image_url']; ?>') cover;"<?php else: ?><?php if(is_array($community_fields) && isset($community_fields['image_url'])): ?> style="background: url('<?php print $community_fields['image_url']; ?>') cover;"<?php endif; ?><?php endif; ?>>
                         <?php if(!is_array($community_fields) || !isset($community_fields['image_url'])): ?>
-                        <svg width="75" height="75" viewBox="0 0 75 75" fill="none" xmlns="http://www.w3.org/2000/svg" class="create-group__upload-image-svg">
-                            <path d="M59.375 9.375H15.625C12.1732 9.375 9.375 12.1732 9.375 15.625V59.375C9.375 62.8268 12.1732 65.625 15.625 65.625H59.375C62.8268 65.625 65.625 62.8268 65.625 59.375V15.625C65.625 12.1732 62.8268 9.375 59.375 9.375Z" stroke="#CDCDD4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M26.5625 31.25C29.1513 31.25 31.25 29.1513 31.25 26.5625C31.25 23.9737 29.1513 21.875 26.5625 21.875C23.9737 21.875 21.875 23.9737 21.875 26.5625C21.875 29.1513 23.9737 31.25 26.5625 31.25Z" stroke="#CDCDD4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M65.625 46.875L50 31.25L15.625 65.625" stroke="#CDCDD4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+        
                         <?php endif; ?>
                     </div>
                     <div class="profile__image-instructions">
@@ -216,9 +215,9 @@
                             <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
                         </g>
                     </svg>
-                    <select id="country" name="country" class="profile__select<?php if($form && !isset($form['country']) || (isset($form['country']) && empty(trim($form['country'])))): ?> profile__select--error<?php endif; ?>" required>
+                    <select id="country" name="country" class="profile__select<?php if($form && !isset($form['country']) || (isset($form['country']) && empty(trim($form['country'])))): ?> profile__select--error<?php endif; ?>">
                         <?php foreach($countries AS $key    =>  $value): ?>
-                        <option value="<?php print $key; ?>"<?php if($form && isset($form['country']) && $form['country'] == $key): ?> selected<?php else: ?><?php if(isset($meta['country'][0]) && $meta['country'][0] == $key): ?> selected<?php endif; ?><?php endif; ?>><?php print $value; ?></option>
+                        <option value="<?php print $key; ?>"<?php if($form && isset($form['country']) && $form['country'] == $key): ?> selected<?php else: ?><?php if(isset($community_fields['country']) && $community_fields['country'] == $key): ?> selected<?php endif; ?><?php endif; ?>><?php print $value; ?></option>
                         <?php endforeach; ?>
                     </select>
                     <div class="form__error-container<?php if($form && !isset($form['country']) || (isset($form['country']) && empty(trim($form['country'])))): ?> form__error-container--visible<?php endif; ?>">
@@ -227,7 +226,7 @@
                 </div>
                 <div class="profile__input-container">
                     <label class="profile__label" for="city"><?php print __("City (optional)"); ?></label>
-                    <input type="text" name="city" id="city" class="profile__input<?php if($form && !isset($form['city']) || (isset($form['city']) && empty(trim($form['city'])) )): ?> profile__input--error<?php endif; ?>" placeholder="<?php print __("City"); ?>" value="<?php print isset($form['city']) ? $form['city'] : $meta['city'][0]; ?>" required />
+                    <input type="text" name="city" id="city" class="profile__input<?php if($form && !isset($form['city']) || (isset($form['city']) && empty(trim($form['city'])) )): ?> profile__input--error<?php endif; ?>" placeholder="<?php print __("City"); ?>" value="<?php print isset($form['city']) ? $form['city'] : $community_fields['city']; ?>" />
                     <div class="form__error-container<?php if($form && !isset($form['last_name']) || (isset($form['city']) && empty(trim($form['city'])) )): ?> form__error-container--visible<?php endif; ?>">
                         <div class="form__error"><?php print __("This field is required"); ?></div>
                     </div>
@@ -265,7 +264,7 @@
                     </svg>
                     <select id="email-visibility" name="email_visibility" class="profile__select">
                         <?php foreach($visibility_options AS $key   =>  $value): ?>
-                        <option value="<?php print $key; ?>"<?php if(isset($meta['email_visibility'][0]) && $meta['email_visibility'][0] == $key): ?> selected<?php endif; ?>><?php print $value; ?></option>
+                        <option value="<?php print $key; ?>"<?php if(isset($community_fields['email_visibility']) && $community_fields['email_visibility'] == $key): ?> selected<?php endif; ?>><?php print $value; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>

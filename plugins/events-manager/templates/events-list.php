@@ -10,19 +10,9 @@
      */
 ?>
 <?php
-  if (count($_GET) > 0):
-    $format = '&count=%#%';
-  else: 
-    $format = '?count=%#%';
-  endif;
-  $count = $_REQUEST['count'];
+  $page = $_REQUEST['pno'];
   $args = apply_filters('em_content_events_args', $args);
-  $args['private'] = '1';
-  $args['limit'] = '12';
   $args['pagination'] = '1';
-  if (isset($count)) {
-    $args['page'] = $count;
-  }
   $view = get_query_var( 'view', $default = '');
   $country = urldecode(get_query_var('country', $default = 'all'));
   $tag = urldecode(get_query_var('tag', $default = 'all'));
@@ -37,8 +27,15 @@
   if ($tag !== 'all') {
     $args['category'] = $tag;
   }
-  $events = EM_Events::get($args);
-  $totalPages = ceil(count(EM_Events::get()) / 12);
+  $paginationLinks = $args;
+  if (isset($page) && strlen($page)):
+    $args['page'] = $page;
+  endif;
+  $args['limit'] = '0';
+  $events = EM_Events::get($args);  
+  $total_pages = count($events);
+  $args['limit'] = '12';
+  $events = EM_Events::get($args);  
 ?>
 <div class="row events">
   <div class="events__nav__container">
@@ -117,20 +114,17 @@
               include(locate_template('plugins/events-manager/templates/template-parts/event-cards.php', false, false));
             }
             ?>
-            <div class="events__pagination col-sm-12">
+      <?php
+        if ($total_pages > 12):
+      ?>
+      <div class="events__pagination col-sm-12">
       <?php 
-        $args = array(
-          'base' => remove_query_arg('count', $_SERVER['REQUEST_URI']).'%_%',
-          'format' => $format,
-          'total' => $totalPages,
-          'current' => $count,
-          'mid_size' => '4',
-          'prev_text' => __('<'),
-          'next_text' => __('>'),
-        );
-        echo paginate_links($args)
+        echo EM_Events::get_pagination_links($args, $total_pages, $search_action = 'search_events',$default_args = array());
       ?>
     </div>
+    <?php
+    endif;
+    ?>
     <?php
           else:
             ?>

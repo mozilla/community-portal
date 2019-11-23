@@ -146,10 +146,9 @@
                     <div class="nav__avatar-container">
                     <?php if(is_user_logged_in()): ?>
                         <a href="/members/<?php print $user->user_nicename; ?>" class="nav__avatar-link">
-                        <div class="nav__avatar<?php if(!$avatar): ?> nav__avatar--empty<?php endif; ?>" <?php if($avatar): ?>style="background-image: url('<?php print $avatar; ?>')"<?php endif; ?>></div>
-                        <span class="nav__username"><?php print $user->user_nicename; ?></span>
+                            <div class="nav__avatar<?php if(!$avatar): ?> nav__avatar--empty<?php endif; ?>" <?php if($avatar): ?>style="background-image: url('<?php print $avatar; ?>')"<?php endif; ?>></div>
+                            <span class="nav__username"><?php print $user->user_nicename; ?></span>
                         </a>
-
                     <?php endif; ?>
                     </div>
                     <label for="nav-trigger" class="nav__label">
@@ -169,8 +168,11 @@
                                 </div>
                                 <?php print $user->user_nicename; ?>
                             </a>
-                        <?php endif; ?>
                             <a href="/wp-login.php?action=logout" class="nav__logout-link"><?php print __('Log Out'); ?></a>
+                        <?php else: ?>
+                            <a href="/wp-login.php?action=login" class="nav__login-link nav__login-link--mobile"><?php print __("Log In / Sign Up"); ?></a>
+                        <?php endif; ?>
+                        
                         </div>
                         <div class="nav__search-container">
                             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" class="nav__search-icon">

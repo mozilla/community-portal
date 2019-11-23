@@ -3,6 +3,7 @@
     background-color: $color-black;
     min-height: 387px;
     margin-top: 58px;
+    position: relative;
 
 
     @include tablet-and-up {
