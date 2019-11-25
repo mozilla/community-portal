@@ -14,7 +14,7 @@
     </div>
 <?php elseif($complete === true && $edit === true): ?>
     <script type="text/javascript">
-        window.location = "/members/<?php print $user->user_nicename;?>";
+        window.location = "/members/<?php print ($updated_username) ? $updated_username : $user->user_nicename;?>";
     </script>
 <?php else: ?>
     <div class="profile__hero">

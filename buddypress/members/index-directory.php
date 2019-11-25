@@ -16,13 +16,10 @@
     if($search_user) {
         $args['search'] = "*{$search_user}*";
         $args['search_columns'] = Array('nicename');
-
-        if($logged_in) {
-            $args['search_columns'][] = 'first_name';
-        }
     }
 
     $members = get_users($args);
+
     $total_pages = ceil(sizeof($members) / $members_per_page);
     $logged_in = mozilla_is_logged_in();
 
