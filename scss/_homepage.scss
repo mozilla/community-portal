@@ -1,240 +1,282 @@
 body.home-page {
-  background: white;
-  overflow-x: hidden;
+    background: white;
+    overflow-x: hidden;
 
-  a {
-    text-decoration: none;
-  }
+    a {
+        text-decoration: none;
+    }
 }
+
 .homepage {
+    position: relative;
+    &__container {
 
-  position: relative;
-  &__container {
-    @extend .container;
-    max-width: 1440px;
-    padding: 0 24px;
-    @include tablet-and-up {
-      padding: 0 64px;
-    }
-    @include desktop-and-up {
-      padding: 0 106px;
-    }
-  }
-  
-  &__hero {
-    display: flex;
-    align-items: center;
-    padding: 40px 0 32px;
-    margin-bottom: 40px;
-    position: relative;
-    &__background {
-      top: 0;
-      height: 100%;
-    }
-    &__title {
-      margin: 0;
-      width: 80%;
-      span {
-        font-weight: bold;
-      }
-    }
-    &__text {
-      @include tablet-and-up {
-        padding-right: 8.33333%;
+        @extend .container;
+        max-width: 1440px;
+        padding: 0 24px;
 
-      }
-    }
-    &__subtitle {
-      margin: 16px 0 32px;
-      @include desktop-and-up {
-        margin-top: 18px;
-      }
-    }
-    &__cta {
-      width: 100%;
-      text-align: center;
-      @include tablet-and-up {
-        width: auto;
-      }
-    }
-    @include tablet-and-up {
-      padding: 70px 0 40px;
-      margin-bottom: 48px;
-    }
-    @include desktop-and-up {
-      margin-bottom: 64px;
-    }
-  }
-  &__hero__splash {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  &__hero__image {   
-    position: relative;
-    margin-top: 50px;
-    margin-bottom: 48px;
-    img {
-      border-radius: 50%;
-      display: block;
-      max-width: 100%;
-      position: relative;
-      z-index: 2;
-    }
-    &::before {
-      content: '';
-      background-image: url('./images/homepage-hero-shape.svg');
-      position: absolute;
-      height: 100%;
-      width: 100%;
-      left: -10%;
-      top: -50px;
-      background-size: contain;
-      background-position: top center;
-      background-repeat: no-repeat;
-      @include tablet-and-up {
-        left: -15%;
-      }
-      @include desktop-and-up {
-        left: -20%;
-      }
-    }
-  }
-  &__events,
-  &__groups {
-    position: relative;
-    margin-top: 36px;
-    padding-bottom: 36px;
-    @include tablet-and-up {
-      margin-top: 48px;
-      padding-bottom: 98px;
-    }
-    @include desktop-and-up {
-      margin-top: 80px;
-      margin-bottom: 186px;
-    }
-    &__grid {
-      .events__column:nth-of-type(3n),
-      .groups__column:nth-of-type(3n) {
         @include tablet-and-up {
-          padding-right: 16px;
+            padding: 0 64px;
         }
+
         @include desktop-and-up {
-          padding-right: 0;
+            padding: 0 106px;
         }
-      }
-      .events__column:nth-of-type(3n + 1),
-      .groups__column:nth-of-type(3n + 1)  {
-        @include desktop-and-up {
-          padding-left: 0;
-        }
-      }
-      .groups__column:nth-of-type(2n + 1),
-      .events__column:nth-of-type(2n + 1) {
-        @media (min-width: $screen-tablet-min) and (max-width: $screen-desktop-min) {
-          padding-left: 0;
-        }
-      }
-      .groups__column:nth-of-type(2n),
-      .events__column:nth-of-type(2n) {
-        @media (min-width: $screen-tablet-min) and (max-width: $screen-desktop-min) {
-          padding-right: 0px;
-        }
-      }
-      .groups__column,
-      .events__column {
-        padding: 16px 0;
-        @include tablet-and-up {
-          padding: 32px 16px;
-        }
-      }
     }
   
-    &__subheader {
-      margin-top: 0;
-      margin-bottom: 24px;
-      text-align: center;
-      @include tablet-and-up {
-        margin-bottom: 0;
-        max-width: 50%;
-        text-align: left;
-      }
-    }
-    &__cta {
-      @include tablet-and-up {
+    &__hero {
         display: flex;
-        justify-content: flex-end;
-        align-items: flex-end;
-      }
-    }
-    &__meta {
-      margin-bottom: 32px;
-      @include tablet-and-up {
-        margin-bottom: 32px;
-      }
-      @include desktop-and-up {
+        align-items: center;
+        padding: 40px 0 32px;
         margin-bottom: 40px;
-      }
-    }
-    &__count {
-      text-align: center;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      &__span {
-        display: block;
-        text-align: center;
-        margin-bottom: 32px;
-      }
-      &__link,
-      &__link:visited {
-        color: $color-blue-50;
-        &::after {
-          content: url('./images/chevron-right-2.svg');
-          display: inline-block;
-          padding-left: 4px;
-          position: relative;
-          top: 3px;
+        position: relative;
+
+        &__background {
+            top: 0;
+            height: 100%;
         }
-      }
+
+        &__title {
+            margin: 0;
+            width: 80%;
+            span {
+                font-weight: bold;
+            }
+        }
+
+        &__text {
+            @include tablet-and-up {
+                padding-right: 8.33333%;
+            }
+        }
+
+        &__subtitle {
+            margin: 16px 0 32px;
+            @include desktop-and-up {
+                margin-top: 18px;
+            }
+        }
+        &__cta {
+            width: 100%;
+            text-align: center;
+
+            @include tablet-and-up {
+                width: auto;
+            }
+        }
+
+        @include tablet-and-up {
+            padding: 70px 0 40px;
+            margin-bottom: 48px;
+        }
+
+        @include desktop-and-up {
+            margin-bottom: 64px;
+        }
     }
-  }
-  &__events, 
-  &__hero, 
-  &__groups {
-    &__background {
-      border-bottom-left-radius: 30px;
-      position: absolute;
-      z-index: -1;
-      left: -24px;
-      width: 100vw;
-      @include tablet-and-up {
-        left: 70px;
-      }
+
+    &__hero__splash {
+            display: flex;
+            justify-content: center;
+            align-items: center;
     }
-  }
-  &__events, 
-  &__groups {
-    &__background {
-      top: 190px;
-      height: calc(100% - 232px);
-      @include tablet-and-up {
-        height: calc(100% - 248px);
-        top: 200px;
-      }
-      @include desktop-and-up {      
-        top: 200px;
-      }
+
+    &__hero__image {   
+        position: relative;
+        margin-top: 50px;
+        margin-bottom: 48px;
+
+        img {
+            border-radius: 50%;
+            display: block;
+            max-width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        &::before {
+            content: '';
+            background-image: url('./images/homepage-hero-shape.svg');
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            left: -10%;
+            top: -50px;
+            background-size: contain;
+            background-position: top center;
+            background-repeat: no-repeat;
+            @include tablet-and-up {
+                left: -15%;
+            }
+            @include desktop-and-up {
+                left: -20%;
+            }
+        }
     }
-  }
-  &__events {
-    margin-top: 0;
-    &__background {
-      background-color: $color-yellow-20;
+
+    &__events,
+    &__groups {
+        position: relative;
+        margin-top: 36px;
+        padding-bottom: 36px;
+
+        @include tablet-and-up {
+            margin-top: 48px;
+            padding-bottom: 98px;
+        }
+
+        @include desktop-and-up {
+            margin-top: 80px;
+            margin-bottom: 186px;
+        }
+
+        &__grid {
+            .events__column:nth-of-type(3n),
+            .groups__column:nth-of-type(3n) {
+                @include tablet-and-up {
+                    padding-right: 16px;
+                }
+
+                @include desktop-and-up {
+                    padding-right: 0;
+                }
+            }
+
+            .events__column:nth-of-type(3n + 1),
+            .groups__column:nth-of-type(3n + 1)  {
+                @include desktop-and-up {
+                    padding-left: 0;
+                }
+            }
+
+            .groups__column:nth-of-type(2n + 1),
+            .events__column:nth-of-type(2n + 1) {
+                //@include tablet-and-up {
+                @media (min-width: $screen-tablet-min) and (max-width: $screen-desktop-min) {
+                    padding-left: 0;
+                }
+            }
+
+            .groups__column:nth-of-type(2n),
+            .events__column:nth-of-type(2n) {
+                //@include tablet-and-up {
+                @media (min-width: $screen-tablet-min) and (max-width: $screen-desktop-min) {
+                    padding-right: 0px;
+                }
+            }
+
+            .groups__column,
+            .events__column {
+                padding: 16px 0;
+                @include tablet-and-up {
+                    padding: 32px 16px;
+                }
+
+                .card {
+                    height: 100%;
+
+                    .groups__group-image {
+                        border-top-left-radius: 4px;
+                        border-top-right-radius: 4px;
+                    }
+                }
+            }
+        }
+  
+        &__subheader {
+            margin-top: 0;
+            margin-bottom: 24px;
+            text-align: center;
+            @include tablet-and-up {
+                margin-bottom: 0;
+                max-width: 50%;
+                text-align: left;
+            }
+        }
+
+        &__cta {
+            @include tablet-and-up {
+                display: flex;
+                justify-content: flex-end;
+                align-items: flex-end;
+            }
+        }
+
+
+        &__meta {
+            margin-bottom: 32px;
+            @include tablet-and-up {
+                margin-bottom: 32px;
+            }
+            @include desktop-and-up {
+                margin-bottom: 40px;
+            }
+        }
+
+        &__count {
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            &__span {
+                display: block;
+                text-align: center;
+                margin-bottom: 32px;
+            }
+            &__link,
+            &__link:visited {
+                color: $color-blue-50;
+                &::after {
+                content: url('./images/chevron-right-2.svg');
+                display: inline-block;
+                padding-left: 4px;
+                position: relative;
+                top: 3px;
+                }
+            }
+        }
     }
-  }
-  &__groups__background,
-  &__hero__background {
-    background-color: #F2FCFD;
-  }
+
+
+    &__events, 
+    &__hero, 
+    &__groups {
+        &__background {
+            border-bottom-left-radius: 30px;
+            position: absolute;
+            z-index: -1;
+            left: -24px;
+            width: 100vw;
+            @include tablet-and-up {
+                left: 70px;
+            }
+        }
+    }
+
+    &__events, 
+    &__groups {
+        &__background {
+            top: 190px;
+            height: calc(100% - 232px);
+
+            @include tablet-and-up {
+                height: calc(100% - 248px);
+                top: 200px;
+            }
+            @include desktop-and-up {      
+                top: 200px;
+            }
+        }
+    }
+    &__events {
+        margin-top: 0;
+        &__background {
+            background-color: $color-yellow-20;
+        }
+    }
+
+    &__groups__background,
+    &__hero__background {
+        background-color: #F2FCFD;
+    }
 }
