@@ -117,14 +117,15 @@ jQuery(function() {
             $cards.each(function() {
                 $this = jQuery(this);
                 $this.css("min-height", "0");
-                if ($this.outerHeight() > t) {
+                if ($this.outerHeight(true) > t) {
                     t_elem = $this;
-                    t = $this.outerHeight();
+                    t = $this.outerHeight(true);
                 }
             });
-            $cards.each(function() {
+            setTimeout(function() {
+              $cards.each(function() {
                 jQuery(this).css("min-height", t_elem.outerHeight());
-            });
+            }) }, 10);
         }
     }
 
@@ -373,12 +374,7 @@ jQuery(function() {
         toggleMobileEventsNav(".events__filter__toggle", ".events__filter");
         eventsMobileNav();
         applyFilters();
-        window.addEventListener("resize", function() {
-            setHeightOfDivs(".events__tags");
-            setHeightOfDivs(".event-card__description");
-        });
-        setHeightOfDivs(".events__tags");
-        setHeightOfDivs(".event-card__description");
+
         toggleLocationType();
         handleSubmit();
         clearImage();

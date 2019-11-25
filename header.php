@@ -105,7 +105,7 @@
         <?php endif; ?>
         
     </head>
-    <body class="body" <?php body_class(); ?>>
+    <body <?php body_class(); ?>>
         <nav class="nav">
             <div class="nav__header">
                 <div class="nav__container">

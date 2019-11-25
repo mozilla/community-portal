@@ -153,7 +153,7 @@
                                 }
                     
                             ?>
-                    
+
                             <a href="/members/<?php print $a->user_nicename; ?>" class="members__member-card">
                                 <div class="members__avatar<?php if($visibility_settings['profile_image_url_visibility'] === false || !isset($community_fields['image_url']) || strlen($community_fields['image_url']) === 0): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $a->user_nicename; ?>">
 
@@ -643,13 +643,13 @@
                                 </div>
                             </div>
                         </div>
-                        <?php if(sizeof($group_meta['group_tags']) > 0): ?>
+                        <?php if(sizeof(array_unique($group_meta['group_tags'])) > 0): ?>
                         <div class="group__card">
                             <div class="group__card-content group__card-content--small">
                                 <span><?php print __('Tags'); ?></span>
                                 <div class="group__tags">
-                                    <?php foreach($group_meta['group_tags'] AS $tag): ?>
-                                    <a href="/groups/?tag=<?php print $tag; ?>" class="group__tag"><?php print $tag; ?></a>
+                                    <?php foreach(array_unique($group_meta['group_tags']) AS $tag): ?>
+                                    <a  href="/groups/?tag=<?php print $tag; ?>" class="group__tag"><?php print $tag; ?></a>
                                     <?php endforeach; ?>
                                 </div>
                             </div>

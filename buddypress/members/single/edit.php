@@ -14,7 +14,7 @@
     </div>
 <?php elseif($complete === true && $edit === true): ?>
     <script type="text/javascript">
-        window.location = "/members/<?php print $user->user_nicename;?>";
+        window.location = "/members/<?php print ($updated_username) ? $updated_username : $user->user_nicename;?>";
     </script>
 <?php else: ?>
     <div class="profile__hero">
@@ -167,6 +167,7 @@
                         </g>
                     </svg>
                     <select id="pronoun" name="pronoun" class="profile__select">
+                        <option value=""><?php print __('Preferred Pronoun'); ?></option> 
                         <?php foreach($pronouns AS $p): ?>
                         <option value="<?php print $p; ?>"<?php if($form && isset($form['pronoun']) && $form['pronoun'] == $p): ?> selected<?php else: ?><?php if(isset($community_fields['pronoun']) && $community_fields['pronoun'] == $p): ?> selected<?php endif; ?><?php endif; ?>><?php print $p; ?></option>
                         <?php endforeach; ?>
