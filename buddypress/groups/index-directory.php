@@ -227,7 +227,7 @@
                                     <?php 
                                         $tag_counter = 0;
                                     ?>
-                                    <?php foreach($meta['group_tags'] AS $key =>  $value): ?>
+                                    <?php foreach(array_unique($meta['group_tags']) AS $key =>  $value): ?>
                                         <span class="groups__tag"><?php print $value; ?></span>
                                         <?php $tag_counter++; ?>
                                         <?php if($tag_counter === 2 && sizeof($meta['group_tags']) > 2): ?>
