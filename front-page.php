@@ -56,6 +56,7 @@
 							if($featured_event['single_event']) {
 								$event = EM_Events::get(array('post_id' => $featured_event['single_event']->ID));
 								$event = $event[0];
+					
 								include(locate_template('plugins/events-manager/templates/template-parts/single-event-card.php', false, false));
 							} 
 						endforeach;
