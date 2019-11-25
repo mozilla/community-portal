@@ -127,6 +127,7 @@
   width: 100%;
   z-index: 100;
   position: relative;
+  min-width: 320px;
 
   .nav__container {
     @extend .container;

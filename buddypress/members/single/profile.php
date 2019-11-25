@@ -94,7 +94,7 @@
         </div>
         <?php endif; ?>
         <div class="profile__card-contact-container">
-            <?php if($visibility_settings['profile_location_visibility'] || $visibility_settings['email_visibility'] || $visibility_settings['phone_visibility']): ?>
+            <?php if(($visibility_settings['profile_location_visibility'] && (isset($community_fields['city']) && strlen($community_fields['city']) > 0) || (isset($community_fields['country']) && strlen($community_fields['country']) > 0)) || $visibility_settings['email_visibility'] || ($visibility_settings['phone_visibility']) && strlen($community_fields['phone']) > 0): ?>
             <span class="profile__contact-title"><?php print __('Contact Information'); ?></span>
             <?php endif; ?>
             <?php if($visibility_settings['profile_location_visibility']): ?>
@@ -163,7 +163,7 @@
                     <?php print __('Phone'); ?>
                     <span class="profile__phone">
                     <?php 
-                        if(isset($community_fields['phone']))
+                        if(isset($community_fields['phone']) && strlen($community_fields['phone']) > 0)
                             print $community_fields['phone'];
                     ?>
                     </span>
@@ -218,7 +218,6 @@
             $event_user = new EM_Person($user->ID);
             $events = $event_user->get_bookings();
             $events_attended_count = 0;
-
         ?>
         <?php if($visibility_settings['profile_events_attended_visibility'] && sizeof($events->bookings) > 0): ?>
         <h2 class="profile__heading"><?php print __("Recent Events"); ?></h2>
@@ -245,11 +244,13 @@
                             <path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                        <?php if($location->location_region && $location->location_country): ?>
-                            <?php print "{$location->location_region}, {$countries[$location->location_country]}"; ?>
-                        <?php elseif($location->location_region && !$location->location_country): ?>
-                            <?php print "{$location->location_region}"; ?>
-                        <?php elseif(!$location->location_region && $location->location_country): ?>
+                        <?php if($location->location_country === 'OE'): ?>
+                          <?php print __("Online Event"); ?>
+                        <?php elseif($location->location_town && $location->location_country): ?>
+                            <?php print "{$location->location_town}, {$countries[$location->location_country]}"; ?>
+                        <?php elseif($location->location_town && !$location->location_country): ?>
+                            <?php print "{$location->location_town}"; ?>
+                        <?php elseif(!$location->location_town && $location->location_country): ?>
                             <?php print "{$countries[$location->location_country]}"; ?>
                         <?php endif; ?>
                     </div>
@@ -299,11 +300,13 @@
                             <path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                        <?php if($location->location_region && $location->location_country): ?>
-                            <?php print "{$location->location_region}, {$countries[$location->location_country]}"; ?>
-                        <?php elseif($location->location_region && !$location->location_country): ?>
-                            <?php print "{$location->location_region}"; ?>
-                        <?php elseif(!$location->location_region && $location->location_country): ?>
+                        <?php if($location->location_country === 'OE'): ?>
+                          <?php print __("Online Event"); ?>
+                        <?php elseif($location->location_town && $location->location_country): ?>
+                            <?php print "{$location->location_town}, {$countries[$location->location_country]}"; ?>
+                        <?php elseif($location->location_town && !$location->location_country): ?>
+                            <?php print "{$location->location_town}"; ?>
+                        <?php elseif(!$location->location_town && $location->location_country): ?>
                             <?php print "{$countries[$location->location_country]}"; ?>
                         <?php endif; ?>
                     </div>
