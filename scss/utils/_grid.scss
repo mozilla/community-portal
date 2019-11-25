@@ -33,8 +33,6 @@ $half-gutter-width: $gutter-width * 0.5;
   flex: 1 1 auto;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-right: $gutter-compensation;
-  margin-left: $gutter-compensation;
 }
 
 .row.reverse {

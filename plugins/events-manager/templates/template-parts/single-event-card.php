@@ -1,8 +1,23 @@
 <?php 
-  $categories = $event->get_categories();
-  $location = em_get_location($event->location_id);
-  $site_url = get_site_url();
-  $url = $site_url.'/events/'.$event->slug;  
+    $months = array(
+        '01' => 'Jan',
+        '02' => 'Feb',
+        '03' => 'Mar',
+        '04' => 'Apr',
+        '05' => 'May',
+        '06' => 'Jun',
+        '07' => 'Jul',
+        '08' => 'Aug',
+        '09' => 'Sep',
+        '10' => 'Oct',
+        '11' => 'Nov',
+        '12' => 'Dec',
+    );
+    
+    $categories = $event->get_categories();
+    $location = em_get_location($event->location_id);
+    $site_url = get_site_url();
+    $url = $site_url.'/events/'.$event->slug;  
 ?> 
 <div class="col-lg-4 col-md-6 events__column">
   <div class="event-card">

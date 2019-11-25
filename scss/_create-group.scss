@@ -564,7 +564,10 @@
         cursor: pointer;
         border-radius: 5px;
         border: 1px solid $color-gray-20;
-        background-size: cover;
+        background-size: 75px 75px;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-image: url('/wp-content/themes/community-portal/images/upload-image.svg');
         
 
         @include tablet-and-up {
@@ -617,7 +620,7 @@
                 display: none;
             }
             border: none;
-
+            background-size: cover;
             .create-group__upload-image-svg {
                 display: none;
             }
