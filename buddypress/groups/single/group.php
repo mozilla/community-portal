@@ -153,7 +153,7 @@
                                 }
                     
                             ?>
-                    
+
                             <a href="/members/<?php print $a->user_nicename; ?>" class="members__member-card">
                                 <div class="members__avatar<?php if($visibility_settings['profile_image_url_visibility'] === false || !isset($community_fields['image_url']) || strlen($community_fields['image_url']) === 0): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $a->user_nicename; ?>">
 
