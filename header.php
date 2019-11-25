@@ -1,6 +1,4 @@
 <?php 
-
-
     $user = wp_get_current_user()->data;
     $meta = get_user_meta($user->ID);
     $community_fields = isset($meta['community-meta-fields'][0]) ? unserialize($meta['community-meta-fields'][0]) : Array();
@@ -13,6 +11,7 @@
 
     $google_analytics_id = get_option('google_analytics_id');
 
+    $section = mozilla_determine_site_section();
 ?>
 
 <!DOCTYPE html>
@@ -20,17 +19,75 @@
     <head>
         <meta charset="<?php bloginfo('charset'); ?>">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        
-        <meta property="og:title" content="Mission Driven Mozillians">
-        <meta property="og:description" content="A description of mission driven mozillians">
-        <meta property="og:image" content="<?php print get_stylesheet_directory_uri(); ?>/images/homepage-hero.jpg">
-        <meta property="og:url" content="<?php echo __($_SERVER['REQUEST_URI']) ?>">
+    
+        <?php if($section): ?>
+        <?php
+            switch(strtolower($section)) {
+                case 'groups':
+                    global $bp;
+                    $group = $bp->groups->current_group;
+                    $group_meta = groups_get_groupmeta($group->id, 'meta');
+                    $og_title = isset($group->name) && strlen($ghoup_name) > 0 ? $group->name : "Groups - Mozilla Community Portal";
+                    $title = $og_title;
+                    $og_desc = isset($group->description) && strlen($group->description) > 0 ? $group->description : get_bloginfo('description');
+                    $og_image = isset($group_meta['group_image_url']) && strlen($group_meta['group_image_url']) > 0 ? $group_meta['group_image_url'] : get_stylesheet_directory_uri(). "/images/group.png";
+                    break;
+
+                case 'events':
+            
+                    global $post;
+                    $event = em_get_event($post->ID, 'post_id'); 
+
+                    $og_title = isset($event->event_name) && strlen($event->event_name) > 0 ? "{$event->event_name} - Mozilla Community Portal" :  "Events - Mozilla Community Portal"; 
+                    $title = $og_title;
+                    $og_desc = isset($event->post_content) && strlen($event->post_content) ? $event->post_content : get_bloginfo('description');
+
+                    if(isset($event->event_attributes)) {
+                        $event_meta = unserialize($event->event_attributes['event-meta']);
+                        $og_image = isset($event_meta->image_url) && strlen($event_meta->image_url) > 0 ? $event_meta->image_url : get_stylesheet_directory_uri(). "/images/event.jpg";
+                    } else {
+                        $og_image = get_stylesheet_directory_uri(). "/images/event.jpg";
+                    }
+                    break;
+                case 'members': 
+                    $user_id = bp_displayed_user_id();
+                    $user = get_user_by('ID', $user_id);
+                    $meta = get_user_meta($user_id);
+
+                    $og_title = "Member {$user->user_nicename} - Mozilla Community Portal";
+                    $title = $og_title;
+                    $og_desc =  get_bloginfo('description');
+
+                    break;
+                default:
+                    $title = get_bloginfo('name')." - ".get_bloginfo('description');
+                    $options = wp_load_alloptions();
+                    $og_title = $options['default_open_graph_title'];
+                    $og_desc = $options['default_open_graph_desc'];
+                    $og_image = get_stylesheet_directory_uri()."/images/homepage-hero.jpg";
+            }
+        ?>
+        <?php else: ?>
+        <?php 
+            $options = wp_load_alloptions();
+            $og_title = $options['default_open_graph_title'];
+            $og_desc = $options['default_open_graph_desc'];
+            $og_image = get_stylesheet_directory_uri()."/images/homepage-hero.jpg";    
+        ?>
+        <?php endif; ?>
+
+        <meta property="og:title" content="<?php print $og_title; ?>">
+        <meta property="og:description" content="<?php print $og_desc; ?>">
+        <meta property="og:image" content="<?php print $og_image; ?>">
+        <meta property="og:url" content="<?php print $_SERVER['REQUEST_URI']; ?>">
         <meta name="twitter:card" content="summary_large_image">
 
         <!--  Non-Essential, But Recommended -->
 
-        <meta property="og:site_name" content="Mission Driver Mozillians">
-        <meta name="twitter:image:alt" content="Alt text for image">
+        <meta property="og:site_name" content="<?php print get_bloginfo('name'); ?>">
+        <title><?php print $title; ?></title>
+
+
         <link rel="profile" href="http://gmpg.org/xfn/11">
         <?php if (is_singular() && pings_open( get_queried_object())) : ?>
         <link rel="pingback" href="<?php echo esc_url(get_bloginfo('pingback_url')); ?>">
@@ -46,7 +103,7 @@
         gtag('config', '<?php print $google_analytics_id; ?>');
         </script>
         <?php endif; ?>
-        <title><?php print get_bloginfo('name'); ?> - <?php print get_bloginfo('description'); ?></title>
+        
     </head>
     <body class="body" <?php body_class(); ?>>
         <nav class="nav">

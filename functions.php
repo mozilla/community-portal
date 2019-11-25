@@ -38,13 +38,19 @@ add_action('bp_before_edit_member_page', 'mozilla_update_member', 10, 1);
 remove_action('init', 'bp_nouveau_get_container_classes');
 remove_action('em_event_save','bp_em_group_event_save', 1, 2);
 
-
 // Auth0 Actions
 add_action('auth0_user_login', 'mozilla_post_user_creation', 10, 6);
 
 // Filters
 add_filter('nav_menu_link_attributes', 'mozilla_add_menu_attrs', 10, 3);
 add_filter('nav_menu_css_class', 'mozilla_menu_class', 10, 4);
+add_filter('em_get_countries', 'mozilla_add_online_to_countries', 10, 1);
+add_filter('em_location_get_countries', 'mozilla_add_online_to_countries', 10, 1);
+add_filter('em_booking_save_pre','mozilla_approve_booking', 100, 2);
+add_filter('em_event_submission_login', "mozilla_update_events_copy", 10, 1);
+add_filter('wp_redirect', 'mozilla_events_redirect');
+
+
 //add_filter('nav_menu_css_class', 'mozilla_add_active_page' , 10 , 2);
 
 // Events Action
@@ -933,35 +939,39 @@ function mozilla_determine_field_visibility($field, $visibility_field, $communit
 
 
 function mozilla_save_event($post_id, $post, $update) {
-  if ($post->post_type === 'event') {
-    $event = new stdClass();
-    $event->image_url = esc_url_raw($_POST['image_url']);
-    $event->location_type = sanitize_text_field($_POST['location-type']);
-    $event->external_url = esc_url_raw($_POST['event_external_link']);
-    $event->campaign = sanitize_text_field($_POST['event_campaign']);
-    update_post_meta($post_id, 'event-meta', $event);
-  }
+    if ($post->post_type === 'event') {
+        $event = new stdClass();
+        $event->image_url = esc_url_raw($_POST['image_url']);
+        $event->location_type = sanitize_text_field($_POST['location-type']);
+        $event->external_url = esc_url_raw($_POST['event_external_link']);
+        $event->campaign = sanitize_text_field($_POST['event_campaign']);
+        update_post_meta($post_id, 'event-meta', $event);
+    }
 }
 
 function mozilla_match_categories() {
-  $cat_terms = get_terms(EM_TAXONOMY_CATEGORY, array('hide_empty'=>false));
-  $wp_terms = get_terms('post_tag', array('hide_empty'=>false));
-  $cat_terms_name = array_map(function($n) {
-    return $n->name;
-  }, $cat_terms);
-  $wp_terms = array_map(function($n) {
-    return $n->name;
-  }, $wp_terms);
-  foreach ($wp_terms as $wp_term) {
-    if (!in_array($wp_term, $cat_terms_name)) {
-      wp_insert_term($wp_term, EM_TAXONOMY_CATEGORY);
+    $cat_terms = get_terms(EM_TAXONOMY_CATEGORY, array('hide_empty'=>false));
+    $wp_terms = get_terms('post_tag', array('hide_empty'=>false));
+
+    $cat_terms_name = array_map(function($n) {
+        return $n->name;
+    }, $cat_terms);
+
+    $wp_terms = array_map(function($n) {
+        return $n->name;
+    }, $wp_terms);
+
+    foreach ($wp_terms as $wp_term) {
+        if (!in_array($wp_term, $cat_terms_name)) {
+            wp_insert_term($wp_term, EM_TAXONOMY_CATEGORY);
+        }
     }
-  }
-  foreach ($cat_terms as $cat_term) {
-    if (!in_array($cat_term->name, $wp_terms)) {
-      wp_delete_term($cat_term->term_id, EM_TAXONOMY_CATEGORY);
+
+    foreach ($cat_terms as $cat_term) {
+        if (!in_array($cat_term->name, $wp_terms)) {
+            wp_delete_term($cat_term->term_id, EM_TAXONOMY_CATEGORY);
+        }
     }
-  }
 }
 
 function mozilla_edit_group() {
@@ -1064,6 +1074,16 @@ function mozilla_theme_settings() {
             if(isset($_POST['google_analytics_id'])) {
                 update_option('google_analytics_id', sanitize_text_field($_POST['google_analytics_id']));
             }
+
+            if(isset($_POST['default_open_graph_title'])) {
+                update_option('default_open_graph_title', sanitize_text_field($_POST['default_open_graph_title']));
+            }
+
+            if(isset($_POST['default_open_graph_desc'])) {
+                update_option('default_open_graph_desc', sanitize_text_field($_POST['default_open_graph_desc']));
+            }
+
+            
         }
     }
 
@@ -1078,45 +1098,50 @@ function mozilla_add_menu_item() {
 }
 
 
+function mozilla_determine_site_section() {
+    $path_items = array_filter(explode('/', $_SERVER['REQUEST_URI']));
 
+    if(sizeof($path_items) > 0) {
+        $section = array_shift(array_values($path_items));
+        return $section;
+    }
 
-function mozilla_events_redirect($location) {
-  if (strpos($location, 'event_id') !== false) {
-    $location = get_site_url(null, 'events/');
-    return $location;
-  }
-  return $location;
+    return false;
+
 }
 
-add_filter('wp_redirect', 'mozilla_events_redirect');
+function mozilla_events_redirect($location) {
+    if (strpos($location, 'event_id') !== false) {
+        $location = get_site_url(null, 'events/');
+        return $location;
+    }
+
+    return $location;
+}
+
 
 function mozilla_is_site_admin(){
-  return in_array('administrator',  wp_get_current_user()->roles);
+    return in_array('administrator',  wp_get_current_user()->roles);
 }
 
 function mozilla_add_online_to_countries($countries) {
-  $countries = array('OE' => 'Online Event') + $countries;
-  return $countries;
+    $countries = array('OE' => 'Online Event') + $countries;
+    return $countries;
 }
-
-add_filter('em_get_countries', 'mozilla_add_online_to_countries', 10, 1);
-add_filter('em_location_get_countries', 'mozilla_add_online_to_countries', 10, 1);
 
 function mozilla_update_events_copy($string) {
-  $string = 'Please <a href="/wp-login.php?action=login">log in</a> to create or join events';
-  return $string;
+    $string = 'Please <a href="/wp-login.php?action=login">log in</a> to create or join events';
+    return $string;
 }; 
 
-add_filter('em_event_submission_login', "mozilla_update_events_copy", 10, 1);
-
 function mozilla_approve_booking($EM_Booking) {
-  if (intval($EM_Booking->booking_status) === 0) {
-    $EM_Booking->booking_status = 1;
+    if (intval($EM_Booking->booking_status) === 0) {
+        $EM_Booking->booking_status = 1;
+        return $EM_Booking;
+    }
+
     return $EM_Booking;
-  }
-  return $EM_Booking;
 }
 
-add_filter('em_booking_save_pre','mozilla_approve_booking', 100, 2);
 
 ?>

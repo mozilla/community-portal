@@ -11,6 +11,22 @@
                     <input type="text" id="google-analytics-id" name="google_analytics_id" class="regular-text" value="<?php print $options['google_analytics_id']; ?>" />
                 </td>
             </tr>
+            <tr>
+                <th scope="row">
+                    <label for="google-analytics-id">Default Open Graph Title</label>
+                </th>
+                <td>
+                    <input type="text" id="default-open-graph-title" name="default_open_graph_title" class="regular-text" value="<?php print $options['default_open_graph_title']; ?>" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    <label for="google-analytics-id">Default Open Graph Description</label>
+                </th>
+                <td>
+                    <input type="text" id="default-open-graph-desc" name="default_open_graph_desc" class="regular-text" value="<?php print $options['default_open_graph_desc']; ?>" />
+                </td>
+            </tr>
         </tbody>
     </table>
     <input type="submit" value="Save Settings" />
