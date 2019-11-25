@@ -916,9 +916,11 @@
         overflow: hidden;
         margin-top: 8px;
         z-index: 100;
-        background-size: cover;
+        background-size: 75px 75px;
         background-position: center center;
         background-repeat: no-repeat;
+        background-image: url('/wp-content/themes/community-portal/images/upload-image.svg');
+
         &:hover {
             cursor: pointer;
         }

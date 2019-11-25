@@ -2,11 +2,7 @@
     get_header(); 
     $logged_in = mozilla_is_logged_in();
 
-    $c = count_users();
-
     $members_per_page = 20;
-    $total_pages = ceil($c['total_users'] / $members_per_page);
-
     $page = isset($_GET['page']) ? intval($_GET['page']) : 0;
 
     $offset = ($page - 1) * $members_per_page;
@@ -20,9 +16,14 @@
     if($search_user) {
         $args['search'] = "*{$search_user}*";
         $args['search_columns'] = Array('nicename');
+
+        if($logged_in) {
+            $args['search_columns'][] = 'first_name';
+        }
     }
 
     $members = get_users($args);
+    $total_pages = ceil(sizeof($members) / $members_per_page);
     $logged_in = mozilla_is_logged_in();
 
 ?>
@@ -59,8 +60,6 @@
                 $community_fields = isset($meta['community-meta-fields'][0]) ? unserialize($meta['community-meta-fields'][0]) : Array();
                 $community_fields['first_name'] = isset($meta['first_name'][0]) ? $meta['first_name'][0] : '';
                 $community_fields['last_name'] = isset($meta['last_name'][0]) ? $meta['last_name'][0] : '';
-                $community_fields['city'] = isset($meta['city'][0]) ? $meta['city'][0] : '';
-                $community_fields['country'] = isset($meta['country'][0]) ? $meta['country'][0] : '';
 
                 $visibility_settings = Array();
 
@@ -102,7 +101,7 @@
                             }
                         ?>
                     </div>
-                    <?php if($visibility_settings['profile_location_visibility'] !== false): ?>
+                    <?php if($visibility_settings['profile_location_visibility'] !== false && isset($community_fields['country']) && strlen($community_fields['country']) > 0): ?>
                     <div class="members__location">
                         <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

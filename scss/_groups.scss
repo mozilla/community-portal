@@ -619,4 +619,10 @@
         margin-bottom: 32px;
     }
 
+
+    &__tag-link {
+        display:inline;
+        text-decoration: none;
+        color: $color-black;
+    }
 }

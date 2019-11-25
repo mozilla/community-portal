@@ -33,7 +33,7 @@
       }
     ?>
     <?php else: ?>
-      <p><?php echo sprintf(__('Please <a href="%s">Log In</a> to view your bookings.','events-manager'),site_url('wp-login.php?redirect_to=' . urlencode(get_permalink()), 'login'))?></p>
+      <p><?php echo sprintf(__('Please log n to create or join events','events-manager'),site_url('wp-login.php?redirect_to=' . urlencode(get_permalink()), 'login'))?></p>
     <?php endif; ?>
   </div>
   <?php 
