@@ -36,7 +36,7 @@
     
     $members = groups_get_group_members($args); 
     $is_admin = groups_is_user_admin($user->ID, $group->id);
-    
+
 
     switch($group->status) {
         case 'public':
@@ -527,7 +527,7 @@
                                     $event_count = sizeof($events);
                                 ?>
                                 <div class="group__member-count-container">
-                                    <span class="group__member-count"><?php print $event_count; ?></span>
+                                    <span class="group__event-count"><?php print $event_count; ?></span>
                                     Events this month
                                 </div>
                                 <div class="group__member-count-container">
