@@ -530,7 +530,7 @@
                                     Events this month
                                 </div>
                                 <div class="group__member-count-container">
-                                    <span class="group__member-count"><?php print $member_count; ?></span>
+                                    <a href="/groups/<?php print $group->slug?>/members" class="group__member-count"><?php print $member_count; ?></a>
                                     Members
                                 </div>
                             </div>

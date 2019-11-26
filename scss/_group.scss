@@ -599,12 +599,13 @@
         }
     }
 
-    span.group__member-count {
+    .group__member-count {
         font-family: 'Zilla Slab';
         font-size: remCalc(36);
         width: auto;
         color: $color-blue-50;
         margin-right: 8px;
+        text-decoration: none;
         &:after {
             display: none;
         }
