@@ -1,75 +1,81 @@
 <?php 
-  global $EM_Event, $bp, $EM_Tags;
-  $mapBoxAccessToken = 'pk.eyJ1Ijoia3ljYXBzdGlja3BnIiwiYSI6ImNrMmM0MnJ0ODJocHQzY3BlMmdkZGxucnYifQ.j4K7gEui7_BoPezbyGmZuw';
-  $categories = get_the_terms($EM_Event->post_id, EM_TAXONOMY_CATEGORY);  
-  $event_meta = get_post_meta($EM_Event->post_id, 'event-meta');
-  $allCountries = em_get_countries();
-  $img_url = $event_meta[0]->image_url;
-  $location_type = $event_meta[0]->location_type;
-  $external_url = $event_meta[0]->external_url;
-  $campaign = null;
-  $months = array(
-    '01' => 'January',
-    '02' => 'February',
-    '03' => 'March',
-    '04' => 'April',
-    '05' => 'May',
-    '06' => 'June',
-    '07' => 'July',
-    '08' => 'August',
-    '09' => 'September',
-    '10' => 'October',
-    '11' => 'November',
-    '12' => 'December',
-  );
-  $startDay = substr($EM_Event->event_start_date, 8, 2);
-  $startMonth = substr($EM_Event->event_start_date, 5, 2);
-  $startYear = substr($EM_Event->event_start_date, 0, 4);
-  if ($EM_Event->event_start_date !== $EM_Event->event_end_date) {
-    $endDay = substr($EM_Event->event_end_date, 8, 2);
-    $endMonth = substr($EM_Event->event_end_date, 5, 2);
-    $endYear = substr($EM_Event->event_end_date, 0, 4);
-  }
-  $allRelatedEvents = array();
-  if (is_array($categories) && count($categories) > 0) {
-    foreach ($categories as $category) {
-      $relatedEvents = EM_Events::get(array('category' => $category->term_id));
-      if (count($relatedEvents) > 0) {
-        foreach ($relatedEvents as $singleEvent) {
-          if ($allRelatedEvents[0]->event_id === $singleEvent->event_id) {
-            continue;
-          }
-          if ($singleEvent->event_id === $EM_Event->event_id) {
-            continue;
-          }
-          $allRelatedEvents[] = $singleEvent;
-          if (count($allRelatedEvents) >= 2) {
-            break;
-          }
+    global $EM_Event, $bp, $EM_Tags;
+    $mapBoxAccessToken = 'pk.eyJ1Ijoia3ljYXBzdGlja3BnIiwiYSI6ImNrMmM0MnJ0ODJocHQzY3BlMmdkZGxucnYifQ.j4K7gEui7_BoPezbyGmZuw';
+    $categories = get_the_terms($EM_Event->post_id, EM_TAXONOMY_CATEGORY);  
+    $event_meta = get_post_meta($EM_Event->post_id, 'event-meta');
+    $allCountries = em_get_countries();
+    $img_url = $event_meta[0]->image_url;
+    $location_type = $event_meta[0]->location_type;
+    $external_url = $event_meta[0]->external_url;
+    $campaign = $event_meta[0]->campaign;
+    $months = array(
+        '01' => 'January',
+        '02' => 'February',
+        '03' => 'March',
+        '04' => 'April',
+        '05' => 'May',
+        '06' => 'June',
+        '07' => 'July',
+        '08' => 'August',
+        '09' => 'September',
+        '10' => 'October',
+        '11' => 'November',
+        '12' => 'December',
+    );
+
+    $startDay = substr($EM_Event->event_start_date, 8, 2);
+    $startMonth = substr($EM_Event->event_start_date, 5, 2);
+    $startYear = substr($EM_Event->event_start_date, 0, 4);
+
+    if ($EM_Event->event_start_date !== $EM_Event->event_end_date) {
+        $endDay = substr($EM_Event->event_end_date, 8, 2);
+        $endMonth = substr($EM_Event->event_end_date, 5, 2);
+        $endYear = substr($EM_Event->event_end_date, 0, 4);
+    }
+
+    $allRelatedEvents = array();
+    if (is_array($categories) && count($categories) > 0) {
+        foreach ($categories as $category) {
+            $relatedEvents = EM_Events::get(array('category' => $category->term_id));
+            if (count($relatedEvents) > 0) {
+                foreach ($relatedEvents as $singleEvent) {
+                    if ($allRelatedEvents[0]->event_id === $singleEvent->event_id) {
+                    continue;
+                    }
+                    if ($singleEvent->event_id === $EM_Event->event_id) {
+                        continue;
+                    }
+                    $allRelatedEvents[] = $singleEvent;
+                    if (count($allRelatedEvents) >= 2) {
+                        break;
+                    }
+                }
+            }
+            
+            if (count($allRelatedEvents) >= 2) {
+                break;
+            }
         }
-      }
-      if (count($allRelatedEvents) >= 2) {
-        break;
-      }
     }
-  }
-  if (isset($EM_Event->group_id)) {
-    $group = new BP_Groups_Group($EM_Event->group_id);
-    $admins = groups_get_group_admins($group->id);
-    if (isset($admins)) {
-      $user = get_userdata($admins[0]->user_id);
-      $avatar = get_avatar_url($admins[0]->user_id);
-      $users = get_current_user_id();
+
+    if (isset($EM_Event->group_id)) {
+        $group = new BP_Groups_Group($EM_Event->group_id);
+        $admins = groups_get_group_admins($group->id);
+
+        if (isset($admins)) {
+            $user = get_userdata($admins[0]->user_id);
+            $avatar = get_avatar_url($admins[0]->user_id);
+            $users = get_current_user_id();
+        }
     }
-  }
 ?>
 
 <div class="content events__container events-single">
-  <div class="row">
-    <div class="col-sm-12">
-      <h1 class="title"><?php echo __($EM_Event->event_name) ?></h1>
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 class="title"><?php echo __($EM_Event->event_name) ?></h1>
+        </div>
     </div>
-  </div>
   <div class="row events-single__two-up">
     <div class="col-lg-7 col-md-12">
       <div class="card card--with-img">
@@ -233,43 +239,46 @@
           <h2 class="title--secondary"><?php echo __('Attendees') ?></h2>
           <div class="row">
           <?php
-              $count = 0;
+            $count = 0;
               foreach ($activeBookings as $booking) {
                 if ($booking->booking_status !== '3' && $count < 8) {
-                  $activeBookings[] = $booking;
-                  $user = $booking->person->data;
-                  $avatar = get_avatar_url($user->ID);
-                  $meta = get_user_meta($user->ID);
-                  $logged_in = mozilla_is_logged_in();
-                  $is_me = $logged_in && intval($current_user) === intval($user->ID);
-                  $community_fields = isset($meta['community-meta-fields'][0]) ? unserialize($meta['community-meta-fields'][0]) : Array('f');
-                  $community_fields['username'] =  $user->user_nicename;
-                  $community_fields['first_name'] = isset($meta['first_name'][0]) ? $meta['first_name'][0] : '';
-                  $community_fields['last_name'] = isset($meta['last_name'][0]) ? $meta['last_name'][0] : '';
-                  $community_fields['first_name_visibility'] = isset($meta['first_name_visibility'][0]) ? $meta['first_name_visibility'][0] : '';
-                  $community_fields['last_name_visibility'] = isset($meta['last_name_visibility'][0]) ? $meta['last_name_visibility'][0] : '';
-                  $community_fields['city'] = isset($meta['city'][0]) ? $meta['city'][0] : '';
-                  $community_fields['country'] = isset($meta['country'][0]) ? $meta['country'][0] : '';
-                $fields = Array(
-                  'username',
-                  'image_url',
-                  'first_name',
-                  'last_name',
-                  'city',
-                  'country',
-                );
+                    $activeBookings[] = $booking;
+                    $user = $booking->person->data;
+                    $avatar = get_avatar_url($user->ID);
+                    $meta = get_user_meta($user->ID);
+                    $logged_in = mozilla_is_logged_in();
+                    $is_me = $logged_in && intval($current_user) === intval($user->ID);
+                    $community_fields = isset($meta['community-meta-fields'][0]) ? unserialize($meta['community-meta-fields'][0]) : Array('f');
+                    $community_fields['username'] =  $user->user_nicename;
+                    $community_fields['first_name'] = isset($meta['first_name'][0]) ? $meta['first_name'][0] : '';
+                    $community_fields['last_name'] = isset($meta['last_name'][0]) ? $meta['last_name'][0] : '';
+                    $community_fields['first_name_visibility'] = isset($meta['first_name_visibility'][0]) ? $meta['first_name_visibility'][0] : '';
+                    $community_fields['last_name_visibility'] = isset($meta['last_name_visibility'][0]) ? $meta['last_name_visibility'][0] : '';
+                    $community_fields['city'] = isset($meta['city'][0]) ? $meta['city'][0] : '';
+                    $community_fields['country'] = isset($meta['country'][0]) ? $meta['country'][0] : '';
 
-                $visibility_settings = Array();
-                foreach($fields AS $field) {
-                    $field_visibility_name = "{$field}_visibility";
-                    $visibility = mozilla_determine_field_visibility($field, $field_visibility_name, $community_fields, $is_me, $logged_in);
-                    $field_visibility_name = ($field === 'city' || $field === 'country') ? 'profile_location_visibility' : $field_visibility_name;
-                    $visibility_settings[$field_visibility_name] = $visibility;
-                }
+                    
+                    $fields = Array(
+                        'username',
+                        'profile_image_url',
+                        'first_name',
+                        'last_name',
+                        'city',
+                        'country',
+                    );
+
+                    $visibility_settings = Array();
+                    foreach($fields AS $field) {
+                        $field_visibility_name = "{$field}_visibility";
+                        $visibility = mozilla_determine_field_visibility($field, $field_visibility_name, $community_fields, $is_me, $logged_in);
+                        $field_visibility_name = ($field === 'city' || $field === 'country') ? 'profile_location_visibility' : $field_visibility_name;
+                        $visibility_settings[$field_visibility_name] = $visibility;
+                    }
+
             ?>
             <div class="col-md-6 events-single__member-card">
             <a href="<?php echo esc_attr(get_site_url().'/members/'.$community_fields['username'])?>")>
-              <div class="events-single__avatar<?php if(!$visibility_settings['image_url_visibility'] || !strlen($community_fields['image_url']) > 0) : ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['image_url_visibility'] && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $community_fields['username']; ?>">
+              <div class="events-single__avatar<?php if(!$visibility_settings['profile_image_url_visibility'] || !strlen($community_fields['image_url']) > 0) : ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $community_fields['username']; ?>">
               </div>
               <div class="events-single__user-details"> 
                       <p class="events-single__username"><?php echo __($community_fields['username']) ?></p>
