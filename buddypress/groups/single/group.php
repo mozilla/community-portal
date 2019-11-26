@@ -6,19 +6,20 @@
     do_action('bp_before_directory_groups_page');
     global $bp;
     $months = array(
-      '01' => 'Jan',
-      '02' => 'Feb',
-      '03' => 'Mar',
-      '04' => 'Apr',
-      '05' => 'May',
-      '06' => 'Jun',
-      '07' => 'Jul',
-      '08' => 'Aug',
-      '09' => 'Sep',
-      '10' => 'Oct',
-      '11' => 'Nov',
-      '12' => 'Dec',
+        '01' => 'Jan',
+        '02' => 'Feb',
+        '03' => 'Mar',
+        '04' => 'Apr',
+        '05' => 'May',
+        '06' => 'Jun',
+        '07' => 'Jul',
+        '08' => 'Aug',
+        '09' => 'Sep',
+        '10' => 'Oct',
+        '11' => 'Nov',
+        '12' => 'Dec',
     );
+
     $group = $bp->groups->current_group;
     $group_meta = groups_get_groupmeta($group->id, 'meta');
     $member_count = groups_get_total_member_count($group->id);
@@ -31,11 +32,11 @@
 
     $args = Array(
         'group_id'      =>  $group->id,
-     
     );
     
     $members = groups_get_group_members($args); 
     $is_admin = groups_is_user_admin($user->ID, $group->id);
+    
 
     switch($group->status) {
         case 'public':

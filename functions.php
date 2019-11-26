@@ -688,7 +688,9 @@ function mozilla_leave_group() {
             if(isset($_POST['group']) && $_POST['group']) {
                 $group = intval(trim($_POST['group']));
                 if(!groups_is_user_admin($user->ID, $group)) {
+                    
                     $left = groups_leave_group($group, $user->ID);
+
                     if($left) {
                         print json_encode(Array('status'   =>  'success', 'msg'  =>  'Left Group'));
                     } else {

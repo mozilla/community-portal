@@ -115,7 +115,7 @@ jQuery(function(){
     }  
   });
   
-  jQuery('.group__join-cta').click(function(e) {
+  jQuery(document).on('click', '.group__join-cta', function(e) {
         e.preventDefault();
         var $this = jQuery(this);
         var group = $this.data('group');
@@ -123,8 +123,8 @@ jQuery(function(){
             'group': group
         };
 
-        var url = $this.text() == 'Join Group' ? '/wp-admin/admin-ajax.php?action=join_group' : '/wp-admin/admin-ajax.php?action=leave_group'
-
+        var url =  '/wp-admin/admin-ajax.php?action=join_group';
+        console.log("Join");
         jQuery.ajax({
             url: url,
             data: post,
@@ -134,15 +134,13 @@ jQuery(function(){
 
                 if(response.status == 'success') {
                     var memberCount = parseInt(jQuery('.group__member-count').text());
-                    if($this.text() == 'Join Group') {
-                        memberCount++;
-                        $this.text('Leave Group');
-                    } else {
-                        memberCount--;
-                        $this.text('Join Group');
-                    }     
-
+                    
+                    memberCount++;
+                    $this.text('Leave Group');
                     jQuery('.group__member-count').text(memberCount);
+                    $this.addClass('group__leave-cta');
+                    $this.removeClass('group__join-cta');
+
                 } else {
                     if(response.status === 'error' && response.msg === 'Not Logged In') {
                         window.location = '/login';
@@ -150,9 +148,51 @@ jQuery(function(){
                 }
             }
         });
-    return false;
+        return false;
 
     });
+
+    jQuery(document).on('click', '.group__leave-cta', function(e) {
+        e.preventDefault();
+        var $this = jQuery(this);
+        var group = $this.data('group');
+        var post = { 
+            'group': group
+        };
+
+        var url = '/wp-admin/admin-ajax.php?action=leave_group';
+
+        jQuery.ajax({
+            url: url,
+            data: post,
+            method: 'POST',
+            success: function(response) {
+                response = jQuery.parseJSON(response);
+                
+                if(response.status == 'success') {
+                    var memberCount = parseInt(jQuery('.group__member-count').text());
+                    
+                    memberCount--;
+                    $this.text('Join Group');
+                    
+                    jQuery('.group__member-count').text(memberCount);
+
+                    $this.addClass('group__join-cta');
+                    $this.removeClass('group__leave-cta');
+                    
+
+                } else {
+                    if(response.status === 'error' && response.msg === 'Not Logged In') {
+                        window.location = '/login';
+                    }
+                }
+            }
+        });
+        return false;
+
+    });
+
+    
 
 //   Revisit this logic down
 //   jQuery('input[name="group_type"]').change(function(e){
