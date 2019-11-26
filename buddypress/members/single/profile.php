@@ -47,6 +47,12 @@
         $visibility_settings[$field_visibility_name] = $visibility;
     }
 
+    if(stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0) {
+        $avatar_url = preg_replace("/^http:/i", "https:", $community_fields['image_url']);
+    } else {
+        $avatar_url = $community_fields['image_url'];
+    }
+
 ?>  
 
 <div class="profile__public-container">
@@ -64,7 +70,7 @@
                 </a>
             </div>
             <?php endif; ?>
-            <div class="profile__avatar<?php if(!isset($community_fields['image_url']) || (isset($community_fields['image_url']) && strlen($community_fields['image_url']) <= 0 || !$visibility_settings['profile_image_url_visibility'])): ?> profile__avatar--empty<?php endif; ?>"<?php if($visibility_settings['profile_image_url_visibility']): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-user="<?php print $user->user_nicename; ?>">
+            <div class="profile__avatar<?php if(!isset($community_fields['image_url']) || (isset($community_fields['image_url']) && strlen($community_fields['image_url']) <= 0 || !$visibility_settings['profile_image_url_visibility'])): ?> profile__avatar--empty<?php endif; ?>"<?php if($visibility_settings['profile_image_url_visibility']): ?> style="background-image: url('<?php print $avatar_url; ?>')"<?php endif; ?> data-user="<?php print $user->user_nicename; ?>">
             </div>
             <div class="profile__name-container">
                 <h3 class="profile__user-title"><?php print $user->user_nicename; ?></h3>
