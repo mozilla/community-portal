@@ -279,6 +279,8 @@
             $is_events = false;
         }
 
+    
+
         include("{$template_dir}/buddypress/groups/single/group.php");
     }
 

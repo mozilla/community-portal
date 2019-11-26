@@ -47,6 +47,7 @@
             $verified = false;
     }
 
+
 ?>
     <div class="content">
         <div class="group">
@@ -151,11 +152,17 @@
                                     $visibility = mozilla_determine_field_visibility($field, $field_visibility_name, $community_fields, $is_me, $logged_in);
                                     $visibility_settings[$field_visibility_name] = $visibility;
                                 }
+ 
+                                if(stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0) {
+                                    $avatar_url = preg_replace("/^http:/i", "https:", $community_fields['image_url']);
+                                } else {
+                                    $avatar_url = $community_fields['image_url'];
+                                }
                     
                             ?>
 
                             <a href="/members/<?php print $a->user_nicename; ?>" class="members__member-card">
-                                <div class="members__avatar<?php if($visibility_settings['profile_image_url_visibility'] === false || !isset($community_fields['image_url']) || strlen($community_fields['image_url']) === 0): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $a->user_nicename; ?>">
+                                <div class="members__avatar<?php if($visibility_settings['profile_image_url_visibility'] === false || !isset($community_fields['image_url']) || strlen($community_fields['image_url']) === 0): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $avatar_url; ?>')"<?php endif; ?> data-username="<?php print $a->user_nicename; ?>">
 
                                 </div>
                                 <div class="members__member-info">
@@ -281,6 +288,13 @@
                                             <?php 
                                                 $event_meta = get_post_meta($event->post_id, 'event-meta');
                                                 $img_url = $event_meta[0]->image_url;
+
+                                                if(stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0) {
+                                                    $img_url = preg_replace("/^http:/i", "https:", $img_url);
+                                                } else {
+                                                    $img_url = $img_url;
+                                                }
+
                                                 if($img_url && $img_url !== ''):?>style="background-image: url(<?php echo $img_url ?>)"<?php endif; ?>
                                         >
                                             <?php 
@@ -358,7 +372,15 @@
                     <div class="group__left-column">
                         <div class="group__card">
                             <?php if(isset($group_meta['group_image_url']) && strlen($group_meta['group_image_url']) > 0): ?>
-                            <div class="group__card-image" style="background-image: url('<?php print $group_meta['group_image_url']; ?>');">
+                            <?php
+                                                            
+                                if(stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0) {
+                                    $group_image_url = preg_replace("/^http:/i", "https:", $group_meta['group_image_url']);
+                                } else {
+                                    $group_image_url = $group_meta['group_image_url'];
+                                }
+                            ?>
+                            <div class="group__card-image" style="background-image: url('<?php print $group_image_url; ?>');">
                                 <?php if($is_admin): ?>
                                 <a href="/groups/<?php print $group->slug; ?>/admin/edit-details/" class="group__edit-link">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -625,9 +647,15 @@
                                             $visibility_settings[$field_visibility_name] = $visibility;
                                         }
                                 
+                                        if(stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0) {
+                                            $avatar_url = preg_replace("/^http:/i", "https:", $community_fields['image_url']);
+                                        } else {
+                                            $avatar_url = $community_fields['image_url'];
+                                        }
+
                                     ?>
                                     <a class="group__admin" href="/members/<?php print $u->user_nicename; ?>">
-                                        <div class="members__avatar<?php if($visibility_settings['profile_image_url_visibility'] === false || !isset($community_fields['image_url']) || strlen($community_fields['image_url']) === 0): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $u->user_nicename; ?>">
+                                        <div class="members__avatar<?php if($visibility_settings['profile_image_url_visibility'] === false || !isset($community_fields['image_url']) || strlen($community_fields['image_url']) === 0): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $avatar_url; ?>')"<?php endif; ?> data-username="<?php print $u->user_nicename; ?>">
 
                                         </div>
                                         <div class="username">
