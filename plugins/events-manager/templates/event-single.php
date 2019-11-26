@@ -82,6 +82,12 @@
         <div class="card__image"
           <?php 
             if ($img_url && $img_url !== '') {
+
+              if(stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0) {
+                $img_url = preg_replace("/^http:/i", "https:", $img_url);
+              } else {
+                $img_url = $img_url;
+              }
           ?>
             style="background-image: url(<?php echo esc_url_raw($img_url); ?>); min-height: 317px; width: 100%;"
           <?php 
@@ -275,10 +281,16 @@
                         $visibility_settings[$field_visibility_name] = $visibility;
                     }
 
+
+                    if(stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0) {
+                      $avatar_url = preg_replace("/^http:/i", "https:", $community_fields['image_url']);
+                    } else {
+                      $avatar_url = $community_fields['image_url'];
+                    }
             ?>
             <div class="col-md-6 events-single__member-card">
             <a href="<?php echo esc_attr(get_site_url().'/members/'.$community_fields['username'])?>")>
-              <div class="events-single__avatar<?php if(!$visibility_settings['profile_image_url_visibility'] || !strlen($community_fields['image_url']) > 0) : ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $community_fields['username']; ?>">
+              <div class="events-single__avatar<?php if(!$visibility_settings['profile_image_url_visibility'] || !strlen($community_fields['image_url']) > 0) : ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $avatar_url; ?>')"<?php endif; ?> data-username="<?php print $community_fields['username']; ?>">
               </div>
               <div class="events-single__user-details"> 
                       <p class="events-single__username"><?php echo __($community_fields['username']) ?></p>
@@ -446,7 +458,6 @@
 
   <div id="events-share-lightbox" class="lightbox">
     <?php include(locate_template('templates/share-modal.php', false, false)); ?>
-
   </div>
 
 </div>
