@@ -897,6 +897,7 @@ function mozilla_determine_field_visibility($field, $visibility_field, $communit
         || $field === 'username' 
         || $field === 'country'
         || $field === 'profile_groups_joined'
+        || $field === 'profile_image_url'
         || $field === 'profile_events_attended' 
         || $field === 'profile_events_organized'
         || $field === 'profile_campaigns'
@@ -906,15 +907,16 @@ function mozilla_determine_field_visibility($field, $visibility_field, $communit
         || $field === 'profile_discourse'
         || $field === 'profile_github'
         || $field === 'profile_linkedin') {   
-        
+
         if($field === 'city' || $field === 'country') {
             $visibility_field = 'profile_location_visibility';
         }
+
+
         if($is_me) {
             $display = true;
         } else {
             if(($logged_in && isset($community_fields[$visibility_field]) && intval($community_fields[$visibility_field]) === PrivacySettings::REGISTERED_USERS) || intval($community_fields[$visibility_field]) === PrivacySettings::PUBLIC_USERS) {
-
                 $display = true;
             } else {
                 $display = false;

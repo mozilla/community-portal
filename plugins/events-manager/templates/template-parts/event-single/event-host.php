@@ -27,7 +27,7 @@
               $community_fields['last_name'] = isset($meta['last_name'][0]) ? $meta['last_name'][0] : '';
               $fields = Array(
                 'username',
-                'image_url',
+                'profile_image_url',
                 'first_name',
                 'last_name',
                 'country',
@@ -42,7 +42,7 @@
               ?>
               <div class="events-single__member-card col-lg-12 col-md-6 col-sm-12">
                 <a href="<?php echo esc_attr(get_site_url().'/members/'.$user->user_nicename)?>">
-                  <div class="events-single__avatar<?php if(!$visibility_settings['image_url_visibility'] || !strlen($community_fields['image_url']) > 0) : ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['image_url_visibility'] && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $community_fields['username']; ?>">
+                  <div class="events-single__avatar<?php if(!$visibility_settings['profile_image_url_visibility'] || !strlen($community_fields['image_url']) > 0) : ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $community_fields['username']; ?>">
                   </div>
                   <p class="events-single__username"><?php echo __($user->user_nicename) ?></p>
                 </a>
@@ -65,7 +65,7 @@
           $community_fields['last_name'] = isset($meta['last_name'][0]) ? $meta['last_name'][0] : '';
           $fields = Array(
             'username',
-            'image_url',
+            'profile_image_url',
             'first_name',
             'last_name',
             'country',
@@ -82,7 +82,7 @@
         ?>
         <div class="events-single__member-card col-lg-12 col-md-6 col-sm-12">
           <a href="<?php echo esc_attr(get_site_url().'/members/'.$hosted_user->user_nicename)?>">
-            <div class="events-single__avatar<?php if(!$visibility_settings['image_url_visibility'] || !strlen($community_fields['image_url']) > 0) : ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['image_url_visibility'] && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $community_fields['username']; ?>">
+            <div class="events-single__avatar<?php if(!$visibility_settings['profile_image_url_visibility'] || !strlen($community_fields['image_url']) > 0) : ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $community_fields['username']; ?>">
             </div>
             <p class="events-single__username"><?php echo __($hosted_user->user_nicename) ?></p>
           </a>
