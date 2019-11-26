@@ -434,7 +434,6 @@ function mozilla_create_group() {
             'group_city'
         );
 
-        
         // If we're posting data lets create a group
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
             if(isset($_POST['step']) && isset($_POST['my_nonce_field']) && wp_verify_nonce($_REQUEST['my_nonce_field'], 'protect_content')) {
