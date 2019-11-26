@@ -319,6 +319,24 @@ function mozilla_init() {
         }
     }
 
+    // Static Page
+    $labels = Array(
+        'name'              =>  __('Static Pages'),
+        'singular_name'     =>  __('Static Page')
+    );
+
+    $args = Array(
+        'labels'             => $labels,
+        'public'             => true,
+        'show_in_menu'       => true,
+        'show_in_rest'       => true,
+        'menu_icon'          => 'dashicons-format-aside',
+        'rewrite'            =>  Array('slug'    =>  'p')
+    );
+
+    register_post_type('static-page', $args);
+
+    
     // Create Activities
     $labels = Array(
         'name'              =>  __('Activities'),
