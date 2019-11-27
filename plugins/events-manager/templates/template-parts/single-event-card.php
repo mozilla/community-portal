@@ -66,7 +66,11 @@
                             }
                             
                             if ($location->town) {
-                                echo __($location->town);
+                                if(strlen($location->town) > 180) {
+                                    $city= substr($location->town, 0, 180);
+                                }
+
+                                echo __($city);
                                 if ($location->country) {
                                     echo __(', '.$allCountries[$location->country]);
                                 }
