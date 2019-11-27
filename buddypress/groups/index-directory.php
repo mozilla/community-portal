@@ -181,7 +181,7 @@
                 <?php endif; ?>
                 <?php foreach($groups AS $group): ?>
                     <?php 
-                        $meta = $group->meta;
+                        $meta = isset($group->meta) && is_array($group->meta) ? $group->meta : Array();
                         $member_count = groups_get_total_member_count($group->id);
                         $group_name = $group->name;
 
@@ -189,13 +189,14 @@
                             $group_name = substr($group_name, 0, 45)."&#133;";
                         }
 
-                        if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
-                            $group_image_url = preg_replace("/^http:/i", "https:", $meta['group_image_url']);
-                        } else {
-                            $group_image_url = $meta['group_image_url'];
+                        if(is_array($meta) && isset($meta['group_image_url'])) {
+                            if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
+                                $group_image_url = preg_replace("/^http:/i", "https:", $meta['group_image_url']);
+                            } else {
+                                $group_image_url = $meta['group_image_url'];
+                            }
                         }
-                        
-
+                    
                     ?>
 
                     <a href="/groups/<?php print $group->slug; ?>" class="groups__card">
@@ -235,6 +236,7 @@
                                     <?php 
                                         $tag_counter = 0;
                                     ?>
+                                    <?php if(isset($meta['group_tags']) && is_array($meta['group_tags'])): ?>
                                     <?php foreach(array_unique($meta['group_tags']) AS $key =>  $value): ?>
                                         <span class="groups__tag"><?php print $value; ?></span>
                                         <?php $tag_counter++; ?>
@@ -243,6 +245,7 @@
                                         <?php break; ?>
                                         <?php endif; ?>
                                     <?php endforeach; ?>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
