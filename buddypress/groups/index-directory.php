@@ -42,9 +42,8 @@
     }
     
     if(isset($_GET['debug']) == '1') {
-        print "PROTOCOL IS :";
-        print $_SERVER['SERVER_PROTOCOL']."<br>";      
-        var_dump(stripos($_SERVER['SERVER_PROTOCOL'],'https'));
+       
+        var_dump((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ;
     }
 
     $group_count = $groups['total'];
