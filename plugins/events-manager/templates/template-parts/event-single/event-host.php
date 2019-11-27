@@ -84,7 +84,7 @@
             $field_visibility_name = ($field === 'city' || $field === 'country') ? 'profile_location_visibility' : $field_visibility_name;
             $visibility_settings[$field_visibility_name] = $visibility;
           }
-          if(stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0) {
+          if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
             $avatar_url = preg_replace("/^http:/i", "https:", $community_fields['image_url']);
           } else {
             $avatar_url = $community_fields['image_url'];

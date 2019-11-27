@@ -31,7 +31,7 @@
                 if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
                     $img_url = preg_replace("/^http:/i", "https:", $img_url);
                 } else {
-                    $avatar_url = $img_url;
+                    $img_url = $img_url;
                 }
             ?>
 
