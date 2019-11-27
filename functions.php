@@ -505,8 +505,12 @@ function mozilla_create_group() {
                                 }
 
                                 if(isset($_POST['group_admin_id']) && $_POST['group_admin_id']) {
-                                    groups_join_group($group_id, intval($_POST['group_admin_id']));
-                                    groups_promote_member(intval($_POST['group_admin_id']), $group_id, 'admin');
+                                    $group_admin_user_id = intval($_POST['group_admin_id']);
+
+                                    groups_join_group($group_id, $group_admin_user_id);
+                                    $member = new BP_Groups_Member($group_admin_user_id, $group_id); 
+                                    do_action('groups_promote_member', $group_id, $group_admin_user_id, 'admin'); 
+                                    $member->promote('admin'); 
                                 }
 
                                 // Required information but needs to be stored in meta data because buddypress does not support these fields
