@@ -74,6 +74,11 @@
                             if(isset($group_meta['group_country']) && strlen($group_meta['group_country']) > 1) {
                                 print "<a href=\"/groups/?location={$group_meta['group_country']}\" class=\"group__status\">";
                             }
+
+                            if(strlen($group_meta['group_city']) > 180) {
+                                $group_meta['group_city'] = substr($group_meta['group_city'], 0, 180);
+                            }
+
                             print "{$group_meta['group_city']}";
                             if(isset($group_meta['group_country']) && strlen($group_meta['group_country']) > 1) {
                                 $country = $countries[$group_meta['group_country']];

@@ -248,7 +248,7 @@
                 </div>
                 <div class="profile__input-container">
                     <label class="profile__label" for="city"><?php print __("City (optional)"); ?></label>
-                    <input type="text" name="city" id="city" class="profile__input<?php if($form && !isset($form['city']) || (isset($form['city']) && empty(trim($form['city'])) )): ?> profile__input--error<?php endif; ?>" placeholder="<?php print __("City"); ?>" value="<?php print isset($form['city']) ? $form['city'] : $community_fields['city']; ?>" />
+                    <input type="text" name="city" id="city" class="profile__input<?php if($form && !isset($form['city']) || (isset($form['city']) && empty(trim($form['city'])) )): ?> profile__input--error<?php endif; ?>" placeholder="<?php print __("City"); ?>" value="<?php print isset($form['city']) ? $form['city'] : $community_fields['city']; ?>" maxlength="180" />
                     <div class="form__error-container<?php if($form && !isset($form['last_name']) || (isset($form['city']) && empty(trim($form['city'])) )): ?> form__error-container--visible<?php endif; ?>">
                         <div class="form__error"><?php print __("This field is required"); ?></div>
                     </div>

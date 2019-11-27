@@ -122,8 +122,13 @@
                     <?php print __('Location'); ?>
                     <span class="profile__city-country">
                     <?php 
-                        if(isset($community_fields['city']) && strlen($community_fields['city']) > 0)
+                        if(isset($community_fields['city']) && strlen($community_fields['city']) > 0) {
+                            if(strlen($community_fields['city']) > 180) {
+                                $community_fields['city'] = substr($community_fields['city'], 0, 180);
+                            }
+
                             print $community_fields['city'];
+                        }
 
                         if(isset($community_fields['city']) && strlen($community_fields['city']) > 0 && isset($community_fields['country']) && strlen($community_fields['country']) > 0) {
                             print ", {$community_fields['country']}";
