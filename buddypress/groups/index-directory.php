@@ -24,10 +24,10 @@
     }
 
     $group_count = 0;
-
+    $user = wp_get_current_user()->data;
+    
     if($logged_in && isset($_GET['mygroups']) && $_GET['mygroups'] == 'true') {
-        $user = wp_get_current_user()->data;
-        
+    
         $groups = Array();
         $args['user_id'] = $user->ID;
         $groups = groups_get_groups($args);
@@ -41,6 +41,13 @@
         $groups = groups_get_groups($args);
     }
     
+
+
+    if($user->user_nicename === 'naluz') {
+        print "PROTOCOL IS :";
+        print $_SERVER['SERVER_PROTOCOL']."<br>";      
+        var_dump(stripos($_SERVER['SERVER_PROTOCOL'],'https'));
+    }
     $group_count = $groups['total'];
     $groups = $groups['groups'];
     $filtered_groups = Array();
@@ -194,6 +201,8 @@
                         } else {
                             $group_image_url = $meta['group_image_url'];
                         }
+                        
+
                     ?>
 
                     <a href="/groups/<?php print $group->slug; ?>" class="groups__card">
