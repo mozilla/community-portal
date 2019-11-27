@@ -51,10 +51,10 @@
                     break;
                 case 'members': 
                     $user_id = bp_displayed_user_id();
-                    $user = get_user_by('ID', $user_id);
+                    $du = get_user_by('ID', $user_id);
                     $meta = get_user_meta($user_id);
-
-                    $og_title = "Member {$user->user_nicename} - Mozilla Community Portal";
+                    $og_title = $du ? "Member {$du->user_nicename} - Mozilla Community Portal" : "Members - Mozilla Community Portal";
+                    $og_image = get_stylesheet_directory_uri()."/images/group.png";
                     $title = $og_title;
                     $og_desc =  get_bloginfo('description');
 
