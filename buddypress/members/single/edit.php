@@ -59,7 +59,28 @@
             <div class="profile__form-field">
                 <div class="profile__input-container profile__input-container--profile">
                     <label class="profile__label" for="image-url"><?php print __("Profile Photo (optional)"); ?></label>
-                        <div id="profile-photo-uploader" class="profile__image-upload"<?php if($form && isset($form['image_url']) && strlen($form['image_url']) > 0): ?> style="background: url('<?php print $form['image_url']; ?>') cover;"<?php else: ?><?php if(is_array($community_fields) && isset($community_fields['image_url'])): ?> style="background: url('<?php print $community_fields['image_url']; ?>'); background-size: cover;"<?php endif; ?><?php endif; ?>>
+                        <?php 
+                    
+                            if(stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0) {
+                                if(isset($form['image_url']) && strlen($form['image_url']) > 0) {
+                                    $avatar_url = preg_replace("/^http:/i", "https:", $form['image_url']);
+                                } else {
+                                    if(is_array($community_fields) && isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0) {
+                                        $avatar_url = preg_replace("/^http:/i", "https:", $community_fields['image_url']);
+                                    }
+                                }
+                            } else {
+                                if(isset($form['image_url']) && strlen($form['image_url']) > 0) {
+                                    $avatar_url = $form['image_url'];
+                                } else {
+                                    if(is_array($community_fields) && isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0) {
+                                        $avatar_url = $community_fields['image_url'];
+                                    }
+                                }
+                            }
+                            
+                        ?>
+                        <div id="profile-photo-uploader" class="profile__image-upload"<?php if($form && isset($form['image_url']) && strlen($form['image_url']) > 0): ?> style="background: url('<?php print $avatar_url; ?>') cover;"<?php else: ?><?php if(is_array($community_fields) && isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0): ?> style="background: url('<?php print $avatar_url; ?>'); background-size: cover;"<?php endif; ?><?php endif; ?>>
                         <?php if(!is_array($community_fields) || !isset($community_fields['image_url'])): ?>
         
                         <?php endif; ?>
