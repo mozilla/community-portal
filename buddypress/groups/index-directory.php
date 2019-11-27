@@ -40,11 +40,6 @@
     
         $groups = groups_get_groups($args);
     }
-    
-    if(isset($_GET['debug']) == '1') {
-       
-        var_dump((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ;
-    }
 
     $group_count = $groups['total'];
     $groups = $groups['groups'];
@@ -194,7 +189,7 @@
                             $group_name = substr($group_name, 0, 45)."&#133;";
                         }
 
-                        if(stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0) {
+                        if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
                             $group_image_url = preg_replace("/^http:/i", "https:", $meta['group_image_url']);
                         } else {
                             $group_image_url = $meta['group_image_url'];
