@@ -124,7 +124,7 @@ jQuery(function(){
         };
 
         var url =  '/wp-admin/admin-ajax.php?action=join_group';
-        console.log("Join");
+
         jQuery.ajax({
             url: url,
             data: post,
@@ -140,12 +140,14 @@ jQuery(function(){
                     jQuery('.group__member-count').text(memberCount);
                     $this.addClass('group__leave-cta');
                     $this.removeClass('group__join-cta');
-
+                    location.reload();
                 } else {
                     if(response.status === 'error' && response.msg === 'Not Logged In') {
                         window.location = '/login';
                     }
                 }
+
+
             }
         });
         return false;
@@ -180,7 +182,7 @@ jQuery(function(){
                     $this.addClass('group__join-cta');
                     $this.removeClass('group__leave-cta');
                     
-
+                    location.reload();
                 } else {
                     if(response.status === 'error' && response.msg === 'Not Logged In') {
                         window.location = '/login';
@@ -247,7 +249,7 @@ jQuery(function(){
             var users = [];
 
             for(var x = 0; x < data.length; x++) {
-                users.push(data[x].data.ID+ ":" + data[x].data.user_login );
+                users.push(data[x].data.ID+ ":" + data[x].data.user_nicename );
             }
             
             suggest(users);

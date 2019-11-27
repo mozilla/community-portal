@@ -504,9 +504,16 @@ function mozilla_create_group() {
                                     }
                                 }
 
-                                if(isset($_POST['group_admin_id']) && $_POST['group_admin_id']) {
-                                    groups_join_group($group_id, intval($_POST['group_admin_id']));
-                                    groups_promote_member(intval($_POST['group_admin_id']), $group_id, 'admin');
+                                $group = groups_get_group(Array('group_id' => $group_id ));
+                                $user = wp_get_current_user();
+
+                                if(isset($_POST['group_admin_id']) && $_POST['group_admin_id'] && $group->creator_id == $user->ID) {
+                                    $group_admin_user_id = intval($_POST['group_admin_id']);
+
+                                    groups_join_group($group_id, $group_admin_user_id);
+                                    $member = new BP_Groups_Member($group_admin_user_id, $group_id); 
+                                    do_action('groups_promote_member', $group_id, $group_admin_user_id, 'admin'); 
+                                    $member->promote('admin'); 
                                 }
 
                                 // Required information but needs to be stored in meta data because buddypress does not support these fields
@@ -525,7 +532,7 @@ function mozilla_create_group() {
                                     unset($_SESSION['form']);
                                     $_POST = Array();
                                     $_POST['step'] = 3;
-                                    $group = groups_get_group(Array('group_id' => $group_id ));
+                                    
                                     $_POST['group_slug'] = $group->slug;
                                 } else {
                                     groups_delete_group($group_id);
@@ -712,14 +719,14 @@ function mozilla_leave_group() {
         if($user->ID) {
             if(isset($_POST['group']) && $_POST['group']) {
                 $group = intval(trim($_POST['group']));
-                if(!groups_is_user_admin($user->ID, $group)) {
-                    
+                $group_object = groups_get_group(Array('group_id' => $group));
+                if($group_object->creator_id !== $user->ID) {
                     $left = groups_leave_group($group, $user->ID);
 
                     if($left) {
                         print json_encode(Array('status'   =>  'success', 'msg'  =>  'Left Group'));
                     } else {
-                        print json_encode(Array('status'   =>  'error', 'msg'   =>  'Could not leaev group'));
+                        print json_encode(Array('status'   =>  'error', 'msg'   =>  'Could not leave group'));
                     }
                 } else {
                     print json_encode(Array('status'   =>  'error', 'msg'   =>  'Admin cannot leave a group'));
