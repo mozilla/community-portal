@@ -41,13 +41,12 @@
         $groups = groups_get_groups($args);
     }
     
-
-
-    if($user->user_nicename === 'naluz') {
+    if(isset($_GET['debug']) == '1') {
         print "PROTOCOL IS :";
         print $_SERVER['SERVER_PROTOCOL']."<br>";      
         var_dump(stripos($_SERVER['SERVER_PROTOCOL'],'https'));
     }
+
     $group_count = $groups['total'];
     $groups = $groups['groups'];
     $filtered_groups = Array();
