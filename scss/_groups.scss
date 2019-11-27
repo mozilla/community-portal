@@ -444,6 +444,12 @@
         flex-wrap: wrap;
         transition: box-shadow 0.3s ease-in-out;
         
+        &.groups__card--homepage {
+            height: 100%;
+            max-height: 435px;
+        }
+
+
         @include tablet-and-up {
             flex: 0 48%;
             margin-right: 4%;
