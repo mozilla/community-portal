@@ -315,6 +315,8 @@ function remove_admin_login_header() {
 
 function mozilla_init() {
     register_nav_menu('mozilla-theme-menu', __('Mozilla Custom Theme Menu'));
+    register_taxonomy_for_object_type('category', 'page'); 
+
     $user = wp_get_current_user()->data;
     // Not logged in
     if(!isset($user->ID)) {
@@ -323,6 +325,24 @@ function mozilla_init() {
         }
     }
 
+    // Static Page
+    $labels = Array(
+        'name'              =>  __('Static Pages'),
+        'singular_name'     =>  __('Static Page')
+    );
+
+    $args = Array(
+        'labels'             => $labels,
+        'public'             => true,
+        'show_in_menu'       => true,
+        'show_in_rest'       => true,
+        'menu_icon'          => 'dashicons-format-aside',
+        'rewrite'            =>  Array('slug'    =>  'p')
+    );
+
+    register_post_type('static-page', $args);
+
+    
     // Create Activities
     $labels = Array(
         'name'              =>  __('Activities'),
@@ -420,7 +440,6 @@ function mozilla_create_group() {
             'group_city'
         );
 
-        
         // If we're posting data lets create a group
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
             if(isset($_POST['step']) && isset($_POST['my_nonce_field']) && wp_verify_nonce($_REQUEST['my_nonce_field'], 'protect_content')) {
