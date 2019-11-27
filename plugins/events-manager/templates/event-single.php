@@ -88,6 +88,12 @@
         <div class="card__image"
           <?php 
             if ($img_url && $img_url !== '') {
+              if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
+                $img_url = preg_replace("/^http:/i", "https:", $img_url);
+              } else {
+                $img_url = $img_url;
+              }
+
           ?>
             style="background-image: url(<?php echo esc_url_raw($img_url); ?>); min-height: 317px; width: 100%;"
           <?php 
@@ -415,10 +421,16 @@
             $field_visibility_name = ($field === 'city' || $field === 'country') ? 'profile_location_visibility' : $field_visibility_name;
             $visibility_settings[$field_visibility_name] = $visibility;
           }
+
+          if(isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0 && (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
+            $img_url = preg_replace("/^http:/i", "https:", $community_fields['image_url']);
+          } else {
+            $img_url = $community_fields['image_url'];
+          }
       ?>
       <div class="col-md-6 events-single__member-card">
         <a href="<?php echo esc_attr(get_site_url().'/members/'.$userObject->user_nicename)?>")>
-        <div class="events-single__avatar<?php if(!$visibility_settings['image_url_visibility'] || !strlen($community_fields['image_url']) > 0) : ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['image_url_visibility'] && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $community_fields['username']; ?>">
+        <div class="events-single__avatar<?php if(!$visibility_settings['image_url_visibility'] || !strlen($community_fields['image_url']) > 0) : ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['image_url_visibility'] && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $img_url; ?>')"<?php endif; ?> data-username="<?php print $community_fields['username']; ?>">
                 </div>
           <div class="events-single__user-details"> 
             <p class="events-single__username">
