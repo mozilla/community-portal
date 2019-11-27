@@ -504,7 +504,10 @@ function mozilla_create_group() {
                                     }
                                 }
 
-                                if(isset($_POST['group_admin_id']) && $_POST['group_admin_id']) {
+                                $group = groups_get_group(Array('group_id' => $group_id ));
+                                $user = wp_get_current_user();
+
+                                if(isset($_POST['group_admin_id']) && $_POST['group_admin_id'] && $group->creator_id == $user->ID) {
                                     $group_admin_user_id = intval($_POST['group_admin_id']);
 
                                     groups_join_group($group_id, $group_admin_user_id);
@@ -529,7 +532,7 @@ function mozilla_create_group() {
                                     unset($_SESSION['form']);
                                     $_POST = Array();
                                     $_POST['step'] = 3;
-                                    $group = groups_get_group(Array('group_id' => $group_id ));
+                                    
                                     $_POST['group_slug'] = $group->slug;
                                 } else {
                                     groups_delete_group($group_id);
