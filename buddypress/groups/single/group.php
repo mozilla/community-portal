@@ -263,7 +263,8 @@
                             '11' => 'Nov',
                             '12' => 'Dec',
                         );
-                        $args = Array('group'   =>  $group->id, 'scope' =>  'all');      
+
+                        $args = Array('group'   =>  $group->id, 'scope' =>  'all');
                         $events = EM_Events::get($args);                                            
                     ?>
                     <div class="row events__cards">
@@ -540,7 +541,8 @@
                             $args = Array(
                                 'group'     => $group->id,
                                 'orderby'   => 'event_start_date',
-                                'order'     => 'DESC'
+                                'order'     => 'DESC',
+                                'scope'     =>  'all'
                             );
                             $events = EM_Events::get($args);
                             $event = isset($events[0]) ? $events[0] : false;
