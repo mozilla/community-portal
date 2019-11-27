@@ -13,7 +13,7 @@ $args = !empty($args) ? $args:array(); /* @var $args array */
 <div class="em-events-search em-search col-lg-7 col-sm-12 css-search">
   <?php 
     $view = get_query_var( 'view', $default = '');
-    $args['search_url'] = $_SERVER['HTTP_HOST'].'/events/?view='.$view;
+    $args['search_url'] = '/events/?view='.$view;
   ?>
 	<form action="<?php echo !empty($args['search_url']) ? esc_url($args['search_url']) : EM_URI; ?>" method="post" class="em-events-search-form em-search-form">
 		<input type="hidden" name="action" value="<?php echo esc_attr($args['search_action']); ?>" />
