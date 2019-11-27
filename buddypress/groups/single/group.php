@@ -154,7 +154,7 @@
                                     $visibility_settings[$field_visibility_name] = $visibility;
                                 }
  
-                                if(stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0) {
+                                if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
                                     $avatar_url = preg_replace("/^http:/i", "https:", $community_fields['image_url']);
                                 } else {
                                     $avatar_url = $community_fields['image_url'];
@@ -291,7 +291,7 @@
                                                 $event_meta = get_post_meta($event->post_id, 'event-meta');
                                                 $img_url = $event_meta[0]->image_url;
 
-                                                if(stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0) {
+                                                if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
                                                     $img_url = preg_replace("/^http:/i", "https:", $img_url);
                                                 } else {
                                                     $img_url = $img_url;
@@ -376,7 +376,7 @@
                             <?php if(isset($group_meta['group_image_url']) && strlen($group_meta['group_image_url']) > 0): ?>
                             <?php
                                                             
-                                if(stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0) {
+                                if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
                                     $group_image_url = preg_replace("/^http:/i", "https:", $group_meta['group_image_url']);
                                 } else {
                                     $group_image_url = $group_meta['group_image_url'];
@@ -650,7 +650,7 @@
                                             $visibility_settings[$field_visibility_name] = $visibility;
                                         }
                                 
-                                        if(stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0) {
+                                        if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
                                             $avatar_url = preg_replace("/^http:/i", "https:", $community_fields['image_url']);
                                         } else {
                                             $avatar_url = $community_fields['image_url'];
