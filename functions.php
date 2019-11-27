@@ -21,6 +21,7 @@ add_action('wp_ajax_validate_email', 'mozilla_validate_email');
 add_action('wp_ajax_nopriv_validate_group', 'mozilla_validate_group_name');
 add_action('wp_ajax_validate_group', 'mozilla_validate_group_name');
 add_action('wp_ajax_check_user', 'mozilla_validate_username');
+add_action('wp_ajax_delete_user', 'mozilla_delete_user');
 
 // Gutenberg Setup 
 function pg_blocks() {
@@ -1117,7 +1118,7 @@ function mozilla_theme_settings() {
 }
 
 function mozilla_add_menu_item() {
-  add_menu_page('Mozilla Settings', 'Mozilla Settings', 'manage_options', 'theme-panel', 'mozilla_theme_settings', null, 99);
+    add_menu_page('Mozilla Settings', 'Mozilla Settings', 'manage_options', 'theme-panel', 'mozilla_theme_settings', null, 99);
 }
 
 function mozilla_determine_site_section() {
@@ -1155,26 +1156,27 @@ function mozilla_delete_events($id, $post) {
 add_filter('em_event_delete', 'mozilla_delete_events', 10, 2);
 
 function mozilla_update_body_class( $classes ) {
-  $classes[] = "body";
-  return $classes; 
+    $classes[] = "body";
+    return $classes; 
 }
 
 add_filter( 'body_class', 'mozilla_update_body_class');
 
 
 function acf_load_bp_groups( $field ) {
-  $allGroups = groups_get_groups(array());
-  foreach ($allGroups['groups'] as $group):
-    $groups[] = $group->name.'_'.$group->id;
-  endforeach; 
-  // Populate choices
-  foreach( $groups as $group ) {
-    $groupvalues = explode('_', $group);
-    $field['choices'][ $groupvalues[1] ] = $groupvalues[0];
-  }
-  
-  // Return choices
-  return $field;
+    $allGroups = groups_get_groups(array());
+    foreach ($allGroups['groups'] as $group) {
+        $groups[] = $group->name.'_'.$group->id;
+    }
+
+    // Populate choices
+    foreach( $groups as $group ) {
+        $groupvalues = explode('_', $group);
+        $field['choices'][ $groupvalues[1] ] = $groupvalues[0];
+    }
+
+    // Return choices
+    return $field;
 }
 // Populate select field using filter
 add_filter('acf/load_field/name=featured_group', 'acf_load_bp_groups', 10, 1);
@@ -1196,6 +1198,67 @@ function mozilla_approve_booking($EM_Booking) {
     }
 
     return $EM_Booking;
+}
+
+function mozilla_delete_user() {
+
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if(is_user_logged_in()) {
+            $user = wp_get_current_user()->data;
+
+            if($user) {
+                $rand = substr(md5(time()), 0, 8);
+                $anonymous_email = "anonymous{$rand}@anonymous.com";
+                $user_check = get_user_by('email', $anonymous_email);
+    
+                while($user_check !== false) {
+                    $rand = substr(md5(time()), 0, 8);
+                    $anonymous_email = "anonymous{$rand}@anonymous.com";
+                    $user_check = get_user_by('email', $anonymous_email);
+                }
+    
+                $meta = get_user_meta($user->ID);
+                $args = Array(
+                    'ID'                =>  $user->ID,
+                    'user_email'        =>  $anonymous_email,
+                    'display_name'      =>  'Anonymous',
+                    'first_name'        =>  'Anonymous',
+                    'last_name'         =>  'Anonymous',
+                    'user_url'          =>  '',
+                    'user_nicename'     =>  "Anonymous{$rand}"
+                );
+    
+                update_user_meta($user->ID, 'nickname', 'Anonymous');
+                update_user_meta($user->ID, 'first_name', 'Anonymous');
+                update_user_meta($user->ID, 'last_name', 'Anonymous');
+                update_user_meta($user->ID, 'email', $anonymous_email);
+    
+                wp_update_user($args);
+                delete_user_meta($user->ID, 'community-meta-fields');
+                delete_user_meta($user->ID, 'description', '');
+                delete_user_meta($user->ID, 'wp_auth0_obj');
+                delete_user_meta($user->ID, 'wp_auth0_id');
+                delete_user_meta($user->ID, 'first_name_visibility');
+                delete_user_meta($user->ID, 'last_name_visibility');
+                delete_user_meta($user->ID, 'email_visibility');
+                delete_user_meta($user->ID, 'wp_auth0_id');
+    
+                
+
+                wp_destroy_current_session();
+                wp_clear_auth_cookie();
+                wp_set_current_user(0);
+
+                print json_encode(Array('status'   =>  'success', 'msg'  =>  'Account Deleted'));
+            } else {
+                print json_encode(Array('status'   =>  'error', 'msg'  =>  'No user'));
+            }
+        } else {
+            print json_encode(Array('status'   =>  'error', 'msg'  =>  'Invalid Request'));
+        }
+    }
+
+    die();
 }
 
 

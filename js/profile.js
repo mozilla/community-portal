@@ -280,4 +280,26 @@ jQuery(function(){
         return false;
     });
 
+    jQuery('#profile-delete-account').click(function(e) {
+        e.preventDefault();
+        jQuery('.profile__delete-account-error').addClass('profile__delete-account-error--hidden');
+
+        if(confirm("Delete your profile?")) {
+            jQuery.ajax({
+                url: '/wp-admin/admin-ajax.php?action=delete_user',
+                method: 'POST',
+                success: function(data) {
+                    var response = jQuery.parseJSON(data);
+                    if(response.status == 'success') {
+                        window.location = '/members';
+                    } else {
+                        jQuery('.profile__delete-account-error--hidden').removeClass('profile__delete-account-error--hidden');
+                    }
+                }
+            });
+        }
+
+        return false;
+    });
+
 });

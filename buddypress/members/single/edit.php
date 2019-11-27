@@ -760,6 +760,10 @@
         <?php endif; ?>
         <section class="profile__cta-container">
             <input type="submit" class="profile__cta" value="<?php print __("Complete Profile"); ?>" />
+            <?php if(isset($meta['agree'][0]) && $meta['agree'][0] == 'I Agree'): ?>
+            <a id="profile-delete-account" class="profile__delete-cta"><?php print __("Delete Profile"); ?></a>
+            <div class="profile__delete-account-error profile__delete-account-error--hidden"><?php print __("Could not delete profile at this time, please contact a community manager"); ?></div>
+            <?php endif; ?>
         </section>
     </form>
     <?php endif; ?>
