@@ -196,7 +196,6 @@
                                 $group_image_url = $meta['group_image_url'];
                             }
                         }
-                    
                     ?>
 
                     <a href="/groups/<?php print $group->slug; ?>" class="groups__card">

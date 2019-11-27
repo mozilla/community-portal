@@ -716,14 +716,14 @@ function mozilla_leave_group() {
         if($user->ID) {
             if(isset($_POST['group']) && $_POST['group']) {
                 $group = intval(trim($_POST['group']));
-                if(!groups_is_user_admin($user->ID, $group)) {
-                    
+                $group_object = groups_get_group(Array('group_id' => $group));
+                if($group_object->creator_id !== $user->ID) {
                     $left = groups_leave_group($group, $user->ID);
 
                     if($left) {
                         print json_encode(Array('status'   =>  'success', 'msg'  =>  'Left Group'));
                     } else {
-                        print json_encode(Array('status'   =>  'error', 'msg'   =>  'Could not leaev group'));
+                        print json_encode(Array('status'   =>  'error', 'msg'   =>  'Could not leave group'));
                     }
                 } else {
                     print json_encode(Array('status'   =>  'error', 'msg'   =>  'Admin cannot leave a group'));

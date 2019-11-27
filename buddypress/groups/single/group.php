@@ -35,8 +35,7 @@
     );
     
     $members = groups_get_group_members($args); 
-    $is_admin = groups_is_user_admin($user->ID, $group->id);
-
+    $is_admin = groups_is_user_admin($user->ID, $group->id) && $user->ID === $group->creator_id;
 
     switch($group->status) {
         case 'public':
