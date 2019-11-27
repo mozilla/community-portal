@@ -89,7 +89,7 @@
                             </div>
                             <div class="create-group__input-container create-group__input-container--60 create-group__input-container--vertical-spacing">
                                 <label class="create-group__label" for="group-city"><?php print __("City *"); ?></label>
-                                <input type="text" name="group_city" id="group-city" class="create-group__input<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_city']) || (isset($form['group_city']) && empty(trim($form['group_city'])) )): ?> create-group__input--error<?php endif; ?>" placeholder="<?php print __("City"); ?>" value="<?php print isset($form['group_city']) ? $form['group_city'] : ''; ?>" />
+                                <input type="text" name="group_city" id="group-city" class="create-group__input<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_city']) || (isset($form['group_city']) && empty(trim($form['group_city'])) )): ?> create-group__input--error<?php endif; ?>" placeholder="<?php print __("City"); ?>" value="<?php print isset($form['group_city']) ? $form['group_city'] : ''; ?>" maxlength="180" />
                             </div>
                         </div>
                         <div class="create-group__input-row">
