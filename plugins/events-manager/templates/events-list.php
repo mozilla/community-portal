@@ -16,6 +16,7 @@
   $view = get_query_var( 'view', $default = '');
   $country = urldecode(get_query_var('country', $default = 'all'));
   $tag = urldecode(get_query_var('tag', $default = 'all'));
+  
   if ($view === 'past') {
     $args['scope'] = $view;
   }  else {
@@ -27,6 +28,7 @@
   if ($tag !== 'all') {
     $args['category'] = $tag;
   }
+
   $paginationLinks = $args;
   if (isset($page) && strlen($page)):
     $args['page'] = $page;
