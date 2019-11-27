@@ -9,6 +9,10 @@
         $avatar = false;
     }
 
+    if($avatar && (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
+        $avatar = preg_replace("/^http:/i", "https:", $avatar_url);
+    }
+
     $google_analytics_id = get_option('google_analytics_id');
 
     $section = mozilla_determine_site_section();
