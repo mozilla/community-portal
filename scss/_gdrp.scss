@@ -25,10 +25,15 @@
             margin-bottom: 8px;
             font-size: remCalc(16);
             line-height: 28px;
+            a {
+                color: $color-white;
+                text-decoration: underline!important;
+            }    
         }
 
         a {
             color: $color-white;
+            text-decoration: underline!important;
         }
 
         @include tablet-and-up {
