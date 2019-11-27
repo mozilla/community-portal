@@ -27,6 +27,12 @@
             <?php 
                 $event_meta = get_post_meta($event->post_id, 'event-meta');
                 $img_url = $event_meta[0]->image_url;
+
+                if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
+                    $img_url = preg_replace("/^http:/i", "https:", $img_url);
+                } else {
+                    $avatar_url = $img_url;
+                }
             ?>
 
             <?php if ($img_url && $img_url !== ''): ?>

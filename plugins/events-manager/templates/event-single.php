@@ -5,6 +5,12 @@
     $event_meta = get_post_meta($EM_Event->post_id, 'event-meta');
     $allCountries = em_get_countries();
     $img_url = $event_meta[0]->image_url;
+    if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
+        $img_url = preg_replace("/^http:/i", "https:", $img_url);
+    } else {
+        $avatar_url = $img_url;
+    }
+
     $location_type = $event_meta[0]->location_type;
     $external_url = $event_meta[0]->external_url;
     $campaign = $event_meta[0]->campaign;
@@ -82,12 +88,6 @@
         <div class="card__image"
           <?php 
             if ($img_url && $img_url !== '') {
-
-              if(stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0) {
-                $img_url = preg_replace("/^http:/i", "https:", $img_url);
-              } else {
-                $img_url = $img_url;
-              }
           ?>
             style="background-image: url(<?php echo esc_url_raw($img_url); ?>); min-height: 317px; width: 100%;"
           <?php 
