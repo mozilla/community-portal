@@ -245,9 +245,10 @@ jQuery(function(){
     source: function(term, suggest) {
         jQuery.getJSON('/wp-admin/admin-ajax.php?action=get_users', { q: term }, function(data){
             var users = [];
-
+            console.log(data);
+            
             for(var x = 0; x < data.length; x++) {
-                users.push(data[x].data.ID+ ":" + data[x].data.user_login );
+                users.push(data[x].data.ID+ ":" + data[x].data.user_nicename );
             }
             
             suggest(users);
