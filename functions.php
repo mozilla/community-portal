@@ -925,7 +925,7 @@ function mozilla_is_logged_in() {
 }
 
 function mozilla_determine_field_visibility($field, $visibility_field, $community_fields, $is_me, $logged_in) {
-    
+
     if(isset($community_fields[$field]) 
         || $field === 'city' 
         || $field === 'username' 
@@ -946,6 +946,9 @@ function mozilla_determine_field_visibility($field, $visibility_field, $communit
             $visibility_field = 'profile_location_visibility';
         }
 
+        if($field === 'first_name' || $field === 'last_name') {
+            $visibility_field = "{$field}_visibility";
+        }
 
         if($is_me) {
             $display = true;
