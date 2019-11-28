@@ -568,10 +568,38 @@ function mozilla_upload_image() {
             } else {
                 $uploaded_file     = $uploaded_bits['file'];
                 $_SESSION['uploaded_file'] = $uploaded_bits['file'];
+
                 $uploaded_url      = $uploaded_bits['url'];
-                $uploaded_filetype = wp_check_filetype(basename($uploaded_bits['file'] ), null);
-        
-                print $uploaded_url;
+                $uploaded_filetype = wp_check_filetype(basename($uploaded_bits['file']), null);
+                
+                if(isset($_REQUEST['profile_image']) && $_REQUEST['profile_image'] == 'true') {
+                    // Image size check
+                    if(isset($image[0]) && isset($image[1])) {
+                        if($image[0] >= 175 && $image[1] >= 175) {
+                            print $uploaded_url;
+                        } else {
+                            print "Image size is too small";
+                            unlink($uploaded_bits['file']);
+                        }
+                    } else {
+                        print "Invalid image provided"; 
+                        unlink($uploaded_bits['file']);
+                    }
+                } elseif(isset($_REQUEST['group_image']) && $_REQUEST['group_image'] == 'true') {
+                    if(isset($image[0]) && isset($image[1])) {
+                        if($image[0] >= 703 && $image[1] >= 400) {
+                            print $uploaded_url;
+                        } else {
+                            print "Image size is too small";
+                            unlink($uploaded_bits['file']);
+                        }
+                    } else {
+                        print "Invalid image provided"; 
+                        unlink($uploaded_bits['file']);
+                    }
+                }  else {
+                    print $uploaded_url;
+                }
             }
         }
     }

@@ -109,6 +109,9 @@
                                 <div class="create-group__image-instructions">
                                     <?php print __("Click or drag a photo above"); ?>
                                     <span><?php print __('min dimensions 703px by 400px'); ?></span>
+                                    <div class="form__error-container">
+                                        <div class="form__error form__error--image"></div>
+                                    </div>
                                 </div>
                                 <input type="hidden" name="image_url" id="image-url" value="<?php print (isset($form['image_url'])) ? $form['image_url'] : '' ?>" />
                             </div>

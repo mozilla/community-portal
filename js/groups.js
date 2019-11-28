@@ -11,20 +11,43 @@ jQuery(function(){
           this.on("sending", function(file, xhr, formData){
               var nonce = jQuery('#my_nonce_field').val();
               formData.append('my_nonce_field', nonce);
+              formData.append('group_image', 'true');
           });
       },
       success: function (file, response) {
-          file.previewElement.classList.add("dz-success");
-          file['attachment_id'] = response; // push the id for future reference
+            file.previewElement.classList.add("dz-success");
+            file['attachment_id'] = response; // push the id for future reference
+        
+            var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+            '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+            '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+            '(\\#[-a-z\\d_]*)?$','i');
 
-          jQuery('.dz-preview').remove();
-          jQuery('.dz-remove').removeClass('dz-remove--hide');
-          jQuery('#image-url').val(response);
-          jQuery('.create-group__image-upload').css('background-image', 'url(' +  response + ')');
+            if(pattern.test(response)) {
+                jQuery('.dz-preview').remove();
+                jQuery('.dz-remove').removeClass('dz-remove--hide');
+                jQuery('#image-url').val(response);
+                jQuery('.create-group__image-upload').css('background-image', 'url(' +  response + ')');
+                jQuery('.create-group__image-upload').css('background-size', 'cover');
+    
+                jQuery('.create-group__image-upload').removeClass('create-group__image-upload--uploading');
+                jQuery('.create-group__image-upload').addClass('create-group__image-upload--done');
+                jQuery('.create-group__image-instructions').addClass('create-group__image-instructions--hide');
+                jQuery('.form__error--image').parent().removeClass('form__error-container--visible');
+                
+            } else {
+                jQuery('.create-group__image-upload').css('background-image', "url('/wp-content/themes/community-portal/images/upload-image.svg')");
+                jQuery('#image-url').val('');
+                jQuery('.create-group__image-upload').addClass('create-group__image-upload--reset');
+                jQuery('.form__error--image').text(response);
+                jQuery('.dz-remove').addClass('dz-remove--hide');
+                jQuery('.create-group__image-instructions--hide').removeClass('create-group__image-instructions--hide');
+                jQuery('.form__error--image').parent().addClass('form__error-container--visible');
+            }
 
-          jQuery('.create-group__image-upload').removeClass('create-group__image-upload--uploading');
-          jQuery('.create-group__image-upload').addClass('create-group__image-upload--done');
-          jQuery('.create-group__image-instructions').addClass('create-group__image-instructions--hide');
+
       
       },
       error: function (file, response) {
@@ -74,7 +97,9 @@ jQuery(function(){
 
     jQuery('.dz-remove').click(function(e){
       e.preventDefault();
-      jQuery('#group-photo-uploader').css('background-image', 'none');
+      jQuery('.create-group__image-upload').css('background-image', "url('/wp-content/themes/community-portal/images/upload-image.svg')");
+      jQuery('#image-url').val('');
+      
       jQuery('.create-group__image-upload').removeClass('create-group__image-upload--done');
       jQuery('.dz-preview').addClass('dz-hide');
       jQuery('.create-group__upload-image-svg').removeClass('.create-group__upload-image-svg--hide');
@@ -84,8 +109,9 @@ jQuery(function(){
       return false;
   });
 
-  jQuery('#create-group-form').one('submit', function(e){
+  jQuery('.create__group-cta').click(function(e){
     e.preventDefault();
+    console.log("SS");
     var error = false;
     jQuery(':input[required]').each(function(index, element){
         var $ele = jQuery(element);

@@ -88,6 +88,9 @@
                     <div class="profile__image-instructions">
                         <div><?php print __("Click or drag a photo above "); ?></div>
                         <div><?php print __("Minimum dimensions: 175 x 175px"); ?></div>
+                        <div class="form__error-container form__error-container--visible">
+                            <div class="form__error form__error--image"></div>
+                        </div>
                     </div>
                     <input type="hidden" name="image_url" id="image-url" value="<?php if($form && isset($form['image_url'])): ?><?php $form['image_url']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['image_url'])): ?><?php print $community_fields['image_url']; ?><?php endif; ?><?php endif; ?>" />
                 </div>
@@ -237,21 +240,15 @@
                             <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
                         </g>
                     </svg>
-                    <select id="country" name="country" class="profile__select<?php if($form && !isset($form['country']) || (isset($form['country']) && empty(trim($form['country'])))): ?> profile__select--error<?php endif; ?>">
+                    <select id="country" name="country" class="profile__select">
                         <?php foreach($countries AS $key    =>  $value): ?>
                         <option value="<?php print $key; ?>"<?php if($form && isset($form['country']) && $form['country'] == $key): ?> selected<?php else: ?><?php if(isset($community_fields['country']) && $community_fields['country'] == $key): ?> selected<?php endif; ?><?php endif; ?>><?php print $value; ?></option>
                         <?php endforeach; ?>
                     </select>
-                    <div class="form__error-container<?php if($form && !isset($form['country']) || (isset($form['country']) && empty(trim($form['country'])))): ?> form__error-container--visible<?php endif; ?>">
-                        <div class="form__error"><?php print __("This field is required"); ?></div>
-                    </div>
                 </div>
                 <div class="profile__input-container">
                     <label class="profile__label" for="city"><?php print __("City (optional)"); ?></label>
-                    <input type="text" name="city" id="city" class="profile__input<?php if($form && !isset($form['city']) || (isset($form['city']) && empty(trim($form['city'])) )): ?> profile__input--error<?php endif; ?>" placeholder="<?php print __("City"); ?>" value="<?php print isset($form['city']) ? $form['city'] : $community_fields['city']; ?>" maxlength="180" />
-                    <div class="form__error-container<?php if($form && !isset($form['last_name']) || (isset($form['city']) && empty(trim($form['city'])) )): ?> form__error-container--visible<?php endif; ?>">
-                        <div class="form__error"><?php print __("This field is required"); ?></div>
-                    </div>
+                    <input type="text" name="city" id="city" class="profile__input" placeholder="<?php print __("City"); ?>" value="<?php print isset($form['city']) ? $form['city'] : $community_fields['city']; ?>" maxlength="180" />
                 </div>
                 <div class="profile__select-container">
                     <label class="profile__label" for=""><?php print __("Can be viewed by"); ?></label>

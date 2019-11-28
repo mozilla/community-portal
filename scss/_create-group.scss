@@ -575,6 +575,12 @@
             max-width: none;
         }
 
+        &.create-group__image-upload--reset {
+            background-size: 75px 75px;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-image: url('/wp-content/themes/community-portal/images/upload-image.svg');
+        }
 
         .create-group__upload-image-svg {
             position: absolute;
