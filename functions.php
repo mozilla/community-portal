@@ -42,6 +42,10 @@ add_filter('em_location_get_countries', 'mozilla_add_online_to_countries', 10, 1
 add_filter('em_booking_save_pre','mozilla_approve_booking', 100, 2);
 add_filter('em_event_submission_login', "mozilla_update_events_copy", 10, 1);
 add_filter('wp_redirect', 'mozilla_events_redirect');
+add_filter('em_event_delete', 'mozilla_delete_events', 10, 2);
+add_filter( 'body_class', 'mozilla_update_body_class');
+add_filter('acf/load_field/name=featured_group', 'acf_load_bp_groups', 10, 1);
+
 
 // Events Action
 add_action('save_post', 'mozilla_save_event', 10, 3);
@@ -1132,9 +1136,7 @@ function mozilla_theme_settings() {
 
             if(isset($_POST['default_open_graph_desc'])) {
                 update_option('default_open_graph_desc', sanitize_text_field($_POST['default_open_graph_desc']));
-            }
-
-            
+            }            
         }
     }
 
@@ -1145,7 +1147,7 @@ function mozilla_theme_settings() {
 }
 
 function mozilla_add_menu_item() {
-  add_menu_page('Mozilla Settings', 'Mozilla Settings', 'manage_options', 'theme-panel', 'mozilla_theme_settings', null, 99);
+    add_menu_page('Mozilla Settings', 'Mozilla Settings', 'manage_options', 'theme-panel', 'mozilla_theme_settings', null, 99);
 }
 
 function mozilla_determine_site_section() {
@@ -1157,7 +1159,6 @@ function mozilla_determine_site_section() {
     }
 
     return false;
-
 }
 
 function mozilla_events_redirect($location) {
@@ -1175,37 +1176,33 @@ function mozilla_is_site_admin(){
 }
 
 function mozilla_delete_events($id, $post) {
-  $post_id = $post->post_id;
-  wp_delete_post($post_id);
-  return $post;
+    $post_id = $post->post_id;
+    wp_delete_post($post_id);
+    return $post;
 }
-
-add_filter('em_event_delete', 'mozilla_delete_events', 10, 2);
 
 function mozilla_update_body_class( $classes ) {
-  $classes[] = "body";
-  return $classes; 
+    $classes[] = "body";
+    return $classes; 
 }
-
-add_filter( 'body_class', 'mozilla_update_body_class');
-
 
 function acf_load_bp_groups( $field ) {
-  $allGroups = groups_get_groups(array());
-  foreach ($allGroups['groups'] as $group):
-    $groups[] = $group->name.'_'.$group->id;
-  endforeach; 
-  // Populate choices
-  foreach( $groups as $group ) {
-    $groupvalues = explode('_', $group);
-    $field['choices'][ $groupvalues[1] ] = $groupvalues[0];
-  }
-  
-  // Return choices
-  return $field;
+    $allGroups = groups_get_groups(array());
+
+    foreach ($allGroups['groups'] as $group):
+        $groups[] = $group->name.'_'.$group->id;
+    endforeach; 
+
+    // Populate choices
+    foreach( $groups as $group ) {
+        $groupvalues = explode('_', $group);
+        $field['choices'][ $groupvalues[1] ] = $groupvalues[0];
+    }
+
+    // Return choices
+    return $field;
 }
-// Populate select field using filter
-add_filter('acf/load_field/name=featured_group', 'acf_load_bp_groups', 10, 1);
+
 
 function mozilla_add_online_to_countries($countries) {
     $countries = array('OE' => 'Online Event') + $countries;
