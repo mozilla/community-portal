@@ -22,13 +22,6 @@ add_action('wp_ajax_nopriv_validate_group', 'mozilla_validate_group_name');
 add_action('wp_ajax_validate_group', 'mozilla_validate_group_name');
 add_action('wp_ajax_check_user', 'mozilla_validate_username');
 
-// Gutenberg Setup 
-function pg_blocks() {
-  wp_enqueue_script('blocks-scripts', get_template_directory_uri() . '/js/gutenberg.js', array('wp-blocks', 'wp-dom-ready', 'wp-edit-post', 'wp-element', 'wp-editor', 'wp-i18n', 'jquery'), false, true);
- }
- add_action('enqueue_block_editor_assets', 'pg_blocks', 10, 1);
-
-
 // Buddypress Actions
 add_action('bp_before_create_group_page', 'mozilla_create_group', 10, 1);
 add_action('bp_before_edit_group_page', 'mozilla_edit_group', 10, 1);
@@ -49,9 +42,6 @@ add_filter('em_location_get_countries', 'mozilla_add_online_to_countries', 10, 1
 add_filter('em_booking_save_pre','mozilla_approve_booking', 100, 2);
 add_filter('em_event_submission_login', "mozilla_update_events_copy", 10, 1);
 add_filter('wp_redirect', 'mozilla_events_redirect');
-
-
-//add_filter('nav_menu_css_class', 'mozilla_add_active_page' , 10 , 2);
 
 // Events Action
 add_action('save_post', 'mozilla_save_event', 10, 3);
