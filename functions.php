@@ -1225,7 +1225,8 @@ function mozilla_delete_user() {
                     'first_name'        =>  'Anonymous',
                     'last_name'         =>  'Anonymous',
                     'user_url'          =>  '',
-                    'user_nicename'     =>  "Anonymous{$rand}"
+                    'user_nicename'     =>  "Anonymous{$rand}",
+                    'user_login'       =>  "Anonymous{$rand}"
                 );
     
                 update_user_meta($user->ID, 'nickname', 'Anonymous');
