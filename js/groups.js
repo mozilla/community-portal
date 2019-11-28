@@ -1,20 +1,20 @@
 jQuery(function(){
-  Dropzone.autoDiscover = false;
-    
-  jQuery("#group-photo-uploader").dropzone({
-      url: '/wp-admin/admin-ajax.php?action=upload_group_image',
-      acceptedFiles: 'image/*',
-      maxFiles: null,
-      createImageThumbnails: false,
-      addRemoveLinks: false,
-      init: function() {
-          this.on("sending", function(file, xhr, formData){
-              var nonce = jQuery('#my_nonce_field').val();
-              formData.append('my_nonce_field', nonce);
-              formData.append('group_image', 'true');
-          });
-      },
-      success: function (file, response) {
+    Dropzone.autoDiscover = false;
+
+    jQuery("#group-photo-uploader").dropzone({
+        url: '/wp-admin/admin-ajax.php?action=upload_group_image',
+        acceptedFiles: 'image/*',
+        maxFiles: null,
+        createImageThumbnails: false,
+        addRemoveLinks: false,
+        init: function() {
+            this.on("sending", function(file, xhr, formData){
+                var nonce = jQuery('#my_nonce_field').val();
+                formData.append('my_nonce_field', nonce);
+                formData.append('group_image', 'true');
+            });
+        },
+        success: function (file, response) {
             file.previewElement.classList.add("dz-success");
             file['attachment_id'] = response; // push the id for future reference
         
@@ -31,7 +31,7 @@ jQuery(function(){
                 jQuery('#image-url').val(response);
                 jQuery('.create-group__image-upload').css('background-image', 'url(' +  response + ')');
                 jQuery('.create-group__image-upload').css('background-size', 'cover');
-    
+
                 jQuery('.create-group__image-upload').removeClass('create-group__image-upload--uploading');
                 jQuery('.create-group__image-upload').addClass('create-group__image-upload--done');
                 jQuery('.create-group__image-instructions').addClass('create-group__image-instructions--hide');
@@ -45,23 +45,20 @@ jQuery(function(){
                 jQuery('.dz-remove').addClass('dz-remove--hide');
                 jQuery('.create-group__image-instructions--hide').removeClass('create-group__image-instructions--hide');
                 jQuery('.form__error--image').parent().addClass('form__error-container--visible');
-            }
+            } 
+        },
+        error: function (file, response) {
+            file.previewElement.classList.add("dz-error");
+        },
+        sending: function(file, xhr, formData) {
+            
+            jQuery('.create-group__image-upload').removeClass('create-group__image-upload--done');
+            jQuery('.create-group__image-upload').addClass('create-group__image-upload--uploading');
+        },
 
+    });
 
-      
-      },
-      error: function (file, response) {
-          file.previewElement.classList.add("dz-error");
-      },
-      sending: function(file, xhr, formData) {
-          
-          jQuery('.create-group__image-upload').removeClass('create-group__image-upload--done');
-          jQuery('.create-group__image-upload').addClass('create-group__image-upload--uploading');
-      },
-
-  });
-
-  jQuery('.create-group__input, .create-group__textarea, .create-group__select').on('change keyup paste', function(e){
+    jQuery('.create-group__input, .create-group__textarea, .create-group__select').on('change keyup paste', function(e){
     var $this = jQuery(this);
 
     if($this.prop('required')) {
@@ -76,9 +73,9 @@ jQuery(function(){
     }
 
     return false;
-  });
+    });
 
-  jQuery('.create-group__tag').click(function(e) {
+    jQuery('.create-group__tag').click(function(e) {
         e.preventDefault();
         var $this = jQuery(this);
         var tag = $this.data('value');
@@ -96,52 +93,52 @@ jQuery(function(){
     });
 
     jQuery('.dz-remove').click(function(e){
-      e.preventDefault();
-      jQuery('.create-group__image-upload').css('background-image', "url('/wp-content/themes/community-portal/images/upload-image.svg')");
-      jQuery('#image-url').val('');
-      
-      jQuery('.create-group__image-upload').removeClass('create-group__image-upload--done');
-      jQuery('.dz-preview').addClass('dz-hide');
-      jQuery('.create-group__upload-image-svg').removeClass('.create-group__upload-image-svg--hide');
-      jQuery('.create-group__image-instructions').removeClass('create-group__image-instructions--hide');
-      jQuery('.dz-remove').addClass('dz-remove--hide');
-      jQuery('#image-url').val('');
-      return false;
-  });
-
-  jQuery('.create__group-cta').click(function(e){
-    e.preventDefault();
-    console.log("SS");
-    var error = false;
-    jQuery(':input[required]').each(function(index, element){
-        var $ele = jQuery(element);
-        var $errorMsg = $ele.next('.form__error-container');
-
-        if($ele.val() == "" || $ele.val() == "0" || ($ele.is(':checkbox') && $ele.prop("checked") === false)) {
-            error = true;
-
-            if($ele.is(':checkbox')) {
-                var checkboxes = $ele.siblings('.create-group__check');
-                if(checkboxes.length === 1) {
-                    jQuery(checkboxes[0]).addClass('create-group__check--error');
-                }
-            } else {
-                $ele.addClass("create-group__input--error");
-            }
-            $errorMsg.addClass('form__error-container--visible');
-        }
+        e.preventDefault();
+        jQuery('.create-group__image-upload').css('background-image', "url('/wp-content/themes/community-portal/images/upload-image.svg')");
+        jQuery('#image-url').val('');
+        
+        jQuery('.create-group__image-upload').removeClass('create-group__image-upload--done');
+        jQuery('.dz-preview').addClass('dz-hide');
+        jQuery('.create-group__upload-image-svg').removeClass('.create-group__upload-image-svg--hide');
+        jQuery('.create-group__image-instructions').removeClass('create-group__image-instructions--hide');
+        jQuery('.dz-remove').addClass('dz-remove--hide');
+        jQuery('#image-url').val('');
+        return false;
     });
 
-    if(error || jQuery('.create-group__input--error').length > 0) {
-        jQuery('#create-group-form').find('.create-group__input--error:first').focus();
-        return false;
-    } else {
-        jQuery(this).submit();
-        return true;
-    }  
-  });
+    jQuery('.create__group-cta').click(function(e){
+        e.preventDefault();
+        var error = false;
+
+        jQuery(':input[required]').each(function(index, element){
+            var $ele = jQuery(element);
+            var $errorMsg = $ele.next('.form__error-container');
+
+            if($ele.val() == "" || $ele.val() == "0" || ($ele.is(':checkbox') && $ele.prop("checked") === false)) {
+                error = true;
+
+                if($ele.is(':checkbox')) {
+                    var checkboxes = $ele.siblings('.create-group__check');
+                    if(checkboxes.length === 1) {
+                        jQuery(checkboxes[0]).addClass('create-group__check--error');
+                    }
+                } else {
+                    $ele.addClass("create-group__input--error");
+                }
+                $errorMsg.addClass('form__error-container--visible');
+            }
+        });
+
+        if(error || jQuery('.create-group__input--error').length > 0) {
+            jQuery('#create-group-form').find('.create-group__input--error:first').focus();
+            return false;
+        } else {
+            jQuery('#create-group-form').submit();
+            return true;
+        }  
+    });
   
-  jQuery(document).on('click', '.group__join-cta', function(e) {
+    jQuery(document).on('click', '.group__join-cta', function(e) {
         e.preventDefault();
         var $this = jQuery(this);
         var group = $this.data('group');
