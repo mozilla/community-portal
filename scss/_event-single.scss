@@ -171,6 +171,13 @@
         display: flex;
         align-items: center;
         margin-bottom: 0;
+        flex-wrap: wrap;
+
+        .events-single__name {
+          width: 100%;
+          margin-left: 97px;
+          margin-top: -25px;
+        }
 
       }
     }

@@ -428,7 +428,7 @@
           }
       ?>
       <div class="col-md-6 events-single__member-card">
-        <a href="<?php echo esc_attr(get_site_url().'/members/'.$userObject->user_nicename)?>")>
+        <a href="<?php echo esc_attr('/members/'.$userObject->user_nicename)?>")>
         <div class="events-single__avatar<?php if(!$visibility_settings['image_url_visibility'] || !strlen($community_fields['image_url']) > 0) : ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['image_url_visibility'] && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $img_url; ?>')"<?php endif; ?> data-username="<?php print $community_fields['username']; ?>">
                 </div>
           <div class="events-single__user-details"> 
@@ -438,10 +438,10 @@
               <?php if (strlen($community_fields['first_name']) > 0 || strlen($community_fields['last_name'] > 0)): ?>
                 <p class="events-single__name">
                   <?php 
-                    if (strlen($community_fields['first_name']) > 0 && $visibility_settings['first_name_visibility'] !== false): 
+                    if (isset($meta['first_name_visibility'][0]) && $meta['first_name_visibility'][0] || $logged_in || $is_me): 
                       echo __($community_fields['first_name'].' ');
                     endif; 
-                    if (strlen($community_fields['last_name']) > 0 && $visibility_settings['last_name_visibility'] !== false):
+                    if (isset($user_meta['last_name_visibility'][0]) && $user_meta['last_name_visibility'][0] || $logged_in || $is_me):
                       echo __($community_fields['last_name']);
                   endif; ?>
                 </p>

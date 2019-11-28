@@ -102,9 +102,9 @@
                 </div>
                 <div class="group__nav">
                     <ul class="group__menu">
-                    <li class="menu-item"><a class="group__menu-link<?php if(bp_is_group_home()): ?> group__menu-link--active<?php endif; ?>" href="/groups/<?php print $group->slug; ?>"><?php print __("About us"); ?></a></li>
-                        <li class="menu-item"><a class="group__menu-link<?php if($is_events): ?> group__menu-link--active<?php endif; ?>" href="/groups/<?php print $group->slug; ?>/events/"><?php print __("Our Events"); ?></a></li>
-                    <li class="menu-item"><a class="group__menu-link<?php if(bp_is_group_members()): ?> group__menu-link--active<?php endif; ?>" href="/groups/<?php print $group->slug; ?>/members"><?php print __("Our Members"); ?></a></li>
+                        <li class="menu-item"><a class="group__menu-link<?php if(bp_is_group_home() && !$is_events && !$is_people): ?> group__menu-link--active<?php endif; ?>" href="/groups/<?php print $group->slug; ?>"><?php print __("About us"); ?></a></li>
+                        <li class="menu-item"><a class="group__menu-link<?php if($is_events): ?> group__menu-link--active<?php endif; ?>" href="/groups/<?php print $group->slug; ?>?view=events"><?php print __("Our Events"); ?></a></li>
+                        <li class="menu-item"><a class="group__menu-link<?php if($is_people): ?> group__menu-link--active<?php endif; ?>" href="/groups/<?php print $group->slug; ?>/?view=people"><?php print __("Our Members"); ?></a></li>
                     </ul>
                 </div>
                 <div class="group__nav group__nav--mobile">
@@ -116,14 +116,14 @@
                             </g>
                         </svg>
                         <select class="group__nav-select">
-                            <option value="/groups/<?php print $group->slug; ?>"<?php if(bp_is_group_home()): ?> selected<?php endif; ?>><?php print __("About us"); ?></option>
-                            <option value="/groups/<?php print $group->slug; ?>/events/"<?php if($is_events): ?> selected<?php endif; ?>><?php print __("Our Events"); ?></option>
-                            <option value="/groups/<?php print $group->slug; ?>"<?php if(bp_is_group_members()): ?> selected<?php endif; ?>><?php print __("Our Members"); ?></option>
+                            <option value="/groups/<?php print $group->slug; ?>"<?php if(bp_is_group_home() && !$is_events && !$is_people): ?> selected<?php endif; ?>><?php print __("About us"); ?></option>
+                            <option value="/groups/<?php print $group->slug; ?>?view=events"<?php if($is_events): ?> selected<?php endif; ?>><?php print __("Our Events"); ?></option>
+                            <option value="/groups/<?php print $group->slug; ?>?view=people"<?php if($is_people): ?> selected<?php endif; ?>><?php print __("Our Members"); ?></option>
                         </select>
                     </div>
                 </div>
                 <section class="group__info">
-                    <?php if(bp_is_group_members()): ?>
+                    <?php if($is_people): ?>
                     <div class="group__members-container">
                         <h2 class="group__card-title"><?php print __("Group Contacts")." ({$admin_count})"; ?></h2>
                         <div class="group__members">
@@ -173,12 +173,11 @@
                                 <div class="members__member-info">
                                     <div class="members__username"><?php print $a->user_nicename; ?></div>
                                     <div class="members__name">
-                                        <?php 
-                                           
-                                            if($visibility_settings['first_name_visibility']) {
+                                        <?php
+                                            if(isset($meta['first_name_visibility'][0]) && $meta['first_name_visibility'][0] || $logged_in || $is_me) {
                                                 print $meta['first_name'][0];
                                             }
-                                            if($visibility_settings['last_name_visibility'] && $meta['last_name'][0]) {
+                                            if(isset($meta['last_name_visibility'][0]) && $meta['last_name_visibility'][0] || $logged_in || $is_me) {
                                                 print " {$meta['last_name'][0]}";
                                             }
                                         ?>
@@ -558,7 +557,7 @@
                                     Events this month
                                 </div>
                                 <div class="group__member-count-container">
-                                    <a href="/groups/<?php print $group->slug?>/members" class="group__member-count"><?php print $member_count; ?></a>
+                                    <a href="/groups/<?php print $group->slug?>?view=people" class="group__member-count"><?php print $member_count; ?></a>
                                     Members
                                 </div>
                             </div>
@@ -636,7 +635,7 @@
                                         );
                       
                                         $is_me = $logged_in && intval($user->ID) === intval($admin->user_id);
-        
+                                        
                                         $community_fields = isset($meta['community-meta-fields'][0]) ? unserialize($meta['community-meta-fields'][0]) : Array();
                                         $community_fields['first_name'] = isset($meta['first_name'][0]) ? $meta['first_name'][0] : '';
                                         $community_fields['last_name'] = isset($meta['last_name'][0]) ? $meta['last_name'][0] : '';
@@ -668,8 +667,8 @@
                                         <div class="username">
                                             <div><?php print "@{$u->user_nicename}"; ?></div>
                                             <div class="group__admin-name">
-                                                <?php if($visibility_settings['first_name_visibility']): print $community_fields['first_name'];?><?php endif; ?>
-                                                <?php if($visibility_settings['last_name_visibility']): print $community_fields['last_name']?><?php endif; ?>
+                                                <?php if(isset($meta['first_name_visibility'][0]) && $meta['first_name_visibility'][0] || $logged_in || $is_me): print $community_fields['first_name'];?><?php endif; ?>
+                                                <?php if(isset($meta['last_name_visibility'][0]) && $meta['last_name_visibility'][0] || $is_me): print $community_fields['last_name']?><?php endif; ?>
                                             </div>
                                         </div>
                               

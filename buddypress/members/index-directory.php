@@ -87,6 +87,7 @@
                 $community_fields['first_name'] = isset($meta['first_name'][0]) ? $meta['first_name'][0] : '';
                 $community_fields['last_name'] = isset($meta['last_name'][0]) ? $meta['last_name'][0] : '';
 
+        
                 $visibility_settings = Array();
 
                 $fields = Array(
@@ -115,7 +116,6 @@
                     $avatar_url = $community_fields['image_url'];
                 }
                 
-
             ?>
             <a href="/members/<?php print $member->data->user_nicename; ?>" class="members__member-card">
                 <div class="members__avatar<?php if($visibility_settings['profile_image_url_visibility'] === false || !isset($community_fields['image_url']) || strlen($community_fields['image_url']) === 0): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $avatar_url; ?>')"<?php endif; ?> data-username="<?php print $member->data->user_nicename; ?>">
@@ -124,10 +124,10 @@
                     <div class="members__username"><?php print $member->data->user_nicename; ?></div>
                     <div class="members__name">
                         <?php 
-                            if($visibility_settings['first_name_visibility'] || $logged_in) {
+                            if(isset($meta['first_name_visibility'][0]) && $meta['first_name_visibility'][0] || $logged_in || $is_me) {
                                 print $meta['first_name'][0];
                             }
-                            if($visibility_settings['last_name_visibility']) {
+                            if(isset($meta['last_name_visibility'][0]) && $meta['last_name_visibility'][0] || $is_me) {
                                 print " {$meta['last_name'][0]}";
                             }
                         ?>

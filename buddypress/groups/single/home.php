@@ -268,12 +268,16 @@
     if($edit_group) {
         include("{$template_dir}/buddypress/groups/single/edit.php");
     } else {
-        $url = $_SERVER['REQUEST_URI'];
-        $url_parts = array_filter(explode('/', $url));
-
-        if(sizeof($url_parts) === 3) {
-            if(strtolower($url_parts[3]) === 'events')  {
+        $is_events = false;
+        $is_people = false;
+        
+        if(isset($_GET['view'])) {
+            if($_GET['view'] === 'events') {
                 $is_events = true;
+            }
+            
+            if($_GET['view'] === 'people') {
+                $is_people = true;
             }
         } else {
             $is_events = false;
