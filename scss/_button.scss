@@ -1,44 +1,50 @@
 .btn {
-  -webkit-appearance: none;
-  border: none;
-  background: none;
-  display: inline-block;
-  &:hover {
-    cursor: pointer;
-  }
-  &--large {
-    width: 100%;
-    padding: 10px 0;
-    line-height: 22px;
-    font-weight: lighter;
-  }
-  &--light {
-    border: 1px solid $color-blue-50;
-    color: $color-blue-50;
-    border-radius: 28px;
-  }
-  &--dark {
-    border: 1px solid $color-blue-50;
-    background: $color-blue-50;
-    color: white;
-  }
-  &--submit {
-    padding: 15px 35px;
-    border-radius: 28px;
-  }
-  &--small {
-    padding: 10px 32px;
-    border-radius: 28px;
-    width: 100%;
-    text-align: center;
-    @include tablet-and-up {
-      width: auto;
+    -webkit-appearance: none;
+    border: none;
+    background: none;
+    display: inline-block;
+    &:hover {
+        cursor: pointer;
     }
-    @include desktop-and-up {
-      padding: 15px 48px;
+
+    &--large {
+        width: 100%;
+        padding: 10px 0;
+        line-height: 22px;
+        font-weight: lighter;
     }
-  }
-  &--share {
-    padding: 9px 24px;
-  }
+
+    &--light {
+        border: 1px solid $color-blue-50;
+        color: $color-blue-50;
+        border-radius: 28px;
+    }
+
+    &--dark {
+        border: 1px solid $color-blue-50;
+        background: $color-blue-50;
+        color: white;
+    }
+
+    &--submit {
+        padding: 15px 35px;
+        border-radius: 28px;
+    }
+
+    &--small {
+        padding: 10px 32px;
+        border-radius: 28px;
+        width: 100%;
+        text-align: center;
+        @include tablet-and-up {
+            width: auto;
+        }
+        @include desktop-and-up {
+            padding: 15px 48px;
+        }
+    }
+
+    &--share {
+        padding: 9px 24px;
+    }
 }

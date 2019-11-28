@@ -1,55 +1,66 @@
 .share-lightbox {
-  text-align: center;
+    text-align: center;
 }
+
 .share-link-container {
-  padding: 0;
+    padding: 0;
 }
+
 .share-link {
-  padding: 0;
-  list-style-type: none;
-  position: relative;
-  &__copy::before,
-  &__facebook::before,
-  &__twitter::before,
-  &__discourse::before,
-  &__telegram::before {
-    position: absolute;
-    left: 12px;
-    top: calc(50% - 12px);
-    @include tablet-and-up {
-      left: 45px;
-    }
-  }
-  &__copy::before {
-    content: url('./images/copy.svg');
-  }
-  &__facebook::before {
-    content: url('./images/facebook.svg');
-  }
-  &__twitter::before {
-    content: url('./images/twitter.svg');
-  }
-  &__discourse::before {
-    content: url('./images/discourse.svg')
-  }
-  &__telegram::before {
-    content: url('./images/telegram.svg');
-  }
-  .btn {
-    border: 2px solid #000;
-    display: inline-block;
+    padding: 0;
+    list-style-type: none;
     position: relative;
-    min-width: 200px;
-    color: #000;
-    margin-bottom: 16px;
-    padding: 15px 0 15px 45px;
-    font-size: remCalc(14);
-    text-align: left;
-    text-decoration: none;
-    @include tablet-and-up {
-      font-size: remCalc(16);
-      min-width: 256px;
-      padding: 15px 0 15px 82px;
+
+    &__copy::before,
+    &__facebook::before,
+    &__twitter::before,
+    &__discourse::before,
+    &__telegram::before {
+        position: absolute;
+        left: 12px;
+        top: calc(50% - 12px);
+
+        @include tablet-and-up {
+            left: 45px;
+        }
     }
-  }
+
+    &__copy::before {
+        content: url('./images/copy.svg');
+    }
+
+    &__facebook::before {
+        content: url('./images/facebook.svg');
+    }
+
+    &__twitter::before {
+        content: url('./images/twitter.svg');
+    }
+
+    &__discourse::before {
+        content: url('./images/discourse.svg')
+    }
+
+    &__telegram::before {
+        content: url('./images/telegram.svg');
+    }
+
+    .btn {
+        border: 2px solid #000;
+        display: inline-block;
+        position: relative;
+        min-width: 200px;
+        color: #000;
+        margin-bottom: 16px;
+        padding: 15px 0 15px 45px;
+        font-size: remCalc(14);
+        text-align: left;
+        text-decoration: none;
+        
+        @include tablet-and-up {
+            font-size: remCalc(16);
+            min-width: 256px;
+            padding: 15px 0 15px 82px;
+        }
+    }
 }
