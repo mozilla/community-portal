@@ -227,13 +227,14 @@
         <?php endif; ?>
         <?php 
             $event_user = new EM_Person($user->ID);
+
             $events = $event_user->get_bookings();
             $events_attended_count = 0;
         ?>
         <?php if($visibility_settings['profile_events_attended_visibility'] && sizeof($events->bookings) > 0): ?>
         <h2 class="profile__heading"><?php print __("Recent Events"); ?></h2>
         <div class="profile__card">
-            <?php foreach($events AS $event_booking): ?>
+            <?php foreach($events->bookings AS $event_booking): ?>
             <?php
                 $event = em_get_event($event_booking->event_id);
                 $event_time = strtotime($event->start_date);
@@ -241,7 +242,7 @@
 
                 $location = em_get_location($event->location_id);
             ?>
-           <a class="profile__event" href="/events/<?php print $event->slug; ?>">
+            <a class="profile__event" href="/events/<?php print $event->slug; ?>">
                 <div class="profile__event-date">
                       <?php print $event_date; ?>
                 </div>
@@ -266,11 +267,12 @@
                         <?php endif; ?>
                     </div>
                 </div>
-                    </a>
+            </a>
             <?php 
                 $events_attended_count++;
+                
             ?>
-            <?php if(is_array($events) && $events_attended_count < sizeof($events)): ?>
+            <?php if($events_attended_count < sizeof($events->bookings)): ?>
                 <hr class="profile__group-line" />
             <?php endif; ?>
             <?php endforeach; ?>
