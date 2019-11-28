@@ -217,91 +217,67 @@ jQuery(function(){
 
     });
 
-    
+    jQuery("#group-name").change(function(e) {
+        var $this = jQuery(this);
+        var name = $this.val();
 
-//   Revisit this logic down
-//   jQuery('input[name="group_type"]').change(function(e){
-//     var $this = $(this);
+        var $errorContainer = $this.next(".form__error-container");
 
-//     var countryLabel = $('label[for="group-country"]').text();
-//     var cityLabel = $('label[for="group-city"]').text();
+        var get = { q: name };
+        get["gid"] = jQuery("#current-group").length > 0 ? jQuery("#current-group").val() : false;
 
-//     if($this.val() == 'Offline') {
-//         jQuery('select[name="group_country"]').prop('required', true);
-//         jQuery('label[for="group-country"]').text(countryLabel.replace('*', ''));
-//         jQuery('input[name="group_city"]').prop('required', true);
-//         jQuery('label[for="group-city"]').text(cityLabel.replace('*', ''));
-//     } else {
-//         jQuery('select[name="group_country"]').prop('required', false);
-//         jQuery('label[for="group-country"]').text(countryLabel.concat(' *'));
-//         jQuery('input[name="group_city"]').prop('required', false);
-//         jQuery('label[for="group-city"]').text(cityLabel.concat(' *'));
-//     }
-// });
+        jQuery.get("/wp-admin/admin-ajax.php?action=validate_group", get, function(response) {
+            var resp = jQuery.parseJSON(response);
 
-  jQuery("#group-name").change(function(e) {
-    var $this = jQuery(this);
-    var name = $this.val();
-
-    var $errorContainer = $this.next(".form__error-container");
-
-    var get = { q: name };
-    get["gid"] = jQuery("#current-group").length > 0 ? jQuery("#current-group").val() : false;
-
-    jQuery.get("/wp-admin/admin-ajax.php?action=validate_group", get, function(response) {
-      var resp = jQuery.parseJSON(response);
-
-      // Show error
-      if (resp !== true) {
-        $this.addClass("create-group__input--error");
-        $errorContainer.addClass("form__error-container--visible");
-        $errorContainer.children(".form__error").text("This group name is already taken");
-      } else {
-        $this.removeClass("create-group__input--error");
-        $errorContainer.removeClass("form__error-container--visible");
-        $errorContainer.children(".form__error").text("This field is required");
-      }
-    });
-  });
-
-
-
-  jQuery('#group-admin').autoComplete({
-    source: function(term, suggest) {
-        jQuery.getJSON('/wp-admin/admin-ajax.php?action=get_users', { q: term }, function(data){
-            var users = [];
-
-            for(var x = 0; x < data.length; x++) {
-                users.push(data[x].data.ID+ ":" + data[x].data.user_nicename );
+            // Show error
+            if (resp !== true) {
+            $this.addClass("create-group__input--error");
+            $errorContainer.addClass("form__error-container--visible");
+            $errorContainer.children(".form__error").text("This group name is already taken");
+            } else {
+            $this.removeClass("create-group__input--error");
+            $errorContainer.removeClass("form__error-container--visible");
+            $errorContainer.children(".form__error").text("This field is required");
             }
-            
-            suggest(users);
-
         });
-    },
-    renderItem: function(item, search) {
-        search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-        var data = item.split(':');
-        var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
-        if(data.length === 2) {
-            return '<div class="autocomplete-suggestion" data-val="' + data[1] + '" data-id="' + data[0] + '">' + data[1].replace(re, "<b>$1</b>") + '</div>';    
-        } else {
-            return '<div class="autocomplete-suggestion" data-val="' + item + '">' + item.replace(re, "<b>$1</b>") + '</div>';
-        }
-    },
-    onSelect: function(e, term, item) {
-        e.preventDefault();
-        jQuery('#group-admin-id').val(item.data('id'));
+    });
 
-    }
-  });
+    jQuery('#group-admin').autoComplete({
+        source: function(term, suggest) {
+            jQuery.getJSON('/wp-admin/admin-ajax.php?action=get_users', { q: term }, function(data){
+                var users = [];
+
+                for(var x = 0; x < data.length; x++) {
+                    users.push(data[x].data.ID+ ":" + data[x].data.user_nicename );
+                }
+                
+                suggest(users);
+
+            });
+        },
+        renderItem: function(item, search) {
+            search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+            var data = item.split(':');
+            var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
+            if(data.length === 2) {
+                return '<div class="autocomplete-suggestion" data-val="' + data[1] + '" data-id="' + data[0] + '">' + data[1].replace(re, "<b>$1</b>") + '</div>';    
+            } else {
+                return '<div class="autocomplete-suggestion" data-val="' + item + '">' + item.replace(re, "<b>$1</b>") + '</div>';
+            }
+        },
+        onSelect: function(e, term, item) {
+            e.preventDefault();
+            jQuery('#group-admin-id').val(item.data('id'));
+
+        }
+    });
 
 
     jQuery('.group__nav-select').change(function(e) {
-      var $this = jQuery(this);
-      var value = $this.val();
+        var $this = jQuery(this);
+        var value = $this.val();
 
-      window.location = value;
+        window.location = value;
 
     });
 
