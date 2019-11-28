@@ -75,10 +75,10 @@
             <div class="profile__name-container">
                 <h3 class="profile__user-title"><?php print $user->user_nicename; ?></h3>
                 <span class="profile__user-name">
-                    <?php if($visibility_settings['first_name_visibility'] || $is_me): ?>
+                    <?php if(isset($meta['first_name_visibility'][0]) && $meta['first_name_visibility'][0] || $logged_in || $is_me): ?>
                     <?php print "{$community_fields['first_name']}"; ?>
                     <?php endif; ?>
-                    <?php if($visibility_settings['last_name_visibility']): ?>
+                    <?php if(isset($meta['last_name_visibility'][0]) && $meta['last_name_visibility'][0] || $logged_in || $is_me): ?>
                     <?php print "{$community_fields['last_name']}"; ?>
                     <?php endif; ?>
                 </span>

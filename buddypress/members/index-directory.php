@@ -87,9 +87,7 @@
                 $community_fields['first_name'] = isset($meta['first_name'][0]) ? $meta['first_name'][0] : '';
                 $community_fields['last_name'] = isset($meta['last_name'][0]) ? $meta['last_name'][0] : '';
 
-                // print "<pre>";
-                // print_r($community_fields);
-                // print "</pre>";
+        
                 $visibility_settings = Array();
 
                 $fields = Array(
@@ -112,8 +110,6 @@
                     $visibility_settings[$field_visibility_name] = $visibility;
                 }
 
-                $user_meta = get_user_meta($member->data->ID);
-
                 if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
                     $avatar_url = preg_replace("/^http:/i", "https:", $community_fields['image_url']);
                 } else {
@@ -128,10 +124,10 @@
                     <div class="members__username"><?php print $member->data->user_nicename; ?></div>
                     <div class="members__name">
                         <?php 
-                            if(isset($user_meta['first_name_visibility'][0]) && $user_meta['first_name_visibility'][0] || $logged_in || $is_me) {
+                            if(isset($meta['first_name_visibility'][0]) && $meta['first_name_visibility'][0] || $logged_in || $is_me) {
                                 print $meta['first_name'][0];
                             }
-                            if(isset($user['last_name_visibility'][0]) && $user['last_name_visibility'][0] || $is_me) {
+                            if(isset($meta['last_name_visibility'][0]) && $meta['last_name_visibility'][0] || $is_me) {
                                 print " {$meta['last_name'][0]}";
                             }
                         ?>
