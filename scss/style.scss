@@ -33,38 +33,38 @@
 
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 html {
-  font-family: "Open Sans", sans-serif;
-  height: 100%;
+    font-family: "Open Sans", sans-serif;
+    height: 100%;
 }
 
 body.noscroll {
-  overflow: hidden;
+    overflow: hidden;
 }
 
 @supports (font-variation-settings: normal) {
-  html {
-    font-family: "Open Sans", sans-serif;
-  }
+    html {
+        font-family: "Open Sans", sans-serif;
+    }
 }
 
 .content {
-  width: 100%;
-  min-height: calc(100vh - 387px - 122px - 96px);
-  position: relative;
+    width: 100%;
+    min-height: calc(100vh - 387px - 122px - 96px);
+    position: relative;
 }
 
 .body {
-  background-color: $color-gray-20;
-  width: 100%;
-  height: 100%;
-  &.body--fixed {
-    position: fixed;
-    @include desktop-and-up {
-      position: static;
+    background-color: $color-gray-20;
+    width: 100%;
+    height: 100%;
+    &.body--fixed {
+        position: fixed;
+        @include desktop-and-up {
+            position: static;
+        }
     }
-  }
 }
