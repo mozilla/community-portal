@@ -6,6 +6,7 @@
     $page = isset($_GET['page']) ? intval($_GET['page']) : 0;
 
     $offset = ($page - 1) * $members_per_page;
+    
     if($offset < 0)
         $offset = 0;
 
@@ -18,6 +19,7 @@
     }
 
     $wp_user_query = new WP_User_Query($args);
+    $members = Array();
     $members = $wp_user_query->get_results();
     
     if($logged_in && $search_user) {
@@ -40,6 +42,12 @@
 
     $total_members = array_merge($members, $first_name_members);
     $filtered_members = array_unique($total_members, SORT_REGULAR);
+
+    
+    if($offset >= sizeof($filtered_members)) {
+        $offset = sizeof($filtered_members) - $members_per_page;
+    }
+
     $members = array_slice($filtered_members, $offset, $members_per_page);
 
     $total_pages = ceil(sizeof($filtered_members) / $members_per_page);
@@ -94,8 +102,8 @@
                     $field_visibility_name = "{$field}_visibility";
                     if($field == 'image_url') {
                         $field_visibility_name = 'profile_image_url_visibility';
-               
                     }
+
                     $visibility = mozilla_determine_field_visibility($field, $field_visibility_name, $community_fields, $is_me, $logged_in);
                     $field_visibility_name = ($field === 'country') ? 'profile_location_visibility' : $field_visibility_name;
                     $visibility_settings[$field_visibility_name] = $visibility;
@@ -166,6 +174,17 @@
                         $page_max = $total_pages;
                     }
 
+                    if($page_min < 0) {
+                        $page_min = 1;
+                    }
+
+                    if($page < 1) {
+                        $page = 1;
+                    }
+
+                    if($page > $page_max) {
+                        $page = intval($page_max);
+                    }
                 }
             
             ?>
