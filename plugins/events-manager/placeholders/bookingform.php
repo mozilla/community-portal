@@ -26,8 +26,8 @@
     ?>
     
     <?php  if(is_object($EM_Booking)): ?>
-    <a class="em-bookings-cancel events-single__cancel btn btn--submit btn--dark" href="<?php echo esc_attr(add_query_arg(array('cancel' => true), $_SERVER['REQUEST_URI']))?>" onclick="if( !confirm(EM.booking_warning_cancel) ){ return false; }">
-        <?php echo __('Cancel') ?>
+    <a class="em-bookings-cancel events-single__cancel btn btn--submit btn--dark" href="<?php echo esc_attr(add_query_arg(array('cancel' => true), $_SERVER['REQUEST_URI']))?>" onclick="if( !confirm('Are you sure you don\'t want to attend the event?') ){ return false; }">
+        <?php echo __('Will Not Attend') ?>
     </a>
     <?php else: ?>
     <form 
