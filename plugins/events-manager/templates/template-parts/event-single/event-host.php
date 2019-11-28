@@ -51,6 +51,18 @@
                   <div class="events-single__avatar<?php if(!$visibility_settings['profile_image_url_visibility'] || !strlen($community_fields['image_url']) > 0) : ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $avatar_url; ?>')"<?php endif; ?> data-username="<?php print $community_fields['username']; ?>">
                   </div>
                   <p class="events-single__username"><?php echo __($user->user_nicename) ?></p>
+                  <?php if (strlen($community_fields['first_name']) > 0 || strlen($community_fields['last_name'] > 0)): ?>
+                <div class="events-single__name">
+                  <?php 
+                    if (isset($meta['first_name_visibility'][0]) && $meta['first_name_visibility'][0] || $logged_in || $is_me): 
+                      echo __($community_fields['first_name'].' ');
+                    endif; 
+                    if (isset($meta['last_name_visibility'][0]) && $meta['last_name_visibility'][0] || $logged_in || $is_me):
+                      echo __($community_fields['last_name']);
+                  endif; ?>
+                </div>
+              <?php 
+                endif; ?>
                 </a>
               </div>
             <?php
