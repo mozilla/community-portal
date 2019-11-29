@@ -24,7 +24,6 @@ jQuery(function() {
                 '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
                 '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
                 '(\\#[-a-z\\d_]*)?$','i');
-                
             if(pattern.test(response)) {
 
                 jQuery(".dz-preview").remove();
@@ -47,6 +46,7 @@ jQuery(function() {
 
             } else {
                 jQuery(".dz-preview").remove();
+
                 jQuery('.form__error--image').text(response);
                 jQuery('.form__error--image').parent().addClass('form__error-container--visible');
             }
@@ -296,6 +296,7 @@ jQuery(function() {
             $deleteBtn.on("click", function(e) {
                 e.preventDefault();
                 $photoUpload.css("background-image", "").css("background-size", "");
+                $photoUpload.css("background-position", "center");
                 $imageInput.val("");
                 $deleteBtn.hide();
             });
