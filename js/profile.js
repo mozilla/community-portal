@@ -264,7 +264,8 @@ jQuery(function(){
                 jQuery('#profile-photo-uploader').addClass("profile__image-upload--complete");
                 jQuery('.form__error--image').parent().removeClass('form__error-container--visible');
             } else {
-                
+                jQuery('.dz-preview').remove();
+                jQuery('.dz-remove').removeClass('dz-remove--hide');
                 jQuery('.form__error--image').text(response);
                 jQuery('.form__error--image').parent().addClass('form__error-container--visible');
             }
