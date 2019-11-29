@@ -106,7 +106,7 @@ jQuery(function(){
         return false;
     });
 
-    jQuery('.create__group-cta').click(function(e){
+    jQuery('.create-group__cta').click(function(e){
         e.preventDefault();
         var error = false;
 
@@ -133,9 +133,12 @@ jQuery(function(){
             jQuery('#create-group-form').find('.create-group__input--error:first').focus();
             return false;
         } else {
+            
             jQuery('#create-group-form').submit();
             return true;
         }  
+
+        return false;
     });
   
     jQuery(document).on('click', '.group__join-cta', function(e) {
