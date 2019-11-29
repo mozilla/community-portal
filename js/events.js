@@ -295,7 +295,7 @@ jQuery(function() {
         if ($deleteBtn.length) {
             $deleteBtn.on("click", function(e) {
                 e.preventDefault();
-                $photoUpload.css("background-image", "").css("background-size", "");
+                $photoUpload.css("background-image", "").css("background-size", "auto");
                 $photoUpload.css("background-position", "center");
                 $imageInput.val("");
                 $deleteBtn.hide();
