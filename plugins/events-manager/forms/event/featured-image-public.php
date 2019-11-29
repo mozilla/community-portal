@@ -18,6 +18,9 @@
     </button>
       </div>
   </div>
-  <p class="event-creator__image-instructions"><?php print __("Click or drag a .PNG or .JPG above."); ?></p>
+  <p class="event-creator__image-instructions"><?php print __("Click or drag a .PNG or .JPG above. Min dimensions 703px by 400px"); ?></p>
+  <div class="form__error-container">
+      <div class="form__error form__error--image"></div>
+  </div>
   <input type="hidden" name="image_url" id="image-url" value="<?php print ($img_url ? esc_attr($img_url) : ''  )?>" />
 </div>
