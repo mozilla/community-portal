@@ -29,6 +29,12 @@
         $form['group_twitter'] = isset($group_meta['group_twitter']) ? $group_meta['group_twitter'] : '';
         $form['group_other'] = isset($group_meta['group_other']) ? $group_meta['group_other'] : '';
 
+
+        if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
+            $form['image_url'] = preg_replace("/^http:/i", "https:", $form['image_url']);
+        } else {
+            $form['image_url'] = $form['image_url'];
+        }
     }
 
     $form_tags = isset($form['tags']) ? array_unique(array_filter($form['tags'], 'strlen')) : Array();
