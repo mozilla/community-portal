@@ -1,0 +1,41 @@
+.not-found {
+    width: 100%;
+
+    &__container {
+        max-width: 1440px;
+        min-width: 320px;
+        height: 100%;
+        padding: 0 24px;
+        margin: 0 auto;
+        
+        @include tablet-and-up {
+            padding: 0 64px;    
+        }
+
+        @include desktop-and-up {
+            min-height: 600px;
+            padding: 0 106px;
+        }
+    }
+
+    &__title {
+        width: 100%;
+        text-align: left;
+        margin-top: 16px;
+        font-family: 'Zilla Slab';
+        font-size: remCalc(32);
+        line-height: 40px;
+
+        @include tablet-and-up {
+            margin-top: 32px;
+            font-size: remCalc(36);
+            line-height: 43px;
+        }
+
+        @include desktop-and-up {
+            margin-top: 64px;
+            font-size: remCalc(48);
+            line-height: 56px;
+        }
+    }
+}

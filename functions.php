@@ -1156,6 +1156,14 @@ function mozilla_theme_settings() {
             if(isset($_POST['image_max_filesize'])) {
                 update_option('image_max_filesize', sanitize_text_field(intval($_POST['image_max_filesize'])));
             }            
+
+            if(isset($_POST['error_404_title'])) {
+                update_option('error_404_title', sanitize_text_field($_POST['error_404_title']));
+            }   
+
+            if(isset($_POST['error_404_copy'])) {
+                update_option('error_404_copy', sanitize_text_field($_POST['error_404_copy']));
+            }   
         }
     }
 
