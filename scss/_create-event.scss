@@ -181,11 +181,23 @@ div.time-picker ul li {
   &__checkbox {
     display: none;
     & + .event-creator__tag {
-      background: white;
-      border: 1px solid #b1b1bc;
+      background: #fff;
+      border: 1px solid #737373;
+      border-radius: 25px;
+      
+      font-size: 0.875rem;
+      line-height: 24px;
+      color: #20123a;
+      padding: 8px 16px;
+      margin-top: 12px;
+      margin-right: 16px;
+      text-decoration: none;
+      transition: all 0.3s ease-in;
+      letter-spacing: 0.0025em;
       &:hover {
         box-shadow: 0 0 0 4px #e0e0e0;
         border: 1px solid #e0e0e0;
+        cursor: pointer;
       }
     }
     &:checked + .event-creator__tag {
