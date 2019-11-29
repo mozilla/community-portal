@@ -277,7 +277,7 @@ jQuery(function(){
         sending: function(file, xhr, formData) {
         },
         removedfile: function(file) {
-           
+            jQuery('#profile-photo-uploader').css('background-size', 'cover');
             return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;     
         }
     });
