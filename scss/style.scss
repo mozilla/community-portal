@@ -5,32 +5,33 @@
 
 @import "mixins";
 @import "vars";
-@import "forms";
-@import "button";
-@import "markers";
+
 @import "utils/grid";
 @import "utils/type";
 @import "utils/forms";
 
+@import "404";
 @import "base";
+@import "button";
+@import "cards";
 @import "create-event";
 @import "create-group";
 @import "footer";
+@import "forms";
 @import "events";
 @import "event-single";
 @import "gdrp";
 @import "groups";
 @import "group";
+@import "homepage";
+@import "lightbox";
+@import "markers";
 @import "members";
 @import "nav";
 @import "page";
-@import "tags";
 @import "profile";
-@import "cards";
-@import "lightbox";
 @import "share-lightbox";
-@import "homepage";
-
+@import "tags";
 
 * {
     box-sizing: border-box;
@@ -61,6 +62,7 @@ body.noscroll {
     background-color: $color-gray-20;
     width: 100%;
     height: 100%;
+    
     &.body--fixed {
         position: fixed;
         @include desktop-and-up {
