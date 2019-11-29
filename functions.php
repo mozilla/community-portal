@@ -22,13 +22,6 @@ add_action('wp_ajax_nopriv_validate_group', 'mozilla_validate_group_name');
 add_action('wp_ajax_validate_group', 'mozilla_validate_group_name');
 add_action('wp_ajax_check_user', 'mozilla_validate_username');
 
-// Gutenberg Setup 
-function pg_blocks() {
-  wp_enqueue_script('blocks-scripts', get_template_directory_uri() . '/js/gutenberg.js', array('wp-blocks', 'wp-dom-ready', 'wp-edit-post', 'wp-element', 'wp-editor', 'wp-i18n', 'jquery'), false, true);
- }
- add_action('enqueue_block_editor_assets', 'pg_blocks', 10, 1);
-
-
 // Buddypress Actions
 add_action('bp_before_create_group_page', 'mozilla_create_group', 10, 1);
 add_action('bp_before_edit_group_page', 'mozilla_edit_group', 10, 1);
@@ -49,9 +42,10 @@ add_filter('em_location_get_countries', 'mozilla_add_online_to_countries', 10, 1
 add_filter('em_booking_save_pre','mozilla_approve_booking', 100, 2);
 add_filter('em_event_submission_login', "mozilla_update_events_copy", 10, 1);
 add_filter('wp_redirect', 'mozilla_events_redirect');
+add_filter('em_event_delete', 'mozilla_delete_events', 10, 2);
+add_filter( 'body_class', 'mozilla_update_body_class');
+add_filter('acf/load_field/name=featured_group', 'acf_load_bp_groups', 10, 1);
 
-
-//add_filter('nav_menu_css_class', 'mozilla_add_active_page' , 10 , 2);
 
 // Events Action
 add_action('save_post', 'mozilla_save_event', 10, 3);
@@ -558,21 +552,64 @@ function mozilla_create_group() {
 function mozilla_upload_image() {
 
     if(!empty($_FILES) && wp_verify_nonce($_REQUEST['my_nonce_field'], 'protect_content')) {
-        $image = getimagesize($_FILES['file']['tmp_name']);
 
-        if(isset($image[2]) && in_array($image[2], Array(IMAGETYPE_JPEG ,IMAGETYPE_PNG))) {
-            $uploaded_bits = wp_upload_bits($_FILES['file']['name'], null, file_get_contents($_FILES['file']['tmp_name']));
-            
-            if (false !== $uploaded_bits['error']) {
-                
-            } else {
-                $uploaded_file     = $uploaded_bits['file'];
-                $_SESSION['uploaded_file'] = $uploaded_bits['file'];
-                $uploaded_url      = $uploaded_bits['url'];
-                $uploaded_filetype = wp_check_filetype(basename($uploaded_bits['file'] ), null);
+        if(isset($_FILES['file']) && isset($_FILES['file']['tmp_name'])) {
+            $image = getimagesize($_FILES['file']['tmp_name']);
+            $image_file = $_FILES['file']['tmp_name'];
+            $file_size = filesize($image_file);
+    
+            $file_size_kb =  number_format($file_size / 1024, 2);
+            $options = wp_load_alloptions();
+            $max_files_size_allowed = isset($options['image_max_filesize']) && intval($options['image_max_filesize']) > 0 ? intval($options['image_max_filesize']) : 500;
+
+            if($file_size_kb <= $max_files_size_allowed) {
+                if(isset($image[2]) && in_array($image[2], Array(IMAGETYPE_JPEG ,IMAGETYPE_PNG))) {
+                    $uploaded_bits = wp_upload_bits($_FILES['file']['name'], null, file_get_contents($image_file));
+                    
+                    if (false !== $uploaded_bits['error']) {
+                        
+                    } else {
+                        $uploaded_file     = $uploaded_bits['file'];
+                        $_SESSION['uploaded_file'] = $uploaded_bits['file'];
         
-                print $uploaded_url;
+                        $uploaded_url      = $uploaded_bits['url'];
+                        $uploaded_filetype = wp_check_filetype(basename($uploaded_bits['file']), null);
+                        
+                        if(isset($_REQUEST['profile_image']) && $_REQUEST['profile_image'] == 'true') {
+                            // Image size check
+                            if(isset($image[0]) && isset($image[1])) {
+                                if($image[0] >= 175 && $image[1] >= 175) {
+                                    print $uploaded_url;
+                                } else {
+                                    print "Image size is too small";
+                                    unlink($uploaded_bits['file']);
+                                }
+                            } else {
+                                print "Invalid image provided"; 
+                                unlink($uploaded_bits['file']);
+                            }
+                        } elseif(isset($_REQUEST['group_image']) && $_REQUEST['group_image'] == 'true' || isset($_REQUEST['event_image']) && $_REQUEST['event_image'] == 'true') {
+                            if(isset($image[0]) && isset($image[1])) {
+                                if($image[0] >= 703 && $image[1] >= 400) {
+                                    print $uploaded_url;
+                                } else {
+                                    print "Image size is too small";
+                                    unlink($uploaded_bits['file']);
+                                }
+                            } else {
+                                print "Invalid image provided"; 
+                                unlink($uploaded_bits['file']);
+                            }
+                        }  else {
+                            print $uploaded_url;
+                            unlink($uploaded_bits['file']);
+                        }
+                    }
+                }
+            } else {
+                print "Image size to large ({$max_files_size_allowed} KB maximum)";
             }
+            
         }
     }
 	die();
@@ -1114,9 +1151,11 @@ function mozilla_theme_settings() {
 
             if(isset($_POST['default_open_graph_desc'])) {
                 update_option('default_open_graph_desc', sanitize_text_field($_POST['default_open_graph_desc']));
-            }
+            }            
 
-            
+            if(isset($_POST['image_max_filesize'])) {
+                update_option('image_max_filesize', sanitize_text_field(intval($_POST['image_max_filesize'])));
+            }            
         }
     }
 
@@ -1127,7 +1166,7 @@ function mozilla_theme_settings() {
 }
 
 function mozilla_add_menu_item() {
-  add_menu_page('Mozilla Settings', 'Mozilla Settings', 'manage_options', 'theme-panel', 'mozilla_theme_settings', null, 99);
+    add_menu_page('Mozilla Settings', 'Mozilla Settings', 'manage_options', 'theme-panel', 'mozilla_theme_settings', null, 99);
 }
 
 function mozilla_determine_site_section() {
@@ -1139,7 +1178,6 @@ function mozilla_determine_site_section() {
     }
 
     return false;
-
 }
 
 function mozilla_events_redirect($location) {
@@ -1157,37 +1195,33 @@ function mozilla_is_site_admin(){
 }
 
 function mozilla_delete_events($id, $post) {
-  $post_id = $post->post_id;
-  wp_delete_post($post_id);
-  return $post;
+    $post_id = $post->post_id;
+    wp_delete_post($post_id);
+    return $post;
 }
-
-add_filter('em_event_delete', 'mozilla_delete_events', 10, 2);
 
 function mozilla_update_body_class( $classes ) {
-  $classes[] = "body";
-  return $classes; 
+    $classes[] = "body";
+    return $classes; 
 }
-
-add_filter( 'body_class', 'mozilla_update_body_class');
-
 
 function acf_load_bp_groups( $field ) {
-  $allGroups = groups_get_groups(array());
-  foreach ($allGroups['groups'] as $group):
-    $groups[] = $group->name.'_'.$group->id;
-  endforeach; 
-  // Populate choices
-  foreach( $groups as $group ) {
-    $groupvalues = explode('_', $group);
-    $field['choices'][ $groupvalues[1] ] = $groupvalues[0];
-  }
-  
-  // Return choices
-  return $field;
+    $allGroups = groups_get_groups(array());
+
+    foreach ($allGroups['groups'] as $group):
+        $groups[] = $group->name.'_'.$group->id;
+    endforeach; 
+
+    // Populate choices
+    foreach( $groups as $group ) {
+        $groupvalues = explode('_', $group);
+        $field['choices'][ $groupvalues[1] ] = $groupvalues[0];
+    }
+
+    // Return choices
+    return $field;
 }
-// Populate select field using filter
-add_filter('acf/load_field/name=featured_group', 'acf_load_bp_groups', 10, 1);
+
 
 function mozilla_add_online_to_countries($countries) {
     $countries = array('OE' => 'Online Event') + $countries;

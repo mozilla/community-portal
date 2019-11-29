@@ -11,28 +11,45 @@ jQuery(function() {
             this.on("sending", function(file, xhr, formData) {
                 var nonce = jQuery("#my_nonce_field").val();
                 formData.append("my_nonce_field", nonce);
+                formData.append("event_image", "true");
             });
         },
         success: function(file, response) {
             file.previewElement.classList.add("dz-success");
             file["attachment_id"] = response; // push the id for future reference
 
-            jQuery(".dz-preview").remove();
-            jQuery("#image-delete").show();
-            jQuery("#image-url").val(response);
-            jQuery(".event-creator__image-upload")
-                .css("background-image", "url(" + response + ")")
-                .css("background-size", "cover");
+            var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+                '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+                '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+                '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+                '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+                '(\\#[-a-z\\d_]*)?$','i');
+            if(pattern.test(response)) {
 
-            jQuery(".create-group__image-upload").removeClass(
-                "create-group__image-upload--uploading"
-            );
-            jQuery(".create-group__image-upload").addClass(
-                "create-group__image-upload--done"
-            );
-            jQuery(".create-group__image-instructions").addClass(
-                "create-group__image-instructions--hide"
-            );
+                jQuery(".dz-preview").remove();
+                jQuery('.form__error--image').parent().removeClass('form__error-container--visible');
+                jQuery("#image-delete").show();
+                jQuery("#image-url").val(response);
+                jQuery(".event-creator__image-upload")
+                    .css("background-image", "url(" + response + ")")
+                    .css("background-size", "cover");
+
+                jQuery(".create-group__image-upload").removeClass(
+                    "create-group__image-upload--uploading"
+                );
+                jQuery(".create-group__image-upload").addClass(
+                    "create-group__image-upload--done"
+                );
+                jQuery(".create-group__image-instructions").addClass(
+                    "create-group__image-instructions--hide"
+                );
+
+            } else {
+                jQuery(".dz-preview").remove();
+
+                jQuery('.form__error--image').text(response);
+                jQuery('.form__error--image').parent().addClass('form__error-container--visible');
+            }
         },
         error: function(file, response) {
             file.previewElement.classList.add("dz-error");
@@ -278,7 +295,8 @@ jQuery(function() {
         if ($deleteBtn.length) {
             $deleteBtn.on("click", function(e) {
                 e.preventDefault();
-                $photoUpload.css("background-image", "").css("background-size", "");
+                $photoUpload.css("background-image", "").css("background-size", "auto");
+                $photoUpload.css("background-position", "center");
                 $imageInput.val("");
                 $deleteBtn.hide();
             });

@@ -1,44 +1,64 @@
 jQuery(function(){
-  Dropzone.autoDiscover = false;
-    
-  jQuery("#group-photo-uploader").dropzone({
-      url: '/wp-admin/admin-ajax.php?action=upload_group_image',
-      acceptedFiles: 'image/*',
-      maxFiles: null,
-      createImageThumbnails: false,
-      addRemoveLinks: false,
-      init: function() {
-          this.on("sending", function(file, xhr, formData){
-              var nonce = jQuery('#my_nonce_field').val();
-              formData.append('my_nonce_field', nonce);
-          });
-      },
-      success: function (file, response) {
-          file.previewElement.classList.add("dz-success");
-          file['attachment_id'] = response; // push the id for future reference
+    Dropzone.autoDiscover = false;
 
-          jQuery('.dz-preview').remove();
-          jQuery('.dz-remove').removeClass('dz-remove--hide');
-          jQuery('#image-url').val(response);
-          jQuery('.create-group__image-upload').css('background-image', 'url(' +  response + ')');
+    jQuery("#group-photo-uploader").dropzone({
+        url: '/wp-admin/admin-ajax.php?action=upload_group_image',
+        acceptedFiles: 'image/*',
+        maxFiles: null,
+        createImageThumbnails: false,
+        addRemoveLinks: false,
+        init: function() {
+            this.on("sending", function(file, xhr, formData){
+                var nonce = jQuery('#my_nonce_field').val();
+                formData.append('my_nonce_field', nonce);
+                formData.append('group_image', 'true');
+            });
+        },
+        success: function (file, response) {
+            file.previewElement.classList.add("dz-success");
+            file['attachment_id'] = response; // push the id for future reference
+        
+            var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+            '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+            '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+            '(\\#[-a-z\\d_]*)?$','i');
 
-          jQuery('.create-group__image-upload').removeClass('create-group__image-upload--uploading');
-          jQuery('.create-group__image-upload').addClass('create-group__image-upload--done');
-          jQuery('.create-group__image-instructions').addClass('create-group__image-instructions--hide');
-      
-      },
-      error: function (file, response) {
-          file.previewElement.classList.add("dz-error");
-      },
-      sending: function(file, xhr, formData) {
-          
-          jQuery('.create-group__image-upload').removeClass('create-group__image-upload--done');
-          jQuery('.create-group__image-upload').addClass('create-group__image-upload--uploading');
-      },
+            if(pattern.test(response)) {
+                jQuery('.dz-preview').remove();
+                jQuery('.dz-remove').removeClass('dz-remove--hide');
+                jQuery('#image-url').val(response);
+                jQuery('.create-group__image-upload').css('background-image', 'url(' +  response + ')');
+                jQuery('.create-group__image-upload').css('background-size', 'cover');
 
-  });
+                jQuery('.create-group__image-upload').removeClass('create-group__image-upload--uploading');
+                jQuery('.create-group__image-upload').addClass('create-group__image-upload--done');
+                jQuery('.create-group__image-instructions').addClass('create-group__image-instructions--hide');
+                jQuery('.form__error--image').parent().removeClass('form__error-container--visible');
+                
+            } else {
+                jQuery('.create-group__image-upload').css('background-image', "url('/wp-content/themes/community-portal/images/upload-image.svg')");
+                jQuery('#image-url').val('');
+                jQuery('.create-group__image-upload').addClass('create-group__image-upload--reset');
+                jQuery('.form__error--image').text(response);
+                jQuery('.dz-remove').addClass('dz-remove--hide');
+                jQuery('.create-group__image-instructions--hide').removeClass('create-group__image-instructions--hide');
+                jQuery('.form__error--image').parent().addClass('form__error-container--visible');
+            } 
+        },
+        error: function (file, response) {
+            file.previewElement.classList.add("dz-error");
+        },
+        sending: function(file, xhr, formData) {
+            
+            jQuery('.create-group__image-upload').removeClass('create-group__image-upload--done');
+            jQuery('.create-group__image-upload').addClass('create-group__image-upload--uploading');
+        },
 
-  jQuery('.create-group__input, .create-group__textarea, .create-group__select').on('change keyup paste', function(e){
+    });
+
+    jQuery('.create-group__input, .create-group__textarea, .create-group__select').on('change keyup paste', function(e){
     var $this = jQuery(this);
 
     if($this.prop('required')) {
@@ -53,9 +73,9 @@ jQuery(function(){
     }
 
     return false;
-  });
+    });
 
-  jQuery('.create-group__tag').click(function(e) {
+    jQuery('.create-group__tag').click(function(e) {
         e.preventDefault();
         var $this = jQuery(this);
         var tag = $this.data('value');
@@ -73,49 +93,55 @@ jQuery(function(){
     });
 
     jQuery('.dz-remove').click(function(e){
-      e.preventDefault();
-      jQuery('#group-photo-uploader').css('background-image', 'none');
-      jQuery('.create-group__image-upload').removeClass('create-group__image-upload--done');
-      jQuery('.dz-preview').addClass('dz-hide');
-      jQuery('.create-group__upload-image-svg').removeClass('.create-group__upload-image-svg--hide');
-      jQuery('.create-group__image-instructions').removeClass('create-group__image-instructions--hide');
-      jQuery('.dz-remove').addClass('dz-remove--hide');
-      jQuery('#image-url').val('');
-      return false;
-  });
-
-  jQuery('#create-group-form').one('submit', function(e){
-    e.preventDefault();
-    var error = false;
-    jQuery(':input[required]').each(function(index, element){
-        var $ele = jQuery(element);
-        var $errorMsg = $ele.next('.form__error-container');
-
-        if($ele.val() == "" || $ele.val() == "0" || ($ele.is(':checkbox') && $ele.prop("checked") === false)) {
-            error = true;
-
-            if($ele.is(':checkbox')) {
-                var checkboxes = $ele.siblings('.create-group__check');
-                if(checkboxes.length === 1) {
-                    jQuery(checkboxes[0]).addClass('create-group__check--error');
-                }
-            } else {
-                $ele.addClass("create-group__input--error");
-            }
-            $errorMsg.addClass('form__error-container--visible');
-        }
+        e.preventDefault();
+        jQuery('.create-group__image-upload').css('background-image', "url('/wp-content/themes/community-portal/images/upload-image.svg')");
+        jQuery('#image-url').val('');
+        
+        jQuery('.create-group__image-upload').removeClass('create-group__image-upload--done');
+        jQuery('.dz-preview').addClass('dz-hide');
+        jQuery('.create-group__upload-image-svg').removeClass('.create-group__upload-image-svg--hide');
+        jQuery('.create-group__image-instructions').removeClass('create-group__image-instructions--hide');
+        jQuery('.dz-remove').addClass('dz-remove--hide');
+        jQuery('#image-url').val('');
+        return false;
     });
 
-    if(error || jQuery('.create-group__input--error').length > 0) {
-        jQuery('#create-group-form').find('.create-group__input--error:first').focus();
+    jQuery('.create-group__cta').click(function(e){
+        e.preventDefault();
+        var error = false;
+
+        jQuery(':input[required]').each(function(index, element){
+            var $ele = jQuery(element);
+            var $errorMsg = $ele.next('.form__error-container');
+
+            if($ele.val() == "" || $ele.val() == "0" || ($ele.is(':checkbox') && $ele.prop("checked") === false)) {
+                error = true;
+
+                if($ele.is(':checkbox')) {
+                    var checkboxes = $ele.siblings('.create-group__check');
+                    if(checkboxes.length === 1) {
+                        jQuery(checkboxes[0]).addClass('create-group__check--error');
+                    }
+                } else {
+                    $ele.addClass("create-group__input--error");
+                }
+                $errorMsg.addClass('form__error-container--visible');
+            }
+        });
+
+        if(error || jQuery('.create-group__input--error').length > 0) {
+            jQuery('#create-group-form').find('.create-group__input--error:first').focus();
+            return false;
+        } else {
+            
+            jQuery('#create-group-form').submit();
+            return true;
+        }  
+
         return false;
-    } else {
-        jQuery(this).submit();
-        return true;
-    }  
-  });
+    });
   
-  jQuery(document).on('click', '.group__join-cta', function(e) {
+    jQuery(document).on('click', '.group__join-cta', function(e) {
         e.preventDefault();
         var $this = jQuery(this);
         var group = $this.data('group');
@@ -194,91 +220,67 @@ jQuery(function(){
 
     });
 
-    
+    jQuery("#group-name").change(function(e) {
+        var $this = jQuery(this);
+        var name = $this.val();
 
-//   Revisit this logic down
-//   jQuery('input[name="group_type"]').change(function(e){
-//     var $this = $(this);
+        var $errorContainer = $this.next(".form__error-container");
 
-//     var countryLabel = $('label[for="group-country"]').text();
-//     var cityLabel = $('label[for="group-city"]').text();
+        var get = { q: name };
+        get["gid"] = jQuery("#current-group").length > 0 ? jQuery("#current-group").val() : false;
 
-//     if($this.val() == 'Offline') {
-//         jQuery('select[name="group_country"]').prop('required', true);
-//         jQuery('label[for="group-country"]').text(countryLabel.replace('*', ''));
-//         jQuery('input[name="group_city"]').prop('required', true);
-//         jQuery('label[for="group-city"]').text(cityLabel.replace('*', ''));
-//     } else {
-//         jQuery('select[name="group_country"]').prop('required', false);
-//         jQuery('label[for="group-country"]').text(countryLabel.concat(' *'));
-//         jQuery('input[name="group_city"]').prop('required', false);
-//         jQuery('label[for="group-city"]').text(cityLabel.concat(' *'));
-//     }
-// });
+        jQuery.get("/wp-admin/admin-ajax.php?action=validate_group", get, function(response) {
+            var resp = jQuery.parseJSON(response);
 
-  jQuery("#group-name").change(function(e) {
-    var $this = jQuery(this);
-    var name = $this.val();
-
-    var $errorContainer = $this.next(".form__error-container");
-
-    var get = { q: name };
-    get["gid"] = jQuery("#current-group").length > 0 ? jQuery("#current-group").val() : false;
-
-    jQuery.get("/wp-admin/admin-ajax.php?action=validate_group", get, function(response) {
-      var resp = jQuery.parseJSON(response);
-
-      // Show error
-      if (resp !== true) {
-        $this.addClass("create-group__input--error");
-        $errorContainer.addClass("form__error-container--visible");
-        $errorContainer.children(".form__error").text("This group name is already taken");
-      } else {
-        $this.removeClass("create-group__input--error");
-        $errorContainer.removeClass("form__error-container--visible");
-        $errorContainer.children(".form__error").text("This field is required");
-      }
-    });
-  });
-
-
-
-  jQuery('#group-admin').autoComplete({
-    source: function(term, suggest) {
-        jQuery.getJSON('/wp-admin/admin-ajax.php?action=get_users', { q: term }, function(data){
-            var users = [];
-
-            for(var x = 0; x < data.length; x++) {
-                users.push(data[x].data.ID+ ":" + data[x].data.user_nicename );
+            // Show error
+            if (resp !== true) {
+            $this.addClass("create-group__input--error");
+            $errorContainer.addClass("form__error-container--visible");
+            $errorContainer.children(".form__error").text("This group name is already taken");
+            } else {
+            $this.removeClass("create-group__input--error");
+            $errorContainer.removeClass("form__error-container--visible");
+            $errorContainer.children(".form__error").text("This field is required");
             }
-            
-            suggest(users);
-
         });
-    },
-    renderItem: function(item, search) {
-        search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-        var data = item.split(':');
-        var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
-        if(data.length === 2) {
-            return '<div class="autocomplete-suggestion" data-val="' + data[1] + '" data-id="' + data[0] + '">' + data[1].replace(re, "<b>$1</b>") + '</div>';    
-        } else {
-            return '<div class="autocomplete-suggestion" data-val="' + item + '">' + item.replace(re, "<b>$1</b>") + '</div>';
-        }
-    },
-    onSelect: function(e, term, item) {
-        e.preventDefault();
-        jQuery('#group-admin-id').val(item.data('id'));
+    });
 
-    }
-  });
+    jQuery('#group-admin').autoComplete({
+        source: function(term, suggest) {
+            jQuery.getJSON('/wp-admin/admin-ajax.php?action=get_users', { q: term }, function(data){
+                var users = [];
+
+                for(var x = 0; x < data.length; x++) {
+                    users.push(data[x].data.ID+ ":" + data[x].data.user_nicename );
+                }
+                
+                suggest(users);
+
+            });
+        },
+        renderItem: function(item, search) {
+            search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+            var data = item.split(':');
+            var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
+            if(data.length === 2) {
+                return '<div class="autocomplete-suggestion" data-val="' + data[1] + '" data-id="' + data[0] + '">' + data[1].replace(re, "<b>$1</b>") + '</div>';    
+            } else {
+                return '<div class="autocomplete-suggestion" data-val="' + item + '">' + item.replace(re, "<b>$1</b>") + '</div>';
+            }
+        },
+        onSelect: function(e, term, item) {
+            e.preventDefault();
+            jQuery('#group-admin-id').val(item.data('id'));
+
+        }
+    });
 
 
     jQuery('.group__nav-select').change(function(e) {
-      var $this = jQuery(this);
-      var value = $this.val();
+        var $this = jQuery(this);
+        var value = $this.val();
 
-      window.location = value;
+        window.location = value;
 
     });
 

@@ -13,7 +13,7 @@
             </tr>
             <tr>
                 <th scope="row">
-                    <label for="google-analytics-id">Default Open Graph Title</label>
+                    <label for="default-open-graph-title">Default Open Graph Title</label>
                 </th>
                 <td>
                     <input type="text" id="default-open-graph-title" name="default_open_graph_title" class="regular-text" value="<?php print $options['default_open_graph_title']; ?>" />
@@ -21,10 +21,18 @@
             </tr>
             <tr>
                 <th scope="row">
-                    <label for="google-analytics-id">Default Open Graph Description</label>
+                    <label for="default-open-graph-desc">Default Open Graph Description</label>
                 </th>
                 <td>
                     <input type="text" id="default-open-graph-desc" name="default_open_graph_desc" class="regular-text" value="<?php print $options['default_open_graph_desc']; ?>" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    <label for="image-max-filesize">Max Image Filesize Upload (KB)</label>
+                </th>
+                <td>
+                    <input type="text" id="image-max-filesize" name="image_max_filesize" class="regular-text" value="<?php print isset($options['image_max_filesize']) ? $options['image_max_filesize'] : 500; ?>" />
                 </td>
             </tr>
         </tbody>
