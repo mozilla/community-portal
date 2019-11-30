@@ -1117,29 +1117,18 @@
         justify-content: flex-start;
         margin-top: 16px;
         flex-wrap: wrap;
-
-        @include tablet-and-up {
-            justify-content: space-between;
-        }
-
     }
 
     &__static-tag {
-
         border-radius: 50px;
         padding: 10px 15px;
         color: $color-gray-80;
         background-color: $color-gray-20;
         font-size: remCalc(14);
         line-height: 20px;
-        margin-right: 12px;
+        margin-right: 8px;
         margin-bottom: 8px;
-
-        @include tablet-and-up {
-            margin-right: 0;
-        }
-
-        
+    
     }
 
     &__languages-container {
