@@ -133,8 +133,7 @@
                         <path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    <?php if(isset($group_meta['group_city'])): ?> <?php print $group_meta['group_city']; ?><?php endif; ?>
-                    <?php if(isset($group_meta['group_country'])): ?> <?php print $countries[$group_meta['group_country']]; ?><?php endif; ?>
+                    <?php if(isset($group_meta['group_city']) && strlen($group_meta['group_city']) > 0): ?><?php print $group_meta['group_city']; ?><?php endif; ?><?php if(isset($group_meta['group_country']) && strlen($group_meta['group_country']) > 0): ?><?php if(isset($group_meta['group_city']) && strlen($group_meta['group_city']) > 0): ?>, <?php endif; ?><?php print $countries[$group_meta['group_country']]; ?><?php endif; ?>
                     <?php if(isset($group_meta['group_type'])): ?><?php print "| {$group_meta['group_type']}"; ?><?php endif; ?>
                 </div>
                 <div class="profile__group-member-count">
