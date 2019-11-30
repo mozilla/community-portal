@@ -1,6 +1,9 @@
 <?php
 
     include("{$template_dir}/languages.php");
+    include("{$template_dir}/countries.php");
+
+    $event_countries = em_get_countries();
 
     if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
         $avatar_url = preg_replace("/^http:/i", "https:", $info['profile_image']->value);
@@ -189,11 +192,11 @@
                         <?php if($location->location_country === 'OE'): ?>
                           <?php print __("Online Event"); ?>
                         <?php elseif($location->location_town && $location->location_country): ?>
-                            <?php print "{$location->location_town}, {$countries[$location->location_country]}"; ?>
+                            <?php print "{$location->location_town}, {$event_countries[$location->location_country]}"; ?>
                         <?php elseif($location->location_town && !$location->location_country): ?>
                             <?php print "{$location->location_town}"; ?>
                         <?php elseif(!$location->location_town && $location->location_country): ?>
-                            <?php print "{$countries[$location->location_country]}"; ?>
+                            <?php print "{$event_countries[$location->location_country]}"; ?>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -248,11 +251,11 @@
                         <?php if($location->location_country === 'OE'): ?>
                           <?php print __("Online Event"); ?>
                         <?php elseif($location->location_town && $location->location_country): ?>
-                            <?php print "{$location->location_town}, {$countries[$location->location_country]}"; ?>
+                            <?php print "{$location->location_town}, {$event_countries[$location->location_country]}"; ?>
                         <?php elseif($location->location_town && !$location->location_country): ?>
                             <?php print "{$location->location_town}"; ?>
                         <?php elseif(!$location->location_town && $location->location_country): ?>
-                            <?php print "{$countries[$location->location_country]}"; ?>
+                            <?php print "{$event_countries[$location->location_country]}"; ?>
                         <?php endif; ?>
                     </div>
                 </div>
