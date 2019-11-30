@@ -7,10 +7,6 @@
     );
 
     $template_dir = get_template_directory();
-
-    require_once("{$template_dir}/countries.php");
-    require_once("{$template_dir}/languages.php");
-
     $pronouns = Array(
         'She/Her',
         'He/Him',
@@ -66,7 +62,7 @@
             $current_user = wp_get_current_user()->data;
             
             $is_me = $logged_in && intval($current_user->ID) === intval($user->ID);
-        
+
             $info = mozilla_get_user_info($current_user, $user, $logged_in);
             include("{$template_dir}/buddypress/members/single/profile.php");           
         ?>

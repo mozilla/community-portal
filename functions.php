@@ -50,8 +50,7 @@ add_filter('acf/load_field/name=featured_group', 'acf_load_bp_groups', 10, 1);
 add_action('save_post', 'mozilla_save_event', 10, 3);
 
 $template_dir = get_template_directory();
-
-require_once("{$template_dir}/countries.php");
+include("{$template_dir}/countries.php");
 
 // Include theme style.css file not in admin page
 if(!is_admin()) {
