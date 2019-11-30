@@ -1,4 +1,7 @@
 <?php
+
+    include("{$template_dir}/languages.php");
+
     if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
         $avatar_url = preg_replace("/^http:/i", "https:", $info['profile_image']->value);
     } else {
@@ -358,7 +361,7 @@
             <?php print __('Languages spoken'); ?>
             <div class="profile__languages-container">
             <?php 
-                $languages_spoken = sizeof($community_fields['languages']); 
+                $languages_spoken = sizeof($info['languages']->value); 
                 $index = 0;
             ?>
             <?php foreach($info['languages']->value AS $code): ?>
