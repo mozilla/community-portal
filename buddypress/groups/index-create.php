@@ -2,6 +2,10 @@
     session_start();
     // Main header template 
     get_header(); 
+
+    $template_dir = get_template_directory();
+    include "{$template_dir}/countries.php";
+
     do_action('bp_before_create_group_page'); 
     if(isset($_POST['step'])) {
         $step = $_POST['step'];
