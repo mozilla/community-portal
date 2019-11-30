@@ -8,8 +8,8 @@
 
     $template_dir = get_template_directory();
 
-    include "{$template_dir}/countries.php";
-    include "{$template_dir}/languages.php";
+    require_once("{$template_dir}/countries.php");
+    require_once("{$template_dir}/languages.php");
 
     $pronouns = Array(
         'She/Her',

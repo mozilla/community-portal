@@ -51,7 +51,7 @@ add_action('save_post', 'mozilla_save_event', 10, 3);
 
 $template_dir = get_template_directory();
 
-include "{$template_dir}/countries.php";
+require_once("{$template_dir}/countries.php");
 
 // Include theme style.css file not in admin page
 if(!is_admin()) {
