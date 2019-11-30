@@ -1,193 +1,117 @@
 <?php
-
-    // Visibility
-    $logged_in = mozilla_is_logged_in();
-    $is_me = $logged_in && intval($current_user->ID) === intval($user->ID);
-
-    $community_fields = isset($meta['community-meta-fields'][0]) ? unserialize($meta['community-meta-fields'][0]) : Array('f');
-    $community_fields['username'] =  $user->user_nicename;
-    $community_fields['first_name'] = isset($meta['first_name'][0]) ? $meta['first_name'][0] : '';
-    $community_fields['last_name'] = isset($meta['last_name'][0]) ? $meta['last_name'][0] : '';
-    $community_fields['email'] = isset($meta['email'][0]) ? $meta['email'][0] : '';
-    
-    $fields = Array(
-        'username',
-        'image_url',
-        'email',
-        'first_name',
-        'last_name',
-        'pronoun',
-        'bio',
-        'phone',
-        'city',
-        'country',
-        'profile_discourse',
-        'profile_facebook',
-        'profile_twitter',
-        'profile_linkedin',
-        'profile_github',
-        'profile_telegram',
-        'languages',
-        'tags',
-        'profile_groups_joined',
-        'profile_events_attended',
-        'profile_events_organized',
-        'profile_campaigns'
-    );
-
-    $visibility_settings = Array();
-    foreach($fields AS $field) {
-        $field_visibility_name = "{$field}_visibility";
-        if($field == 'image_url') {
-            $field_visibility_name = 'profile_image_url_visibility';
-        }
-        $visibility = mozilla_determine_field_visibility($field, $field_visibility_name, $community_fields, $is_me, $logged_in);
-
-        $field_visibility_name = ($field === 'city' || $field === 'country') ? 'profile_location_visibility' : $field_visibility_name;
-        $visibility_settings[$field_visibility_name] = $visibility;
-    }
-
     if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
-        $avatar_url = preg_replace("/^http:/i", "https:", $community_fields['image_url']);
+        $avatar_url = preg_replace("/^http:/i", "https:", $info['profile_image']->value);
     } else {
-        $avatar_url = $community_fields['image_url'];
+        $avatar_url = $info['profile_image']->value;
     }
-
 ?>  
-
 <div class="profile__public-container">
     <section class="profile__section">
         <div class="profile__card">
-        <div class="profile__card-header-container">
-            <?php if($is_me): ?>
-            <div class="profile__edit-link-container profile__edit-link-container--mobile">
-                <a href="/members/<?php print $user->user_nicename; ?>/profile/edit/group/1" class="profile__link">
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" class="profile__edit-icon">
-                    <path d="M8.25 3H3C2.60218 3 2.22064 3.15804 1.93934 3.43934C1.65804 3.72064 1.5 4.10218 1.5 4.5V15C1.5 15.3978 1.65804 15.7794 1.93934 16.0607C2.22064 16.342 2.60218 16.5 3 16.5H13.5C13.8978 16.5 14.2794 16.342 14.5607 16.0607C14.842 15.7794 15 15.3978 15 15V9.75" stroke="#0060DF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M13.875 1.87419C14.1734 1.57582 14.578 1.4082 15 1.4082C15.422 1.4082 15.8266 1.57582 16.125 1.87419C16.4234 2.17256 16.591 2.57724 16.591 2.99919C16.591 3.42115 16.4234 3.82582 16.125 4.12419L9 11.2492L6 11.9992L6.75 8.99919L13.875 1.87419Z" stroke="#0060DF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <?php print __('Edit'); ?>
-                </a>
-            </div>
-            <?php endif; ?>
-            <div class="profile__avatar<?php if(!isset($community_fields['image_url']) || (isset($community_fields['image_url']) && strlen($community_fields['image_url']) <= 0 || !$visibility_settings['profile_image_url_visibility'])): ?> profile__avatar--empty<?php endif; ?>"<?php if($visibility_settings['profile_image_url_visibility']): ?> style="background-image: url('<?php print $avatar_url; ?>')"<?php endif; ?> data-user="<?php print $user->user_nicename; ?>">
-            </div>
-            <div class="profile__name-container">
-                <h3 class="profile__user-title"><?php print $user->user_nicename; ?></h3>
-                <span class="profile__user-name">
-                    <?php if(isset($meta['first_name_visibility'][0]) && $meta['first_name_visibility'][0] || $logged_in || $is_me): ?>
-                    <?php print "{$community_fields['first_name']}"; ?>
-                    <?php endif; ?>
-                    <?php if(isset($meta['last_name_visibility'][0]) && $meta['last_name_visibility'][0] || $logged_in || $is_me): ?>
-                    <?php print "{$community_fields['last_name']}"; ?>
-                    <?php endif; ?>
-                </span>
-                <?php if($visibility_settings['pronoun_visibility']): ?><div class="profile__pronoun"><?php print $community_fields['pronoun']; ?></div><?php endif; ?>
-            </div>
-            <?php if($is_me): ?>
-            <div class="profile__edit-link-container">
-                <a href="/members/<?php print $user->user_nicename; ?>/profile/edit/group/1" class="profile__link">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M23.64 6.36L17.64 0.36C17.16 -0.12 16.44 -0.12 15.96 0.36L0.36 15.96C0.12 16.2 0 16.44 0 16.8V22.8C0 23.52 0.48 24 1.2 24H7.2C7.56 24 7.8 23.88 8.04 23.64L23.64 8.04C24.12 7.56 24.12 6.84 23.64 6.36ZM6.72 21.6H2.4V17.28L16.8 2.88L21.12 7.2L6.72 21.6Z" fill="#0060DF"/>
-                </svg>
-                </a>
-            </div>
-            <?php endif; ?>
-        </div>
-        <?php if($visibility_settings['bio_visibility']): ?>
-        <div class="profile__bio-container">
-            <p class="profile__bio"><?php print $community_fields['bio']; ?></p>
-        </div>
-        <?php endif; ?>
-        <div class="profile__card-contact-container">
-            <?php if(($visibility_settings['profile_location_visibility'] && (isset($community_fields['city']) && strlen($community_fields['city']) > 0) || (isset($community_fields['country']) && strlen($community_fields['country']) > 0)) || $visibility_settings['email_visibility'] || ($visibility_settings['phone_visibility']) && strlen($community_fields['phone']) > 0): ?>
-            <span class="profile__contact-title"><?php print __('Contact Information'); ?></span>
-            <?php endif; ?>
-            <?php if($visibility_settings['profile_location_visibility']): ?>
-            <?php if(isset($community_fields['city']) && strlen($community_fields['city']) > 0 || isset($community_fields['country']) && strlen($community_fields['country']) > 0): ?>
-            <div class="profile__location-container">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="profile__location-icon">
-                    <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
-                    <g clip-path="url(#clip0)">
-                    <path d="M23.5 14.334C23.5 20.1673 16 25.1673 16 25.1673C16 25.1673 8.5 20.1673 8.5 14.334C8.5 12.3449 9.29018 10.4372 10.6967 9.03068C12.1032 7.62416 14.0109 6.83398 16 6.83398C17.9891 6.83398 19.8968 7.62416 21.3033 9.03068C22.7098 10.4372 23.5 12.3449 23.5 14.334Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M16 16.834C17.3807 16.834 18.5 15.7147 18.5 14.334C18.5 12.9533 17.3807 11.834 16 11.834C14.6193 11.834 13.5 12.9533 13.5 14.334C13.5 15.7147 14.6193 16.834 16 16.834Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </g>
-                    <defs>
-                    <clipPath id="clip0">
-                    <rect width="20" height="20" fill="white" transform="translate(6 6)"/>
-                    </clipPath>
-                    </defs>
-                </svg>
-                <div class="profile__details">
-                    <?php print __('Location'); ?>
-                    <span class="profile__city-country">
-                    <?php 
-                        if(isset($community_fields['city']) && strlen($community_fields['city']) > 0) {
-                            if(strlen($community_fields['city']) > 180) {
-                                $community_fields['city'] = substr($community_fields['city'], 0, 180);
-                            }
-
-                            print $community_fields['city'];
-                        }
-
-                        if(isset($community_fields['city']) && strlen($community_fields['city']) > 0 && isset($community_fields['country']) && strlen($community_fields['country']) > 0) {
-                            print ", {$community_fields['country']}";
-                        } else {
-                            if(isset($community_fields['country']) && strlen($community_fields['country']) > 0) {
-                                print $community_fields['country'];
-                            }
-                        }
-                    ?>
-                    </span>
-                    
+            <div class="profile__card-header-container">
+                <?php if($is_me): ?>
+                <div class="profile__edit-link-container profile__edit-link-container--mobile">
+                    <a href="/members/<?php print $info['username']->value; ?>/profile/edit/group/1" class="profile__link">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" class="profile__edit-icon">
+                        <path d="M8.25 3H3C2.60218 3 2.22064 3.15804 1.93934 3.43934C1.65804 3.72064 1.5 4.10218 1.5 4.5V15C1.5 15.3978 1.65804 15.7794 1.93934 16.0607C2.22064 16.342 2.60218 16.5 3 16.5H13.5C13.8978 16.5 14.2794 16.342 14.5607 16.0607C14.842 15.7794 15 15.3978 15 15V9.75" stroke="#0060DF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M13.875 1.87419C14.1734 1.57582 14.578 1.4082 15 1.4082C15.422 1.4082 15.8266 1.57582 16.125 1.87419C16.4234 2.17256 16.591 2.57724 16.591 2.99919C16.591 3.42115 16.4234 3.82582 16.125 4.12419L9 11.2492L6 11.9992L6.75 8.99919L13.875 1.87419Z" stroke="#0060DF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <?php print __('Edit'); ?>
+                    </a>
                 </div>
-            </div>
-            <?php endif; ?>
-            <?php endif; ?>
-            <?php if($visibility_settings['email_visibility']): ?>
-            <div class="profile__email-container">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="profile__email-icon">
-                    <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
-                    <path d="M9.33366 9.33398H22.667C23.5837 9.33398 24.3337 10.084 24.3337 11.0007V21.0006C24.3337 21.9173 23.5837 22.6673 22.667 22.6673H9.33366C8.41699 22.6673 7.66699 21.9173 7.66699 21.0006V11.0007C7.66699 10.084 8.41699 9.33398 9.33366 9.33398Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M24.3337 11L16.0003 16.8333L7.66699 11" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span><?php print __('Email'); ?></span>
-                <div class="profile__details">
-                    <span class="profile__email">
-                    <?php 
-                        if(isset($community_fields['email']) && strlen($community_fields['email']) > 0)
-                            print $community_fields['email'];
-                    ?>
-                    </span>
+                <?php endif; ?>
+                <div class="profile__avatar<?php if($info['profile_image']->value === false || $info['profile_image']->display === false): ?> profile__avatar--empty<?php endif; ?>"<?php if($info['profile_image']->display): ?> style="background-image: url('<?php print $avatar_url; ?>')"<?php endif; ?> data-user="<?php print $info['username']->value; ?>">
                 </div>
-
-            </div>
-            <?php endif; ?>
-            <?php if($visibility_settings['phone_visibility'] && isset($community_fields['phone']) && strlen($community_fields['phone']) > 0): ?>
-            <div class="profile__phone-container">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="profile__phone-icon">
-                    <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
-                    <path d="M24.3332 20.0994V22.5994C24.3341 22.8315 24.2866 23.0612 24.1936 23.2739C24.1006 23.4865 23.9643 23.6774 23.7933 23.8343C23.6222 23.9912 23.4203 24.1107 23.2005 24.185C22.9806 24.2594 22.7477 24.287 22.5165 24.2661C19.9522 23.9875 17.489 23.1112 15.3249 21.7078C13.3114 20.4283 11.6043 18.7212 10.3249 16.7078C8.91651 14.5338 8.04007 12.0586 7.76653 9.48276C7.7457 9.25232 7.77309 9.02006 7.84695 8.80078C7.9208 8.5815 8.03951 8.38 8.1955 8.20911C8.3515 8.03822 8.54137 7.90169 8.75302 7.8082C8.96468 7.71471 9.19348 7.66631 9.42486 7.6661H11.9249C12.3293 7.66212 12.7214 7.80533 13.028 8.06904C13.3346 8.33275 13.5349 8.69897 13.5915 9.09943C13.697 9.89949 13.8927 10.685 14.1749 11.4411C14.287 11.7394 14.3112 12.0635 14.2448 12.3752C14.1783 12.6868 14.0239 12.9729 13.7999 13.1994L12.7415 14.2578C13.9278 16.3441 15.6552 18.0715 17.7415 19.2578L18.7999 18.1994C19.0264 17.9754 19.3125 17.821 19.6241 17.7545C19.9358 17.688 20.2599 17.7123 20.5582 17.8244C21.3143 18.1066 22.0998 18.3022 22.8999 18.4078C23.3047 18.4649 23.6744 18.6688 23.9386 18.9807C24.2029 19.2926 24.3433 19.6907 24.3332 20.0994Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-
-                <div class="profile__details">
-                    <?php print __('Phone'); ?>
-                    <span class="profile__phone">
-                    <?php 
-                        if(isset($community_fields['phone']) && strlen($community_fields['phone']) > 0)
-                            print $community_fields['phone'];
-                    ?>
+                <div class="profile__name-container">
+                    <h3 class="profile__user-title"><?php print $info['username']->value; ?></h3>
+                    <span class="profile__user-name">
+                        <?php if($info['first_name']->display): ?>
+                        <?php print "{$info['first_name']->value}"; ?>
+                        <?php endif; ?>
+                        <?php if($info['last_name']->display): ?>
+                        <?php print "{$info['last_name']->value}"; ?>
+                        <?php endif; ?>
                     </span>
+                    <?php if($info['pronoun']->display): ?><div class="profile__pronoun"><?php print $info['pronoun']->value; ?></div><?php endif; ?>
                 </div>
-
+                <?php if($is_me): ?>
+                <div class="profile__edit-link-container">
+                    <a href="/members/<?php print $info['username']->value; ?>/profile/edit/group/1" class="profile__link">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M23.64 6.36L17.64 0.36C17.16 -0.12 16.44 -0.12 15.96 0.36L0.36 15.96C0.12 16.2 0 16.44 0 16.8V22.8C0 23.52 0.48 24 1.2 24H7.2C7.56 24 7.8 23.88 8.04 23.64L23.64 8.04C24.12 7.56 24.12 6.84 23.64 6.36ZM6.72 21.6H2.4V17.28L16.8 2.88L21.12 7.2L6.72 21.6Z" fill="#0060DF"/>
+                    </svg>
+                    </a>
+                </div>
+                <?php endif; ?>
+            </div>
+            <?php if($info['bio']->display): ?>
+            <div class="profile__bio-container">
+                <p class="profile__bio"><?php print $info['bio']->value; ?></p>
             </div>
             <?php endif; ?>
+            <div class="profile__card-contact-container">
+                <?php if(($info['location']->display && $info['location']->value) || ($info['email']->value && $info['email']->display) || ($info['phone']->value && $info['phone']->display)): ?>
+                <span class="profile__contact-title"><?php print __('Contact Information'); ?></span>
+                <?php endif; ?>
+                <?php if($info['location']->display): ?>
+                <?php if($info['location']->value): ?>
+                <div class="profile__location-container">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="profile__location-icon">
+                        <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
+                        <g clip-path="url(#clip0)">
+                            <path d="M23.5 14.334C23.5 20.1673 16 25.1673 16 25.1673C16 25.1673 8.5 20.1673 8.5 14.334C8.5 12.3449 9.29018 10.4372 10.6967 9.03068C12.1032 7.62416 14.0109 6.83398 16 6.83398C17.9891 6.83398 19.8968 7.62416 21.3033 9.03068C22.7098 10.4372 23.5 12.3449 23.5 14.334Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16 16.834C17.3807 16.834 18.5 15.7147 18.5 14.334C18.5 12.9533 17.3807 11.834 16 11.834C14.6193 11.834 13.5 12.9533 13.5 14.334C13.5 15.7147 14.6193 16.834 16 16.834Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </g>
+                        <defs>
+                            <clipPath id="clip0">
+                                <rect width="20" height="20" fill="white" transform="translate(6 6)"/>
+                            </clipPath>
+                        </defs>
+                    </svg>
+                    <div class="profile__details">
+                        <?php print __('Location'); ?>
+                        <span class="profile__city-country">
+                            <?php print $info['location']->value; ?>
+                        </span>
+                    </div>
+                </div>
+                <?php endif; ?>
+                <?php endif; ?>
+                <?php if($info['email']->display && $info['email']->value): ?>
+                <div class="profile__email-container">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="profile__email-icon">
+                        <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
+                        <path d="M9.33366 9.33398H22.667C23.5837 9.33398 24.3337 10.084 24.3337 11.0007V21.0006C24.3337 21.9173 23.5837 22.6673 22.667 22.6673H9.33366C8.41699 22.6673 7.66699 21.9173 7.66699 21.0006V11.0007C7.66699 10.084 8.41699 9.33398 9.33366 9.33398Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M24.3337 11L16.0003 16.8333L7.66699 11" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span><?php print __('Email'); ?></span>
+                    <div class="profile__details">
+                        <span class="profile__email">
+                            <?php print $info['email']->value; ?>
+                        </span>
+                    </div>
+                </div>
+                <?php endif; ?>
+                <?php if($info['phone']->display && $info['phone']->value): ?>
+                <div class="profile__phone-container">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="profile__phone-icon">
+                        <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
+                        <path d="M24.3332 20.0994V22.5994C24.3341 22.8315 24.2866 23.0612 24.1936 23.2739C24.1006 23.4865 23.9643 23.6774 23.7933 23.8343C23.6222 23.9912 23.4203 24.1107 23.2005 24.185C22.9806 24.2594 22.7477 24.287 22.5165 24.2661C19.9522 23.9875 17.489 23.1112 15.3249 21.7078C13.3114 20.4283 11.6043 18.7212 10.3249 16.7078C8.91651 14.5338 8.04007 12.0586 7.76653 9.48276C7.7457 9.25232 7.77309 9.02006 7.84695 8.80078C7.9208 8.5815 8.03951 8.38 8.1955 8.20911C8.3515 8.03822 8.54137 7.90169 8.75302 7.8082C8.96468 7.71471 9.19348 7.66631 9.42486 7.6661H11.9249C12.3293 7.66212 12.7214 7.80533 13.028 8.06904C13.3346 8.33275 13.5349 8.69897 13.5915 9.09943C13.697 9.89949 13.8927 10.685 14.1749 11.4411C14.287 11.7394 14.3112 12.0635 14.2448 12.3752C14.1783 12.6868 14.0239 12.9729 13.7999 13.1994L12.7415 14.2578C13.9278 16.3441 15.6552 18.0715 17.7415 19.2578L18.7999 18.1994C19.0264 17.9754 19.3125 17.821 19.6241 17.7545C19.9358 17.688 20.2599 17.7123 20.5582 17.8244C21.3143 18.1066 22.0998 18.3022 22.8999 18.4078C23.3047 18.4649 23.6744 18.6688 23.9386 18.9807C24.2029 19.2926 24.3433 19.6907 24.3332 20.0994Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <div class="profile__details">
+                        <?php print __('Phone'); ?>
+                        <span class="profile__phone">
+                            <?php $info['phone']->value; ?>
+                        </span>
+                    </div>
+                </div>
+                <?php endif; ?>
+            </div>
         </div>
-        </div>
-        <?php 
-            $groups = groups_get_user_groups($user->ID);
-        ?>
-        <?php if($groups['total'] > 0 && $visibility_settings['profile_groups_joined_visibility']): ?>
+
+        <?php if($info['groups']->display): ?>
+        <?php $groups = groups_get_user_groups($info['id']); ?>
+        <?php if($groups['total'] > 0): ?>
         <h2 class="profile__heading"><?php print __("My Groups"); ?></h2>
         <?php $group_count = 0; ?>
         <div class="profile__card">
@@ -225,13 +149,16 @@
             <?php endforeach; ?>
         </div>
         <?php endif; ?>
+        <?php endif; ?>
+
+        <?php if($info['events_attended']->display): ?>
         <?php 
-            $event_user = new EM_Person($user->ID);
+            $event_user = new EM_Person($info['id']);
 
             $events = $event_user->get_bookings();
             $events_attended_count = 0;
         ?>
-        <?php if($visibility_settings['profile_events_attended_visibility'] && sizeof($events->bookings) > 0): ?>
+        <?php if(sizeof($events->bookings) > 0): ?>
         <h2 class="profile__heading"><?php print __("Recent Events"); ?></h2>
         <div class="profile__card">
             <?php foreach($events->bookings AS $event_booking): ?>
@@ -268,28 +195,30 @@
                     </div>
                 </div>
             </a>
-            <?php 
-                $events_attended_count++;
-                
-            ?>
+            <?php $events_attended_count++; ?>
+
             <?php if($events_attended_count < sizeof($events->bookings)): ?>
                 <hr class="profile__group-line" />
             <?php endif; ?>
+
             <?php endforeach; ?>
         </div>        
         <?php endif; ?>
+        <?php endif; ?>
 
+
+        <?php if($info['events_organized']->display): ?>
         <?php 
-            $args = array('owner' => $user->ID, 'scope' => 'all', 'private_only' =>  true, 'pagination'  =>  false);
+            $args = array('owner' => $info['id'], 'scope' => 'all', 'private_only' =>  true, 'pagination'  =>  false);
             $private_events_organized = EM_Events::get($args);
-            $args = array('owner' => $user->ID, 'scope' => 'all', 'private' =>  false, 'pagination'  =>  false);
+            $args = array('owner' => $info['id'], 'scope' => 'all', 'private' =>  false, 'pagination'  =>  false);
             $events_organized = EM_Events::get($args);
             $events_organized = array_merge($events_organized, $private_events_organized);
 
             $events_organized_count = 0;
 
         ?>
-        <?php if($visibility_settings['profile_events_organized_visibility'] && sizeof($events_organized) > 0): ?>
+        <?php if(sizeof($events_organized) > 0): ?>
         <h2 class="profile__heading"><?php print __("Organized Events"); ?></h2>
         <div class="profile__card">
             <?php foreach($events_organized AS $event): ?>
@@ -334,26 +263,22 @@
             <?php endforeach; ?>
         </div>
         <?php endif; ?>
+        <?php endif; ?>
     </section>
     <section class="profile__section profile__section--right">
-        <?php if(($visibility_settings['profile_telegram_visibility']
-        || $visibility_settings['profile_facebook_visibility']
-        || $visibility_settings['profile_twitter_visibility']
-        || $visibility_settings['profile_linkedin_visibility']
-        || $visibility_settings['profile_discourse_visibility']
-        || $visibility_settings['profile_github_visibility'])
-        && (isset($community_fields['telegram']) && strlen($community_fields['telegram'])
-        || isset($community_fields['facebook']) && strlen($community_fields['facebook'])
-        || isset($community_fields['twitter']) && strlen($community_fields['twitter'])
-        || isset($community_fields['linkedin']) && strlen($community_fields['linkedin'])
-        || isset($community_fields['discourse']) && strlen($community_fields['discourse'])
-        || isset($community_fields['github']) && strlen($community_fields['github'])
-        )): ?>
-        <div class="profile__social-card">
+        <?php if(
+            ($info['telegram']->display && $info['telegram']->value) ||
+            ($info['facebook']->display && $info['facebook']->value) ||
+            ($info['twitter']->display && $info['twitter']->value) ||
+            ($info['linkedin']->display && $info['linkedin']->value) ||
+            ($info['discourse']->display && $info['discourse']->value) ||
+            ($info['github']->display && $info['github']->value)
+        ): ?>
+        <div class="profile__social-card profile__card--right">
             <?php print __("Social Handles"); ?>
             <div class="profile__social-container">
-                <?php if(isset($community_fields['telegram']) && strlen($community_fields['telegram']) > 0 && $visibility_settings['profile_telegram_visibility'] !== false): ?>
-                <a href="<?php print $community_fields['telegram']; ?>" class="profile__social-link">
+                <?php if($info['telegram']->value && $info['telegram']->display): ?>
+                <a href="<?php print $info['telegram']->value; ?>" class="profile__social-link">
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
                         <path d="M24.3337 7.66602L15.167 16.8327" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -362,8 +287,8 @@
                     <?php print __('Telegram'); ?>
                 </a>
                 <?php endif; ?>
-                <?php if(isset($community_fields['facebook']) && strlen($community_fields['facebook']) > 0 && $visibility_settings['profile_facebook_visibility']): ?>
-                <a href="<?php print $community_fields['facebook']; ?>" class="profile__social-link">
+                <?php if($info['facebook']->value && $info['facebook']->display): ?>
+                <a href="<?php print $info['facebook']->value; ?>" class="profile__social-link">
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M26 16C26 10.4771 21.5229 6 16 6C10.4771 6 6 10.4771 6 16C6 20.9913 9.65686 25.1283 14.4375 25.8785V18.8906H11.8984V16H14.4375V13.7969C14.4375 11.2906 15.9304 9.90625 18.2146 9.90625C19.3087 9.90625 20.4531 10.1016 20.4531 10.1016V12.5625H19.1921C17.9499 12.5625 17.5625 13.3333 17.5625 14.1242V16H20.3359L19.8926 18.8906H17.5625V25.8785C22.3431 25.1283 26 20.9913 26 16Z" fill="black"/>
@@ -371,8 +296,8 @@
                     <?php print __('Facebook'); ?>
                 </a>
                 <?php endif; ?>
-                <?php if(isset($community_fields['twitter']) && strlen($community_fields['twitter']) > 0 && $visibility_settings['profile_twitter_visibility']): ?>
-                <a href="<?php print $community_fields['twitter']; ?>" class="profile__social-link">
+                <?php if($info['twitter']->value && $info['twitter']->display): ?>
+                <a href="<?php print $info['twitter']->value; ?>" class="profile__social-link">
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
                         <path d="M12.3766 23.9366C19.7469 23.9366 23.7781 17.8303 23.7781 12.535C23.7781 12.3616 23.7781 12.1889 23.7664 12.017C24.5506 11.4498 25.2276 10.7474 25.7656 9.94281C25.0343 10.2669 24.2585 10.4794 23.4641 10.5733C24.3006 10.0725 24.9267 9.28482 25.2258 8.35688C24.4392 8.82364 23.5786 9.15259 22.6812 9.32953C22.0771 8.6871 21.278 8.26169 20.4077 8.11915C19.5374 7.97661 18.6444 8.12487 17.8668 8.541C17.0893 8.95713 16.4706 9.61792 16.1064 10.4211C15.7422 11.2243 15.6529 12.1252 15.8523 12.9842C14.2592 12.9044 12.7006 12.4903 11.2778 11.7691C9.85506 11.0478 8.59987 10.0353 7.59375 8.7975C7.08132 9.67966 6.92438 10.724 7.15487 11.7178C7.38536 12.7116 7.98596 13.5802 8.83437 14.1467C8.19667 14.1278 7.57287 13.9558 7.01562 13.6452C7.01562 13.6616 7.01562 13.6788 7.01562 13.6959C7.01588 14.6211 7.33614 15.5177 7.9221 16.2337C8.50805 16.9496 9.32362 17.4409 10.2305 17.6241C9.64052 17.785 9.02155 17.8085 8.42109 17.6928C8.67716 18.489 9.17568 19.1853 9.84693 19.6843C10.5182 20.1832 11.3286 20.4599 12.1648 20.4756C10.7459 21.5908 8.99302 22.1962 7.18828 22.1944C6.86946 22.1938 6.55094 22.1745 6.23438 22.1366C8.0669 23.3126 10.1992 23.9363 12.3766 23.9334" fill="black"/>
@@ -380,8 +305,8 @@
                     <?php print __('Twitter'); ?>
                 </a>
                 <?php endif; ?>
-                <?php if(isset($community_fields['linkedin']) && strlen($community_fields['linkedin']) > 0 && $visibility_settings['profile_linkedin_visibility']): ?>
-                <a href="<?php print $community_fields['linkedin']; ?>" class="profile__social-link">
+                <?php if($info['linkedin']->value && $info['linkedin']->display): ?>
+                <a href="<?php print $info['linkedin']->value; ?>" class="profile__social-link">
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
                         <g clip-path="url(#clip0)">
@@ -400,8 +325,8 @@
                     <?php print __('Linkedin'); ?>
                 </a>
                 <?php endif; ?>
-                <?php if(isset($community_fields['discourse']) && strlen($community_fields['discourse']) > 0 && $visibility_settings['profile_discourse_visibility']): ?>
-                <a href="<?php print $community_fields['discourse']; ?>" class="profile__social-link">
+                <?php if($info['discourse']->value && $info['discourse']->display): ?>
+                <a href="<?php print $info['discourse']->value; ?>" class="profile__social-link">
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
                         <path d="M23.5 15.5834C23.5029 16.6832 23.2459 17.7683 22.75 18.75C22.162 19.9265 21.2581 20.916 20.1395 21.6078C19.021 22.2995 17.7319 22.6662 16.4167 22.6667C15.3168 22.6696 14.2318 22.4126 13.25 21.9167L8.5 23.5L10.0833 18.75C9.58744 17.7683 9.33047 16.6832 9.33333 15.5834C9.33384 14.2682 9.70051 12.9791 10.3923 11.8605C11.084 10.7419 12.0735 9.838 13.25 9.25002C14.2318 8.75413 15.3168 8.49716 16.4167 8.50002H16.8333C18.5703 8.59585 20.2109 9.32899 21.4409 10.5591C22.671 11.7892 23.4042 13.4297 23.5 15.1667V15.5834Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -409,8 +334,8 @@
                     <?php print __('Discourse'); ?>
                 </a>
                 <?php endif; ?>
-                <?php if(isset($community_fields['github']) && strlen($community_fields['github']) > 0 && $visibility_settings['profile_github_visibility']): ?>
-                <a href="<?php print $community_fields['github']; ?>" class="profile__social-link">
+                <?php if($info['github']->value && $info['github']->display): ?>
+                <a href="<?php print $info['github']->value; ?>" class="profile__social-link">
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
                         <g clip-path="url(#clip0)">
@@ -428,15 +353,15 @@
             </div>
         </div>
         <?php endif; ?>
-        <?php if(isset($community_fields['languages']) && sizeof($community_fields['languages']) > 0 && $visibility_settings['languages_visibility']): ?>
-        <div class="profile__languages-card">
+        <?php if($info['languages']->value && $info['languages']->display): ?>
+        <div class="profile__languages-card profile__card--right">
             <?php print __('Languages spoken'); ?>
             <div class="profile__languages-container">
             <?php 
                 $languages_spoken = sizeof($community_fields['languages']); 
                 $index = 0;
             ?>
-            <?php foreach($community_fields['languages'] AS $code): ?>
+            <?php foreach($info['languages']->value AS $code): ?>
                 <?php $index++; ?>
                 <span>
                     <?php print $languages[$code]; ?>
@@ -448,14 +373,11 @@
             </div>
         </div>
         <?php endif; ?>
-        <?php if(isset($community_fields['tags']) && strlen($community_fields['tags']) > 0 && $visibility_settings['tags_visibility']): ?>
-        <div class="profile__tags-card">
+        <?php if($info['tags']->value && $info['tags']->display): ?>
+        <div class="profile__tags-card profile__card--right">
             <?php print __('Tags'); ?>
             <div class="profile__tags-container">
-            <?php 
-                $tags = array_filter(explode(',', $community_fields['tags']));
-
-            ?>
+            <?php $tags = array_filter(explode(',', $info['tags']->value)); ?>
             <?php foreach($tags AS $tag): ?>
                 <span class="profile__static-tag">
                     <?php print $tag; ?>
@@ -465,5 +387,4 @@
         </div>
         <?php endif; ?>
     </section>
-
 </div>

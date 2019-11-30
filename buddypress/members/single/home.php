@@ -15,7 +15,6 @@
     );
 
     $countries = Array(
-        ""  => "Country",
         "AF" => "Afghanistan",
         "AL" => "Albania",
         "DZ" => "Algeria",
@@ -256,7 +255,7 @@
         "ZM" => "Zambia",
         "ZW" => "Zimbabwe"
     );
-
+    
     $languages = Array(
         'ab' => 'Abkhazian',
         'abr'=> 'Abron',
@@ -970,10 +969,14 @@
             // Public profile
             $user_id = bp_displayed_user_id();
             $user = get_user_by('ID', $user_id);
-            $meta = get_user_meta($user_id);
-
+            
+            $logged_in = mozilla_is_logged_in();
             $current_user = wp_get_current_user()->data;
+            
+            $is_me = $logged_in && intval($current_user->ID) === intval($user->ID);
+        
+            $info = mozilla_get_user_info($current_user, $user, $logged_in);
+            include("{$template_dir}/buddypress/members/single/profile.php");           
         ?>
-        <?php include("{$template_dir}/buddypress/members/single/profile.php"); ?>
     <?php endif; ?>
 </div>	

@@ -1,4 +1,7 @@
 <?php 
+    $logged_in = mozilla_is_logged_in();
+    $current_user = wp_get_current_user()->data;
+
     global $EM_Event, $bp, $EM_Tags;
     $mapBoxAccessToken = 'pk.eyJ1Ijoia3ljYXBzdGlja3BnIiwiYSI6ImNrMmM0MnJ0ODJocHQzY3BlMmdkZGxucnYifQ.j4K7gEui7_BoPezbyGmZuw';
     $categories = get_the_terms($EM_Event->post_id, EM_TAXONOMY_CATEGORY);  
@@ -28,6 +31,7 @@
         '11' => 'November',
         '12' => 'December',
     );
+
 
     $startDay = substr($EM_Event->event_start_date, 8, 2);
     $startMonth = substr($EM_Event->event_start_date, 5, 2);
@@ -101,8 +105,8 @@
           ?>
         >
         <?php 
-          $current_user = get_current_user_id();
-          if (strval($current_user) == $EM_Event->owner || mozilla_is_site_admin()) { 
+          $current_user_id = get_current_user_id();
+          if (strval($current_user_id) == $EM_Event->owner || mozilla_is_site_admin()) { 
           ?>
             <a class="btn card__edit-btn" href="<?php echo esc_attr(get_site_url().'/events/edit-event/?action=edit&event_id='.$EM_Event->event_id)?>">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -112,7 +116,7 @@
             <?php 
           } else if (isset($admins)) {
             foreach($admins as $admin) {
-              if ($admin->user_id === $current_user || intval(get_current_user_id()) === intval($EM_Event->event_owner) || current_user_can('edit_post')) {
+              if ($admin->user_id === $current_user_id || intval(get_current_user_id()) === intval($EM_Event->event_owner) || current_user_can('edit_post')) {
               ?>
                 <a class="btn card__edit-btn" href="<?php echo esc_attr($_SERVER['REQUEST_URI'].'events/edit-event/?action=edit&event_id='.$EM_Event->event_id)?>">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -256,72 +260,44 @@
                 if ($booking->booking_status !== '3' && $count < 8) {
                     $activeBookings[] = $booking;
                     $user = $booking->person->data;
-                    $avatar = get_avatar_url($user->ID);
-                    $meta = get_user_meta($user->ID);
-                    $logged_in = mozilla_is_logged_in();
-                    $is_me = $logged_in && intval($current_user) === intval($user->ID);
-                    $community_fields = isset($meta['community-meta-fields'][0]) ? unserialize($meta['community-meta-fields'][0]) : Array('f');
-                    $community_fields['username'] =  $user->user_nicename;
-                    $community_fields['first_name'] = isset($meta['first_name'][0]) ? $meta['first_name'][0] : '';
-                    $community_fields['last_name'] = isset($meta['last_name'][0]) ? $meta['last_name'][0] : '';
-                    $community_fields['first_name_visibility'] = isset($meta['first_name_visibility'][0]) ? $meta['first_name_visibility'][0] : '';
-                    $community_fields['last_name_visibility'] = isset($meta['last_name_visibility'][0]) ? $meta['last_name_visibility'][0] : '';
-                    $community_fields['city'] = isset($meta['city'][0]) ? $meta['city'][0] : '';
-                    $community_fields['country'] = isset($meta['country'][0]) ? $meta['country'][0] : '';
-
                     
-                    $fields = Array(
-                        'username',
-                        'profile_image_url',
-                        'first_name',
-                        'last_name',
-                        'city',
-                        'country',
-                    );
-
-                    $visibility_settings = Array();
-                    foreach($fields AS $field) {
-                        $field_visibility_name = "{$field}_visibility";
-                        $visibility = mozilla_determine_field_visibility($field, $field_visibility_name, $community_fields, $is_me, $logged_in);
-                        $field_visibility_name = ($field === 'city' || $field === 'country') ? 'profile_location_visibility' : $field_visibility_name;
-                        $visibility_settings[$field_visibility_name] = $visibility;
-                    }
+                    
+                    $is_me = $logged_in && intval($current_user->ID) === intval($user->ID);
+                    $info = mozilla_get_user_info($current_user, $user, $logged_in);
 
                     if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
-                      $avatar_url = preg_replace("/^http:/i", "https:", $community_fields['image_url']);
+                        $avatar_url = preg_replace("/^http:/i", "https:", $info['profile_image']->value);
                     } else {
-                      $avatar_url = $community_fields['image_url'];
+                        $avatar_url = $info['profile_image']->value;
                     }
             ?>
             <div class="col-md-6 events-single__member-card">
-            <a href="<?php echo esc_attr(get_site_url().'/members/'.$community_fields['username'])?>")>
-              <div class="events-single__avatar<?php if(!$visibility_settings['profile_image_url_visibility'] || !strlen($community_fields['image_url']) > 0) : ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $avatar_url; ?>')"<?php endif; ?> data-username="<?php print $community_fields['username']; ?>">
-              </div>
-              <div class="events-single__user-details"> 
-                      <p class="events-single__username"><?php echo __($community_fields['username']) ?></p>
-                      <?php if (strlen($community_fields['first_name']) > 0 && strlen($community_fields['last_name']) > 0): ?>
+                <a href="<?php echo '/members/'.$user->user_nicename; ?>">
+                    <div class="events-single__avatar<?php if($info['profile_image']->display === false || $info['profile_image']->value === false) : ?> members__avatar--identicon<?php endif; ?>" <?php if($info['profile_image']->display && $info['profile_image']->value): ?> style="background-image: url('<?php print $avatar_url; ?>')"<?php endif; ?> data-username="<?php print $user->user_nicename; ?>">
+                    </div>
+                    <div class="events-single__user-details"> 
+                        <p class="events-single__username"><?php echo $user->user_nicename; ?></p>
+                        <?php if ($info['first_name']->display && $info['first_name']->value || $info['last_name']->display && $info['last_name']->value): ?>
+                        <div class="events-single__name">
+                            <?php 
+                                if ($info['first_name']->display && $info['first_name']->value): 
+                                    print $info['first_name']->value;
+                                endif; 
 
-                        <p class="events-single__name">
-                        <?php if ($visibility_settings['first_name_visibility'] !== false): ?>
-                            <?php echo __($community_fields['first_name']); ?>
-                          <?php endif; ?>
-                          <?php if ($visibility_settings['last_name_visibility'] !== false): ?>
-                            <?php echo __($community_fields['last_name']); ?>
-                      <?php endif; ?>
-                          </p>
-                      <?php 
-                        endif; 
-                        if (strlen($community_fields['country']) > 0 && $visibility_settings['profile_location_visibility'] !== false): 
-                      ?>
+                                if ($info['last_name']->display && $info['last_name']->value):
+                                    print " {$info['last_name']->value}";
+                                endif; 
+                            ?>
+                        </div>
+                        <?php endif; ?>
+                        <?php if ($info['location']->display && $info['location']->value): ?>
                         <p class="events-single__country">
-                          <?php echo __($allCountries[$community_fields['country']]); ?>
+                            <?php echo $info['location']->value; ?>
                         </p>
-                      <?php endif ?>
-                  </div>
-                <?php
-                  $count = $count + 1;
-                ?>
-              </a>
+                        <?php endif ?>
+                    </div>
+                    <?php $count = $count + 1; ?>
+                </a>
             </div>
             <?php
               } else if ($count >= 8) {
@@ -388,72 +364,45 @@
     </button>
     <div class="row events-single__all-attendees">
     <p class="title--secondary col-sm-12"><?php echo __($count.' Attendees') ?></p>
-  <?php 
-    foreach ($EM_Event->bookings as $booking) {
-      if ($booking->booking_status !== '3'):
-        $userObject = $booking->person->data;
-        $user = get_userdata($userObject->ID);
-        $avatar = get_avatar_url($userObject->ID);
-        $meta = get_user_meta($userObject->ID);
-        $logged_in = mozilla_is_logged_in();
-        $is_me = $logged_in && intval($current_user) === intval($userObject->ID);
-        
-        $community_fields = isset($meta['community-meta-fields'][0]) ? unserialize($meta['community-meta-fields'][0]) : Array('f');
-        $community_fields['username'] =  $userObject->user_nicename;
-        $community_fields['first_name'] = isset($meta['first_name'][0]) ? $meta['first_name'][0] : '';
-        $community_fields['last_name'] = isset($meta['last_name'][0]) ? $meta['last_name'][0] : '';
-        $community_fields['first_name_visibility'] = isset($meta['first_name_visibility'][0]) ? $meta['first_name_visibility'][0] : '';
-        $community_fields['last_name_visibility'] = isset($meta['last_name_visibility'][0]) ? $meta['last_name_visibility'][0] : '';
-        $community_fields['country'] = isset($meta['country'][0]) ? $meta['country'][0] : '';
-        $fields = Array(
-          'username',
-          'image_url',
-          'first_name',
-          'last_name',
-          'country',
-        );
+    <?php 
+        foreach ($EM_Event->bookings as $booking) {
+            if ($booking->booking_status !== '3'):
+            $user = $booking->person->data;
+            $is_me = $logged_in && intval($current_user->ID) === intval($user->ID);
+            $info = mozilla_get_user_info($current_user, $user, $logged_in);
 
-          $visibility_settings = Array();
-          foreach($fields AS $field) {
-            $field_visibility_name = "{$field}_visibility";
-            $visibility = mozilla_determine_field_visibility($field, $field_visibility_name, $community_fields, $is_me, $logged_in);
-            $field_visibility_name = ($field === 'city' || $field === 'country') ? 'profile_location_visibility' : $field_visibility_name;
-            $visibility_settings[$field_visibility_name] = $visibility;
-          }
-
-          if(isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0 && (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
-            $img_url = preg_replace("/^http:/i", "https:", $community_fields['image_url']);
-          } else {
-            $img_url = $community_fields['image_url'];
-          }
+            if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
+                $avatar_url = preg_replace("/^http:/i", "https:", $info['profile_image']->value);
+            } else {
+                $avatar_url = $info['profile_image']->value;
+            }
       ?>
-      <div class="col-md-6 events-single__member-card">
-        <a href="<?php echo esc_attr('/members/'.$userObject->user_nicename)?>")>
-        <div class="events-single__avatar<?php if(!$visibility_settings['image_url_visibility'] || !strlen($community_fields['image_url']) > 0) : ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['image_url_visibility'] && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $img_url; ?>')"<?php endif; ?> data-username="<?php print $community_fields['username']; ?>">
+    <div class="col-md-6 events-single__member-card">
+        <a href="<?php echo '/members/'.$user->user_nicename; ?>")>
+            <div class="events-single__avatar<?php if($info['profile_image']->display === false || $info['profile_image']->value === false) : ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['image_url_visibility'] && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $avatar_url; ?>')"<?php endif; ?> data-username="<?php print $user->user_nicename; ?>">
+            </div>
+            <div class="events-single__user-details"> 
+                <p class="events-single__username">
+                    <?php echo $user->user_nicename; ?>
+                </p>
+                <?php if ($info['first_name']->display && $info['first_name']->value || $info['last_name']->display && $info['last_name']->value): ?>
+                <div class="events-single__name">
+                    <?php 
+                        if ($info['first_name']->display && $info['first_name']->value): 
+                            print $info['first_name']->value;
+                        endif; 
+
+                        if ($info['last_name']->display && $info['last_name']->value):
+                            print " {$info['last_name']->value}";
+                        endif; 
+                    ?>
                 </div>
-          <div class="events-single__user-details"> 
-            <p class="events-single__username">
-              <?php echo __($community_fields['username']); ?>
-            </p>
-              <?php if (strlen($community_fields['first_name']) > 0 || strlen($community_fields['last_name'] > 0)): ?>
-                <p class="events-single__name">
-                  <?php 
-                    if (isset($meta['first_name_visibility'][0]) && $meta['first_name_visibility'][0] || $logged_in || $is_me): 
-                      echo __($community_fields['first_name'].' ');
-                    endif; 
-                    if (isset($user_meta['last_name_visibility'][0]) && $user_meta['last_name_visibility'][0] || $logged_in || $is_me):
-                      echo __($community_fields['last_name']);
-                  endif; ?>
-                </p>
-              <?php 
-                endif; 
-                if (strlen($community_fields['country']) > 0 && $visibility_settings['profile_location_visibility']): 
-                ?>
+                <?php endif; ?>
+                <?php if ($info['location']->display && $info['location']->value): ?>
                 <p class="events-single__country">
-                  <?php echo __($allCountries[$community_fields['country']]) ?>
+                    <?php echo $info['location']->value; ?>
                 </p>
-              <?php endif ?>
-              </div>
+                <?php endif ?>
             </a>
           </div>
       <?php
@@ -464,11 +413,10 @@
   </div>
   </div>
 
-<?php endif;
-?>
+<?php endif; ?>
 
-  <div id="events-share-lightbox" class="lightbox">
+<div id="events-share-lightbox" class="lightbox">
     <?php include(locate_template('templates/share-modal.php', false, false)); ?>
-  </div>
+</div>
 
 </div>

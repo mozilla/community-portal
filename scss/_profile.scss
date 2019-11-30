@@ -1073,7 +1073,12 @@
         color: $color-gray-secondary;
         width: 100%;
         margin-top: 32px;
-
+        
+        &.profile__card--right {
+            &:first-of-type {
+                margin-top: 0;
+            }
+        }
 
         @include tablet-and-up {
             padding: 24px;
@@ -1106,6 +1111,7 @@
         font-size: remCalc(14);
         line-height: 20px;
         margin-right: 12px;
+        margin-bottom: 8px;
 
         @include tablet-and-up {
             margin-right: 0;

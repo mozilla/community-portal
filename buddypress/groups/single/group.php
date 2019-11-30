@@ -20,6 +20,248 @@
         '12' => 'Dec',
     );
 
+    $countries = Array(
+        "AF" => "Afghanistan",
+        "AL" => "Albania",
+        "DZ" => "Algeria",
+        "AS" => "American Samoa",
+        "AD" => "Andorra",
+        "AO" => "Angola",
+        "AI" => "Anguilla",
+        "AQ" => "Antarctica",
+        "AG" => "Antigua and Barbuda",
+        "AR" => "Argentina",
+        "AM" => "Armenia",
+        "AW" => "Aruba",
+        "AU" => "Australia",
+        "AT" => "Austria",
+        "AZ" => "Azerbaijan",
+        "BS" => "Bahamas",
+        "BH" => "Bahrain",
+        "BD" => "Bangladesh",
+        "BB" => "Barbados",
+        "BY" => "Belarus",
+        "BE" => "Belgium",
+        "BZ" => "Belize",
+        "BJ" => "Benin",
+        "BM" => "Bermuda",
+        "BT" => "Bhutan",
+        "BO" => "Bolivia",
+        "BA" => "Bosnia and Herzegovina",
+        "BW" => "Botswana",
+        "BV" => "Bouvet Island",
+        "BR" => "Brazil",
+        "IO" => "British Indian Ocean Territory",
+        "BN" => "Brunei Darussalam",
+        "BG" => "Bulgaria",
+        "BF" => "Burkina Faso",
+        "BI" => "Burundi",
+        "KH" => "Cambodia",
+        "CM" => "Cameroon",
+        "CA" => "Canada",
+        "CV" => "Cape Verde",
+        "KY" => "Cayman Islands",
+        "CF" => "Central African Republic",
+        "TD" => "Chad",
+        "CL" => "Chile",
+        "CN" => "China",
+        "CX" => "Christmas Island",
+        "CC" => "Cocos (Keeling) Islands",
+        "CO" => "Colombia",
+        "KM" => "Comoros",
+        "CG" => "Congo",
+        "CD" => "Congo, the Democratic Republic of the",
+        "CK" => "Cook Islands",
+        "CR" => "Costa Rica",
+        "CI" => "Cote D'Ivoire",
+        "HR" => "Croatia",
+        "CU" => "Cuba",
+        "CY" => "Cyprus",
+        "CZ" => "Czech Republic",
+        "DK" => "Denmark",
+        "DJ" => "Djibouti",
+        "DM" => "Dominica",
+        "DO" => "Dominican Republic",
+        "EC" => "Ecuador",
+        "EG" => "Egypt",
+        "SV" => "El Salvador",
+        "GQ" => "Equatorial Guinea",
+        "ER" => "Eritrea",
+        "EE" => "Estonia",
+        "ET" => "Ethiopia",
+        "FK" => "Falkland Islands (Malvinas)",
+        "FO" => "Faroe Islands",
+        "FJ" => "Fiji",
+        "FI" => "Finland",
+        "FR" => "France",
+        "GF" => "French Guiana",
+        "PF" => "French Polynesia",
+        "TF" => "French Southern Territories",
+        "GA" => "Gabon",
+        "GM" => "Gambia",
+        "GE" => "Georgia",
+        "DE" => "Germany",
+        "GH" => "Ghana",
+        "GI" => "Gibraltar",
+        "GR" => "Greece",
+        "GL" => "Greenland",
+        "GD" => "Grenada",
+        "GP" => "Guadeloupe",
+        "GU" => "Guam",
+        "GT" => "Guatemala",
+        "GN" => "Guinea",
+        "GW" => "Guinea-Bissau",
+        "GY" => "Guyana",
+        "HT" => "Haiti",
+        "HM" => "Heard Island and Mcdonald Islands",
+        "VA" => "Holy See (Vatican City State)",
+        "HN" => "Honduras",
+        "HK" => "Hong Kong",
+        "HU" => "Hungary",
+        "IS" => "Iceland",
+        "IN" => "India",
+        "ID" => "Indonesia",
+        "IR" => "Iran, Islamic Republic of",
+        "IQ" => "Iraq",
+        "IE" => "Ireland",
+        "IL" => "Israel",
+        "IT" => "Italy",
+        "JM" => "Jamaica",
+        "JP" => "Japan",
+        "JO" => "Jordan",
+        "KZ" => "Kazakhstan",
+        "KE" => "Kenya",
+        "KI" => "Kiribati",
+        "KP" => "Korea, Democratic People's Republic of",
+        "KR" => "Korea, Republic of",
+        "KW" => "Kuwait",
+        "KG" => "Kyrgyzstan",
+        "LA" => "Lao People's Democratic Republic",
+        "LV" => "Latvia",
+        "LB" => "Lebanon",
+        "LS" => "Lesotho",
+        "LR" => "Liberia",
+        "LY" => "Libyan Arab Jamahiriya",
+        "LI" => "Liechtenstein",
+        "LT" => "Lithuania",
+        "LU" => "Luxembourg",
+        "MO" => "Macao",
+        "MK" => "Macedonia, the Former Yugoslav Republic of",
+        "MG" => "Madagascar",
+        "MW" => "Malawi",
+        "MY" => "Malaysia",
+        "MV" => "Maldives",
+        "ML" => "Mali",
+        "MT" => "Malta",
+        "MH" => "Marshall Islands",
+        "MQ" => "Martinique",
+        "MR" => "Mauritania",
+        "MU" => "Mauritius",
+        "YT" => "Mayotte",
+        "MX" => "Mexico",
+        "FM" => "Micronesia, Federated States of",
+        "MD" => "Moldova, Republic of",
+        "MC" => "Monaco",
+        "MN" => "Mongolia",
+        "MS" => "Montserrat",
+        "MA" => "Morocco",
+        "MZ" => "Mozambique",
+        "MM" => "Myanmar",
+        "NA" => "Namibia",
+        "NR" => "Nauru",
+        "NP" => "Nepal",
+        "NL" => "Netherlands",
+        "AN" => "Netherlands Antilles",
+        "NC" => "New Caledonia",
+        "NZ" => "New Zealand",
+        "NI" => "Nicaragua",
+        "NE" => "Niger",
+        "NG" => "Nigeria",
+        "NU" => "Niue",
+        "NF" => "Norfolk Island",
+        "MP" => "Northern Mariana Islands",
+        "NO" => "Norway",
+        "OM" => "Oman",
+        "PK" => "Pakistan",
+        "PW" => "Palau",
+        "PS" => "Palestinian Territory, Occupied",
+        "PA" => "Panama",
+        "PG" => "Papua New Guinea",
+        "PY" => "Paraguay",
+        "PE" => "Peru",
+        "PH" => "Philippines",
+        "PN" => "Pitcairn",
+        "PL" => "Poland",
+        "PT" => "Portugal",
+        "PR" => "Puerto Rico",
+        "QA" => "Qatar",
+        "RE" => "Reunion",
+        "RO" => "Romania",
+        "RU" => "Russian Federation",
+        "RW" => "Rwanda",
+        "SH" => "Saint Helena",
+        "KN" => "Saint Kitts and Nevis",
+        "LC" => "Saint Lucia",
+        "PM" => "Saint Pierre and Miquelon",
+        "VC" => "Saint Vincent and the Grenadines",
+        "WS" => "Samoa",
+        "SM" => "San Marino",
+        "ST" => "Sao Tome and Principe",
+        "SA" => "Saudi Arabia",
+        "SN" => "Senegal",
+        "CS" => "Serbia and Montenegro",
+        "SC" => "Seychelles",
+        "SL" => "Sierra Leone",
+        "SG" => "Singapore",
+        "SK" => "Slovakia",
+        "SI" => "Slovenia",
+        "SB" => "Solomon Islands",
+        "SO" => "Somalia",
+        "ZA" => "South Africa",
+        "GS" => "South Georgia and the South Sandwich Islands",
+        "ES" => "Spain",
+        "LK" => "Sri Lanka",
+        "SD" => "Sudan",
+        "SR" => "Suriname",
+        "SJ" => "Svalbard and Jan Mayen",
+        "SZ" => "Swaziland",
+        "SE" => "Sweden",
+        "CH" => "Switzerland",
+        "SY" => "Syrian Arab Republic",
+        "TW" => "Taiwan, Province of China",
+        "TJ" => "Tajikistan",
+        "TZ" => "Tanzania, United Republic of",
+        "TH" => "Thailand",
+        "TL" => "Timor-Leste",
+        "TG" => "Togo",
+        "TK" => "Tokelau",
+        "TO" => "Tonga",
+        "TT" => "Trinidad and Tobago",
+        "TN" => "Tunisia",
+        "TR" => "Turkey",
+        "TM" => "Turkmenistan",
+        "TC" => "Turks and Caicos Islands",
+        "TV" => "Tuvalu",
+        "UG" => "Uganda",
+        "UA" => "Ukraine",
+        "AE" => "United Arab Emirates",
+        "GB" => "United Kingdom",
+        "US" => "United States",
+        "UM" => "United States Minor Outlying Islands",
+        "UY" => "Uruguay",
+        "UZ" => "Uzbekistan",
+        "VU" => "Vanuatu",
+        "VE" => "Venezuela",
+        "VN" => "Viet Nam",
+        "VG" => "Virgin Islands, British",
+        "VI" => "Virgin Islands, U.s.",
+        "WF" => "Wallis and Futuna",
+        "EH" => "Western Sahara",
+        "YE" => "Yemen",
+        "ZM" => "Zambia",
+        "ZW" => "Zimbabwe"
+    );
+
     $group = $bp->groups->current_group;
     $group_meta = groups_get_groupmeta($group->id, 'meta');
     $member_count = groups_get_total_member_count($group->id);
@@ -36,6 +278,7 @@
     
     $members = groups_get_group_members($args); 
     $is_admin = groups_is_user_admin($user->ID, $group->id) && $user->ID === $group->creator_id;
+    $current_user = wp_get_current_user()->data;
 
     switch($group->status) {
         case 'public':
@@ -129,127 +372,87 @@
                         <div class="group__members">
                             <?php foreach($admins AS $admin): ?>
                             <?php 
-                                $a = get_user_by('ID', $admin->user_id);
-                                $visibility_settings = Array();
-                                $community_fields = Array();
-    
-                                $fields = Array(
-                                    'image_url',
-                                    'first_name',
-                                    'last_name'
-                                );
-              
-                                $is_me = $logged_in && intval($user->ID) === intval($admin->user_id);
-                                $meta = get_user_meta($a->ID);
-
-                                $community_fields = isset($meta['community-meta-fields'][0]) ? unserialize($meta['community-meta-fields'][0]) : Array();
-                                $community_fields['first_name'] = isset($meta['first_name'][0]) ? $meta['first_name'][0] : '';
-                                $community_fields['last_name'] = isset($meta['last_name'][0]) ? $meta['last_name'][0] : '';
-                                $community_fields['first_name_visibility'] = isset($meta['first_name_visibility'][0]) ? $meta['first_name_visibility'][0] : false;
-                                $community_fields['last_name_visibility'] = isset($meta['last_name_visibility'][0]) ? $meta['last_name_visibility'][0] : false;
-
-                                foreach($fields AS $field) {
-                                    $field_visibility_name = "{$field}_visibility";
-                                    if($field == 'image_url') {
-                                        $field_visibility_name = 'profile_image_url_visibility';
-    
-                                    }
-                                    $visibility = mozilla_determine_field_visibility($field, $field_visibility_name, $community_fields, $is_me, $logged_in);
-                                    $visibility_settings[$field_visibility_name] = $visibility;
-                                }
- 
+                                $a = get_user_by('ID', $admin->user_id);                                
+                                $is_me = $logged_in && intval($current_user->ID) === intval($admin->user_id);
+                            
+                                $info = mozilla_get_user_info($current_user, $a, $logged_in);
+                                
                                 if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
-                                    $avatar_url = preg_replace("/^http:/i", "https:", $community_fields['image_url']);
+                                    $avatar_url = preg_replace("/^http:/i", "https:", $info['profile_image']->value);
                                 } else {
-                                    $avatar_url = $community_fields['image_url'];
+                                    $avatar_url = $info['profile_image']->value;
                                 }
                     
                             ?>
 
                             <a href="/members/<?php print $a->user_nicename; ?>" class="members__member-card">
-                                <div class="members__avatar<?php if($visibility_settings['profile_image_url_visibility'] === false || !isset($community_fields['image_url']) || strlen($community_fields['image_url']) === 0): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $avatar_url; ?>')"<?php endif; ?> data-username="<?php print $a->user_nicename; ?>">
+                                <div class="members__avatar<?php if($info['profile_image']->display === false || $info['profile_image']->value === false): ?> members__avatar--identicon<?php endif; ?>" <?php if($info['profile_image']->display && $info['profile_image']->value): ?> style="background-image: url('<?php print $avatar_url; ?>')"<?php endif; ?> data-username="<?php print $a->user_nicename; ?>">
 
                                 </div>
                                 <div class="members__member-info">
                                     <div class="members__username"><?php print $a->user_nicename; ?></div>
                                     <div class="members__name">
                                         <?php
-                                            if(isset($meta['first_name_visibility'][0]) && $meta['first_name_visibility'][0] || $logged_in || $is_me) {
-                                                print $meta['first_name'][0];
+                                            if($info['first_name']->display && $info['first_name']->value) {
+                                                print $info['first_name']->value;
                                             }
-                                            if(isset($meta['last_name_visibility'][0]) && $meta['last_name_visibility'][0] || $logged_in || $is_me) {
-                                                print " {$meta['last_name'][0]}";
+
+                                            if($info['last_name']->display && $info['last_name']->value) {
+                                                print " {$info['last_name']->value}";
                                             }
                                         ?>
                                     </div>
+                                    <?php if($info['location']->display && $info['location']->value): ?>
+                                    <div class="members__location">
+                                        <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>&nbsp;
+                                        <?php print $info['location']->value; ?>
+                                    </div>
+                                    <?php endif; ?>
                                 </div>
                             </a>
                             <?php endforeach; ?>
                         </div>
                         <h2 class="group__card-title"><?php print __("People")." ({$members['count']})"; ?></h2>
                         <div class="group__members">
-                      
-
                             <?php foreach($members['members'] AS $member): ?>
-
                             <?php
-                                // Get Meta for visibility otions
-                                $meta = get_user_meta($member->ID);
-                                $visibility_settings = Array();
-                                $community_fields = Array();
-    
-                                $fields = Array(
-                                    'image_url',
-                                    'first_name',
-                                    'last_name',
-                                    'country'
-                                );
-              
-                                $is_me = $logged_in && intval($user->ID) === intval($member->ID);
+                                $is_me = $logged_in && intval($current_user->ID) === intval($member->user_id);
+                                $info = mozilla_get_user_info($current_user, $member, $logged_in);
 
-                                $community_fields = isset($meta['community-meta-fields'][0]) ? unserialize($meta['community-meta-fields'][0]) : Array();
-                                $community_fields['first_name'] = isset($meta['first_name'][0]) ? $meta['first_name'][0] : '';
-                                $community_fields['last_name'] = isset($meta['last_name'][0]) ? $meta['last_name'][0] : '';
-                                $community_fields['first_name_visibility'] = isset($meta['first_name_visibility'][0]) ? $meta['first_name_visibility'][0] : false;
-                                $community_fields['last_name_visibility'] = isset($meta['last_name_visibility'][0]) ? $meta['last_name_visibility'][0] : false;
-
-     
-                                foreach($fields AS $field) {
-                                    $field_visibility_name = "{$field}_visibility";
-                                    if($field == 'image_url') {
-                                        $field_visibility_name = 'profile_image_url_visibility';
-                                    }
-                                    $visibility = mozilla_determine_field_visibility($field, $field_visibility_name, $community_fields, $is_me, $logged_in);
-                                    $field_visibility_name = ($field === 'country') ? 'profile_location_visibility' : $field_visibility_name;
-                                    $visibility_settings[$field_visibility_name] = $visibility;
+                                if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
+                                    $avatar_url = preg_replace("/^http:/i", "https:", $info['profile_image']->value);
+                                } else {
+                                    $avatar_url = $info['profile_image']->value;
                                 }
                     
                             ?>
                             <a href="/members/<?php print $member->user_nicename; ?>" class="members__member-card">
-                                <div class="members__avatar<?php if($visibility_settings['profile_image_url_visibility'] === false || !isset($community_fields['image_url']) || strlen($community_fields['image_url']) === 0): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $community_fields['image_url']; ?>')"<?php endif; ?> data-username="<?php print $member->user_nicename; ?>">
+                                <div class="members__avatar<?php if($info['profile_image']->display === false || $info['profile_image']->value === false): ?> members__avatar--identicon<?php endif; ?>" <?php if($info['profile_image']->display && $info['profile_image']->value): ?> style="background-image: url('<?php print $avatar_url; ?>')"<?php endif; ?> data-username="<?php print $member->user_nicename; ?>">
 
                                 </div>
                                 <div class="members__member-info">
                                     <div class="members__username"><?php print $member->user_nicename; ?></div>
                                     <div class="members__name">
                                         <?php 
-                                            if($visibility_settings['first_name_visibility']) {
-                                                print $meta['first_name'][0];
+                                            if($info['first_name']->display && $info['first_name']->value) {
+                                                print $info['first_name']->value;
                                             }
-                                            if($visibility_settings['last_name_visibility']) {
-                                                print " {$meta['last_name'][0]}";
+
+                                            if($info['last_name']->display && $info['last_name']->value) {
+                                                print " {$info['last_name']->value}";
                                             }
                                         ?>
                                     </div>
-                                    <?php if($visibility_settings['profile_location_visibility'] !== false && isset($community_fields['country']) && strlen($community_fields['country']) > 0): ?>
+                                    <?php if($info['location']->display && $info['location']->value): ?>
                                         <div class="members__location">
                                             <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                                 <path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                             </svg>&nbsp;
-                                            <?php 
-                                                print $countries[$community_fields['country']];    
-                                            ?>
+                                            <?php print $info['location']->value; ?>
                                         </div>
                                     <?php endif; ?>
                                 </div>
@@ -622,56 +825,31 @@
                                     <?php foreach($admins AS $admin): ?>
                                     <?php
                                         $u = get_userdata($admin->user_id);
-                                        
-                                        $meta = get_user_meta($admin->user_id);
-                                        $visibility_settings = Array();
-                                        $community_fields = Array();
-                          
-                                        $fields = Array(
-                                            'image_url',
-                                            'first_name',
-                                            'last_name',
-                                            'country'
-                                        );
-                      
+                                    
                                         $is_me = $logged_in && intval($user->ID) === intval($admin->user_id);
-                                        
-                                        $community_fields = isset($meta['community-meta-fields'][0]) ? unserialize($meta['community-meta-fields'][0]) : Array();
-                                        $community_fields['first_name'] = isset($meta['first_name'][0]) ? $meta['first_name'][0] : '';
-                                        $community_fields['last_name'] = isset($meta['last_name'][0]) ? $meta['last_name'][0] : '';
-                                        $community_fields['first_name_visibility'] = isset($meta['first_name_visibility'][0]) ? $meta['first_name_visibility'][0] : false;
-                                        $community_fields['last_name_visibility'] = isset($meta['last_name_visibility'][0]) ? $meta['last_name_visibility'][0] : false;
-                                        
-                                        foreach($fields AS $field) {
-                                            $field_visibility_name = "{$field}_visibility";
-                                            if($field == 'image_url') {
-                                                $field_visibility_name = 'profile_image_url_visibility';
-                                            }
-
-                                            $visibility = mozilla_determine_field_visibility($field, $field_visibility_name, $community_fields, $is_me, $logged_in);
-                                            $field_visibility_name = ($field === 'country') ? 'profile_location_visibility' : $field_visibility_name;
-                                            $visibility_settings[$field_visibility_name] = $visibility;
-                                        }
+                                        $logged_in = mozilla_is_logged_in();
+                                        $current_user = wp_get_current_user()->data;
+                                        $is_me = $logged_in && intval($current_user->ID) === intval($member->ID);
+                                    
+                                        $info = mozilla_get_user_info($current_user, $u, $logged_in);
                                 
                                         if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
-                                            $avatar_url = preg_replace("/^http:/i", "https:", $community_fields['image_url']);
+                                            $avatar_url = preg_replace("/^http:/i", "https:", $info['profile_image']->value);
                                         } else {
-                                            $avatar_url = $community_fields['image_url'];
+                                            $avatar_url = $info['profile_image']->value;
                                         }
 
                                     ?>
                                     <a class="group__admin" href="/members/<?php print $u->user_nicename; ?>">
-                                        <div class="members__avatar<?php if($visibility_settings['profile_image_url_visibility'] === false || !isset($community_fields['image_url']) || strlen($community_fields['image_url']) === 0): ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['profile_image_url_visibility'] && isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $avatar_url; ?>')"<?php endif; ?> data-username="<?php print $u->user_nicename; ?>">
-
+                                        <div class="members__avatar<?php if($info['profile_image']->display === false || $info['profile_image']->value === false): ?> members__avatar--identicon<?php endif; ?>" <?php if($info['profile_image']->display && $info['profile_image']->value): ?> style="background-image: url('<?php print $avatar_url; ?>')"<?php endif; ?> data-username="<?php print $u->user_nicename; ?>">
                                         </div>
                                         <div class="username">
                                             <div><?php print "@{$u->user_nicename}"; ?></div>
                                             <div class="group__admin-name">
-                                                <?php if(isset($meta['first_name_visibility'][0]) && $meta['first_name_visibility'][0] || $logged_in || $is_me): print $community_fields['first_name'];?><?php endif; ?>
-                                                <?php if(isset($meta['last_name_visibility'][0]) && $meta['last_name_visibility'][0] || $is_me): print $community_fields['last_name']?><?php endif; ?>
+                                                <?php if($info['first_name']->display && $info['first_name']->value): print $info['first_name']->value; ?><?php endif; ?>
+                                                <?php if($info['last_name']->display && $info['last_name']->value): print $info['last_name']->value; ?><?php endif; ?>
                                             </div>
                                         </div>
-                              
                                     </a>
                                     <?php endforeach; ?>
                                 </div>
