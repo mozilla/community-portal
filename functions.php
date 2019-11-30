@@ -961,52 +961,6 @@ function mozilla_is_logged_in() {
     return sizeof((Array)$current_user) > 0 ? true : false; 
 }
 
-function mozilla_determine_field_visibility($field, $visibility_field, $community_fields, $is_me, $logged_in) {
-
-    if(isset($community_fields[$field]) 
-        || $field === 'city' 
-        || $field === 'username' 
-        || $field === 'country'
-        || $field === 'profile_groups_joined'
-        || $field === 'profile_image_url'
-        || $field === 'profile_events_attended' 
-        || $field === 'profile_events_organized'
-        || $field === 'profile_campaigns'
-        || $field === 'profile_telegram'
-        || $field === 'profile_facebook' 
-        || $field === 'profile_twitter' 
-        || $field === 'profile_discourse'
-        || $field === 'profile_github'
-        || $field === 'profile_linkedin') {   
-
-        if($field === 'city' || $field === 'country') {
-            $visibility_field = 'profile_location_visibility';
-        }
-
-        if($field === 'first_name' || $field === 'last_name') {
-            $visibility_field = "{$field}_visibility";
-        }
-
-        if($is_me) {
-            $display = true;
-        } else {
-            if(($logged_in && isset($community_fields[$visibility_field]) && intval($community_fields[$visibility_field]) === PrivacySettings::REGISTERED_USERS) || intval($community_fields[$visibility_field]) === PrivacySettings::PUBLIC_USERS) {
-                $display = true;
-            } else {
-                $display = false;
-            }
-
-            if($logged_in && $field === 'first_name') {
-                $display = true;
-            }
-        }
-    } else {
-        $display = false;
-    }
-
-    return $display;
-}
-
 function mozilla_get_user_info($me, $user, $logged_in) {
 
     // Username is ALWAYS public
