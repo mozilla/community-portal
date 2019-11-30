@@ -51,8 +51,9 @@ add_filter('acf/load_field/name=featured_group', 'acf_load_bp_groups', 10, 1);
 add_action('save_post', 'mozilla_save_event', 10, 3);
 
 // Include theme style.css file not in admin page
-if(!is_admin()) 
+if(!is_admin()) {
     wp_enqueue_style('style', get_stylesheet_uri());
+}
 
 $countries = Array(
     "AF" => "Afghanistan",
@@ -295,7 +296,6 @@ $countries = Array(
     "ZM" => "Zambia",
     "ZW" => "Zimbabwe"
 );
-
 
 abstract class PrivacySettings {
     const REGISTERED_USERS = 0;
@@ -1005,6 +1005,166 @@ function mozilla_determine_field_visibility($field, $visibility_field, $communit
     }
 
     return $display;
+}
+
+function mozilla_get_user_info($me, $user, $logged_in) {
+
+    // Username is ALWAYS public
+    $object = new stdClass();
+    $object->value = $user->user_nicename;
+    $object->display = true;
+    
+    $data = Array(
+        'username'  =>  $object,
+        'id'        =>  $user->ID
+    );
+
+    $is_me = $logged_in && intval($me->ID) === intval($user->ID);
+    $meta = get_user_meta($user->ID);
+    $community_fields = isset($meta['community-meta-fields'][0]) ? unserialize($meta['community-meta-fields'][0]) : Array();
+
+    // First Name
+    $object = new stdClass();
+    $object->value = isset($meta['first_name'][0]) ? $meta['first_name'][0] : false;
+    $object->display = mozilla_display_field('first_name', isset($meta['first_name_visibility'][0]) ? $meta['first_name_visibility'][0] : false, $is_me, $logged_in);
+    
+    $data['first_name'] = $object;
+
+    // Last Name
+    $object = new stdClass();
+    $object->value = isset($meta['last_name'][0]) ? $meta['last_name'][0] : false;
+    $object->display = mozilla_display_field('last_name', isset($meta['last_name_visibility'][0]) ? $meta['last_name_visibility'][0] : false, $is_me, $logged_in);
+    $data['last_name'] = $object;
+
+    // Email
+    $object = new stdClass();
+    $object->value = isset($meta['email'][0]) ? $meta['email'][0] : false;
+    $object->display = mozilla_display_field('email', isset($meta['email_visibility'][0]) ? $meta['email_visibility'][0] : false , $is_me, $logged_in);
+    $data['email'] = $object;
+
+    // Location
+    global $countries;
+    $object = new stdClass();
+    if(isset($community_fields['city']) && strlen($community_fields['city']) > 0 && isset($community_fields['country']) && strlen($community_fields['country']) > 1) {
+        $object->value = "{$community_fields['city']}, {$countries[$community_fields['country']]}";
+    } else {
+        if(isset($community_fields['city']) && strlen($community_fields['city']) > 0) {
+            $object->value = $community_fields['city'];
+        } elseif(isset($community_fields['country']) && strlen($community_fields['country']) > 0) {
+            $object->value = $countries[$community_fields['country']];
+        } else {
+            $object->value = false;
+        }
+    }
+    
+    $object->display = mozilla_display_field('location', isset($meta['profile_location_visibility'][0]) ? $meta['profile_location_visibility'][0] : false , $is_me, $logged_in);
+    $data['location'] = $object;
+
+    // Profile Image
+    $object = new stdClass();
+    $object->value = isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0 ? $community_fields['image_url'] : false;
+    $object->display = mozilla_display_field('image_url', isset($community_fields['profile_image_url_visibility']) ? $community_fields['profile_image_url_visibility'] : false , $is_me, $logged_in);
+    $data['profile_image'] = $object;
+
+    // Bio
+    $object = new stdClass();
+    $object->value = isset($community_fields['bio']) && strlen($community_fields['bio']) > 0 ? $community_fields['bio'] : false;
+    $object->display = mozilla_display_field('bio', isset($community_fields['bio_visibility']) ? $community_fields['bio_visibility'] : false , $is_me, $logged_in);
+    $data['bio'] = $object;
+
+    // Pronoun Visibility 
+    $object = new stdClass();
+    $object->value = isset($community_fields['pronoun']) && strlen($community_fields['pronoun']) > 0 ? $community_fields['pronoun'] : false;
+    $object->display = mozilla_display_field('pronoun', isset($community_fields['pronoun_visibility']) ? $community_fields['pronoun_visibility'] : false , $is_me, $logged_in);
+    $data['pronoun'] = $object;
+
+    // Phone
+    $object = new stdClass();
+    $object->value = isset($community_fields['phone']) ? $community_fields['phone'] : false;
+    $object->display = mozilla_display_field('phone', isset($community_fields['phone_visibility']) ? $community_fields['phone_visibility'] : false , $is_me, $logged_in);
+    $data['phone'] = $object;
+
+    // Groups Joined
+    $object = new stdClass();
+    $object->display = mozilla_display_field('groups_joined', isset($community_fields['profile_groups_joined_visibility']) ? $community_fields['profile_groups_joined_visibility'] : false , $is_me, $logged_in);
+    $data['groups'] = $object;
+
+    // Events Attended
+    $object = new stdClass();
+    $object->display = mozilla_display_field('events_attended', isset($community_fields['profile_events_attended_visibility']) ? $community_fields['profile_events_attended_visibility'] : false , $is_me, $logged_in);
+    $data['events_attended'] = $object;
+
+    // Events Organized
+    $object = new stdClass();
+    $object->display = mozilla_display_field('events_organized', isset($community_fields['profile_events_organized_visibility']) ? $community_fields['profile_events_organized_visibility'] : false , $is_me, $logged_in);
+    $data['events_organized'] = $object;
+    
+
+    // Social Media 
+    $object = new stdClass();
+    $object->value = isset($community_fields['telegram']) && strlen($community_fields['telegram']) > 0 ? $community_fields['telegram'] : false;
+    $object->display = mozilla_display_field('telegram', isset($community_fields['profile_telegram_visibility']) ? $community_fields['profile_telegram_visibility'] : false , $is_me, $logged_in);
+    $data['telegram'] = $object;
+
+    $object = new stdClass();
+    $object->value = isset($community_fields['facebook']) && strlen($community_fields['facebook']) > 0 ? $community_fields['facebook'] : false;
+    $object->display = mozilla_display_field('facebook', isset($community_fields['profile_facebook_visibility']) ? $community_fields['profile_facebook_visibility'] : false , $is_me, $logged_in);
+    $data['facebook'] = $object;
+
+    $object = new stdClass();
+    $object->value = isset($community_fields['twitter']) && strlen($community_fields['twitter']) > 0 ? $community_fields['twitter'] : false;
+    $object->display = mozilla_display_field('twitter', isset($community_fields['profile_twitter_visibility']) ? $community_fields['profile_twitter_visibility'] : false , $is_me, $logged_in);
+    $data['twitter'] = $object;
+
+    $object = new stdClass();
+    $object->value = isset($community_fields['linkedin']) && strlen($community_fields['linkedin']) > 0 ? $community_fields['linkedin'] : false;
+    $object->display = mozilla_display_field('linkedin', isset($community_fields['profile_linkedin_visibility']) ? $community_fields['profile_linkedin_visibility'] : false , $is_me, $logged_in);
+    $data['linkedin'] = $object;
+
+    $object = new stdClass();
+    $object->value = isset($community_fields['discourse']) && strlen($community_fields['discourse']) > 0 ? $community_fields['discourse'] : false;
+    $object->display = mozilla_display_field('discourse', isset($community_fields['profile_discourse_visibility']) ? $community_fields['profile_discourse_visibility'] : false , $is_me, $logged_in);
+    $data['discourse'] = $object;
+
+    $object = new stdClass();
+    $object->value = isset($community_fields['github']) && strlen($community_fields['github']) > 0 ? $community_fields['github'] : false;
+    $object->display = mozilla_display_field('github', isset($community_fields['profile_github_visibility']) ? $community_fields['profile_github_visibility'] : false , $is_me, $logged_in);
+    $data['github'] = $object;
+
+    //Languages
+    $object = new stdClass();
+    $object->value = isset($community_fields['languages']) && sizeof($community_fields['languages']) > 0 ? $community_fields['languages'] : false;
+    $object->display = mozilla_display_field('languages', isset($community_fields['languages_visibility']) ? $community_fields['languages_visibility'] : false , $is_me, $logged_in);
+    $data['languages'] = $object;
+
+    // Tags
+    $object = new stdClass();
+    $object->value = isset($community_fields['tags']) && strlen($community_fields['tags']) > 0 ? $community_fields['tags'] : false;
+    $object->display = mozilla_display_field('tags', isset($community_fields['tags_visibility']) ? $community_fields['tags_visibility'] : false , $is_me, $logged_in);
+    $data['tags'] = $object;
+    
+    $object = null;
+    return $data;
+}
+
+function mozilla_display_field($field, $visibility, $is_me, $logged_in) {
+
+    if($is_me)
+        return true;
+
+    if($field === 'first_name' && $logged_in)
+        return true;
+
+    if($visibility == PrivacySettings::PUBLIC_USERS)
+        return true;
+
+    if($visibility === false)
+        return false;
+
+    if($logged_in && $visibility == PrivacySettings::REGISTERED_USERS)
+        return true;
+
+    return false;
 }
 
 
