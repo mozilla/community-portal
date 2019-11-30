@@ -296,6 +296,12 @@
             }
         }
 
+        &.create-group__input-container--flex {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+        }
+
         &.create-group__input-container--40 {
             width: 100%;
             @include tablet-and-up {
@@ -376,6 +382,10 @@
         @extend .label;
         display: block;
         color: $color-gray-secondary;
+
+        &--full-width {
+            width: 100%;
+        }
 
         &--checkbox {
             @extend .label--checkbox;

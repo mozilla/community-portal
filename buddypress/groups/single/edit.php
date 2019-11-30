@@ -80,8 +80,8 @@
                             <div class="form__error"><?php print __("This field is required"); ?></div>
                         </div>
                     </div>
-                    <div class="create-group__input-container create-group__input-container--40">
-                        <label class="create-group__label" for="group-desc"><?php print __("Online or Offline Group"); ?></label>
+                    <div class="create-group__input-container create-group__input-container--40 create-group__input-container--flex">
+                        <label class="create-group__label create-group__label--full-width" for="group-desc"><?php print __("Online or Offline Group"); ?></label>
                         <label class="create-group__radio-container">
                             <?php print __("Online"); ?>
                             <input type="radio" name="group_type" id="group-type" value="<?php print __("Online"); ?>"<?php if(isset($form['group_type']) && $form['group_type'] == 'Online' || (empty($form['group_type']))): ?> checked<?php endif; ?> required />
