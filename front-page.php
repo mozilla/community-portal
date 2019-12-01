@@ -103,6 +103,7 @@
 							$meta = groups_get_groupmeta($group->id, 'meta');
 							$member_count = groups_get_total_member_count($group->id);
 					?>
+					<?php if($group->id): ?>
 					<div class="col-lg-4 col-md-6 groups__column">
 						<a href="/groups/<?php print $group->slug; ?>/" class="groups__card groups__card--homepage">
 							<?php 
@@ -160,6 +161,7 @@
 							</div>
 						</a>
 					</div>
+					<?php endif; ?>
 					<?php endforeach; ?>
 					<div class="col-lg-4 col-md-6 events__column homepage__events__count">
 						<?php
