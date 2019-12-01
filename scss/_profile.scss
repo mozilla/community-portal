@@ -473,11 +473,7 @@
         &.profile__select-container--flex {
 
             @include tablet-and-up {
-<<<<<<< HEAD
-                max-width: 180px;
-=======
                 max-width: 212px;
->>>>>>> develop
                 display: flex;
                 flex-direction: row;
                 justify-content: flex-end;
