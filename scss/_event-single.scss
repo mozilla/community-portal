@@ -1,400 +1,474 @@
 .events-single {
-  padding-bottom: 36px;
-  @include tablet-and-up {
-    padding-bottom: 88px;
-  }
-  @include desktop-and-up {
-    padding-bottom: 64px;
-  }
-  a {
-    text-decoration: none;
-    .events-single__tag-link {
-      color: $color-black;
-      &:visited {
-        color: $color-black;
-      }
+    padding-bottom: 36px;
+    @include tablet-and-up {
+        padding-bottom: 88px;
     }
-  }
-  .row {
-    margin-left: 0;
-    margin-right: 0;
-  }
-  &.events__container {
-    padding-top: 64px;
-  }
-  &__two-up {
-    flex-wrap: wrap;
-    justify-content: space-between;
-    .col-lg-7 {
-      @include desktop-and-up {
-        flex-basis: 500px;
-        flex-shrink: 0;
-        flex-grow: 1;
-        max-width: 715px;
-      }
-    }
-  }
-  .title {
-    margin: 0 0 32px;
-  }
-  .hidden {
-    display: none;
-  }
-  .em-booking-form-details {
-    text-align: right;
-  }
-  .card {
-    padding: 32px;
-    background-color: white;
-    &--with-img {
-      padding: 0;
-      .card__edit-btn {
-        background-color: white;
-      }
-    }
-    &__image {
-      display: flex;
-      justify-content: flex-end;
-      align-items: flex-start;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
-      background-color: $color-gray-10;
-    }
-    &__date {
-      flex-basis: 100%;
-      @include tablet-and-up {
-        flex-basis: 60%;
-      }
-      p,
-      .title--secondary {
-        margin: 0;
-      }
-      p {
-        margin-top: 8px;
-      }
-    }
-    &__time {
-      margin: 0;
-    }
-    #em-booking {
-      flex-basis: 100%;
-      @include tablet-and-up {
-        flex-basis: 40%;
-      }
-    }
-    &__details {
-      padding: 32px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-    }
-    &__edit-btn {
-      margin: 24px;
-      padding: 11px;
-      background: transparent;
-      border-radius: 50%;
-      svg {
-        display: block;
-        height: 18px;
-        width: 18px;
-      }
-    }
-    &__address {
-      p,
-      a {
-        margin: 0;
-        line-height: remCalc(28);
-      }
-      a:visited {
-        color: $color-blue-50;
-      }
-      a svg {
-        margin-left: 3px;
-      }
-    }
-  }
-  &__tags {
-    padding: 0;
-    margin: 0;
-    .tag {
-      font-size: remCalc(14);
-      padding: 10px 20px;
-      margin-bottom: 10px;
-      .events-single__tag-link {
-        color: $color-black;
-        &:visited {
-          color: $color-black;
-        }
-      }
-    }
-    
-  }
-  &__attributes.card,
-  &__group.card {
-    padding: 16px;
-    margin-top: 32px;
 
-    a:visited {
-      color: $color-blue-50;
+    @include desktop-and-up {
+        padding-bottom: 64px;
     }
-    p {
-      margin: 0;
+
+    a {
+        text-decoration: none;
+        .events-single__tag-link {
+            color: $color-black;
+            &:visited {
+                color: $color-black;
+            }
+        }
     }
-    .col-md-6,
-    .events-single__hosts {
-      padding: 0 0 24px;
-      @include tablet-and-up {
-        padding: 32px 24px;
-      }
-      @include desktop-and-up {
-        padding: 16px 32px;
-      }
-      &--multiple {
+
+    .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    &.events__container {
+        padding-top: 64px;
+    }
+
+    &__two-up {
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+        .col-lg-7 {
+            @include desktop-and-up {
+                flex-basis: 500px;
+                flex-shrink: 0;
+                flex-grow: 1;
+                max-width: 715px;
+            }
+        }
+    }
+
+    .title {
+        margin: 0 0 32px;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .em-booking-form-details {
+        text-align: right;
+    }
+        
+    .card {
+        padding: 32px;
+        background-color: white;
+
+        &--with-img {
+            padding: 0;
+            .card__edit-btn {
+                background-color: white;
+            }
+        }
+
+        &__image {
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-start;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: $color-gray-10;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+
+        &__date {
+            flex-basis: 100%;
+            @include tablet-and-up {
+                flex-basis: 60%;
+            }
+
+            p,
+            .title--secondary {
+                margin: 0;
+            }
+
+            p {
+                margin-top: 8px;
+            }
+        }
+
+        &__time {
+            margin: 0;
+        }
+        #em-booking {
+            flex-basis: 100%;
+            @include tablet-and-up {
+                flex-basis: 40%;
+            }
+        }
+
+        &__details {
+            padding: 32px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        &__edit-btn {
+            margin: 24px;
+            padding: 11px;
+            background: transparent;
+            border-radius: 50%;
+
+            svg {
+                display: block;
+                height: 18px;
+                width: 18px;
+            }
+        }
+
+        &__address {
+            p,
+            a {
+                margin: 0;
+                line-height: remCalc(28);
+            }
+            a:visited {
+                color: $color-blue-50;
+            }
+            a svg {
+                margin-left: 3px;
+            }
+        }
+    }
+
+    &__tags {
+        padding: 0;
+        margin: 0;
+        .tag {
+            font-size: remCalc(14);
+            padding: 10px 20px;
+            margin-bottom: 10px;
+            .events-single__tag-link {
+                color: $color-black;
+                &:visited {
+                  color: $color-black;
+                }
+            }
+        }
+        
+    }
+
+    &__attributes.card,
+    &__group.card {
+        padding: 16px;
+        margin-top: 32px;
+
+        a:visited {
+          color: $color-blue-50;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        .col-md-6,
+        .events-single__hosts {
+            padding: 0 0 24px;
+            @include tablet-and-up {
+                padding: 32px 24px;
+            }
+
+            @include desktop-and-up {
+                padding: 16px 32px;
+            }
+
+            &--multiple {
+                @include tablet-and-up {
+                    padding-bottom: 0;
+                }
+                @include desktop-and-up {
+                    padding-bottom: 32px;
+                }
+            }
+        }
+
+        .events-single__member-card {
+            &:first-of-type {
+                padding-left: 0;
+            }
+
+            a, 
+            a:visited {
+                color: black;
+            }
+
+            a {
+                display: flex;
+                align-items: center;
+                margin-bottom: 0;
+                flex-wrap: wrap;
+
+                .events-single__name {
+                    width: 100%;
+                    margin-left: 97px;
+                    margin-top: -25px;
+                }
+
+            }
+        }
+
+        .events-single__share {
+            padding: 24px 0 0;
+            @include tablet-and-up {
+                padding: 32px 0 0;
+                padding-bottom: 0;
+                flex-basis: calc(50% - 64px);
+                margin: 0 24px 32px;
+            }
+
+            @include desktop-and-up {
+                margin: 16px 0 0;
+                padding: 32px;
+                flex-basis: 100%;
+            }
+
+            &:first-child {
+                margin-top: 0;
+            }
+
+            &:nth-child(2) {
+                @include tablet-and-up {
+                border-top: 0;
+                padding-top: 32px;
+                display: flex; 
+                align-items: center;
+                }
+                @include desktop-and-up {
+                border-top: 1px solid $color-gray-20;
+                }
+            }
+
+            &:nth-child(1) {
+                border-top: 0;
+                padding-top: 0;
+                @include tablet-and-up {
+                    padding-top: 32px;
+                }
+            }
+        }
+
+        p.events-single__label {
+            font-size: remCalc(14);
+            margin-bottom: 16px;
+            color: $color-gray-secondary;
+        }
+
+        .events-single__host {
+            margin-top: 16px;
+            display: block;
+        }
+
         @include tablet-and-up {
-          padding-bottom: 0;
+            padding: 0;
+            margin-top: 53px;
         }
-        @include desktop-and-up {
-          padding-bottom: 32px;
-        }
-      }
     }
-    .events-single__member-card {
-      &:first-of-type {
-        padding-left: 0;
-      }
-      a, 
-      a:visited {
-        color: black;
-      }
-      a {
+
+    &__attributes.card {
+        
+        @include desktop-and-up {
+           margin-top: 0;
+        }
+    }
+
+    &__group.card {
+
+        p.events-single__label {
+            margin-bottom: 0;
+        }
+
+        @include desktop-and-up {
+            padding: 16px 0;  
+        }
+    }
+
+    &__sidebar {
+        @include desktop-and-up {
+          margin-left: 40px;
+        }
+    }
+
+    &__share {
+        border-top: 1px solid $color-gray-20;
+        padding-top: 32px;
+        
+        svg {
+            position: relative;
+            top: 2px;
+        }
+    }
+
+    &__group {
+        margin-top: 32px;
+    }
+
+    &__member-card a {
         display: flex;
         align-items: center;
-        margin-bottom: 0;
+        margin-bottom: 22px;
         flex-wrap: wrap;
 
-        .events-single__name {
-          width: 100%;
-          margin-left: 97px;
-          margin-top: -25px;
+        @include tablet-and-up {
+          margin-bottom: 32px;
+        }
+    }
+
+    &__avatar {
+        @extend .members__avatar;
+        margin-right: 16px;
+        flex-basis: 80px;
+        flex-shrink: 0;
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+    }
+
+    &__username {
+        @extend .members__username;
+
+        &::before {
+            content: "@";
+            display: inline;
+        }
+    }
+
+    &__name,
+    &__country {
+        @extend .members__name;
+    }
+
+    p.events-single__country {
+        padding-top: 8px;
+        &::before {
+            content: url('./images/map-pin.svg');
+            position: relative;
+            top: 3px;
+        }
+    }
+
+    &__cancel {
+        display: block;
+        text-align: center;
+        margin-left: auto;
+
+        @include tablet-and-up {
+          max-width: 204px;
+        }
+    }
+
+    &__location {
+        .card__map {
+            flex-basis: 100%;
+            padding-top: 21px;
+            @include tablet-and-up {
+                padding-top: 0;
+                flex-basis: 58.333333%;
+            }
+        }
+    }
+
+    &__campaign {
+        position: relative;
+        svg {
+          position: absolute;
         }
 
-      }
-    }
-    .events-single__share {
-      padding: 24px 0 0;
-      @include tablet-and-up {
-        padding: 32px 0 0;
-        padding-bottom: 0;
-        flex-basis: calc(50% - 64px);
-        margin: 0 24px 32px;
-      }
-      @include desktop-and-up {
-        margin: 16px 0 0;
-        padding: 32px;
-        flex-basis: 100%;
-      }
-      &:first-child {
-        margin-top: 0;
-      }
-      &:nth-child(2) {
-        @include tablet-and-up {
-          border-top: 0;
-          padding-top: 32px;
-          display: flex; 
-          align-items: center;
+        a {
+            padding-left: 32px;
+            line-height: 24px;
         }
+    }
+
+    .em-booking-form-details {
+        padding: 0;
+        float: none;
+        width: auto;
+    }
+
+    .em-booking-submit {
+        width: 100%;
+        @include tablet-and-up {
+          width: auto;
+        }
+    }
+
+    .em-booking {
+        text-align: right;
+    }
+
+    &__description {
         @include desktop-and-up {
-          border-top: 1px solid $color-gray-20;
+          padding-right: 32px;
         }
-      }
-      &:nth-child(1) {
-        border-top: 0;
-        padding-top: 0;
-        @include tablet-and-up {
-          padding-top: 32px;
-        }
-      }
     }
-    p.events-single__label {
-      font-size: remCalc(14);
-      margin-bottom: 16px;
-      color: $color-gray-secondary;
-    }
-    .events-single__host {
-      margin-top: 16px;
-      display: block;
-    }
-    @include tablet-and-up {
-      padding: 0;
-      margin-top: 53px;
-    }
-  }
-  &__attributes.card {
-    @include desktop-and-up {
-      margin-top: 0;
-    }
-  }
-  &__group.card {
-    p.events-single__label {
-      margin-bottom: 0;
-    }
-    @include desktop-and-up {
-      padding: 16px 0;  
-    }
-  }
-  &__sidebar {
-    @include desktop-and-up {
-      margin-left: 40px;
-    }
-  }
-  &__share {
-    border-top: 1px solid $color-gray-20;
-    padding-top: 32px;
-    svg {
-      position: relative;
-      top: 2px;
-    }
-  }
-  &__group {
-    margin-top: 32px;
-  }
-  &__member-card a {
-    display: flex;
-    align-items: center;
-    margin-bottom: 22px;
-    flex-wrap: wrap;
-    @include tablet-and-up {
-      margin-bottom: 32px;
-    }
-  }
-  &__avatar {
-    @extend .members__avatar;
-    margin-right: 16px;
-    flex-basis: 80px;
-    flex-shrink: 0;
-    img {
-      display: block;
-      max-width: 100%;
-    }
-  }
-  &__username {
-    @extend .members__username;
-    &::before {
-      content: "@";
-      display: inline;
-    }
-  }
-  &__name,
-  &__country {
-    @extend .members__name;
-  }
-  p.events-single__country {
-    padding-top: 8px;
-    &::before {
-      content: url('./images/map-pin.svg');
-      position: relative;
-      top: 3px;
-    }
-  }
-  &__cancel {
-    display: block;
-    text-align: center;
-    margin-left: auto;
-    @include tablet-and-up {
-      max-width: 204px;
-    }
-  }
-  &__location {
-    .card__map {
-      flex-basis: 100%;
-      padding-top: 21px;
-      @include tablet-and-up {
-        padding-top: 0;
-        flex-basis: 58.333333%;
-      }
-    }
-  }
-  &__campaign {
-    position: relative;
-    svg {
-      position: absolute;
-    }
-    a {
-      padding-left: 32px;
-      line-height: 24px;
-    }
-  }
-  .em-booking-form-details {
-    padding: 0;
-    float: none;
-    width: auto;
-  }
-  .em-booking-submit {
-    width: 100%;
-    @include tablet-and-up {
-      width: auto;
-    }
-  }
-  .em-booking {
-    text-align: right;
-  }
-  &__description {
-    @include desktop-and-up {
-      padding-right: 32px;
-    }
-  }
-  &__report {
-    text-align: right;
-    border-bottom: 1px solid #b1b1bc;
-  }
-  &__report-btn {
-    padding: 32px 0;
-    color: $color-blue-50;
-    svg {
-      position: relative;
-      top: 6px;
-    }
-    @include tablet-and-up {
-      padding: 24px 0;
-    }
-    @include desktop-and-up {
-      padding: 16px 0;
-    }
-  }
-  &__related {
-    padding: 56px 0 0;
-    .title--secondary {
-      margin-top: 0;
-    }
-  }
-  .events__column {
-    padding: 0 0 32px;
-    &:nth-child(2n + 1) {
-      @include tablet-and-up {
-        padding: 0 17px 0 0;
-      }
-    }
-    &:nth-child(2n) {
-      @include tablet-and-up {
-        padding: 0 0 0 17px;
-      }
-    }
-  }
-  @include desktop-and-up {
-    .events__column {
-      flex-basis: 50%;
-      max-width: 50%;
-      .event-card__image {
-        height: 270px;
-      }
-      &:nth-child(1) {
-        padding-left: 0;
-      }
-      &:nth-child(2) {
-        padding-right: 0;
-      }
-    }
-  }
 
+    &__report {
+        text-align: right;
+        border-bottom: 1px solid #b1b1bc;
+    }
+
+    &__report-btn {
+        padding: 32px 0;
+        color: $color-blue-50;
+        svg {
+            position: relative;
+            top: 6px;
+        }
+
+        @include tablet-and-up {
+            padding: 24px 0;
+        }
+
+        @include desktop-and-up {
+           padding: 16px 0;
+        }
+    }
+
+    &__related {
+        padding: 56px 0 0;
+        .title--secondary {
+            margin-top: 0;
+        }
+    }
+
+    .events__column {
+        padding: 0 0 32px;
+        &:nth-child(2n + 1) {
+            @include tablet-and-up {
+                padding: 0 17px 0 0;
+            }
+        }
+
+        &:nth-child(2n) {
+            @include tablet-and-up {
+                padding: 0 0 0 17px;
+            }
+        }
+    }
+
+    @include desktop-and-up {
+        .events__column {
+            flex-basis: 50%;
+            max-width: 50%;
+            .event-card__image {
+              height: 270px;
+            }
+
+            &:nth-child(1) {
+                padding-left: 0;
+            }
+            &:nth-child(2) {
+                padding-right: 0;
+            }
+        }
+    }
 }
+
