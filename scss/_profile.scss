@@ -6,7 +6,7 @@
 
 .profile {
     width: 100%;
-    overflow: hidden;
+    
     position: relative;
     a {
       text-decoration: none;
@@ -392,7 +392,7 @@
 
             &.profile__select--short {
                 margin-top: 0;
-                width: auto;
+                max-width: 550px;
             }
         }
 
@@ -418,6 +418,17 @@
                 max-width: 600px;
                 margin-right: 32px;
 
+            }
+        }
+
+        &.profile__select-container--first {
+            margin-right: 2px;
+        }
+
+        &.profile__select-container--languages {
+            margin-right: 47px;
+            svg {
+                right: 2px;
             }
         }
 
@@ -462,7 +473,11 @@
         &.profile__select-container--flex {
 
             @include tablet-and-up {
+<<<<<<< HEAD
                 max-width: 180px;
+=======
+                max-width: 212px;
+>>>>>>> develop
                 display: flex;
                 flex-direction: row;
                 justify-content: flex-end;
@@ -483,6 +498,11 @@
 
             @include tablet-and-up {
                 margin-top: 24px;
+                max-width: 225px;
+            }
+
+            @include desktop-and-up {
+                max-width: 180px
             }
 
             @include desktop-and-up {
@@ -547,6 +567,11 @@
             width: 100%;
             max-width: 180px;
         }
+
+        &.profile__label--max {
+            max-width: 180px;
+            margin-left: 0;
+        }
     }
 
     &__select {
@@ -555,7 +580,7 @@
 
         &.profile__select--flex {
             @include tablet-and-up {
-                max-width: 180px;
+                max-width: 182px;
             }
         }
 
@@ -926,9 +951,11 @@
         overflow: hidden;
         margin-top: 8px;
         z-index: 100;
-        background-size: cover;
+        background-size: 75px 75px;
         background-position: center center;
         background-repeat: no-repeat;
+        background-image: url('/wp-content/themes/community-portal/images/upload-image.svg');
+
         &:hover {
             cursor: pointer;
         }
@@ -1081,7 +1108,12 @@
         color: $color-gray-secondary;
         width: 100%;
         margin-top: 32px;
-
+        
+        &.profile__card--right {
+            &:first-of-type {
+                margin-top: 0;
+            }
+        }
 
         @include tablet-and-up {
             padding: 24px;
@@ -1098,28 +1130,18 @@
         justify-content: flex-start;
         margin-top: 16px;
         flex-wrap: wrap;
-
-        @include tablet-and-up {
-            justify-content: space-between;
-        }
-
     }
 
     &__static-tag {
-
         border-radius: 50px;
         padding: 10px 15px;
         color: $color-gray-80;
         background-color: $color-gray-20;
         font-size: remCalc(14);
         line-height: 20px;
-        margin-right: 12px;
-
-        @include tablet-and-up {
-            margin-right: 0;
-        }
-
-        
+        margin-right: 8px;
+        margin-bottom: 8px;
+    
     }
 
     &__languages-container {

@@ -1,275 +1,272 @@
 .form {
+    &__error-container {
+        color: $error;
+        font-size: remCalc(12);
+        line-height: 20px;
+        letter-spacing: 0.4px;
+        margin-top: 4px;
+        display: none;
 
-  &__error-container {
-      color: $error;
-      font-size: remCalc(12);
-      line-height: 20px;
-      letter-spacing: 0.4px;
-      margin-top: 4px;
-      display: none;
+        &--visible {
+            display: block;
+        }
 
-      &--visible {
-          display: block;
-      }
-
-      &--checkbox {
-          margin-bottom: -24px;
-      }
-
-  }
+        &--checkbox {
+            margin-bottom: -24px;
+        }
+    }
 }
 
 .input {
-  background: $color-gray-20;
-  border: 1px solid $color-gray-20;
-  border-radius: 5px;
-  box-sizing: border-box;
-  width: 100%;
-  height: 40px;
-  padding: 15px;
+    background: $color-gray-20;
+    border: 1px solid $color-gray-20;
+    border-radius: 5px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 43px;
+    padding: 15px;
 
-  &:focus {
-      outline: 0;
-  }
+    &:focus {
+        outline: 0;
+    }
 
-  &--error {
-      border-color: $error;
-  }
+    &--error {
+        border-color: $error;
+    }
 }
 
 .label {
-  font-size: remCalc(16);
-  line-height: 24px;
+    font-size: remCalc(16);
+    line-height: 24px;
 
-  &--inline {
-      display: inline;
-  }
+    &--inline {
+        display: inline;
+    }
 
-  &--checkbox {
-      padding-left: 32px;
-      cursor: pointer;
-  }
+    &--checkbox {
+        padding-left: 32px;
+        cursor: pointer;
+    }
 }
 
 .textarea {
-  width: 100%;
-  background: $color-gray-20;
-  border: 1px solid $color-gray-20;
-  border-radius: 5px;
-  padding: 15px;
+    width: 100%;
+    background: $color-gray-20;
+    border: 1px solid $color-gray-20;
+    border-radius: 5px;
+    padding: 15px;
 
-  &--error {
-      border-color: $error;
-  }
+    &--error {
+        border-color: $error;
+    }
 }
 
 .checkbox-container input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
 }
 
 .checkbox-container {
-  position: relative;
-  height: 48px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  padding-left: 35px;
+    position: relative;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-left: 35px;
 
-  &:hover input ~ .checkbox-check {
-      transition: all 0.3s ease-in;
-      cursor: pointer;
-      box-shadow: 0px 0px 0px 4px  $color-gray-30;
-  }
+    &:hover input ~ .checkbox-check {
+        transition: all 0.3s ease-in;
+        cursor: pointer;
+        box-shadow: 0px 0px 0px 4px  $color-gray-30;
+    }
 }
 
 
 .checkbox-container input:checked ~ .checkbox-check:after {
-  display: block;
+    display: block;
 }
 
 
 .checkbox-check {
-  position: absolute;
-  top: 12px;
-  left: 0;
-  height: 24px;
-  width: 24px;
-  background: $color-white;
-  border: 1px solid $color-gray-secondary;
-  border-radius: 2px;
+    position: absolute;
+    top: 12px;
+    left: 0;
+    height: 24px;
+    width: 24px;
+    background: $color-white;
+    border: 1px solid $color-gray-secondary;
+    border-radius: 2px;
 
-  svg {
-      display: none;
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: 16px;
-      height: 16px;
-  }
+    svg {
+        display: none;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 16px;
+        height: 16px;
+    }
 
-  &:after {
-      content: '';
-      position: absolute;
-      display: none;
-  }
+    &:after {
+        content: '';
+        position: absolute;
+        display: none;
+    }
 }
 
 .radio-container {
-  display: block;
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  font-size: remCalc(14);
-  line-height: 24px;
-  user-select: none;
-  font-weight: 400;
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: remCalc(14);
+    line-height: 24px;
+    user-select: none;
+    font-weight: 400;
 
-  &:hover input ~ .radio {
-      background-color: $color-gray-30;
-  }
+    &:hover input ~ .radio {
+        background-color: $color-gray-30;
+    }
 }
 
 .radio-container input:checked ~ .radio:after {
-  display: block;
-  background-color: $color-blue-50;
+    display: block;
+    background-color: $color-blue-50;
 }
 
 
 .radio-container input:checked ~ .radio {
-  background-color: $color-white;
-  border-color: $color-blue-50;
+    background-color: $color-white;
+    border-color: $color-blue-50;
 }
 
 
 .radio-container input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
 }
 
 .radio {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 24px;
-  width: 24px;
-  background-color: $color-white;
-  border-radius: 50%;
-  border: 2px solid $color-gray-40;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 24px;
+    width: 24px;
+    background-color: $color-white;
+    border-radius: 50%;
+    border: 2px solid $color-gray-40;
 
-  &:after {
-      content: '';
-      position: absolute;
-      display: none;
-  }
+    &:after {
+        content: '';
+        position: absolute;
+        display: none;
+    }
 }
 
 .radio-container .radio:after {
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-width: 17px;
-height: 17px;
-border-radius: 50%;
-background: $color-white;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    background: $color-white;
 }
 
 .select-container {
-  position: relative;
+    position: relative;
 
-  svg {
-      position: absolute;
-      width: 24px;
-      height: 24px;
-      display: block;
-      right: 0;
-      margin-top: 8px;
-  }
-
+    svg {
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        display: block;
+        right: 0;
+        margin-top: 8px;
+    }
 }
 
 .select {
-  background: $color-gray-20;
-  border: 1px solid $color-gray-20;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
-  border-radius: 5px;
-  box-sizing: border-box;
-  height: 40px;
-  border-radius: none;
-  padding: 10px;
-  appearance: none;
-  -webkit-appearance: none;
+    background: $color-gray-20;
+    border: 1px solid $color-gray-20;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+    box-sizing: border-box;
+    height: 43px;
+    border-radius: none;
+    padding: 10px;
+    appearance: none;
+    -webkit-appearance: none;
 
-  &--error {
-      border-color: $error;
-  }
+    &--error {
+        border-color: $error;
+    }
 
-  &--disabled {
-      background-color: $color-white;
-  }
+    &--disabled {
+        background-color: $color-white;
+    }
 }
 
 .cta {
-  background-color: $color-blue-50;
-  color: $color-white;
-  border-radius: 28px;
-  min-width: 115px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
-  font-size: remCalc(14);
-  line-height: 17px;
-  height: 48px;
-  padding: 15px 50px;
-  &:hover {
-      cursor: pointer;
-  }
+    background-color: $color-blue-50;
+    color: $color-white;
+    border-radius: 28px;
+    min-width: 115px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+    font-size: remCalc(14);
+    line-height: 17px;
+    height: 48px;
+    padding: 15px 50px;
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .autocomplete-suggestions {
-  text-align: left; 
-  cursor: default; 
-  border: 1px solid $color-gray-10; 
-  border-top: 0; 
-  background: $color-white; 
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
-  color: $color-black;
-  padding: 10px;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
+    text-align: left; 
+    cursor: default; 
+    border: 1px solid $color-gray-10; 
+    border-top: 0; 
+    background: $color-white; 
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+    color: $color-black;
+    padding: 10px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 
-  /* core styles should not be changed */
-  position: absolute; 
-  display: none; 
-  z-index: 9999; 
-  max-height: 254px; 
-  overflow: hidden;
-  overflow-y: auto; 
-  box-sizing: border-box;
+    /* core styles should not be changed */
+    position: absolute; 
+    display: none; 
+    z-index: 9999; 
+    max-height: 254px; 
+    overflow: hidden;
+    overflow-y: auto; 
+    box-sizing: border-box;
 }
 
 .autocomplete-suggestion { 
-  position: relative; 
-  padding: 0 .6em; 
-  line-height: 23px; 
-  white-space: nowrap; 
-  overflow: hidden; 
-  text-overflow: ellipsis; 
-  font-size: 1.02em; 
-  color: #333; 
+    position: relative; 
+    padding: 0 .6em; 
+    line-height: 23px; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    font-size: 1.02em; 
+    color: #333; 
 }
 
 .autocomplete-suggestion b { 
-  font-weight: normal; 
-  color: #1f8dd6; 
+    font-weight: normal; 
+    color: #1f8dd6; 
 }
 
 .autocomplete-suggestion.selected { 
-  background: #f0f0f0; 
+    background: #f0f0f0; 
 }

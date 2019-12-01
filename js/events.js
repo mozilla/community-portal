@@ -11,28 +11,45 @@ jQuery(function() {
             this.on("sending", function(file, xhr, formData) {
                 var nonce = jQuery("#my_nonce_field").val();
                 formData.append("my_nonce_field", nonce);
+                formData.append("event_image", "true");
             });
         },
         success: function(file, response) {
             file.previewElement.classList.add("dz-success");
             file["attachment_id"] = response; // push the id for future reference
 
-            jQuery(".dz-preview").remove();
-            jQuery("#image-delete").show();
-            jQuery("#image-url").val(response);
-            jQuery(".event-creator__image-upload")
-                .css("background-image", "url(" + response + ")")
-                .css("background-size", "cover");
+            var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+                '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+                '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+                '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+                '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+                '(\\#[-a-z\\d_]*)?$','i');
+            if(pattern.test(response)) {
 
-            jQuery(".create-group__image-upload").removeClass(
-                "create-group__image-upload--uploading"
-            );
-            jQuery(".create-group__image-upload").addClass(
-                "create-group__image-upload--done"
-            );
-            jQuery(".create-group__image-instructions").addClass(
-                "create-group__image-instructions--hide"
-            );
+                jQuery(".dz-preview").remove();
+                jQuery('.form__error--image').parent().removeClass('form__error-container--visible');
+                jQuery("#image-delete").show();
+                jQuery("#image-url").val(response);
+                jQuery(".event-creator__image-upload")
+                    .css("background-image", "url(" + response + ")")
+                    .css("background-size", "cover");
+
+                jQuery(".create-group__image-upload").removeClass(
+                    "create-group__image-upload--uploading"
+                );
+                jQuery(".create-group__image-upload").addClass(
+                    "create-group__image-upload--done"
+                );
+                jQuery(".create-group__image-instructions").addClass(
+                    "create-group__image-instructions--hide"
+                );
+
+            } else {
+                jQuery(".dz-preview").remove();
+
+                jQuery('.form__error--image').text(response);
+                jQuery('.form__error--image').parent().addClass('form__error-container--visible');
+            }
         },
         error: function(file, response) {
             file.previewElement.classList.add("dz-error");
@@ -109,25 +126,6 @@ jQuery(function() {
         }
     }
 
-    function setHeightOfDivs(selector) {
-        let t = 0;
-        let t_elem;
-        const $cards = jQuery(selector);
-        if ($cards) {
-            $cards.each(function() {
-                $this = jQuery(this);
-                $this.css("min-height", "0");
-                if ($this.outerHeight() > t) {
-                    t_elem = $this;
-                    t = $this.outerHeight();
-                }
-            });
-            $cards.each(function() {
-                jQuery(this).css("min-height", t_elem.outerHeight());
-            });
-        }
-    }
-
     function toggleVisibility(selector, value, hidden) {
         jQuery(selector).val(value);
         if (hidden) {
@@ -162,6 +160,24 @@ jQuery(function() {
         });
     }
 
+    function handleCityForOnline($country, $city) {
+      if ($country.val() === 'OE') {
+        $city.val('Online Event');
+      } else if ($city.val() === 'Online Event') {
+        $city.val('');
+      }
+    }
+    function handleOnlineEvent() {
+      const $locationCountry = jQuery('#location-country');
+      const $locationCity = jQuery('#location-town')
+      if ($locationCountry.length > 0) {
+        $locationCountry.on('change', function(e) {
+          const $this = jQuery(this);
+          handleCityForOnline($this, $locationCity);
+        });
+      }
+    }
+
     function clearErrors(input) {
         input.one("focus", function() {
             const $this = jQuery(this);
@@ -174,11 +190,12 @@ jQuery(function() {
         });
     }
 
-    function toggleError(parent) {
+    function toggleError(parent, errMsg = 'This field is required') {
         const $errorPresent = parent.find("> .event-creator__error-field");
         if (!$errorPresent.length > 0) {
+        
             const $errorText = jQuery(
-                '<p class="event-creator__error-field"> Please provide this field </p>'
+                '<p class="event-creator__error-field"> '+ errMsg +' </p>'
             );
             parent.append($errorText);
             return;
@@ -192,11 +209,33 @@ jQuery(function() {
     function checkInputs(inputs) {
         let $allClear = true;
         let $first = true;
+
         inputs.each(function() {
             const $this = jQuery(this);
+
             clearErrors($this);
             $allClear = validateCpg($allClear);
             const input_id = $this.attr("id");
+
+            if(input_id == 'location-name' && jQuery('#location-type').val() == 'online') {
+                var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+                                            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+                                            '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+                                            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+                                            '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+                                            '(\\#[-a-z\\d_]*)?$','i');
+            
+
+                if(!pattern.test($this.val())) {
+                    const $label = jQuery(`label[for=${input_id}]`);
+                    const $parent = $label.parent();
+
+                    toggleError($parent, 'Invalid URL provided');
+                    $this.addClass("event-creator__error");
+                    $allClear = false;
+                }
+            } 
+
             if (!$this.val() || $this.val() === "00:00" || $this.val() === "0") {
                 if ($first) {
                     jQuery("html, body").animate({
@@ -209,10 +248,12 @@ jQuery(function() {
                 const $label = jQuery(`label[for=${input_id}]`);
                 const $parent = $label.parent();
                 toggleError($parent);
-                //$label.addClass("event-creator__error-text");
                 $this.addClass("event-creator__error");
                 $allClear = false;
             }
+
+            
+
         });
         return $allClear;
     }
@@ -221,7 +262,6 @@ jQuery(function() {
         const $cpgCheck = jQuery("#cpg");
         if ($cpgCheck.length && !$cpgCheck.prop("checked")) {
             const $label = jQuery("label[for=cpg]");
-            //$label.addClass("event-creator__error-text");
             $cpgCheck.one("change", function() {
                 $label.removeClass("event-creator__error-text");
             });
@@ -261,7 +301,8 @@ jQuery(function() {
         if ($deleteBtn.length) {
             $deleteBtn.on("click", function(e) {
                 e.preventDefault();
-                $photoUpload.css("background-image", "").css("background-size", "");
+                $photoUpload.css("background-image", "").css("background-size", "auto");
+                $photoUpload.css("background-position", "center");
                 $imageInput.val("");
                 $deleteBtn.hide();
             });
@@ -352,32 +393,18 @@ jQuery(function() {
       });
     }
 
-    function confirmDelete() {
-      const $deleteBtn = jQuery('.event-creator__cancel');
-      if ($deleteBtn.length > 0) {
-        $deleteBtn.click(function() {
-          return confirm('Would you like to delete this event?');
-        });
-      }
-    }
-
     function init() {
         toggleMobileEventsNav(".events__nav__toggle", ".events__nav");
         toggleMobileEventsNav(".events__filter__toggle", ".events__filter");
         eventsMobileNav();
         applyFilters();
-        window.addEventListener("resize", function() {
-            setHeightOfDivs(".events__tags");
-            setHeightOfDivs(".event-card__description");
-        });
-        setHeightOfDivs(".events__tags");
-        setHeightOfDivs(".event-card__description");
+
         toggleLocationType();
         handleSubmit();
         clearImage();
         editLocation();
         trackLocationType();
-        confirmDelete();
+        handleOnlineEvent();
     }
 
     init();
