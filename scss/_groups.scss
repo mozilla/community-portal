@@ -82,7 +82,7 @@
         font-weight: 300;
         display: inline-block;
         width: auto;
-        font-family: 'Zilla Slab';
+        font-family: $title-font;
         margin-bottom: 16px;
         position: relative;
         padding-left: 30px;
@@ -498,7 +498,7 @@
     &__group-title {
         font-size: remCalc(24);
         line-height: 32px;
-        font-family: 'Zilla Slab';
+        font-family: $title-font;
         color: $color-black;
         margin: 0;
         padding: 0;

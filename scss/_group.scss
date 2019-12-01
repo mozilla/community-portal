@@ -16,7 +16,7 @@
     }
 
     &__title {
-        font-family: 'Zilla Slab';
+        font-family: $title-font;
         color: $color-off-black;
         font-weight: 500;
         margin: 0;
@@ -40,7 +40,7 @@
         line-height: 20px;
         letter-spacing: 0.0025em;
         color: $color-gray-secondary;
-        font-family: 'Open Sans', sans-serif;
+        font-family: $copy-font;
         margin: 0;
         margin-top: 16px;
         display: flex;
@@ -268,7 +268,7 @@
     }
 
     &__card-title {
-        font-family: 'Zilla Slab';
+        font-family: $title-font;
         font-size: remCalc(24);
         line-height: 32px;
         margin: 0;
@@ -361,7 +361,7 @@
 
 
             &.username {
-                font-family: 'Zilla Slab';
+                font-family: $title-font;
                 font-size: remCalc(20);
                 line-height: 28px;
                 color: $color-black;
@@ -602,7 +602,7 @@
     span.group__event-count,
     a.group__member-count {
 
-        font-family: 'Zilla Slab';
+        font-family: $title-font;
         font-size: remCalc(36);
         width: auto;
         color: $color-blue-50;

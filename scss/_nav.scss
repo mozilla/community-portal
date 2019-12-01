@@ -78,7 +78,7 @@
         font-weight: 500;
         margin-left: auto;
         margin-right: 40px;
-        font-family: "Zilla Slab";
+        font-family: $title-font;
         display: flex;
         flex-direction: row;
         justify-content: flex-end;
@@ -86,7 +86,7 @@
     }
 
     &__logout-link {
-        font-family: "Open Sans";
+        font-family: $copy-font;
         display: inline-block;
         margin-left: 24px;
         font-size: remCalc(12);
@@ -158,7 +158,7 @@
         flex-direction: row;
         justify-content: flex-start;
         align-items: center;
-        font-family: "Zilla Slab";
+        font-family: $title-font;
         font-size: remCalc(16);
         line-height: 24px;
 
@@ -259,7 +259,7 @@
         align-items: center;
         border-top: 1px solid $color-gray-20;
         border-bottom: 1px solid $color-gray-20;
-        font-family: "Zilla Slab";
+        font-family: $title-font;
         font-size: remCalc(16);
         line-height: 24px;
 
@@ -270,7 +270,7 @@
         }
 
         .nav__logout-link {
-            font-family: "Open Sans";
+            font-family: $copy-font;
             font-size: remCalc(14);
             line-height: 22px;
             color: $color-black;

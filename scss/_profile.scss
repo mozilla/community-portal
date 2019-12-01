@@ -120,7 +120,7 @@
         font-weight: 300;
         display: block;
         width: 100%;
-        font-family: 'Zilla Slab';
+        font-family: $title-font;
         margin-bottom: 16px;
         
         @include tablet-and-up {
@@ -266,7 +266,7 @@
     }
 
     &__form-title {
-        font-family: Zilla Slab;
+        font-family: $title-font;
         font-size: remCalc(24);
         font-weight: 400;
         line-height: 29px;
@@ -796,7 +796,7 @@
     }
 
     &__user-title {
-        font-family: 'Zilla Slab';
+        font-family: $title-font;
 
         font-size: remCalc(18);
         line-height: 25px;
@@ -1170,7 +1170,7 @@
     }
 
     &__group-title  {
-        font-family: 'Zilla Slab';
+        font-family: $title-font;
         font-size: remCalc(24);
         line-height: 32px;
         color: $color-off-black;
@@ -1179,7 +1179,7 @@
 
     &__heading {
         margin: 0;
-        font-family: 'Zilla Slab';
+        font-family: $title-font;
         font-size: remCalc(24);
         line-height: 32px;
         color: $color-black;

@@ -47,7 +47,7 @@
     }
 
     &__title {
-        font-family: 'Zilla Slab';
+        font-family: $title-font;
         color: $color-white;
         font-size: remCalc(24);
         line-height: 29px;

@@ -60,7 +60,7 @@
         font-weight: 300;
         display: inline-block;
         width: auto;
-        font-family: 'Zilla Slab';
+        font-family: $title-font;
         margin-bottom: 16px;
         position: relative;
         padding-left: 30px;
@@ -280,7 +280,7 @@
     }
 
     &__username {
-        font-family: 'Zilla Slab';
+        font-family: $title-font;
         font-size: remCalc(20);
         line-height: 28px;
         color: $color-off-black;

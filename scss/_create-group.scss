@@ -193,7 +193,7 @@
         font-weight: 300;
         display: block;
         width: 100%;
-        font-family: 'Zilla Slab';
+        font-family: $title-font;
 
 
         @include tablet-and-up {
