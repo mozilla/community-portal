@@ -669,6 +669,10 @@
         margin-bottom: 24px;
         display: inline-block;
 
+        svg {
+            margin-left: 4px;
+        }
+
         @include desktop-and-up {
             margin-bottom: 32px;
         }
