@@ -23,13 +23,6 @@ add_action('wp_ajax_validate_group', 'mozilla_validate_group_name');
 add_action('wp_ajax_check_user', 'mozilla_validate_username');
 add_action('wp_ajax_delete_user', 'mozilla_delete_user');
 
-// Gutenberg Setup 
-function pg_blocks() {
-  wp_enqueue_script('blocks-scripts', get_template_directory_uri() . '/js/gutenberg.js', array('wp-blocks', 'wp-dom-ready', 'wp-edit-post', 'wp-element', 'wp-editor', 'wp-i18n', 'jquery'), false, true);
- }
- add_action('enqueue_block_editor_assets', 'pg_blocks', 10, 1);
-
-
 // Buddypress Actions
 add_action('bp_before_create_group_page', 'mozilla_create_group', 10, 1);
 add_action('bp_before_edit_group_page', 'mozilla_edit_group', 10, 1);
@@ -50,259 +43,20 @@ add_filter('em_location_get_countries', 'mozilla_add_online_to_countries', 10, 1
 add_filter('em_booking_save_pre','mozilla_approve_booking', 100, 2);
 add_filter('em_event_submission_login', "mozilla_update_events_copy", 10, 1);
 add_filter('wp_redirect', 'mozilla_events_redirect');
-
-
-//add_filter('nav_menu_css_class', 'mozilla_add_active_page' , 10 , 2);
+add_filter('em_event_delete', 'mozilla_delete_events', 10, 2);
+add_filter( 'body_class', 'mozilla_update_body_class');
+add_filter('acf/load_field/name=featured_group', 'acf_load_bp_groups', 10, 1);
 
 // Events Action
 add_action('save_post', 'mozilla_save_event', 10, 3);
 
+$template_dir = get_template_directory();
+include("{$template_dir}/countries.php");
+
 // Include theme style.css file not in admin page
-if(!is_admin()) 
+if(!is_admin()) {
     wp_enqueue_style('style', get_stylesheet_uri());
-
-$countries = Array(
-    "AF" => "Afghanistan",
-    "AL" => "Albania",
-    "DZ" => "Algeria",
-    "AS" => "American Samoa",
-    "AD" => "Andorra",
-    "AO" => "Angola",
-    "AI" => "Anguilla",
-    "AQ" => "Antarctica",
-    "AG" => "Antigua and Barbuda",
-    "AR" => "Argentina",
-    "AM" => "Armenia",
-    "AW" => "Aruba",
-    "AU" => "Australia",
-    "AT" => "Austria",
-    "AZ" => "Azerbaijan",
-    "BS" => "Bahamas",
-    "BH" => "Bahrain",
-    "BD" => "Bangladesh",
-    "BB" => "Barbados",
-    "BY" => "Belarus",
-    "BE" => "Belgium",
-    "BZ" => "Belize",
-    "BJ" => "Benin",
-    "BM" => "Bermuda",
-    "BT" => "Bhutan",
-    "BO" => "Bolivia",
-    "BA" => "Bosnia and Herzegovina",
-    "BW" => "Botswana",
-    "BV" => "Bouvet Island",
-    "BR" => "Brazil",
-    "IO" => "British Indian Ocean Territory",
-    "BN" => "Brunei Darussalam",
-    "BG" => "Bulgaria",
-    "BF" => "Burkina Faso",
-    "BI" => "Burundi",
-    "KH" => "Cambodia",
-    "CM" => "Cameroon",
-    "CA" => "Canada",
-    "CV" => "Cape Verde",
-    "KY" => "Cayman Islands",
-    "CF" => "Central African Republic",
-    "TD" => "Chad",
-    "CL" => "Chile",
-    "CN" => "China",
-    "CX" => "Christmas Island",
-    "CC" => "Cocos (Keeling) Islands",
-    "CO" => "Colombia",
-    "KM" => "Comoros",
-    "CG" => "Congo",
-    "CD" => "Congo, the Democratic Republic of the",
-    "CK" => "Cook Islands",
-    "CR" => "Costa Rica",
-    "CI" => "Cote D'Ivoire",
-    "HR" => "Croatia",
-    "CU" => "Cuba",
-    "CY" => "Cyprus",
-    "CZ" => "Czech Republic",
-    "DK" => "Denmark",
-    "DJ" => "Djibouti",
-    "DM" => "Dominica",
-    "DO" => "Dominican Republic",
-    "EC" => "Ecuador",
-    "EG" => "Egypt",
-    "SV" => "El Salvador",
-    "GQ" => "Equatorial Guinea",
-    "ER" => "Eritrea",
-    "EE" => "Estonia",
-    "ET" => "Ethiopia",
-    "FK" => "Falkland Islands (Malvinas)",
-    "FO" => "Faroe Islands",
-    "FJ" => "Fiji",
-    "FI" => "Finland",
-    "FR" => "France",
-    "GF" => "French Guiana",
-    "PF" => "French Polynesia",
-    "TF" => "French Southern Territories",
-    "GA" => "Gabon",
-    "GM" => "Gambia",
-    "GE" => "Georgia",
-    "DE" => "Germany",
-    "GH" => "Ghana",
-    "GI" => "Gibraltar",
-    "GR" => "Greece",
-    "GL" => "Greenland",
-    "GD" => "Grenada",
-    "GP" => "Guadeloupe",
-    "GU" => "Guam",
-    "GT" => "Guatemala",
-    "GN" => "Guinea",
-    "GW" => "Guinea-Bissau",
-    "GY" => "Guyana",
-    "HT" => "Haiti",
-    "HM" => "Heard Island and Mcdonald Islands",
-    "VA" => "Holy See (Vatican City State)",
-    "HN" => "Honduras",
-    "HK" => "Hong Kong",
-    "HU" => "Hungary",
-    "IS" => "Iceland",
-    "IN" => "India",
-    "ID" => "Indonesia",
-    "IR" => "Iran, Islamic Republic of",
-    "IQ" => "Iraq",
-    "IE" => "Ireland",
-    "IL" => "Israel",
-    "IT" => "Italy",
-    "JM" => "Jamaica",
-    "JP" => "Japan",
-    "JO" => "Jordan",
-    "KZ" => "Kazakhstan",
-    "KE" => "Kenya",
-    "KI" => "Kiribati",
-    "KP" => "Korea, Democratic People's Republic of",
-    "KR" => "Korea, Republic of",
-    "KW" => "Kuwait",
-    "KG" => "Kyrgyzstan",
-    "LA" => "Lao People's Democratic Republic",
-    "LV" => "Latvia",
-    "LB" => "Lebanon",
-    "LS" => "Lesotho",
-    "LR" => "Liberia",
-    "LY" => "Libyan Arab Jamahiriya",
-    "LI" => "Liechtenstein",
-    "LT" => "Lithuania",
-    "LU" => "Luxembourg",
-    "MO" => "Macao",
-    "MK" => "Macedonia, the Former Yugoslav Republic of",
-    "MG" => "Madagascar",
-    "MW" => "Malawi",
-    "MY" => "Malaysia",
-    "MV" => "Maldives",
-    "ML" => "Mali",
-    "MT" => "Malta",
-    "MH" => "Marshall Islands",
-    "MQ" => "Martinique",
-    "MR" => "Mauritania",
-    "MU" => "Mauritius",
-    "YT" => "Mayotte",
-    "MX" => "Mexico",
-    "FM" => "Micronesia, Federated States of",
-    "MD" => "Moldova, Republic of",
-    "MC" => "Monaco",
-    "MN" => "Mongolia",
-    "MS" => "Montserrat",
-    "MA" => "Morocco",
-    "MZ" => "Mozambique",
-    "MM" => "Myanmar",
-    "NA" => "Namibia",
-    "NR" => "Nauru",
-    "NP" => "Nepal",
-    "NL" => "Netherlands",
-    "AN" => "Netherlands Antilles",
-    "NC" => "New Caledonia",
-    "NZ" => "New Zealand",
-    "NI" => "Nicaragua",
-    "NE" => "Niger",
-    "NG" => "Nigeria",
-    "NU" => "Niue",
-    "NF" => "Norfolk Island",
-    "MP" => "Northern Mariana Islands",
-    "NO" => "Norway",
-    "OM" => "Oman",
-    "PK" => "Pakistan",
-    "PW" => "Palau",
-    "PS" => "Palestinian Territory, Occupied",
-    "PA" => "Panama",
-    "PG" => "Papua New Guinea",
-    "PY" => "Paraguay",
-    "PE" => "Peru",
-    "PH" => "Philippines",
-    "PN" => "Pitcairn",
-    "PL" => "Poland",
-    "PT" => "Portugal",
-    "PR" => "Puerto Rico",
-    "QA" => "Qatar",
-    "RE" => "Reunion",
-    "RO" => "Romania",
-    "RU" => "Russian Federation",
-    "RW" => "Rwanda",
-    "SH" => "Saint Helena",
-    "KN" => "Saint Kitts and Nevis",
-    "LC" => "Saint Lucia",
-    "PM" => "Saint Pierre and Miquelon",
-    "VC" => "Saint Vincent and the Grenadines",
-    "WS" => "Samoa",
-    "SM" => "San Marino",
-    "ST" => "Sao Tome and Principe",
-    "SA" => "Saudi Arabia",
-    "SN" => "Senegal",
-    "CS" => "Serbia and Montenegro",
-    "SC" => "Seychelles",
-    "SL" => "Sierra Leone",
-    "SG" => "Singapore",
-    "SK" => "Slovakia",
-    "SI" => "Slovenia",
-    "SB" => "Solomon Islands",
-    "SO" => "Somalia",
-    "ZA" => "South Africa",
-    "GS" => "South Georgia and the South Sandwich Islands",
-    "ES" => "Spain",
-    "LK" => "Sri Lanka",
-    "SD" => "Sudan",
-    "SR" => "Suriname",
-    "SJ" => "Svalbard and Jan Mayen",
-    "SZ" => "Swaziland",
-    "SE" => "Sweden",
-    "CH" => "Switzerland",
-    "SY" => "Syrian Arab Republic",
-    "TW" => "Taiwan, Province of China",
-    "TJ" => "Tajikistan",
-    "TZ" => "Tanzania, United Republic of",
-    "TH" => "Thailand",
-    "TL" => "Timor-Leste",
-    "TG" => "Togo",
-    "TK" => "Tokelau",
-    "TO" => "Tonga",
-    "TT" => "Trinidad and Tobago",
-    "TN" => "Tunisia",
-    "TR" => "Turkey",
-    "TM" => "Turkmenistan",
-    "TC" => "Turks and Caicos Islands",
-    "TV" => "Tuvalu",
-    "UG" => "Uganda",
-    "UA" => "Ukraine",
-    "AE" => "United Arab Emirates",
-    "GB" => "United Kingdom",
-    "US" => "United States",
-    "UM" => "United States Minor Outlying Islands",
-    "UY" => "Uruguay",
-    "UZ" => "Uzbekistan",
-    "VU" => "Vanuatu",
-    "VE" => "Venezuela",
-    "VN" => "Viet Nam",
-    "VG" => "Virgin Islands, British",
-    "VI" => "Virgin Islands, U.s.",
-    "WF" => "Wallis and Futuna",
-    "EH" => "Western Sahara",
-    "YE" => "Yemen",
-    "ZM" => "Zambia",
-    "ZW" => "Zimbabwe"
-);
-
+}
 
 abstract class PrivacySettings {
     const REGISTERED_USERS = 0;
@@ -505,9 +259,16 @@ function mozilla_create_group() {
                                     }
                                 }
 
-                                if(isset($_POST['group_admin_id']) && $_POST['group_admin_id']) {
-                                    groups_join_group($group_id, intval($_POST['group_admin_id']));
-                                    groups_promote_member(intval($_POST['group_admin_id']), $group_id, 'admin');
+                                $group = groups_get_group(Array('group_id' => $group_id ));
+                                $user = wp_get_current_user();
+
+                                if(isset($_POST['group_admin_id']) && $_POST['group_admin_id'] && $group->creator_id == $user->ID) {
+                                    $group_admin_user_id = intval($_POST['group_admin_id']);
+
+                                    groups_join_group($group_id, $group_admin_user_id);
+                                    $member = new BP_Groups_Member($group_admin_user_id, $group_id); 
+                                    do_action('groups_promote_member', $group_id, $group_admin_user_id, 'admin'); 
+                                    $member->promote('admin'); 
                                 }
 
                                 // Required information but needs to be stored in meta data because buddypress does not support these fields
@@ -526,7 +287,7 @@ function mozilla_create_group() {
                                     unset($_SESSION['form']);
                                     $_POST = Array();
                                     $_POST['step'] = 3;
-                                    $group = groups_get_group(Array('group_id' => $group_id ));
+                                    
                                     $_POST['group_slug'] = $group->slug;
                                 } else {
                                     groups_delete_group($group_id);
@@ -552,21 +313,64 @@ function mozilla_create_group() {
 function mozilla_upload_image() {
 
     if(!empty($_FILES) && wp_verify_nonce($_REQUEST['my_nonce_field'], 'protect_content')) {
-        $image = getimagesize($_FILES['file']['tmp_name']);
 
-        if(isset($image[2]) && in_array($image[2], Array(IMAGETYPE_JPEG ,IMAGETYPE_PNG))) {
-            $uploaded_bits = wp_upload_bits($_FILES['file']['name'], null, file_get_contents($_FILES['file']['tmp_name']));
-            
-            if (false !== $uploaded_bits['error']) {
-                
-            } else {
-                $uploaded_file     = $uploaded_bits['file'];
-                $_SESSION['uploaded_file'] = $uploaded_bits['file'];
-                $uploaded_url      = $uploaded_bits['url'];
-                $uploaded_filetype = wp_check_filetype(basename($uploaded_bits['file'] ), null);
+        if(isset($_FILES['file']) && isset($_FILES['file']['tmp_name'])) {
+            $image = getimagesize($_FILES['file']['tmp_name']);
+            $image_file = $_FILES['file']['tmp_name'];
+            $file_size = filesize($image_file);
+    
+            $file_size_kb =  number_format($file_size / 1024, 2);
+            $options = wp_load_alloptions();
+            $max_files_size_allowed = isset($options['image_max_filesize']) && intval($options['image_max_filesize']) > 0 ? intval($options['image_max_filesize']) : 500;
+
+            if($file_size_kb <= $max_files_size_allowed) {
+                if(isset($image[2]) && in_array($image[2], Array(IMAGETYPE_JPEG ,IMAGETYPE_PNG))) {
+                    $uploaded_bits = wp_upload_bits($_FILES['file']['name'], null, file_get_contents($image_file));
+                    
+                    if (false !== $uploaded_bits['error']) {
+                        
+                    } else {
+                        $uploaded_file     = $uploaded_bits['file'];
+                        $_SESSION['uploaded_file'] = $uploaded_bits['file'];
         
-                print $uploaded_url;
+                        $uploaded_url      = $uploaded_bits['url'];
+                        $uploaded_filetype = wp_check_filetype(basename($uploaded_bits['file']), null);
+                        
+                        if(isset($_REQUEST['profile_image']) && $_REQUEST['profile_image'] == 'true') {
+                            // Image size check
+                            if(isset($image[0]) && isset($image[1])) {
+                                if($image[0] >= 175 && $image[1] >= 175) {
+                                    print $uploaded_url;
+                                } else {
+                                    print "Image size is too small";
+                                    unlink($uploaded_bits['file']);
+                                }
+                            } else {
+                                print "Invalid image provided"; 
+                                unlink($uploaded_bits['file']);
+                            }
+                        } elseif(isset($_REQUEST['group_image']) && $_REQUEST['group_image'] == 'true' || isset($_REQUEST['event_image']) && $_REQUEST['event_image'] == 'true') {
+                            if(isset($image[0]) && isset($image[1])) {
+                                if($image[0] >= 703 && $image[1] >= 400) {
+                                    print $uploaded_url;
+                                } else {
+                                    print "Image size is too small";
+                                    unlink($uploaded_bits['file']);
+                                }
+                            } else {
+                                print "Invalid image provided"; 
+                                unlink($uploaded_bits['file']);
+                            }
+                        }  else {
+                            print $uploaded_url;
+                            unlink($uploaded_bits['file']);
+                        }
+                    }
+                }
+            } else {
+                print "Image size to large ({$max_files_size_allowed} KB maximum)";
             }
+            
         }
     }
 	die();
@@ -713,14 +517,14 @@ function mozilla_leave_group() {
         if($user->ID) {
             if(isset($_POST['group']) && $_POST['group']) {
                 $group = intval(trim($_POST['group']));
-                if(!groups_is_user_admin($user->ID, $group)) {
-                    
+                $group_object = groups_get_group(Array('group_id' => $group));
+                if($group_object->creator_id !== $user->ID) {
                     $left = groups_leave_group($group, $user->ID);
 
                     if($left) {
                         print json_encode(Array('status'   =>  'success', 'msg'  =>  'Left Group'));
                     } else {
-                        print json_encode(Array('status'   =>  'error', 'msg'   =>  'Could not leaev group'));
+                        print json_encode(Array('status'   =>  'error', 'msg'   =>  'Could not leave group'));
                     }
                 } else {
                     print json_encode(Array('status'   =>  'error', 'msg'   =>  'Admin cannot leave a group'));
@@ -918,47 +722,164 @@ function mozilla_is_logged_in() {
     return sizeof((Array)$current_user) > 0 ? true : false; 
 }
 
-function mozilla_determine_field_visibility($field, $visibility_field, $community_fields, $is_me, $logged_in) {
+function mozilla_get_user_info($me, $user, $logged_in) {
+
+    // Username is ALWAYS public
+    $object = new stdClass();
+    $object->value = $user->user_nicename;
+    $object->display = true;
     
-    if(isset($community_fields[$field]) 
-        || $field === 'city' 
-        || $field === 'username' 
-        || $field === 'country'
-        || $field === 'profile_groups_joined'
-        || $field === 'profile_image_url'
-        || $field === 'profile_events_attended' 
-        || $field === 'profile_events_organized'
-        || $field === 'profile_campaigns'
-        || $field === 'profile_telegram'
-        || $field === 'profile_facebook' 
-        || $field === 'profile_twitter' 
-        || $field === 'profile_discourse'
-        || $field === 'profile_github'
-        || $field === 'profile_linkedin') {   
+    $data = Array(
+        'username'  =>  $object,
+        'id'        =>  $user->ID
+    );
 
-        if($field === 'city' || $field === 'country') {
-            $visibility_field = 'profile_location_visibility';
-        }
+    $is_me = $logged_in && intval($me->ID) === intval($user->ID);
+    $meta = get_user_meta($user->ID);
+    $community_fields = isset($meta['community-meta-fields'][0]) ? unserialize($meta['community-meta-fields'][0]) : Array();
 
+    // First Name
+    $object = new stdClass();
+    $object->value = isset($meta['first_name'][0]) ? $meta['first_name'][0] : false;
+    $object->display = mozilla_display_field('first_name', isset($meta['first_name_visibility'][0]) ? $meta['first_name_visibility'][0] : false, $is_me, $logged_in);
+    
+    $data['first_name'] = $object;
 
-        if($is_me) {
-            $display = true;
-        } else {
-            if(($logged_in && isset($community_fields[$visibility_field]) && intval($community_fields[$visibility_field]) === PrivacySettings::REGISTERED_USERS) || intval($community_fields[$visibility_field]) === PrivacySettings::PUBLIC_USERS) {
-                $display = true;
-            } else {
-                $display = false;
-            }
+    // Last Name
+    $object = new stdClass();
+    $object->value = isset($meta['last_name'][0]) ? $meta['last_name'][0] : false;
+    $object->display = mozilla_display_field('last_name', isset($meta['last_name_visibility'][0]) ? $meta['last_name_visibility'][0] : false, $is_me, $logged_in);
+    $data['last_name'] = $object;
 
-            if($logged_in && $field === 'first_name') {
-                $display = true;
-            }
-        }
+    // Email
+    $object = new stdClass();
+    $object->value = isset($meta['email'][0]) ? $meta['email'][0] : false;
+    $object->display = mozilla_display_field('email', isset($meta['email_visibility'][0]) ? $meta['email_visibility'][0] : false , $is_me, $logged_in);
+    $data['email'] = $object;
+
+    // Location
+    global $countries;
+    $object = new stdClass();
+    if(isset($community_fields['city']) && strlen($community_fields['city']) > 0 && isset($community_fields['country']) && strlen($community_fields['country']) > 1) {
+        $object->value = "{$community_fields['city']}, {$countries[$community_fields['country']]}";
     } else {
-        $display = false;
+        if(isset($community_fields['city']) && strlen($community_fields['city']) > 0) {
+            $object->value = $community_fields['city'];
+        } elseif(isset($community_fields['country']) && strlen($community_fields['country']) > 0) {
+            $object->value = $countries[$community_fields['country']];
+        } else {
+            $object->value = false;
+        }
     }
+    
+    $object->display = mozilla_display_field('location', isset($meta['profile_location_visibility'][0]) ? $meta['profile_location_visibility'][0] : false , $is_me, $logged_in);
+    $data['location'] = $object;
 
-    return $display;
+    // Profile Image
+    $object = new stdClass();
+    $object->value = isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0 ? $community_fields['image_url'] : false;
+    $object->display = mozilla_display_field('image_url', isset($community_fields['profile_image_url_visibility']) ? $community_fields['profile_image_url_visibility'] : false , $is_me, $logged_in);
+    $data['profile_image'] = $object;
+
+    // Bio
+    $object = new stdClass();
+    $object->value = isset($community_fields['bio']) && strlen($community_fields['bio']) > 0 ? $community_fields['bio'] : false;
+    $object->display = mozilla_display_field('bio', isset($community_fields['bio_visibility']) ? $community_fields['bio_visibility'] : false , $is_me, $logged_in);
+    $data['bio'] = $object;
+
+    // Pronoun Visibility 
+    $object = new stdClass();
+    $object->value = isset($community_fields['pronoun']) && strlen($community_fields['pronoun']) > 0 ? $community_fields['pronoun'] : false;
+    $object->display = mozilla_display_field('pronoun', isset($community_fields['pronoun_visibility']) ? $community_fields['pronoun_visibility'] : false , $is_me, $logged_in);
+    $data['pronoun'] = $object;
+
+    // Phone
+    $object = new stdClass();
+    $object->value = isset($community_fields['phone']) ? $community_fields['phone'] : false;
+    $object->display = mozilla_display_field('phone', isset($community_fields['phone_visibility']) ? $community_fields['phone_visibility'] : false , $is_me, $logged_in);
+    $data['phone'] = $object;
+
+    // Groups Joined
+    $object = new stdClass();
+    $object->display = mozilla_display_field('groups_joined', isset($community_fields['profile_groups_joined_visibility']) ? $community_fields['profile_groups_joined_visibility'] : false , $is_me, $logged_in);
+    $data['groups'] = $object;
+
+    // Events Attended
+    $object = new stdClass();
+    $object->display = mozilla_display_field('events_attended', isset($community_fields['profile_events_attended_visibility']) ? $community_fields['profile_events_attended_visibility'] : false , $is_me, $logged_in);
+    $data['events_attended'] = $object;
+
+    // Events Organized
+    $object = new stdClass();
+    $object->display = mozilla_display_field('events_organized', isset($community_fields['profile_events_organized_visibility']) ? $community_fields['profile_events_organized_visibility'] : false , $is_me, $logged_in);
+    $data['events_organized'] = $object;
+    
+
+    // Social Media 
+    $object = new stdClass();
+    $object->value = isset($community_fields['telegram']) && strlen($community_fields['telegram']) > 0 ? $community_fields['telegram'] : false;
+    $object->display = mozilla_display_field('telegram', isset($community_fields['profile_telegram_visibility']) ? $community_fields['profile_telegram_visibility'] : false , $is_me, $logged_in);
+    $data['telegram'] = $object;
+
+    $object = new stdClass();
+    $object->value = isset($community_fields['facebook']) && strlen($community_fields['facebook']) > 0 ? $community_fields['facebook'] : false;
+    $object->display = mozilla_display_field('facebook', isset($community_fields['profile_facebook_visibility']) ? $community_fields['profile_facebook_visibility'] : false , $is_me, $logged_in);
+    $data['facebook'] = $object;
+
+    $object = new stdClass();
+    $object->value = isset($community_fields['twitter']) && strlen($community_fields['twitter']) > 0 ? $community_fields['twitter'] : false;
+    $object->display = mozilla_display_field('twitter', isset($community_fields['profile_twitter_visibility']) ? $community_fields['profile_twitter_visibility'] : false , $is_me, $logged_in);
+    $data['twitter'] = $object;
+
+    $object = new stdClass();
+    $object->value = isset($community_fields['linkedin']) && strlen($community_fields['linkedin']) > 0 ? $community_fields['linkedin'] : false;
+    $object->display = mozilla_display_field('linkedin', isset($community_fields['profile_linkedin_visibility']) ? $community_fields['profile_linkedin_visibility'] : false , $is_me, $logged_in);
+    $data['linkedin'] = $object;
+
+    $object = new stdClass();
+    $object->value = isset($community_fields['discourse']) && strlen($community_fields['discourse']) > 0 ? $community_fields['discourse'] : false;
+    $object->display = mozilla_display_field('discourse', isset($community_fields['profile_discourse_visibility']) ? $community_fields['profile_discourse_visibility'] : false , $is_me, $logged_in);
+    $data['discourse'] = $object;
+
+    $object = new stdClass();
+    $object->value = isset($community_fields['github']) && strlen($community_fields['github']) > 0 ? $community_fields['github'] : false;
+    $object->display = mozilla_display_field('github', isset($community_fields['profile_github_visibility']) ? $community_fields['profile_github_visibility'] : false , $is_me, $logged_in);
+    $data['github'] = $object;
+
+    //Languages
+    $object = new stdClass();
+    $object->value = isset($community_fields['languages']) && sizeof($community_fields['languages']) > 0 ? $community_fields['languages'] : false;
+    $object->display = mozilla_display_field('languages', isset($community_fields['languages_visibility']) ? $community_fields['languages_visibility'] : false , $is_me, $logged_in);
+    $data['languages'] = $object;
+
+    // Tags
+    $object = new stdClass();
+    $object->value = isset($community_fields['tags']) && strlen($community_fields['tags']) > 0 ? $community_fields['tags'] : false;
+    $object->display = mozilla_display_field('tags', isset($community_fields['tags_visibility']) ? $community_fields['tags_visibility'] : false , $is_me, $logged_in);
+    $data['tags'] = $object;
+    
+    $object = null;
+    return $data;
+}
+
+function mozilla_display_field($field, $visibility, $is_me, $logged_in) {
+
+    if($is_me)
+        return true;
+
+    if($field === 'first_name' && $logged_in)
+        return true;
+
+    if($visibility == PrivacySettings::PUBLIC_USERS)
+        return true;
+
+    if($visibility === false)
+        return false;
+
+    if($logged_in && $visibility == PrivacySettings::REGISTERED_USERS)
+        return true;
+
+    return false;
 }
 
 
@@ -1105,9 +1026,19 @@ function mozilla_theme_settings() {
 
             if(isset($_POST['default_open_graph_desc'])) {
                 update_option('default_open_graph_desc', sanitize_text_field($_POST['default_open_graph_desc']));
-            }
+            }            
 
-            
+            if(isset($_POST['image_max_filesize'])) {
+                update_option('image_max_filesize', sanitize_text_field(intval($_POST['image_max_filesize'])));
+            }            
+
+            if(isset($_POST['error_404_title'])) {
+                update_option('error_404_title', sanitize_text_field($_POST['error_404_title']));
+            }   
+
+            if(isset($_POST['error_404_copy'])) {
+                update_option('error_404_copy', sanitize_text_field($_POST['error_404_copy']));
+            }   
         }
     }
 
@@ -1130,7 +1061,6 @@ function mozilla_determine_site_section() {
     }
 
     return false;
-
 }
 
 function mozilla_events_redirect($location) {
@@ -1148,20 +1078,15 @@ function mozilla_is_site_admin(){
 }
 
 function mozilla_delete_events($id, $post) {
-  $post_id = $post->post_id;
-  wp_delete_post($post_id);
-  return $post;
+    $post_id = $post->post_id;
+    wp_delete_post($post_id);
+    return $post;
 }
-
-add_filter('em_event_delete', 'mozilla_delete_events', 10, 2);
 
 function mozilla_update_body_class( $classes ) {
     $classes[] = "body";
     return $classes; 
 }
-
-add_filter( 'body_class', 'mozilla_update_body_class');
-
 
 function acf_load_bp_groups( $field ) {
     $allGroups = groups_get_groups(array());
@@ -1178,8 +1103,7 @@ function acf_load_bp_groups( $field ) {
     // Return choices
     return $field;
 }
-// Populate select field using filter
-add_filter('acf/load_field/name=featured_group', 'acf_load_bp_groups', 10, 1);
+
 
 function mozilla_add_online_to_countries($countries) {
     $countries = array('OE' => 'Online Event') + $countries;

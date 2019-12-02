@@ -62,7 +62,7 @@
   }
   &__title,
   &__header .title {
-    font-family: $main-font-family;
+    font-family: $title-font;
     font-size: 32px;
     font-weight: normal;
     @include tablet-and-up {
@@ -415,7 +415,7 @@
     padding: 10px 36px;
     font-size: 14px;
     line-height: 20px;
-    font-family: $secondary-font;
+    font-family: $copy-font;
     font-weight: 400;
     top: 16px;
     right: 30px;

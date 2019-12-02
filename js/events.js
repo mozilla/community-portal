@@ -11,28 +11,45 @@ jQuery(function() {
             this.on("sending", function(file, xhr, formData) {
                 var nonce = jQuery("#my_nonce_field").val();
                 formData.append("my_nonce_field", nonce);
+                formData.append("event_image", "true");
             });
         },
         success: function(file, response) {
             file.previewElement.classList.add("dz-success");
             file["attachment_id"] = response; // push the id for future reference
 
-            jQuery(".dz-preview").remove();
-            jQuery("#image-delete").show();
-            jQuery("#image-url").val(response);
-            jQuery(".event-creator__image-upload")
-                .css("background-image", "url(" + response + ")")
-                .css("background-size", "cover");
+            var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+                '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+                '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+                '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+                '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+                '(\\#[-a-z\\d_]*)?$','i');
+            if(pattern.test(response)) {
 
-            jQuery(".create-group__image-upload").removeClass(
-                "create-group__image-upload--uploading"
-            );
-            jQuery(".create-group__image-upload").addClass(
-                "create-group__image-upload--done"
-            );
-            jQuery(".create-group__image-instructions").addClass(
-                "create-group__image-instructions--hide"
-            );
+                jQuery(".dz-preview").remove();
+                jQuery('.form__error--image').parent().removeClass('form__error-container--visible');
+                jQuery("#image-delete").show();
+                jQuery("#image-url").val(response);
+                jQuery(".event-creator__image-upload")
+                    .css("background-image", "url(" + response + ")")
+                    .css("background-size", "cover");
+
+                jQuery(".create-group__image-upload").removeClass(
+                    "create-group__image-upload--uploading"
+                );
+                jQuery(".create-group__image-upload").addClass(
+                    "create-group__image-upload--done"
+                );
+                jQuery(".create-group__image-instructions").addClass(
+                    "create-group__image-instructions--hide"
+                );
+
+            } else {
+                jQuery(".dz-preview").remove();
+
+                jQuery('.form__error--image').text(response);
+                jQuery('.form__error--image').parent().addClass('form__error-container--visible');
+            }
         },
         error: function(file, response) {
             file.previewElement.classList.add("dz-error");
@@ -109,26 +126,6 @@ jQuery(function() {
         }
     }
 
-    function setHeightOfDivs(selector) {
-        let t = 0;
-        let t_elem;
-        const $cards = jQuery(selector);
-        if ($cards) {
-            $cards.each(function() {
-                $this = jQuery(this);
-                $this.css("min-height", "0");
-                if ($this.outerHeight(true) > t) {
-                    t_elem = $this;
-                    t = $this.outerHeight(true);
-                }
-            });
-            setTimeout(function() {
-              $cards.each(function() {
-                jQuery(this).css("min-height", t_elem.outerHeight());
-            }) }, 10);
-        }
-    }
-
     function toggleVisibility(selector, value, hidden) {
         jQuery(selector).val(value);
         if (hidden) {
@@ -193,11 +190,12 @@ jQuery(function() {
         });
     }
 
-    function toggleError(parent) {
+    function toggleError(parent, errMsg = 'This field is required') {
         const $errorPresent = parent.find("> .event-creator__error-field");
         if (!$errorPresent.length > 0) {
+        
             const $errorText = jQuery(
-                '<p class="event-creator__error-field"> Please provide this field </p>'
+                '<p class="event-creator__error-field"> '+ errMsg +' </p>'
             );
             parent.append($errorText);
             return;
@@ -211,11 +209,33 @@ jQuery(function() {
     function checkInputs(inputs) {
         let $allClear = true;
         let $first = true;
+
         inputs.each(function() {
             const $this = jQuery(this);
+
             clearErrors($this);
             $allClear = validateCpg($allClear);
             const input_id = $this.attr("id");
+
+            if(input_id == 'location-name' && jQuery('#location-type').val() == 'online') {
+                var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+                                            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+                                            '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+                                            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+                                            '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+                                            '(\\#[-a-z\\d_]*)?$','i');
+            
+
+                if(!pattern.test($this.val())) {
+                    const $label = jQuery(`label[for=${input_id}]`);
+                    const $parent = $label.parent();
+
+                    toggleError($parent, 'Invalid URL provided');
+                    $this.addClass("event-creator__error");
+                    $allClear = false;
+                }
+            } 
+
             if (!$this.val() || $this.val() === "00:00" || $this.val() === "0") {
                 if ($first) {
                     jQuery("html, body").animate({
@@ -231,6 +251,9 @@ jQuery(function() {
                 $this.addClass("event-creator__error");
                 $allClear = false;
             }
+
+            
+
         });
         return $allClear;
     }
@@ -278,7 +301,8 @@ jQuery(function() {
         if ($deleteBtn.length) {
             $deleteBtn.on("click", function(e) {
                 e.preventDefault();
-                $photoUpload.css("background-image", "").css("background-size", "");
+                $photoUpload.css("background-image", "").css("background-size", "auto");
+                $photoUpload.css("background-position", "center");
                 $imageInput.val("");
                 $deleteBtn.hide();
             });

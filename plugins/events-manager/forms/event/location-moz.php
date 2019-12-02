@@ -70,7 +70,7 @@ endif;
       </div>
       <div class="wide--double">
         <label class="event-creator__label" for="location-town"><?php _e ( 'City', 'events-manager')?></label>
-        <input class="event-creator__input" id="location-town" type="text" name="location_town" value="<?php echo esc_attr($EM_Location->location_town); ?>"  required/>
+        <input class="event-creator__input" id="location-town" type="text" name="location_town" value="<?php echo esc_attr($EM_Location->location_town); ?>"  maxlength="180" required/>
       </div>
     </div>
 	</div>

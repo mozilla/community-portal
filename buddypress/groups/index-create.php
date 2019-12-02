@@ -2,6 +2,10 @@
     session_start();
     // Main header template 
     get_header(); 
+
+    $template_dir = get_template_directory();
+    include("{$template_dir}/countries.php");
+
     do_action('bp_before_create_group_page'); 
     if(isset($_POST['step'])) {
         $step = $_POST['step'];
@@ -53,8 +57,8 @@
                                     <div class="form__error"><?php print __("This field is required"); ?></div>
                                 </div>
                             </div>
-                            <div class="create-group__input-container create-group__input-container--40">
-                                <label class="create-group__label" for="group-desc"><?php print __("Online or Offline Group"); ?></label>
+                            <div class="create-group__input-container create-group__input-container--40 create-group__input-container--flex">
+                                <label class="create-group__label create-group__label--full-width" for="group-desc"><?php print __("Online or Offline Group"); ?></label>
                                 <label class="create-group__radio-container">
                                     <?php print __("Online"); ?>
                                     <input type="radio" name="group_type" id="group-type" value="<?php print __("Online"); ?>"<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($form['group_type']) && $form['group_type'] == 'Online' || (empty($form['group_type']))): ?> checked<?php endif; ?> required />
@@ -79,7 +83,7 @@
                                             <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
                                         </g>
                                     </svg>
-                                    <select id="group-country" class="create-group__select<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_country']) || (isset($form['group_country']) && $form['group_country'] == "0" )): ?> create-group__input--error<?php endif; ?>" name="group_country">
+                                    <select id="group-country" class="create-group__select" name="group_country">
                                         <option value="0">Country</option>
                                         <?php foreach($countries AS $code => $country): ?>
                                         <option value="<?php print $code; ?>"<?php if(isset($form['group_country']) && $form['group_country'] === $code): ?> selected<?php endif; ?>><?php print __($country); ?></option>
@@ -89,7 +93,7 @@
                             </div>
                             <div class="create-group__input-container create-group__input-container--60 create-group__input-container--vertical-spacing">
                                 <label class="create-group__label" for="group-city"><?php print __("City *"); ?></label>
-                                <input type="text" name="group_city" id="group-city" class="create-group__input<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_city']) || (isset($form['group_city']) && empty(trim($form['group_city'])) )): ?> create-group__input--error<?php endif; ?>" placeholder="<?php print __("City"); ?>" value="<?php print isset($form['group_city']) ? $form['group_city'] : ''; ?>" />
+                                <input type="text" name="group_city" id="group-city" class="create-group__input" placeholder="<?php print __("City"); ?>" value="<?php print isset($form['group_city']) ? $form['group_city'] : ''; ?>" maxlength="180" />
                             </div>
                         </div>
                         <div class="create-group__input-row">
@@ -109,6 +113,9 @@
                                 <div class="create-group__image-instructions">
                                     <?php print __("Click or drag a photo above"); ?>
                                     <span><?php print __('min dimensions 703px by 400px'); ?></span>
+                                    <div class="form__error-container">
+                                        <div class="form__error form__error--image"></div>
+                                    </div>
                                 </div>
                                 <input type="hidden" name="image_url" id="image-url" value="<?php print (isset($form['image_url'])) ? $form['image_url'] : '' ?>" />
                             </div>

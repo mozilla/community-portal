@@ -17,7 +17,7 @@ jQuery(function(){
         jQuery('.profile__avatar--empty').css({'background-image': "url('data:image/svg+xml;base64," + avatar + "')"});
     };
 
-    jQuery('#complete-profile-form').one('submit', function(e){
+    jQuery('.profile__cta').click(function(e){
         e.preventDefault();
         var error = false;
 
@@ -46,14 +46,20 @@ jQuery(function(){
         });
 
         if(error || jQuery('.profile__input--error').length > 0) {
-            jQuery('#complete-profile-form').find('.profile__input--error:first').focus();
+            var $errorEle = jQuery('#complete-profile-form').find('.profile__input--error:first');
+
+            if($errorEle.attr('id') == 'image-url') {
+                jQuery('#profile-image-visibility').focus();
+            } else {
+                $errorEle.focus();
+            }
             return false;
         } else {
-            jQuery(this).submit();
+            jQuery('#complete-profile-form').submit();
             return true;
         }
 
-
+        return false;
     });
 
     jQuery('#profile-visibility').change(function(e) {
@@ -236,18 +242,33 @@ jQuery(function(){
             this.on("sending", function(file, xhr, formData){
                 var nonce = jQuery('#my_nonce_field').val();
                 formData.append('my_nonce_field', nonce);
+                formData.append('profile_image', 'true');
             });
         },
         success: function (file, response) {
             
-            file.previewElement.classList.add("dz-success");
-            file['attachment_id'] = response; // push the id for future reference
-            
-            jQuery('#image-url').val(response);
-            jQuery('#profile-photo-uploader').css('background-image', 'url(' +  response + ')');
-            jQuery('#profile-photo-uploader').css('background-size', 'cover');
-            jQuery('#profile-photo-uploader').addClass("profile__image-upload--complete");
-            
+            var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+                '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+                '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+                '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+                '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+                '(\\#[-a-z\\d_]*)?$','i');
+
+            if(pattern.test(response)) {
+                jQuery('#image-url').removeClass('profile__input--error');
+                file.previewElement.classList.add("dz-success");
+                file['attachment_id'] = response; // push the id for future reference
+                jQuery('#image-url').val(response);
+                jQuery('#profile-photo-uploader').css('background-image', 'url(' +  response + ')');
+                jQuery('#profile-photo-uploader').css('background-size', 'cover');
+                jQuery('#profile-photo-uploader').addClass("profile__image-upload--complete");
+                jQuery('.form__error--image').parent().removeClass('form__error-container--visible');
+            } else {
+                jQuery('.dz-preview').remove();
+                jQuery('.dz-remove').removeClass('dz-remove--hide');
+                jQuery('.form__error--image').text(response);
+                jQuery('.form__error--image').parent().addClass('form__error-container--visible');
+            }
         },
         error: function (file, response) {
             
@@ -256,7 +277,7 @@ jQuery(function(){
         sending: function(file, xhr, formData) {
         },
         removedfile: function(file) {
-           
+            jQuery('#profile-photo-uploader').css('background-size', 'cover');
             return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;     
         }
     });

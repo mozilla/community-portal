@@ -44,11 +44,11 @@
                     $date = substr($event->start_date, 8, 2);
                     $year = substr($event->start_date, 0, 4);
                 ?>
-                <p class="event-card__image__date"><span><?php echo __(substr($months[$month],0,3)) ?> </span><span><?php echo __($date) ?></span></p>
+                <p class="event-card__image__date"><span><?php echo substr($months[$month],0,3) ?> </span><span><?php echo $date; ?></span></p>
             </div>
             <div class="event-card__description">
                 <h3 class="event-card__description__title title--event-card"><?php echo $event->event_name; ?></h2>
-                <p><?php echo __($months[$month].' '.$date.', '.$year.' @ '.substr($event->event_start_time, 0, 5).' - '.substr($event->event_end_time, 0, 5).' '.$event->event_timezone); ?></p>
+                <p><?php echo $months[$month].' '.$date.', '.$year.' @ '.substr($event->event_start_time, 0, 5).' - '.substr($event->event_end_time, 0, 5).' '.$event->event_timezone; ?></p>
 
                 <?php if (strlen($location->address) > 0 || strlen($location->town) > 0 || strlen($location->country) > 0): ?>
                 <div class="event-card__location">
@@ -62,16 +62,23 @@
                             echo __('Online Event');
                         } else {
                             if ($location->address) {
-                                echo __($location->address.' - '); 
+                                echo $location->address.' - '; 
                             }
                             
                             if ($location->town) {
-                                echo __($location->town);
+                                if(strlen($location->town) > 180) {
+                                    $city = substr($location->town, 0, 180);
+                                }
+
+                                echo $city;
                                 if ($location->country) {
-                                    echo __(', '.$allCountries[$location->country]);
+                                    if($city)
+                                        print ', ';
+
+                                    echo $allCountries[$location->country];
                                 }
                             } else {
-                                echo __($allCountries[$location->country]);
+                                echo $allCountries[$location->country];
                             }
                         }
                     ?>
@@ -90,7 +97,7 @@
                 $i = 0;
             ?>
             <?php foreach ($categories->terms as $category): ?>
-                <li class="tag"><?php echo __($category->name) ?></li>
+                <li class="tag"><?php echo $category->name; ?></li>
                 <?php
                     $i = $i + 1;
                     if ($i === 2) {

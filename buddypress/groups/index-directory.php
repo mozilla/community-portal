@@ -11,10 +11,8 @@
 
     $groups_per_page = 12;
     $p = (isset($_GET['page'])) ? intval($_GET['page']) : 1;
-
     $args = Array(
-        'per_page'  =>  12,
-        'page'      =>  $p
+        'per_page'  =>  -1
     );
 
     $q = (isset($_GET['q']) && strlen($_GET['q']) > 0) ? sanitize_text_field(trim($_GET['q'])) : false;
@@ -41,36 +39,41 @@
         $groups = groups_get_groups($args);
     }
 
-    $group_count = $groups['total'];
     $groups = $groups['groups'];
     $filtered_groups = Array();
 
     foreach($groups AS $group) {
         $meta = groups_get_groupmeta($group->id, 'meta');
         $group->meta = $meta;
-        if(isset($_GET['tag']) && strlen($_GET['tag']) > 0) {
+
+        if(isset($_GET['tag']) && strlen($_GET['tag']) > 0 && isset($_GET['location']) && strlen($_GET['location']) > 0) {
+            if(in_array(strtolower(trim($_GET['tag'])), array_map('strtolower', $meta['group_tags'])) && trim(strtolower($_GET['location'])) == strtolower($meta['group_country'])) { 
+                $filtered_groups[] = $group;
+                continue;
+            }
+        } elseif(isset($_GET['tag']) && strlen($_GET['tag']) > 0 && (!isset($_GET['location']) || strlen($_GET['location']) === 0)) {
             if(in_array(strtolower(trim($_GET['tag'])), array_map('strtolower', $meta['group_tags']))) {
                 $filtered_groups[] = $group;
                 continue;
             }
-        } elseif(isset($_GET['location']) && strlen($_GET['location']) > 0) {
+        } elseif(isset($_GET['location']) && strlen($_GET['location']) > 0 && (!isset($_GET['tag']) || strlen($_GET['tag']) === 0)) {
             if(trim(strtolower($_GET['location'])) == strtolower($meta['group_country'])) {
                 $filtered_groups[] = $group;
+                continue;
             }
         } else {
             $filtered_groups[] = $group;
         }
+       
     }
 
-    if(isset($_GET['tag']) && strlen($_GET['tag']) > 0 || isset($_GET['location']) && strlen($_GET['location']) > 0) {
-        $group_count = sizeof($filtered_groups);
-    }
-
-    $groups = $filtered_groups;
-    
-    $total_pages = ceil($group_count / $groups_per_page);
+    $filtered_groups = array_unique($filtered_groups, SORT_REGULAR);
+    $group_count = sizeof($filtered_groups);
     $offset = ($p - 1) * $groups_per_page;
 
+    $groups = array_slice($filtered_groups, $offset, $groups_per_page);
+    
+    $total_pages = ceil($group_count / $groups_per_page);
     $tags = get_tags(Array('hide_empty' => false));
 ?>
 
@@ -120,7 +123,7 @@
             <div class="groups__nav">
                 <ul class="groups__menu">
                     <li class="menu-item"><a class="groups__menu-link<?php if(!isset($_GET['mygroups']) || (isset($_GET['mygroups']) && $_GET['mygroups'] == 'false')): ?> group__menu-link--active<?php endif; ?>" href="#" data-nav=""><?php print __("Discover Groups"); ?></a></li>
-                    <?php if($logged_in): ?><li class="menu-item"><a class="groups__menu-link<?php if(isset($_GET['mygroups']) && $_GET['mygroups'] == 'true'): ?> group__menu-link--active<?php endif; ?>" href="#" data-nav="mygroups"><?php print __("My Groups"); ?></a></li><?php endif; ?>
+                    <?php if($logged_in): ?><li class="menu-item"><a class="groups__menu-link<?php if(isset($_GET['mygroups']) && $_GET['mygroups'] == 'true'): ?> group__menu-link--active<?php endif; ?>" href="#" data-nav="mygroups"><?php print __("Groups I'm In"); ?></a></li><?php endif; ?>
                 </ul>
             </div>
             <div class="groups__nav groups__nav--mobile">
@@ -181,7 +184,7 @@
                 <?php endif; ?>
                 <?php foreach($groups AS $group): ?>
                     <?php 
-                        $meta = $group->meta;
+                        $meta = isset($group->meta) && is_array($group->meta) ? $group->meta : Array();
                         $member_count = groups_get_total_member_count($group->id);
                         $group_name = $group->name;
 
@@ -189,13 +192,13 @@
                             $group_name = substr($group_name, 0, 45)."&#133;";
                         }
 
-                        if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
-                            $group_image_url = preg_replace("/^http:/i", "https:", $meta['group_image_url']);
-                        } else {
-                            $group_image_url = $meta['group_image_url'];
+                        if(is_array($meta) && isset($meta['group_image_url'])) {
+                            if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
+                                $group_image_url = preg_replace("/^http:/i", "https:", $meta['group_image_url']);
+                            } else {
+                                $group_image_url = $meta['group_image_url'];
+                            }
                         }
-                        
-
                     ?>
 
                     <a href="/groups/<?php print $group->slug; ?>" class="groups__card">
@@ -210,6 +213,11 @@
                                         <path d="M14 7.66699C14 12.3337 8 16.3337 8 16.3337C8 16.3337 2 12.3337 2 7.66699C2 6.07569 2.63214 4.54957 3.75736 3.42435C4.88258 2.29913 6.4087 1.66699 8 1.66699C9.5913 1.66699 11.1174 2.29913 12.2426 3.42435C13.3679 4.54957 14 6.07569 14 7.66699Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                         <path d="M8 9.66699C9.10457 9.66699 10 8.77156 10 7.66699C10 6.56242 9.10457 5.66699 8 5.66699C6.89543 5.66699 6 6.56242 6 7.66699C6 8.77156 6.89543 9.66699 8 9.66699Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
+                                    <?php 
+                                        if(strlen($meta['group_city']) > 180) {
+                                            $meta['group_city'] = substr($meta['group_city'], 0, 180);
+                                        }
+                                    ?>
                                     <?php print trim($meta['group_city']);?><?php 
                                         if(isset($meta['group_country']) && strlen($meta['group_country']) > 0) {
                                             if(isset($meta['group_city']) && strlen($meta['group_city']) > 0) {
@@ -235,6 +243,7 @@
                                     <?php 
                                         $tag_counter = 0;
                                     ?>
+                                    <?php if(isset($meta['group_tags']) && is_array($meta['group_tags'])): ?>
                                     <?php foreach(array_unique($meta['group_tags']) AS $key =>  $value): ?>
                                         <span class="groups__tag"><?php print $value; ?></span>
                                         <?php $tag_counter++; ?>
@@ -243,6 +252,7 @@
                                         <?php break; ?>
                                         <?php endif; ?>
                                     <?php endforeach; ?>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
