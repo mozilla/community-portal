@@ -211,14 +211,13 @@
         <?php endif; ?>
         <?php endif; ?>
 
-
         <?php if($info['events_organized']->display): ?>
         <?php 
             $args = array('owner' => $info['id'], 'scope' => 'all', 'private_only' =>  true, 'pagination'  =>  false);
             $private_events_organized = EM_Events::get($args);
             $args = array('owner' => $info['id'], 'scope' => 'all', 'private' =>  false, 'pagination'  =>  false);
             $events_organized = EM_Events::get($args);
-            $events_organized = array_merge($events_organized, $private_events_organized);
+            $events_organized = array_unique(array_merge($events_organized, $private_events_organized), SORT_REGULAR);
 
             $events_organized_count = 0;
 
