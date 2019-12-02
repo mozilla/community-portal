@@ -52,9 +52,6 @@
         if(isset($_GET['tag']) && strlen($_GET['tag']) > 0) {
             if(in_array(strtolower(trim($_GET['tag'])), array_map('strtolower', $meta['group_tags']))) {
                 $filtered_groups[] = $group;
-                continue;
-            } else {
-                continue;
             }
         } 
         
