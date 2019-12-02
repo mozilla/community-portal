@@ -13,6 +13,14 @@
             </tr>
             <tr>
                 <th scope="row">
+                    <label for="error-404-copy">Discourse API Key</label>
+                </th>
+                <td>
+                    <input type="text" id="discourse-api-key" name="discourse_api_key" class="regular-text" value="<?php print isset($options['discourse_api_key']) ? $options['discourse_api_key'] : ''; ?>" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
                     <label for="default-open-graph-title">Default Open Graph Title</label>
                 </th>
                 <td>

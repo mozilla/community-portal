@@ -207,17 +207,6 @@ function mozilla_create_group() {
                                     $error = true;
                                 }
                             }
-                            
-                            // @todo: Lets revisit this logic 
-                            // if(isset($_POST['group_type']) && trim(strtolower($_POST['group_type'])) == 'offline') {
-                            //     if(!isset($_POST['group_country']) || $_POST['group_country'] == '0')  {
-                            //         $error = true;
-                            //     }
-
-                            //     if(!isset($_POST['group_city']) || $_POST['group_city'] === '') {
-                            //         $error = true;
-                            //     }
-                            // }
                         }
   
                         $_SESSION['form'] = $_POST;
@@ -1037,6 +1026,11 @@ function mozilla_theme_settings() {
 
             if(isset($_POST['error_404_copy'])) {
                 update_option('error_404_copy', sanitize_text_field($_POST['error_404_copy']));
+            }   
+
+
+            if(isset($_POST['discourse_api_key'])) {
+                update_option('discourse_api_key', sanitize_text_field($_POST['discourse_api_key']));
             }   
         }
     }
