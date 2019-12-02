@@ -48,15 +48,20 @@
     foreach($groups AS $group) {
         $meta = groups_get_groupmeta($group->id, 'meta');
         $group->meta = $meta;
+
         if(isset($_GET['tag']) && strlen($_GET['tag']) > 0) {
             if(in_array(strtolower(trim($_GET['tag'])), array_map('strtolower', $meta['group_tags']))) {
                 $filtered_groups[] = $group;
             }
-        } elseif(isset($_GET['location']) && strlen($_GET['location']) > 0) {
+        } 
+        
+        if(isset($_GET['location']) && strlen($_GET['location']) > 0) {
             if(trim(strtolower($_GET['location'])) == strtolower($meta['group_country'])) {
                 $filtered_groups[] = $group;
             }
-        } else {
+        }
+        
+        if(!isset($_GET['tag']) || (isset($_GET['tag']) && strlen(trim($_GET['tag'])) === 0) && !isset($_GET['location']) || (isset($_GET['location']) && strlen(trim($_GET['location'])) === 0)) {
             $filtered_groups[] = $group;
         }
     }
