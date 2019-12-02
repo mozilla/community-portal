@@ -269,6 +269,54 @@ function mozilla_create_group() {
                                     $meta['group_tags'] = array_filter($tags);
                                 }
 
+                                // Get Settings
+                                $options = wp_load_alloptions();
+
+                                // Lets make some discourse API calls now that the group is saved
+                                if(isset($options['discourse_api_key']) && strlen($options['discourse_api_key']) > 0 && isset($options['discourse_api_url']) && strlen($options['discourse_api_url']) > 0) {
+                                    
+
+                                    // Get the API URL without the trailing slash
+                                    $api_url = rtrim($options['discourse_api_url'], '/');
+                                    $api_key = trim($options['discourse_api_key']);
+                                    print "Calling DISCOURSE API: {$api_url}/groups<br>";
+                                    print "API Key: {$api_key}<br>";
+
+                                    $curl = curl_init();
+                                    curl_setopt($curl, CURLOPT_POST, 1);
+                                    curl_setopt($curl, CURLOPT_URL, "{$api_url}/groups");
+                                    curl_setopt($curl, CURLOPT_HTTPHEADER,  Array(
+                                        "content-type: application/x-www-form-urlencoded",
+                                        "x-api-key: {$api_key}"
+                                    ));
+                                    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+
+                                    $api_post_data = Array();
+                                    $api_post_data['name'] = $group->name;
+                                    if(strlen($group->discription) > 0) 
+                                        $api_post_data['description'] = $group->description;
+
+                                    // Need to get both admins Auth 0 Information
+                                    $users = Array();
+                                    $users[] = mozilla_get_user_auth0($user->ID);
+
+                                    if(isset($_POST['group_admin_id']) && $_POST['group_admin_id']) {
+                                        $users[] = mozilla_get_user_auth0(intval($_POST['group_admin_id']));
+                                    }
+
+                                    $api_post_data['users'] = $users;
+                                    $post_query = http_build_query($api_post_data);
+                                    print "QUERY: {$post_query}<br>";
+                                    curl_setopt($curl, CURLOPT_POSTFIELDS, $post_query);
+                                    $curl_result = curl_exec($curl);
+
+
+                                    // print "RESULT<br>";
+                                    print_r($curl_result);
+                                    curl_close($curl);
+
+                                }
+        
                                 $result = groups_update_groupmeta($group_id, 'meta', $meta);
                     
                                 if($result) {
@@ -277,6 +325,8 @@ function mozilla_create_group() {
                                     $_POST['step'] = 3;
                                     
                                     $_POST['group_slug'] = $group->slug;
+                                    die('gg');
+                        
                                 } else {
                                     groups_delete_group($group_id);
                                     $_POST['step'] = 0;
@@ -1028,9 +1078,12 @@ function mozilla_theme_settings() {
                 update_option('error_404_copy', sanitize_text_field($_POST['error_404_copy']));
             }   
 
-
             if(isset($_POST['discourse_api_key'])) {
                 update_option('discourse_api_key', sanitize_text_field($_POST['discourse_api_key']));
+            }   
+
+            if(isset($_POST['discourse_api_url'])) {
+                update_option('discourse_api_url', sanitize_text_field($_POST['discourse_api_url']));
             }   
         }
     }
@@ -1118,5 +1171,9 @@ function mozilla_approve_booking($EM_Booking) {
     return $EM_Booking;
 }
 
+function mozilla_get_user_auth0($id) {
+    $meta = get_user_meta($id);
+    return (isset($meta['wp_auth0_id'][0])) ? $meta['wp_auth0_id'][0] : false;
+}
 
 ?>

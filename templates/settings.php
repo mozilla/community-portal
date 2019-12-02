@@ -21,6 +21,14 @@
             </tr>
             <tr>
                 <th scope="row">
+                    <label for="error-404-copy">Discourse API URL</label>
+                </th>
+                <td>
+                    <input type="text" id="discourse-api-url" name="discourse_api_url" class="regular-text" value="<?php print isset($options['discourse_api_url']) ? $options['discourse_api_url'] : ''; ?>" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
                     <label for="default-open-graph-title">Default Open Graph Title</label>
                 </th>
                 <td>
