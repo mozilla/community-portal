@@ -118,7 +118,7 @@
         <?php if($info['groups']->display): ?>
         <?php $groups = groups_get_user_groups($info['id']); ?>
         <?php if($groups['total'] > 0): ?>
-        <h2 class="profile__heading"><?php print __("My Groups"); ?></h2>
+        <h2 class="profile__heading"><?php print __("Groups I'm In"); ?></h2>
         <?php $group_count = 0; ?>
         <div class="profile__card">
             <?php foreach($groups['groups'] AS $gid): ?>
@@ -134,7 +134,7 @@
                         <path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                     <?php if(isset($group_meta['group_city']) && strlen($group_meta['group_city']) > 0): ?><?php print $group_meta['group_city']; ?><?php endif; ?><?php if(isset($group_meta['group_country']) && strlen($group_meta['group_country']) > 0): ?><?php if(isset($group_meta['group_city']) && strlen($group_meta['group_city']) > 0): ?>, <?php endif; ?><?php print $countries[$group_meta['group_country']]; ?><?php endif; ?>
-                    <?php if(isset($group_meta['group_type'])): ?><?php print "| {$group_meta['group_type']}"; ?><?php endif; ?>
+                    <?php if(isset($group_meta['group_type'])): ?><?php if(isset($group_meta['group_city']) && strlen(trim($group_meta['group_city'])) > 0 || isset($group_meta['group_country']) && strlen(trim($group_meta['group_country'])) > 1): ?> | <?php endif; ?><?php print "{$group_meta['group_type']}"; ?><?php endif; ?>
                 </div>
                 <div class="profile__group-member-count">
                     <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
