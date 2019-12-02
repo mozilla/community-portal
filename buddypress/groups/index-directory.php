@@ -11,10 +11,8 @@
 
     $groups_per_page = 12;
     $p = (isset($_GET['page'])) ? intval($_GET['page']) : 1;
-
     $args = Array(
-        'per_page'  =>  12,
-        'page'      =>  $p
+        'per_page'  =>  -1
     );
 
     $q = (isset($_GET['q']) && strlen($_GET['q']) > 0) ? sanitize_text_field(trim($_GET['q'])) : false;
@@ -41,7 +39,6 @@
         $groups = groups_get_groups($args);
     }
 
-    $group_count = $groups['total'];
     $groups = $groups['groups'];
     $filtered_groups = Array();
 
@@ -49,35 +46,34 @@
         $meta = groups_get_groupmeta($group->id, 'meta');
         $group->meta = $meta;
 
-        if(isset($_GET['tag']) && strlen($_GET['tag']) > 0) {
+        if(isset($_GET['tag']) && strlen($_GET['tag']) > 0 && isset($_GET['location']) && strlen($_GET['location']) > 0) {
+            if(in_array(strtolower(trim($_GET['tag'])), array_map('strtolower', $meta['group_tags'])) && trim(strtolower($_GET['location'])) == strtolower($meta['group_country'])) { 
+                $filtered_groups[] = $group;
+                continue;
+            }
+        } elseif(isset($_GET['tag']) && strlen($_GET['tag']) > 0 && (!isset($_GET['location']) || strlen($_GET['location']) === 0)) {
             if(in_array(strtolower(trim($_GET['tag'])), array_map('strtolower', $meta['group_tags']))) {
                 $filtered_groups[] = $group;
+                continue;
             }
-        } 
-        
-        if(isset($_GET['location']) && strlen($_GET['location']) > 0) {
+        } elseif(isset($_GET['location']) && strlen($_GET['location']) > 0 && (!isset($_GET['tag']) || strlen($_GET['tag']) === 0)) {
             if(trim(strtolower($_GET['location'])) == strtolower($meta['group_country'])) {
                 $filtered_groups[] = $group;
                 continue;
-            } else {
-                continue;
             }
+        } else {
+            $filtered_groups[] = $group;
         }
-       
-        $filtered_groups[] = $group;
        
     }
 
     $filtered_groups = array_unique($filtered_groups, SORT_REGULAR);
-    if(isset($_GET['tag']) && strlen($_GET['tag']) > 0 || isset($_GET['location']) && strlen($_GET['location']) > 0) {
-        $group_count = sizeof($filtered_groups);
-    }
-
-    $groups = $filtered_groups;
-    
-    $total_pages = ceil($group_count / $groups_per_page);
+    $group_count = sizeof($filtered_groups);
     $offset = ($p - 1) * $groups_per_page;
 
+    $groups = array_slice($filtered_groups, $offset, $groups_per_page);
+    
+    $total_pages = ceil($group_count / $groups_per_page);
     $tags = get_tags(Array('hide_empty' => false));
 ?>
 
