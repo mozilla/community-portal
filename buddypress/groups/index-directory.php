@@ -51,7 +51,6 @@
         if(isset($_GET['tag']) && strlen($_GET['tag']) > 0) {
             if(in_array(strtolower(trim($_GET['tag'])), array_map('strtolower', $meta['group_tags']))) {
                 $filtered_groups[] = $group;
-                continue;
             }
         } elseif(isset($_GET['location']) && strlen($_GET['location']) > 0) {
             if(trim(strtolower($_GET['location'])) == strtolower($meta['group_country'])) {
@@ -62,6 +61,7 @@
         }
     }
 
+    $filtered_groups = array_unique($filtered_groups, SORT_REGULAR);
     if(isset($_GET['tag']) && strlen($_GET['tag']) > 0 || isset($_GET['location']) && strlen($_GET['location']) > 0) {
         $group_count = sizeof($filtered_groups);
     }
