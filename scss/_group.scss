@@ -696,6 +696,7 @@
         padding: 0;
         margin: 0;
         border-spacing: 0;
+        position: relative;
 
         tbody {
             td {
@@ -779,5 +780,22 @@
         line-height: 24px;
         color: $color-gray-secondary;
         letter-spacing: 0.0025em;
+    }
+
+    &__topic-date {
+        color: $color-black;
+    }
+
+    &__topic-link {
+        text-decoration: none;
+        
+        &:before {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
     }
 }
