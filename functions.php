@@ -275,11 +275,11 @@ function mozilla_create_group() {
 
                                 $discourse = mozilla_discourse_api('categories', $discourse_data, 'post');
                                 
-                                if(isset($discourse->id) && $discourse->id) {
+                                if($discourse && isset($discourse->id) && $discourse->id) {
                                     $meta['discourse_category_id'] = intval(sanitize_text_field($discourse->id));
                                 }
 
-                                if(isset($discourse->url) && strlen($discourse->url) > 0) {
+                                if($discourse && isset($discourse->url) && strlen($discourse->url) > 0) {
                                     $meta['discourse_category_url'] = sanitize_text_field($discourse->url);
                                 }                    
         
@@ -1149,6 +1149,7 @@ function mozilla_discourse_api($type, $data, $request = 'GET') {
 
     $options = wp_load_alloptions();
     if(isset($options['discourse_api_key']) && strlen($options['discourse_api_key']) > 0 && isset($options['discourse_api_url']) && strlen($options['discourse_api_url']) > 0) {
+
         // Get the API URL without the trailing slash
         $api_url = rtrim($options['discourse_api_url'], '/');
         $api_key = trim($options['discourse_api_key']);
@@ -1163,9 +1164,12 @@ function mozilla_discourse_api($type, $data, $request = 'GET') {
         $type = strtolower($type);
         $api_data = Array();
 
-        switch(strtolower($type)) {
+        $request = strtolower($request);
+        $type = strtolower($type);
+
+        switch($type) {
             case 'categories':
-                switch(strtolower($request)) {
+                switch($request) {
                     case 'post':
                         if(isset($data['name']) && strlen($data['name']) > 0) {
                             curl_setopt($curl, CURLOPT_URL, "{$api_url}/categories");
@@ -1194,7 +1198,7 @@ function mozilla_discourse_api($type, $data, $request = 'GET') {
                 }
                 break;
             case 'groups':
-                switch(strtolower($request)) {
+                switch($request) {
                     case 'post':
                         if(isset($data['name']) && strlen($data['name']) > 0) {
                             curl_setopt($curl, CURLOPT_POST, 1);
