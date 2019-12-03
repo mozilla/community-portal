@@ -269,45 +269,19 @@ function mozilla_create_group() {
                                     $meta['group_tags'] = array_filter($tags);
                                 }
 
-                                // Get Settings
-                                $options = wp_load_alloptions();
+                                $discourse_data = Array();
+                                $discourse_data['name'] = $group->name;
+                                $discourse_data['description'] = $group->description;
 
-                                // Lets make some discourse API calls now that the group is saved
-                                if(isset($options['discourse_api_key']) && strlen($options['discourse_api_key']) > 0 && isset($options['discourse_api_url']) && strlen($options['discourse_api_url']) > 0) {
-                                    
-                                    // Get the API URL without the trailing slash
-                                    $api_url = rtrim($options['discourse_api_url'], '/');
-                                    $api_key = trim($options['discourse_api_key']);
-                         
-                                    $curl = curl_init();
-                                    curl_setopt($curl, CURLOPT_POST, 1);
-                                    curl_setopt($curl, CURLOPT_URL, "{$api_url}/categories");
-                                    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-                                    curl_setopt($curl, CURLOPT_HTTPHEADER, Array(
-                                            "Content-Type: Application/json",
-                                            "x-api-key: {$api_key}"
-                                        )
-                                    );
-
-                                    $api_post_data = Array();
-                                    $api_post_data['name'] = $group->name;
-                                    if(strlen($group->description) > 0) 
-                                        $api_post_data['description'] = $group->description;
-
-                                    $json_data = json_encode($api_post_data);
-
-                                    curl_setopt($curl, CURLOPT_POSTFIELDS, $json_data);
-                                    $curl_result = curl_exec($curl);
-                                    $discourse = json_decode($curl_result);
-
-                                    if(isset($discourse->id) && $discourse->id) {
-                                        $meta['discourse_category_id'] = intval(sanitize_text_field($discourse->id));
-                                    }
-
-                                    if(isset($discourse->url) && strlen($discourse->url) > 0) {
-                                        $meta['discourse_category_url'] = sanitize_text_field($discourse->url);
-                                    }
+                                $discourse = mozilla_discourse_api('categories', $discourse_data, 'post');
+                                
+                                if(isset($discourse->id) && $discourse->id) {
+                                    $meta['discourse_category_id'] = intval(sanitize_text_field($discourse->id));
                                 }
+
+                                if(isset($discourse->url) && strlen($discourse->url) > 0) {
+                                    $meta['discourse_category_url'] = sanitize_text_field($discourse->url);
+                                }                    
         
                                 $result = groups_update_groupmeta($group_id, 'meta', $meta);
                     
@@ -319,11 +293,7 @@ function mozilla_create_group() {
                                     $_POST['group_slug'] = $group->slug;
                                 } else {
                                     groups_delete_group($group_id);
-                                    curl_setopt($curl, CURLOPT_URL, "{$api_url}/categories");
-                                    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
-                                    curl_setopt($curl, CURLOPT_POSTFIELDS, Array('id'   =>  $discourse->id));
-                                    curl_exec($curl);
-
+                                    mozilla_discourse_api('categories', Array('group_id'    =>  $discourse->id), 'delete');
                                     $_POST['step'] = 0;
                                 }   
 
@@ -1007,6 +977,8 @@ function mozilla_edit_group() {
                     $meta['group_city'] = isset($_POST['group_city']) ? sanitize_text_field($_POST['group_city']) : '';
                     $meta['group_country'] = isset($_POST['group_country']) ? sanitize_text_field($_POST['group_country']): '';
                     $meta['group_type'] = isset($_POST['group_type']) ? sanitize_text_field($_POST['group_type']) : 'Online';
+                    $meta['discourse_category_url'] = isset($_POST['group_discourse_url']) ? sanitize_text_field($_POST['group_discourse_url']) : '';
+                    $meta['discourse_category_id'] = isset($_POST['group_discourse_id']) ? sanitize_text_field($_POST['group_discourse_id']) : '';
 
                     if(isset($_POST['tags'])) {
                         $tags = array_filter(explode(',', $_POST['tags']));
@@ -1171,6 +1143,127 @@ function mozilla_approve_booking($EM_Booking) {
 function mozilla_get_user_auth0($id) {
     $meta = get_user_meta($id);
     return (isset($meta['wp_auth0_id'][0])) ? $meta['wp_auth0_id'][0] : false;
+}
+
+function mozilla_discourse_api($type, $data, $request = 'GET') {
+    $discourse = false;
+
+    $options = wp_load_alloptions();
+    if(isset($options['discourse_api_key']) && strlen($options['discourse_api_key']) > 0 && isset($options['discourse_api_url']) && strlen($options['discourse_api_url']) > 0) {
+        // Get the API URL without the trailing slash
+        $api_url = rtrim($options['discourse_api_url'], '/');
+        $api_key = trim($options['discourse_api_key']);
+        $curl = curl_init();
+
+        curl_setopt($curl, CURLOPT_HTTPHEADER, Array(
+                "Content-Type: Application/json",
+                "x-api-key: {$api_key}"
+            )
+        );
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        $type = strtolower($type);
+        $api_data = Array();
+
+        if($type === 'categories') {
+            curl_setopt($curl, CURLOPT_URL, "{$api_url}/categories");
+            switch(strtowlower($request)) {
+                case 'post':
+                    if(isset($data['name']) && strlen($data['name']) > 0) {
+                        curl_setopt($curl, CURLOPT_POST, 1);
+                        $api_data['name'] = $data['name'];
+
+                        if(isset($data['description']) && strlen($data['description']) > 0) 
+                            $api_data['description'] = $data['description'];
+    
+                    }                    
+                    break;
+                case 'patch':
+                    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PATCH");
+                    break;
+                case 'delete':
+                    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DEL");
+                    if(isset($data['group_id']) && intval($data['group_id']) > 0) {    
+                        $api_data['id'] = $data['group_id'];
+                    }
+                    
+                    break;
+            }
+        }
+
+        if($type === 'groups') {
+            curl_setopt($curl, CURLOPT_URL, "{$api_url}/groups");
+            switch(strtowlower($request)) {
+                case 'post':
+                    if(isset($data['name']) && strlen($data['name']) > 0) {
+                        curl_setopt($curl, CURLOPT_POST, 1);
+                        
+                        $api_data['name'] = $data['name'];
+                        if(isset($data['description']) && strlen($data['description']) > 0) 
+                            $api_data['description'] = $data['description'];
+
+                        if(is_array($data['users'])) {
+                            $api_data['users'] = $data['users'];
+                        } else {
+                            $api_data['users'] = Array();
+                        }
+                    }
+
+                    break;
+                case 'patch':
+                    curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PATCH");
+
+                    break;
+                case 'delete':
+                    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DEL");
+                    if(isset($data['group_id']) && intval($data['group_id']) > 0) {    
+                        $api_data['id'] = $data['group_id'];
+                    }
+                    break;
+            }
+        }
+
+        if($type === 'groups/users') {
+            curl_setopt($curl, CURLOPT_URL, "{$api_url}/groups/users");
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PATCH");
+
+            if(is_array($data['add_users'])) {
+                $api_data['add'] = $data['add_users'];
+            }
+
+            if(is_array($data['remove_users'])) {
+                $api_data['remove'] = $data['remove_users'];
+            }
+        }
+
+        if(!empty($api_data)) {
+            $json_data = json_encode($api_data);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $json_data);
+        }
+        
+        $curl_result = curl_exec($curl);
+        $discourse = json_decode($curl_result);
+    }
+
+    return $discourse;
+}
+
+function mozilla_discourse_get_category_topics($url) {
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+    curl_setopt($curl, CURLOPT_URL, "{$url}.json");
+    $curl_result = curl_exec($curl);
+    $discourse_category = json_decode($curl_result);
+    
+    curl_close($curl);
+    
+    if(isset($discourse_category->topic_list) && isset($discourse_category->topic_list->topics))
+        $topics = is_array($discourse_category->topic_list->topics) ? $discourse_category->topic_list->topics : Array();
+    else 
+        $topics = Array();
+
+    return $topics;
 }
 
 ?>
