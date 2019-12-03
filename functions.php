@@ -1165,10 +1165,10 @@ function mozilla_discourse_api($type, $data, $request = 'GET') {
 
         switch(strtolower($type)) {
             case 'categories':
-                curl_setopt($curl, CURLOPT_URL, "{$api_url}/categories");
                 switch(strtolower($request)) {
                     case 'post':
                         if(isset($data['name']) && strlen($data['name']) > 0) {
+                            curl_setopt($curl, CURLOPT_URL, "{$api_url}/categories");
                             curl_setopt($curl, CURLOPT_POST, 1);
                             $api_data['name'] = $data['name'];
 
@@ -1194,13 +1194,12 @@ function mozilla_discourse_api($type, $data, $request = 'GET') {
                 }
                 break;
             case 'groups':
-                curl_setopt($curl, CURLOPT_URL, "{$api_url}/groups");
                 switch(strtolower($request)) {
                     case 'post':
-                        curl_setopt($curl, CURLOPT_URL, "{$api_url}/groups");
                         if(isset($data['name']) && strlen($data['name']) > 0) {
                             curl_setopt($curl, CURLOPT_POST, 1);
-                            
+                            curl_setopt($curl, CURLOPT_URL, "{$api_url}/groups");
+
                             $api_data['name'] = $data['name'];
                             if(isset($data['description']) && strlen($data['description']) > 0) 
                                 $api_data['description'] = $data['description'];
