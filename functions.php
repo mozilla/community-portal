@@ -275,46 +275,38 @@ function mozilla_create_group() {
                                 // Lets make some discourse API calls now that the group is saved
                                 if(isset($options['discourse_api_key']) && strlen($options['discourse_api_key']) > 0 && isset($options['discourse_api_url']) && strlen($options['discourse_api_url']) > 0) {
                                     
-
                                     // Get the API URL without the trailing slash
                                     $api_url = rtrim($options['discourse_api_url'], '/');
                                     $api_key = trim($options['discourse_api_key']);
-                                    print "Calling DISCOURSE API: {$api_url}/groups<br>";
-                                    print "API Key: {$api_key}<br>";
-
+                         
                                     $curl = curl_init();
                                     curl_setopt($curl, CURLOPT_POST, 1);
-                                    curl_setopt($curl, CURLOPT_URL, "{$api_url}/groups");
-                                    curl_setopt($curl, CURLOPT_HTTPHEADER,  Array(
-                                        "content-type: application/x-www-form-urlencoded",
-                                        "x-api-key: {$api_key}"
-                                    ));
+                                    curl_setopt($curl, CURLOPT_URL, "{$api_url}/categories");
                                     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+                                    curl_setopt($curl, CURLOPT_HTTPHEADER, Array(
+                                            "Content-Type: Application/json",
+                                            "x-api-key: {$api_key}"
+                                        )
+                                    );
 
                                     $api_post_data = Array();
                                     $api_post_data['name'] = $group->name;
-                                    if(strlen($group->discription) > 0) 
+                                    if(strlen($group->description) > 0) 
                                         $api_post_data['description'] = $group->description;
 
-                                    // Need to get both admins Auth 0 Information
-                                    $users = Array();
-                                    $users[] = mozilla_get_user_auth0($user->ID);
+                                    $json_data = json_encode($api_post_data);
 
-                                    if(isset($_POST['group_admin_id']) && $_POST['group_admin_id']) {
-                                        $users[] = mozilla_get_user_auth0(intval($_POST['group_admin_id']));
+                                    curl_setopt($curl, CURLOPT_POSTFIELDS, $json_data);
+                                    $curl_result = curl_exec($curl);
+                                    $discourse = json_decode($curl_result);
+
+                                    if(isset($discourse->id) && $discourse->id) {
+                                        $meta['discourse_category_id'] = intval(sanitize_text_field($discourse->id));
                                     }
 
-                                    $api_post_data['users'] = $users;
-                                    $post_query = http_build_query($api_post_data);
-                                    print "QUERY: {$post_query}<br>";
-                                    curl_setopt($curl, CURLOPT_POSTFIELDS, $post_query);
-                                    $curl_result = curl_exec($curl);
-
-
-                                    // print "RESULT<br>";
-                                    print_r($curl_result);
-                                    curl_close($curl);
-
+                                    if(isset($discourse->url) && strlen($discourse->url) > 0) {
+                                        $meta['discourse_category_url'] = sanitize_text_field($discourse->url);
+                                    }
                                 }
         
                                 $result = groups_update_groupmeta($group_id, 'meta', $meta);
@@ -325,12 +317,17 @@ function mozilla_create_group() {
                                     $_POST['step'] = 3;
                                     
                                     $_POST['group_slug'] = $group->slug;
-                                    die('gg');
-                        
                                 } else {
                                     groups_delete_group($group_id);
+                                    curl_setopt($curl, CURLOPT_URL, "{$api_url}/categories");
+                                    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+                                    curl_setopt($curl, CURLOPT_POSTFIELDS, Array('id'   =>  $discourse->id));
+                                    curl_exec($curl);
+
                                     $_POST['step'] = 0;
-                                }                                
+                                }   
+
+                                curl_close($curl);                             
                             }
                         } else {
                             $_POST['step'] = 2;
