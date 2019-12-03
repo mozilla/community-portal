@@ -1164,75 +1164,76 @@ function mozilla_discourse_api($type, $data, $request = 'GET') {
         $type = strtolower($type);
         $api_data = Array();
 
-        if($type === 'categories') {
-            curl_setopt($curl, CURLOPT_URL, "{$api_url}/categories");
-            switch(strtowlower($request)) {
-                case 'post':
-                    if(isset($data['name']) && strlen($data['name']) > 0) {
-                        curl_setopt($curl, CURLOPT_POST, 1);
-                        $api_data['name'] = $data['name'];
+        switch(strtolower($type)) {
+            case 'categories':
+                curl_setopt($curl, CURLOPT_URL, "{$api_url}/categories");
+                switch(strtolower($request)) {
+                    case 'post':
+                        if(isset($data['name']) && strlen($data['name']) > 0) {
+                            curl_setopt($curl, CURLOPT_POST, 1);
+                            $api_data['name'] = $data['name'];
 
-                        if(isset($data['description']) && strlen($data['description']) > 0) 
-                            $api_data['description'] = $data['description'];
-    
-                    }                    
-                    break;
-                case 'patch':
-                    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PATCH");
-                    break;
-                case 'delete':
-                    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DEL");
-                    if(isset($data['group_id']) && intval($data['group_id']) > 0) {    
-                        $api_data['id'] = $data['group_id'];
-                    }
-                    
-                    break;
-            }
-        }
-
-        if($type === 'groups') {
-            curl_setopt($curl, CURLOPT_URL, "{$api_url}/groups");
-            switch(strtowlower($request)) {
-                case 'post':
-                    if(isset($data['name']) && strlen($data['name']) > 0) {
-                        curl_setopt($curl, CURLOPT_POST, 1);
-                        
-                        $api_data['name'] = $data['name'];
-                        if(isset($data['description']) && strlen($data['description']) > 0) 
-                            $api_data['description'] = $data['description'];
-
-                        if(is_array($data['users'])) {
-                            $api_data['users'] = $data['users'];
-                        } else {
-                            $api_data['users'] = Array();
+                            if(isset($data['description']) && strlen($data['description']) > 0) 
+                                $api_data['description'] = $data['description'];
+        
+                        }                    
+                        break;
+                    case 'patch':
+                        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PATCH");
+                        break;
+                    case 'delete':
+                        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DEL");
+                        if(isset($data['group_id']) && intval($data['group_id']) > 0) {    
+                            $api_data['id'] = $data['group_id'];
                         }
-                    }
+                        
+                        break;
+                }
+                break;
+            case 'groups':
+                curl_setopt($curl, CURLOPT_URL, "{$api_url}/groups");
+                switch(strtolower($request)) {
+                    case 'post':
+                        if(isset($data['name']) && strlen($data['name']) > 0) {
+                            curl_setopt($curl, CURLOPT_POST, 1);
+                            
+                            $api_data['name'] = $data['name'];
+                            if(isset($data['description']) && strlen($data['description']) > 0) 
+                                $api_data['description'] = $data['description'];
 
-                    break;
-                case 'patch':
-                    curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PATCH");
+                            if(is_array($data['users'])) {
+                                $api_data['users'] = $data['users'];
+                            } else {
+                                $api_data['users'] = Array();
+                            }
+                        }
 
-                    break;
-                case 'delete':
-                    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DEL");
-                    if(isset($data['group_id']) && intval($data['group_id']) > 0) {    
-                        $api_data['id'] = $data['group_id'];
-                    }
-                    break;
-            }
-        }
+                        break;
+                    case 'patch':
+                        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PATCH");
 
-        if($type === 'groups/users') {
-            curl_setopt($curl, CURLOPT_URL, "{$api_url}/groups/users");
-            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PATCH");
+                        break;
+                    case 'delete':
+                        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DEL");
+                        if(isset($data['group_id']) && intval($data['group_id']) > 0) {    
+                            $api_data['id'] = $data['group_id'];
+                        }
+                        break;
+                }
+                break;
+            case 'groups/users':
+                curl_setopt($curl, CURLOPT_URL, "{$api_url}/groups/users");
+                curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PATCH");
 
-            if(is_array($data['add_users'])) {
-                $api_data['add'] = $data['add_users'];
-            }
+                if(is_array($data['add_users'])) {
+                    $api_data['add'] = $data['add_users'];
+                }
 
-            if(is_array($data['remove_users'])) {
-                $api_data['remove'] = $data['remove_users'];
-            }
+                if(is_array($data['remove_users'])) {
+                    $api_data['remove'] = $data['remove_users'];
+                }
+
+                break;
         }
 
         if(!empty($api_data)) {
