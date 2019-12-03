@@ -795,7 +795,18 @@
             position: absolute;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 22%;
+        }
+    }
+
+    &__view-updates-link {
+        text-decoration: none;
+        font-size: remCalc(16);
+        line-height: 24px;
+        color: $color-blue-50;
+
+        svg {
+            margin-left: 8px;
         }
     }
 }
