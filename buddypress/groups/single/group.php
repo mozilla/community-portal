@@ -334,6 +334,8 @@
                             </div>
                     <?php endforeach; ?>
                     </div>
+
+                    
                     <?php else: ?>
                     <div class="group__left-column">
                         <div class="group__card">
@@ -499,6 +501,62 @@
                             </div>  
                         </div>
                         <?php endif; ?>
+                        
+                        <?php if(isset($group_meta['discourse_category_url']) && strlen($group_meta['discourse_category_url'])): ?>
+                        <?php 
+                        
+                            $curl = curl_init();
+                            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+                            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                            $discourse_url = rtrim($group_meta['discourse_category_url'], "/");
+                            curl_setopt($curl, CURLOPT_URL, "{$discourse_url}.json");
+                            $curl_result = curl_exec($curl);
+                            $discourse_category = json_decode($curl_result);
+                            
+                            curl_close($curl);
+                            
+                            if(isset($discourse_category->topic_list) && isset($discourse_category->topic_list->topics))
+                            $topics = is_array($discourse_category->topic_list->topics) ? $discourse_category->topic_list->topics : Array();
+                            $topics = array_slice($topics, 0, 4);
+                        ?>
+                        <?php if(sizeof($topics) > 0): ?>
+                        <h2 class="group__card-title"><?php print __('Announcements'); ?></h2>
+                        <div class="group__card group__card--table">
+                            <div class="group__card-content">
+                                <table class="group__announcements">
+                                    <thead>
+                                        <tr>
+                                            <th class="group__table-header group__table-header--topic"><?php print __('Topic'); ?></th>
+                                            <th class="group__table-header"><?php print __('Replies'); ?></th>
+                                            <th class="group__table-header"><?php print __('Views'); ?></th>
+                                            <th class="group__table-header group__table-header--activity"><?php print __('Activity'); ?></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php foreach($topics AS $topic): ?>
+                                        <tr>
+                                            <td class="group__table-cell group__table-cell--topic">
+                                                <div class="group__topic-title"><?php print $topic->title; ?></div>
+                                                <div class="group__topic-date"><?php print date("F j, Y", strtotime($topic->created_at)); ?></div>
+                                            </td>
+                                            <td class="group__table-cell">
+                                                <div class="group__topic-replies"><?php print $topic->reply_count; ?></div>
+                                            </td>
+                                            <td class="group__table-cell">
+                                            <div class="group__topic-views"><?php print $topic->views; ?></div>
+                                            </td>
+                                            <td class="group__table-cell group__table-cell--activity">
+                                                <div class="group__topic-activity"><?php print (isset($topic->last_posted_at) && strlen($topic->last_posted_at) > 0) ? date("M j", strtotime($topic->last_posted_at)) : date("M j", strtotime($topic->created_at)) ; ?></div>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <?php endif; ?>
+
+                        <?php endif;  ?>
                     </div>
                     <div class="group__right-column">
                         <div class="group__card">
