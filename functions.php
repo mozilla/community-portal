@@ -293,7 +293,7 @@ function mozilla_create_group() {
                                     $_POST['group_slug'] = $group->slug;
                                 } else {
                                     groups_delete_group($group_id);
-                                    mozilla_discourse_api('categories', Array('group_id'    =>  $discourse->id), 'delete');
+                                    mozilla_discourse_api('categories', Array('category_id'    =>  $discourse->id), 'delete');
                                     $_POST['step'] = 0;
                                 }   
 
@@ -303,8 +303,7 @@ function mozilla_create_group() {
                             $_POST['step'] = 2;
                         }
 
-                        break;
-                        
+                        break; 
                 }
             }
         } else {
@@ -1179,14 +1178,18 @@ function mozilla_discourse_api($type, $data, $request = 'GET') {
                         }                    
                         break;
                     case 'patch':
-                        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PATCH");
+                        if(isset($data['category_id']) && intval($data['category_id']) > 0) {    
+                            curl_setopt($curl, CURLOPT_URL, "{$api_url}/categories/{$data['category_id']}");
+                            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PATCH");
+                        }
+
                         break;
                     case 'delete':
-                        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DEL");
-                        if(isset($data['group_id']) && intval($data['group_id']) > 0) {    
-                            $api_data['id'] = $data['group_id'];
+                        if(isset($data['category_id']) && intval($data['category_id']) > 0) {    
+                            curl_setopt($curl, CURLOPT_URL, "{$api_url}/categories/{$data['category_id']}");
+                            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DEL");
                         }
-                        
+
                         break;
                 }
                 break;
@@ -1194,6 +1197,7 @@ function mozilla_discourse_api($type, $data, $request = 'GET') {
                 curl_setopt($curl, CURLOPT_URL, "{$api_url}/groups");
                 switch(strtolower($request)) {
                     case 'post':
+                        curl_setopt($curl, CURLOPT_URL, "{$api_url}/groups");
                         if(isset($data['name']) && strlen($data['name']) > 0) {
                             curl_setopt($curl, CURLOPT_POST, 1);
                             
@@ -1210,27 +1214,33 @@ function mozilla_discourse_api($type, $data, $request = 'GET') {
 
                         break;
                     case 'patch':
-                        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PATCH");
+                        if(isset($data['group_id']) && intval($data['group_id']) > 0) {    
+                            curl_setopt($curl, CURLOPT_URL, "{$api_url}/groups/{$data['group_id']}");
+                            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PATCH");
+                        }
 
                         break;
                     case 'delete':
-                        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DEL");
                         if(isset($data['group_id']) && intval($data['group_id']) > 0) {    
-                            $api_data['id'] = $data['group_id'];
+                            curl_setopt($curl, CURLOPT_URL, "{$api_url}/groups/{$data['group_id']}");
+                            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DEL");
                         }
+
                         break;
                 }
                 break;
             case 'groups/users':
-                curl_setopt($curl, CURLOPT_URL, "{$api_url}/groups/users");
-                curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PATCH");
+                if(isset($data['group_id']) && intval($data['group_id']) > 0) { 
+                    curl_setopt($curl, CURLOPT_URL, "{$api_url}/groups/{$data['group_id']}/users");
+                    curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PATCH");
 
-                if(is_array($data['add_users'])) {
-                    $api_data['add'] = $data['add_users'];
-                }
+                    if(is_array($data['add_users'])) {
+                        $api_data['add'] = $data['add_users'];
+                    }
 
-                if(is_array($data['remove_users'])) {
-                    $api_data['remove'] = $data['remove_users'];
+                    if(is_array($data['remove_users'])) {
+                        $api_data['remove'] = $data['remove_users'];
+                    }
                 }
 
                 break;
