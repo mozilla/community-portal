@@ -502,21 +502,11 @@
                         </div>
                         <?php endif; ?>
                         
-                        <?php if(isset($group_meta['discourse_category_url']) && strlen($group_meta['discourse_category_url'])): ?>
+                        <?php if(isset($group_meta['discourse_category_url']) && strlen($group_meta['discourse_category_url']) > 0): ?>
                         <?php 
-                        
-                            $curl = curl_init();
-                            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-                            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
                             $discourse_url = rtrim($group_meta['discourse_category_url'], "/");
-                            curl_setopt($curl, CURLOPT_URL, "{$discourse_url}.json");
-                            $curl_result = curl_exec($curl);
-                            $discourse_category = json_decode($curl_result);
-                            
-                            curl_close($curl);
-                            
-                            if(isset($discourse_category->topic_list) && isset($discourse_category->topic_list->topics))
-                            $topics = is_array($discourse_category->topic_list->topics) ? $discourse_category->topic_list->topics : Array();
+
+                            $topics = mozilla_discourse_get_category_topics($discourse_url);
                             $topics = array_slice($topics, 0, 4);
                         ?>
                         <?php if(sizeof($topics) > 0): ?>
@@ -536,8 +526,10 @@
                                     <?php foreach($topics AS $topic): ?>
                                         <tr>
                                             <td class="group__table-cell group__table-cell--topic">
-                                                <div class="group__topic-title"><?php print $topic->title; ?></div>
-                                                <div class="group__topic-date"><?php print date("F j, Y", strtotime($topic->created_at)); ?></div>
+                                                <a href="/t/<?php print $topic->slug; ?>" class="group__topic-link">
+                                                    <div class="group__topic-title"><?php print $topic->title; ?></div>
+                                                    <div class="group__topic-date"><?php print date("F j, Y", strtotime($topic->created_at)); ?></div>
+                                                </a>
                                             </td>
                                             <td class="group__table-cell">
                                                 <div class="group__topic-replies"><?php print $topic->reply_count; ?></div>
