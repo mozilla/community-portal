@@ -218,7 +218,6 @@
                                 'category'      =>  $category_id
                             ));
                             
-                            
                         ?>
                         <?php if(sizeof($terms_of_service_posts) === 1): ?>
                         <div class="create-group__terms">

@@ -40,6 +40,8 @@ add_filter('nav_menu_css_class', 'mozilla_menu_class', 10, 4);
 add_filter('em_get_countries', 'mozilla_add_online_to_countries', 10, 1);
 add_filter('em_location_get_countries', 'mozilla_add_online_to_countries', 10, 1);
 add_filter('em_booking_save_pre','mozilla_approve_booking', 100, 2);
+add_filter('em_bookings_deleted', 'mozilla_remove_booking', 100, 2);
+
 add_filter('em_event_submission_login', "mozilla_update_events_copy", 10, 1);
 add_filter('wp_redirect', 'mozilla_events_redirect');
 add_filter('em_event_delete', 'mozilla_delete_events', 10, 2);
@@ -62,6 +64,7 @@ abstract class PrivacySettings {
     const PUBLIC_USERS = 1; 
     const PRIVATE_USERS = 2;
 }
+
 
 function remove_admin_login_header() {
 	remove_action('wp_head', '_admin_bar_bump_cb');
@@ -250,6 +253,9 @@ function mozilla_create_group() {
                                 $group = groups_get_group(Array('group_id' => $group_id ));
                                 $user = wp_get_current_user();
 
+                                $auth0Ids = Array();
+                                $auth0Ids[] = mozilla_get_user_auth0($user->ID);
+
                                 if(isset($_POST['group_admin_id']) && $_POST['group_admin_id'] && $group->creator_id == $user->ID) {
                                     $group_admin_user_id = intval($_POST['group_admin_id']);
 
@@ -257,6 +263,7 @@ function mozilla_create_group() {
                                     $member = new BP_Groups_Member($group_admin_user_id, $group_id); 
                                     do_action('groups_promote_member', $group_id, $group_admin_user_id, 'admin'); 
                                     $member->promote('admin'); 
+                                    $auth0Ids[] = mozilla_get_user_auth0($group_admin_user_id);
                                 }
 
                                 // Required information but needs to be stored in meta data because buddypress does not support these fields
@@ -272,6 +279,23 @@ function mozilla_create_group() {
                                 $discourse_data = Array();
                                 $discourse_data['name'] = $group->name;
                                 $discourse_data['description'] = $group->description;
+
+                                if(!empty($auth0Ids))
+                                    $discourse_data['users'] = $auth0Ids;
+
+                                $discourse_group = mozilla_discourse_api('groups', $discourse_data, 'post');
+                                
+                                
+                                
+                                if($discourse_group) {
+                                    $meta['discourse_group_id'] = intval(sanitize_text_field($discourse_group->id));
+                                    $meta['discourse_group_name'] = sanitize_text_field($discourse_group->discourse_group_name);
+                                }
+
+                                
+                                // Don't need this data anymore 
+                                unset($discourse_data['users']);
+                                $discourse_data['groups'] = Array(intval($discourse_group->id));
 
                                 $discourse = mozilla_discourse_api('categories', $discourse_data, 'post');
                                 
@@ -289,7 +313,7 @@ function mozilla_create_group() {
                                     unset($_SESSION['form']);
                                     $_POST = Array();
                                     $_POST['step'] = 3;
-                                    
+                            
                                     $_POST['group_slug'] = $group->slug;
                                 } else {
                                     groups_delete_group($group_id);
@@ -496,8 +520,20 @@ function mozilla_join_group() {
         
         if($user->ID) {
             if(isset($_POST['group']) && $_POST['group']) {
-                $joined = groups_join_group(intval(trim($_POST['group'])), $user->ID);
+                $group_id = intval($_POST['group']);
+                $joined = groups_join_group($group_id, $user->ID);
+
                 if($joined) {
+                    $discourse_group_info = mozilla_get_discourse_info($group_id);
+                    $discourse_api_data = Array();
+                    $discourse_users = Array();
+
+                    $discourse_users[] = mozilla_get_user_auth0($user->ID);
+                    $discourse_api_data['group_id'] = $discourse_group_info['discourse_group_id'];
+                    $discourse_api_data['add_users'] = $discourse_users;
+                    $discourse = mozilla_discourse_api('groups/users', $discourse_api_data, 'patch');
+            
+
                     print json_encode(Array('status'   =>  'success', 'msg'  =>  'Joined Group'));
                 } else {
                     print json_encode(Array('status'   =>  'error', 'msg'   =>  'Could not join group'));
@@ -526,6 +562,14 @@ function mozilla_leave_group() {
                     $left = groups_leave_group($group, $user->ID);
 
                     if($left) {
+                        $discourse_group_info = mozilla_get_discourse_info($group);
+                        $discourse_api_data = Array();
+                        $discourse_users = Array();
+
+                        $discourse_users[] = mozilla_get_user_auth0($user->ID);
+                        $discourse_api_data['group_id'] = $discourse_group_info['discourse_group_id'];
+                        $discourse_api_data['remove_users'] = $discourse_users;
+                        $discourse = mozilla_discourse_api('groups/users', $discourse_api_data, 'patch');
                         print json_encode(Array('status'   =>  'success', 'msg'  =>  'Left Group'));
                     } else {
                         print json_encode(Array('status'   =>  'error', 'msg'   =>  'Could not leave group'));
@@ -889,11 +933,39 @@ function mozilla_display_field($field, $visibility, $is_me, $logged_in) {
 
 function mozilla_save_event($post_id, $post, $update) {
     if ($post->post_type === 'event') {
+
+        $user = wp_get_current_user();
+
         $event = new stdClass();
         $event->image_url = esc_url_raw($_POST['image_url']);
         $event->location_type = sanitize_text_field($_POST['location-type']);
         $event->external_url = esc_url_raw($_POST['event_external_link']);
         $event->campaign = sanitize_text_field($_POST['event_campaign']);
+
+        $discourse_api_data = Array();
+
+        $discourse_api_data['name'] = $post->post_name;
+        $discourse_api_data['description'] = $post->post_content;
+        
+        if($update) {
+            $event_meta = get_post_meta($post_id, 'event-meta');
+
+            if(!empty($event_meta) && isset($event_meta[0]->discourse_group_id)) {
+                $discourse_api_data['group_id'] = $event_meta[0]->discourse_group_id;
+                $discourse_group = mozilla_discourse_api('groups', $discourse_api_data, 'patch');
+            }
+        } else {
+            $auth0Ids = Array();
+            $auth0Ids[] = mozilla_get_user_auth0($user->ID);
+            $discourse_api_data['users'] = $auth0Ids;
+            $discourse_group = mozilla_discourse_api('groups', $discourse_api_data, 'post');
+        }
+
+        if($discourse_group) {
+            $event->discourse_group_id = $discourse_group->id;
+            $event->discourse_group_name = $discourse_group->discourse_group_name;
+        }
+
         update_post_meta($post_id, 'event-meta', $event);
     }
 }
@@ -960,15 +1032,46 @@ function mozilla_edit_group() {
                 if($error === false) {
                     $args = Array(
                         'group_id'      =>  $group_id,
-                        'name'          =>  sanitize_text_field($_POST['group_name']),
+                        'name'          =>  sanitize_text_field($_POST['group_name']), 
                         'description'   =>  sanitize_text_field($_POST['group_desc']),
                     );
 
                     // Update the group
                     groups_create_group($args);
+                    // Update both category and group 
+                    $discourse_api_data = Array();
+                    $meta = Array();
+
+                    $group_discourse_info = mozilla_get_discourse_info($group_id);
+
+                    // Update Group Category on Discourse
+                    $discourse_api_data['category_id'] = $group_discourse_info['discourse_category_id'];
+                    $discourse_api_data['name'] = $args['name'];
+                    $discourse_api_data['description'] = $args['description'];
+                    $discourse_category = mozilla_discourse_api('categories', $discourse_api_data, 'patch');
+
+                    // Update Group Meta locally
+                    $meta['discourse_category_id'] = $group_discourse_info['discourse_category_id'];
+                    if($discourse_category)
+                        $meta['discourse_category_url'] = $discourse_category->url;
+                    else 
+                        $meta['discourse_category_url'] = $group_discourse_info['discourse_category_url'];
+
+                    // Update Group on Discourse
+                    $discourse_api_data = Array();
+                    $discourse_api_data['group_id'] = $group_discourse_info['discourse_group_id'];
+                    $discourse_api_data['name'] = $args['name'];
+                    $discourse_api_data['description'] = $args['description'];
+                    $discourse_group = mozilla_discourse_api('groups', $discourse_api_data, 'patch');
+                    $meta['discourse_group_id'] = $group_discourse_info['discourse_group_id'];
+
+                    if($discourse_group)
+                        $meta['discourse_group_name'] = $discourse_group->discourse_group_name;
+                    else    
+                        $meta['discourse_group_name'] = $group_discourse_info['discourse_group_name'];
+
 
                     // Update group meta data
-                    $meta = Array();
                     $meta['group_image_url'] = isset($_POST['image_url']) ? sanitize_text_field($_POST['image_url']) : '';
                     $meta['group_address_type'] = isset($_POST['group_address_type']) ? sanitize_text_field($_POST['group_address_type']) : 'Address';
                     $meta['group_address'] = isset($_POST['group_address']) ? sanitize_text_field($_POST['group_address']) : '';
@@ -976,8 +1079,7 @@ function mozilla_edit_group() {
                     $meta['group_city'] = isset($_POST['group_city']) ? sanitize_text_field($_POST['group_city']) : '';
                     $meta['group_country'] = isset($_POST['group_country']) ? sanitize_text_field($_POST['group_country']): '';
                     $meta['group_type'] = isset($_POST['group_type']) ? sanitize_text_field($_POST['group_type']) : 'Online';
-                    $meta['discourse_category_url'] = isset($_POST['group_discourse_url']) ? sanitize_text_field($_POST['group_discourse_url']) : '';
-                    $meta['discourse_category_id'] = isset($_POST['group_discourse_id']) ? sanitize_text_field($_POST['group_discourse_id']) : '';
+                    
 
                     if(isset($_POST['tags'])) {
                         $tags = array_filter(explode(',', $_POST['tags']));
@@ -994,12 +1096,54 @@ function mozilla_edit_group() {
                     groups_update_groupmeta($group_id, 'meta', $meta);
                     $_POST['done'] = true;
                 }
-        
             }
         }
     }
 }
+
+function mozilla_get_discourse_info($group_id) {
+
+    if($group_id) {
+        $group_meta = groups_get_groupmeta($group_id, 'meta');
+
+        $discourse_info = Array();
+
+        if(isset($group_meta['discourse_category_id']))
+            $discourse_info['discourse_category_id'] = $group_meta['discourse_category_id'];
+
+        if(isset($group_meta['discourse_category_url']))
+            $discourse_info['discourse_category_url'] = $group_meta['discourse_category_url'];
+
+        if(isset($group_meta['discourse_group_id']))
+            $discourse_info['discourse_group_id'] = $group_meta['discourse_group_id'];
+
+        if(isset($group_meta['discourse_group_name']))
+            $discourse_info['discourse_group_name'] = $group_meta['discourse_group_name'];
+
+        return $discourse_info;
+    }
+
+    return false;
+}
     
+
+function mozilla_get_discourse_event_info($post_id) {
+    if($post_id) {
+        $discourse_info = Array();
+        $event_meta = get_post_meta($post_id, 'event-meta');
+
+        if(!empty($event_meta)) {
+            $discourse_info['discourse_group_id'] = $event_meta[0]->discourse_group_id;
+            $discourse_info['discourse_group_name'] = $event_meta[0]->discourse_group_name;
+            return $discourse_info;
+        }
+
+        return false;
+    }
+
+    return false;
+}
+
 function mozilla_menu_class($classes, $item, $args) {
 
     $path_items = array_filter(explode('/', $_SERVER['REQUEST_URI']));
@@ -1052,6 +1196,10 @@ function mozilla_theme_settings() {
 
             if(isset($_POST['discourse_api_url'])) {
                 update_option('discourse_api_url', sanitize_text_field($_POST['discourse_api_url']));
+            }   
+
+            if(isset($_POST['discourse_url'])) {
+                update_option('discourse_url', sanitize_text_field($_POST['discourse_url']));
             }   
         }
     }
@@ -1130,7 +1278,39 @@ function mozilla_update_events_copy($string) {
     return $string;
 }; 
 
+function mozilla_remove_booking() {
+    global $EM_Event;
+
+    if($user->ID && $EM_Event->post_id) {
+        $user = wp_get_current_user();
+        $post_id = $EM_Event->post_id;
+        $discourse_group_info = mozilla_get_discourse_event_info($post_id);
+        $discourse_api_data = Array();
+        $discourse_api_data['group_id'] = $discourse_group_info['discourse_group_id'];
+        $remove = Array();
+        $remove[] = mozilla_get_user_auth0($user->ID);
+        $discourse_api_data['remove_users'] = $remove;
+        $discourse = mozilla_discourse_api('groups/users', $discourse_api_data, 'patch');
+    }
+
+}
+
+
 function mozilla_approve_booking($EM_Booking) {
+    $user = wp_get_current_user();
+
+    $event_id = $EM_Booking->event_id;
+    $post_id = $EM_Booking->event->post_id;
+    $discourse_group_info = mozilla_get_discourse_event_info($post_id);
+
+    $discourse_api_data = Array();
+    $discourse_api_data['group_id'] = $discourse_group_info['discourse_group_id'];
+    $add = Array();
+    $add[] = mozilla_get_user_auth0($user->ID);
+    $discourse_api_data['add_users'] = $add;
+
+    $discourse = mozilla_discourse_api('groups/users', $discourse_api_data, 'patch');
+
     if (intval($EM_Booking->booking_status) === 0) {
         $EM_Booking->booking_status = 1;
         return $EM_Booking;
@@ -1178,20 +1358,27 @@ function mozilla_discourse_api($type, $data, $request = 'GET') {
 
                             if(isset($data['description']) && strlen($data['description']) > 0) 
                                 $api_data['description'] = $data['description'];
+
+                            if(isset($data['groups']) && !empty($data['groups'])) 
+                                $api_data['groups'] = $data['groups'];
         
                         }                    
                         break;
                     case 'patch':
                         if(isset($data['category_id']) && intval($data['category_id']) > 0) {    
+                            $api_data['name'] = $data['name'];
+                            if(isset($data['description']) && strlen($data['description']) > 0) 
+                                $api_data['description'] = $data['description'];
+
                             curl_setopt($curl, CURLOPT_URL, "{$api_url}/categories/{$data['category_id']}");
-                            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PATCH");
+                            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PATCH");
                         }
 
                         break;
                     case 'delete':
                         if(isset($data['category_id']) && intval($data['category_id']) > 0) {    
                             curl_setopt($curl, CURLOPT_URL, "{$api_url}/categories/{$data['category_id']}");
-                            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DEL");
+                            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "DEL");
                         }
 
                         break;
@@ -1218,6 +1405,10 @@ function mozilla_discourse_api($type, $data, $request = 'GET') {
                         break;
                     case 'patch':
                         if(isset($data['group_id']) && intval($data['group_id']) > 0) {    
+                            $api_data['name'] = $data['name'];
+                            if(isset($data['description']) && strlen($data['description']) > 0) 
+                                $api_data['description'] = $data['description'];
+
                             curl_setopt($curl, CURLOPT_URL, "{$api_url}/groups/{$data['group_id']}");
                             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PATCH");
                         }
@@ -1226,7 +1417,7 @@ function mozilla_discourse_api($type, $data, $request = 'GET') {
                     case 'delete':
                         if(isset($data['group_id']) && intval($data['group_id']) > 0) {    
                             curl_setopt($curl, CURLOPT_URL, "{$api_url}/groups/{$data['group_id']}");
-                            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DEL");
+                            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "DEL");
                         }
 
                         break;

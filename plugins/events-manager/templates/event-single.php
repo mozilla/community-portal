@@ -8,6 +8,7 @@
     $event_meta = get_post_meta($EM_Event->post_id, 'event-meta');
     $allCountries = em_get_countries();
     $img_url = $event_meta[0]->image_url;
+
     if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
         $img_url = preg_replace("/^http:/i", "https:", $img_url);
     } else {
@@ -31,7 +32,6 @@
         '11' => 'November',
         '12' => 'December',
     );
-
 
     $startDay = substr($EM_Event->event_start_date, 8, 2);
     $startMonth = substr($EM_Event->event_start_date, 5, 2);

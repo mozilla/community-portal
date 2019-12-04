@@ -27,6 +27,7 @@
     $is_member = groups_is_user_member($user->ID, $group->id);
     $admins = groups_get_group_admins($group->id);   
 
+    
     $admin_count = sizeof($admins);
     $logged_in = mozilla_is_logged_in();
 
@@ -48,8 +49,6 @@
         default: 
             $verified = false;
     }
-
-
 ?>
     <div class="content">
         <div class="group">
@@ -505,7 +504,7 @@
                         <?php if(isset($group_meta['discourse_category_url']) && strlen($group_meta['discourse_category_url']) > 0): ?>
                         <?php 
                             $discourse_url = rtrim($group_meta['discourse_category_url'], "/");
-
+                            $options = wp_load_alloptions();
                             $topics = mozilla_discourse_get_category_topics($discourse_url);
                             $topics = array_slice($topics, 0, 4);
                         ?>
@@ -526,7 +525,7 @@
                                     <?php foreach($topics AS $topic): ?>
                                         <tr>
                                             <td class="group__table-cell group__table-cell--topic">
-                                                <a href="/t/<?php print $topic->slug; ?>" class="group__topic-link">
+                                                <a href="<?php print $options['discourse_url']; ?>/t/<?php print $topic->slug; ?>" class="group__topic-link">
                                                     <div class="group__topic-title"><?php print $topic->title; ?></div>
                                                     <div class="group__topic-date"><?php print date("F j, Y", strtotime($topic->created_at)); ?></div>
                                                 </a>

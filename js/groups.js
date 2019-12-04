@@ -166,7 +166,7 @@ jQuery(function(){
                     jQuery('.group__member-count').text(memberCount);
                     $this.addClass('group__leave-cta');
                     $this.removeClass('group__join-cta');
-                    location.reload();
+                    //location.reload();
                 } else {
                     if(response.status === 'error' && response.msg === 'Not Logged In') {
                         window.location = '/login';
