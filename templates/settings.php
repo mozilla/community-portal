@@ -29,6 +29,14 @@
             </tr>
             <tr>
                 <th scope="row">
+                    <label for="error-404-copy">Discourse URL</label>
+                </th>
+                <td>
+                    <input type="text" id="discourse-url" name="discourse_url" class="regular-text" value="<?php print isset($options['discourse_url']) ? $options['discourse_url'] : ''; ?>" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
                     <label for="default-open-graph-title">Default Open Graph Title</label>
                 </th>
                 <td>
