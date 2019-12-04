@@ -54,8 +54,7 @@
             </div>
         </div>
         <form action="/groups/<?php print $group->slug; ?>/admin/edit-details/" method="post" id="create-group-form" class="standard-form create-group__form" enctype="multipart/form-data" novalidate>
-        <input type="hidden" name="group_discourse_url" value="<?php print $form['group_discourse_url']; ?>" />
-        <input type="hidden" name="group_discourse_id" value="<?php print $form['group_discourse_id']; ?>" />
+
         <div class="create-group__container">
             <ol class="create-group__menu">
                 <li class="create-group__menu-item create-group__menu-item--disabled"><a href="#" class="create-group__menu-link"><?php print __("Basic Information"); ?></a></li>
