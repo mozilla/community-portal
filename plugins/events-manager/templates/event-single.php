@@ -414,9 +414,8 @@
   </div>
 
 <?php endif; ?>
+</div>
 
 <div id="events-share-lightbox" class="lightbox">
     <?php include(locate_template('templates/share-modal.php', false, false)); ?>
-</div>
-
 </div>
