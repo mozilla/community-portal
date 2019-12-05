@@ -1,6 +1,7 @@
 <?php
 // Mozilla theme functions file
 
+
 // Remove the admin header styles for homepage
 add_action('get_header', 'remove_admin_login_header');
 
@@ -47,12 +48,14 @@ add_filter('wp_redirect', 'mozilla_events_redirect');
 add_filter('em_event_delete', 'mozilla_delete_events', 10, 2);
 add_filter( 'body_class', 'mozilla_update_body_class');
 add_filter('acf/load_field/name=featured_group', 'acf_load_bp_groups', 10, 1);
+add_filter( 'query_vars', 'add_query_vars_filter' );
 
 // Events Action
 add_action('save_post', 'mozilla_save_event', 10, 3);
 
 $template_dir = get_template_directory();
 include("{$template_dir}/countries.php");
+require_once("{$template_dir}/lib/api.php");
 
 // Include theme style.css file not in admin page
 if(!is_admin()) {
@@ -169,7 +172,6 @@ function mozilla_init_scripts() {
     wp_enqueue_script('profile', get_stylesheet_directory_uri()."/js/profile.js", array('jquery'));
     wp_enqueue_script('lightbox', get_stylesheet_directory_uri()."/js/lightbox.js", array('jquery'));
     wp_enqueue_script('gdrp', get_stylesheet_directory_uri()."/js/gdrp.js", array('jquery'));
-    
 
 }
 
@@ -270,7 +272,6 @@ function mozilla_create_group() {
                                 $meta['group_image_url'] = trim(sanitize_text_field($_POST['image_url']));
                                 $meta['group_type'] = trim(sanitize_text_field($_POST['group_type']));
                     
-
                                 if(isset($_POST['tags'])) {
                                     $tags = explode(',', $_POST['tags']);
                                     $meta['group_tags'] = array_filter($tags);
@@ -285,27 +286,18 @@ function mozilla_create_group() {
 
                                 $discourse_group = mozilla_discourse_api('groups', $discourse_data, 'post');
                                 
-                                
-                                
                                 if($discourse_group) {
                                     $meta['discourse_group_id'] = intval(sanitize_text_field($discourse_group->id));
-                                    $meta['discourse_group_name'] = sanitize_text_field($discourse_group->discourse_group_name);
                                 }
 
-                                
                                 // Don't need this data anymore 
                                 unset($discourse_data['users']);
                                 $discourse_data['groups'] = Array(intval($discourse_group->id));
-
                                 $discourse = mozilla_discourse_api('categories', $discourse_data, 'post');
                                 
                                 if($discourse && isset($discourse->id) && $discourse->id) {
                                     $meta['discourse_category_id'] = intval(sanitize_text_field($discourse->id));
-                                }
-
-                                if($discourse && isset($discourse->url) && strlen($discourse->url) > 0) {
-                                    $meta['discourse_category_url'] = sanitize_text_field($discourse->url);
-                                }                    
+                                }            
         
                                 $result = groups_update_groupmeta($group_id, 'meta', $meta);
                     
@@ -319,9 +311,7 @@ function mozilla_create_group() {
                                     groups_delete_group($group_id);
                                     mozilla_discourse_api('categories', Array('category_id'    =>  $discourse->id), 'delete');
                                     $_POST['step'] = 0;
-                                }   
-
-                                curl_close($curl);                             
+                                }  
                             }
                         } else {
                             $_POST['step'] = 2;
@@ -335,6 +325,116 @@ function mozilla_create_group() {
         }
     } else {
         wp_redirect("/");
+    }
+}
+
+function mozilla_edit_group() {
+
+    $group_id = bp_get_current_group_id();
+    $user = wp_get_current_user();
+
+    if($group_id && $user) {
+
+        $is_admin = groups_is_user_admin($user->ID, $group_id);
+
+        if($is_admin !== false) {
+            if($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $required = Array(
+                    'group_name',
+                    'group_type',
+                    'group_desc',
+                    'group_address',
+                    'my_nonce_field'
+                );
+                foreach($required AS $field) {
+                    if(isset($_POST[$field])) {
+                        if($_POST[$field] === "" || $_POST[$field] === 0) {
+                            $error = true;
+                        }
+                    }
+                }
+      
+                if(isset($_POST['group_name'])) {
+                    $error = mozilla_search_groups($_POST['group_name'], $group_id);
+                    if($error) {
+                        $_POST['group_name_error'] = 'This group name is already taken';
+                    }
+                }
+
+                // Lets update
+                if($error === false) {
+                    $args = Array(
+                        'group_id'      =>  $group_id,
+                        'name'          =>  sanitize_text_field($_POST['group_name']), 
+                        'description'   =>  sanitize_text_field($_POST['group_desc']),
+                    );
+
+                    // Update the group
+                    groups_create_group($args);
+                    // Update both category and group 
+                    $discourse_api_data = Array();
+                    $meta = Array();
+
+                    $group_discourse_info = mozilla_get_discourse_info($group_id, 'group');
+
+                    // Update Group Category on Discourse
+                    $discourse_api_data['category_id'] = $group_discourse_info['discourse_category_id'];
+                    $discourse_api_data['name'] = $args['name'];
+                    $discourse_api_data['description'] = $args['description'];
+                    $discourse_api_data['groups'] = Array(intval($group_discourse_info['discourse_group_id']));
+
+                    $discourse_category = mozilla_discourse_api('categories', $discourse_api_data, 'patch');
+
+                    // Update Group Meta locally
+                    $meta['discourse_category_id'] = $group_discourse_info['discourse_category_id'];
+                    if($discourse_category)
+                        $meta['discourse_category_url'] = $discourse_category->url;
+                    else 
+                        $meta['discourse_category_url'] = $group_discourse_info['discourse_category_url'];
+
+                    // Update Group on Discourse
+                    $discourse_api_data = Array();
+                    $discourse_api_data['group_id'] = $group_discourse_info['discourse_group_id'];
+                    $discourse_api_data['name'] = $args['name'];
+                    $discourse_api_data['description'] = $args['description'];
+                    $discourse_api_data['users'] = $group_discourse_info['discourse_group_users'];
+
+                    $discourse_group = mozilla_discourse_api('groups', $discourse_api_data, 'patch');
+                    $meta['discourse_group_id'] = $group_discourse_info['discourse_group_id'];
+
+                    if($discourse_group)
+                        $meta['discourse_group_name'] = $discourse_group->discourse_group_name;
+                    else    
+                        $meta['discourse_group_name'] = $group_discourse_info['discourse_group_name'];
+
+
+                    // Update group meta data
+                    $meta['group_image_url'] = isset($_POST['image_url']) ? sanitize_text_field($_POST['image_url']) : '';
+                    $meta['group_address_type'] = isset($_POST['group_address_type']) ? sanitize_text_field($_POST['group_address_type']) : 'Address';
+                    $meta['group_address'] = isset($_POST['group_address']) ? sanitize_text_field($_POST['group_address']) : '';
+                    $meta['group_meeting_details'] = isset($_POST['group_meeting_details']) ? sanitize_text_field($_POST['group_meeting_details']) : '';
+                    $meta['group_city'] = isset($_POST['group_city']) ? sanitize_text_field($_POST['group_city']) : '';
+                    $meta['group_country'] = isset($_POST['group_country']) ? sanitize_text_field($_POST['group_country']): '';
+                    $meta['group_type'] = isset($_POST['group_type']) ? sanitize_text_field($_POST['group_type']) : 'Online';
+                    
+
+                    if(isset($_POST['tags'])) {
+                        $tags = array_filter(explode(',', $_POST['tags']));
+                        $meta['group_tags'] = $tags;
+                    }
+
+                    $meta['group_discourse'] = isset($_POST['group_discourse']) ? sanitize_text_field($_POST['group_discourse']) : '';
+                    $meta['group_facebook'] = isset($_POST['group_facebook']) ? sanitize_text_field($_POST['group_facebook']) : '';
+                    $meta['group_telegram'] = isset($_POST['group_telegram']) ? sanitize_text_field($_POST['group_telegram']) : '';
+                    $meta['group_github'] = isset($_POST['group_github']) ? sanitize_text_field($_POST['group_github']) : '';
+                    $meta['group_twitter'] = isset($_POST['group_twitter']) ? sanitize_text_field($_POST['group_twitter']) : '';
+                    $meta['group_other'] = isset($_POST['group_other']) ? sanitize_text_field($_POST['group_other']) : '';
+
+                    groups_update_groupmeta($group_id, 'meta', $meta);
+                    $_POST['done'] = true;
+                }
+            }
+        }
     }
 }
 
@@ -449,7 +549,7 @@ function add_query_vars_filter( $vars ){
   $vars[] = "tag";
   return $vars;
 }
-add_filter( 'query_vars', 'add_query_vars_filter' );
+
 
 function mozilla_validate_username() {
 
@@ -531,6 +631,7 @@ function mozilla_join_group() {
                     $discourse_users[] = mozilla_get_user_auth0($user->ID);
                     $discourse_api_data['group_id'] = $discourse_group_info['discourse_group_id'];
                     $discourse_api_data['add_users'] = $discourse_users;
+
                     $discourse = mozilla_discourse_api('groups/users', $discourse_api_data, 'patch');
             
 
@@ -949,9 +1050,10 @@ function mozilla_save_event($post_id, $post, $update) {
         
         if($update) {
             $event_meta = get_post_meta($post_id, 'event-meta');
-
             if(!empty($event_meta) && isset($event_meta[0]->discourse_group_id)) {
                 $discourse_api_data['group_id'] = $event_meta[0]->discourse_group_id;
+                $discourse_event = mozilla_get_discourse_info($post_id, 'event');
+                $discourse_api_data['users'] = $discourse_event['discourse_group_users'];
                 $discourse_group = mozilla_discourse_api('groups', $discourse_api_data, 'patch');
             }
         } else {
@@ -963,12 +1065,12 @@ function mozilla_save_event($post_id, $post, $update) {
 
         if($discourse_group) {
             $event->discourse_group_id = $discourse_group->id;
-            $event->discourse_group_name = $discourse_group->discourse_group_name;
         }
 
         update_post_meta($post_id, 'event-meta', $event);
     }
 }
+
 
 function mozilla_match_categories() {
     $cat_terms = get_terms(EM_TAXONOMY_CATEGORY, array('hide_empty'=>false));
@@ -993,155 +1095,6 @@ function mozilla_match_categories() {
             wp_delete_term($cat_term->term_id, EM_TAXONOMY_CATEGORY);
         }
     }
-}
-
-function mozilla_edit_group() {
-
-    $group_id = bp_get_current_group_id();
-    $user = wp_get_current_user();
-
-    if($group_id && $user) {
-
-        $is_admin = groups_is_user_admin($user->ID, $group_id);
-
-        if($is_admin !== false) {
-            if($_SERVER['REQUEST_METHOD'] == 'POST') {
-                $required = Array(
-                    'group_name',
-                    'group_type',
-                    'group_desc',
-                    'group_address',
-                    'my_nonce_field'
-                );
-                foreach($required AS $field) {
-                    if(isset($_POST[$field])) {
-                        if($_POST[$field] === "" || $_POST[$field] === 0) {
-                            $error = true;
-                        }
-                    }
-                }
-      
-                if(isset($_POST['group_name'])) {
-                    $error = mozilla_search_groups($_POST['group_name'], $group_id);
-                    if($error) {
-                        $_POST['group_name_error'] = 'This group name is already taken';
-                    }
-                }
-
-                // Lets update
-                if($error === false) {
-                    $args = Array(
-                        'group_id'      =>  $group_id,
-                        'name'          =>  sanitize_text_field($_POST['group_name']), 
-                        'description'   =>  sanitize_text_field($_POST['group_desc']),
-                    );
-
-                    // Update the group
-                    groups_create_group($args);
-                    // Update both category and group 
-                    $discourse_api_data = Array();
-                    $meta = Array();
-
-                    $group_discourse_info = mozilla_get_discourse_info($group_id);
-
-                    // Update Group Category on Discourse
-                    $discourse_api_data['category_id'] = $group_discourse_info['discourse_category_id'];
-                    $discourse_api_data['name'] = $args['name'];
-                    $discourse_api_data['description'] = $args['description'];
-                    $discourse_category = mozilla_discourse_api('categories', $discourse_api_data, 'patch');
-
-                    // Update Group Meta locally
-                    $meta['discourse_category_id'] = $group_discourse_info['discourse_category_id'];
-                    if($discourse_category)
-                        $meta['discourse_category_url'] = $discourse_category->url;
-                    else 
-                        $meta['discourse_category_url'] = $group_discourse_info['discourse_category_url'];
-
-                    // Update Group on Discourse
-                    $discourse_api_data = Array();
-                    $discourse_api_data['group_id'] = $group_discourse_info['discourse_group_id'];
-                    $discourse_api_data['name'] = $args['name'];
-                    $discourse_api_data['description'] = $args['description'];
-                    $discourse_group = mozilla_discourse_api('groups', $discourse_api_data, 'patch');
-                    $meta['discourse_group_id'] = $group_discourse_info['discourse_group_id'];
-
-                    if($discourse_group)
-                        $meta['discourse_group_name'] = $discourse_group->discourse_group_name;
-                    else    
-                        $meta['discourse_group_name'] = $group_discourse_info['discourse_group_name'];
-
-
-                    // Update group meta data
-                    $meta['group_image_url'] = isset($_POST['image_url']) ? sanitize_text_field($_POST['image_url']) : '';
-                    $meta['group_address_type'] = isset($_POST['group_address_type']) ? sanitize_text_field($_POST['group_address_type']) : 'Address';
-                    $meta['group_address'] = isset($_POST['group_address']) ? sanitize_text_field($_POST['group_address']) : '';
-                    $meta['group_meeting_details'] = isset($_POST['group_meeting_details']) ? sanitize_text_field($_POST['group_meeting_details']) : '';
-                    $meta['group_city'] = isset($_POST['group_city']) ? sanitize_text_field($_POST['group_city']) : '';
-                    $meta['group_country'] = isset($_POST['group_country']) ? sanitize_text_field($_POST['group_country']): '';
-                    $meta['group_type'] = isset($_POST['group_type']) ? sanitize_text_field($_POST['group_type']) : 'Online';
-                    
-
-                    if(isset($_POST['tags'])) {
-                        $tags = array_filter(explode(',', $_POST['tags']));
-                        $meta['group_tags'] = $tags;
-                    }
-
-                    $meta['group_discourse'] = isset($_POST['group_discourse']) ? sanitize_text_field($_POST['group_discourse']) : '';
-                    $meta['group_facebook'] = isset($_POST['group_facebook']) ? sanitize_text_field($_POST['group_facebook']) : '';
-                    $meta['group_telegram'] = isset($_POST['group_telegram']) ? sanitize_text_field($_POST['group_telegram']) : '';
-                    $meta['group_github'] = isset($_POST['group_github']) ? sanitize_text_field($_POST['group_github']) : '';
-                    $meta['group_twitter'] = isset($_POST['group_twitter']) ? sanitize_text_field($_POST['group_twitter']) : '';
-                    $meta['group_other'] = isset($_POST['group_other']) ? sanitize_text_field($_POST['group_other']) : '';
-
-                    groups_update_groupmeta($group_id, 'meta', $meta);
-                    $_POST['done'] = true;
-                }
-            }
-        }
-    }
-}
-
-function mozilla_get_discourse_info($group_id) {
-
-    if($group_id) {
-        $group_meta = groups_get_groupmeta($group_id, 'meta');
-
-        $discourse_info = Array();
-
-        if(isset($group_meta['discourse_category_id']))
-            $discourse_info['discourse_category_id'] = $group_meta['discourse_category_id'];
-
-        if(isset($group_meta['discourse_category_url']))
-            $discourse_info['discourse_category_url'] = $group_meta['discourse_category_url'];
-
-        if(isset($group_meta['discourse_group_id']))
-            $discourse_info['discourse_group_id'] = $group_meta['discourse_group_id'];
-
-        if(isset($group_meta['discourse_group_name']))
-            $discourse_info['discourse_group_name'] = $group_meta['discourse_group_name'];
-
-        return $discourse_info;
-    }
-
-    return false;
-}
-    
-
-function mozilla_get_discourse_event_info($post_id) {
-    if($post_id) {
-        $discourse_info = Array();
-        $event_meta = get_post_meta($post_id, 'event-meta');
-
-        if(!empty($event_meta)) {
-            $discourse_info['discourse_group_id'] = $event_meta[0]->discourse_group_id;
-            $discourse_info['discourse_group_name'] = $event_meta[0]->discourse_group_name;
-            return $discourse_info;
-        }
-
-        return false;
-    }
-
-    return false;
 }
 
 function mozilla_menu_class($classes, $item, $args) {
@@ -1284,7 +1237,7 @@ function mozilla_remove_booking() {
     if($user->ID && $EM_Event->post_id) {
         $user = wp_get_current_user();
         $post_id = $EM_Event->post_id;
-        $discourse_group_info = mozilla_get_discourse_event_info($post_id);
+        $discourse_group_info = mozilla_get_discourse_info($post_id, 'event');
         $discourse_api_data = Array();
         $discourse_api_data['group_id'] = $discourse_group_info['discourse_group_id'];
         $remove = Array();
@@ -1301,7 +1254,7 @@ function mozilla_approve_booking($EM_Booking) {
 
     $event_id = $EM_Booking->event_id;
     $post_id = $EM_Booking->event->post_id;
-    $discourse_group_info = mozilla_get_discourse_event_info($post_id);
+    $discourse_group_info = mozilla_get_discourse_info($post_id, 'event');
 
     $discourse_api_data = Array();
     $discourse_api_data['group_id'] = $discourse_group_info['discourse_group_id'];
@@ -1324,151 +1277,5 @@ function mozilla_get_user_auth0($id) {
     return (isset($meta['wp_auth0_id'][0])) ? $meta['wp_auth0_id'][0] : false;
 }
 
-function mozilla_discourse_api($type, $data, $request = 'GET') {
-    $discourse = false;
-
-    $options = wp_load_alloptions();
-    if(isset($options['discourse_api_key']) && strlen($options['discourse_api_key']) > 0 && isset($options['discourse_api_url']) && strlen($options['discourse_api_url']) > 0) {
-
-        // Get the API URL without the trailing slash
-        $api_url = rtrim($options['discourse_api_url'], '/');
-        $api_key = trim($options['discourse_api_key']);
-        $curl = curl_init();
-
-        curl_setopt($curl, CURLOPT_HTTPHEADER, Array(
-                "Content-Type: Application/json",
-                "x-api-key: {$api_key}"
-            )
-        );
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        $type = strtolower($type);
-        $api_data = Array();
-
-        $request = strtolower($request);
-        $type = strtolower($type);
-
-        switch($type) {
-            case 'categories':
-                switch($request) {
-                    case 'post':
-                        if(isset($data['name']) && strlen($data['name']) > 0) {
-                            curl_setopt($curl, CURLOPT_URL, "{$api_url}/categories");
-                            curl_setopt($curl, CURLOPT_POST, 1);
-                            $api_data['name'] = $data['name'];
-
-                            if(isset($data['description']) && strlen($data['description']) > 0) 
-                                $api_data['description'] = $data['description'];
-
-                            if(isset($data['groups']) && !empty($data['groups'])) 
-                                $api_data['groups'] = $data['groups'];
-        
-                        }                    
-                        break;
-                    case 'patch':
-                        if(isset($data['category_id']) && intval($data['category_id']) > 0) {    
-                            $api_data['name'] = $data['name'];
-                            if(isset($data['description']) && strlen($data['description']) > 0) 
-                                $api_data['description'] = $data['description'];
-
-                            curl_setopt($curl, CURLOPT_URL, "{$api_url}/categories/{$data['category_id']}");
-                            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PATCH");
-                        }
-
-                        break;
-                    case 'delete':
-                        if(isset($data['category_id']) && intval($data['category_id']) > 0) {    
-                            curl_setopt($curl, CURLOPT_URL, "{$api_url}/categories/{$data['category_id']}");
-                            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "DEL");
-                        }
-
-                        break;
-                }
-                break;
-            case 'groups':
-                switch($request) {
-                    case 'post':
-                        if(isset($data['name']) && strlen($data['name']) > 0) {
-                            curl_setopt($curl, CURLOPT_POST, 1);
-                            curl_setopt($curl, CURLOPT_URL, "{$api_url}/groups");
-
-                            $api_data['name'] = $data['name'];
-                            if(isset($data['description']) && strlen($data['description']) > 0) 
-                                $api_data['description'] = $data['description'];
-
-                            if(is_array($data['users'])) {
-                                $api_data['users'] = $data['users'];
-                            } else {
-                                $api_data['users'] = Array();
-                            }
-                        }
-
-                        break;
-                    case 'patch':
-                        if(isset($data['group_id']) && intval($data['group_id']) > 0) {    
-                            $api_data['name'] = $data['name'];
-                            if(isset($data['description']) && strlen($data['description']) > 0) 
-                                $api_data['description'] = $data['description'];
-
-                            curl_setopt($curl, CURLOPT_URL, "{$api_url}/groups/{$data['group_id']}");
-                            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PATCH");
-                        }
-
-                        break;
-                    case 'delete':
-                        if(isset($data['group_id']) && intval($data['group_id']) > 0) {    
-                            curl_setopt($curl, CURLOPT_URL, "{$api_url}/groups/{$data['group_id']}");
-                            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "DEL");
-                        }
-
-                        break;
-                }
-                break;
-            case 'groups/users':
-                if(isset($data['group_id']) && intval($data['group_id']) > 0) { 
-                    curl_setopt($curl, CURLOPT_URL, "{$api_url}/groups/{$data['group_id']}/users");
-                    curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PATCH");
-
-                    if(is_array($data['add_users'])) {
-                        $api_data['add'] = $data['add_users'];
-                    }
-
-                    if(is_array($data['remove_users'])) {
-                        $api_data['remove'] = $data['remove_users'];
-                    }
-                }
-
-                break;
-        }
-
-        if(!empty($api_data)) {
-            $json_data = json_encode($api_data);
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $json_data);
-        }
-        
-        $curl_result = curl_exec($curl);
-        $discourse = json_decode($curl_result);
-    }
-
-    return $discourse;
-}
-
-function mozilla_discourse_get_category_topics($url) {
-    $curl = curl_init();
-    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-
-    curl_setopt($curl, CURLOPT_URL, "{$url}.json");
-    $curl_result = curl_exec($curl);
-    $discourse_category = json_decode($curl_result);
-    
-    curl_close($curl);
-    
-    if(isset($discourse_category->topic_list) && isset($discourse_category->topic_list->topics))
-        $topics = is_array($discourse_category->topic_list->topics) ? $discourse_category->topic_list->topics : Array();
-    else 
-        $topics = Array();
-
-    return $topics;
-}
 
 ?>
