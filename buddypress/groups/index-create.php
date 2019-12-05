@@ -248,7 +248,7 @@
                 <?php if($step === 3): ?>
                     <script type="text/javascript">
                         jQuery(function(){
-                            window.location = "/groups/<?php print $_POST['group_slug']; ?>";
+                            // window.location = "/groups/<?php print $_POST['group_slug']; ?>";
                         });
                     </script>
             </div>

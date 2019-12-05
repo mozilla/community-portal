@@ -26,8 +26,9 @@
     $user = wp_get_current_user();
     $is_member = groups_is_user_member($user->ID, $group->id);
     $admins = groups_get_group_admins($group->id);   
+    $discourse_group = mozilla_get_discourse_info($group->id);
 
-    
+
     $admin_count = sizeof($admins);
     $logged_in = mozilla_is_logged_in();
 
@@ -501,9 +502,9 @@
                         </div>
                         <?php endif; ?>
                         
-                        <?php if(isset($group_meta['discourse_category_url']) && strlen($group_meta['discourse_category_url']) > 0): ?>
+                        <?php if(isset($discourse_group['discourse_category_url']) && strlen($discourse_group['discourse_category_url']) > 0): ?>
                         <?php 
-                            $discourse_url = rtrim($group_meta['discourse_category_url'], "/");
+                            $discourse_url = rtrim($discourse_group['discourse_category_url'], "/");
                             $options = wp_load_alloptions();
                             $topics = mozilla_discourse_get_category_topics($discourse_url);
                             $topics = array_slice($topics, 0, 4);
