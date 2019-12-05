@@ -52,14 +52,17 @@
 				</div>
 				<div class="row homepage__events__grid">
 					<?php 
-						foreach($fieldValues->featured_events as $featured_event):
-							if($featured_event['single_event']) {
-								$event = EM_Events::get(array('post_id' => $featured_event['single_event']->ID, 'scope'	=>	'all'));
-								$event = array_shift(array_values($event));
-					
-								include(locate_template('plugins/events-manager/templates/template-parts/single-event-card.php', false, false));
-							} 
-						endforeach;
+						if(is_array($fieldValues->featured_events)) {
+
+							foreach($fieldValues->featured_events as $featured_event) {
+								if($featured_event['single_event']) {
+									$event = EM_Events::get(array('post_id' => $featured_event['single_event']->ID, 'scope'	=>	'all'));
+									$event = array_shift(array_values($event));
+						
+									include(locate_template('plugins/events-manager/templates/template-parts/single-event-card.php', false, false));
+								} 
+							}
+						}
 					?>
 					<div class="col-lg-4 col-md-6 events__column homepage__events__count">
 						<?php 
