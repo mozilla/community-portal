@@ -9,10 +9,11 @@
         display: flex;
         flex-direction: row;
         align-content: flex-start;
-        margin-top: 53px;
         flex-wrap: wrap;
+        margin-top: 24px;
 
         @include tablet-and-up {
+            margin-top: 69px;
             padding: 0 64px;    
         }
 
@@ -136,13 +137,16 @@
     &__search-container {
         position: absolute;
         left: 0;
-        bottom: -28px;
+        bottom: -5px;
         background-color: $color-white;
         width: 100%;
         padding: 16px 30px;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         border-radius: 5px;
 
+        @include tablet-and-up {
+            bottom: -45px;
+        }
 
         @include desktop-and-up {
             max-width: 703px;
@@ -208,6 +212,7 @@
         @extend .cta;
         text-align: center;
         width: 100%;
+        border: none;
 
         @include tablet-and-up {
             width: auto;

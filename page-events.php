@@ -1,6 +1,6 @@
 <?php get_header(); ?>
   <div class="events__header">
-    <div class="row middle-md events__container ">
+    <div class="row middle-md events__container">
       <div class="col-md-6 events__header__text">
         <h1 class="events__title"><?php the_title() ?></h1>
         <p class="events__text">A short paragraph about why events are great and why people should look for some near them.</p>

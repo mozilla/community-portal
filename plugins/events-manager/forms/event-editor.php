@@ -1,16 +1,11 @@
 <?php
 
-/* WARNING! This file may change in the near future as we intend to add features to the event editor. If at all possible, try making customizations using CSS, jQuery, or using our hooks and filters. - 2012-02-14 */
-
-/* 
- * To ensure compatability, it is recommended you maintain class, id and form name attributes, unless you now what you're doing. 
- * You also must keep the _wpnonce hidden field in this form too.
- */
 global $EM_Event, $EM_Notices, $bp, $EM_Ticket;
 mozilla_match_categories();
+
 $event_id = $_REQUEST['event_id'];
 
-if (isset($event_id)) {
+if(isset($event_id)) {
     $event_meta = get_post_meta($EM_Event->post_id, 'event-meta');
     $external_url = $event_meta[0]->external_url;
     $event_campaign = $event_meta[0]->campaign;

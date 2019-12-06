@@ -8,6 +8,10 @@
         padding-bottom: 64px;
     }
 
+    &__externam-link {
+        color: $color-blue-50;
+    }
+
     a {
         text-decoration: none;
         .events-single__tag-link {
