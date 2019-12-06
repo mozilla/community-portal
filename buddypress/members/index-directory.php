@@ -70,7 +70,7 @@
                             <path d="M17.5 17.5L13.875 13.875" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
 
-                        <input type="text" name="u" id="members-search" class="members__search-input" placeholder="<?php print __("Search People"); ?>" value="<?php if($search_user): ?><?php print $search_user; ?><?php endif; ?>" />
+                        <input type="text" name="u" id="members-search" class="members__search-input" placeholder="<?php print __("Search people"); ?>" value="<?php if($search_user): ?><?php print $search_user; ?><?php endif; ?>" />
                         </div>
                         <input type="submit" class="members__search-cta" value="<?php print __("Search"); ?>" />
                     </form>
