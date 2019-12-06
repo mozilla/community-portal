@@ -24,13 +24,7 @@ $args = !empty($args) ? $args:array(); /* @var $args array */
 			if( !empty($args['search_term']) ) em_locate_template('templates/search/search.php',true,array('args'=>$args));
 			?>
 			<?php if( !empty($args['css']) ) : //show the button here if we're using the default styling, if you still want to use this and use custom CSS, then you have to override our rules ?>
-			<button type="submit" class="em-search-submit loading">
-				<?php //before you ask, this hack is necessary thanks to stupid IE7 ?>
-        <!--[if IE 7]><span><![endif]-->
-        Search
-				<!-- <img src="<?php echo EM_DIR_URI; ?>includes/images/search-mag.png" alt="<?php esc_attr_e('Search', 'events-manager'); ?>" /> -->
-				<!--[if IE 7]></span><![endif]-->
-			</button>
+			<button type="submit" class="em-search-submit loading">Search</button>
 			<?php endif; ?>
 		</div>
 	</form>
