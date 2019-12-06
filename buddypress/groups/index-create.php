@@ -1,23 +1,31 @@
 <?php
     session_start();
+    do_action('bp_before_create_group_page');
+
+    if(isset($_POST['step'])) {
+        $step = trim($_POST['step']);
+    }
+
+    if($step == 3) {
+        wp_redirect("/groups/{$_POST['group_slug']}");
+        die();
+    }
+
     // Main header template 
     get_header(); 
 
     $template_dir = get_template_directory();
     include("{$template_dir}/countries.php");
 
-    do_action('bp_before_create_group_page'); 
-    if(isset($_POST['step'])) {
-        $step = $_POST['step'];
-    }
     if(isset($_SESSION['form'])) {
         $form = $_SESSION['form'];
     }
-    $form_tags = isset($form['tags']) ? array_filter(explode(',', $form['tags']), 'strlen') : Array();
+    
+    $form_tags = isset($form['tags']) ? array_filter(explode(',', $form['tags']), 'strlen') : Array();  
 ?>
 <div class="content">
     <div class="create-group">
-        <?php if($step !== 3): ?>
+        <?php if($step != 3): ?>
         <div class="create-group__hero">
             <div class="create-group__hero-container">
                 <h1 class="create-group__title"><?php print __("Create a Mozilla Group"); ?></h1>
@@ -219,7 +227,7 @@
                             ));
                             
                         ?>
-                        <?php if(sizeof($terms_of_service_posts) === 1): ?>
+                        <?php if(sizeof($terms_of_service_posts) == 1): ?>
                         <div class="create-group__terms">
                             <?php print apply_filters('the_content', $terms_of_service_posts[0]->post_content); ?> 
                         </div>
@@ -244,16 +252,10 @@
                         <input type="submit" class="create-group__cta" value="<?php print __("Continue"); ?>" />
                     </section>
                 
-                <?php endif; ?>
-                <?php if($step === 3): ?>
-                    <script type="text/javascript">
-                        jQuery(function(){
-                            // window.location = "/groups/<?php print $_POST['group_slug']; ?>";
-                        });
-                    </script>
+                <?php endif; ?>      
             </div>
         </form>
-        <?php endif; ?>
+        
     </div>
 </div>
 <?php 
