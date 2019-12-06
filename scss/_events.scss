@@ -4,6 +4,62 @@
 }
 
 .events {
+
+    &__form {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+
+        @include tablet-and-up {
+            justify-content: space-between;
+            flex-direction: row;
+        }
+    }
+
+    &__input-container {
+        position: relative;
+        height: 100%;
+        width: 100%;
+
+        svg {
+            position: absolute;
+            left: 0;
+            top: 7px;
+        }
+    }
+
+    &__search-cta {
+        @extend .cta;
+        text-align: center;
+        width: 100%;
+        border: none;
+
+        @include tablet-and-up {
+            width: auto;
+        }
+    }
+
+    &__search-input {
+        border: none;
+        background-color: $color-white;
+        border-bottom: 1px solid $color-gray-20;
+        padding: 6px 32px;
+        width: 100%;
+        font-size: remCalc(16);
+        line-height: 24px;
+        color: $color-gray-secondary;
+        margin-bottom: 24px;
+
+
+        @include tablet-and-up {
+            margin-bottom: 0;
+            max-width: 450px;
+        }
+    }
+
     &__header { 
         background-color: $color-yellow-20;
         margin-left: 4px;
@@ -537,15 +593,11 @@
 .em-search-wrapper {
     border-bottom: 1px solid $color-gray-30;
     .em-events-search {
+        background-color: $color-white;
         padding: 16px 30px;
         min-height: 80px;
         max-width: 703px;
-        padding-left: 25px;
         margin-bottom: 24px;
-    }
-
-    div.css-search input.em-events-search-text {
-        color: black;
     }
 
     .em-search-main {
@@ -559,61 +611,6 @@
         div {
             display: block;
         }
-    }
-    div.css-search div.em-search-main .em-search-submit {
-        @extend .cta;
-        background: $color-blue-50;
-        text-shadow: none;
-        border-radius: 28px;
-        padding: 15px 50px;
-        font-size: remCalc(14);
-        height: 48px;
-        font-family: $copy-font;
-        font-weight: 400;
-        position: relative;
-        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
-        width: 100%;
-        margin-top: 24px;
-
-        &:hover {
-            background: none;
-            cursor: pointer;
-            background-color: $color-blue-50!important;
-        }
-
-        @include tablet-and-up {
-            right: 30px;
-            position: absolute;
-            top: 50%;
-            min-width: 115px;
-            transform: translateY(-50%);
-            width: auto;
-            margin-top: 0;
-        }
-    }
-
-    div.css-search input.em-search-text {
-        @include mobile-and-up {
-          width: 100%;
-        }
-    }
-
-    div.css-search div.em-search-text {
-        background-image: none;
-        padding: 0;
-        input {
-            padding-left: 30px;
-            background-image: url("./images/search.png");
-            background-position: left;
-            background-repeat: no-repeat;
-            border-bottom: 1px solid $color-gray-20;
-        }
-    }
-
-    div.css-search input.em-search-text,
-    div.css-search div.em-search-text {
-        line-height: 22px;
-        display: block;
     }
 }
 
