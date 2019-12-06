@@ -1,6 +1,6 @@
 <?php
 // Mozilla theme functions file
-$template_dir = get_template_directory();
+$theme_directory = get_template_directory();
 
 abstract class PrivacySettings {
     const REGISTERED_USERS = 0;
@@ -9,14 +9,14 @@ abstract class PrivacySettings {
 }
 
 // Include countries
-include("{$template_dir}/countries.php");
+include("{$theme_directory}/countries.php");
 
 // Require
-require_once("{$template_dir}/lib/api.php");
-require_once("{$template_dir}/lib/groups.php");
-require_once("{$template_dir}/lib/members.php");
-require_once("{$template_dir}/lib/events.php");
-require_once("{$template_dir}/lib/utils.php");
+require_once("{$theme_directory}/lib/api.php");
+require_once("{$theme_directory}/lib/groups.php");
+require_once("{$theme_directory}/lib/members.php");
+require_once("{$theme_directory}/lib/events.php");
+require_once("{$theme_directory}/lib/utils.php");
 
 // Native Wordpress Actions
 add_action('init', 'mozilla_init');
@@ -44,7 +44,7 @@ add_action('bp_before_create_group_page', 'mozilla_create_group', 10, 1);
 add_action('bp_before_edit_group_page', 'mozilla_edit_group', 10, 1);
 add_action('bp_before_edit_member_page', 'mozilla_update_member', 10, 1);
 
-// Removed cause it was causing styling conflicts
+// Remove Actions
 remove_action('init', 'bp_nouveau_get_container_classes');
 remove_action('em_event_save','bp_em_group_event_save', 1, 2);
 
