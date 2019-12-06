@@ -253,8 +253,7 @@ jQuery(function(){
                 '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
                 '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
                 '(\\#[-a-z\\d_]*)?$','i');
-
-            if(pattern.test(response)) {
+            if(pattern.test(response.replace(/\s/g, ""))) {
                 jQuery('#image-url').removeClass('profile__input--error');
                 file.previewElement.classList.add("dz-success");
                 file['attachment_id'] = response; // push the id for future reference
