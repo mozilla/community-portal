@@ -208,6 +208,7 @@
         @extend .cta;
         text-align: center;
         width: 100%;
+        border: none;
 
         @include tablet-and-up {
             width: auto;
