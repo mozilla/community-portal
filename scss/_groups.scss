@@ -5,7 +5,7 @@
         @extend .container;
         max-width: $page-max-width;
         min-width: 320px;
-        padding: 0 24px;
+        padding: 0 $mobile-padding;
         display: flex;
         flex-direction: row;
         align-content: flex-start;
@@ -14,11 +14,11 @@
 
         @include tablet-and-up {
             margin-top: 69px;
-            padding: 0 64px;    
+            padding: 0 $tablet-padding;    
         }
 
         @include desktop-and-up {
-            padding: 0 106px;
+            padding: 0 $desktop-padding;
         }
     }
 
@@ -27,10 +27,10 @@
         background-color: #AAF2FF;
         height: 384px;
 
-        padding: 0 24px;
+        padding: 0 $mobile-padding;
 
         @include tablet-and-up {
-            padding: 0 64px;
+            padding: 0 $tablet-padding;
             height: 404px;
             background-image: url('./images/groups-header.png');
             background-size: contain;
@@ -40,7 +40,7 @@
         
         @include desktop-and-up {
             height: 332px;
-            padding: 0 106px;
+            padding: 0 $desktop-padding;
             background-image: none;
         }
     }

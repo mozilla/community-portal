@@ -5,16 +5,16 @@
         max-width: $page-max-width;
         min-width: 320px;
         height: 100%;
-        padding: 0 24px;
+        padding: 0 $mobile-padding;
         margin: 0 auto;
         
         @include tablet-and-up {
-            padding: 0 64px;    
+            padding: 0 $tablet-padding;    
         }
 
         @include desktop-and-up {
             min-height: 600px;
-            padding: 0 106px;
+            padding: 0 $desktop-padding;
         }
     }
 

@@ -6,11 +6,11 @@
         width: 100%;
         background-color: $color-green-20;
         height: 388px;
-        padding: 0 24px;
+        padding: 0 $mobile-padding;
 
 
         @include tablet-and-up {
-            padding: 0 64px;
+            padding: 0 $tablet-padding;
             height: 404px;
             background-image: url("./images/mozilla-create-profile.png");
             background-position: right -140px center;
@@ -21,7 +21,7 @@
         @include desktop-and-up {
             background-image: none;
             height: 332px;
-            padding: 0 106px;
+            padding: 0 $desktop-padding;
         }
     }
 
@@ -176,18 +176,18 @@
         flex-direction: column;
         flex-wrap: wrap;
         justify-content: flex-start;
-        padding: 0 24px;
+        padding: 0 $mobile-padding;
         margin: 0;
         margin-top: 32px;
         width: 100%;
 
         @include tablet-and-up {
             margin-top: 83px;
-            padding: 0 64px;
+            padding: 0 $tablet-padding;
         }
 
         @include desktop-and-up {
-            padding: 0 106px;
+            padding: 0 $desktop-padding;
         }
     }
 

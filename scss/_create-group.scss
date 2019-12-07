@@ -5,18 +5,18 @@
         width: 100%;
         background-color: $color-blue-5;
         height: 253px;
-        padding: 0 24px;
+        padding: 0 $mobile-padding;
         padding-top: 33px;
 
         @include tablet-and-up {
-            padding: 0 64px;
+            padding: 0 $tablet-padding;
             height: 255px;
             padding-top: 48px;
         }
         
         @include desktop-and-up {
             height: 292px;
-            padding: 0 106px;
+            padding: 0 $desktop-padding;
             padding-top: 58px;
         }
 
@@ -60,14 +60,14 @@
 
     &__form {
         width: 100%;
-        padding: 0 24px;
+        padding: 0 $mobile-padding;
 
         @include tablet-and-up {
-            padding: 0 64px;
+            padding: 0 $tablet-padding;
         }
 
         @include desktop-and-up {
-            padding: 0 106px;
+            padding: 0 $desktop-padding;
         }
     }
 

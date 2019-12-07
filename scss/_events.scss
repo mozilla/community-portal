@@ -132,16 +132,16 @@
         .events__container {
             max-width: $page-max-width;
             width: 100%;
-            padding: 0 24px;
+            padding: 0 $mobile-padding;
             flex: none;
             
             @include tablet-and-up {
                 flex: 1 1 auto;
-                padding: 0 64px;
+                padding: 0 $tablet-padding;
             }
 
             @include desktop-and-up {
-                padding: 0 106px;
+                padding: 0 $desktop-padding;
             }
         }
 
@@ -149,17 +149,17 @@
             max-width: 1234px;
             margin: 0 auto;
             width: 100%;
-            padding: 0 24px;
+            padding: 0 $mobile-padding;
             flex: none;
 
 
             @include tablet-and-up {
                 flex: 1 1 auto;
-                padding: 0 64px;
+                padding: 0 $tablet-padding;
             }
 
             @include desktop-and-up {
-                padding: 0 106px;
+                padding: 0 $desktop-padding;
                 height: 261px;
             }
         }
@@ -225,12 +225,13 @@
     &__container {
         max-width: $page-max-width;
         margin: 0 auto;
-        padding: 0 24px;
+        padding: 0 $mobile-padding;
+
         @include tablet-and-up {
-            padding: 0 64px;
+            padding: 0 $tablet-padding;
         }
         @include desktop-and-up {
-            padding: 0 106px;
+            padding: 0 $desktop-padding;
         }
     }
 

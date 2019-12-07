@@ -16,7 +16,7 @@
         align-items: center;
         height: 58px;
         max-width: $page-max-width;
-        padding: 0 106px;
+        padding: 0 $desktop-padding;
 
         .menu-item--active {
             background-color: $color-gray-10;
@@ -134,7 +134,7 @@
         @extend .container;
         max-width: $container-max-width;
         height: 100%;
-        padding: 0 24px;
+        padding: 0 $mobile-padding;
         margin: 0 auto;
         background-color: $color-white;
         display: flex;
@@ -145,7 +145,7 @@
         z-index: 120;
 
         @include tablet-and-up {
-            padding: 0 64px;
+            padding: 0 $tablet-padding;
         }
     }
 

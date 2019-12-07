@@ -16,9 +16,8 @@ $color-blue-30: #00B3F4;
 $color-blue-50: #0060DF;
 $color-green-20: #B3FFE3;
 $color-green-60: #2AC3A2;
-
-
 $light-blue: #f2fcfd;
+
 $error: #ff0039;
 
 $color-gray-secondary: #737373;
@@ -37,5 +36,11 @@ $color-yellow-30: #ffd567;
 $border-grey: $color-black;
 $search-font-color: #cecece;
 
+// Fonts
 $title-font: "Zilla Slab", sans-serif;
 $copy-font: "Open Sans", sans-serif;
+
+// Grid
+$desktop-padding: 106px;
+$tablet-padding: 64px;
+$mobile-padding: 24px;
