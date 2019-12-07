@@ -3,8 +3,8 @@
 
     &__container {
         @extend .container;
-        max-width: $page-max-width;
         min-width: 320px;
+        max-width: $page-max-width;
         padding: 0 $mobile-padding;
         display: flex;
         flex-direction: row;
