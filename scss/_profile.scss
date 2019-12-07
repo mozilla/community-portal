@@ -145,7 +145,7 @@
         display: flex;
         flex-direction: row;
         align-items: flex-start;
-        justify-content: space-between;
+        justify-content: flex-start;
 
         @include tablet-and-up {
             font-size: remCalc(18);
@@ -158,7 +158,7 @@
             max-width: 595px;
             span {
                 display: inline-block;
-                margin-left: 16px;
+                // margin-left: 16px;
             }
         }
 
