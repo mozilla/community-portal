@@ -1,6 +1,5 @@
 #em-wrapper .row {
     margin: 0;
-    margin-left: 4px;
 }
 
 .events {
@@ -62,7 +61,6 @@
 
     &__header { 
         background-color: $color-yellow-20;
-        margin-left: 4px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -75,7 +73,6 @@
 
         @include desktop-and-up {
             height: 332px;
-            margin-left: 4px;
         }
 
         &.events__header--edit {
@@ -133,7 +130,7 @@
         }
 
         .events__container {
-            max-width: 1448px;
+            max-width: 1440px;
             width: 100%;
             padding: 0 24px;
             flex: none;
@@ -597,6 +594,8 @@
         padding: 16px 30px;
         min-height: 80px;
         max-width: 703px;
+        flex-basis: auto;
+        width: 100%;
         margin-bottom: 24px;
     }
 

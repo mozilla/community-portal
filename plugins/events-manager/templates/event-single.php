@@ -8,6 +8,7 @@
     $event_meta = get_post_meta($EM_Event->post_id, 'event-meta');
     $allCountries = em_get_countries();
     $img_url = $event_meta[0]->image_url;
+
     if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
         $img_url = preg_replace("/^http:/i", "https:", $img_url);
     } else {
@@ -90,103 +91,96 @@
     <div class="col-lg-7 col-md-12">
       <div class="card card--with-img">
         <div class="card__image"
-          <?php 
-            if ($img_url && $img_url !== '') {
-              if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
-                $img_url = preg_replace("/^http:/i", "https:", $img_url);
-              } else {
-                $img_url = $img_url;
-              }
-
-          ?>
-            style="background-image: url(<?php echo esc_url_raw($img_url); ?>); min-height: 317px; width: 100%;"
-          <?php 
-            }
-          ?>
-        >
         <?php 
-          $current_user_id = get_current_user_id();
-          if (strval($current_user_id) == $EM_Event->owner || mozilla_is_site_admin()) { 
-          ?>
+            if ($img_url && $img_url !== '') {
+                if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
+                    $img_url = preg_replace("/^http:/i", "https:", $img_url);
+                } else {
+                    $img_url = $img_url;
+                }
+        ?>
+                style="background-image: url(<?php echo esc_url_raw($img_url); ?>); min-height: 317px; width: 100%;"
+        <?php 
+            }
+        ?>
+        >
+        <?php $current_user_id = get_current_user_id(); ?>
+        <?php if(strval($current_user_id) == $EM_Event->owner || mozilla_is_site_admin()): ?>
             <a class="btn card__edit-btn" href="<?php echo esc_attr(get_site_url().'/events/edit-event/?action=edit&event_id='.$EM_Event->event_id)?>">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M23.64 6.36L17.64 0.36C17.16 -0.12 16.44 -0.12 15.96 0.36L0.36 15.96C0.12 16.2 0 16.44 0 16.8V22.8C0 23.52 0.48 24 1.2 24H7.2C7.56 24 7.8 23.88 8.04   23.64L23.64 8.04C24.12 7.56 24.12 6.84 23.64 6.36ZM6.72 21.6H2.4V17.28L16.8 2.88L21.12 7.2L6.72 21.6Z"  fill="#0060DF"/>
               </svg>
             </a>
-            <?php 
-          } else if (isset($admins)) {
-            foreach($admins as $admin) {
-              if ($admin->user_id === $current_user_id || intval(get_current_user_id()) === intval($EM_Event->event_owner) || current_user_can('edit_post')) {
-              ?>
+        <?php elseif(isset($admins)): ?>
+        <?php foreach($admins as $admin): ?>
+            <?php if ($admin->user_id === $current_user_id || intval(get_current_user_id()) === intval($EM_Event->event_owner) || current_user_can('edit_post')): ?>  
                 <a class="btn card__edit-btn" href="<?php echo esc_attr($_SERVER['REQUEST_URI'].'events/edit-event/?action=edit&event_id='.$EM_Event->event_id)?>">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M23.64 6.36L17.64 0.36C17.16 -0.12 16.44 -0.12 15.96 0.36L0.36 15.96C0.12 16.2 0 16.44 0 16.8V22.8C0 23.52 0.48 24 1.2 24H7.2C7.56 24 7.8 23.88 8.04 23.64L23.64 8.04C24.12 7.56 24.12 6.84 23.64 6.36ZM6.72 21.6H2.4V17.28L16.8 2.88L21.12 7.2L6.72 21.6Z"  fill="#0060DF"/>
                   </svg>
                 </a>
-              <?php
-              }
-            }
-          }
-        ?>
-      </div>
-      <div class="card__details">
-        <div class="card__date">
-          <h2 class="title--secondary">
-            <?php 
-              if ($endDay) {
-                echo __($months[$startMonth].' '.$startDay.' - '.$months[$endMonth].' '.$endDay.', '.$endYear);
-              } else {
-                echo __($months[$startMonth].' '.$startDay.', '.$startYear);
-              } 
-            ?>
-          </h2>
-          <p card="card__time">
-            <?php echo __(substr($EM_Event->event_start_time, 0, 5)); 
-              if ($EM_Event->event_end_time !== null) {
-                echo __(' to '.substr($EM_Event->event_end_time, 0, 5).' '.$EM_Event->event_timezone);
-              }
-            ?>
-          </p>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        <?php endif; ?>
         </div>
-        <?php 
-          if (is_user_logged_in()) {
-            echo $EM_Event->output('#_BOOKINGFORM'); 
-          }
-        ?>
-      </div>
+        <div class="card__details">
+            <div class="card__date">
+                <h2 class="title--secondary">
+                <?php 
+                    if($endDay){
+                        echo __($months[$startMonth].' '.$startDay.' - '.$months[$endMonth].' '.$endDay.', '.$endYear);
+                    } else {
+                        echo __($months[$startMonth].' '.$startDay.', '.$startYear);
+                    } 
+                ?>
+                </h2>
+                <p card="card__time">
+                    <?php echo __(substr($EM_Event->event_start_time, 0, 5)); 
+                        if ($EM_Event->event_end_time !== null) {
+                            echo __(' to '.substr($EM_Event->event_end_time, 0, 5).' '.$EM_Event->event_timezone);
+                        }
+                    ?>
+                </p>
+            </div>
+            <?php 
+                if(is_user_logged_in()) {
+                    echo $EM_Event->output('#_BOOKINGFORM'); 
+                }
+            ?>
+        </div>
     </div>
     <h2 class="title--secondary"><?php echo __("Location") ?></h2>
     <div class="card events-single__location">
-      <div class="row">
-        <div class="card__address col-md-5 col-sm-12">
-          <?php 
-              $location = $EM_Event->location;
+        <div class="row">
+            <div class="card__address col-md-5 col-sm-12">
+            <?php 
+                $location = $EM_Event->location;
             if (isset($location_type) && strlen($location_type) > 0 && $location_type !== 'online' && $location->location_country !== 'OE') {
             ?>
-              <p><?php echo __($location->location_name) ?></p>
-              <p><?php echo __($location->location_address) ?></p>
-              <?php if ($location->location_country === 'OE'): ?>
+                <p><?php echo __($location->location_name) ?></p>
+                <p><?php echo __($location->location_address) ?></p>
+                <?php if ($location->location_country === 'OE'): ?>
                 <p><?php echo __('Online Event') ?></p>
-              <?php else: ?>
+                <?php else: ?>
                 <p><?php echo __($location->location_town.', '.$allCountries[$EM_Event->location->location_country]) ?></p>
-              <?php endif ?>
-              <p><a href="/events/?country=<?php print $allCountries[$EM_Event->location->location_country]; ?>">View more events in <?php print $allCountries[$EM_Event->location->location_country]; ?></a></p>
+                <?php endif ?>
+                <p><a href="/events/?country=<?php print $allCountries[$EM_Event->location->location_country]; ?>">View more events in <?php print $allCountries[$EM_Event->location->location_country]; ?></a></p>
             <?php 
             } else { 
             ?>
-              <p><?php echo __("This is an online-only event") ?></p>
-              <?php 
+                <p><?php echo __("This is an online-only event") ?></p>
+                <?php 
                 if (filter_var($EM_Event->location->name, FILTER_VALIDATE_URL)):
-              ?>
+                ?>
                 <a href="<?php echo esc_attr($EM_Event->location->name) ?>"><?php echo __('Meeting link') ?>
-                  <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M1.33325 8.66732L4.99992 5.00065L1.33325 1.33398" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
+                    </svg>
                 </a>
             <?php 
-              endif;
+                endif;
             } 
-          ?>
+            ?>
         </div>
         <?php
           $fullLocation = rawurlencode($location->location_address.' '.$location->location_town);
@@ -321,18 +315,6 @@
     <?php 
       include(locate_template('plugins/events-manager/templates/template-parts/event-single/event-sidebar.php', false, false));
     ?>
-  </div>
-  <div class="col-sm-12">
-    <div class="events-single__report">
-      <button class="btn events-single__report-btn">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2   12C2 17.5228 6.47715 22 12 22Z" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M12 8V12" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="12" cy="16" r="0.5" fill="#CDCDD4" stroke="#0060DF"/>
-        </svg>
-        <?php echo __('Report this event') ?>
-      </button>
-    </div>
   </div>
 <?php 
   if (count($allRelatedEvents) > 0):
