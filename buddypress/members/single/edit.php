@@ -37,7 +37,7 @@ include("{$template_dir}/languages.php");
                         <circle cx="12" cy="8" r="1" fill="black"/>
                     </svg>
                     <span>
-                        <?php print __("We'll get you started with profile info available from "); ?>
+                        <?php print __("We’ve pre-populated some of your information via your connected account with "); ?>
                         <a href="#" class="profile__hero-link">Mozilla SSO.</a>
                     </span>
                 </p>
