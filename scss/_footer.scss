@@ -33,7 +33,7 @@
 
         @include desktop-and-up {
             padding: 64px 106px;
-            max-width: 1440px;
+            max-width: $page-max-width;
         }
     }
 

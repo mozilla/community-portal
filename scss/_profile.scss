@@ -80,7 +80,7 @@
             background-image: url("./images/mozilla-create-profile.png");
             background-size: 600px;
             background-position: right -160px bottom -40px;
-            min-width: 1018px;
+            min-width: $container-max-width;
         }
     }
 
@@ -90,7 +90,7 @@
     }
 
     &__hero-content {
-        max-width: 1018px;
+        max-width: $container-max-width;
         width: 100%;
         margin: 0 auto;
     }
@@ -244,7 +244,7 @@
         }
 
         @include desktop-and-up {
-            max-width: 1018px;
+            max-width:$container-max-width;
             padding: 64px 104px 80px 104px;
         }
     }
@@ -691,7 +691,7 @@
     // Public Profile Styles
     &__public-container {
         @extend .container;
-        max-width: 1018px;
+        max-width: $container-max-width;
         height: 100%;
         padding: 0 24px;
         width: 100%;
@@ -713,7 +713,7 @@
             justify-content: space-between;
             align-items: flex-start;
             padding: 0 106px;
-            max-width: 1440px;
+            max-width: $page-max-width;
         }
     }
 

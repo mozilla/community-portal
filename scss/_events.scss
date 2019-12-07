@@ -130,7 +130,7 @@
         }
 
         .events__container {
-            max-width: 1440px;
+            max-width: $page-max-width;
             width: 100%;
             padding: 0 24px;
             flex: none;

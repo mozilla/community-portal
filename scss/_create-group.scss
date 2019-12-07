@@ -23,7 +23,7 @@
     }
 
     &__hero-container {
-        max-width: 1018px;
+        max-width: $container-max-width;
         width: 100%;
         margin: 0 auto;
     }
@@ -31,7 +31,7 @@
     &__container {
         @extend .container; 
         padding: 0;
-        max-width: 1018px;
+        max-width: $container-max-width;
         margin-top: -135px;
         width: 100%;
 

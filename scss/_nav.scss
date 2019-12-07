@@ -15,7 +15,7 @@
         justify-content: flex-start;
         align-items: center;
         height: 58px;
-        max-width: 1440px;
+        max-width: $page-max-width;
         padding: 0 106px;
 
         .menu-item--active {
@@ -132,7 +132,7 @@
 
     .nav__container {
         @extend .container;
-        max-width: 1018px;
+        max-width: $container-max-width;
         height: 100%;
         padding: 0 24px;
         margin: 0 auto;

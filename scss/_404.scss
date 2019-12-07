@@ -2,7 +2,7 @@
     width: 100%;
 
     &__container {
-        max-width: 1440px;
+        max-width: $page-max-width;
         min-width: 320px;
         height: 100%;
         padding: 0 24px;

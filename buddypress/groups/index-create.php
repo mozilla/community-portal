@@ -28,7 +28,6 @@
                 <ol class="create-group__menu">
                     <li class="create-group__menu-item<?php if($step == 1): ?> create-group__menu-item--disabled<?php endif;?>"><a href="#" class="create-group__menu-link<?php if($step == 1): ?> create-group__menu-link--disabled<?php endif; ?>" data-step=""><?php print __("Basic Information"); ?></a></li>
                     <li class="create-group__menu-item<?php if($step != 1): ?> create-group__menu-item--disabled<?php endif;?>"><a href="#" class="create-group__menu-link<?php if($step != 1): ?> create-group__menu-link--disabled<?php endif; ?>" data-step=""><?php print __("Terms & Responsibilities"); ?></a></li>
-                    <li class="create-group__menu-item create-group__menu-item--disabled create-group__menu-item--right"><?php print __("* Optional Information"); ?></li>
                 </ol>
                 <div class="create-group__menu create-group__menu--mobile">
                     <div class="create-group__select-container">
@@ -51,7 +50,7 @@
                     <section class="create-group__details<?php if($step == 1): ?> create-group__details--hidden<?php endif; ?>">
                         <div class="create-group__input-row">
                             <div class="create-group__input-container create-group__input-container--60">
-                                <label class="create-group__label" for="group-name"><?php print __("What is your group's name?"); ?></label>
+                                <label class="create-group__label" for="group-name"><?php print __("What is your group's name? *"); ?></label>
                                 <input type="text" name="group_name" id="group-name" class="create-group__input<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_name']) || (isset($form['group_name']) && empty(trim($form['group_name'])) )): ?> create-group__input--error<?php endif; ?>" value="<?php print isset($form['group_name']) ? $form['group_name'] : ''; ?>" required />
                                 <div class="form__error-container<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_name']) || (isset($form['group_name']) && empty(trim($form['group_name'])) )): ?> form__error-container--visible<?php endif; ?>">
                                     <div class="form__error"><?php print __("This field is required"); ?></div>
@@ -76,7 +75,7 @@
                         </div>
                         <div class="create-group__input-row">
                             <div class="create-group__input-container  create-group__input-container--40 create-group__input-container--vertical-spacing">
-                                <label class="create-group__label" for="group-country"><?php print __("Group Location *"); ?></label>
+                                <label class="create-group__label" for="group-country"><?php print __("Group Location"); ?></label>
                                 <div class="create-group__select-container">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <g>
@@ -92,20 +91,20 @@
                                 </div>
                             </div>
                             <div class="create-group__input-container create-group__input-container--60 create-group__input-container--vertical-spacing">
-                                <label class="create-group__label" for="group-city"><?php print __("City *"); ?></label>
+                                <label class="create-group__label" for="group-city"><?php print __("City"); ?></label>
                                 <input type="text" name="group_city" id="group-city" class="create-group__input" placeholder="<?php print __("City"); ?>" value="<?php print isset($form['group_city']) ? $form['group_city'] : ''; ?>" maxlength="180" />
                             </div>
                         </div>
                         <div class="create-group__input-row">
                             <div class="create-group__input-container create-group__input-container--60 create-group__input-container--vertical-spacing">
-                                <label class="create-group__label" for="group-desc"><?php print __("Provide a short group description"); ?></label>
+                                <label class="create-group__label" for="group-desc"><?php print __("Provide a short group description *"); ?></label>
                                 <textarea name="group_desc" id="group-desc" class="create-group__textarea<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_desc']) || (isset($form['group_desc']) && empty(trim($form['group_desc'])) )): ?> create-group__input--error<?php endif; ?>" required ><?php print isset($form['group_desc']) ? $form['group_desc'] : ''; ?></textarea>
                                 <div class="form__error-container<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_desc']) || (isset($form['group_desc']) && empty(trim($form['group_desc'])) )): ?> form__error-container--visible<?php endif; ?>">
                                     <div class="form__error"><?php print __("This field is required"); ?></div>
                                 </div>
                             </div>
                             <div class="create-group__input-container create-group__input-container--40 create-group__input-container--vertical-spacing">
-                                <label class="create-group__label" for="group-desc"><?php print __("Select an image *"); ?></label>
+                                <label class="create-group__label" for="group-desc"><?php print __("Select an image"); ?></label>
                                 <div id="group-photo-uploader" class="create-group__image-upload">
                                    
                                 </div>
@@ -137,7 +136,7 @@
                         </div>
                     </section>
                     <section class="create-group__details<?php if($step == 1): ?> create-group__details--hidden<?php endif; ?>">
-                        <div class="create-group__section-title"><?php print __("Group Meetings *"); ?></div>
+                        <div class="create-group__section-title"><?php print __("Group Meetings"); ?></div>
                         <div class="create-group__input-row">
                             <div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--40">    
                                 <label class="create-group__label" for="group-address-type" ><?php print __("Where do you meet?"); ?></label>
@@ -164,7 +163,7 @@
                         </div>
                     </section>
                     <section class="create-group__details<?php if($step == 1): ?> create-group__details--hidden<?php endif; ?>">
-                        <div class="create-group__section-title"><?php print __("Community Links *"); ?></div>
+                        <div class="create-group__section-title"><?php print __("Community Links"); ?></div>
                         <div class="create-group__input-row">
                             <div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--50">
                                 <label class="create-group__label" for="group-discourse"><?php print __("Discourse"); ?></label><input type="text" name="group_discourse" id="group-discourse" class="create-group__input create-group__input--inline" value="<?php print isset($form['group_discourse']) ? $form['group_discourse'] : ''; ?>" />
@@ -226,7 +225,7 @@
                         </div>
                         <div class="create-group__input-container create-group__input-container--full">
                             <label class="create-group__checkbox-container" for="agree">
-                                <?php print __("I agree to respect and adhere to Mozilla’s Community Participation Guidelines"); ?>
+                                <?php print __("I agree to respect and adhere to Mozilla’s Community Participation Guidelines *"); ?>
                                 <input type="checkbox" name="agree" id="agree" value="<?php print __("I Agree"); ?>" required />
                                 <div class="form__error-container form__error-container--checkbox">
                                     <div class="form__error"><?php print __("This field is required"); ?></div>

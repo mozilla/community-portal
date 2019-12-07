@@ -12,7 +12,7 @@ body.home-page {
     &__container {
 
         @extend .container;
-        max-width: 1440px;
+        max-width: $page-max-width;
         padding: 0 24px;
 
         @include tablet-and-up {
