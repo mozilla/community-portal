@@ -223,16 +223,7 @@
     }
 
     &__container {
-        max-width: $page-max-width;
-        margin: 0 auto;
-        padding: 0 $mobile-padding;
-
-        @include tablet-and-up {
-            padding: 0 $tablet-padding;
-        }
-        @include desktop-and-up {
-            padding: 0 $desktop-padding;
-        }
+        @extend .container;
     }
 
     .hidden {

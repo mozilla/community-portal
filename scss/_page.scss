@@ -2,16 +2,6 @@
 
     &__container {
         @extend .container;
-        max-width: $page-max-width;
-        padding: 0 $mobile-padding;
-
-        @include tablet-and-up { 
-            padding: 0 $tablet-padding;
-        }
-
-        @include desktop-and-up {
-            padding: 0 $desktop-padding;
-        }
     }
 
     &__title {

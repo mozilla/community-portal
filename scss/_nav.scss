@@ -15,8 +15,6 @@
         justify-content: flex-start;
         align-items: center;
         height: 58px;
-        max-width: $page-max-width;
-        padding: 0 $desktop-padding;
 
         .menu-item--active {
             background-color: $color-gray-10;

@@ -3,9 +3,6 @@
 
     &__container {
         @extend .container;
-        min-width: 320px;
-        max-width: $page-max-width;
-        padding: 0 $mobile-padding;
         display: flex;
         flex-direction: row;
         align-content: flex-start;
@@ -13,12 +10,7 @@
         margin-top: 24px;
 
         @include tablet-and-up {
-            margin-top: 69px;
-            padding: 0 $tablet-padding;    
-        }
-
-        @include desktop-and-up {
-            padding: 0 $desktop-padding;
+            margin-top: 69px;    
         }
     }
 

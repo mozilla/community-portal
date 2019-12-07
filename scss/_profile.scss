@@ -17,7 +17,7 @@
         width: 100%;
         background-color: $color-green-20;
         height: 430px;
-        padding: 0 $mobile-padding;
+        padding: 0;
 
         @include tablet-and-up {
             padding: 0 $tablet-padding;
@@ -64,7 +64,7 @@
     &__hero-container {
         @extend .container; 
         max-width: 1228px;
-        padding: 0;
+        padding: 0 $mobile-padding;
         padding-top: 24px;
         height: 100%;
 
@@ -182,13 +182,17 @@
             max-width: none;
             font-size: remCalc(16);
             line-height: 24px;
+            min-height: 128px;
+            align-items: center;
 
             span {
                 text-align: left;
             }
 
             @include tablet-and-up {
+                min-height: auto;
                 max-width: 345px;
+                align-items: flex-start;
             }
 
 
