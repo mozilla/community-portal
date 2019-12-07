@@ -359,7 +359,7 @@
                 content: '';
                 display: block;
                 left: 0;
-                bottom: -15px;
+                bottom: 2px;
                 border-bottom: 2px solid $color-white;
                 width: 100%;
             }
@@ -372,6 +372,7 @@
     font-size: remCalc(16);
     line-height: 24px;
     color: $color-white;
+    padding: 18px 0;
 }
 
 .menu-mozilla-main-menu-container {
