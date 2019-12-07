@@ -223,7 +223,7 @@
     }
 
     &__container {
-        max-width: 1448px;
+        max-width: $page-max-width;
         margin: 0 auto;
         padding: 0 24px;
         @include tablet-and-up {
