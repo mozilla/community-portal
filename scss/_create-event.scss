@@ -76,9 +76,9 @@ div.time-picker ul li {
         @extend .select;
         width: 100%;
         background-color: $color-gray-20 !important;
-        background-image: url("./images/chevron-down.png");
+        background-image: url("./images/chevron-down.svg");
         background-repeat: no-repeat;
-        background-position: calc(100% - 16px) center;
+        background-position: calc(100% - 12px) center;
     }
 
     &__chevron {
@@ -287,9 +287,9 @@ div.time-picker ul li {
         select {
             @extend .select;
             max-width: 100%;
-            background-image: url("./images/chevron-down.png");
+            background-image: url("./images/chevron-down.svg");
             background-repeat: no-repeat;
-            background-position: calc(100% - 16px) center;
+            background-position: calc(100% - 12px) center;
         }
 
         label {
