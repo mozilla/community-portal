@@ -161,21 +161,26 @@ jQuery(function() {
     }
 
     function handleCityForOnline($country, $city) {
-      if ($country.val() === 'OE') {
-        $city.val('Online Event');
-      } else if ($city.val() === 'Online Event') {
-        $city.val('');
-      }
+        if ($country.val() === 'OE') {
+            $city.val('Online Event');
+            $city.prev().text("URL *");
+        } else if ($city.val() === 'Online Event') {
+            $city.val('');
+            $city.prev().text("City *");
+        }
+
     }
+
     function handleOnlineEvent() {
-      const $locationCountry = jQuery('#location-country');
-      const $locationCity = jQuery('#location-town')
-      if ($locationCountry.length > 0) {
-        $locationCountry.on('change', function(e) {
-          const $this = jQuery(this);
-          handleCityForOnline($this, $locationCity);
-        });
-      }
+        const $locationCountry = jQuery('#location-country');
+        const $locationCity = jQuery('#location-town');
+
+        if ($locationCountry.length > 0) {
+            $locationCountry.on('change', function(e) {
+                const $this = jQuery(this);
+                handleCityForOnline($this, $locationCity);
+            });
+        }
     }
 
     function clearErrors(input) {
@@ -256,7 +261,7 @@ jQuery(function() {
         });
 
         var $communityGuideLines = jQuery('#cpg');
-        if(!$communityGuideLines.is(':checked')) {
+        if($communityGuideLines.length > 0 && !$communityGuideLines.is(':checked')) {
             var $parent = $communityGuideLines.parent();
             toggleError($parent, 'Please agree to the community guidelines');
             $allClear = false;
@@ -294,7 +299,8 @@ jQuery(function() {
             const $requiredInputs = jQuery("input, textarea, select").filter("[required]");
 
             const allClear = checkInputs($requiredInputs);
-            if (allClear) {
+
+            if(allClear) {
                 updateRedirect();
                 $eventForm.submit();
             }
