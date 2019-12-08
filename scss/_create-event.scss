@@ -38,9 +38,11 @@ div.time-picker ul li {
 
     &__container-main {
         padding: 0 $mobile-padding;
+
         @include tablet-and-up {
           padding: 0 $tablet-padding;
         }
+
         @include desktop-and-up {
             margin: 0 auto;
             padding: 0 $desktop-padding;
@@ -54,6 +56,7 @@ div.time-picker ul li {
     @include tablet-and-up {
         padding: 48px 55px;
     }
+    
     @include desktop-and-up {
         padding: 80px 105px;
     }
