@@ -87,8 +87,16 @@ div.time-picker ul li {
         background-color: $color-gray-20 !important;
         line-height: remCalc(20);
 
+        &.event-creator__error {
+            border: 1px solid $error;
+        }
+
         &.event-creator__textarea {
             height: 215px;
+
+            &.event-creator__error {
+                border: 1px solid $error;
+            }
         }
     }
 

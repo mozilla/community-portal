@@ -193,7 +193,7 @@ jQuery(function() {
     function toggleError(parent, errMsg = 'This field is required') {
         const $errorPresent = parent.find("> .event-creator__error-field");
         if (!$errorPresent.length > 0) {
-        
+            
             const $errorText = jQuery(
                 '<p class="event-creator__error-field"> '+ errMsg +' </p>'
             );
@@ -245,6 +245,7 @@ jQuery(function() {
                     );
                     $first = false;
                 }
+
                 const $label = jQuery(`label[for=${input_id}]`);
                 const $parent = $label.parent();
                 toggleError($parent);
@@ -252,9 +253,15 @@ jQuery(function() {
                 $allClear = false;
             }
 
-            
-
         });
+
+        var $communityGuideLines = jQuery('#cpg');
+        if(!$communityGuideLines.is(':checked')) {
+            var $parent = $communityGuideLines.parent();
+            toggleError($parent, 'Please agree to the community guidelines');
+            $allClear = false;
+        }
+
         return $allClear;
     }
 
@@ -282,10 +289,10 @@ jQuery(function() {
 
     function validateForm() {
         const $eventForm = jQuery("#event-form");
+
         if ($eventForm) {
-            const $requiredInputs = jQuery("input,textarea,select").filter(
-                "[required]"
-            );
+            const $requiredInputs = jQuery("input, textarea, select").filter("[required]");
+
             const allClear = checkInputs($requiredInputs);
             if (allClear) {
                 updateRedirect();
