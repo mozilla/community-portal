@@ -40,7 +40,7 @@
                 flex-basis: 500px;
                 flex-shrink: 0;
                 flex-grow: 1;
-                max-width: 715px;
+                max-width: 703px;
             }
         }
     }
@@ -63,9 +63,7 @@
 
         &--with-img {
             padding: 0;
-            .card__edit-btn {
-                background-color: white;
-            }
+            
         }
 
         &__image {
@@ -114,15 +112,24 @@
         }
 
         &__edit-btn {
-            margin: 24px;
+            margin: 5px 24px;
             padding: 11px;
             background: transparent;
-            border-radius: 50%;
+
+            &.card__edit-btn--white {
+                background-color: white;
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 32px;
+                margin-right: 32px;
+            }
 
             svg {
                 display: block;
-                height: 18px;
-                width: 18px;
             }
         }
 
