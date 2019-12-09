@@ -77,6 +77,8 @@ function mozilla_init() {
         if(isset($_GET['redirect_to'])) {
             setcookie("mozilla-redirect", $_GET['redirect_to'], 0, "/");
         }
+    } else {
+        setcookie("mozilla-redirect", "/", 0, "/");
     }
 
     // Static Page
@@ -555,6 +557,8 @@ function mozilla_post_user_creation($user_id, $userinfo, $is_new, $id_token, $ac
         unset($_COOKIE['mozilla-redirect']);
         wp_redirect($redirect);
         die();
+    } else {
+
     }
 }
 
