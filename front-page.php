@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-	<div class="content">
+	<div class="content content--homepage">
 		<?php 
 			$fields = array(
 				'hero_title',
@@ -39,15 +39,17 @@
 			<div class="homepage__hero__background">
 			</div>
 			<div class="row">
-				<div class="col-md-4 col-sm-offset-1 homepage__hero__splash">
+				<div class="col-md-5 homepage__hero__splash">
 					<div class="homepage__hero__image">
 						<img src="<?php echo $fieldValues->hero_image['url'] ?>" alt="<?php echo $fieldValues->hero_image['alt'] ?>">
 					</div>
 				</div>
-				<div class="col-md-5 col-md-offset-1 homepage__hero__text">
-					<h1 class="homepage__hero__title title title--main"><?php echo preg_replace('/\b(Community)\b/i', '<span>$0</span>', $fieldValues->hero_title); ?></h1>
-					<p class="homepage__hero__subtitle subtitle"><?php echo $fieldValues->hero_subtitle ?></p>
-					<a href="<?php echo (is_user_logged_in() ? esc_attr($fieldValues->hero_cta_existing) : esc_attr($fieldValues->hero_cta_new)) ?>"class="btn btn--dark btn--small homepage__hero__cta"><?php echo __($fieldValues->hero_cta_text) ?></a>
+				<div class="col-md-5 col-md-offset-1">
+					<div class="homepage__content">
+						<h1 class="homepage__hero__title title title--main"><?php echo $fieldValues->hero_title; ?></h1>
+						<p class="homepage__hero__subtitle subtitle"><?php echo $fieldValues->hero_subtitle ?></p>
+						<a href="<?php echo (is_user_logged_in() ? esc_attr($fieldValues->hero_cta_existing) : esc_attr($fieldValues->hero_cta_new)) ?>"class="btn btn--dark btn--small homepage__hero__cta"><?php echo __($fieldValues->hero_cta_text) ?></a>
+					</div>
 				</div>
 				</div>
 			</div>

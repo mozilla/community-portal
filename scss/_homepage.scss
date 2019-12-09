@@ -11,8 +11,23 @@ body.home-page {
     position: relative;
     &__container {
         @extend .container;
+        overflow-x: hidden;
+
+        @include desktop-and-up {
+            overflow-x: visible;
+        }
+        
     }
   
+
+    &__content {
+        padding: 0;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
     &__hero {
         display: flex;
         align-items: center;
@@ -27,15 +42,16 @@ body.home-page {
 
         &__title {
             margin: 0;
-            width: 80%;
+            font-size: remCalc(40);
+            line-height: 40px;
+
+            @include desktop-and-up {
+                font-size: remCalc(64);
+                line-height: 56px;
+            }
+
             span {
                 font-weight: bold;
-            }
-        }
-
-        &__text {
-            @include tablet-and-up {
-                padding-right: 8.33333%;
             }
         }
 
@@ -45,11 +61,13 @@ body.home-page {
                 margin-top: 18px;
             }
         }
+
         &__cta {
             width: 100%;
-            text-align: center;
-
+            text-align: center;    
+        
             @include tablet-and-up {
+                max-width: 183px;
                 width: auto;
             }
         }
@@ -78,9 +96,18 @@ body.home-page {
         img {
             border-radius: 50%;
             display: block;
-            max-width: 100%;
             position: relative;
+            width: 230px;
+            height: 230px;
             z-index: 2;
+            width: 100%;
+            height: auto;
+
+            @include desktop-and-up {
+                
+                max-width: 418px;
+                max-height: 418px;
+            }
         }
 
         &::before {
@@ -236,6 +263,7 @@ body.home-page {
             z-index: -1;
             left: -24px;
             width: 100vw;
+            min-width: 320px;
             @include tablet-and-up {
                 left: 70px;
             }

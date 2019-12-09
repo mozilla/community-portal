@@ -56,6 +56,11 @@ body.noscroll {
     width: 100%;
     min-height: calc(100vh - 387px - 122px - 96px);
     position: relative;
+
+    &.content--homepage {
+        overflow-x: hidden;
+        min-width: 320px;
+    }
 }
 
 .body {
