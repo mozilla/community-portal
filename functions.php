@@ -77,8 +77,13 @@ function mozilla_init() {
         if(isset($_GET['redirect_to'])) {
             setcookie("mozilla-redirect", $_GET['redirect_to'], 0, "/");
         }
-    } else {
-        setcookie("mozilla-redirect", "/", 0, "/");
+
+        if(stripos($_SERVER['REQUEST_URI'], "/groups/create/step/group-details/") !== false) {
+            setcookie("mozilla-redirect", "/groups/create/step/group-details/", 0, "/");
+            wp_redirect('/wp-login.php?action=login');
+            die();
+        }
+
     }
 
     // Static Page
