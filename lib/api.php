@@ -7,11 +7,12 @@ function mozilla_get_discourse_info($id, $type = 'group') {
     if($type === 'event') {
         if($id) {
             $event_meta = get_post_meta($id, 'event-meta');
-            
+
             if(!empty($event_meta) && isset($event_meta[0]->discourse_group_id)) { 
                 $data = Array();
                 $data['group_id'] = $event_meta[0]->discourse_group_id;
                 $discourse_group = mozilla_discourse_api('groups', $data, 'get');
+                $discourse_info['discourse_group_id'] = $data['group_id'];
                 
                 if($discourse_group && !isset($discourse_group->status)) {
 
