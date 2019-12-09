@@ -44,7 +44,7 @@
 <div class="content">
     <?php if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['done']) && $_POST['done'] == true): ?>
     <script type="text/javascript">
-        // window.location = '/groups/<?php print $group->slug; ?>';
+        window.location = '/groups/<?php print $group->slug; ?>';
     </script>
     <?php else: ?>
     <div class="create-group">
