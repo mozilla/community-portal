@@ -31,11 +31,6 @@
                 </ol>
                 <div class="create-group__menu create-group__menu--mobile">
                     <div class="create-group__select-container">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g>
-                                <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
-                            </g>
-                        </svg>
                         <select id="create-group-mobile-nav" class="create-group__select" name="mobile_nav">
                             <option value="1"<?php if($step != 1): ?> selected<?php endif; ?>><?php print __("Basic Information"); ?></option>
                             <option value="2"<?php if($step == 1): ?> selected<?php endif; ?>><?php print __("Terms & Responsibilities"); ?></option>
@@ -77,11 +72,6 @@
                             <div class="create-group__input-container  create-group__input-container--40 create-group__input-container--vertical-spacing">
                                 <label class="create-group__label" for="group-country"><?php print __("Group Location"); ?></label>
                                 <div class="create-group__select-container">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <g>
-                                            <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
-                                        </g>
-                                    </svg>
                                     <select id="group-country" class="create-group__select" name="group_country">
                                         <option value="0">Country</option>
                                         <?php foreach($countries AS $code => $country): ?>
@@ -141,11 +131,6 @@
                             <div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--40">    
                                 <label class="create-group__label" for="group-address-type" ><?php print __("Where do you meet?"); ?></label>
                                 <div class="create-group__select-container">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <g>
-                                            <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
-                                        </g>
-                                    </svg>
                                     <select class="create-group__select" name="group_address_type" id="group-address-type">
                                         <option value="<?php print __("Address"); ?>" <?php if(isset($form['group_address_type']) && $form['group_address_type'] == 'Address'):?> selected<?php endif;?>><?php print __("Address"); ?></option>
                                         <option value="<?php print __("URL"); ?>"<?php if(isset($form['group_address_type']) && $form['group_address_type'] == 'URL'):?> selected<?php endif;?>><?php print __("URL"); ?></option>
