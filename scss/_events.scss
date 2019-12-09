@@ -357,7 +357,6 @@
             width: 100%;
             margin-bottom: 24px;
             @include tablet-and-up {
-                border-bottom: none;
                 margin-bottom: initial;
             }
         }
