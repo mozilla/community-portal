@@ -363,7 +363,7 @@
 
         &__link {
             display: inline-block;
-            padding: 20px 16px;
+            padding: 20px 0;
             text-decoration: none;
             color: #000;
             font-size: remCalc(14);
@@ -383,15 +383,21 @@
                 bottom: 0;
                 left: 0;
                 right: 0;
-                width: calc(100% - 32px);
+                width: 100%;
                 margin: 0 auto;
+            }
+        }
+
+        &__item {
+            @include tablet-and-up {
+                margin-right: 32px;
             }
         }
 
         &__item:first-child .events__nav__link {
             padding-left: 0;
             &--active::after {
-                width: calc(100% - 16px);
+                width: 100%;
                 margin: 0;
             }
         }

@@ -233,12 +233,14 @@
         padding: 0;
         height: 100%;
 
-        .menu-item {
+        li.menu-item {
             display: inline-block;
             margin: 0;
             padding: 0;
             line-height: 54px;
             text-align: left;
+            width: auto;
+            margin-right: 32px;
         }
     }
 
