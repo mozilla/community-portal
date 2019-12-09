@@ -92,10 +92,10 @@
             <div class="groups__hero-container">
                 <h1 class="groups__title"><?php print __("Groups"); ?></h1>
                 <p class="groups__hero-copy">
-                    <?php print __("A short paragraph about why groups are great and why people should look for some near them."); ?>
+                    <?php print __("Meet up with people who share your passion and join the movement for an open internet. "); ?>
                 </p>
                 <p class="groups__hero-copy">
-                    <?php print __("Find a group near you below, or"); ?> <a href="/groups/create/step/group-details/" class="groups__hero-link"><?php print __('create a group'); ?></a>
+                    <?php print __("Look for groups in your area, or"); ?> <a href="/groups/create/step/group-details/" class="groups__hero-link"><?php print __('create your own.'); ?></a>
                     <svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M2.33337 8.66634L6.00004 4.99967L2.33337 1.33301" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
