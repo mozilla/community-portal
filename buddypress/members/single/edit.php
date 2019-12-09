@@ -206,6 +206,7 @@ include("{$template_dir}/languages.php");
                 <div class="profile__select-container profile__select-container--inline profile__select-container--half">
                     <label class="profile__label" for="country"><?php print __("Country (optional)"); ?></label>
                     <select id="country" name="country" class="profile__select">
+                        <option value="0"><?php print __('Country'); ?></option>
                         <?php foreach($countries AS $key    =>  $value): ?>
                         <option value="<?php print $key; ?>"<?php if($form && isset($form['country']) && $form['country'] == $key): ?> selected<?php else: ?><?php if(isset($community_fields['country']) && $community_fields['country'] == $key): ?> selected<?php endif; ?><?php endif; ?>><?php print $value; ?></option>
                         <?php endforeach; ?>

@@ -33,7 +33,6 @@
         '12' => 'December',
     );
 
-
     $startDay = substr($EM_Event->event_start_date, 8, 2);
     $startMonth = substr($EM_Event->event_start_date, 5, 2);
     $startYear = substr($EM_Event->event_start_date, 0, 4);
@@ -396,9 +395,8 @@
   </div>
 
 <?php endif; ?>
+</div>
 
 <div id="events-share-lightbox" class="lightbox">
     <?php include(locate_template('templates/share-modal.php', false, false)); ?>
-</div>
-
 </div>

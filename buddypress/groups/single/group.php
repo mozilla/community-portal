@@ -26,6 +26,8 @@
     $user = wp_get_current_user();
     $is_member = groups_is_user_member($user->ID, $group->id);
     $admins = groups_get_group_admins($group->id);   
+    $discourse_group = mozilla_get_discourse_info($group->id);
+
 
     $admin_count = sizeof($admins);
     $logged_in = mozilla_is_logged_in();
@@ -48,8 +50,6 @@
         default: 
             $verified = false;
     }
-
-
 ?>
     <div class="content">
         <div class="group">
@@ -334,6 +334,8 @@
                             </div>
                     <?php endforeach; ?>
                     </div>
+
+                    
                     <?php else: ?>
                     <div class="group__left-column">
                         <div class="group__card">
@@ -499,6 +501,63 @@
                             </div>  
                         </div>
                         <?php endif; ?>
+                        
+                        <?php if(isset($discourse_group['discourse_category_url']) && strlen($discourse_group['discourse_category_url']) > 0): ?>
+                        <?php 
+                            $discourse_url = rtrim($discourse_group['discourse_category_url'], "/");
+                            $options = wp_load_alloptions();
+                            $topics = mozilla_discourse_get_category_topics($discourse_url);
+                            $topics = array_slice($topics, 0, 4);
+                        ?>
+                        <?php if(sizeof($topics) > 0): ?>
+                        <h2 class="group__card-title"><?php print __('Announcements'); ?></h2>
+                        <div class="group__card group__card--table">
+                            <div class="group__card-content">
+                                <table class="group__announcements">
+                                    <thead>
+                                        <tr>
+                                            <th class="group__table-header group__table-header--topic"><?php print __('Topic'); ?></th>
+                                            <th class="group__table-header"><?php print __('Replies'); ?></th>
+                                            <th class="group__table-header"><?php print __('Views'); ?></th>
+                                            <th class="group__table-header group__table-header--activity"><?php print __('Activity'); ?></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php foreach($topics AS $topic): ?>
+                                        <tr>
+                                            <td class="group__table-cell group__table-cell--topic">
+                                                <a href="<?php print $options['discourse_url']; ?>/t/<?php print $topic->slug; ?>" class="group__topic-link">
+                                                    <div class="group__topic-title"><?php print $topic->title; ?></div>
+                                                    <div class="group__topic-date"><?php print date("F j, Y", strtotime($topic->created_at)); ?></div>
+                                                </a>
+                                            </td>
+                                            <td class="group__table-cell">
+                                                <div class="group__topic-replies"><?php print $topic->reply_count; ?></div>
+                                            </td>
+                                            <td class="group__table-cell">
+                                            <div class="group__topic-views"><?php print $topic->views; ?></div>
+                                            </td>
+                                            <td class="group__table-cell group__table-cell--activity">
+                                                <div class="group__topic-activity"><?php print (isset($topic->last_posted_at) && strlen($topic->last_posted_at) > 0) ? date("M j", strtotime($topic->last_posted_at)) : date("M j", strtotime($topic->created_at)) ; ?></div>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                        <tr>
+                                            <td colspan="4" class="group__table-cell group__table-cell--topic">
+                                                <a href="<?php print $group_meta['discourse_category_url']; ?>" class="group__view-updates-link">
+                                                    <?php print __('View more updates'); ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M2.33301 8.66732L5.99967 5.00065L2.33301 1.33398" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <?php endif; ?>
+
+                        <?php endif;  ?>
                     </div>
                     <div class="group__right-column">
                         <div class="group__card">

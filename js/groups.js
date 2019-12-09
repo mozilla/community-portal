@@ -24,8 +24,9 @@ jQuery(function(){
             '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
             '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
             '(\\#[-a-z\\d_]*)?$','i');
-
-            if(pattern.test(response)) {
+            
+            if(pattern.test(response.replace(/\s/g, ""))) {
+                
                 jQuery('.dz-preview').remove();
                 jQuery('.dz-remove').removeClass('dz-remove--hide');
                 jQuery('#image-url').val(response);
@@ -234,13 +235,13 @@ jQuery(function(){
 
             // Show error
             if (resp !== true) {
-            $this.addClass("create-group__input--error");
-            $errorContainer.addClass("form__error-container--visible");
-            $errorContainer.children(".form__error").text("This group name is already taken");
+                $this.addClass("create-group__input--error");
+                $errorContainer.addClass("form__error-container--visible");
+                $errorContainer.children(".form__error").text("This group name is already taken");
             } else {
-            $this.removeClass("create-group__input--error");
-            $errorContainer.removeClass("form__error-container--visible");
-            $errorContainer.children(".form__error").text("This field is required");
+                $this.removeClass("create-group__input--error");
+                $errorContainer.removeClass("form__error-container--visible");
+                $errorContainer.children(".form__error").text("This field is required");
             }
         });
     });

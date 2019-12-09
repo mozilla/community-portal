@@ -218,6 +218,12 @@
         &.group__card--community-link {
             height: 88px;
         }
+
+        &.group__card--table {
+            .group__card-content {
+                padding: 0;
+            }
+        }
     }
 
     &__menu {
@@ -673,5 +679,124 @@
         line-height: 20px;
         color: $color-gray-secondary;
         margin-top: 8px;
+    }
+
+    &__announcements {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        border-spacing: 0;
+        position: relative;
+
+        tbody {
+            td {
+                border-top: 1px solid $color-gray-20;
+                margin: 0 -16px;
+
+                @include tablet-and-up {
+                    margin: 0 -24px;
+                }
+
+                @include desktop-and-up {
+                    margin: 0 -32px;
+                }
+
+                
+
+            }
+        }
+    }
+
+    &__table-header {
+        font-size: remCalc(14);
+        line-height: 24px;
+        padding: 16px;
+
+        @include tablet-and-up {
+            padding: 24px
+        }
+
+        @include desktop-and-up {
+            font-size: remCalc(16);
+            padding: 32px;
+        }
+        
+        &.group__table-header--topic {
+            text-align: left;
+            min-width: 70%
+        }
+
+        &.group__table-header--activity {
+            display: none;
+
+            @include tablet-and-up {
+                display: table-cell;
+            }
+        }
+    }
+
+    &__table-cell {
+        font-size: remCalc(16);
+        line-height: 24px;
+        text-align: center;
+        padding: 16px;
+
+        @include tablet-and-up {
+            padding: 24px;
+        }
+
+        @include desktop-and-up {
+            font-size: remCalc(18);
+            line-height: 28px;
+            padding: 32px;
+        }
+
+        &.group__table-cell--topic {
+            text-align: left;
+            min-width: 70%;
+        }
+
+        &.group__table-cell--activity {
+            display: none;
+
+            @include tablet-and-up {
+                display: table-cell;
+            }
+        }
+    }
+
+    &__topic-title {
+        font-size: remCalc(14);
+        line-height: 24px;
+        color: $color-gray-secondary;
+        letter-spacing: 0.0025em;
+    }
+
+    &__topic-date {
+        color: $color-black;
+    }
+
+    &__topic-link {
+        text-decoration: none;
+        
+        &:before {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 22%;
+        }
+    }
+
+    &__view-updates-link {
+        text-decoration: none;
+        font-size: remCalc(16);
+        line-height: 24px;
+        color: $color-blue-50;
+
+        svg {
+            margin-left: 8px;
+        }
     }
 }

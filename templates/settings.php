@@ -13,6 +13,30 @@
             </tr>
             <tr>
                 <th scope="row">
+                    <label for="error-404-copy">Discourse API Key</label>
+                </th>
+                <td>
+                    <input type="text" id="discourse-api-key" name="discourse_api_key" class="regular-text" value="<?php print isset($options['discourse_api_key']) ? $options['discourse_api_key'] : ''; ?>" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    <label for="error-404-copy">Discourse API URL</label>
+                </th>
+                <td>
+                    <input type="text" id="discourse-api-url" name="discourse_api_url" class="regular-text" value="<?php print isset($options['discourse_api_url']) ? $options['discourse_api_url'] : ''; ?>" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    <label for="error-404-copy">Discourse URL</label>
+                </th>
+                <td>
+                    <input type="text" id="discourse-url" name="discourse_url" class="regular-text" value="<?php print isset($options['discourse_url']) ? $options['discourse_url'] : ''; ?>" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
                     <label for="default-open-graph-title">Default Open Graph Title</label>
                 </th>
                 <td>
