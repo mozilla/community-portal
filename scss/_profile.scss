@@ -548,6 +548,25 @@
             @extend .cta;
             border-radius: 28px !important;
         }
+
+        .profile__delete-cta {
+            text-decoration: underline;
+            margin-top: 64px;
+            display: block;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        .profile__delete-account-error {
+            color: $error;
+            margin-top: 16px;
+            transition: opacity 0.3s ease-in;
+
+            &.profile__delete-account-error--hidden {
+                opacity: 0;
+            }
+        }
     }
 
     &__label {
