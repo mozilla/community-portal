@@ -16,6 +16,7 @@
     $google_analytics_id = get_option('google_analytics_id');
 
     $section = mozilla_determine_site_section();
+    $theme_url  = get_template_directory_uri();
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +24,7 @@
     <head>
         <meta charset="<?php bloginfo('charset'); ?>">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+        <link rel="icon" href="<?php print "{$theme_url}/images/favicon.ico"; ?>" />
         <?php if($section): ?>
         <?php
             switch(strtolower($section)) {
