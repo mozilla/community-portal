@@ -457,9 +457,6 @@ function mozilla_delete_user() {
                 delete_user_meta($user->ID, 'first_name_visibility');
                 delete_user_meta($user->ID, 'last_name_visibility');
                 delete_user_meta($user->ID, 'email_visibility');
-                delete_user_meta($user->ID, 'wp_auth0_id');
-    
-                
 
                 wp_destroy_current_session();
                 wp_clear_auth_cookie();
