@@ -629,7 +629,7 @@
                         <?php endif; ?>
                         <div class="group__card">
                             <div class="group__card-content group__card-content--small">
-                                <span><?php print __('Group Admins'); ?></span> 
+                                <span><?php print __('Group Contacts'); ?></span> 
                                 <div class="group__admins">
                                     <?php foreach($admins AS $admin): ?>
                                     <?php
