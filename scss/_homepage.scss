@@ -102,7 +102,7 @@ body.home-page {
             z-index: 2;
             width: 100%;
             height: auto;
-            box-shadow: 0 18px 26px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 18px 26px rgba(0, 0, 0, 0.16);
 
             @include desktop-and-up {                
                 max-width: 418px;
