@@ -44,7 +44,7 @@
 						<img src="<?php echo $fieldValues->hero_image['url'] ?>" alt="<?php echo $fieldValues->hero_image['alt'] ?>">
 					</div>
 				</div>
-				<div class="col-md-5 col-md-offset-1">
+				<div class="col-md-4 col-md-offset-1">
 					<div class="homepage__content">
 						<h1 class="homepage__hero__title title title--main"><?php echo $fieldValues->hero_title; ?></h1>
 						<p class="homepage__hero__subtitle subtitle"><?php echo $fieldValues->hero_subtitle ?></p>

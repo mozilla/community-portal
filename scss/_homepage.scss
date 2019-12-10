@@ -16,7 +16,6 @@ body.home-page {
         @include desktop-and-up {
             overflow-x: visible;
         }
-        
     }
   
 
@@ -83,9 +82,10 @@ body.home-page {
     }
 
     &__hero__splash {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 55px;
     }
 
     &__hero__image {   
@@ -102,9 +102,9 @@ body.home-page {
             z-index: 2;
             width: 100%;
             height: auto;
+            box-shadow: 0 18px 26px rgba(0, 0, 0, 0.08);
 
-            @include desktop-and-up {
-                
+            @include desktop-and-up {                
                 max-width: 418px;
                 max-height: 418px;
             }
@@ -116,16 +116,14 @@ body.home-page {
             position: absolute;
             height: 100%;
             width: 100%;
-            left: -10%;
-            top: -50px;
+            left: -45px;
+            top: -60px;
             background-size: contain;
             background-position: top center;
             background-repeat: no-repeat;
-            @include tablet-and-up {
-                left: -15%;
-            }
+            
             @include desktop-and-up {
-                left: -20%;
+                left: -50px;
             }
         }
     }
@@ -243,11 +241,11 @@ body.home-page {
             &__link:visited {
                 color: $color-blue-50;
                 &::after {
-                content: url('./images/chevron-right-2.svg');
-                display: inline-block;
-                padding-left: 4px;
-                position: relative;
-                top: 3px;
+                    content: url('./images/chevron-right-2.svg');
+                    display: inline-block;
+                    padding-left: 4px;
+                    position: relative;
+                    top: 3px;
                 }
             }
         }
@@ -265,7 +263,7 @@ body.home-page {
             width: 100vw;
             min-width: 320px;
             @include tablet-and-up {
-                left: 70px;
+                left: 135px;
             }
         }
     }
