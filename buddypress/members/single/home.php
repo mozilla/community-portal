@@ -8,9 +8,9 @@
 
     $template_dir = get_template_directory();
     $pronouns = Array(
-        'She/Her',
-        'He/Him',
-        'They/Them'
+        __('She/Her'),
+        __('He/Him'),
+        __('They/Them')
     );
     
     $tags = get_tags(array('hide_empty' => false));
