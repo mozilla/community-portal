@@ -415,7 +415,67 @@ function mozilla_display_field($field, $visibility, $is_me, $logged_in) {
     return false;
 }
 
+function mozilla_delete_user() {
 
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if(is_user_logged_in()) {
+            $user = wp_get_current_user()->data;
+
+            if($user) {
+                $rand = substr(md5(time()), 0, 8);
+                $anonymous_email = "anonymous{$rand}@anonymous.com";
+                $user_check = get_user_by('email', $anonymous_email);
+    
+                while($user_check !== false) {
+                    $rand = substr(md5(time()), 0, 8);
+                    $anonymous_email = "anonymous{$rand}@anonymous.com";
+                    $user_check = get_user_by('email', $anonymous_email);
+                }
+    
+                $meta = get_user_meta($user->ID);
+                $args = Array(
+                    'ID'                =>  $user->ID,
+                    'user_email'        =>  $anonymous_email,
+                    'display_name'      =>  'Anonymous',
+                    'first_name'        =>  'Anonymous',
+                    'last_name'         =>  'Anonymous',
+                    'user_url'          =>  '',
+                    'user_nicename'     =>  "Anonymous{$rand}",
+                    'user_login'       =>  "Anonymous{$rand}"
+                );
+    
+                update_user_meta($user->ID, 'nickname', 'Anonymous');
+                update_user_meta($user->ID, 'first_name', 'Anonymous');
+                update_user_meta($user->ID, 'last_name', 'Anonymous');
+                update_user_meta($user->ID, 'email', $anonymous_email);
+    
+                wp_update_user($args);
+                delete_user_meta($user->ID, 'community-meta-fields');
+                delete_user_meta($user->ID, 'description', '');
+                delete_user_meta($user->ID, 'wp_auth0_obj');
+                delete_user_meta($user->ID, 'wp_auth0_id');
+                delete_user_meta($user->ID, 'first_name_visibility');
+                delete_user_meta($user->ID, 'last_name_visibility');
+                delete_user_meta($user->ID, 'email_visibility');
+                delete_user_meta($user->ID, 'wp_auth0_id');
+    
+                
+
+                wp_destroy_current_session();
+                wp_clear_auth_cookie();
+                wp_set_current_user(0);
+
+                print json_encode(Array('status'   =>  'success', 'msg'  =>  'Account Deleted'));
+            } else {
+                print json_encode(Array('status'   =>  'error', 'msg'  =>  'No user'));
+            }
+        } else {
+            print json_encode(Array('status'   =>  'error', 'msg'  =>  'Invalid Request'));
+        }
+    }
+
+    die();
+}
 
 
 ?>
