@@ -92,7 +92,7 @@
             <div class="groups__hero-container">
                 <h1 class="groups__title"><?php print __("Groups"); ?></h1>
                 <p class="groups__hero-copy">
-                    <?php print __("Meet up with people who share your passion and join the movement for an open internet. "); ?>
+                    <?php print __("Meet up with people who share your passion and join the movement for an open internet."); ?>
                 </p>
                 <p class="groups__hero-copy">
                     <?php print __("Look for groups in your area, or"); ?> <a href="/groups/create/step/group-details/" class="groups__hero-link"><?php print __('create your own.'); ?></a>
