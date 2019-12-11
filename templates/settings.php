@@ -37,6 +37,14 @@
             </tr>
             <tr>
                 <th scope="row">
+                    <label for="error-404-copy">Mapbox Access Token</label>
+                </th>
+                <td>
+                    <input type="text" id="mapbox" name="mapbox" class="regular-text" value="<?php print isset($options['mapbox']) ? $options['mapbox'] : ''; ?>" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
                     <label for="default-open-graph-title">Default Open Graph Title</label>
                 </th>
                 <td>

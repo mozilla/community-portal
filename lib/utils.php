@@ -154,6 +154,10 @@ function mozilla_theme_settings() {
             if(isset($_POST['discourse_url'])) {
                 update_option('discourse_url', sanitize_text_field($_POST['discourse_url']));
             }   
+
+            if(isset($_POST['mapbox'])) {
+                update_option('mapbox', sanitize_text_field($_POST['mapbox']));
+            }   
         }
     }
 
@@ -221,6 +225,14 @@ function mozilla_match_categories() {
         if (!in_array($cat_term->name, $wp_terms)) {
             wp_delete_term($cat_term->term_id, EM_TAXONOMY_CATEGORY);
         }
+    }
+}
+
+
+function mozilla_redirect_admin() {
+    if(!current_user_can('manage_options') || current_user_can('subscriber')) {
+        wp_redirect("/");
+        die();
     }
 }
 
