@@ -74,8 +74,8 @@
                             </clipPath>
                         </defs>
                     </svg>
+                    <?php print __('Location'); ?>
                     <div class="profile__details">
-                        <?php print __('Location'); ?>
                         <span class="profile__city-country">
                             <?php print $info['location']->value; ?>
                         </span>
@@ -90,7 +90,7 @@
                         <path d="M9.33366 9.33398H22.667C23.5837 9.33398 24.3337 10.084 24.3337 11.0007V21.0006C24.3337 21.9173 23.5837 22.6673 22.667 22.6673H9.33366C8.41699 22.6673 7.66699 21.9173 7.66699 21.0006V11.0007C7.66699 10.084 8.41699 9.33398 9.33366 9.33398Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M24.3337 11L16.0003 16.8333L7.66699 11" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    <span><?php print __('Email'); ?></span>
+                    <?php print __('Email'); ?>
                     <div class="profile__details">
                         <span class="profile__email">
                             <?php print $info['email']->value; ?>
