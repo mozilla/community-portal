@@ -38,7 +38,7 @@
 }
 
 html {
-    font-family: "Open Sans", sans-serif;
+    font-family: $copy-font;
     height: 100%;
 }
 
@@ -48,7 +48,7 @@ body.noscroll {
 
 @supports (font-variation-settings: normal) {
     html {
-        font-family: "Open Sans", sans-serif;
+        font-family: $copy-font;
     }
 }
 
@@ -56,6 +56,11 @@ body.noscroll {
     width: 100%;
     min-height: calc(100vh - 387px - 122px - 96px);
     position: relative;
+
+    &.content--homepage {
+        overflow-x: hidden;
+        min-width: 320px;
+    }
 }
 
 .body {

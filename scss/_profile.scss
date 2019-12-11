@@ -9,17 +9,18 @@
     
     position: relative;
     a {
-      text-decoration: none;
+        text-decoration: none;
     }
-    // Edit Profile Styles
+    
+    
     &__hero {
         width: 100%;
         background-color: $color-green-20;
         height: 430px;
-        padding: 0 24px;
+        padding: 0;
 
         @include tablet-and-up {
-            padding: 0 64px;
+            padding: 0 $tablet-padding;
             height: 393px;
             background-image: url("./images/mozilla-create-profile.png");
             background-position: right -50px center;
@@ -30,7 +31,7 @@
         @include desktop-and-up {
             height: 430px;
             background-image: none;
-            padding: 0 106px;
+            padding: 0 $desktop-padding;
         }
     }
 
@@ -63,7 +64,7 @@
     &__hero-container {
         @extend .container; 
         max-width: 1228px;
-        padding: 0;
+        padding: 0 $mobile-padding;
         padding-top: 24px;
         height: 100%;
 
@@ -80,7 +81,7 @@
             background-image: url("./images/mozilla-create-profile.png");
             background-size: 600px;
             background-position: right -160px bottom -40px;
-            min-width: 1018px;
+            min-width: $container-max-width;
         }
     }
 
@@ -90,7 +91,7 @@
     }
 
     &__hero-content {
-        max-width: 1018px;
+        max-width: $container-max-width;
         width: 100%;
         margin: 0 auto;
     }
@@ -120,7 +121,7 @@
         font-weight: 300;
         display: block;
         width: 100%;
-        font-family: 'Zilla Slab';
+        font-family: $title-font;
         margin-bottom: 16px;
         
         @include tablet-and-up {
@@ -144,7 +145,7 @@
         display: flex;
         flex-direction: row;
         align-items: flex-start;
-        justify-content: space-between;
+        justify-content: flex-start;
 
         @include tablet-and-up {
             font-size: remCalc(18);
@@ -157,7 +158,7 @@
             max-width: 595px;
             span {
                 display: inline-block;
-                margin-left: 16px;
+                // margin-left: 16px;
             }
         }
 
@@ -181,13 +182,17 @@
             max-width: none;
             font-size: remCalc(16);
             line-height: 24px;
+            min-height: 128px;
+            align-items: center;
 
             span {
                 text-align: left;
             }
 
             @include tablet-and-up {
+                min-height: auto;
                 max-width: 345px;
+                align-items: flex-start;
             }
 
 
@@ -244,7 +249,7 @@
         }
 
         @include desktop-and-up {
-            max-width: 1018px;
+            max-width:$container-max-width;
             padding: 64px 104px 80px 104px;
         }
     }
@@ -266,7 +271,7 @@
     }
 
     &__form-title {
-        font-family: Zilla Slab;
+        font-family: $title-font;
         font-size: remCalc(24);
         font-weight: 400;
         line-height: 29px;
@@ -282,14 +287,14 @@
 
     &__form {
         width: 100%;
-        padding: 0 24px;
+        padding: 0 $mobile-padding;
 
         @include tablet-and-up {
-            padding: 0 64px;
+            padding: 0 $tablet-padding;
         }
 
         @include desktop-and-up {
-            padding: 0 106px;
+            padding: 0 $desktop-padding;
         }
     }
 
@@ -381,6 +386,12 @@
             @extend .select;
             width: 100%;
             border-radius: 5px!important;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url('data:image/svg+xml;charset=UTF-8,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g><path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/></g></svg>');
+            background-size: 25px;
+            background-position: calc(100% - 10px) center;
+            background-repeat: no-repeat;
 
             &.select {
                 &.select--disabled {
@@ -394,11 +405,6 @@
                 margin-top: 0;
                 max-width: 550px;
             }
-        }
-
-        svg {
-            right: 12px;
-            top: 40px;
         }
 
         @include tablet-and-up {
@@ -551,6 +557,25 @@
             @extend .cta;
             border-radius: 28px !important;
         }
+
+        .profile__delete-cta {
+            text-decoration: underline;
+            margin-top: 64px;
+            display: block;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        .profile__delete-account-error {
+            color: $error;
+            margin-top: 16px;
+            transition: opacity 0.3s ease-in;
+
+            &.profile__delete-account-error--hidden {
+                opacity: 0;
+            }
+        }
     }
 
     &__label {
@@ -573,6 +598,13 @@
     &__select {
         @extend .select;
         margin-top: 15px;
+        appearance: none;
+        -webkit-appearance: none;
+        background-image: url('data:image/svg+xml;charset=UTF-8,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g><path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/></g></svg>');
+        background-size: 25px;
+        background-position: calc(100% - 10px) center;
+        background-repeat: no-repeat;
+
 
         &.profile__select--flex {
             @include tablet-and-up {
@@ -636,7 +668,7 @@
     }
 
     &__success-message-container {
-        padding: 0 24px;
+        padding: 0 $mobile-padding;
         margin-top: 88px;
         text-align: center;
 
@@ -661,6 +693,7 @@
         @extend .cta;
         border-radius: 28px;
         text-decoration: none;
+        border: none;
 
         &:first-of-type {
             margin-bottom: 24px;
@@ -699,9 +732,9 @@
     // Public Profile Styles
     &__public-container {
         @extend .container;
-        max-width: 1018px;
+        max-width: $container-max-width;
         height: 100%;
-        padding: 0 24px;
+        padding: 0 $mobile-padding;
         width: 100%;
         margin: 0 auto;
         display: flex;
@@ -712,16 +745,16 @@
         margin-bottom: 50px;
 
         @include tablet-and-up {
-            margin-top: 64px;
-            padding: 0 64px;
+            margin-top: $tablet-padding;
+            padding: 0 $tablet-padding;
         }
 
         @include desktop-and-up {
             flex-direction: row;
             justify-content: space-between;
             align-items: flex-start;
-            padding: 0 106px;
-            max-width: 1440px;
+            padding: 0 $desktop-padding;
+            max-width: $page-max-width;
         }
     }
 
@@ -731,7 +764,6 @@
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         border-radius: 4px;
         margin-bottom: 32px;
-
 
         @include tablet-and-up {
             padding: 24px;
@@ -778,9 +810,6 @@
         flex-direction: row;
         justify-content: flex-start;
 
-        svg {
-            margin-right: 6px;
-        }
     }
 
     &__avatar {
@@ -805,7 +834,7 @@
     }
 
     &__user-title {
-        font-family: 'Zilla Slab';
+        font-family: $title-font;
 
         font-size: remCalc(18);
         line-height: 25px;
@@ -877,6 +906,8 @@
         margin-right: 8px;
     }
 
+
+    &__location-container,
     &__email-container {
         display: flex;
         flex-direction: row;
@@ -886,22 +917,10 @@
         margin-bottom: 24px;
     }
 
-    &__email {
-        display: block;
-    }
-
 
     &__location-icon {
         margin-right: 8px;
         display: inline-block;
-    }
-
-    &__location-container {
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-        align-content: center;
-        margin-bottom: 24px;
     }
 
     &__phone-icon {
@@ -927,6 +946,7 @@
         width: 100%;
     }
 
+    &__city-country,
     &__email {
         padding-left: 40px;
         display: inline-block;
@@ -1179,7 +1199,7 @@
     }
 
     &__group-title  {
-        font-family: 'Zilla Slab';
+        font-family: $title-font;
         font-size: remCalc(24);
         line-height: 32px;
         color: $color-off-black;
@@ -1188,7 +1208,7 @@
 
     &__heading {
         margin: 0;
-        font-family: 'Zilla Slab';
+        font-family: $title-font;
         font-size: remCalc(24);
         line-height: 32px;
         color: $color-black;

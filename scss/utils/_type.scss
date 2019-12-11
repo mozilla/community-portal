@@ -1,5 +1,5 @@
 .title {
-  font-family: $main-font-family;
+  font-family: $title-font;
   font-size: remCalc(48);
   font-weight: normal;
   &--main {
@@ -13,7 +13,7 @@
 .subheader {
   font-size: remCalc(32);
   line-height: remCalc(36);
-  font-family: $main-font-family;
+  font-family: $title-font;
   font-weight: normal;
   @include tablet-and-up {
     font-size: remCalc(36);
@@ -52,7 +52,7 @@ p {
 }
 
 .large-number {
-  font-family: $main-font-family;
+  font-family: $title-font;
   font-size: remCalc(104);
   font-weight: bold;
   line-height: 1;
@@ -70,11 +70,11 @@ p {
 
 .title--card {
   font-size: 24px;
-  font-family: "Zilla Slab", sans-serif;
+  font-family: $title-font;
 }
 
 .title--secondary {
-  font-family: $main-font-family;
+  font-family: $title-font;
   font-weight: normal;
   font-size: remCalc(32);
 }

@@ -6,11 +6,11 @@
         width: 100%;
         background-color: $color-green-20;
         height: 388px;
-        padding: 0 24px;
+        padding: 0 $mobile-padding;
 
 
         @include tablet-and-up {
-            padding: 0 64px;
+            padding: 0 $tablet-padding;
             height: 404px;
             background-image: url("./images/mozilla-create-profile.png");
             background-position: right -140px center;
@@ -20,8 +20,8 @@
         
         @include desktop-and-up {
             background-image: none;
-            height: 316px;
-            padding: 0 106px;
+            height: 332px;
+            padding: 0 $desktop-padding;
         }
     }
 
@@ -60,7 +60,7 @@
         font-weight: 300;
         display: inline-block;
         width: auto;
-        font-family: 'Zilla Slab';
+        font-family: $title-font;
         margin-bottom: 16px;
         position: relative;
         padding-left: 30px;
@@ -123,7 +123,6 @@
             bottom: -45px;
         }
 
-
         @include desktop-and-up {
             max-width: 703px;
         }
@@ -138,7 +137,7 @@
         svg {
             position: absolute;
             left: 0;
-            top: 3px;
+            top: 7px;
         }
     }
 
@@ -146,6 +145,7 @@
         @extend .cta;
         text-align: center;
         width: 100%;
+        border: none;
 
         @include tablet-and-up {
             width: auto;
@@ -176,18 +176,18 @@
         flex-direction: column;
         flex-wrap: wrap;
         justify-content: flex-start;
-        padding: 0 24px;
+        padding: 0 $mobile-padding;
         margin: 0;
         margin-top: 32px;
         width: 100%;
 
         @include tablet-and-up {
             margin-top: 83px;
-            padding: 0 64px;
+            padding: 0 $tablet-padding;
         }
 
         @include desktop-and-up {
-            padding: 0 106px;
+            padding: 0 $desktop-padding;
         }
     }
 
@@ -280,7 +280,7 @@
     }
 
     &__username {
-        font-family: 'Zilla Slab';
+        font-family: $title-font;
         font-size: remCalc(20);
         line-height: 28px;
         color: $color-off-black;

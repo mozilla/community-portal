@@ -2,19 +2,10 @@
     width: 100%;
 
     &__container {
-        max-width: 1440px;
-        min-width: 320px;
-        height: 100%;
-        padding: 0 24px;
-        margin: 0 auto;
+        @extend .container;
         
-        @include tablet-and-up {
-            padding: 0 64px;    
-        }
-
         @include desktop-and-up {
             min-height: 600px;
-            padding: 0 106px;
         }
     }
 
@@ -22,7 +13,7 @@
         width: 100%;
         text-align: left;
         margin-top: 16px;
-        font-family: 'Zilla Slab';
+        font-family: $title-font;
         font-size: remCalc(32);
         line-height: 40px;
 

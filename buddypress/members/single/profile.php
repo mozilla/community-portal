@@ -17,7 +17,7 @@
             <div class="profile__card-header-container">
                 <?php if($is_me): ?>
                 <div class="profile__edit-link-container profile__edit-link-container--mobile">
-                    <a href="/members/<?php print $info['username']->value; ?>/profile/edit/group/1" class="profile__link">
+                    <a href="/people/<?php print $info['username']->value; ?>/profile/edit/group/1" class="profile__link">
                     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" class="profile__edit-icon">
                         <path d="M8.25 3H3C2.60218 3 2.22064 3.15804 1.93934 3.43934C1.65804 3.72064 1.5 4.10218 1.5 4.5V15C1.5 15.3978 1.65804 15.7794 1.93934 16.0607C2.22064 16.342 2.60218 16.5 3 16.5H13.5C13.8978 16.5 14.2794 16.342 14.5607 16.0607C14.842 15.7794 15 15.3978 15 15V9.75" stroke="#0060DF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M13.875 1.87419C14.1734 1.57582 14.578 1.4082 15 1.4082C15.422 1.4082 15.8266 1.57582 16.125 1.87419C16.4234 2.17256 16.591 2.57724 16.591 2.99919C16.591 3.42115 16.4234 3.82582 16.125 4.12419L9 11.2492L6 11.9992L6.75 8.99919L13.875 1.87419Z" stroke="#0060DF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -42,7 +42,7 @@
                 </div>
                 <?php if($is_me): ?>
                 <div class="profile__edit-link-container">
-                    <a href="/members/<?php print $info['username']->value; ?>/profile/edit/group/1" class="profile__link">
+                    <a href="/people/<?php print $info['username']->value; ?>/profile/edit/group/1" class="profile__link">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M23.64 6.36L17.64 0.36C17.16 -0.12 16.44 -0.12 15.96 0.36L0.36 15.96C0.12 16.2 0 16.44 0 16.8V22.8C0 23.52 0.48 24 1.2 24H7.2C7.56 24 7.8 23.88 8.04 23.64L23.64 8.04C24.12 7.56 24.12 6.84 23.64 6.36ZM6.72 21.6H2.4V17.28L16.8 2.88L21.12 7.2L6.72 21.6Z" fill="#0060DF"/>
                     </svg>
@@ -74,8 +74,8 @@
                             </clipPath>
                         </defs>
                     </svg>
+                    <?php print __('Location'); ?>
                     <div class="profile__details">
-                        <?php print __('Location'); ?>
                         <span class="profile__city-country">
                             <?php print $info['location']->value; ?>
                         </span>
@@ -90,7 +90,7 @@
                         <path d="M9.33366 9.33398H22.667C23.5837 9.33398 24.3337 10.084 24.3337 11.0007V21.0006C24.3337 21.9173 23.5837 22.6673 22.667 22.6673H9.33366C8.41699 22.6673 7.66699 21.9173 7.66699 21.0006V11.0007C7.66699 10.084 8.41699 9.33398 9.33366 9.33398Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M24.3337 11L16.0003 16.8333L7.66699 11" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    <span><?php print __('Email'); ?></span>
+                    <?php print __('Email'); ?>
                     <div class="profile__details">
                         <span class="profile__email">
                             <?php print $info['email']->value; ?>
@@ -118,7 +118,7 @@
         <?php if($info['groups']->display): ?>
         <?php $groups = groups_get_user_groups($info['id']); ?>
         <?php if($groups['total'] > 0): ?>
-        <h2 class="profile__heading"><?php print __("My Groups"); ?></h2>
+        <h2 class="profile__heading"><?php print __("Groups I'm In"); ?></h2>
         <?php $group_count = 0; ?>
         <div class="profile__card">
             <?php foreach($groups['groups'] AS $gid): ?>
@@ -134,7 +134,7 @@
                         <path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                     <?php if(isset($group_meta['group_city']) && strlen($group_meta['group_city']) > 0): ?><?php print $group_meta['group_city']; ?><?php endif; ?><?php if(isset($group_meta['group_country']) && strlen($group_meta['group_country']) > 0): ?><?php if(isset($group_meta['group_city']) && strlen($group_meta['group_city']) > 0): ?>, <?php endif; ?><?php print $countries[$group_meta['group_country']]; ?><?php endif; ?>
-                    <?php if(isset($group_meta['group_type'])): ?><?php print "| {$group_meta['group_type']}"; ?><?php endif; ?>
+                    <?php if(isset($group_meta['group_type'])): ?><?php if(isset($group_meta['group_city']) && strlen(trim($group_meta['group_city'])) > 0 || isset($group_meta['group_country']) && strlen(trim($group_meta['group_country'])) > 1): ?> | <?php endif; ?><?php print "{$group_meta['group_type']}"; ?><?php endif; ?>
                 </div>
                 <div class="profile__group-member-count">
                     <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -211,14 +211,13 @@
         <?php endif; ?>
         <?php endif; ?>
 
-
         <?php if($info['events_organized']->display): ?>
         <?php 
             $args = array('owner' => $info['id'], 'scope' => 'all', 'private_only' =>  true, 'pagination'  =>  false);
             $private_events_organized = EM_Events::get($args);
             $args = array('owner' => $info['id'], 'scope' => 'all', 'private' =>  false, 'pagination'  =>  false);
             $events_organized = EM_Events::get($args);
-            $events_organized = array_merge($events_organized, $private_events_organized);
+            $events_organized = array_unique(array_merge($events_organized, $private_events_organized), SORT_REGULAR);
 
             $events_organized_count = 0;
 
@@ -283,7 +282,7 @@
             <?php print __("Social Handles"); ?>
             <div class="profile__social-container">
                 <?php if($info['telegram']->value && $info['telegram']->display): ?>
-                <a href="<?php print $info['telegram']->value; ?>" class="profile__social-link">
+                <a href="<?php print filter_var($info['telegram']->value, FILTER_VALIDATE_URL) ? $info['telegram']->value : "https://t.me/{$info['telegram']->value}"; ?>" class="profile__social-link">
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
                         <path d="M24.3337 7.66602L15.167 16.8327" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -293,7 +292,7 @@
                 </a>
                 <?php endif; ?>
                 <?php if($info['facebook']->value && $info['facebook']->display): ?>
-                <a href="<?php print $info['facebook']->value; ?>" class="profile__social-link">
+                <a href="<?php print filter_var($info['facebook']->value, FILTER_VALIDATE_URL) ? $info['facebook']->value : "https://www.facebook.com/{$info['facebook']->value}"; ?>" class="profile__social-link">
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M26 16C26 10.4771 21.5229 6 16 6C10.4771 6 6 10.4771 6 16C6 20.9913 9.65686 25.1283 14.4375 25.8785V18.8906H11.8984V16H14.4375V13.7969C14.4375 11.2906 15.9304 9.90625 18.2146 9.90625C19.3087 9.90625 20.4531 10.1016 20.4531 10.1016V12.5625H19.1921C17.9499 12.5625 17.5625 13.3333 17.5625 14.1242V16H20.3359L19.8926 18.8906H17.5625V25.8785C22.3431 25.1283 26 20.9913 26 16Z" fill="black"/>
@@ -302,7 +301,7 @@
                 </a>
                 <?php endif; ?>
                 <?php if($info['twitter']->value && $info['twitter']->display): ?>
-                <a href="<?php print $info['twitter']->value; ?>" class="profile__social-link">
+                <a href="<?php print filter_var($info['twitter']->value, FILTER_VALIDATE_URL) ? $info['twitter']->value : "https://www.twitter.com/{$info['facebook']->value}"; ?>" class="profile__social-link">
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
                         <path d="M12.3766 23.9366C19.7469 23.9366 23.7781 17.8303 23.7781 12.535C23.7781 12.3616 23.7781 12.1889 23.7664 12.017C24.5506 11.4498 25.2276 10.7474 25.7656 9.94281C25.0343 10.2669 24.2585 10.4794 23.4641 10.5733C24.3006 10.0725 24.9267 9.28482 25.2258 8.35688C24.4392 8.82364 23.5786 9.15259 22.6812 9.32953C22.0771 8.6871 21.278 8.26169 20.4077 8.11915C19.5374 7.97661 18.6444 8.12487 17.8668 8.541C17.0893 8.95713 16.4706 9.61792 16.1064 10.4211C15.7422 11.2243 15.6529 12.1252 15.8523 12.9842C14.2592 12.9044 12.7006 12.4903 11.2778 11.7691C9.85506 11.0478 8.59987 10.0353 7.59375 8.7975C7.08132 9.67966 6.92438 10.724 7.15487 11.7178C7.38536 12.7116 7.98596 13.5802 8.83437 14.1467C8.19667 14.1278 7.57287 13.9558 7.01562 13.6452C7.01562 13.6616 7.01562 13.6788 7.01562 13.6959C7.01588 14.6211 7.33614 15.5177 7.9221 16.2337C8.50805 16.9496 9.32362 17.4409 10.2305 17.6241C9.64052 17.785 9.02155 17.8085 8.42109 17.6928C8.67716 18.489 9.17568 19.1853 9.84693 19.6843C10.5182 20.1832 11.3286 20.4599 12.1648 20.4756C10.7459 21.5908 8.99302 22.1962 7.18828 22.1944C6.86946 22.1938 6.55094 22.1745 6.23438 22.1366C8.0669 23.3126 10.1992 23.9363 12.3766 23.9334" fill="black"/>
@@ -311,7 +310,7 @@
                 </a>
                 <?php endif; ?>
                 <?php if($info['linkedin']->value && $info['linkedin']->display): ?>
-                <a href="<?php print $info['linkedin']->value; ?>" class="profile__social-link">
+                <a href="<?php print filter_var($info['linkedin']->value, FILTER_VALIDATE_URL) ? $info['linkedin']->value : "https://www.linkedin.com/in/{$info['linkedin']->value}"; ?>" class="profile__social-link">
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
                         <g clip-path="url(#clip0)">
@@ -331,7 +330,7 @@
                 </a>
                 <?php endif; ?>
                 <?php if($info['discourse']->value && $info['discourse']->display): ?>
-                <a href="<?php print $info['discourse']->value; ?>" class="profile__social-link">
+                    <a href="<?php print filter_var($info['discourse']->value, FILTER_VALIDATE_URL) ? $info['discourse']->value : "https://discourse.mozilla.org/u/{$info['discourse']->value}/summary"; ?>" class="profile__social-link">
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
                         <path d="M23.5 15.5834C23.5029 16.6832 23.2459 17.7683 22.75 18.75C22.162 19.9265 21.2581 20.916 20.1395 21.6078C19.021 22.2995 17.7319 22.6662 16.4167 22.6667C15.3168 22.6696 14.2318 22.4126 13.25 21.9167L8.5 23.5L10.0833 18.75C9.58744 17.7683 9.33047 16.6832 9.33333 15.5834C9.33384 14.2682 9.70051 12.9791 10.3923 11.8605C11.084 10.7419 12.0735 9.838 13.25 9.25002C14.2318 8.75413 15.3168 8.49716 16.4167 8.50002H16.8333C18.5703 8.59585 20.2109 9.32899 21.4409 10.5591C22.671 11.7892 23.4042 13.4297 23.5 15.1667V15.5834Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -340,7 +339,7 @@
                 </a>
                 <?php endif; ?>
                 <?php if($info['github']->value && $info['github']->display): ?>
-                <a href="<?php print $info['github']->value; ?>" class="profile__social-link">
+                <a href="<?php print filter_var($info['github']->value, FILTER_VALIDATE_URL) ? $info['github']->value : "https://www.github.com/{$info['github']->value}"; ?>" class="profile__social-link">
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
                         <g clip-path="url(#clip0)">

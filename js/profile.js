@@ -157,6 +157,17 @@ jQuery(function(){
         return false;
     });
 
+
+    jQuery('#agree').click(function(e) {
+        var $this = jQuery(this);
+
+        if($this.is(':checked')) {
+            $this.removeClass("profile__input--error");
+            $this.next('.form__error-container--visible').removeClass('form__error-container--visible');
+        }
+
+    });
+
     jQuery('.profile__tag').click(function(e) {
         e.preventDefault();
         var $this = jQuery(this);
@@ -253,8 +264,7 @@ jQuery(function(){
                 '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
                 '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
                 '(\\#[-a-z\\d_]*)?$','i');
-
-            if(pattern.test(response)) {
+            if(pattern.test(response.replace(/\s/g, ""))) {
                 jQuery('#image-url').removeClass('profile__input--error');
                 file.previewElement.classList.add("dz-success");
                 file['attachment_id'] = response; // push the id for future reference
@@ -297,6 +307,28 @@ jQuery(function(){
             }
         }
         e.stopPropagation();
+
+        return false;
+    });
+
+    jQuery('#profile-delete-account').click(function(e) {
+        e.preventDefault();
+        jQuery('.profile__delete-account-error').addClass('profile__delete-account-error--hidden');
+
+        if(confirm("Delete your profile?")) {
+            jQuery.ajax({
+                url: '/wp-admin/admin-ajax.php?action=delete_user',
+                method: 'POST',
+                success: function(data) {
+                    var response = jQuery.parseJSON(data);
+                    if(response.status == 'success') {
+                        window.location = '/people';
+                    } else {
+                        jQuery('.profile__delete-account-error--hidden').removeClass('profile__delete-account-error--hidden');
+                    }
+                }
+            });
+        }
 
         return false;
     });

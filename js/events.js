@@ -24,7 +24,7 @@ jQuery(function() {
                 '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
                 '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
                 '(\\#[-a-z\\d_]*)?$','i');
-            if(pattern.test(response)) {
+            if(pattern.test(response.replace(/\s/g, ""))) {
 
                 jQuery(".dz-preview").remove();
                 jQuery('.form__error--image').parent().removeClass('form__error-container--visible');
@@ -161,21 +161,26 @@ jQuery(function() {
     }
 
     function handleCityForOnline($country, $city) {
-      if ($country.val() === 'OE') {
-        $city.val('Online Event');
-      } else if ($city.val() === 'Online Event') {
-        $city.val('');
-      }
+        if ($country.val() === 'OE') {
+            $city.val('Online Event');
+            $city.prev().text("URL *");
+        } else if ($city.val() === 'Online Event') {
+            $city.val('');
+            $city.prev().text("City *");
+        }
+
     }
+
     function handleOnlineEvent() {
-      const $locationCountry = jQuery('#location-country');
-      const $locationCity = jQuery('#location-town')
-      if ($locationCountry.length > 0) {
-        $locationCountry.on('change', function(e) {
-          const $this = jQuery(this);
-          handleCityForOnline($this, $locationCity);
-        });
-      }
+        const $locationCountry = jQuery('#location-country');
+        const $locationCity = jQuery('#location-town');
+
+        if ($locationCountry.length > 0) {
+            $locationCountry.on('change', function(e) {
+                const $this = jQuery(this);
+                handleCityForOnline($this, $locationCity);
+            });
+        }
     }
 
     function clearErrors(input) {
@@ -193,7 +198,7 @@ jQuery(function() {
     function toggleError(parent, errMsg = 'This field is required') {
         const $errorPresent = parent.find("> .event-creator__error-field");
         if (!$errorPresent.length > 0) {
-        
+            
             const $errorText = jQuery(
                 '<p class="event-creator__error-field"> '+ errMsg +' </p>'
             );
@@ -245,6 +250,7 @@ jQuery(function() {
                     );
                     $first = false;
                 }
+
                 const $label = jQuery(`label[for=${input_id}]`);
                 const $parent = $label.parent();
                 toggleError($parent);
@@ -252,9 +258,15 @@ jQuery(function() {
                 $allClear = false;
             }
 
-            
-
         });
+
+        var $communityGuideLines = jQuery('#cpg');
+        if($communityGuideLines.length > 0 && !$communityGuideLines.is(':checked')) {
+            var $parent = $communityGuideLines.parent();
+            toggleError($parent, 'Please agree to the community guidelines');
+            $allClear = false;
+        }
+
         return $allClear;
     }
 
@@ -282,12 +294,13 @@ jQuery(function() {
 
     function validateForm() {
         const $eventForm = jQuery("#event-form");
+
         if ($eventForm) {
-            const $requiredInputs = jQuery("input,textarea,select").filter(
-                "[required]"
-            );
+            const $requiredInputs = jQuery("input, textarea, select").filter("[required]");
+
             const allClear = checkInputs($requiredInputs);
-            if (allClear) {
+
+            if(allClear) {
                 updateRedirect();
                 $eventForm.submit();
             }

@@ -14,7 +14,7 @@
         '06' => 'Jun',
         '07' => 'Jul',
         '08' => 'Aug',
-        '09' => 'Sep',
+        '09' => 'uyp',
         '10' => 'Oct',
         '11' => 'Nov',
         '12' => 'Dec',
@@ -26,6 +26,7 @@
     $user = wp_get_current_user();
     $is_member = groups_is_user_member($user->ID, $group->id);
     $admins = groups_get_group_admins($group->id);   
+    $discourse_group = mozilla_get_discourse_info($group->id);
 
     $admin_count = sizeof($admins);
     $logged_in = mozilla_is_logged_in();
@@ -48,8 +49,6 @@
         default: 
             $verified = false;
     }
-
-
 ?>
     <div class="content">
         <div class="group">
@@ -110,13 +109,8 @@
                     </ul>
                 </div>
                 <div class="group__nav group__nav--mobile">
-                    <?php print __('Showing'); ?>
+                    <label class="group__nav-select-label"><?php print __('Showing'); ?></label>
                     <div class="select-container">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g>
-                                <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
-                            </g>
-                        </svg>
                         <select class="group__nav-select">
                             <option value="/groups/<?php print $group->slug; ?>"<?php if(bp_is_group_home() && !$is_events && !$is_people): ?> selected<?php endif; ?>><?php print __("About us"); ?></option>
                             <option value="/groups/<?php print $group->slug; ?>?view=events"<?php if($is_events): ?> selected<?php endif; ?>><?php print __("Our Events"); ?></option>
@@ -143,7 +137,7 @@
                     
                             ?>
 
-                            <a href="/members/<?php print $a->user_nicename; ?>" class="members__member-card">
+                            <a href="/people/<?php print $a->user_nicename; ?>" class="members__member-card">
                                 <div class="members__avatar<?php if($info['profile_image']->display === false || $info['profile_image']->value === false): ?> members__avatar--identicon<?php endif; ?>" <?php if($info['profile_image']->display && $info['profile_image']->value): ?> style="background-image: url('<?php print $avatar_url; ?>')"<?php endif; ?> data-username="<?php print $a->user_nicename; ?>">
 
                                 </div>
@@ -187,7 +181,7 @@
                                 }
                     
                             ?>
-                            <a href="/members/<?php print $member->user_nicename; ?>" class="members__member-card">
+                            <a href="/people/<?php print $member->user_nicename; ?>" class="members__member-card">
                                 <div class="members__avatar<?php if($info['profile_image']->display === false || $info['profile_image']->value === false): ?> members__avatar--identicon<?php endif; ?>" <?php if($info['profile_image']->display && $info['profile_image']->value): ?> style="background-image: url('<?php print $avatar_url; ?>')"<?php endif; ?> data-username="<?php print $member->user_nicename; ?>">
 
                                 </div>
@@ -334,6 +328,8 @@
                             </div>
                     <?php endforeach; ?>
                     </div>
+
+                    
                     <?php else: ?>
                     <div class="group__left-column">
                         <div class="group__card">
@@ -499,6 +495,63 @@
                             </div>  
                         </div>
                         <?php endif; ?>
+                        
+                        <?php if(isset($discourse_group['discourse_category_url']) && strlen($discourse_group['discourse_category_url']) > 0): ?>
+                        <?php 
+                            $discourse_url = rtrim($discourse_group['discourse_category_url'], "/");
+                            $options = wp_load_alloptions();
+                            $topics = mozilla_discourse_get_category_topics($discourse_url);
+                            $topics = array_slice($topics, 0, 4);
+                        ?>
+                        <?php if(sizeof($topics) > 0): ?>
+                        <h2 class="group__card-title"><?php print __('Announcements'); ?></h2>
+                        <div class="group__card group__card--table">
+                            <div class="group__card-content">
+                                <table class="group__announcements">
+                                    <thead>
+                                        <tr>
+                                            <th class="group__table-header group__table-header--topic"><?php print __('Topic'); ?></th>
+                                            <th class="group__table-header"><?php print __('Replies'); ?></th>
+                                            <th class="group__table-header"><?php print __('Views'); ?></th>
+                                            <th class="group__table-header group__table-header--activity"><?php print __('Activity'); ?></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php foreach($topics AS $topic): ?>
+                                        <tr>
+                                            <td class="group__table-cell group__table-cell--topic">
+                                                <a href="<?php print $options['discourse_url']; ?>/t/<?php print $topic->slug; ?>" class="group__topic-link">
+                                                    <div class="group__topic-title"><?php print $topic->title; ?></div>
+                                                    <div class="group__topic-date"><?php print date("F j, Y", strtotime($topic->created_at)); ?></div>
+                                                </a>
+                                            </td>
+                                            <td class="group__table-cell">
+                                                <div class="group__topic-replies"><?php print $topic->reply_count; ?></div>
+                                            </td>
+                                            <td class="group__table-cell">
+                                            <div class="group__topic-views"><?php print $topic->views; ?></div>
+                                            </td>
+                                            <td class="group__table-cell group__table-cell--activity">
+                                                <div class="group__topic-activity"><?php print (isset($topic->last_posted_at) && strlen($topic->last_posted_at) > 0) ? date("M j", strtotime($topic->last_posted_at)) : date("M j", strtotime($topic->created_at)) ; ?></div>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                        <tr>
+                                            <td colspan="4" class="group__table-cell group__table-cell--topic">
+                                                <a href="<?php print $discourse_group['discourse_category_url']; ?>" class="group__view-updates-link">
+                                                    <?php print __('View more updates'); ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M2.33301 8.66732L5.99967 5.00065L2.33301 1.33398" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <?php endif; ?>
+
+                        <?php endif;  ?>
                     </div>
                     <div class="group__right-column">
                         <div class="group__card">
@@ -568,17 +621,14 @@
                                     </div>
                                 </a>
                                 <a href="/groups/<?php print $group->slug; ?>/events/" class="group__events-link">
-                                    <?php print __('View more events'); ?>
-                                    <svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
+                                    <?php print __('View more events'); ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                                 </a>
                             </div>
                         </div>
                         <?php endif; ?>
                         <div class="group__card">
                             <div class="group__card-content group__card-content--small">
-                                <span><?php print __('Group Admins'); ?></span> 
+                                <span><?php print __('Group Contacts'); ?></span> 
                                 <div class="group__admins">
                                     <?php foreach($admins AS $admin): ?>
                                     <?php
@@ -598,7 +648,7 @@
                                         }
 
                                     ?>
-                                    <a class="group__admin" href="/members/<?php print $u->user_nicename; ?>">
+                                    <a class="group__admin" href="/people/<?php print $u->user_nicename; ?>">
                                         <div class="members__avatar<?php if($info['profile_image']->display === false || $info['profile_image']->value === false): ?> members__avatar--identicon<?php endif; ?>" <?php if($info['profile_image']->display && $info['profile_image']->value): ?> style="background-image: url('<?php print $avatar_url; ?>')"<?php endif; ?> data-username="<?php print $u->user_nicename; ?>">
                                         </div>
                                         <div class="username">

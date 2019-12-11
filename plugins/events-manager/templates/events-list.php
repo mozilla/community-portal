@@ -1,15 +1,4 @@
 <?php
-    /*
-     * Default Events List Template
-     * This page displays a list of events, called during the em_content() if this is an events list page.
-     * You can override the default display settings pages by copying this file to yourthemefolder/plugins/events-manager/templates/ and modifying it however you need.
-     * You can display events however you wish, there are a few variables made available to you:
-     *
-     * $args - the args passed onto EM_Events::output()
-     *
-     */
-?>
-<?php
     $page = $_REQUEST['pno'];
     $args = apply_filters('em_content_events_args', $args);
     $args['pagination'] = '1';
@@ -54,7 +43,10 @@
                     <?php echo __('Upcoming Events'); ?>
                 </a>
             </li>
-            <?php if (is_user_logged_in()): ?>
+            <?php 
+                $logged_in = is_user_logged_in();
+            ?>
+            <?php if ($logged_in): ?>
             <li class="events__nav__item">
                 <a 
                 class="events__nav__link <?php if ($view === 'attending') echo esc_attr("events__nav__link--active") ?>" 
@@ -85,8 +77,8 @@
             <label class="events__nav__label--mobile" for="eventsView"><?php echo __('Showing:') ?></label>
             <select class="events__nav__options--mobile" name="eventsView" id="eventsView">
                 <option <?php if ($view === 'future' || $view === '') echo esc_attr('selected') ?> value="future"><?php echo __('Upcoming Events') ?></option>
-                <option <?php if ($view === 'attending') echo esc_attr('selected') ?> value="attending"><?php echo __('Events I\'m Attending') ?></option>
-                <option <?php if ($view === 'organized') echo esc_attr('selected') ?> value="organized">Events I've Organized</option>
+                <?php if($logged_in): ?><option <?php if ($view === 'attending') echo esc_attr('selected') ?> value="attending"><?php echo __('Events I\'m Attending') ?></option><?php endif; ?>
+                <?php if($logged_in): ?><option <?php if ($view === 'organized') echo esc_attr('selected') ?> value="organized">Events I've Organized</option><?php endif; ?>
                 <option <?php if ($view === 'past') echo esc_attr('selected') ?> value="past"><?php echo __('Past Events') ?></option>
             </select>
             <svg class="events__nav__icon" width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">

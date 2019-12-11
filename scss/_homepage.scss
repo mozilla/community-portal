@@ -10,20 +10,23 @@ body.home-page {
 .homepage {
     position: relative;
     &__container {
-
         @extend .container;
-        max-width: 1440px;
-        padding: 0 24px;
-
-        @include tablet-and-up {
-            padding: 0 64px;
-        }
+        overflow-x: hidden;
 
         @include desktop-and-up {
-            padding: 0 106px;
+            overflow-x: visible;
         }
     }
   
+
+    &__content {
+        padding: 0;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
     &__hero {
         display: flex;
         align-items: center;
@@ -38,15 +41,16 @@ body.home-page {
 
         &__title {
             margin: 0;
-            width: 80%;
+            font-size: remCalc(40);
+            line-height: 40px;
+
+            @include desktop-and-up {
+                font-size: remCalc(64);
+                line-height: 56px;
+            }
+
             span {
                 font-weight: bold;
-            }
-        }
-
-        &__text {
-            @include tablet-and-up {
-                padding-right: 8.33333%;
             }
         }
 
@@ -56,11 +60,13 @@ body.home-page {
                 margin-top: 18px;
             }
         }
+
         &__cta {
             width: 100%;
-            text-align: center;
-
+            text-align: center;    
+        
             @include tablet-and-up {
+                max-width: 183px;
                 width: auto;
             }
         }
@@ -76,9 +82,10 @@ body.home-page {
     }
 
     &__hero__splash {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 55px;
     }
 
     &__hero__image {   
@@ -89,9 +96,18 @@ body.home-page {
         img {
             border-radius: 50%;
             display: block;
-            max-width: 100%;
             position: relative;
+            width: 230px;
+            height: 230px;
             z-index: 2;
+            width: 100%;
+            height: auto;
+            box-shadow: 0 18px 26px rgba(0, 0, 0, 0.16);
+
+            @include desktop-and-up {                
+                max-width: 418px;
+                max-height: 418px;
+            }
         }
 
         &::before {
@@ -100,16 +116,14 @@ body.home-page {
             position: absolute;
             height: 100%;
             width: 100%;
-            left: -10%;
-            top: -50px;
+            left: -45px;
+            top: -60px;
             background-size: contain;
             background-position: top center;
             background-repeat: no-repeat;
-            @include tablet-and-up {
-                left: -15%;
-            }
+            
             @include desktop-and-up {
-                left: -20%;
+                left: -50px;
             }
         }
     }
@@ -227,11 +241,11 @@ body.home-page {
             &__link:visited {
                 color: $color-blue-50;
                 &::after {
-                content: url('./images/chevron-right-2.svg');
-                display: inline-block;
-                padding-left: 4px;
-                position: relative;
-                top: 3px;
+                    content: url('./images/chevron-right-2.svg');
+                    display: inline-block;
+                    padding-left: 4px;
+                    position: relative;
+                    top: 3px;
                 }
             }
         }
@@ -247,8 +261,9 @@ body.home-page {
             z-index: -1;
             left: -24px;
             width: 100vw;
+            min-width: 320px;
             @include tablet-and-up {
-                left: 70px;
+                left: 135px;
             }
         }
     }

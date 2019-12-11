@@ -1,5 +1,5 @@
 <div class="event-creator__container">
-    <label class="event-creator__label" for="event-image"><?php print __("Event Image*"); ?></label>
+    <label class="event-creator__label" for="event-image"><?php print __("Event Image"); ?></label>
 
     <?php
         if ($_REQUEST['event_id']) {

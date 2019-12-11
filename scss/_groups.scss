@@ -3,21 +3,14 @@
 
     &__container {
         @extend .container;
-        max-width: 1440px;
-        min-width: 320px;
-        padding: 0 24px;
         display: flex;
         flex-direction: row;
         align-content: flex-start;
-        margin-top: 53px;
         flex-wrap: wrap;
+        margin-top: 24px;
 
         @include tablet-and-up {
-            padding: 0 64px;    
-        }
-
-        @include desktop-and-up {
-            padding: 0 106px;
+            margin-top: 69px;    
         }
     }
 
@@ -26,10 +19,10 @@
         background-color: #AAF2FF;
         height: 384px;
 
-        padding: 0 24px;
+        padding: 0 $mobile-padding;
 
         @include tablet-and-up {
-            padding: 0 64px;
+            padding: 0 $tablet-padding;
             height: 404px;
             background-image: url('./images/groups-header.png');
             background-size: contain;
@@ -39,7 +32,7 @@
         
         @include desktop-and-up {
             height: 332px;
-            padding: 0 106px;
+            padding: 0 $desktop-padding;
             background-image: none;
         }
     }
@@ -82,7 +75,7 @@
         font-weight: 300;
         display: inline-block;
         width: auto;
-        font-family: 'Zilla Slab';
+        font-family: $title-font;
         margin-bottom: 16px;
         position: relative;
         padding-left: 30px;
@@ -136,13 +129,16 @@
     &__search-container {
         position: absolute;
         left: 0;
-        bottom: -28px;
+        bottom: -5px;
         background-color: $color-white;
         width: 100%;
         padding: 16px 30px;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         border-radius: 5px;
 
+        @include tablet-and-up {
+            bottom: -45px;
+        }
 
         @include desktop-and-up {
             max-width: 703px;
@@ -208,6 +204,7 @@
         @extend .cta;
         text-align: center;
         width: 100%;
+        border: none;
 
         @include tablet-and-up {
             width: auto;
@@ -287,12 +284,16 @@
 
     &__nav-select {
         background: transparent;
-        appearance: none;
-        -webkit-appearance: none;
         border: none;
         box-sizing: border-box;
         width: 100%;
         margin-left: 8px;
+        appearance: none;
+        -webkit-appearance: none;
+        background-image: url('data:image/svg+xml;charset=UTF-8,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g><path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/></g></svg>');
+        background-size: 25px;
+        background-position: calc(100% - 10px) center;
+        background-repeat: no-repeat;
     }
 
     &__menu {
@@ -333,17 +334,6 @@
             flex-wrap: nowrap;
             width: auto;
         }
-
-        svg {
-            position: absolute;
-            right: 16px;
-            margin-top: 0;
-            top: 34px;
-
-            @include desktop-and-up {
-                top: 6px;
-            }
-        }
     }
 
     &__show-filters-container {
@@ -371,6 +361,10 @@
         background: $color-gray-20;
         appearance: none;
         -webkit-appearance: none;
+        background-image: url('data:image/svg+xml;charset=UTF-8,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g><path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/></g></svg>');
+        background-size: 25px;
+        background-position: calc(100% - 10px) center;
+        background-repeat: no-repeat;
         border: none;
         box-sizing: border-box;
         padding: 8px 16px;
@@ -388,11 +382,15 @@
     &__tag-select {
         width: 100%;
         background: $color-gray-20;
-        appearance: none;
-        -webkit-appearance: none;
         border: none;
         box-sizing: border-box;
         padding: 8px 16px;
+        appearance: none;
+        -webkit-appearance: none;
+        background-image: url('data:image/svg+xml;charset=UTF-8,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g><path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/></g></svg>');
+        background-size: 25px;
+        background-position: calc(100% - 10px) center;
+        background-repeat: no-repeat;
 
     }
 
@@ -498,7 +496,7 @@
     &__group-title {
         font-size: remCalc(24);
         line-height: 32px;
-        font-family: 'Zilla Slab';
+        font-family: $title-font;
         color: $color-black;
         margin: 0;
         padding: 0;

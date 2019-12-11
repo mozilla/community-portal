@@ -11,10 +11,8 @@
 
     $groups_per_page = 12;
     $p = (isset($_GET['page'])) ? intval($_GET['page']) : 1;
-
     $args = Array(
-        'per_page'  =>  12,
-        'page'      =>  $p
+        'per_page'  =>  -1
     );
 
     $q = (isset($_GET['q']) && strlen($_GET['q']) > 0) ? sanitize_text_field(trim($_GET['q'])) : false;
@@ -41,36 +39,41 @@
         $groups = groups_get_groups($args);
     }
 
-    $group_count = $groups['total'];
     $groups = $groups['groups'];
     $filtered_groups = Array();
 
     foreach($groups AS $group) {
         $meta = groups_get_groupmeta($group->id, 'meta');
         $group->meta = $meta;
-        if(isset($_GET['tag']) && strlen($_GET['tag']) > 0) {
+
+        if(isset($_GET['tag']) && strlen($_GET['tag']) > 0 && isset($_GET['location']) && strlen($_GET['location']) > 0) {
+            if(in_array(strtolower(trim($_GET['tag'])), array_map('strtolower', $meta['group_tags'])) && trim(strtolower($_GET['location'])) == strtolower($meta['group_country'])) { 
+                $filtered_groups[] = $group;
+                continue;
+            }
+        } elseif(isset($_GET['tag']) && strlen($_GET['tag']) > 0 && (!isset($_GET['location']) || strlen($_GET['location']) === 0)) {
             if(in_array(strtolower(trim($_GET['tag'])), array_map('strtolower', $meta['group_tags']))) {
                 $filtered_groups[] = $group;
                 continue;
             }
-        } elseif(isset($_GET['location']) && strlen($_GET['location']) > 0) {
+        } elseif(isset($_GET['location']) && strlen($_GET['location']) > 0 && (!isset($_GET['tag']) || strlen($_GET['tag']) === 0)) {
             if(trim(strtolower($_GET['location'])) == strtolower($meta['group_country'])) {
                 $filtered_groups[] = $group;
+                continue;
             }
         } else {
             $filtered_groups[] = $group;
         }
+       
     }
 
-    if(isset($_GET['tag']) && strlen($_GET['tag']) > 0 || isset($_GET['location']) && strlen($_GET['location']) > 0) {
-        $group_count = sizeof($filtered_groups);
-    }
-
-    $groups = $filtered_groups;
-    
-    $total_pages = ceil($group_count / $groups_per_page);
+    $filtered_groups = array_unique($filtered_groups, SORT_REGULAR);
+    $group_count = sizeof($filtered_groups);
     $offset = ($p - 1) * $groups_per_page;
 
+    $groups = array_slice($filtered_groups, $offset, $groups_per_page);
+    
+    $total_pages = ceil($group_count / $groups_per_page);
     $tags = get_tags(Array('hide_empty' => false));
 ?>
 
@@ -89,10 +92,10 @@
             <div class="groups__hero-container">
                 <h1 class="groups__title"><?php print __("Groups"); ?></h1>
                 <p class="groups__hero-copy">
-                    <?php print __("A short paragraph about why groups are great and why people should look for some near them."); ?>
+                    <?php print __("Meet up with people who share your passion and join the movement for an open internet."); ?>
                 </p>
                 <p class="groups__hero-copy">
-                    <?php print __("Find a group near you below, or"); ?> <a href="/groups/create/step/group-details/" class="groups__hero-link"><?php print __('create a group'); ?></a>
+                    <?php print __("Look for groups in your area, or"); ?> <a href="/groups/create/step/group-details/" class="groups__hero-link"><?php print __('create your own.'); ?></a>
                     <svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M2.33337 8.66634L6.00004 4.99967L2.33337 1.33301" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
@@ -108,7 +111,7 @@
                             <path d="M17.5 17.5L13.875 13.875" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
 
-                        <input type="text" name="q" id="groups-search" class="groups__search-input" placeholder="<?php print __("Search Groups"); ?>" value="<?php if($q): ?><?php print $q; ?><?php endif; ?>" />
+                        <input type="text" name="q" id="groups-search" class="groups__search-input" placeholder="<?php print __("Search groups"); ?>" value="<?php if($q): ?><?php print $q; ?><?php endif; ?>" />
                         </div>
                         <input type="button" class="groups__search-cta" value="<?php print __("Search"); ?>" />
                     </form>
@@ -128,12 +131,7 @@
                 <select class="groups__nav-select">
                     <option value="all"><?php print __("Discover Groups"); ?></option>
                     <?php if($logged_in): ?><option value="mygroups"<?php if(isset($_GET['mygroups']) && $_GET['mygroups'] == 'true'): ?>selected<?php endif; ?>><?php print __("Groups I'm in"); ?></option><?php endif; ?>
-                </select>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g>
-                        <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
-                    </g>
-                </svg>               
+                </select>            
             </div>
                 <div class="groups__filter-container<?php if(!isset($_GET['location']) && !isset($_GET['mygroups'])): ?> groups__filter-container--hidden<?php endif; ?>">
                 <span><?php print __("Filter by:"); ?></span>
@@ -145,11 +143,6 @@
                         <option value="<?php print $code; ?>"<?php if(isset($_GET['location']) && strlen($_GET['location']) > 0 && $_GET['location'] == $code): ?> selected<?php endif; ?>><?php print $country; ?></option>
                         <?php endforeach; ?>
                     </select>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g>
-                            <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
-                        </g>
-                    </svg>
                 </div>
                 <div class="groups__select-container">
                     <label class="groups__label">Tag </label>
@@ -158,12 +151,7 @@
                         <?php foreach($tags AS $tag): ?>
                         <option value="<?php print $tag->slug; ?>" <?php if(isset($_GET['tag']) && strtolower(trim($_GET['tag'])) == strtolower($tag->slug)): ?> selected<?php endif; ?>><?php print $tag->name; ?></option>
                         <?php endforeach; ?>
-                    </select>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g>
-                            <path d="M8.12499 9L12.005 12.88L15.885 9C16.275 8.61 16.905 8.61 17.295 9C17.685 9.39 17.685 10.02 17.295 10.41L12.705 15C12.315 15.39 11.685 15.39 11.295 15L6.70499 10.41C6.51774 10.2232 6.41251 9.96952 6.41251 9.705C6.41251 9.44048 6.51774 9.18683 6.70499 9C7.09499 8.62 7.73499 8.61 8.12499 9Z" fill="black" fill-opacity="0.54"/>
-                        </g>
-                    </svg>     
+                    </select>  
                 </div>
             </div>
             <div class="groups__show-filters-container">

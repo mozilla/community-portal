@@ -16,6 +16,7 @@
     $google_analytics_id = get_option('google_analytics_id');
 
     $section = mozilla_determine_site_section();
+    $theme_url  = get_template_directory_uri();
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +24,7 @@
     <head>
         <meta charset="<?php bloginfo('charset'); ?>">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+        <link rel="icon" href="<?php print "{$theme_url}/images/favicon.ico"; ?>" />
         <?php if($section): ?>
         <?php
             switch(strtolower($section)) {
@@ -74,6 +75,7 @@
         <?php else: ?>
         <?php 
             $options = wp_load_alloptions();
+            $title = get_bloginfo('name')." - ".get_bloginfo('description');
             $og_title = $options['default_open_graph_title'];
             $og_desc = $options['default_open_graph_desc'];
             $og_image = get_stylesheet_directory_uri()."/images/homepage-hero.jpg";    
@@ -118,7 +120,7 @@
                     </a>
                     <div class="nav__login">
                         <?php if(is_user_logged_in()): ?>
-                            <a href="/members/<?php print $user->user_nicename; ?>" class="nav__avatar-link">
+                            <a href="/people/<?php print $user->user_nicename; ?>" class="nav__avatar-link">
                                 <div class="nav__avatar<?php if(!$avatar): ?> nav__avatar--empty<?php endif; ?>" <?php if($avatar): ?>style="background-image: url('<?php print $avatar; ?>')"<?php endif; ?> data-user="<?php print $user->user_nicename; ?>"></div>
                                 <?php print $user->user_nicename; ?>
                             </a>
@@ -181,7 +183,7 @@
                     <input id="nav-trigger" type="checkbox" class="nav__trigger" />
                     <div class="nav__avatar-container">
                     <?php if(is_user_logged_in()): ?>
-                        <a href="/members/<?php print $user->user_nicename; ?>" class="nav__avatar-link">
+                        <a href="/people/<?php print $user->user_nicename; ?>" class="nav__avatar-link">
                             <div class="nav__avatar<?php if(!$avatar): ?> nav__avatar--empty<?php endif; ?>" <?php if($avatar): ?>style="background-image: url('<?php print $avatar; ?>')"<?php endif; ?>></div>
                             <span class="nav__username"><?php print $user->user_nicename; ?></span>
                         </a>
@@ -199,7 +201,7 @@
                     <div class="nav__menu-container">
                         <div class="nav__user-container">
                         <?php if(is_user_logged_in()): ?>
-                            <a href="/members/<?php print $user->user_nicename; ?>" class="nav__avatar-link">
+                            <a href="/people/<?php print $user->user_nicename; ?>" class="nav__avatar-link">
                                 <div class="nav__avatar<?php if(!$avatar): ?> nav__avatar--empty<?php endif; ?>" <?php if($avatar): ?>style="background-image: url('<?php print $avatar; ?>')"<?php endif; ?>>
                                 </div>
                                 <?php print $user->user_nicename; ?>

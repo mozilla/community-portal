@@ -30,7 +30,10 @@
         </div>
 <?php } ?>
     <?php else: ?>
-        <p><?php echo sprintf(__('Please log n to create or join events','events-manager'),site_url('wp-login.php?redirect_to=' . urlencode(get_permalink()), 'login'))?></p>
+        <p><?php echo sprintf(__('Please log in to create or join events','events-manager'),site_url('wp-login.php?redirect_to=' . urlencode(get_permalink()), 'login'))?></p>
+        <?php 
+             setcookie("mozilla-redirect", "/events/edit-event/?action=edit", 0, "/");
+        ?>
     <?php endif; ?>
     </div>
 

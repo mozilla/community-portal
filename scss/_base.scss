@@ -1,9 +1,17 @@
 .container {
-    min-width: 272px;
-    padding: 0 24px;
-    max-width: 1098px;
+    padding: 0 $mobile-padding;
+    min-width: $screen-mobile-min;
+    max-width: $page-max-width;
     width: 100%;
     margin: 0 auto;
+
+    @include tablet-and-up {
+        padding: 0 $tablet-padding;    
+    }
+
+    @include desktop-and-up {
+        padding: 0 $desktop-padding;
+    }
 }
 
 .error {
