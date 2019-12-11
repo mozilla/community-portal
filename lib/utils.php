@@ -26,6 +26,10 @@ function mozilla_upload_image() {
                         $uploaded_url      = $uploaded_bits['url'];
                         $uploaded_filetype = wp_check_filetype(basename($uploaded_bits['file']), null);
                         
+                        if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
+                            $uploaded_url = preg_replace("/^http:/i", "https:", $uploaded_url);
+                        }
+                        
                         if(isset($_REQUEST['profile_image']) && $_REQUEST['profile_image'] == 'true') {
                             // Image size check
                             if(isset($image[0]) && isset($image[1])) {
