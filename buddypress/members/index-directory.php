@@ -63,7 +63,7 @@
                     <?php print __("Ready to make it official? Set up a profile to attend events, join groups and manage your subscription settings. "); ?>
                 </p>
                 <div class="members__search-container">
-                    <form method="GET" action="/members/" class="members__form">
+                    <form method="GET" action="/people/" class="members__form">
                         <div class="members__input-container">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M9.16667 15.8333C12.8486 15.8333 15.8333 12.8486 15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -93,7 +93,7 @@
                 }
                 
             ?>
-            <a href="/members/<?php print $member->data->user_nicename; ?>" class="members__member-card">
+            <a href="/people/<?php print $member->data->user_nicename; ?>" class="members__member-card">
                 <div class="members__avatar<?php if($info['profile_image']->display === false || $info['profile_image']->value === false): ?> members__avatar--identicon<?php endif; ?>" <?php if($info['profile_image']->display && $info['profile_image']->value): ?> style="background-image: url('<?php print $avatar_url; ?>')"<?php endif; ?> data-username="<?php print $member->data->user_nicename; ?>">
                 </div>
                 <div class="members__member-info">
@@ -166,17 +166,17 @@
             <div class="members__pagination">
                 <div class="members__pagination-container">
                     <?php if($total_pages > 1): ?>
-                    <a href="/members/?page=<?php print $previous_page?><?php if($search_user): ?>&u=<?php print $search_user; ?><?php endif; ?>" class="members__pagination-link">
+                    <a href="/people/?page=<?php print $previous_page?><?php if($search_user): ?>&u=<?php print $search_user; ?><?php endif; ?>" class="members__pagination-link">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path d="M17 23L6 12L17 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </a>
-                    <?php if($page_min > 1): ?><a href="/members/?page=1<?php if($search_user): ?>&u=<?php print $search_user; ?><?php endif; ?>" class="members__pagination-link members__pagination-link--first"><?php print "1"; ?></a>&hellip; <?php endif; ?>
+                    <?php if($page_min > 1): ?><a href="/people/?page=1<?php if($search_user): ?>&u=<?php print $search_user; ?><?php endif; ?>" class="members__pagination-link members__pagination-link--first"><?php print "1"; ?></a>&hellip; <?php endif; ?>
                     <?php for($x = $page_min - 1; $x < $page_max; $x++): ?>
-                    <a href="/members/?page=<?php print $x + 1; ?><?php if($search_user): ?>&u=<?php print $search_user; ?><?php endif; ?>" class="members__pagination-link<?php if($page === $x + 1):?> members__pagination-link--active<?php endif; ?><?php if($x === $page_max - 1):?> members__pagination-link--last<?php endif; ?>"><?php print ($x + 1); ?></a>
+                    <a href="/people/?page=<?php print $x + 1; ?><?php if($search_user): ?>&u=<?php print $search_user; ?><?php endif; ?>" class="members__pagination-link<?php if($page === $x + 1):?> members__pagination-link--active<?php endif; ?><?php if($x === $page_max - 1):?> members__pagination-link--last<?php endif; ?>"><?php print ($x + 1); ?></a>
                     <?php endfor; ?>
-                    <?php if($total_pages > $range && $page < $total_pages - 1): ?>&hellip; <a href="/members/?page=<?php print $total_pages; ?><?php if($search_user): ?>&u=<?php print $search_user; ?><?php endif; ?>" class="members__pagination-link<?php if($page === $total_pages):?> members__pagination-link--active<?php endif; ?>"><?php print $total_pages; ?></a><?php endif; ?>
-                    <a href="/members/?page=<?php print $next_page; ?><?php if($search_user): ?>&u=<?php print $search_user; ?><?php endif; ?>" class="members__pagination-link">
+                    <?php if($total_pages > $range && $page < $total_pages - 1): ?>&hellip; <a href="/people/?page=<?php print $total_pages; ?><?php if($search_user): ?>&u=<?php print $search_user; ?><?php endif; ?>" class="members__pagination-link<?php if($page === $total_pages):?> members__pagination-link--active<?php endif; ?>"><?php print $total_pages; ?></a><?php endif; ?>
+                    <a href="/people/?page=<?php print $next_page; ?><?php if($search_user): ?>&u=<?php print $search_user; ?><?php endif; ?>" class="members__pagination-link">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                         <path d="M7 23L18 12L7 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>

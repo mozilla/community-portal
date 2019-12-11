@@ -17,13 +17,13 @@ include("{$template_dir}/languages.php");
                 ?>
             </p>
             <div class="profile__button-container">
-                <a href="/members/<?php print $updated_username ? $updated_username : $user->user_nicename; ?>/profile/edit/group/1/" class="profile__button"><?php print __('Complete your profile'); ?></a><a href="" class="profile__button profile__button--secondary"><?php print __('Go back to browsing'); ?></a>
+                <a href="/people/<?php print $updated_username ? $updated_username : $user->user_nicename; ?>/profile/edit/group/1/" class="profile__button"><?php print __('Complete your profile'); ?></a><a href="" class="profile__button profile__button--secondary"><?php print __('Go back to browsing'); ?></a>
             </div>
         </section>
     </div>
 <?php elseif($complete === true && $edit === true): ?>
     <script type="text/javascript">
-        window.location = "/members/<?php print ($updated_username) ? $updated_username : $user->user_nicename;?>";
+        window.location = "/people/<?php print ($updated_username) ? $updated_username : $user->user_nicename;?>";
     </script>
 <?php else: ?>
     <div class="profile__hero">

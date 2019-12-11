@@ -268,7 +268,7 @@
                     }
             ?>
             <div class="col-md-6 events-single__member-card">
-                <a href="<?php echo '/members/'.$user->user_nicename; ?>">
+                <a href="<?php echo '/people/'.$user->user_nicename; ?>">
                     <div class="events-single__avatar<?php if($info['profile_image']->display === false || $info['profile_image']->value === false) : ?> members__avatar--identicon<?php endif; ?>" <?php if($info['profile_image']->display && $info['profile_image']->value): ?> style="background-image: url('<?php print $avatar_url; ?>')"<?php endif; ?> data-username="<?php print $user->user_nicename; ?>">
                     </div>
                     <div class="events-single__user-details"> 
@@ -362,7 +362,7 @@
             }
       ?>
     <div class="col-md-6 events-single__member-card">
-        <a href="<?php echo '/members/'.$user->user_nicename; ?>")>
+        <a href="<?php echo '/people/'.$user->user_nicename; ?>")>
             <div class="events-single__avatar<?php if($info['profile_image']->display === false || $info['profile_image']->value === false) : ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['image_url_visibility'] && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $avatar_url; ?>')"<?php endif; ?> data-username="<?php print $user->user_nicename; ?>">
             </div>
             <div class="events-single__user-details"> 

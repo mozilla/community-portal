@@ -33,7 +33,7 @@
                         }
         ?>
         <div class="events-single__member-card col-lg-12 col-md-6 col-sm-12">
-            <a href="<?php echo esc_attr(get_site_url().'/members/'.$a->user_nicename)?>">
+            <a href="<?php echo esc_attr(get_site_url().'/people/'.$a->user_nicename)?>">
                 <div class="events-single__avatar<?php if($info['profile_image']->display === false || $info['profile_image']->value === false) : ?> members__avatar--identicon<?php endif; ?>" <?php if($info['profile_image']->display && $info['profile_image']->value): ?> style="background-image: url('<?php print $avatar_url; ?>')"<?php endif; ?> data-username="<?php print $a->user_nicename; ?>">
                 </div>
                 <p class="events-single__username"><?php echo $a->user_nicename; ?></p>
@@ -73,7 +73,7 @@
             }
         ?>
         <div class="events-single__member-card col-lg-12 col-md-6 col-sm-12">
-            <a href="<?php echo '/members/'.$hosted_user->user_nicename; ?>">
+            <a href="<?php echo '/people/'.$hosted_user->user_nicename; ?>">
                 <div class="events-single__avatar<?php if($info['profile_image']->display === false || $info['profile_image']->value === false) : ?> members__avatar--identicon<?php endif; ?>" <?php if($info['profile_image']->display && $info['profile_image']->value): ?> style="background-image: url('<?php print $avatar_url; ?>')"<?php endif; ?> data-username="<?php print $hosted_user->user_nicename; ?>">
                 </div>
                 <p class="events-single__username"><?php echo $hosted_user->user_nicename; ?></p>

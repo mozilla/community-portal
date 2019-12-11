@@ -80,7 +80,7 @@ function mozilla_post_user_creation($user_id, $userinfo, $is_new, $id_token, $ac
 
     if($is_new || !isset($meta['agree'][0]) || (isset($meta['agree'][0]) && $meta['agree'][0] != 'I Agree')) {
         $user = get_user_by('ID', $user_id);
-        wp_redirect("/members/{$user->data->user_nicename}/profile/edit/group/1/");
+        wp_redirect("/people/{$user->data->user_nicename}/profile/edit/group/1/");
         die();        
     }
 

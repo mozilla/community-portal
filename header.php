@@ -120,7 +120,7 @@
                     </a>
                     <div class="nav__login">
                         <?php if(is_user_logged_in()): ?>
-                            <a href="/members/<?php print $user->user_nicename; ?>" class="nav__avatar-link">
+                            <a href="/people/<?php print $user->user_nicename; ?>" class="nav__avatar-link">
                                 <div class="nav__avatar<?php if(!$avatar): ?> nav__avatar--empty<?php endif; ?>" <?php if($avatar): ?>style="background-image: url('<?php print $avatar; ?>')"<?php endif; ?> data-user="<?php print $user->user_nicename; ?>"></div>
                                 <?php print $user->user_nicename; ?>
                             </a>
@@ -183,7 +183,7 @@
                     <input id="nav-trigger" type="checkbox" class="nav__trigger" />
                     <div class="nav__avatar-container">
                     <?php if(is_user_logged_in()): ?>
-                        <a href="/members/<?php print $user->user_nicename; ?>" class="nav__avatar-link">
+                        <a href="/people/<?php print $user->user_nicename; ?>" class="nav__avatar-link">
                             <div class="nav__avatar<?php if(!$avatar): ?> nav__avatar--empty<?php endif; ?>" <?php if($avatar): ?>style="background-image: url('<?php print $avatar; ?>')"<?php endif; ?>></div>
                             <span class="nav__username"><?php print $user->user_nicename; ?></span>
                         </a>
@@ -201,7 +201,7 @@
                     <div class="nav__menu-container">
                         <div class="nav__user-container">
                         <?php if(is_user_logged_in()): ?>
-                            <a href="/members/<?php print $user->user_nicename; ?>" class="nav__avatar-link">
+                            <a href="/people/<?php print $user->user_nicename; ?>" class="nav__avatar-link">
                                 <div class="nav__avatar<?php if(!$avatar): ?> nav__avatar--empty<?php endif; ?>" <?php if($avatar): ?>style="background-image: url('<?php print $avatar; ?>')"<?php endif; ?>>
                                 </div>
                                 <?php print $user->user_nicename; ?>

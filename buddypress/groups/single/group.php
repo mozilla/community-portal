@@ -137,7 +137,7 @@
                     
                             ?>
 
-                            <a href="/members/<?php print $a->user_nicename; ?>" class="members__member-card">
+                            <a href="/people/<?php print $a->user_nicename; ?>" class="members__member-card">
                                 <div class="members__avatar<?php if($info['profile_image']->display === false || $info['profile_image']->value === false): ?> members__avatar--identicon<?php endif; ?>" <?php if($info['profile_image']->display && $info['profile_image']->value): ?> style="background-image: url('<?php print $avatar_url; ?>')"<?php endif; ?> data-username="<?php print $a->user_nicename; ?>">
 
                                 </div>
@@ -181,7 +181,7 @@
                                 }
                     
                             ?>
-                            <a href="/members/<?php print $member->user_nicename; ?>" class="members__member-card">
+                            <a href="/people/<?php print $member->user_nicename; ?>" class="members__member-card">
                                 <div class="members__avatar<?php if($info['profile_image']->display === false || $info['profile_image']->value === false): ?> members__avatar--identicon<?php endif; ?>" <?php if($info['profile_image']->display && $info['profile_image']->value): ?> style="background-image: url('<?php print $avatar_url; ?>')"<?php endif; ?> data-username="<?php print $member->user_nicename; ?>">
 
                                 </div>
@@ -648,7 +648,7 @@
                                         }
 
                                     ?>
-                                    <a class="group__admin" href="/members/<?php print $u->user_nicename; ?>">
+                                    <a class="group__admin" href="/people/<?php print $u->user_nicename; ?>">
                                         <div class="members__avatar<?php if($info['profile_image']->display === false || $info['profile_image']->value === false): ?> members__avatar--identicon<?php endif; ?>" <?php if($info['profile_image']->display && $info['profile_image']->value): ?> style="background-image: url('<?php print $avatar_url; ?>')"<?php endif; ?> data-username="<?php print $u->user_nicename; ?>">
                                         </div>
                                         <div class="username">

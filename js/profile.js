@@ -322,7 +322,7 @@ jQuery(function(){
                 success: function(data) {
                     var response = jQuery.parseJSON(data);
                     if(response.status == 'success') {
-                        window.location = '/members';
+                        window.location = '/people';
                     } else {
                         jQuery('.profile__delete-account-error--hidden').removeClass('profile__delete-account-error--hidden');
                     }
