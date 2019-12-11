@@ -28,6 +28,9 @@
     $admins = groups_get_group_admins($group->id);   
     $discourse_group = mozilla_get_discourse_info($group->id);
 
+    print "<pre>";
+    print_r($discourse_group);
+    print "</pre>";
 
     $admin_count = sizeof($admins);
     $logged_in = mozilla_is_logged_in();
