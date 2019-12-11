@@ -20,6 +20,7 @@ require_once("{$theme_directory}/lib/utils.php");
 
 // Native Wordpress Actions
 add_action('init', 'mozilla_init');
+add_action('admin_init', 'mozilla_redirect_admin');
 add_action('get_header', 'mozilla_remove_admin_login_header');
 add_action('wp_enqueue_scripts', 'mozilla_init_scripts');
 add_action('admin_enqueue_scripts', 'mozilla_init_admin_scripts');
@@ -41,7 +42,6 @@ add_action('wp_ajax_delete_user', 'mozilla_delete_user');
 
 // Auth0 Actions
 add_action('auth0_user_login', 'mozilla_post_user_creation', 10, 6);
-
 
 // Buddypress Actions
 add_action('bp_before_create_group_page', 'mozilla_create_group', 10, 1);
