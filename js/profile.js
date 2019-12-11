@@ -157,6 +157,17 @@ jQuery(function(){
         return false;
     });
 
+
+    jQuery('#agree').click(function(e) {
+        var $this = jQuery(this);
+
+        if($this.is(':checked')) {
+            $this.removeClass("profile__input--error");
+            $this.next('.form__error-container--visible').removeClass('form__error-container--visible');
+        }
+
+    });
+
     jQuery('.profile__tag').click(function(e) {
         e.preventDefault();
         var $this = jQuery(this);
