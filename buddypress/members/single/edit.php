@@ -278,7 +278,7 @@ include("{$template_dir}/languages.php");
             <hr class="profile__keyline" />
             <div class="profile__form-field">
                 <div class="profile__input-container">
-                    <label class="profile__label" for="discourse"><?php print __("Discourse profile URL (optional)"); ?></label>
+                    <label class="profile__label" for="discourse"><?php print __("Mozilla Discourse username (optional)"); ?></label>
                     <input type="text" name="discourse" id="discourse" class="profile__input" value="<?php if($form && isset($form['discourse'])): ?><?php $form['discourse']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['discourse'])): ?><?php print $community_fields['discourse']; ?><?php endif; ?><?php endif; ?>"/>
                 </div>
                 <div class="profile__select-container">
@@ -293,7 +293,7 @@ include("{$template_dir}/languages.php");
             <hr class="profile__keyline" />
             <div class="profile__form-field">
                 <div class="profile__input-container">
-                    <label class="profile__label" for="facebook"><?php print __("Facebook profile URL (optional)"); ?></label>
+                    <label class="profile__label" for="facebook"><?php print __("Facebook username (optional)"); ?></label>
                     <input type="text" name="facebook" id="facebook" class="profile__input" value="<?php if($form && isset($form['facebook'])): ?><?php $form['facebook']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['facebook'])): ?><?php print $community_fields['facebook']; ?><?php endif; ?><?php endif; ?>"/>
                 </div>
                 <div class="profile__select-container">
@@ -308,7 +308,7 @@ include("{$template_dir}/languages.php");
             <hr class="profile__keyline" />
             <div class="profile__form-field">
                 <div class="profile__input-container">
-                    <label class="profile__label" for="twitter"><?php print __("Twitter account (optional)"); ?></label>
+                    <label class="profile__label" for="twitter"><?php print __("Twitter username (optional)"); ?></label>
                     <input type="text" name="twitter" id="twitter" class="profile__input" value="<?php if($form && isset($form['facebook'])): ?><?php $form['twitter']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['twitter'])): ?><?php print $community_fields['twitter']; ?><?php endif; ?><?php endif; ?>"/>
                 </div>
                 <div class="profile__select-container">
@@ -323,7 +323,7 @@ include("{$template_dir}/languages.php");
             <hr class="profile__keyline" />
             <div class="profile__form-field">
                 <div class="profile__input-container">
-                    <label class="profile__label" for="linkedin"><?php print __("LinkedIn profile (optional)"); ?></label>
+                    <label class="profile__label" for="linkedin"><?php print __("LinkedIn username (optional)"); ?></label>
                     <input type="text" name="linkedin" id="linkedin" class="profile__input" value="<?php if($form && isset($form['linkedin'])): ?><?php $form['linkedin']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['linkedin'])): ?><?php print $community_fields['linkedin']; ?><?php endif; ?><?php endif; ?>"/>
                 </div>
                 <div class="profile__select-container">
@@ -338,7 +338,7 @@ include("{$template_dir}/languages.php");
             <hr class="profile__keyline" />
             <div class="profile__form-field">
                 <div class="profile__input-container">
-                    <label class="profile__label" for="github"><?php print __("Github profile (optional)"); ?></label>
+                    <label class="profile__label" for="github"><?php print __("Github username (optional)"); ?></label>
                     <input type="text" name="github" id="github" class="profile__input" value="<?php if($form && isset($form['github'])): ?><?php $form['github']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['github'])): ?><?php print $community_fields['github']; ?><?php endif; ?><?php endif; ?>"/>
                 </div>
                 <div class="profile__select-container">
@@ -353,7 +353,7 @@ include("{$template_dir}/languages.php");
             <hr class="profile__keyline" />
             <div class="profile__form-field">
                 <div class="profile__input-container">
-                    <label class="profile__label" for="telegram"><?php print __("Telegram profile (optional)"); ?></label>
+                    <label class="profile__label" for="telegram"><?php print __("Telegram username (optional)"); ?></label>
                     <input type="text" name="telegram" id="telegram" class="profile__input" value="<?php if($form && isset($form['telegram'])): ?><?php $form['telegram']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['telegram'])): ?><?php print $community_fields['telegram']; ?><?php endif; ?><?php endif; ?>"/>
                 </div>
                 <div class="profile__select-container">
