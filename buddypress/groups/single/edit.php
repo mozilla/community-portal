@@ -28,8 +28,6 @@
         $form['group_github'] = isset($group_meta['group_github']) ? $group_meta['group_github'] : '';
         $form['group_twitter'] = isset($group_meta['group_twitter']) ? $group_meta['group_twitter'] : '';
         $form['group_other'] = isset($group_meta['group_other']) ? $group_meta['group_other'] : '';
-        $form['group_discourse_url'] = isset($group_meta['discourse_category_url']) ? $group_meta['discourse_category_url'] : '';
-        $form['group_discourse_id'] = isset($group_meta['discourse_category_id']) ? $group_meta['discourse_category_id'] : '';
 
 
         if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
