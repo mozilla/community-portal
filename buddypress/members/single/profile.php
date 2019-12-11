@@ -278,43 +278,6 @@
             ($info['discourse']->display && $info['discourse']->value) ||
             ($info['github']->display && $info['github']->value)
         ): ?>
-        <?php 
-            if(filter_var($info['telegram']->value, FILTER_VALIDATE_URL)) {
-                $telegram = parse_url($info['telegram']->value);
-            } else {
-                $telegram = trim($info['telegram']->value);
-            }
-
-            if(filter_var($info['facebook']->value, FILTER_VALIDATE_URL)) {
-                $facebook = parse_url($info['facebook']->value);
-            } else {
-                $facebook = trim($info['facebook']->value);
-            }
-
-            if(filter_var($info['twitter']->value, FILTER_VALIDATE_URL)) {
-                $twitter = parse_url($info['twitter']->value);
-            } else {
-                $twitter = trim($info['twitter']->value);
-            }
-
-            if(filter_var($info['github']->value, FILTER_VALIDATE_URL)) {
-                $github = parse_url($info['github']->value);
-            } else {
-                $github = trim($info['github']->value);
-            }
-
-            if(filter_var($info['discourse']->value, FILTER_VALIDATE_URL)) {
-                $discourse = parse_url($info['discourse']->value);
-            } else {
-                $discourse = trim($info['discourse']->value);
-            }
-
-            if(filter_var($info['linkedin']->value, FILTER_VALIDATE_URL)) {
-                $linkedin = parse_url($info['linkedin']->value);
-            } else {
-                $linkedin = trim($info['linkedin']->value);
-            }
-        ?>
         <div class="profile__social-card profile__card--right">
             <?php print __("Social Handles"); ?>
             <div class="profile__social-container">
