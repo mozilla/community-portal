@@ -423,6 +423,7 @@ include("{$template_dir}/languages.php");
                         <button class="profile__remove-language">&mdash;</button>
                     </div>
                     <div class="profile__select-container profile__select-container--empty">
+          
                     </div>                      
                 </div>
                 <div class="profile__add-language-container"> 
@@ -456,6 +457,7 @@ include("{$template_dir}/languages.php");
                         </div>
                         <?php else: ?>
                             <div class="profile__select-container profile__select-container--empty">
+                  
                             </div>  
                         <?php endif; ?>
                     </div>
