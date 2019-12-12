@@ -328,8 +328,6 @@
                             </div>
                     <?php endforeach; ?>
                     </div>
-
-                    
                     <?php else: ?>
                     <div class="group__left-column">
                         <div class="group__card">
@@ -380,9 +378,7 @@
                                 </div>
                                 <hr class="group__keyline" />
                                 <h2 class="group__card-title"><?php print __("About Us"); ?></h2>
-                                <p class="group__card-copy">
-                                    <?php print $group->description; ?>
-                                </p>
+                                <?php print wpautop(substr(trim($group->description), 0, 3000)); ?>
                                 <?php if((isset($group_meta['group_telegram']) && strlen($group_meta['group_telegram']) > 0 ) 
                                 || (isset($group_meta['group_facebook']) && strlen(trim($group_meta['group_facebook'])) > 0 ) 
                                 || (isset($group_meta['group_discourse']) && strlen(trim($group_meta['group_discourse'])) > 0 ) 

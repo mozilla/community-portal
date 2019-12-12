@@ -1,7 +1,7 @@
 <?php
 
-    include("{$template_dir}/languages.php");
-    include("{$template_dir}/countries.php");
+    include("{$theme_directory}/languages.php");
+    include("{$theme_directory}/countries.php");
 
     $event_countries = em_get_countries();
 
@@ -52,7 +52,7 @@
             </div>
             <?php if($info['bio']->display): ?>
             <div class="profile__bio-container">
-                <p class="profile__bio"><?php print $info['bio']->value; ?></p>
+                 <?php print wpautop(substr(trim($info['bio']->value), 0 , 3000)); ?>
             </div>
             <?php endif; ?>
             <div class="profile__card-contact-container">
