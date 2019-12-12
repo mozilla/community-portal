@@ -547,6 +547,7 @@
         .profile__cta {
             @extend .cta;
             border-radius: 28px !important;
+            border: none;
         }
 
         .profile__delete-cta {
