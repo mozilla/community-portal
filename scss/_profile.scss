@@ -1078,20 +1078,21 @@
         @include desktop-and-up {
             margin-bottom: 32px;
         }
-    }
 
-    &__bio {
-        font-size: remCalc(16);
-        line-height: 24px;
-        color: $color-black;
-        margin: 0;
-        padding: 0;
-
-        @include tablet-and-up {
-            font-size: remCalc(18);
-            line-height: 28px;
+        p {
+            font-size: remCalc(16);
+            line-height: 24px;
+            color: $color-black;
+            margin: 0;
+            padding: 0;
+            margin-bottom: 16px;
+            word-break: break-all;
+    
+            @include tablet-and-up {
+                font-size: remCalc(18);
+                line-height: 28px;
+            }
         }
-        
     }
 
     &__social-card {

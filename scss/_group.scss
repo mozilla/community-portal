@@ -405,22 +405,23 @@
         .group__card-title {
             margin-top: 0;
         }
-    }
 
-    &__card-copy {
-        font-size: remCalc(16);
-        line-height: 24px;    
-        color: $color-off-black;
-        margin: 0;
-        margin-bottom: 12px;
-
-        &:last-of-type {
-            margin-bottom: 0;
-        }
-
-        @include desktop-and-up {
-            font-size: remCalc(18);
-            line-height: 28px;
+        p {
+            font-size: remCalc(16);
+            line-height: 24px;    
+            color: $color-off-black;
+            margin: 0;
+            margin-bottom: 16px;
+            word-break: break-all;
+    
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+    
+            @include desktop-and-up {
+                font-size: remCalc(18);
+                line-height: 28px;
+            }
         }
     }
 
