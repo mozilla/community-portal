@@ -6,7 +6,7 @@
         PrivacySettings::PRIVATE_USERS   =>  __('Private (Only Me)'),
     );
 
-    $template_dir = get_template_directory();
+    $theme_directory = get_template_directory();
     $pronouns = Array(
         __('She/Her'),
         __('He/Him'),
@@ -50,7 +50,7 @@
             $edit = ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit']) && $_POST['edit'] === true) ? true :  false;
             $updated_username = isset($form['username']) ? $form['username'] : false;
 
-            include("{$template_dir}/buddypress/members/single/edit.php");
+            include("{$theme_directory}/buddypress/members/single/edit.php");
         ?>
     <?php else: ?>
         <?php 
@@ -63,7 +63,7 @@
             
             $is_me = $logged_in && intval($current_user->ID) === intval($user->ID);
             $info = mozilla_get_user_info($current_user, $user, $logged_in);
-            include("{$template_dir}/buddypress/members/single/profile.php");       
+            include("{$theme_directory}/buddypress/members/single/profile.php");       
 
         ?>
     <?php endif; ?>

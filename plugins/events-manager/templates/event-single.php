@@ -235,16 +235,16 @@
         </div>
         <div class="events-single__description">
             <h2 class="title--secondary"><?php echo __('Description') ?></h2>
-            <p><?php echo __(wpautop($EM_Event->post_content)) ?></p>
+            <p><?php echo wpautop($EM_Event->post_content); ?></p>
         </div>
       <?php
         $activeBookings = array();
         if (isset($EM_Event->bookings)) {
-          foreach ($EM_Event->bookings as $booking) {
-            if ($booking->booking_status !== '3' && $count < 8) {
-              $activeBookings[] = $booking;
+            foreach ($EM_Event->bookings as $booking) {
+                if ($booking->booking_status !== '3' && $count < 8) {
+                $activeBookings[] = $booking;
+                }
             }
-          }
         }
         if (is_array($activeBookings) && count($activeBookings) > 0) {
         ?>

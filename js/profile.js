@@ -264,6 +264,8 @@ jQuery(function(){
                 '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
                 '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
                 '(\\#[-a-z\\d_]*)?$','i');
+
+            response = response.replace(/\n/g, "");
             if(pattern.test(response.replace(/\s/g, ""))) {
                 jQuery('#image-url').removeClass('profile__input--error');
                 file.previewElement.classList.add("dz-success");

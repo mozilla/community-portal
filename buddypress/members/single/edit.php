@@ -1,9 +1,9 @@
 <?php 
 
-$template_dir = get_template_directory();
+$theme_directory = get_template_directory();
 
-include("{$template_dir}/countries.php");
-include("{$template_dir}/languages.php");
+include("{$theme_directory}/countries.php");
+include("{$theme_directory}/languages.php");
 
 ?>
 
@@ -64,8 +64,7 @@ include("{$template_dir}/languages.php");
                 <div class="profile__input-container profile__input-container--profile">
                     <label class="profile__label" for="image-url"><?php print __("Profile Photo (optional)"); ?></label>
                         <?php 
-                    
-                            if(stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0) {
+                            if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
                                 if(isset($form['image_url']) && strlen($form['image_url']) > 0) {
                                     $avatar_url = preg_replace("/^http:/i", "https:", $form['image_url']);
                                 } else {
@@ -189,7 +188,7 @@ include("{$template_dir}/languages.php");
             <div class="profile__form-field">
                 <div class="profile__input-container">
                     <label class="profile__label" for="bio"><?php print __("Bio (optional)"); ?></label>
-                    <textarea name="bio" id="bio" class="profile__textarea"><?php if($form && isset($form['bio'])): ?><?php $form['bio']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['bio'])): ?><?php print $community_fields['bio']; ?><?php endif; ?><?php endif; ?></textarea>
+                    <textarea name="bio" id="bio" class="profile__textarea" maxlength="3000"><?php if($form && isset($form['bio'])): ?><?php $form['bio']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['bio'])): ?><?php print $community_fields['bio']; ?><?php endif; ?><?php endif; ?></textarea>
                 </div>
                 <div class="profile__select-container">
                     <label class="profile__label" for=""><?php print __("Can be viewed by"); ?></label>

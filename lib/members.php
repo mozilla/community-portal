@@ -238,7 +238,11 @@ function mozilla_update_member() {
                         if(is_array($_POST[$field])) {
                             $additional_meta[$field] = array_map('sanitize_text_field', array_filter($_POST[$field]));
                         } else {
-                            $additional_meta[$field] = sanitize_text_field(trim($_POST[$field]));
+                            if($field === 'bio') {
+                                $additional_meta[$field] = sanitize_textarea_field($_POST[$field]);
+                            } else {
+                                $additional_meta[$field] = sanitize_text_field(trim($_POST[$field]));
+                            }
                         }
                     }
                 }   
