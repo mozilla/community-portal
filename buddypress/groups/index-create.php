@@ -96,7 +96,7 @@
                         <div class="create-group__input-row">
                             <div class="create-group__input-container create-group__input-container--60 create-group__input-container--vertical-spacing">
                                 <label class="create-group__label" for="group-desc"><?php print __("Provide a short group description *"); ?></label>
-                                <textarea name="group_desc" id="group-desc" class="create-group__textarea<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_desc']) || (isset($form['group_desc']) && empty(trim($form['group_desc'])) )): ?> create-group__input--error<?php endif; ?>" required ><?php print isset($form['group_desc']) ? $form['group_desc'] : ''; ?></textarea>
+                                <textarea name="group_desc" id="group-desc" class="create-group__textarea<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_desc']) || (isset($form['group_desc']) && empty(trim($form['group_desc'])) )): ?> create-group__input--error<?php endif; ?>" required maxlength="3000"><?php print isset($form['group_desc']) ? $form['group_desc'] : ''; ?></textarea>
                                 <div class="form__error-container<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_desc']) || (isset($form['group_desc']) && empty(trim($form['group_desc'])) )): ?> form__error-container--visible<?php endif; ?>">
                                     <div class="form__error"><?php print __("This field is required"); ?></div>
                                 </div>
