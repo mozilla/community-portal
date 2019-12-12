@@ -1,9 +1,9 @@
 <?php 
 
-$template_dir = get_template_directory();
+$theme_directory = get_template_directory();
 
-include("{$template_dir}/countries.php");
-include("{$template_dir}/languages.php");
+include("{$theme_directory}/countries.php");
+include("{$theme_directory}/languages.php");
 
 ?>
 
@@ -188,7 +188,7 @@ include("{$template_dir}/languages.php");
             <div class="profile__form-field">
                 <div class="profile__input-container">
                     <label class="profile__label" for="bio"><?php print __("Bio (optional)"); ?></label>
-                    <textarea name="bio" id="bio" class="profile__textarea"><?php if($form && isset($form['bio'])): ?><?php $form['bio']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['bio'])): ?><?php print $community_fields['bio']; ?><?php endif; ?><?php endif; ?></textarea>
+                    <textarea name="bio" id="bio" class="profile__textarea" maxlength="3000"><?php if($form && isset($form['bio'])): ?><?php $form['bio']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['bio'])): ?><?php print $community_fields['bio']; ?><?php endif; ?><?php endif; ?></textarea>
                 </div>
                 <div class="profile__select-container">
                     <label class="profile__label" for=""><?php print __("Can be viewed by"); ?></label>
