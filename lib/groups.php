@@ -68,7 +68,7 @@ function mozilla_create_group() {
                             );
                             
                             $args['name'] = sanitize_text_field($_POST['group_name']);
-                            $args['description'] = sanitize_text_field($_POST['group_desc']);
+                            $args['description'] = sanitize_textarea_field($_POST['group_desc']);
                             $args['status'] = 'private';
                             
                             $group_id = groups_create_group($args);
@@ -196,7 +196,7 @@ function mozilla_edit_group() {
                     $args = Array(
                         'group_id'      =>  $group_id,
                         'name'          =>  sanitize_text_field($_POST['group_name']), 
-                        'description'   =>  sanitize_text_field($_POST['group_desc']),
+                        'description'   =>  sanitize_textarea_field($_POST['group_desc']),
                     );
 
                     // Update the group
