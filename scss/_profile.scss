@@ -462,6 +462,10 @@
                 top: 0;
                 right: 50px;
             }
+
+            @include desktop-and-up {
+                margin-right: 77px;
+            }
         }
         
         &.profile__select-container--mobile {
@@ -501,6 +505,11 @@
 
             @include desktop-and-up {
                 max-width: 180px
+            }
+
+            @include desktop-and-up {
+                max-width: none;
+                width: 180px;
             }
         }
 
@@ -578,7 +587,7 @@
 
         &.profile__label--full {
             width: 100%;
-            margin-left: 49px;
+            max-width: 180px;
         }
 
         &.profile__label--max {
