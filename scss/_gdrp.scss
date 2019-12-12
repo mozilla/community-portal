@@ -16,7 +16,7 @@
     &__container {
         margin: 0 auto;
         position: relative;
-        padding: 48px 24px;
+        padding: 48px $mobile-padding;
 
         p {
             color: $color-white;
@@ -25,6 +25,7 @@
             margin-bottom: 8px;
             font-size: remCalc(16);
             line-height: 28px;
+            
             a {
                 color: $color-white;
                 text-decoration: underline!important;
@@ -32,12 +33,12 @@
         }
 
         @include tablet-and-up {
-            padding: 32px 64px;
+            padding: 32px $tablet-padding;
         }
         
         @include desktop-and-up {
             max-width: $page-max-width;
-            padding: 32px 106px 32px 106px;
+            padding: 32px $desktop-padding;
         }
     }
 
