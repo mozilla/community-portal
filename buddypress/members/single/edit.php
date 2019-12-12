@@ -64,8 +64,7 @@ include("{$template_dir}/languages.php");
                 <div class="profile__input-container profile__input-container--profile">
                     <label class="profile__label" for="image-url"><?php print __("Profile Photo (optional)"); ?></label>
                         <?php 
-                    
-                            if(stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0) {
+                            if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
                                 if(isset($form['image_url']) && strlen($form['image_url']) > 0) {
                                     $avatar_url = preg_replace("/^http:/i", "https:", $form['image_url']);
                                 } else {
