@@ -1,8 +1,8 @@
 <?php
     get_header(); 
-    $template_dir = get_template_directory();
+    $theme_directory = get_template_directory();
 
-    include("{$template_dir}/countries.php");
+    include("{$theme_directory}/countries.php");
 
     // Lets get the group data
     global $bp;
@@ -27,7 +27,7 @@
     $is_events = false;
 
     if($edit_group) {
-        include("{$template_dir}/buddypress/groups/single/edit.php");
+        include("{$theme_directory}/buddypress/groups/single/edit.php");
     } else {
         $is_events = false;
         $is_people = false;
@@ -48,7 +48,7 @@
             $is_events = false;
         }
 
-        include("{$template_dir}/buddypress/groups/single/group.php");
+        include("{$theme_directory}/buddypress/groups/single/group.php");
     }
 
     do_action('bp_after_group_home_content');
