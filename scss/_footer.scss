@@ -21,18 +21,18 @@
         align-items: flex-start;
         margin: 0 auto;
         color: $color-white;
-        padding: 64px 24px 0;
+        padding: 64px $mobile-padding 0;
         
         justify-content: flex-start;
 
         @include tablet-and-up {
-            padding: 64px 64px 0;           
+            padding: 64px $tablet-padding 0;           
             flex-direction: row;
             flex-wrap: wrap;
         }
 
         @include desktop-and-up {
-            padding: 64px 106px;
+            padding: 64px $desktop-padding;
             max-width: $page-max-width;
         }
     }
