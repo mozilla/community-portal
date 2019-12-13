@@ -6,13 +6,13 @@
     }
 
     &__title {
-        font-family: $title-font;
         color: $color-off-black;
+        font-family: $title-font;
+        font-size: remCalc(32);
         font-weight: 500;
+        line-height: 40px;
         margin: 0;
         margin-top: 30px;
-        font-size: remCalc(32);
-        line-height: 40px;
 
         @include tablet-and-up {
             font-size: remCalc(36);
@@ -21,23 +21,23 @@
 
         @include desktop-and-up {
             font-size: remCalc(48);
-            line-height: 48px;;
+            line-height: 48px;
         }
     }
 
     &__details {
-        font-size: remCalc(14);
-        line-height: 20px;
-        letter-spacing: 0.0025em;
+        align-items: center;
         color: $color-gray-secondary;
-        font-family: $copy-font;
-        margin: 0;
-        margin-top: 16px;
         display: flex;
         flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
         flex-wrap: wrap;
+        font-family: $copy-font;
+        font-size: remCalc(14);
+        justify-content: flex-start;
+        line-height: 20px;
+        letter-spacing: 0.0025em;
+        margin: 0;
+        margin-top: 16px;
     }
 
 
@@ -45,25 +45,24 @@
         display: none;
 
         @include tablet-and-up {
-            height: 56px;
-            border-top: 1px solid $color-gray-30;
             border-bottom: 1px solid $color-gray-30;
-            width: 100%;
-            margin-top: 24px;
+            border-top: 1px solid $color-gray-30;
             display: block;
+            height: 56px;
+            margin-top: 24px;
+            width: 100%;
         }
 
         &.group__nav--mobile {
-            display: flex;
+            border-bottom: 2px solid $color-blue-50;
             border-top: 1px solid $color-gray-30;
+            color: $color-gray-secondary;
+            display: flex;
             font-size: remCalc(14);
             line-height: 24px;
-            color: $color-gray-secondary;
-            padding: 16px 0;
-            border-bottom: 2px solid $color-blue-50;
-            
             margin-top: 24px;
-
+            padding: 16px 0;
+            
             @include tablet-and-up {
                 display: none;   
             }
@@ -81,9 +80,10 @@
 
     &__nav-select {
         @extend .select;
-        width: 100%;
+
         border: none;
         box-shadow: none;
+        width: 100%;
     }
 
     &__nav-select-label {
@@ -117,64 +117,59 @@
     }
 
     &__community-links {
-        
-        span {
-            font-size: remCalc(14);
-            line-height: 24px;
-            display: block;
-            color: $color-gray-secondary;
-            width: 100%;
-            margin-bottom: 16px;
-
-
-        }
-
-        margin-top: 32px;
+        align-items: center;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: flex-start;
-        align-items: center;
+        margin-top: 32px;
 
+        span {
+            color: $color-gray-secondary;
+            display: block;
+            font-size: remCalc(14);
+            line-height: 24px;
+            margin-bottom: 16px;
+            width: 100%;
+        }
     }
 
     &__community-link-container {
+        align-items: center;
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
-        align-items: center;
-        margin-right: 32px;
         margin-bottom: 24px;
+        margin-right: 32px;
 
         &:last-of-type {
             margin-right: 0;
         }
 
         svg {
-            width: 24px;
             height: 24px;
+            width: 24px;
 
             @include desktop-and-up {
-                width: 32px;
                 height: 32px;
+                width: 32px;
             }
         }
     }
 
     &__meeting-location-link {
-        text-decoration: none;
+        color: $color-blue-50;
         font-size: remCalc(18);
         line-height: 28px;
-        color: $color-blue-50;
-
+        text-decoration: none;
     }
 
     &__social-link {
-        text-decoration: none;
+        color: $color-blue-50;
         font-size: remCalc(14);
         line-height: 20px;
-        color: $color-blue-50;
         margin-left: 8px;
+        text-decoration: none;
 
         @include tablet-and-up {
             font-size: remCalc(16);
@@ -198,6 +193,7 @@
     &__right-column {
         margin-top: 32px;
         width: 100%;
+
         .group__card {
             margin-top: 32px;
 
@@ -207,10 +203,10 @@
         }
 
         @include desktop-and-up {
-            margin-top: 0;
-            width: 50%;
-            max-width: 388px;
             margin-left: 40px;
+            margin-top: 0;
+            max-width: 388px;
+            width: 50%;
         }
     }
 
@@ -219,7 +215,6 @@
         border-radius: 4px;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         overflow: hidden;
-        
 
         &.group__card--community-link {
             height: 88px;
@@ -234,39 +229,40 @@
 
     &__menu {
         display: inline-block;
+        height: 100%;
         list-style: none;
         margin: 0;
         padding: 0;
-        height: 100%;
 
         li.menu-item {
             display: inline-block;
-            margin: 0;
-            padding: 0;
             line-height: 54px;
+            margin: 0;
+            margin-right: 32px;
+            padding: 0;
             text-align: left;
             width: auto;
-            margin-right: 32px;
         }
     }
 
     &__menu-link {
-        text-decoration: none;
+        color: $color-black;
         font-size: remCalc(14);
         line-height: 22px;
-        color: $color-black;
+        text-decoration: none;
 
         &--active {
             font-weight: 600;
             position: relative;
+
             &:after {
-                width: 100%;
-                position: absolute;
+                background-color: $color-blue-50;
+                bottom: -20px;
                 content: '';
                 height: 2px;
-                bottom: -20px;
                 left: 0;
-                background-color: $color-blue-50;
+                position: absolute;
+                width: 100%;
             }
         }
     }
@@ -274,25 +270,25 @@
     &__card-title {
         font-family: $title-font;
         font-size: remCalc(24);
+        font-weight: 500;
         line-height: 32px;
         margin: 0;
-        padding: 0;
         margin-bottom: 16px;
         margin-top: 32px;
-        font-weight: 500;
+        padding: 0;
     }
 
     &__card-image {
-        width: 100%;
-        min-height: 128px;
-        height: 100%;
-        max-height: 298px;
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
         border-top-left-radius: 4px;
         border-top-right-radius: 4px;
+        height: 100%;
+        max-height: 298px;
+        min-height: 128px;
         position: relative;
+        width: 100%;
 
         @include tablet-and-up {
             height: 298px;
@@ -303,29 +299,28 @@
         }
 
         .group__edit-link {
-            position: absolute;
-            display: flex;
-            justify-content: center;
             align-items: center;
-            border-radius: 50%;
             background-color: $color-white;
-            width: 40px;
+            border-radius: 50%;
+            display: flex;
             height: 40px;
-            top: 32px;
+            justify-content: center;
+            position: absolute;
+            width: 40px;
             right: 32px;
+            top: 32px;
         }
-
     }
 
     &__card-no-image {
-        height: 56px;
+        align-items: center;
         background-color: $color-gray-10;
+        border-bottom: 1px solid $color-gray-20;
         display: flex;
         flex-direction: row;
+        height: 56px;
         justify-content: flex-end;
-        align-items: center;
         padding-right: 32px;
-        border-bottom: 1px solid $color-gray-20;
     }
 
     &__card-content {
@@ -341,6 +336,7 @@
 
         &--small {
             padding: 16px 16px 0 16px; 
+
             @include tablet-and-up {
                 padding: 24px 24px 0 24px; 
             }
@@ -350,12 +346,12 @@
         }
 
         span {
-            font-size: remCalc(14);
-            line-height: 24px;
             color: $color-gray-secondary;
             display: inline-block;
-            width: 100%;
+            font-size: remCalc(14);
+            line-height: 24px;
             position: relative;
+            width: 100%;
 
             &.no-line {
                 &:after {
@@ -363,26 +359,25 @@
                 }
             }
 
-
             &.username {
+                color: $color-black;
+                display: flex;
+                flex-direction: column;
                 font-family: $title-font;
                 font-size: remCalc(20);
-                line-height: 28px;
-                color: $color-black;
-                max-width: 285px;
-                width: 100%;
-                display: flex;
-                padding-left: 11px;
-                flex-direction: column;
                 justify-content: center;
+                line-height: 28px;
+                max-width: 285px;
+                padding-left: 11px;
+                width: 100%;
             }
 
         }
 
         hr {
             border: 0;
-            height: 0;
             border-top: 1px solid $color-gray-20;
+            height: 0;
             margin: 24px 0;
 
             &.group__keyline {
@@ -407,9 +402,9 @@
         }
 
         p {
+            color: $color-off-black;
             font-size: remCalc(16);
             line-height: 24px;    
-            color: $color-off-black;
             margin: 0;
             margin-bottom: 16px;
             word-break: break-all;
@@ -426,10 +421,9 @@
     }
 
     &__card-cta-container {
+        align-items: center;
         display: flex;
         flex-direction: column;
-
-        align-items: center;
         margin-bottom: 16px;
 
         &.group__card-cta-container--end {
@@ -437,8 +431,8 @@
         }
 
         @include tablet-and-up {
-            justify-content: space-between;
             flex-direction: row;
+            justify-content: space-between;
             margin-bottom: 32px;
         }
     }
@@ -448,14 +442,14 @@
         border-radius: 28px;
         background-color: $color-blue-50;
         color: $color-white;
-        min-width: 160px;
         font-size: remCalc(16);
-        line-height: 18px;
-        text-decoration: none;
-        text-align: center;
-        padding: 15px 33px;
         height: 48px;
+        line-height: 18px;
         margin-bottom: 16px;
+        min-width: 160px;
+        padding: 15px 33px;
+        text-align: center;
+        text-decoration: none;
         width: 188px;
 
         @include tablet-and-up {
@@ -466,38 +460,37 @@
 
 
     &__share-cta {
+        border: 2px solid $color-blue-50;
         border-radius: 28px;
+        color: $color-blue-50;
+        font-size: remCalc(16);
+        height: 48px;
+        line-height: 18px;
+        min-width: 160px;
         padding: 15px 33px;
         padding-left: 55px;
+        position: relative;
         text-align: center;
         text-decoration: none;
-        border: 2px solid $color-blue-50;
-        color: $color-blue-50;
-        min-width: 160px;
         width: 188px;
-        height: 48px;
-        font-size: remCalc(16);
-        line-height: 18px;
-        position: relative;
-        color: $color-blue-50;
 
         @include tablet-and-up {
             width: 188px;
         }
 
         svg {
+            left: 33px;
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            left: 33px;
         }
     }
 
     &__tags {
         height: 100%;
-        width: 100%;
-        margin-top: 16px;
         margin-bottom: 24px;
+        margin-top: 16px;
+        width: 100%;
 
         @include desktop-and-up {
             margin-bottom: 32px;
@@ -505,8 +498,6 @@
     }
 
     &__tag {
-        text-decoration: none;
-        padding: 10px 15px;
         background-color: $color-gray-20;
         border-radius: 50px;
         color: $color-gray-80;
@@ -514,29 +505,31 @@
         font-size: remCalc(14);
         line-height: 20px;
         margin-bottom: 8px;
+        padding: 10px 15px;
+        text-decoration: none;
     }
 
     &__admins {
-        width: 100%;
         margin-top: 16px;
         margin-bottom: 16px;
+        width: 100%;
 
         @include tablet-and-up {
-            margin-top: 24px;
             margin-bottom: 24px;
+            margin-top: 24px;
         }
 
         @include desktop-and-up {
-            margin-top: 32px;
             margin-bottom: 32px;
+            margin-top: 32px;
         }
     }
 
 
 
     &__admin {
-        display: flex;
         align-items: center;
+        display: flex;
         text-decoration: none;
 
         &:not(:first-of-type) {
@@ -544,16 +537,16 @@
         }
 
         .members__avatar {
-            width: 64px;
-            height: 64px;
-            min-width: 64px;
             background-color: $color-gray-20;
             border-radius: 50%!important;
+            height: 64px;
+            min-width: 64px;
+            width: 64px;
         }
 
         .username {
-            margin-left: 8px;
             color: $color-black;
+            margin-left: 8px;
         }
     }
 
@@ -567,34 +560,32 @@
         display: flex;
         flex-direction: column;
 
-
         @include tablet-and-up {
-            justify-content: space-between;
             flex-direction: row;
             flex-wrap: wrap;
+            justify-content: space-between;
         }
     }
 
     &__member-count-container {
+        align-items: center;
+        border-top: 1px solid $color-gray-background;
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
-        align-items: center;
-  
-        border-top: 1px solid $color-gray-background;
-        margin-top: 16px;
         margin: 0 -16px;
+        margin-top: 16px;
         padding: 16px 16px;
-
+  
         @include tablet-and-up {
-            margin-top: 24px;
             margin: 0 -24px;
+            margin-top: 24px;
             padding: 24px 24px;
         }
 
         @include desktop-and-up {
-            margin-top: 32px;
             margin: 0 -32px;
+            margin-top: 32px;
             padding: 32px 32px;
         }
 
@@ -608,32 +599,33 @@
     span.group__event-count,
     a.group__member-count {
 
+        color: $color-blue-50;
         font-family: $title-font;
         font-size: remCalc(36);
-        width: auto;
-        color: $color-blue-50;
         margin-right: 8px;
         text-decoration: none;
+        width: auto;
+
         &:after {
             display: none;
         }
     }
 
     &__event {
-        text-decoration: none;
+        border-top: 1px solid $color-gray-background;
+        border-bottom: 1px solid $color-gray-background;
+        color: $color-black;
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
-        padding: 16px 24px;
         margin: 16px -16px;
-        border-top: 1px solid $color-gray-background;
-        border-bottom: 1px solid $color-gray-background;
+        padding: 16px 24px;
+        text-decoration: none;
         
-        color: $color-black;
 
         @include tablet-and-up {
-            padding: 24px 32px;
             margin: 24px -24px;
+            padding: 24px 32px;
         }
 
         @include desktop-and-up {
@@ -643,37 +635,37 @@
  
     &__event-date {
         color: $color-blue-50;
-        font-size: remCalc(20);
-        line-height: 28px;
-        width: 36px;
-        text-align: center;
         display: flex;
-        justify-content: center;
         flex-direction: column;
+        font-size: remCalc(20);
+        justify-content: center;
+        line-height: 28px;
         margin-right: 24px;
+        text-align: center;
+        width: 36px;
     }
  
     &__event-title {
         font-size: remCalc(16);
+        font-weight: 600;
         line-height: 24px;
         margin-bottom: 8px;
-        font-weight: 600;
     }
  
     &__event-location,
     &__event-time {
+        color: $color-gray-secondary;
         font-size: remCalc(14);
         line-height: 20px;
-        color: $color-gray-secondary;
         margin-bottom: 8px;
     }
 
     &__events-link {
         color: $color-blue-50;
+        display: inline-block;
         font-size: remCalc(16);
         line-height: 24px;
         margin-bottom: 24px;
-        display: inline-block;
 
         svg {
             margin-left: 4px;
@@ -685,18 +677,18 @@
     }
 
     &__admin-name {
+        color: $color-gray-secondary;
         font-size: remCalc(14)   ;
         line-height: 20px;
-        color: $color-gray-secondary;
         margin-top: 8px;
     }
 
     &__announcements {
-        width: 100%;
-        padding: 0;
-        margin: 0;
         border-spacing: 0;
+        margin: 0;
+        padding: 0;
         position: relative;
+        width: 100%;
 
         tbody {
             td {
@@ -710,9 +702,6 @@
                 @include desktop-and-up {
                     margin: 0 -32px;
                 }
-
-                
-
             }
         }
     }
@@ -732,8 +721,8 @@
         }
         
         &.group__table-header--topic {
+            min-width: 70%;
             text-align: left;
-            min-width: 70%
         }
 
         &.group__table-header--activity {
@@ -748,8 +737,8 @@
     &__table-cell {
         font-size: remCalc(16);
         line-height: 24px;
-        text-align: center;
         padding: 16px;
+        text-align: center;
 
         @include tablet-and-up {
             padding: 24px;
@@ -762,8 +751,8 @@
         }
 
         &.group__table-cell--topic {
-            text-align: left;
             min-width: 70%;
+            text-align: left;
         }
 
         &.group__table-cell--activity {
@@ -776,10 +765,10 @@
     }
 
     &__topic-title {
-        font-size: remCalc(14);
-        line-height: 24px;
         color: $color-gray-secondary;
+        font-size: remCalc(14);
         letter-spacing: 0.0025em;
+        line-height: 24px;
     }
 
     &__topic-date {
@@ -792,18 +781,18 @@
         &:before {
             content: "";
             display: block;
-            position: absolute;
-            left: 0;
-            width: 100%;
             height: 22%;
+            left: 0;
+            position: absolute;
+            width: 100%;
         }
     }
 
     &__view-updates-link {
-        text-decoration: none;
+        color: $color-blue-50;
         font-size: remCalc(16);
         line-height: 24px;
-        color: $color-blue-50;
+        text-decoration: none;
 
         svg {
             margin-left: 8px;

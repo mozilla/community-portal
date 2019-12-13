@@ -1,18 +1,17 @@
 .gdrp {
-    position: fixed;
-    z-index: 10000;
-    bottom: 0;
-    width: 100%;
     background-color: $color-black;
+    border-top: 1px solid $color-gray-secondary;
+    bottom: 0;
+    left: 0;
     min-height: 387px;
+    position: fixed;
+    width: 100%;
+    z-index: 10000;
 
     @include desktop-and-up {
         min-height: 0;
     }
-    
-    left: 0;
-    border-top: 1px solid $color-gray-secondary;
-
+    ß
     &__container {
         margin: 0 auto;
         position: relative;
@@ -20,11 +19,11 @@
 
         p {
             color: $color-white;
-            margin: 0;
-            padding: 0;
-            margin-bottom: 8px;
             font-size: remCalc(16);
             line-height: 28px;
+            margin: 0;
+            margin-bottom: 8px;
+            padding: 0;
             
             a {
                 color: $color-white;
@@ -43,13 +42,13 @@
     }
 
     &__title {
-        font-family: $title-font;
         color: $color-white;
+        font-family: $title-font;
         font-size: remCalc(24);
         line-height: 29px;
         margin: 0;
-        padding: 0;
         margin-bottom: 16px;
+        padding: 0;
 
         @include desktop-and-up {
             font-size: remCalc(32);
@@ -58,12 +57,12 @@
     }
 
     &__cta-container {
+        align-items: center;
         display: flex;
         flex-direction: column;
-        align-items: center;
         margin: 0;
-        padding: 0;
         margin-top: 16px;
+        padding: 0;
 
         @include tablet-and-up {
             flex-direction: row;
@@ -73,28 +72,29 @@
 
     &__cta {
         background-color: $color-blue-50;
-        text-decoration: none!important;
+        border-radius: 28px;
         color: $color-white;
         font-size: remCalc(14);
         line-height: 22px;
-        width: 100%;
-        border-radius: 28px;
+        margin-bottom: 16px;
         padding: 10px 0;
         text-align: center;
-        margin-bottom: 16px;
+        text-decoration: none!important;
+        width: 100%;
 
         @include tablet-and-up {
             font-size: remCalc(16);
-            padding: 15px 0;
             line-height: 18px;
             margin-bottom: 0;
-            max-width: 146px;
             margin-right: 16px;
+            max-width: 146px;
+            padding: 15px 0;
         }
     }
 
     &__link {
         text-decoration: none;
+
         svg {
             margin-left: 0;
         }
@@ -102,16 +102,16 @@
 
     &__close {
         position: absolute;
-        top: 54px;
         right: 24px;
+        top: 54px;
 
         @include tablet-and-up {
             top: 38px;
         }
 
         @include desktop-and-up {
-            top: 44px;
             right: 106px;
+            top: 44px;
         }
     }
 

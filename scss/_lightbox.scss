@@ -1,21 +1,21 @@
 .lightbox {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: none;
-    justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.6);
+    bottom: 0;
+    display: none;
+    justify-content: center;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
     z-index: 10;
     
     &__container {
-        max-width: 810px;
-        width: 80%;
         background: white;
+        max-width: 810px;
         padding: 24px;
         position: relative;
+        width: 80%;
 
         @include tablet-and-up {
             padding: 48px;
@@ -32,10 +32,10 @@
     }
 
     .btn--close {
+        padding: 24px;
         position: absolute;
         top: 0;
         right: 0;
-        padding: 24px;
     }
 
     &-show {

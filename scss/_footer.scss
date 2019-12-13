@@ -1,10 +1,9 @@
 .footer {
-    width: 100%;
     background-color: $color-black;
     min-height: 387px;
     margin-top: 58px;
     position: relative;
-
+    width: 100%;
 
     @include tablet-and-up {
         margin-top: 64px;
@@ -15,50 +14,51 @@
     }
 
     &__container {
-        width: 100%;
+        align-items: flex-start;
+        color: $color-white;
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
-        margin: 0 auto;
-        color: $color-white;
-        padding: 64px $mobile-padding 0;
-        
         justify-content: flex-start;
+        margin: 0 auto;
+        padding: 64px $mobile-padding 0;
+        width: 100%;
+        
 
         @include tablet-and-up {
-            padding: 64px $tablet-padding 0;           
             flex-direction: row;
             flex-wrap: wrap;
+            padding: 64px $tablet-padding 0;           
         }
 
         @include desktop-and-up {
-            padding: 64px $desktop-padding;
             max-width: $page-max-width;
+            padding: 64px $desktop-padding;
         }
     }
 
     &__logo-container {                       
         width: 100%;
+
         svg {
             width: auto;
         }
     }
 
     &__menu-bottom-container {
-        width: 100%;
         border-top: 1px solid $color-gray-secondary;
+        margin-bottom: 64px;
         margin-top: 56px;
         padding-top: 56px;
-        margin-bottom: 64px;
+        width: 100%;
+
         @include desktop-and-up {
-            padding-top: 32px;
             margin-top: 32px;
+            padding-top: 32px;
         }
         
     }
 
     &__menu-svg-container {
-    
         margin-top: 32px;
 
         @include tablet-and-up {
@@ -66,9 +66,10 @@
         }
 
         a {
-            text-decoration: none;
             display: inline-block;
             margin-right: 25px;
+            text-decoration: none;
+
             &:last-of-type {
                 margin-right: 0;
             }
@@ -92,16 +93,15 @@
         width: 100%;
 
         @include tablet-and-up {
-            margin-top: 48px;
-            width: auto;
             flex-direction: row;
             margin-top: 32px;
+            width: auto;
         }
-
 
         .menu-mozilla-container,
         .menu-mozilla-main-menu-container {
             margin-top: 12px;
+
             @include tablet-and-up {
                 margin-top: 0;
             }
@@ -109,21 +109,21 @@
     }
 
     &__copy {
-        max-width: 807px;
         font-size: remCalc(12);
         line-height: 16px;
+        max-width: 807px;
     }
 
     &__menu-legal-container {
-        margin-top: 32px;
+        align-items: flex-start;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        align-items: flex-start;
+        margin-top: 32px;
 
         @include tablet-and-up {
-            flex-direction: row;
             align-items: center;
+            flex-direction: row;
         }
     }
 
@@ -147,16 +147,16 @@
 
 
     &__mozilla-container {
-        border-top: 1px solid #737373;
-        width: 100%;
+        border-top: 1px solid $color-gray-secondary;
         margin-top: 56px;
         padding-top: 56px;
+        width: 100%;
 
         @include tablet-and-up {
-            padding-top: 0;
-            margin-top: 0;
-            width: auto;
             border-top: none;
+            margin-top: 0;
+            padding-top: 0;
+            width: auto;
         }
     }
 
@@ -173,27 +173,26 @@
     width: 100%;
 
     @include tablet-and-up {
-        width: 198px;
         margin-right: 24px;
+        width: 198px;
     }
 
     @include desktop-and-up {
         margin-left: 15px;
-        width: 283px;
         margin-right: 32px;
+        width: 283px;
     }
-
 
     &--primary {
         margin-left: 0;
     }
 
     .menu-item {
-        width: 100%;
-        text-align: left;
-        margin-top: 12px;
-        line-height: 32px;
         font-size: remCalc(18);
+        line-height: 32px;
+        margin-top: 12px;
+        text-align: left;
+        width: 100%;
 
         &:first-of-type {
             margin-top: 0;
@@ -220,16 +219,16 @@
     }
 
     .menu-item {
-        width: 100%;
         display: block;
-        text-align: left;
         margin-bottom: 16px;
+        text-align: left;
+        width: 100%;
 
         @include tablet-and-up {
-            margin-bottom: 0;
             display: inline-block;
-            width: auto;
+            margin-bottom: 0;
             margin-right: 24px;
+            width: auto;
         }
 
         .menu-item__link {
@@ -247,12 +246,12 @@
     padding: 0;
 
     .menu-item {
-        text-align: left;
-        margin: 0;
-        padding: 0;
-        margin-top: 12px;
-        line-height: 32px;
         font-size: remCalc(16);
+        line-height: 32px;
+        margin: 0;
+        margin-top: 12px;
+        padding: 0;
+        text-align: left;
         width: 178px;
         
         &:first-of-type {
@@ -268,6 +267,7 @@
 
 .footer-nav-menu {
     margin-top: 32px;
+
     @include tablet-and-up {
         margin-top: 0;
     }
@@ -279,16 +279,17 @@
 }
 
 .footer-secondary-menu {
-    width: 100%;
     padding: 0;
     margin: 0;
     margin-top: 32px;
     max-width: 850px;
+    width: 100%;
 
     .menu-item {
         display: inline-block;
-        width: auto;
         margin-right: 24px;
+        width: auto;
+        
         .menu-item__link {
             font-size: remCalc(14);
         }

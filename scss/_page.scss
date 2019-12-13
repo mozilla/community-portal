@@ -5,14 +5,14 @@
     }
 
     &__title {
-        text-align: center;
-        font-family: $title-font;
         color: $color-off-black;
+        font-family: $title-font;
+        font-size: remCalc(32);
         font-weight: 500;
         margin: 0 0 32px;
         margin-top: 30px;
-        font-size: remCalc(32);
         line-height: 40px;
+        text-align: center;
 
         @include tablet-and-up {
             font-size: remCalc(36);
@@ -29,9 +29,9 @@
         width: 100%;
 
         p {
+            color: $color-off-black;
             font-size: remCalc(16);
             line-height: 24px;    
-            color: $color-off-black;
             margin: 0;
             margin-bottom: 12px;
     

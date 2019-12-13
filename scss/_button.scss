@@ -1,23 +1,24 @@
 .btn {
-    -webkit-appearance: none;
-    border: none;
     background: none;
+    border: none;
     display: inline-block;
+    -webkit-appearance: none;
+
     &:hover {
         cursor: pointer;
     }
 
     &--large {
-        width: 100%;
-        padding: 10px 0;
-        line-height: 22px;
         font-weight: lighter;
+        line-height: 22px;
+        padding: 10px 0;
+        width: 100%;
     }
 
     &--light {
         border: 1px solid $color-blue-50;
-        color: $color-blue-50;
         border-radius: 28px;
+        color: $color-blue-50;
     }
 
     &--dark {
@@ -27,15 +28,16 @@
     }
 
     &--submit {
-        padding: 15px 35px;
         border-radius: 28px;
+        padding: 15px 35px;
     }
 
     &--small {
-        padding: 10px 32px;
         border-radius: 28px;
-        width: 100%;
+        padding: 10px 32px;
         text-align: center;
+        width: 100%;
+
         @include tablet-and-up {
             width: auto;
         }
