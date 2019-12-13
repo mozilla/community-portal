@@ -500,7 +500,7 @@
                             $topics = array_slice($topics, 0, 4);
                         ?>
                         <?php if(sizeof($topics) > 0): ?>
-                        <h2 class="group__card-title"><?php print __('Announcements'); ?></h2>
+                        <h2 class="group__card-title"><?php print __('Discussions'); ?></h2>
                         <div class="group__card group__card--table">
                             <div class="group__card-content">
                                 <table class="group__announcements">
