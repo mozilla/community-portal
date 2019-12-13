@@ -9,6 +9,7 @@ body.home-page {
 
 .homepage {
     position: relative;
+
     &__container {
         @extend .container;
         overflow-x: hidden;
@@ -20,29 +21,29 @@ body.home-page {
   
 
     &__content {
-        padding: 0;
-        height: 100%;
         display: flex;
         flex-direction: column;
+        height: 100%;
         justify-content: center;
+        padding: 0;
     }
 
     &__hero {
-        display: flex;
         align-items: center;
-        padding: 40px 0 32px;
+        display: flex;
         margin-bottom: 40px;
+        padding: 40px 0 32px;
         position: relative;
 
         &__background {
-            top: 0;
             height: 100%;
+            top: 0;
         }
 
         &__title {
-            margin: 0;
             font-size: remCalc(40);
             line-height: 40px;
+            margin: 0;
 
             @include desktop-and-up {
                 font-size: remCalc(64);
@@ -56,6 +57,7 @@ body.home-page {
 
         &__subtitle {
             margin: 16px 0 32px;
+
             @include desktop-and-up {
                 margin-top: 18px;
             }
@@ -72,8 +74,8 @@ body.home-page {
         }
 
         @include tablet-and-up {
-            padding: 70px 0 40px;
             margin-bottom: 48px;
+            padding: 70px 0 40px;
         }
 
         @include desktop-and-up {
@@ -82,45 +84,43 @@ body.home-page {
     }
 
     &__hero__splash {
+        align-items: center;
         display: flex;
         justify-content: center;
-        align-items: center;
         margin-left: 55px;
     }
 
     &__hero__image {   
-        position: relative;
         margin-top: 50px;
         margin-bottom: 48px;
+        position: relative;
 
         img {
             border-radius: 50%;
-            display: block;
-            position: relative;
-            width: 230px;
-            height: 230px;
-            z-index: 2;
-            width: 100%;
-            height: auto;
             box-shadow: 0 18px 26px rgba(0, 0, 0, 0.16);
+            display: block;
+            height: auto;
+            position: relative;
+            width: 100%;
+            z-index: 2;
 
             @include desktop-and-up {                
-                max-width: 418px;
                 max-height: 418px;
+                max-width: 418px;
             }
         }
 
         &::before {
             content: '';
             background-image: url('./images/homepage-hero-shape.svg');
-            position: absolute;
-            height: 100%;
-            width: 100%;
-            left: -45px;
-            top: -60px;
-            background-size: contain;
             background-position: top center;
             background-repeat: no-repeat;
+            background-size: contain;
+            height: 100%;
+            left: -45px;
+            position: absolute;
+            top: -60px;
+            width: 100%;
             
             @include desktop-and-up {
                 left: -50px;
@@ -130,9 +130,9 @@ body.home-page {
 
     &__events,
     &__groups {
-        position: relative;
         margin-top: 36px;
         padding-bottom: 36px;
+        position: relative;
 
         @include tablet-and-up {
             margin-top: 48px;
@@ -140,8 +140,8 @@ body.home-page {
         }
 
         @include desktop-and-up {
-            margin-top: 80px;
             margin-bottom: 186px;
+            margin-top: 80px;
         }
 
         &__grid {
@@ -201,6 +201,7 @@ body.home-page {
             margin-top: 0;
             margin-bottom: 24px;
             text-align: center;
+
             @include tablet-and-up {
                 margin-bottom: 0;
                 max-width: 50%;
@@ -210,18 +211,20 @@ body.home-page {
 
         &__cta {
             @include tablet-and-up {
+                align-items: flex-end;
                 display: flex;
                 justify-content: flex-end;
-                align-items: flex-end;
             }
         }
 
 
         &__meta {
             margin-bottom: 32px;
+
             @include tablet-and-up {
                 margin-bottom: 32px;
             }
+
             @include desktop-and-up {
                 margin-bottom: 40px;
             }
@@ -257,11 +260,12 @@ body.home-page {
     &__groups {
         &__background {
             border-bottom-left-radius: 30px;
-            position: absolute;
-            z-index: -1;
             left: -24px;
-            width: 100vw;
             min-width: 320px;
+            position: absolute;
+            width: 100vw;
+            z-index: -1;
+
             @include tablet-and-up {
                 left: 135px;
             }
@@ -271,13 +275,14 @@ body.home-page {
     &__events, 
     &__groups {
         &__background {
-            top: 190px;
             height: calc(100% - 232px);
+            top: 190px;
 
             @include tablet-and-up {
                 height: calc(100% - 248px);
                 top: 200px;
             }
+
             @include desktop-and-up {      
                 top: 200px;
             }
@@ -285,6 +290,7 @@ body.home-page {
     }
     &__events {
         margin-top: 0;
+        
         &__background {
             background-color: $color-yellow-20;
         }

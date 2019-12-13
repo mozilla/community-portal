@@ -10,23 +10,23 @@
     }
 
     &__title {
-        width: 100%;
-        text-align: left;
-        margin-top: 16px;
         font-family: $title-font;
         font-size: remCalc(32);
         line-height: 40px;
+        margin-top: 16px;
+        text-align: left;
+        width: 100%;
 
         @include tablet-and-up {
-            margin-top: 32px;
             font-size: remCalc(36);
             line-height: 43px;
+            margin-top: 32px;
         }
 
         @include desktop-and-up {
-            margin-top: 64px;
             font-size: remCalc(48);
             line-height: 56px;
+            margin-top: 64px;
         }
     }
 }

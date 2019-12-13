@@ -4,9 +4,9 @@ div.time-picker ul li {
 
 .em-search-wrapper .em-events-search,
 .events__filter {
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
     border: none;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 #event-form #event-name.event-creator__input {
@@ -20,17 +20,17 @@ div.time-picker ul li {
 }
 
 .css-events-admin-login {
-    padding: 48px 24px;
     background: $color-white;  
     max-width: $container-max-width;
     margin: 0 auto;
+    padding: 48px 24px;
 }
 
 .event-creator {
-    padding: 48px 24px;
     background: $color-white;
     border-radius: 4px;
     box-shadow: 0px 4px 4px $color-gray-30;
+    padding: 48px $mobile-padding;
 
     .hidden {
         display: none;
@@ -40,7 +40,7 @@ div.time-picker ul li {
         padding: 0 $mobile-padding;
 
         @include tablet-and-up {
-          padding: 0 $tablet-padding;
+            padding: 0 $tablet-padding;
         }
 
         @include desktop-and-up {
@@ -63,6 +63,7 @@ div.time-picker ul li {
 
     &__container:nth-child(n + 2) {
         margin-top: 24px;
+
         @include tablet-and-up {
           margin-top: 32px;
         }
@@ -74,11 +75,12 @@ div.time-picker ul li {
 
     &__dropdown {
         @extend .select;
-        width: 100%;
+
         background-color: $color-gray-20 !important;
         background-image: url("./images/chevron-down.svg");
         background-repeat: no-repeat;
         background-position: calc(100% - 12px) center;
+        width: 100%;
     }
 
     &__chevron {
@@ -87,6 +89,7 @@ div.time-picker ul li {
 
     &__input {
         @extend .input;
+
         background-color: $color-gray-20 !important;
         line-height: remCalc(20);
 
@@ -105,13 +108,15 @@ div.time-picker ul li {
 
     &__textarea {
         @extend .textarea;
+
         height: 215px;
     }
 
     &__label {
         @extend .label;
-        padding-bottom: 8px;
+
         display: block;
+        padding-bottom: 8px;
     }
 
     &__fieldset {
@@ -120,8 +125,10 @@ div.time-picker ul li {
 
     &__tag {
         @extend .tag;
+
         font-size: 14px;
         transition: all 0.3s ease-in;
+
         &:nth-child(n + 2) {
             margin: 8px 15px 8px 0;
         }
@@ -129,19 +136,21 @@ div.time-picker ul li {
 
     &__image-upload {
         @extend .input;
-        display: flex;
+
         align-items: center;
-        justify-content: center;
-        position: relative;
         background-color: $color-gray-20;
         background-image: url("./images/event-upload.svg");
         background-position: center;
         background-repeat: no-repeat;
+        display: flex;
+        justify-content: center;
         min-height: 180px;
+        position: relative;
 
         @include tablet-and-up {
             min-height: 238px;
         }
+
         @include desktop-and-up {
             min-height: 364px;
         }
@@ -152,33 +161,35 @@ div.time-picker ul li {
     }
 
     .dz-preview {
+        background-color: $color-gray-20;
+        height: 100%;
+        left: 0;
         position: absolute;
         top: 0;
-        left: 0;
         width: 100%;
-        height: 100%;
-        background-color: $color-gray-20;
 
         .dz-image {
-            min-height: 100px;
             background-position: center;
             background-repeat: no-repeat;
             background-size: contain;
             margin-bottom: 5px;
+            min-height: 100px;
             
             @include tablet-and-up {
-                min-height: 150px;
                 margin-bottom: 10px;
+                min-height: 150px;
             }
+
             @include desktop-and-up {
                 min-height: 200px;
             }
         }
 
         .dz-size {
-            margin-right: 10px;
             display: inline-block;
+            margin-right: 10px;
         }
+
         .dz-details {
             display: none;
         }
@@ -193,25 +204,25 @@ div.time-picker ul li {
 
         .dz-remove {
             display: block;
-            text-align: center;
             padding: 10px 0;
+            text-align: center;
         }
     }
 
     &__image-instructions {
-        font-size: remCalc(12);
         color: $color-gray-secondary;
+        font-size: remCalc(12);
     }
 
     &__submit {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
         align-items: center;
-        text-align: center;
-        margin-top: 48px;
+        display: flex;
         flex-direction: column;
         flex-grow: 0;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 48px;
+        text-align: center;
 
         @include tablet-and-up {
            flex-direction: row;
@@ -220,6 +231,7 @@ div.time-picker ul li {
 
     &__submit-btn {
         margin: 48px auto 0;
+
         &:hover {
             cursor: pointer;
         }
@@ -227,24 +239,24 @@ div.time-picker ul li {
 
     &__checkbox {
         display: none;
+
         & + .event-creator__tag {
             background: $color-white;
             border: 1px solid $color-gray-secondary;
             border-radius: 25px;
-            
-            font-size: 0.875rem;
-            line-height: 24px;
             color: #20123a;
-            padding: 8px 16px;
-            margin-top: 12px;
+            font-size: 0.875rem;
+            letter-spacing: 0.0025em;    
+            line-height: 24px;
             margin-right: 16px;
+            margin-top: 12px;
+            padding: 8px 16px;
             text-decoration: none;
             transition: all 0.3s ease-in;
-            letter-spacing: 0.0025em;
 
             &:hover {
-                box-shadow: 0 0 0 4px $color-gray-secondary;
                 border: 1px solid $color-gray-secondary;
+                box-shadow: 0 0 0 4px $color-gray-secondary;
                 cursor: pointer;
             }
         }
@@ -257,8 +269,8 @@ div.time-picker ul li {
 
 
     &__three-up {
-        display: flex;
         align-items: flex-end;
+        display: flex;
         flex-wrap: wrap;
         margin-top: 24px;
 
@@ -268,6 +280,7 @@ div.time-picker ul li {
 
         div:nth-child(n + 2) {
             margin-top: 24px;
+
             @include tablet-and-up {
                 margin-top: 0;
             }
@@ -286,14 +299,15 @@ div.time-picker ul li {
 
         select {
             @extend .select;
-            max-width: 100%;
             background-image: url("./images/chevron-down.svg");
-            background-repeat: no-repeat;
             background-position: calc(100% - 12px) center;
+            background-repeat: no-repeat;
+            max-width: 100%;
         }
 
         label {
             @extend .select__label;
+
             display: block;
         }
 
@@ -359,13 +373,14 @@ div.time-picker ul li {
             @include tablet-and-up {
                 width: calc(33.33% - 32px);
             }
+
             @include desktop-and-up {
                 width: calc(30% - 32px);
             }
 
             &--bottom {
-                display: flex;
                 align-items: flex-end;
+                display: flex;
             }
         }
 
@@ -376,14 +391,16 @@ div.time-picker ul li {
 
         .edit-text {
             color: $color-blue-50;
-            font-size: remCalc(16);
             display: inline-block;
+            font-size: remCalc(16);
             padding: 10px 0 10px 8px;
         }
 
         .event-creator__error {
             @extend .error;
+
             color: $error;
+
             &-text {
                 color: $error;
             }
@@ -401,13 +418,15 @@ div.time-picker ul li {
 
     &__error {
         @extend .error;
+
         &__label,
         &__label.event-creator__label {
             @extend .label;
+
             color: $error;
+            display: none;
             font-size: remCalc(12);
             margin: 0;
-            display: none;
             position: absolute;
         }
     }
@@ -422,7 +441,7 @@ div.time-picker ul li {
 
     &__checkbox:checked + .event-creator__cpg {
         svg {
-        display: inline-block;
+            display: inline-block;
         }
     }
 
@@ -431,15 +450,15 @@ div.time-picker ul li {
     }
 
     &__cpg .event-creator__custom-check {
-        height: 24px;
-        width: 24px;
-        padding-right: 24px;
-        display: inline-block;
-        border: 1px solid $color-gray-secondary;
-        position: relative;
-        border-radius: 2px;
-        margin-right: 8px;
         align-items: center;
+        border: 1px solid $color-gray-secondary;
+        border-radius: 2px;
+        display: inline-block;
+        height: 24px;
+        margin-right: 8px;
+        padding-right: 24px;
+        position: relative;
+        width: 24px;
 
         svg {
             display: none;
@@ -449,14 +468,14 @@ div.time-picker ul li {
 
     &__image-delete {
         position: absolute;
-        top: 24px;
         right: 24px;
+        top: 24px;
     }
 
     &__location-edit {
-        padding: 0 16px 16px;
-        border: 1px solid $color-gray-30;
         background: $color-gray-10;
+        border: 1px solid $color-gray-30;
+        padding: 0 16px 16px;
 
         input,
         select {
@@ -466,22 +485,22 @@ div.time-picker ul li {
     }
 
     &__location-reset {
-        display: block;
-        width: 100%;
-        text-align: left;
         border: 1px solid $color-gray-30;
+        display: block;
         margin-top: 32px;
+        text-align: left;
+        width: 100%;
 
         a {
+            cursor: pointer;
             display: block;
             padding: 16px;
-            cursor: pointer;
         }
 
         svg {
-            position: relative;
             display: inline-block;
             margin-right: 8px;
+            position: relative;
             top: 4px;
         }
 
@@ -499,6 +518,7 @@ div.time-picker ul li {
     &__cancel {
         text-decoration: none;
         margin-bottom: 32px;
+        
         @include tablet-and-up {
             margin: 0 32px 0 0 ;
         }
