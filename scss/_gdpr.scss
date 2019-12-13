@@ -1,4 +1,4 @@
-.gdrp {
+.gdpr {
     background-color: $color-black;
     border-top: 1px solid $color-gray-secondary;
     bottom: 0;
@@ -11,7 +11,7 @@
     @include desktop-and-up {
         min-height: 0;
     }
-    ß
+    
     &__container {
         margin: 0 auto;
         position: relative;
