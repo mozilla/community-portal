@@ -41,10 +41,16 @@
 
     $groups = $groups['groups'];
     $filtered_groups = Array();
+    $country_code_with_groups = Array();
+    $used_country_list = Array();
 
     foreach($groups AS $group) {
         $meta = groups_get_groupmeta($group->id, 'meta');
         $group->meta = $meta;
+
+        if(isset($meta['group_country']) && strlen($meta['group_country']) > 1) {
+            $countries_with_groups[] = $meta['group_country'];
+        }
 
         if(isset($_GET['tag']) && strlen($_GET['tag']) > 0 && isset($_GET['location']) && strlen($_GET['location']) > 0) {
             if(in_array(strtolower(trim($_GET['tag'])), array_map('strtolower', $meta['group_tags'])) && trim(strtolower($_GET['location'])) == strtolower($meta['group_country'])) { 
@@ -66,6 +72,16 @@
         }
        
     }
+
+ 
+
+    $country_code_with_groups = array_unique($countries_with_groups);
+    
+    foreach($country_code_with_groups AS $code) {
+        $used_country_list[$code] = $countries[$code];
+    }
+    
+    ksort($used_country_list);
 
     $filtered_groups = array_unique($filtered_groups, SORT_REGULAR);
     $group_count = sizeof($filtered_groups);
@@ -139,7 +155,7 @@
                     <label class="groups__label">Location </label>
                     <select class="groups__location-select">
                         <option value=""><?php print __('All'); ?></option>
-                        <?php foreach($countries AS $code   =>  $country): ?>
+                        <?php foreach($used_country_list AS $code   =>  $country): ?>
                         <option value="<?php print $code; ?>"<?php if(isset($_GET['location']) && strlen($_GET['location']) > 0 && $_GET['location'] == $code): ?> selected<?php endif; ?>><?php print $country; ?></option>
                         <?php endforeach; ?>
                     </select>
