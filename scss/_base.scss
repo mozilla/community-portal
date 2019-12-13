@@ -1,16 +1,54 @@
 .container {
-    padding: 0 $mobile-padding;
-    min-width: $screen-mobile-min;
-    max-width: $page-max-width;
-    width: 100%;
     margin: 0 auto;
-
+    max-width: $page-max-width;
+    min-width: $screen-mobile-min;
+    padding: 0 $mobile-padding;
+    width: 100%;
+    
     @include tablet-and-up {
         padding: 0 $tablet-padding;    
     }
 
     @include desktop-and-up {
         padding: 0 $desktop-padding;
+    }
+}
+
+.hero-title {
+    display: inline-block;
+    font-family: $title-font;
+    font-size: remCalc(32);
+    font-weight: 300;
+    line-height: 40px;
+    margin: 0;
+    margin-bottom: 16px;
+    padding: 0;
+    padding-left: 30px;
+    position: relative;
+    text-align: center;
+    width: auto;
+
+    &:after {
+        border-radius: 50%;
+        content: '';
+        display: block;
+        height: 16px;
+        left: 0;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 16px;
+    }
+
+    @include tablet-and-up {
+        font-size: remCalc(36);
+        line-height: 43px;
+        text-align: left;
+    }
+
+    @include desktop-and-up {
+        font-size: remCalc(48);
+        line-height: 56px;
     }
 }
 

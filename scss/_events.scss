@@ -201,24 +201,10 @@
     }
 
     &__title {
-        margin: 0;
-        padding: 0;
-        position: relative;
-        padding-left: 34px;
-        display: inline-block;
-        margin-bottom: 16px;
+        @extend .hero-title;
 
-        &::before {
-            display: block;
-            content: '';
-            border-radius: 50%;
+        &:after {
             background-color: $color-yellow-30;
-            width: 16px;
-            height: 16px;
-            position: absolute;
-            left: 2px;
-            top: 50%;
-            transform: translateY(-50%);
         }
     }
 
