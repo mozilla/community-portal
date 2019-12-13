@@ -1,40 +1,43 @@
 jQuery(function() {
 
     function toggleLightboxVisibility(lightbox) {
-      lightbox.toggleClass("lightbox-show");
+        lightbox.toggleClass("lightbox-show");
     }
 
     function toggleLightbox(lightboxID, openBtnID, closeBtnID, firstSelector) {
-      const $lightbox = jQuery(lightboxID);
-      if ($lightbox.length > 0) {
-          const $openBtn = jQuery(openBtnID);
-          const $closeBtn = jQuery(closeBtnID);
-          const $firstBtn = $lightbox.find(firstSelector).first();
-          $openBtn.on("click", function(e) {
-              e.preventDefault();
-              toggleLightboxVisibility($lightbox);
-              $firstBtn.focus();
-              jQuery("body").addClass("noscroll");
-          });
-          $closeBtn.on("click", function() {
-              $openBtn.focus();
-              toggleLightboxVisibility($lightbox);
-              jQuery("body").removeClass("noscroll");
-          });
-          const $lastBtn = jQuery(`${lightboxID} ${firstSelector}`).last();
-          trapFocus($closeBtn, $lastBtn);
-          closeByKeyboard($lightbox);
-      }
+        var $lightbox = jQuery(lightboxID);
+        if ($lightbox.length > 0) {
+            var $openBtn = jQuery(openBtnID);
+            var $closeBtn = jQuery(closeBtnID);
+            var $firstBtn = $lightbox.find(firstSelector).first();
+
+            $openBtn.on("click", function(e) {
+                e.preventDefault();
+                toggleLightboxVisibility($lightbox);
+                $firstBtn.focus();
+                jQuery("body").addClass("noscroll");
+            });
+
+            $closeBtn.on("click", function() {
+                $openBtn.focus();
+                toggleLightboxVisibility($lightbox);
+                jQuery("body").removeClass("noscroll");
+            });
+
+            var $lastBtn = jQuery(`${lightboxID} ${firstSelector}`).last();
+            trapFocus($closeBtn, $lastBtn);
+            closeByKeyboard($lightbox);
+        }
     }
 
     function closeByKeyboard($lightbox) {
-      $lightbox.on("keyup", e => {
-          e.preventDefault();
-          if (e.keyCode === 27) {
-              toggleLightboxVisibility($lightbox);
-              jQuery("body").removeClass("noscroll");
-          }
-      });
+        $lightbox.on("keyup", e => {
+            e.preventDefault();
+            if (e.keyCode === 27) {
+                toggleLightboxVisibility($lightbox);
+                jQuery("body").removeClass("noscroll");
+            }
+        });
     }
 
     function trapFocus($closeBtn, $lastBtn) {
@@ -54,15 +57,17 @@ jQuery(function() {
     }
 
     function handleCopyToClipboardClick() {
-      const $copyTrigger = jQuery("#copy-share-link");
+      var $copyTrigger = jQuery("#copy-share-link");
       $copyTrigger.on("click", function(e) {
           e.preventDefault();
+           
           copyToClipboard();
+          $copyTrigger.text("Link Copied");
       });
     }
 
     function copyToClipboard() {
-      const el = document.createElement("textarea");
+      var el = document.createElement("textarea");
       el.value = location.href;
       el.setAttribute("readonly", "");
       el.style.position = "absolute";
