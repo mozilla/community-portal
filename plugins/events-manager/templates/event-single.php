@@ -248,24 +248,24 @@
         }
         if (is_array($activeBookings) && count($activeBookings) > 0) {
         ?>
-          <h2 class="title--secondary"><?php echo __('Attendees') ?></h2>
+          <h2 class="title--secondary"><?php echo __('Attendees') ?> (<?php print sizeof($activeBookings); ?>)</h2>
           <div class="row">
           <?php
-            $count = 0;
-              foreach ($activeBookings as $booking) {
-                if ($booking->booking_status !== '3' && $count < 8) {
-                    $activeBookings[] = $booking;
-                    $user = $booking->person->data;
-                    
-                    
-                    $is_me = $logged_in && intval($current_user->ID) === intval($user->ID);
-                    $info = mozilla_get_user_info($current_user, $user, $logged_in);
+                $count = 0;
+                
+                foreach ($activeBookings as $booking) {
+                    if ($booking->booking_status !== '3' && $count < 8) {
+                        $activeBookings[] = $booking;
+                        $user = $booking->person->data;
+                        
+                        $is_me = $logged_in && intval($current_user->ID) === intval($user->ID);
+                        $info = mozilla_get_user_info($current_user, $user, $logged_in);
 
-                    if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
-                        $avatar_url = preg_replace("/^http:/i", "https:", $info['profile_image']->value);
-                    } else {
-                        $avatar_url = $info['profile_image']->value;
-                    }
+                        if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
+                            $avatar_url = preg_replace("/^http:/i", "https:", $info['profile_image']->value);
+                        } else {
+                            $avatar_url = $info['profile_image']->value;
+                        }
             ?>
             <div class="col-md-6 events-single__member-card">
                 <a href="<?php echo '/people/'.$user->user_nicename; ?>">
@@ -299,13 +299,13 @@
               } else if ($count >= 8) {
                 if ($count === 8) {
             ?>
-              <button id="open-attendees-lightbox" class="btn btn--submit btn--light">
-                <?php echo __('View all attendees'); ?>
-              </button>
+                <button id="open-attendees-lightbox" class="btn btn--submit btn--light">
+                    <?php echo __('View all attendees'); ?>
+                </button>
             <?php
-              $count = $count + 1;
+                $count = $count + 1;
               } else { 
-              $count = $count + 1;
+                $count = $count + 1;
               }
             }
           }
@@ -314,9 +314,7 @@
       </div>
         <?php } ?>
     </div>
-    <?php 
-      include(locate_template('plugins/events-manager/templates/template-parts/event-single/event-sidebar.php', false, false));
-    ?>
+    <?php include(locate_template('plugins/events-manager/templates/template-parts/event-single/event-sidebar.php', false, false)); ?>
   </div>
 <?php 
   if (count($allRelatedEvents) > 0):
