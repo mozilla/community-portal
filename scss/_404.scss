@@ -1,32 +1,107 @@
 .not-found {
     width: 100%;
+    padding-top: 46px;
+
+    @include tablet-and-up {
+        padding-top: 106px;
+    }
 
     &__container {
         @extend .container;
-        
+
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+
+        @include tablet-and-up {
+            align-items: center;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
         @include desktop-and-up {
             min-height: 600px;
+        }
+    }
+
+    &__image-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        @include tablet-and-up {
+            margin-left: 24px;
         }
     }
 
     &__title {
         font-family: $title-font;
         font-size: remCalc(32);
+        font-weight: 600;
         line-height: 40px;
-        margin-top: 16px;
+        margin: 0;
         text-align: left;
         width: 100%;
 
         @include tablet-and-up {
             font-size: remCalc(36);
             line-height: 43px;
-            margin-top: 32px;
+
         }
 
         @include desktop-and-up {
             font-size: remCalc(48);
             line-height: 56px;
-            margin-top: 64px;
         }
+    }
+
+    &__copy {
+        font-size: remCalc(16);
+        line-height: 24px;
+        max-width: 598px;
+        margin-bottom: 40px;
+
+        @include tablet-and-up {
+            font-size: remCalc(18);
+            line-height: 28px;
+            margin-bottom: 32px;
+        }
+
+        @include desktop-and-up {
+            margin-bottom: 48px;
+        }
+    }
+
+    &__404 {
+        font-family: $title-font;
+        font-size: remCalc(48);
+        line-height: 48px;
+        margin: 0; 
+        padding: 0;   
+    }
+
+    &__image {
+        display: none;
+
+        @include tablet-and-up {
+            display: block;
+            height: auto;
+            width: 100%;
+        }
+    }
+
+    &__cta {
+        @extend .cta;
+        border: none;
+        border-radius: 28px!important;
+        display: inline-block;
+        text-align: center;
+        text-decoration: none;
+        width: 100%;
+
+        @include tablet-and-up {
+            width: auto;
+        }
+
     }
 }
