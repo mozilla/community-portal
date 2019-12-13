@@ -765,14 +765,14 @@
     }
 
     &__topic-title {
+        color: $color-black;
+    }
+
+    &__topic-date {
         color: $color-gray-secondary;
         font-size: remCalc(14);
         letter-spacing: 0.0025em;
         line-height: 24px;
-    }
-
-    &__topic-date {
-        color: $color-black;
     }
 
     &__topic-link {
