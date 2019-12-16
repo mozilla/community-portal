@@ -106,24 +106,24 @@
                     }
                 ?>
                 >
-                <?php $current_user_id = get_current_user_id(); ?>
-                <?php if(strval($current_user_id) == $EM_Event->owner || mozilla_is_site_admin()): ?>
-                    <a class="btn card__edit-btn<?php if($img_url):?> card__edit-btn--white<?php endif; ?>" href="<?php echo esc_attr(get_site_url().'/events/edit-event/?action=edit&event_id='.$EM_Event->event_id)?>">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M23.64 6.36L17.64 0.36C17.16 -0.12 16.44 -0.12 15.96 0.36L0.36 15.96C0.12 16.2 0 16.44 0 16.8V22.8C0 23.52 0.48 24 1.2 24H7.2C7.56 24 7.8 23.88 8.04   23.64L23.64 8.04C24.12 7.56 24.12 6.84 23.64 6.36ZM6.72 21.6H2.4V17.28L16.8 2.88L21.12 7.2L6.72 21.6Z"  fill="#0060DF"/>
-                        </svg>
-                    </a>
-                <?php elseif(isset($admins)): ?>
-                    <?php foreach($admins as $admin): ?>
-                    <?php if ($admin->user_id === $current_user_id || intval(get_current_user_id()) === intval($EM_Event->event_owner) || current_user_can('edit_post')): ?>  
-                    <a class="btn card__edit-btn<?php if($img_url):?> card__edit-btn--white<?php endif; ?>" href="<?php echo esc_attr($_SERVER['REQUEST_URI'].'events/edit-event/?action=edit&event_id='.$EM_Event->event_id)?>">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M23.64 6.36L17.64 0.36C17.16 -0.12 16.44 -0.12 15.96 0.36L0.36 15.96C0.12 16.2 0 16.44 0 16.8V22.8C0 23.52 0.48 24 1.2 24H7.2C7.56 24 7.8 23.88 8.04 23.64L23.64 8.04C24.12 7.56 24.12 6.84 23.64 6.36ZM6.72 21.6H2.4V17.28L16.8 2.88L21.12 7.2L6.72 21.6Z"  fill="#0060DF"/>
-                        </svg>
-                    </a>
+                    <?php $current_user_id = get_current_user_id(); ?>
+                    <?php if(strval($current_user_id) == $EM_Event->owner || mozilla_is_site_admin()): ?>
+                        <a class="btn card__edit-btn<?php if($img_url):?> card__edit-btn--white<?php endif; ?>" href="<?php echo esc_attr(get_site_url().'/events/edit-event/?action=edit&event_id='.$EM_Event->event_id)?>">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M23.64 6.36L17.64 0.36C17.16 -0.12 16.44 -0.12 15.96 0.36L0.36 15.96C0.12 16.2 0 16.44 0 16.8V22.8C0 23.52 0.48 24 1.2 24H7.2C7.56 24 7.8 23.88 8.04   23.64L23.64 8.04C24.12 7.56 24.12 6.84 23.64 6.36ZM6.72 21.6H2.4V17.28L16.8 2.88L21.12 7.2L6.72 21.6Z"  fill="#0060DF"/>
+                            </svg>
+                        </a>
+                    <?php elseif(isset($admins)): ?>
+                        <?php foreach($admins as $admin): ?>
+                        <?php if ($admin->user_id === $current_user_id || intval(get_current_user_id()) === intval($EM_Event->event_owner) || current_user_can('edit_post')): ?>  
+                        <a class="btn card__edit-btn<?php if($img_url):?> card__edit-btn--white<?php endif; ?>" href="<?php echo esc_attr($_SERVER['REQUEST_URI'].'events/edit-event/?action=edit&event_id='.$EM_Event->event_id)?>">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M23.64 6.36L17.64 0.36C17.16 -0.12 16.44 -0.12 15.96 0.36L0.36 15.96C0.12 16.2 0 16.44 0 16.8V22.8C0 23.52 0.48 24 1.2 24H7.2C7.56 24 7.8 23.88 8.04 23.64L23.64 8.04C24.12 7.56 24.12 6.84 23.64 6.36ZM6.72 21.6H2.4V17.28L16.8 2.88L21.12 7.2L6.72 21.6Z"  fill="#0060DF"/>
+                            </svg>
+                        </a>
+                        <?php endif; ?>
+                        <?php endforeach; ?>
                     <?php endif; ?>
-                    <?php endforeach; ?>
-                <?php endif; ?>
                 </div>
                 <div class="card__details">
                     <div class="card__date">
@@ -254,7 +254,7 @@
                 $count = 0;
                 
                 foreach ($activeBookings as $booking) {
-                    if ($booking->booking_status !== '3' && $count < 8) {
+                    if ($count < 8) {
                         $activeBookings[] = $booking;
                         $user = $booking->person->data;
                         
@@ -400,5 +400,8 @@
 
 <div id="events-share-lightbox" class="lightbox">
     <?php include(locate_template('templates/share-modal.php', false, false)); ?>
+</div>
+
+<div>
 </div>
 </div>
