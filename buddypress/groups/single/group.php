@@ -494,10 +494,16 @@
                         
                         <?php if(isset($discourse_group['discourse_category_url']) && strlen($discourse_group['discourse_category_url']) > 0): ?>
                         <?php 
-                            $discourse_url = rtrim($discourse_group['discourse_category_url'], "/");
+                            $toptics = Array();
                             $options = wp_load_alloptions();
-                            $topics = mozilla_discourse_get_category_topics($discourse_url);
-                            $topics = array_slice($topics, 0, 4);
+
+                            if(isset($options['discourse_url']) && strlen($options['discourse_url']) > 0) {
+                                $discourse_api_url = rtrim($options['discourse_url'], '/');
+                                $api_url = "{$options['discourse_url']}/c/{$discourse_group['discourse_category_id']}";
+                                
+                                $topics = mozilla_discourse_get_category_topics($api_url);
+                                $topics = array_slice($topics, 0, 4);
+                            }
                         ?>
                         <?php if(sizeof($topics) > 0): ?>
                         <h2 class="group__card-title"><?php print __('Discussions'); ?></h2>
