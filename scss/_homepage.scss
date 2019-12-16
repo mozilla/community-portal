@@ -235,11 +235,13 @@ body.home-page {
             display: flex;
             align-items: center;
             justify-content: center;
+            
             &__span {
                 display: block;
                 text-align: center;
                 margin-bottom: 32px;
             }
+
             &__link,
             &__link:visited {
                 color: $color-blue-50;

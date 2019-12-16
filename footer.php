@@ -1,32 +1,32 @@
         <footer class="footer">
             <?php
-                if(!isset($_COOKIE['gdrp'])) {
+                if(!isset($_COOKIE['gdpr'])) {
                     $args = Array(
-                        'category_name'  =>  'GDRP',
+                        'category_name'  =>  'GDPR',
                     );
     
-                    $gdrp_post = get_posts($args);
+                    $gdpr_post = get_posts($args);
                 } else {
-                    $gdrp_post = Array();
+                    $gdpr_post = Array();
                 }
             ?>
 
-            <?php if(sizeof($gdrp_post) > 0): ?>
-            <div class="gdrp">
-                <div class="gdrp__container">
-                    <a href="#" class="gdrp__close">
+            <?php if(sizeof($gdpr_post) > 0): ?>
+            <div class="gdpr">
+                <div class="gdpr__container">
+                    <a href="#" class="gdpr__close">
                         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M17 1L1 17" stroke="#F9F9FA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M1 1L17 17" stroke="#F9F9FA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </a>
 
-                    <h2 class="gdrp__title"><?php print $gdrp_post[0]->post_title; ?></h2>
+                    <h2 class="gdpr__title"><?php print $gdpr_post[0]->post_title; ?></h2>
                     <?php
-                        print  $gdrp_post[0]->post_content;
+                        print  $gdpr_post[0]->post_content;
                     ?>
-                    <div class="gdrp__cta-container">
-                        <a href="#" class="gdrp__cta"><?php print __("Accept"); ?></a>
+                    <div class="gdpr__cta-container">
+                        <a href="#" class="gdpr__cta"><?php print __("Accept"); ?></a>
                     </div>
                 </div>
             </div>
