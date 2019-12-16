@@ -316,36 +316,32 @@
     </div>
     <?php include(locate_template('plugins/events-manager/templates/template-parts/event-single/event-sidebar.php', false, false)); ?>
   </div>
-<?php 
-  if (count($allRelatedEvents) > 0):
-    ?>
+<?php if(count($allRelatedEvents) > 0): ?>
     <div class="events-single__related col-sm-12">
-    <h2 class="title--secondary"><?php echo __('Related Events') ?></h2>
-    <div class="row">
-      <?php
-      foreach($allRelatedEvents as $event) {
-        $url = $site_url.'/events/'.$event->slug;
-        include(locate_template('plugins/events-manager/templates/template-parts/single-event-card.php', false, false));
-      }
-      ?>
+        <h2 class="title--secondary"><?php echo __('Related Events') ?></h2>
+        <div class="row">
+        <?php
+            foreach($allRelatedEvents as $event) {
+                $url = $site_url.'/events/'.$event->slug;
+                include(locate_template('plugins/events-manager/templates/template-parts/single-event-card.php', false, false));
+            }
+        ?>
+        </div>
     </div>
-</div>
-<?php 
-  endif;
-?>
-<?php
-  if (isset($EM_Event->bookings)):
-?>
+<?php endif; ?>
+
+
+<?php if (isset($EM_Event->bookings)): ?>
 <div id="attendees-lightbox" class="lightbox">
     <div class="lightbox__container">
     <button id="close-attendees-lightbox" class="btn btn--close">
-      <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M25 1L1 25" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M1 1L25 25" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M25 1L1 25" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M1 1L25 25" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
     </button>
     <div class="row events-single__all-attendees">
-    <p class="title--secondary col-sm-12"><?php echo __($count.' Attendees') ?></p>
+        <p class="title--secondary col-sm-12"><?php echo __($count.' Attendees') ?></p>
     <?php 
         foreach ($EM_Event->bookings as $booking) {
             if ($booking->booking_status !== '3'):
@@ -394,9 +390,9 @@
   </div>
   </div>
   </div>
-
+  </div>
 <?php endif; ?>
-</div>
+
 
 <div id="events-share-lightbox" class="lightbox">
     <?php include(locate_template('templates/share-modal.php', false, false)); ?>
