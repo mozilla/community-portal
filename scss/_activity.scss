@@ -1,0 +1,130 @@
+.activity {
+    margin-top: 66px;
+    width: 100%;
+
+    &__container {
+        @extend .container;
+    }
+
+    &__title {
+        color: $color-off-black;
+        font-family: $title-font;
+        font-size: remCalc(32);
+        font-weight: 500;
+        line-height: 40px;
+        margin: 0;
+        margin-top: 30px;
+
+        @include tablet-and-up {
+            font-size: remCalc(36);
+            line-height: 43px;
+        }
+
+        @include desktop-and-up {
+            font-size: remCalc(48);
+            line-height: 48px;
+        }
+    }
+
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        margin-top: 32px;
+
+        @include desktop-and-up {
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    }
+
+    &__left-column {
+        width: 100%;
+
+        @include desktop-and-up {
+            max-width: 703px;
+        }
+    }
+
+    &__right-column {
+        margin-top: 32px;
+        width: 100%;
+
+        .group__card {
+            margin-top: 32px;
+
+            &:first-of-type {
+                margin-top: 0;
+            }
+        }
+
+        @include desktop-and-up {
+            margin-left: 40px;
+            margin-top: 0;
+            max-width: 388px;
+            width: 50%;
+        }
+    }
+
+    &__card {
+        background-color: $color-white;
+        border-radius: 4px;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        overflow: hidden;
+
+        &.group__card--community-link {
+            height: 88px;
+        }
+
+        &.group__card--table {
+            .group__card-content {
+                padding: 0;
+            }
+        }
+    }
+
+    &__card-content {
+        padding: 16px;
+
+        @include tablet-and-up {
+            padding: 24px;
+        }
+
+        @include desktop-and-up {
+            padding: 32px;
+        }
+
+        &--small {
+            padding: 16px 16px 0 16px; 
+
+            @include tablet-and-up {
+                padding: 24px 24px 0 24px; 
+            }
+            @include desktop-and-up {
+                padding: 32px 32px 0 32px; 
+            }
+        }
+    }
+
+    &__card-image {
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        height: 100%;
+        max-height: 298px;
+        min-height: 128px;
+        position: relative;
+        width: 100%;
+
+        @include tablet-and-up {
+            height: 298px;
+        }
+
+        @include desktop-and-up {
+            height: 328px;
+        }
+    }
+
+}
