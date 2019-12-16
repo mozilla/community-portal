@@ -345,28 +345,28 @@
                                 <div class="events-single__avatar<?php if($info['profile_image']->display === false || $info['profile_image']->value === false) : ?> members__avatar--identicon<?php endif; ?>" <?php if($visibility_settings['image_url_visibility'] && strlen($community_fields['image_url']) > 0): ?> style="background-image: url('<?php print $avatar_url; ?>')"<?php endif; ?> data-username="<?php print $user->user_nicename; ?>">
                                 </div>
                                 <div class="events-single__user-details"> 
-                                <p class="events-single__username">
-                                    <?php echo $user->user_nicename; ?>
-                                </p>
-                                <?php if ($info['first_name']->display && $info['first_name']->value || $info['last_name']->display && $info['last_name']->value): ?>
-                                <div class="events-single__name">
-                                <?php 
-                                    if ($info['first_name']->display && $info['first_name']->value): 
-                                        print $info['first_name']->value;
-                                    endif; 
+                                    <p class="events-single__username">
+                                        <?php echo $user->user_nicename; ?>
+                                    </p>
+                                    <?php if ($info['first_name']->display && $info['first_name']->value || $info['last_name']->display && $info['last_name']->value): ?>
+                                        <div class="events-single__name">
+                                            <?php 
+                                                if ($info['first_name']->display && $info['first_name']->value): 
+                                                    print $info['first_name']->value;
+                                                endif; 
 
-                                    if ($info['last_name']->display && $info['last_name']->value):
-                                        print " {$info['last_name']->value}";
-                                    endif; 
-                                ?>
+                                                if ($info['last_name']->display && $info['last_name']->value):
+                                                    print " {$info['last_name']->value}";
+                                                endif; 
+                                            ?>
+                                        </div>
+                                    <?php endif; ?>
+                                    <?php if ($info['location']->display && $info['location']->value): ?>
+                                    <p class="events-single__country">
+                                        <?php echo $info['location']->value; ?>
+                                    </p>
+                                    <?php endif; ?>
                                 </div>
-                                <?php endif; ?>
-                            
-                                <?php if ($info['location']->display && $info['location']->value): ?>
-                                <p class="events-single__country">
-                                    <?php echo $info['location']->value; ?>
-                                </p>
-                                <?php endif ?>
                             </a>
                         </div>
                         <?php endif; ?>
@@ -375,11 +375,7 @@
         </div>
     </div>
     <?php endif; ?>
-</div>
-</div>
-
-<div id="events-share-lightbox" class="lightbox">
-    <?php include(locate_template('templates/share-modal.php', false, false)); ?>
-</div>
-
+    <div id="events-share-lightbox" class="lightbox">
+        <?php include(locate_template('templates/share-modal.php', false, false)); ?>
+    </div>
 </div>
