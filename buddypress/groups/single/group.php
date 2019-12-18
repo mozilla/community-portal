@@ -528,7 +528,10 @@
                                                 </a>
                                             </td>
                                             <td class="group__table-cell">
-                                                <div class="group__topic-replies"><?php print $topic->reply_count; ?></div>
+                                                <?php 
+                                                    $reply_count = intval($topic->post_count) > 0  ? intval($topic->post_count) - 1 : 0;
+                                                ?>
+                                                <div class="group__topic-replies"><?php print $reply_count; ?></div>
                                             </td>
                                             <td class="group__table-cell">
                                             <div class="group__topic-views"><?php print $topic->views; ?></div>
@@ -671,7 +674,7 @@
                                 <span><?php print __('Tags'); ?></span>
                                 <div class="group__tags">
                                     <?php foreach(array_unique($group_meta['group_tags']) AS $tag): ?>
-                                    <a  href="/groups/?tag=<?php print $tag; ?>" class="group__tag"><?php print $tag; ?></a>
+                                    <a href="/groups/?tag=<?php print $tag; ?>" class="group__tag"><?php print $tag; ?></a>
                                     <?php endforeach; ?>
                                 </div>
                             </div>
