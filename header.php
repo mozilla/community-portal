@@ -64,6 +64,14 @@
                     $og_desc =  get_bloginfo('description');
 
                     break;
+                case 'activities':
+                    global $post;
+                    $title = $post->post_title;
+                    $og_title = "{$title} - Mozilla Community Portal";
+                    $og_image = get_the_post_thumbnail_url();
+                    $og_desc = substr($post->post_content, 0, 155);
+            
+                    break;
                 default:
                     $title = get_bloginfo('name')." - ".get_bloginfo('description');
                     $options = wp_load_alloptions();
