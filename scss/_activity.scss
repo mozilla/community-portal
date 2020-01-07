@@ -82,8 +82,10 @@
             }
         }
 
-        &.activity__card--conversation,
+        &.activity__card--additional,
         &.activity__card--flow,
+        &.activity__card--metrics,
+        &.activity__card--related-events,
         &.activity__card--video {
             margin-top: 32px;
         }
@@ -114,6 +116,8 @@
         p {
             font-size: remCalc(16);
             line-height: 24px;
+            margin: 0;
+            margin-bottom: 8px;
         }
 
         a {
@@ -159,6 +163,7 @@
 
         @include tablet-and-up {
             flex-direction: row;
+            flex-wrap: wrap;
             justify-content: space-between;
         }
 
@@ -168,7 +173,7 @@
             color: $color-white;
             flex-shrink: 0;
             font-size: remCalc(16);
-            height: 48px;
+            height: auto;
             line-height: 18px;
             margin-bottom: 16px;
             min-width: 160px;
@@ -176,6 +181,10 @@
             text-align: center;
             text-decoration: none;
     
+            @include tablet-and-up {
+                height: 48px;
+            }
+
             &.activity__cta--share {
                 background-color: $color-white;
                 border: 2px solid $color-blue-50;
@@ -197,11 +206,27 @@
                     top: 50%;
                     transform: translateY(-50%);
                 }
-    
-                @include desktop-and-up {
-                    margin-left: 8px;
-                }
             }
+        }
+    }
+
+    &__keyline {
+        border: 0;
+        border-top: 1px solid $color-gray-20;
+        height: 0;
+        margin: 0 -16px;
+        margin-bottom: 16px;
+
+        @include tablet-and-up {
+            margin: 0 -24px;
+            margin-bottom: 24px;
+            margin-top: 8px;
+        }
+        
+        @include desktop-and-up {
+            margin: 0 -32px;
+            margin-bottom: 32px;
+            margin-top: 16px;
         }
     }
 
@@ -311,7 +336,6 @@
 
         &:before {
             opacity: 0;
-            transition: all 0.5s ease-in;
         }
     }
 
@@ -328,6 +352,7 @@
         position: relative;
 
         p {
+            margin: 0;
             margin-bottom: 8px;
         }
     }
@@ -365,6 +390,110 @@
         }
     }
 
+    
+    &__time-commitment {
+        color: $color-gray-secondary;
+        font-size: remCalc(16);
+        height: 100%;
+        line-height: 24px;
+        margin-top: 16px;
+        width: 100%;
+
+        svg {
+            margin-right: 4px;
+        }
+    }
+
+    &__event {
+        border-top: 1px solid $color-gray-background;
+        border-bottom: 1px solid $color-gray-background;
+        color: $color-black;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        margin: 16px -16px;
+        padding: 16px 24px;
+        text-decoration: none;
+        
+        @include tablet-and-up {
+            margin: 24px -24px;
+            padding: 24px 32px;
+        }
+
+        @include desktop-and-up {
+            margin: 32px -32px;
+        }
+    }
+ 
+    &__event-date {
+        color: $color-blue-50;
+        display: flex;
+        flex-direction: column;
+        font-size: remCalc(20);
+        justify-content: center;
+        line-height: 28px;
+        margin-right: 24px;
+        text-align: center;
+        width: 36px;
+    }
+ 
+    &__event-title {
+        color: $color-black;
+        font-size: remCalc(16);
+        font-weight: 600;
+        line-height: 24px;
+        margin-bottom: 8px;
+    }
+ 
+    &__event-location,
+    &__event-time {
+        color: $color-gray-secondary;
+        font-size: remCalc(14);
+        line-height: 20px;
+        margin-bottom: 8px;
+    }
+
+    &__events-link {
+        color: $color-blue-50;
+        display: inline-block;
+        font-size: remCalc(16);
+        line-height: 24px;
+        text-decoration: none;
+
+        svg {
+            margin-left: 4px;
+        }
+    }
+
+    &__markup {
+        margin: 0;
+        margin-top: 16px;
+        padding: 0;
+
+        p {
+            margin: 0;
+            margin-bottom: 16px;
+            padding: 0;
+        }
+
+        ol, 
+        ul {
+            margin: 0;
+            padding: 0;
+            padding-left: 18px;
+
+            @include desktop-and-up {
+                padding-left: 20px;
+            }
+
+            li {
+                margin-bottom: 16px;
+            }
+        }
+
+
+            
+    }
 
 
 }
