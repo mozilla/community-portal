@@ -99,6 +99,7 @@ function mozilla_init_scripts() {
     // Custom scripts
     wp_enqueue_script('groups', get_stylesheet_directory_uri()."/js/groups.js", array('jquery'));
     wp_enqueue_script('events', get_stylesheet_directory_uri()."/js/events.js", array('jquery'));
+    wp_enqueue_script('activities', get_stylesheet_directory_uri()."/js/activities.js", array('jquery'));
     wp_enqueue_script('cleavejs', get_stylesheet_directory_uri()."/js/vendor/cleave.min.js", array());
     wp_enqueue_script('nav', get_stylesheet_directory_uri()."/js/nav.js", array('jquery'));
     wp_enqueue_script('profile', get_stylesheet_directory_uri()."/js/profile.js", array('jquery'));
