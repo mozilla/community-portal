@@ -124,6 +124,14 @@ function mozilla_theme_settings() {
 
     if(current_user_can('manage_options') && $_SERVER['REQUEST_METHOD'] === 'POST') {
         if(isset($_POST['admin_nonce_field']) && wp_verify_nonce($_REQUEST['admin_nonce_field'], 'protect_content')) {
+            if(isset($_POST['github_link'])) {
+                update_option('github_link', sanitize_text_field($_POST['github_link']));
+            }
+
+            if(isset($_POST['community_discourse'])) {
+                update_option('community_discourse', sanitize_text_field($_POST['community_discourse']));
+            }
+
             if(isset($_POST['google_analytics_id'])) {
                 update_option('google_analytics_id', sanitize_text_field($_POST['google_analytics_id']));
             }
