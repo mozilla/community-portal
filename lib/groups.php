@@ -311,8 +311,8 @@ function mozilla_search_groups($name, $gid) {
 function mozilla_join_group() {
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
          $user = wp_get_current_user();
-         
-         if($user->ID) {
+         $invite_status = groups_get_groupmeta($group->id, 'invite_status');
+         if($user->ID &&  $invite_status === 'members') {
              if(isset($_POST['group']) && $_POST['group']) {
                  $group_id = intval($_POST['group']);
                  $joined = groups_join_group($group_id, $user->ID);
