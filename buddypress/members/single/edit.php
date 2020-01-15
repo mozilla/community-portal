@@ -23,7 +23,7 @@ include("{$theme_directory}/languages.php");
     </div>
 <?php elseif($complete === true && $edit === true): ?>
     <script type="text/javascript">
-        // window.location = "/people/<?php print ($updated_username) ? $updated_username : $user->user_nicename;?>";
+        window.location = "/people/<?php print ($updated_username) ? $updated_username : $user->user_nicename;?>";
     </script>
 <?php else: ?>
     <div class="profile__hero">
