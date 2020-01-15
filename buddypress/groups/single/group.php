@@ -36,8 +36,7 @@
     );
     
     $members = groups_get_group_members($args); 
-    $is_admin = $user->ID == $group->creator_id;
-    
+    $is_admin = groups_is_user_admin($user->ID, $group->id);
     $current_user = wp_get_current_user()->data;
 
     switch($group->status) {
@@ -276,22 +275,22 @@
                                                 </svg>
                                                 <p class="text--light text--small">
                                                     <?php
-                                                    if ($location->country === 'OE') {
-                                                      echo __('Online Event');
-                                                    } else {
-                                                      if ($location->address) {
-                                                        echo __($location->address.' - '); 
-                                                      }
-                                                      if (strlen($location->town) > 0) {
-                                                          echo __($location->town);
-                                                          if ($location->country) {
-                                                            echo __(', '.$allCountries[$location->country]);
-                                                          }
-                                                      } else {
-                                                          echo __($allCountries[$location->country]);
-                                                      }
-                                                    }
-                                                    
+                                                        if($location->country === 'OE') {
+                                                            echo __('Online Event');
+                                                        } else {
+                                                            if ($location->address) {
+                                                                echo $location->address.' - '; 
+                                                            }
+
+                                                            if (strlen($location->town) > 0) {
+                                                                echo $location->town;
+                                                                if ($location->country) {
+                                                                    echo ', '.$allCountries[$location->country];
+                                                                }
+                                                            } else {
+                                                                echo $allCountries[$location->country];
+                                                            }
+                                                        }
                                                     ?>
                                                 </p>
                                             </div>
