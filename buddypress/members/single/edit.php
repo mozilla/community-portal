@@ -23,7 +23,7 @@ include("{$theme_directory}/languages.php");
     </div>
 <?php elseif($complete === true && $edit === true): ?>
     <script type="text/javascript">
-        window.location = "/people/<?php print ($updated_username) ? $updated_username : $user->user_nicename;?>";
+        // window.location = "/people/<?php print ($updated_username) ? $updated_username : $user->user_nicename;?>";
     </script>
 <?php else: ?>
     <div class="profile__hero">
@@ -52,6 +52,7 @@ include("{$theme_directory}/languages.php");
                 <div class="profile__select-container">
                     <label class="profile__label"><?php print __('Visibility Settings'); ?></label>
                     <select id="profile-visibility" name="profile_visibility" class="profile__select">
+                        <option><?php print __('Custom'); ?></option>
                         <?php foreach($visibility_options AS $key   =>  $value): ?>
                         <option value="<?php print $key; ?>"><?php print $value; ?></option>
                         <?php endforeach; ?>
@@ -238,7 +239,7 @@ include("{$theme_directory}/languages.php");
                     <label class="profile__label" for="email-visibility"><?php print __("Can be viewed by"); ?></label>
                     <select id="email-visibility" name="email_visibility" class="profile__select">
                         <?php foreach($visibility_options AS $key   =>  $value): ?>
-                        <option value="<?php print $key; ?>"<?php if(isset($community_fields['email_visibility']) && $community_fields['email_visibility'] == $key): ?> selected<?php endif; ?>><?php print $value; ?></option>
+                        <option value="<?php print $key; ?>"<?php if(isset($meta['email_visibility'][0]) && $meta['email_visibility'][0] == $key): ?> selected<?php endif; ?>><?php print $value; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -268,6 +269,7 @@ include("{$theme_directory}/languages.php");
                 <div class="profile__select-container">
                     <label class="profile__label"><?php print __('Visibility Settings'); ?></label>
                     <select id="social-visibility" name="social_visibility" class="profile__select">
+                        <option><?php print __('Custom'); ?></option>
                         <?php foreach($visibility_options AS $key   =>  $value): ?>
                         <option value="<?php print $key; ?>"><?php print $value; ?></option>
                         <?php endforeach; ?>
@@ -371,6 +373,7 @@ include("{$theme_directory}/languages.php");
                 <div class="profile__select-container">
                     <label class="profile__label"><?php print __('Visibility Settings'); ?></label>
                     <select id="communication-visibility" name="communication_visibility" class="profile__select">
+                        <option><?php print __('Custom'); ?></option>   
                         <?php foreach($visibility_options AS $key   =>  $value): ?>
                         <option value="<?php print $key; ?>"><?php print $value; ?></option>
                         <?php endforeach; ?>
@@ -469,9 +472,9 @@ include("{$theme_directory}/languages.php");
             <?php endif; ?>
             <div class="profile__select-container profile__select-container--mobile">
                 <label class="profile__label" for=""><?php print __("Can be viewed by"); ?></label>
-                <select id="profile-pronoun-visibility" name="profile_pronoun_visibility" class="profile__select">
+                <select id="profile-languages-visibility" name="profile_languages_visibility" class="profile__select">
                     <?php foreach($visibility_options AS $key   =>  $value): ?>
-                    <option value="<?php print $key; ?>"<?php if($form && isset($form['profile_pronoun_visibility']) && $form['profile_pronoun_visibility'] == $key): ?> selected<?php else: ?><?php if(isset($community_fields['profile_pronoun_visibility']) && $community_fields['profile_pronoun_visibility'] == $key): ?> selected<?php endif; ?><?php endif; ?>><?php print $value; ?></option>
+                    <option value="<?php print $key; ?>"<?php if($form && isset($form['profile_languages_visibility']) && $form['profile_languages_visibility'] == $key): ?> selected<?php else: ?><?php if(isset($community_fields['profile_languages_visibility']) && $community_fields['profile_languages_visibility'] == $key): ?> selected<?php endif; ?><?php endif; ?>><?php print $value; ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -501,8 +504,8 @@ include("{$theme_directory}/languages.php");
                 <h2 class="profile__form-title"><?php print __("Community Portal Activity"); ?></h2>
                 <div class="profile__select-container">
                     <label class="profile__label"><?php print __('Visibility Settings'); ?></label>
-
                     <select id="portal-visibility" name="portal_visibility" class="profile__select">
+                        <option><?php print __('Custom'); ?></option>
                         <?php foreach($visibility_options AS $key   =>  $value): ?>
                         <option value="<?php print $key; ?>"><?php print $value; ?></option>
                         <?php endforeach; ?>
