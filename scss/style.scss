@@ -47,6 +47,10 @@ body.noscroll {
     overflow: hidden;
 }
 
+body.activity {
+    margin-top: 0;
+}
+
 @supports (font-variation-settings: normal) {
     html {
         font-family: $copy-font;
