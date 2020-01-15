@@ -12,6 +12,7 @@ function mozilla_create_group() {
             'group_name',
             'group_type',
             'group_desc',
+            'group_admin_id',
             'my_nonce_field'
         );
 
@@ -45,7 +46,6 @@ function mozilla_create_group() {
                         }
   
                         $_SESSION['form'] = $_POST;
-                       
 
                         // Cleanup
                         if($error) {
