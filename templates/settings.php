@@ -5,6 +5,22 @@
         <tbody>
             <tr>
                 <th scope="row">
+                    <label for="github-link">Github Link</label>
+                </th>
+                <td>
+                    <input type="text" id="github-link" name="github_link" class="regular-text" value="<?php print $options['github_link']; ?>" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    <label for="community-discourse">Community Portal Discourse</label>
+                </th>
+                <td>
+                    <input type="text" id="community-discourse" name="community_discourse" class="regular-text" value="<?php print $options['community_discourse']; ?>" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
                     <label for="google-analytics-id">Google Analytics ID</label>
                 </th>
                 <td>
