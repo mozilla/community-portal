@@ -13,7 +13,7 @@ include("{$theme_directory}/languages.php");
             <h1 class="profile__title"><?php print __('Profile Created'); ?></h1>
             <p class="profile__success-message">
                 <?php 
-                    print __('A message here congratulating the user for creating an account and reiterating the benefits of doing so, helping you to connect with other people who like Mozilla. Also an opportunity to encourage the user to put their new account to good use.');
+                    print __('Your Account is complete! You are now ready to connect with other users, participate in events, projects, and get involved in the Mozilla community.');
                 ?>
             </p>
             <div class="profile__button-container">
