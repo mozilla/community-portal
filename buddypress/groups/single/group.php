@@ -22,6 +22,7 @@
 
     $group = $bp->groups->current_group;
     $group_meta = groups_get_groupmeta($group->id, 'meta');
+    $invite_status = groups_get_groupmeta($group->id, 'invite_status');
     $member_count = groups_get_total_member_count($group->id);
     $user = wp_get_current_user();
     $is_member = groups_is_user_member($user->ID, $group->id);
@@ -365,7 +366,9 @@
                                     <?php if($is_member): ?>
                                         <a href="#" class="group__leave-cta" data-group="<?php print $group->id; ?>"><?php print __('Leave Group'); ?></a>
                                     <?php else: ?>
-                                        <a href="#" class="group__join-cta" data-group="<?php print $group->id; ?>"><?php print __('Join Group'); ?></a>
+                                        <?php if($invite_status === 'members'): ?>
+                                            <a href="#" class="group__join-cta" data-group="<?php print $group->id; ?>"><?php print __('Join Group'); ?></a>
+                                        <?php endif; ?>
                                     <?php endif; ?>
                                 <?php endif; ?>
                                 <a href="#" class="group__share-cta">
