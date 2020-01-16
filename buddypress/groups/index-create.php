@@ -63,12 +63,12 @@
                                 <label class="create-group__label create-group__label--full-width" for="group-desc"><?php print __("Online or Offline Group"); ?></label>
                                 <label class="create-group__radio-container">
                                     <?php print __("Online"); ?>
-                                    <input type="radio" name="group_type" id="group-type" value="<?php print __("Online"); ?>"<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($form['group_type']) && $form['group_type'] == 'Online' || (empty($form['group_type']))): ?> checked<?php endif; ?> required />
+                                    <input type="radio" name="group_type" id="group-type-online" value="<?php print __("Online"); ?>"<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($form['group_type']) && $form['group_type'] == 'Online' || (empty($form['group_type']))): ?> checked<?php endif; ?> required />
                                     <span class="create-group__radio"></span>
                                 </label>
                                 <label class="create-group__radio-container create-group__radio-container--second">
                                     <?php print __("Offline"); ?>
-                                    <input type="radio" name="group_type" id="group-type" value="<?php print __("Offline"); ?>" <?php if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($form['group_type']) && $form['group_type'] == 'Offline'): ?> checked<?php endif; ?> required />
+                                    <input type="radio" name="group_type" id="group-type-offline" value="<?php print __("Offline"); ?>" <?php if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($form['group_type']) && $form['group_type'] == 'Offline'): ?> checked<?php endif; ?> required />
                                     <span class="create-group__radio"></span>
                                 </label>
                                     <div class="form__error-container<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_type'])): ?> form__error-container--visible<?php endif; ?>">
