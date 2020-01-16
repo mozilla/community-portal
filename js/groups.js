@@ -134,6 +134,7 @@ jQuery(function(){
 
             var errMsg = jQuery('#group-admin').val().length <= 0 ? 'This field is required' : 'Invalid user';
 
+            jQuery('#group-admin').addClass('create-group__input--error');
             jQuery('#group-admin-id').prev('.form__error-container').first('.form__error').text(errMsg);
             
             error = true;
@@ -141,6 +142,7 @@ jQuery(function(){
             jQuery('#group-admin-id').prev('.form__error-container').removeClass('form__error-container--visible');
             jQuery('#group-admin-id').prev('.form__error-container').first('.form__error').text('This field is required');
             jQuery('#group-admin-id').removeClass('create-group__input--error');
+            jQuery('#group-admin').removeClass('create-group__input--error');
             error = false;
         }
 
