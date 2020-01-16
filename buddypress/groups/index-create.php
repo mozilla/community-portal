@@ -196,7 +196,7 @@
                         <div class="create-group__input-row">
                             <div class="create-group__input-container create-group__input-container--full">
                                 <label class="create-group__label"><?php print __("Username *"); ?></label>
-                                <input type="text" name="group_admin" id="group-admin" class="create-group__input" value="<?php print isset($form['group_admin']) ? $form['group_admin'] : ''; ?>" placeholder="@Username" required/>
+                                <input type="text" name="group_admin" id="group-admin" class="create-group__input" value="<?php print isset($form['group_admin']) ? $form['group_admin'] : ''; ?>" placeholder="Username" required/>
                                 <div class="form__error-container<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_admin_id']) || (isset($form['group_admin_id']) && empty(trim($form['group_admin_id'])) )): ?> form__error-container--visible<?php endif; ?>">
                                     <div class="form__error"><?php print __("This field is required"); ?></div>
                                 </div>
