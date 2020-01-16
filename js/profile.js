@@ -68,6 +68,7 @@ jQuery(function(){
 
         switch(value) {
             case 2:
+                jQuery('#profile-image-visibility').val(2);
                 jQuery('#firstname-visibility').val(0);
                 jQuery('#lastname-visibility').val(2);
                 jQuery('#email-visibility').val(2);
@@ -77,6 +78,7 @@ jQuery(function(){
                 jQuery('#profile-phone-visibility').val(2);
                 break;
             default:
+                jQuery('#profile-image-visibility').val(value);
                 jQuery('#firstname-visibility').val(value);
                 jQuery('#lastname-visibility').val(value);
                 jQuery('#email-visibility').val(value);
