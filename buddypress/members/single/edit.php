@@ -575,6 +575,7 @@ include("{$theme_directory}/languages.php");
                 'category'      =>  $category_id
             ));  
         ?>
+        <!--
         <section class="profile__form-container">
             <p>
                 <?php 
@@ -590,6 +591,7 @@ include("{$theme_directory}/languages.php");
                 </span>
             </label>
         </section>
+        -->
         <?php if(!isset($meta['agree'][0]) || $meta['agree'][0] != 'I Agree'): ?>
         <?php if(sizeof($guidelines) === 1): ?>
         <section class="profile__form-container">
