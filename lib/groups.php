@@ -316,29 +316,33 @@ function mozilla_search_groups($name, $gid) {
 function mozilla_join_group() {
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
          $user = wp_get_current_user();
-         $invite_status = groups_get_groupmeta($group->id, 'invite_status');
-         if($user->ID &&  $invite_status === 'members') {
+        
+         if($user->ID) {
              if(isset($_POST['group']) && $_POST['group']) {
-                 $group_id = intval($_POST['group']);
-                 $joined = groups_join_group($group_id, $user->ID);
- 
-                 if($joined) {
-                     $discourse_group_info = mozilla_get_discourse_info($group_id);
-                     $discourse_api_data = Array();
-                     $discourse_users = Array();
- 
-                     $discourse_users[] = mozilla_get_user_auth0($user->ID);
-                     $discourse_api_data['group_id'] = $discourse_group_info['discourse_group_id'];
-                     $discourse_api_data['add_users'] = $discourse_users;
- 
-                     $discourse = mozilla_discourse_api('groups/users', $discourse_api_data, 'patch');
-             
- 
-                     print json_encode(Array('status'   =>  'success', 'msg'  =>  'Joined Group'));
-                 } else {
-                     print json_encode(Array('status'   =>  'error', 'msg'   =>  'Could not join group'));
-                 }
-                 die();
+                $group_id = intval($_POST['group']);
+                $invite_status = groups_get_groupmeta($group_id, 'invite_status');
+                if($invite_status === 'members') {
+                    $joined = groups_join_group($group_id, $user->ID);
+                    if($joined) {
+                        $discourse_group_info = mozilla_get_discourse_info($group_id);
+                        $discourse_api_data = Array();
+                        $discourse_users = Array();
+    
+                        $discourse_users[] = mozilla_get_user_auth0($user->ID);
+                        $discourse_api_data['group_id'] = $discourse_group_info['discourse_group_id'];
+                        $discourse_api_data['add_users'] = $discourse_users;
+    
+                        $discourse = mozilla_discourse_api('groups/users', $discourse_api_data, 'patch');
+    
+                        print json_encode(Array('status'   =>  'success', 'msg'  =>  'Joined Group'));
+                    } else {
+                        print json_encode(Array('status'   =>  'error', 'msg'   =>  'Could not join group'));
+                    }
+                }
+                
+
+               
+                die();
              } 
          } else {
              setcookie('mozilla-redirect', $_SERVER['HTTP_REFERER'], 0, "/");
