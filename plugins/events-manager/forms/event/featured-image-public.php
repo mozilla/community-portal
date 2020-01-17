@@ -1,5 +1,5 @@
 <div class="event-creator__container">
-    <label class="event-creator__label" for="event-image"><?php print __("Event Image"); ?></label>
+    <label class="event-creator__label" for="event-image"><?php print __("Event Image", "community-portal"); ?></label>
 
     <?php
         if ($_REQUEST['event_id']) {
@@ -23,7 +23,7 @@
         </button>
     </div>
 </div>
-<p class="event-creator__image-instructions"><?php print __("Click or drag a .PNG or .JPG above. Min dimensions 703px by 400px"); ?></p>
+<p class="event-creator__image-instructions"><?php print __("Click or drag a .PNG or .JPG above. Min dimensions 703px by 400px", "community-portal"); ?></p>
 <div class="form__error-container">
     <div class="form__error form__error--image"></div>
 </div>

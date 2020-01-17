@@ -13,7 +13,7 @@ if(isset($event_id)) {
 ?>
 
 <?php if(is_object($EM_Event) && !$EM_Event->can_manage('edit_events','edit_others_events') ){ ?>
-	<div class="event-creator wrap"><h2><?php esc_html_e('Unauthorized Access','events-manager'); ?></h2><p><?php echo sprintf(__('You do not have the rights to manage this %s.','events-manager'),__('Event','events-manager')); ?></p></div>
+	<div class="event-creator wrap"><h2><?php __('Unauthorized Access','commuity-portal'); ?></h2><p><?php echo sprintf(__('You do not have the rights to manage this %s.','commuity-portal'),__('Event','commuity-portal')); ?></p></div>
 <?php
     return false;
 } elseif (!is_object($EM_Event) ){
@@ -35,14 +35,14 @@ if(!empty($_REQUEST['success'])){
     <div class="wrap event-creator">
 		<?php do_action('em_front_event_form_header', $EM_Event); ?>
 		<?php if(get_option('dbem_events_anonymous_submissions') && !is_user_logged_in()): ?>
-			<h3 class="event-form-submitter"><?php esc_html_e( 'Your Details', 'events-manager'); ?></h3>
+			<h3 class="event-form-submitter"><?php __( 'Your Details', 'commuity-portal'); ?></h3>
 			<div class="inside event-form-submitter">
 				<div class="event-creator__container">
-                <label class="event-creator__label"><?php esc_html_e('Name', 'events-manager'); ?></label>
+                <label class="event-creator__label"><?php __('Name', 'commuity-portal'); ?></label>
                 <input class="event-creator__input"type="text" name="event_owner_name" id="event-owner-name" value="<?php echo esc_attr($EM_Event->event_owner_name); ?>" />
             </div>
             <div class="event-creator__container">
-                <label class="event-creator__label"><?php esc_html_e('Email', 'events-manager'); ?></label>
+                <label class="event-creator__label"><?php __('Email', 'commuity-portal'); ?></label>
                 <input type="text" name="event_owner_email" id="event-owner-email" value="<?php echo esc_attr($EM_Event->event_owner_email); ?>" />
             </div>
 				<?php do_action('em_front_event_form_guest'); ?>
@@ -51,7 +51,7 @@ if(!empty($_REQUEST['success'])){
 		<?php endif; ?>
 	    <div class="inside event-form-name event">
             <div class="event-creator__container">
-                <label class="event-form-name event-creator__label" for="event-name"><?php esc_html_e( 'Event Name *', 'events-manager'); ?></label>
+                <label class="event-form-name event-creator__label" for="event-name"><?php __( 'Event Name *', 'commuity-portal'); ?></label>
                 <input class="event-creator__input event-creator__input" type="text" name="event_name" id="event-name" required value="<?php echo esc_attr($EM_Event->event_name,ENT_QUOTES); ?>" />
             </div>
             <?php if( $EM_Event->can_manage('upload_event_images','upload_event_images') ): ?>
@@ -73,12 +73,12 @@ if(!empty($_REQUEST['success'])){
     <div class="wrap event-creator">
         <div class="event-editor">
             <div class="event-creator__container">
-                <label class="event-form-details event-creator__label" for="event-description"><?php esc_html_e('Event description *', 'events-manager'); ?></label>
+                <label class="event-form-details event-creator__label" for="event-description"><?php __('Event description *', 'commuity-portal'); ?></label>
                 <textarea name="content" id="event-description" placeholder="Add in the details of your event’s agenda here. If this is a multi-day event, you can add in the details of each day’s schedule and start/end time." rows="10" id="event-description" class="event-creator__input event-creator__textarea" style="width:100%" required maxlength="3000"><?php echo __($EM_Event->post_content) ?></textarea>
             </div>
         <?php if(get_option('dbem_categories_enabled')) { em_locate_template('forms/event/categories-public.php',true); }  ?>
             <div class="event-creator__container">
-                <label class="event-creator__label" for="event-creator-link"><?php esc_html_e('External link URL', 'events-manager'); ?></label>
+                <label class="event-creator__label" for="event-creator-link"><?php __('External link URL', 'commuity-portal'); ?></label>
                 <input type="text" class="event-creator__input" name="event_external_link" id="event-creator-link" value="<?php echo (isset($external_url) && $external_url !== '') ? esc_attr($external_url) : '' ;?>" />
             </div>
             <?php em_locate_template('forms/event/group.php',true); ?>
@@ -126,9 +126,9 @@ if(!empty($_REQUEST['success'])){
         <input id="event-creator__submit-btn" type='submit' class='button-primary btn btn--dark btn--submit' 
         value='<?php 
         if (!isset($event_id)):
-            echo esc_attr(sprintf( __('Create %s','events-manager'), __('Event','events-manager') )); 
+            echo esc_attr(sprintf( __('Create %s','commuity-portal'), __('Event','commuity-portal') )); 
         else: 
-            echo esc_attr(sprintf( __('Update %s','events-manager'), __('Event','events-manager') )); 
+            echo esc_attr(sprintf( __('Update %s','commuity-portal'), __('Event','commuity-portal') )); 
         endif;
         ?>' 
         />

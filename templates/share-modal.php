@@ -9,31 +9,31 @@
         </svg>
     </button>
     <div class="share-lightbox">
-        <p class="title--secondary"><?php echo __('Share') ?></p> 
+        <p class="title--secondary"><?php echo __('Share', "community-portal") ?></p> 
         <ul class="share-link-container">
             <li class="share-link">
                 <a href="#" id="copy-share-link" class="btn btn--light btn--share share-link__copy">
-                    <?php echo __('Copy share link') ?>
+                    <?php echo __('Copy share link', "community-portal") ?>
                 </a>
             </li>
             <li class="share-link">
                 <a href="<?php echo esc_attr('https://www.facebook.com/sharer/sharer.php?u='.$url)?>" class="btn btn--light btn--share share-link__facebook">
-                    <?php echo __('Share to Facebook') ?>
+                    <?php echo __('Share to Facebook', "community-portal") ?>
                 </a>
             </li>
             <li class="share-link">
                 <a href="<?php echo esc_attr('https://twitter.com/intent/tweet?url='.$url) ?>" class="btn btn--light btn--share share-link__twitter">
-                    <?php echo __('Share to Twitter') ?>
+                    <?php echo __('Share to Twitter', "community-portal") ?>
                 </a>
             </li>
             <li class="share-link">
                 <a href="<?php echo esc_attr('https://discourse.mozilla.org/new-topic?title='.$url)?>" class="btn btn--light btn--share share-link__discourse">
-                    <?php echo __('Share to Discourse') ?>
+                    <?php echo __('Share to Discourse', "community-portal") ?>
                 </a>
             </li>
             <li class="share-link">
                 <a href="<?php echo esc_attr('https://telegram.me/share/url?url='.$url) ?>" class="btn btn--light btn--share share-link__telegram" >
-                    <?php echo __('Share to Telegram') ?>
+                    <?php echo __('Share to Telegram', "community-portal") ?>
                 </a>
             </li>
         </ul>

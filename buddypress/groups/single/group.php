@@ -53,7 +53,7 @@
     <div class="content">
         <div class="group">
             <div class="group__container">
-                <h1 class="group__title"><?php print __(str_replace('\\', '', stripslashes($group->name))); ?></h1>
+                <h1 class="group__title"><?php print __(str_replace('\\', '', stripslashes($group->name)), "community-portal"); ?></h1>
                 <div class="group__details">
                     <?php if($verified): ?>
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -103,25 +103,25 @@
                 </div>
                 <div class="group__nav">
                     <ul class="group__menu">
-                        <li class="menu-item"><a class="group__menu-link<?php if(bp_is_group_home() && !$is_events && !$is_people): ?> group__menu-link--active<?php endif; ?>" href="/groups/<?php print $group->slug; ?>"><?php print __("About us"); ?></a></li>
-                        <li class="menu-item"><a class="group__menu-link<?php if($is_events): ?> group__menu-link--active<?php endif; ?>" href="/groups/<?php print $group->slug; ?>?view=events"><?php print __("Our Events"); ?></a></li>
-                        <li class="menu-item"><a class="group__menu-link<?php if($is_people): ?> group__menu-link--active<?php endif; ?>" href="/groups/<?php print $group->slug; ?>/?view=people"><?php print __("Our Members"); ?></a></li>
+                        <li class="menu-item"><a class="group__menu-link<?php if(bp_is_group_home() && !$is_events && !$is_people): ?> group__menu-link--active<?php endif; ?>" href="/groups/<?php print $group->slug; ?>"><?php print __("About us", "community-portal"); ?></a></li>
+                        <li class="menu-item"><a class="group__menu-link<?php if($is_events): ?> group__menu-link--active<?php endif; ?>" href="/groups/<?php print $group->slug; ?>?view=events"><?php print __("Our Events", "community-portal"); ?></a></li>
+                        <li class="menu-item"><a class="group__menu-link<?php if($is_people): ?> group__menu-link--active<?php endif; ?>" href="/groups/<?php print $group->slug; ?>/?view=people"><?php print __("Our Members", "community-portal"); ?></a></li>
                     </ul>
                 </div>
                 <div class="group__nav group__nav--mobile">
-                    <label class="group__nav-select-label"><?php print __('Showing'); ?></label>
+                    <label class="group__nav-select-label"><?php print __('Showing', "community-portal"); ?></label>
                     <div class="select-container">
                         <select class="group__nav-select">
-                            <option value="/groups/<?php print $group->slug; ?>"<?php if(bp_is_group_home() && !$is_events && !$is_people): ?> selected<?php endif; ?>><?php print __("About us"); ?></option>
-                            <option value="/groups/<?php print $group->slug; ?>?view=events"<?php if($is_events): ?> selected<?php endif; ?>><?php print __("Our Events"); ?></option>
-                            <option value="/groups/<?php print $group->slug; ?>?view=people"<?php if($is_people): ?> selected<?php endif; ?>><?php print __("Our Members"); ?></option>
+                            <option value="/groups/<?php print $group->slug; ?>"<?php if(bp_is_group_home() && !$is_events && !$is_people): ?> selected<?php endif; ?>><?php print __("About us", "community-portal"); ?></option>
+                            <option value="/groups/<?php print $group->slug; ?>?view=events"<?php if($is_events): ?> selected<?php endif; ?>><?php print __("Our Events", "community-portal"); ?></option>
+                            <option value="/groups/<?php print $group->slug; ?>?view=people"<?php if($is_people): ?> selected<?php endif; ?>><?php print __("Our Members", "community-portal"); ?></option>
                         </select>
                     </div>
                 </div>
                 <section class="group__info">
                     <?php if($is_people): ?>
                     <div class="group__members-container">
-                        <h2 class="group__card-title"><?php print __("Group Contacts")." ({$admin_count})"; ?></h2>
+                        <h2 class="group__card-title"><?php print __("Group Contacts", "community-portal")." ({$admin_count})"; ?></h2>
                         <div class="group__members">
                             <?php foreach($admins AS $admin): ?>
                             <?php 
@@ -167,7 +167,7 @@
                             </a>
                             <?php endforeach; ?>
                         </div>
-                        <h2 class="group__card-title"><?php print __("People")." ({$members['count']})"; ?></h2>
+                        <h2 class="group__card-title"><?php print __("People", "community-portal")." ({$members['count']})"; ?></h2>
                         <div class="group__members">
                             <?php foreach($members['members'] AS $member): ?>
                             <?php
@@ -264,11 +264,11 @@
                                                 $year = substr($event->start_date, 0, 4);
                                              
                                             ?>
-                                            <p class="event-card__image__date"><span><?php echo __(substr($months[intval($month)],0,3)) ?> </span><span><?php echo __($date) ?></span></p>
+                                            <p class="event-card__image__date"><span><?php echo substr($months[intval($month)],0,3) ?> </span><span><?php echo $date; ?></span></p>
                                         </div>
                                         <div class="event-card__description">
                                             <h3 class="event-card__description__title title--event-card"><?php echo $event->event_name; ?></h2>
-                                            <p><?php echo __($months[$month].' '.$date.', '.$year.' @ '.substr($event->event_start_time, 0, 5).' - '.substr($event->event_end_time, 0, 5).' '.$event->event_timezone); ?></p>
+                                            <p><?php echo $months[$month].' '.$date.', '.$year.' @ '.substr($event->event_start_time, 0, 5).' - '.substr($event->event_end_time, 0, 5).' '.$event->event_timezone; ?></p>
                                             <div class="event-card__location">
                                                 <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -277,7 +277,7 @@
                                                 <p class="text--light text--small">
                                                     <?php
                                                         if($location->country === 'OE') {
-                                                            echo __('Online Event');
+                                                            echo __('Online Event', "community-portal");
                                                         } else {
                                                             if ($location->address) {
                                                                 echo $location->address.' - '; 
@@ -302,14 +302,14 @@
                                                 if (count($categories->terms) <= 2): 
                                                 foreach($categories->terms as $category) {
                                             ?>
-                                                <li class="tag"><?php echo __($category->name); ?></li>
+                                                <li class="tag"><?php echo $category->name; ?></li>
                                             <?php
                                             }
                                             elseif (count($categories->terms) > 0):
                                                 $i = 0;
                                                 foreach ($categories->terms as $category) {
                                                 ?>
-                                                <li class="tag"><?php echo __($category->name) ?></li>
+                                                <li class="tag"><?php echo $category->name; ?></li>
                                                 <?php
                                                 $i = $i + 1;
                                                 if ($i === 2) {
@@ -317,7 +317,7 @@
                                                 }
                                                 }
                                                 ?>
-                                                <li class="tag"><?php echo __('+'); echo count($categories->terms) - 2; echo __(' more tag(s)'); ?></li>        
+                                                <li class="tag"><?php echo '+'; echo count($categories->terms) - 2; echo __(' more tag(s)', "community-portal"); ?></li>        
                                                 <?php
                                             endif;
                                             endif;
@@ -364,10 +364,10 @@
                                 <div class="group__card-cta-container<?php if($is_admin): ?> group__card-cta-container--end<?php endif; ?>">
                                 <?php if(!$is_admin): ?>
                                     <?php if($is_member): ?>
-                                        <a href="#" class="group__leave-cta" data-group="<?php print $group->id; ?>"><?php print __('Leave Group'); ?></a>
+                                        <a href="#" class="group__leave-cta" data-group="<?php print $group->id; ?>"><?php print __('Leave Group', "community-portal"); ?></a>
                                     <?php else: ?>
                                         <?php if($invite_status === 'members'): ?>
-                                            <a href="#" class="group__join-cta" data-group="<?php print $group->id; ?>"><?php print __('Join Group'); ?></a>
+                                            <a href="#" class="group__join-cta" data-group="<?php print $group->id; ?>"><?php print __('Join Group', "community-portal"); ?></a>
                                         <?php endif; ?>
                                     <?php endif; ?>
                                 <?php endif; ?>
@@ -375,11 +375,11 @@
                                     <svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M1 9V15C1 15.3978 1.15804 15.7794 1.43934 16.0607C1.72064 16.342 2.10218 16.5 2.5 16.5H11.5C11.8978 16.5 12.2794 16.342 12.5607 16.0607C12.842 15.7794 13 15.3978 13 15V9M10 4.5L7 1.5M7 1.5L4 4.5M7 1.5V11.25" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
-                                    <?php print __('Share Group'); ?>
+                                    <?php print __('Share Group', "community-portal"); ?>
                                 </a>
                                 </div>
                                 <hr class="group__keyline" />
-                                <h2 class="group__card-title"><?php print __("About Us"); ?></h2>
+                                <h2 class="group__card-title"><?php print __("About Us", "community-portal"); ?></h2>
                                 <?php print wpautop(substr(trim($group->description), 0, 3000)); ?>
                                 <?php if((isset($group_meta['group_telegram']) && strlen($group_meta['group_telegram']) > 0 ) 
                                 || (isset($group_meta['group_facebook']) && strlen(trim($group_meta['group_facebook'])) > 0 ) 
@@ -388,7 +388,7 @@
                                 || (isset($group_meta['group_twitter']) && strlen(trim($group_meta['group_twitter'])) > 0 ) 
                                 || (isset($group_meta['group_other']) && strlen($group_meta['group_other']) > 0)): ?>
                                 <div class="group__community-links">
-                                    <span class="no-line"><?php print __("Community Links"); ?></span>
+                                    <span class="no-line"><?php print __("Community Links", "community-portal"); ?></span>
                                     <?php if(isset($group_meta['group_telegram']) && strlen($group_meta['group_telegram']) > 0): ?>
                                         <div class="group__community-link-container">
                                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -396,7 +396,7 @@
                                                 <path d="M24.3332 7.66699L15.1665 16.8337" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                                 <path d="M24.3332 7.66699L18.4998 24.3337L15.1665 16.8337L7.6665 13.5003L24.3332 7.66699Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                             </svg>
-                                            <a href="<?php print $group_meta['group_telegram']; ?>" class="group__social-link"><?php print __("Telegram"); ?></a>
+                                            <a href="<?php print $group_meta['group_telegram']; ?>" class="group__social-link"><?php print __("Telegram", "community-portal"); ?></a>
                                         </div>
                                     <?php endif; ?>
                                     <?php if(isset($group_meta['group_facebook']) && strlen(trim($group_meta['group_facebook'])) > 0): ?>
@@ -405,7 +405,7 @@
                                                 <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
                                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M26 16C26 10.4771 21.5229 6 16 6C10.4771 6 6 10.4771 6 16C6 20.9913 9.65686 25.1283 14.4375 25.8785V18.8906H11.8984V16H14.4375V13.7969C14.4375 11.2906 15.9304 9.90625 18.2146 9.90625C19.3087 9.90625 20.4531 10.1016 20.4531 10.1016V12.5625H19.1921C17.9499 12.5625 17.5625 13.3333 17.5625 14.1242V16H20.3359L19.8926 18.8906H17.5625V25.8785C22.3431 25.1283 26 20.9913 26 16Z" fill="black"/>
                                             </svg>
-                                            <a href="<?php print $group_meta['group_facebook']; ?>" class="group__social-link"><?php print __("Facebook"); ?></a>
+                                            <a href="<?php print $group_meta['group_facebook']; ?>" class="group__social-link"><?php print __("Facebook", "community-portal"); ?></a>
                                         </div>
                                     <?php endif; ?>
                                     <?php if(isset($group_meta['group_discourse']) && strlen(trim($group_meta['group_discourse'])) > 0): ?>
@@ -414,7 +414,7 @@
                                                 <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
                                                 <path d="M23.5 15.5834C23.5029 16.6832 23.2459 17.7683 22.75 18.75C22.162 19.9265 21.2581 20.916 20.1395 21.6078C19.021 22.2995 17.7319 22.6662 16.4167 22.6667C15.3168 22.6696 14.2318 22.4126 13.25 21.9167L8.5 23.5L10.0833 18.75C9.58744 17.7683 9.33047 16.6832 9.33333 15.5834C9.33384 14.2682 9.70051 12.9791 10.3923 11.8605C11.084 10.7419 12.0735 9.838 13.25 9.25002C14.2318 8.75413 15.3168 8.49716 16.4167 8.50002H16.8333C18.5703 8.59585 20.2109 9.32899 21.4409 10.5591C22.671 11.7892 23.4042 13.4297 23.5 15.1667V15.5834Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                             </svg>
-                                            <a href="<?php print $group_meta['group_discourse']; ?>" class="group__social-link"><?php print __("Discourse"); ?></a>
+                                            <a href="<?php print $group_meta['group_discourse']; ?>" class="group__social-link"><?php print __("Discourse", "community-portal"); ?></a>
                                         </div>
                                     <?php endif; ?>
                                     <?php if(isset($group_meta['group_github']) && strlen(trim($group_meta['group_github'])) > 0): ?>
@@ -430,7 +430,7 @@
                                                 </clipPath>
                                                 </defs>
                                             </svg>
-                                            <a href="<?php print $group_meta['group_github']; ?>" class="group__social-link"><?php print __("Github"); ?></a>
+                                            <a href="<?php print $group_meta['group_github']; ?>" class="group__social-link"><?php print __("Github", "community-portal"); ?></a>
                                         </div>
                                     <?php endif; ?>
                                     <?php if(isset($group_meta['group_twitter']) && strlen(trim($group_meta['group_twitter'])) > 0): ?>
@@ -439,7 +439,7 @@
                                                 <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
                                                 <path d="M12.3766 23.9366C19.7469 23.9366 23.7781 17.8303 23.7781 12.535C23.7781 12.3616 23.7781 12.1889 23.7664 12.017C24.5506 11.4498 25.2276 10.7474 25.7656 9.94281C25.0343 10.2669 24.2585 10.4794 23.4641 10.5733C24.3006 10.0725 24.9267 9.28482 25.2258 8.35688C24.4392 8.82364 23.5786 9.15259 22.6812 9.32953C22.0771 8.6871 21.278 8.26169 20.4077 8.11915C19.5374 7.97661 18.6444 8.12487 17.8668 8.541C17.0893 8.95713 16.4706 9.61792 16.1064 10.4211C15.7422 11.2243 15.6529 12.1252 15.8523 12.9842C14.2592 12.9044 12.7006 12.4903 11.2778 11.7691C9.85506 11.0478 8.59987 10.0353 7.59375 8.7975C7.08132 9.67966 6.92438 10.724 7.15487 11.7178C7.38536 12.7116 7.98596 13.5802 8.83437 14.1467C8.19667 14.1278 7.57287 13.9558 7.01562 13.6452C7.01562 13.6616 7.01562 13.6788 7.01562 13.6959C7.01588 14.6211 7.33614 15.5177 7.9221 16.2337C8.50805 16.9496 9.32362 17.4409 10.2305 17.6241C9.64052 17.785 9.02155 17.8085 8.42109 17.6928C8.67716 18.489 9.17568 19.1853 9.84693 19.6843C10.5182 20.1832 11.3286 20.4599 12.1648 20.4756C10.7459 21.5908 8.99302 22.1962 7.18828 22.1944C6.86946 22.1938 6.55094 22.1745 6.23438 22.1366C8.0669 23.3126 10.1992 23.9363 12.3766 23.9334" fill="black"/>
                                             </svg>
-                                            <a href="<?php print $group_meta['group_twitter']; ?>" class="group__social-link"><?php print __("Twitter"); ?></a>
+                                            <a href="<?php print $group_meta['group_twitter']; ?>" class="group__social-link"><?php print __("Twitter", "community-portal"); ?></a>
                                         </div>
                                     <?php endif; ?>
                                     <?php if(isset($group_meta['group_other']) && strlen($group_meta['group_other']) > 0): ?>
@@ -466,10 +466,10 @@
                             </div>
                         </div>
                         <?php if((isset($group_meta['group_meeting_details'])  && $group_meta['group_meeting_details']) || (isset($group_meta['group_address']) && $group_meta['group_address'])): ?>
-                        <h2 class="group__card-title"><?php print __('Meetings'); ?></h2>
+                        <h2 class="group__card-title"><?php print __('Meetings', "community-portal"); ?></h2>
                         <div class="group__card">
                             <div class="group__card-content">
-                                <span class="no-line"><?php print __('Meeting Details'); ?></span>
+                                <span class="no-line"><?php print __('Meeting Details', "community-portal"); ?></span>
                                 <?php if(isset($group_meta['group_meeting_details'])): ?>
                                 <p class="group__card-copy">
                                     <?php print $group_meta['group_meeting_details']; ?>
@@ -479,7 +479,7 @@
                                 <hr />
                                 <?php endif; ?>
                                 <?php if(isset($group_meta['group_address']) && $group_meta['group_address']): ?>
-                                <span class="no-line"><?php print __('Location'); ?></span>
+                                <span class="no-line"><?php print __('Location', "community-portal"); ?></span>
                                 <?php if(isset($group_meta['group_address_type']) && strtolower($group_meta['group_address_type']) == 'url'): ?>
                                     <div>
                                         <a class="group__meeting-location-link" href="<?php print $group_meta['group_address']; ?>" target="_blank"><?php print $group_meta['group_address']; ?></a>
@@ -508,16 +508,16 @@
                             }
                         ?>
                         <?php if(sizeof($topics) > 0): ?>
-                        <h2 class="group__card-title"><?php print __('Discussions'); ?></h2>
+                        <h2 class="group__card-title"><?php print __('Discussions', "community-portal"); ?></h2>
                         <div class="group__card group__card--table">
                             <div class="group__card-content">
                                 <table class="group__announcements">
                                     <thead>
                                         <tr>
-                                            <th class="group__table-header group__table-header--topic"><?php print __('Topic'); ?></th>
-                                            <th class="group__table-header"><?php print __('Replies'); ?></th>
-                                            <th class="group__table-header"><?php print __('Views'); ?></th>
-                                            <th class="group__table-header group__table-header--activity"><?php print __('Activity'); ?></th>
+                                            <th class="group__table-header group__table-header--topic"><?php print __('Topic', "community-portal"); ?></th>
+                                            <th class="group__table-header"><?php print __('Replies', "community-portal"); ?></th>
+                                            <th class="group__table-header"><?php print __('Views', "community-portal"); ?></th>
+                                            <th class="group__table-header group__table-header--activity"><?php print __('Activity', "community-portal"); ?></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -546,7 +546,7 @@
                                         <tr>
                                             <td colspan="4" class="group__table-cell group__table-cell--topic">
                                                 <a href="<?php print $discourse_group['discourse_category_url']; ?>" class="group__view-updates-link">
-                                                    <?php print __('View more topics'); ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <?php print __('View more topics', "community-portal"); ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M2.33301 8.66732L5.99967 5.00065L2.33301 1.33398" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                                     </svg>
                                                 </a>
@@ -600,7 +600,7 @@
                         <?php if($event): ?>
                         <div class="group__card">
                             <div class="group__card-content group__card-content--small">
-                                <span><?php print __('Related Events'); ?></span>
+                                <span><?php print __('Related Events', "community-portal"); ?></span>
                                 <a class="group__event" href="/events/<?php print $event->event_slug; ?>"> 
                                     <div class="group__event-date">
                                         <?php print $event_date; ?>
@@ -616,7 +616,7 @@
                                                 <path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                             </svg>
                                             <?php if($location->location_country === 'OE'): ?>
-                                              <?php print __("Online Event"); ?>
+                                              <?php print __("Online Event", "community-portal"); ?>
                                             <?php elseif($location->location_town && $location->location_country): ?>
                                                 <?php print "{$location->location_town}, {$countries[$location->location_country]}"; ?>
                                             <?php elseif($location->location_town && !$location->location_country): ?>
@@ -628,14 +628,14 @@
                                     </div>
                                 </a>
                                 <a href="/groups/<?php print $group->slug; ?>/events/" class="group__events-link">
-                                    <?php print __('View more events'); ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    <?php print __('View more events', "community-portal"); ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                                 </a>
                             </div>
                         </div>
                         <?php endif; ?>
                         <div class="group__card">
                             <div class="group__card-content group__card-content--small">
-                                <span><?php print __('Group Contacts'); ?></span> 
+                                <span><?php print __('Group Contacts', "community-portal"); ?></span> 
                                 <div class="group__admins">
                                     <?php foreach($admins AS $admin): ?>
                                     <?php
@@ -673,7 +673,7 @@
                         <?php if(sizeof(array_unique($group_meta['group_tags'])) > 0): ?>
                         <div class="group__card">
                             <div class="group__card-content group__card-content--small">
-                                <span><?php print __('Tags'); ?></span>
+                                <span><?php print __('Tags', "community-portal"); ?></span>
                                 <div class="group__tags">
                                     <?php foreach(array_unique($group_meta['group_tags']) AS $tag): ?>
                                     <a href="/groups/?tag=<?php print $tag; ?>" class="group__tag"><?php print $tag; ?></a>

@@ -21,7 +21,7 @@
         if(empty($EM_Events)) {
 ?>
     <div class="col-md-12 events__zero-state">
-        <p class="events__search-terms"><?php echo ($args['search'] ? __('No results found. Please try another search term.') :__('You do not have any organized events.')) ?></p>
+        <p class="events__search-terms"><?php echo ($args['search'] ? __('No results found. Please try another search term.', "community-portal") :__('You do not have any organized events.', "community-portal")) ?></p>
     </div>
 <?php
         }else{
@@ -29,7 +29,7 @@
             if($args['search']):
 ?>
     <div class="col-sm-12 events__search-terms">
-        <p><?php echo __('Results for "'.$args['search'].'"')?></p>
+        <p><?php echo __('Results for "'.$args['search'].'"', "community-portal")?></p>
     </div>
 <?php endif; ?>
     <div class="row events__cards">
@@ -49,7 +49,7 @@
       ?>
     </div>
     <?php else: ?>
-    <p><?php echo sprintf(__('Please <a href="%s">Log In</a> to view your bookings.','events-manager'),site_url('wp-login.php?redirect_to=' . urlencode(get_permalink()), 'login'))?></p>
+    <p><?php echo sprintf(__('Please <a href="%s">Log In</a> to view your bookings.', "community-portal"),site_url('wp-login.php?redirect_to=' . urlencode(get_permalink()), 'login'))?></p>
     <?php endif; ?>
     <?php if ($total_bookings > 12): ?>
     <div class="events__pagination col-sm-12">

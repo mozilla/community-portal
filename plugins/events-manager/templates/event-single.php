@@ -155,15 +155,15 @@
                         <p><?php echo $location->location_name; ?></p>
                         <p><?php echo $location->location_address; ?></p>
                         <?php if ($location->location_country === 'OE'): ?>
-                            <p><?php echo __('Online Event') ?></p>
+                            <p><?php echo __('Online Event', "community-portal") ?></p>
                         <?php else: ?>
                             <p><?php echo __($location->location_town.', '.$allCountries[$EM_Event->location->location_country]) ?></p>
                         <?php endif; ?>
-                        <p><a href="/events/?country=<?php print $allCountries[$EM_Event->location->location_country]; ?>">View more events in <?php print $allCountries[$EM_Event->location->location_country]; ?></a></p>
+                        <p><a href="/events/?country=<?php print $allCountries[$EM_Event->location->location_country]; ?>"><?php print __('View more events in',  "community-portal"); ?><?php print $allCountries[$EM_Event->location->location_country]; ?></a></p>
                     <?php else: ?>
-                        <p><?php echo __("This is an online-only event") ?></p>
+                        <p><?php echo __("This is an online-only event", "community-portal") ?></p>
                         <?php if(filter_var($EM_Event->location->name, FILTER_VALIDATE_URL)): ?>
-                        <a href="<?php echo esc_attr($EM_Event->location->name) ?>"><?php echo __('Meeting link') ?>
+                        <a href="<?php echo esc_attr($EM_Event->location->name) ?>"><?php echo __('Meeting link', "community-portal") ?>
                             <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1.33325 8.66732L4.99992 5.00065L1.33325 1.33398" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
@@ -326,7 +326,7 @@
             </button>
 
             <div class="row events-single__all-attendees">
-                <p class="title--secondary col-sm-12"><?php echo __($count.' Attendees') ?></p>
+                <p class="title--secondary col-sm-12"><?php echo $count.__(' Attendees', "community-portal") ?></p>
                 <?php foreach($EM_Event->bookings as $booking): ?>    
                     <?php if($booking->booking_status !== '3'): ?>
                         <?php

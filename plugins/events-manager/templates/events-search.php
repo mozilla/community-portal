@@ -19,7 +19,7 @@
 			</svg>
 			<input type="text" name="em_search" class="events__search-input" placeholder="<?php print __("Search events"); ?>" value="<?php echo esc_attr($args['search']); ?>" />
 			</div>
-			<input type="submit" class="events__search-cta" value="<?php print __("Search"); ?>" />
+			<input type="submit" class="events__search-cta" value="<?php print __("Search", "community-portal"); ?>" />
 		</form>
 	</div>
 	<?php if( !empty($args['ajax']) ): ?><div class='em-search-ajax'></div><?php endif; ?>

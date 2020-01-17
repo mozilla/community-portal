@@ -40,7 +40,7 @@
                 class="events__nav__link <?php if ($view === 'future' | $view === "") echo esc_attr("events__nav__link--active") ?>" 
                 href="<?php echo add_query_arg(array('view' => 'future', 'country' => $country, 'tag' => $tag), get_site_url('', 'events')) ?>"
                 >
-                    <?php echo __('Upcoming Events'); ?>
+                    <?php echo __('Upcoming Events', "community-portal"); ?>
                 </a>
             </li>
             <?php 
@@ -52,7 +52,7 @@
                 class="events__nav__link <?php if ($view === 'attending') echo esc_attr("events__nav__link--active") ?>" 
                 href="<?php echo add_query_arg(array('view' => 'attending', 'country' => $country, 'tag' => $tag), get_site_url('', 'events'), get_site_url('','events')) ?>"
                 >
-                    <?php echo __('Events I\'m attending') ?>
+                    <?php echo __('Events I\'m attending', "community-portal") ?>
                 </a>
             </li>
             <li class="events__nav__item">
@@ -60,7 +60,7 @@
                 class="events__nav__link <?php if ($view === 'organized') echo esc_attr("events__nav__link--active") ?>" 
                 href="<?php echo add_query_arg(array('view' => 'organized', 'country' => $country, 'tag' => $tag), get_site_url('', 'events'), get_site_url('','events')) ?>"
                 >
-                    <?php echo __('My Events'); ?>
+                    <?php echo __('My Events', "community-portal"); ?>
                 </a>
             </li>
             <?php endif; ?>
@@ -69,7 +69,7 @@
                 class="events__nav__link <?php if ($view === 'past') echo esc_attr("events__nav__link--active") ?>" 
                 href="<?php echo add_query_arg(array('view' => 'past', 'country' => $country, 'tag' => $tag), get_site_url('', 'events'), get_site_url('','events'))?>"
                 >
-                    <?php print __('Past events'); ?>
+                    <?php print __('Past events', "community-portal"); ?>
                 </a>
             </li>
         </ul>
@@ -119,7 +119,7 @@
     <?php endif; ?>
     <?php else: ?>
         <div class="events__zero-state col-sm-12">
-            <p><?php echo ($args['search'] ? __('No results found. Please try another search term.') : __('There are currently no events.')) ?></p>
+            <p><?php echo ($args['search'] ? __('No results found. Please try another search term.', "community-portal") : __('There are currently no events.', "community-portal")) ?></p>
         </div>
     <?php endif; ?>
     <?php } ?>

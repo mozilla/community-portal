@@ -12,7 +12,7 @@
             if ($args['search']) {
 ?>
     <div class="col-sm-12 events__search-terms">
-        <p><?php echo __("Results for '".$args['search']."'")?></p>
+        <p><?php echo __("Results for '".$args['search']."'", "community-portal")?></p>
     </div>
 <?php } ?>
     <div class="row events__cards">
@@ -26,11 +26,11 @@
       } else {
     ?>
         <div class="events__zero-state col-sm-12">
-            <p><?php echo ($args['search'] ? __('No results found. Please try another search term.') : __('You are not currently attending any events.')) ?></p>
+            <p><?php echo ($args['search'] ? __('No results found. Please try another search term.', "community-portal") : __('You are not currently attending any events.', "community-portal")) ?></p>
         </div>
 <?php } ?>
     <?php else: ?>
-        <p><?php echo sprintf(__('Please log in to create or join events','events-manager'),site_url('wp-login.php?redirect_to=' . urlencode(get_permalink()), 'login'))?></p>
+        <p><?php echo sprintf(__('Please log in to create or join events','community-portal'),site_url('wp-login.php?redirect_to=' . urlencode(get_permalink()), 'login'))?></p>
         <?php 
              setcookie("mozilla-redirect", "/events/edit-event/?action=edit", 0, "/");
         ?>
