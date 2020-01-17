@@ -132,12 +132,16 @@ jQuery(function(){
         if(!jQuery('#group-admin-id').val()) {
             jQuery('#group-admin-id').prev('.form__error-container').addClass('form__error-container--visible');
 
-            var errMsg = jQuery('#group-admin').val().length <= 0 ? 'This field is required' : 'Invalid user';
-
-            jQuery('#group-admin').addClass('create-group__input--error');
-            jQuery('#group-admin-id').prev('.form__error-container').first('.form__error').text(errMsg);
+            if(jQuery('#group-admin').length > 0) {
+                var errMsg = jQuery('#group-admin').val().length <= 0 ? 'This field is required' : 'Invalid user';
+    
+                jQuery('#group-admin').addClass('create-group__input--error');
+                jQuery('#group-admin-id').prev('.form__error-container').first('.form__error').text(errMsg);
+                error = true;
+            } else {
+                error = false;
+            }
             
-            error = true;
         } else {
             jQuery('#group-admin-id').prev('.form__error-container').removeClass('form__error-container--visible');
             jQuery('#group-admin-id').prev('.form__error-container').first('.form__error').text('This field is required');
