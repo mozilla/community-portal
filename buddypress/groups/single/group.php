@@ -366,7 +366,7 @@
                                     <?php if($is_member): ?>
                                         <a href="#" class="group__leave-cta" data-group="<?php print $group->id; ?>"><?php print __('Leave Group', "community-portal"); ?></a>
                                     <?php else: ?>
-                                        <?php if($invite_status === 'members'): ?>
+                                        <?php if($invite_status === 'members' || $invite_status === ""): ?>
                                             <a href="#" class="group__join-cta" data-group="<?php print $group->id; ?>"><?php print __('Join Group', "community-portal"); ?></a>
                                         <?php endif; ?>
                                     <?php endif; ?>

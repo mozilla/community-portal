@@ -321,7 +321,7 @@ function mozilla_join_group() {
              if(isset($_POST['group']) && $_POST['group']) {
                 $group_id = intval($_POST['group']);
                 $invite_status = groups_get_groupmeta($group_id, 'invite_status');
-                if($invite_status === 'members') {
+                if($invite_status === 'members' || $invite_status === '') {
                     $joined = groups_join_group($group_id, $user->ID);
                     if($joined) {
                         $discourse_group_info = mozilla_get_discourse_info($group_id);
@@ -333,6 +333,7 @@ function mozilla_join_group() {
                         $discourse_api_data['add_users'] = $discourse_users;
     
                         $discourse = mozilla_discourse_api('groups/users', $discourse_api_data, 'patch');
+                
     
                         print json_encode(Array('status'   =>  'success', 'msg'  =>  'Joined Group'));
                     } else {
