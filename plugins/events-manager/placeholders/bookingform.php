@@ -26,7 +26,7 @@
     ?>
     
     <?php  if(is_object($EM_Booking)): ?>
-    <a class="em-bookings-cancel events-single__cancel btn btn--submit btn--dark" href="<?php echo esc_attr(add_query_arg(array('cancel' => true), $_SERVER['REQUEST_URI']))?>" onclick="if( !confirm('Are you sure you don\'t want to attend this event?') ){ return false; }">
+    <a class="em-bookings-cancel events-single__cancel btn btn--submit btn--dark" href="<?php echo esc_attr(add_query_arg(array('cancel' => true), $_SERVER['REQUEST_URI']))?>" onclick="if( !confirm('<?php print __("Are you sure you dont want to attend this event?", "community-portal"); ?>') ){ return false; }">
         <?php echo __('Will Not Attend') ?>
     </a>
     <?php else: ?>
