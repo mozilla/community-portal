@@ -204,7 +204,7 @@ include("{$theme_directory}/languages.php");
             <hr class="profile__keyline" />
             <div class="profile__form-field">
                 <div class="profile__select-container profile__select-container--inline profile__select-container--half">
-                    <label class="profile__label" for="country"><?php print __("Country (optional)"); ?></label>
+                    <label class="profile__label" for="country"><?php print __("Country / Region (optional)"); ?></label>
                     <select id="country" name="country" class="profile__select">
                         <option value="0"><?php print __('Country'); ?></option>
                         <?php foreach($countries AS $key    =>  $value): ?>
