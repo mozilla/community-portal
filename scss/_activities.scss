@@ -105,6 +105,7 @@
         flex-wrap: wrap;
         display: block;
         margin-bottom: 24px;
+        min-height: 375px;
         overflow: hidden;
         text-decoration: none;
         transition: box-shadow 0.3s ease-in-out;
@@ -119,6 +120,7 @@
         @include tablet-and-up {
             flex: 0 48%;
             margin-right: 4%;
+            min-height: 390px;
 
             &:nth-of-type(2n) {
                 margin-right: 0;
@@ -128,6 +130,7 @@
         @include desktop-and-up {
             flex: 0 32%;
             margin-right: 2%;
+            min-height: 439px;
 
             &:nth-of-type(2n) {
                 margin-right: 2%;
@@ -185,5 +188,78 @@
         @include desktop-and-up {
             height: calc(100% - 175px);
         }
+    }
+
+    &__tag-container {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        margin-top: auto;
+
+        svg {
+            margin-left: 16px;
+        }
+    }
+
+    &__tag {
+        background-color: $color-gray-20;
+        border-radius: 50px;
+        color: $color-gray-80;
+        font-size: remCalc(12);
+        line-height: 16px;
+        padding: 6px 12px;
+    }
+
+    &__time-commitment {
+        margin-left: 10px;
+    }
+
+    &__copy {
+        padding: 0;
+        margin: 0;
+    }
+
+    &__pagination {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-top: 40px;
+        width: 100%;
+    }
+
+    &__pagination-container {
+        align-items: center;
+        color: $color-black;
+        display: flex;
+        flex-direction: row;
+        font-size: remCalc(14);
+        height: 24px;
+        justify-content: space-between;
+        line-height: 22px;
+        max-width: 324px;
+        width: 100%;
+    }
+
+    &__pagination-link {
+        color: $color-black;
+        font-size: remCalc(14);
+        line-height: 22px;
+        margin-right: 1em;
+        text-decoration: none;
+
+        &.activities__pagination-link--active {
+            position: relative;
+
+            &:after {
+                content : '';
+                position: absolute;
+                border-bottom: 1px solid $color-black;
+                bottom: -2px;
+                display: block;
+                width: 100%;
+                left: 0;
+            }
+        }
+
     }
 }
