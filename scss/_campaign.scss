@@ -192,9 +192,27 @@
     &__share-container {
         display: flex;
         flex-direction: column;
+        justify-content: flex-start;
+        
+        @include tablet-and-up {
+            align-items: center;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    }
+
+    &__tag-container {
+        align-items: center;
+        color: $color-gray-secondary;
+        display: flex;
+        flex-direction: row;
+        font-size: remCalc(14);
+        height: 100%;
+        line-height: 20px;
+        margin-bottom: 16px;
 
         @include tablet-and-up {
-            flex-direction: row;
+            margin-bottom: 0;
         }
     }
 
@@ -205,7 +223,33 @@
         font-size: remCalc(14);
         letter-spacing: 0.0025em;
         line-height: 20px;
+        margin-left: 8px;
         padding: 10px 20px;
+    }
+
+    &__share-cta {
+        border: 2px solid $color-blue-50;
+        border-radius: 28px;
+        color: $color-blue-50;
+        font-size: remCalc(14);
+        height: 48px;
+        line-height: 22px;
+        max-width: 200px;
+        min-width: 160px;
+        padding: 15px 33px;
+        padding-left: 55px;
+        position: relative;
+        text-align: center;
+        text-decoration: none;
+        width: auto;
+
+
+        svg {
+            left: 33px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
     }
     
 }
