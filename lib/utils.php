@@ -212,6 +212,8 @@ function mozilla_add_query_vars_filter($vars) {
     $vars[] = "view";
     $vars[] = "country";
     $vars[] = "tag";
+    $vars[] = "a";
+
     return $vars;
 }
 

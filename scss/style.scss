@@ -10,9 +10,11 @@
 @import "utils/type";
 @import "utils/forms";
 
-@import "404";
-@import "activity";
 @import "base";
+
+@import "404";
+@import "activities";
+@import "activity";
 @import "button";
 @import "cards";
 @import "create-event";
@@ -33,6 +35,7 @@
 @import "profile";
 @import "share-lightbox";
 @import "tags";
+
 
 * {
     box-sizing: border-box;
