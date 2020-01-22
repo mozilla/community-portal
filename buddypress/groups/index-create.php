@@ -1,7 +1,14 @@
 <?php
     session_start();
     do_action('bp_before_create_group_page');
+    $user = wp_get_current_user();
+    $meta = get_user_meta($user->ID);
 
+    if(!isset($meta['agree'][0]) || $meta['agree'][0] != 'I Agree') {
+        wp_redirect("/people/{$user->user_nicename}/profile/edit/group/1/");
+        die();
+    }
+    
     if(isset($_POST['step'])) {
         $step = trim($_POST['step']);
     }
