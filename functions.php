@@ -143,7 +143,8 @@ function mozilla_init() {
         'show_in_rest'       => true,
         'menu_icon'          => 'dashicons-admin-site-alt3',
         'rewrite'            =>  Array('slug'    =>  'campaigns'),
-        'supports'           => array('title', 'editor', 'thumbnail', 'excerpt')
+        'supports'           => array('title', 'editor', 'thumbnail', 'excerpt'),
+        'taxonomies'         => Array('post_tag')
     );
 
     register_post_type('campaign', $args);

@@ -1,0 +1,211 @@
+.campaign {
+
+    &__container {
+        @extend .container;
+    }
+
+    &__hero {
+        background-color: $color-white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 517px;
+        margin: auto;
+
+        @include tablet-and-up {
+            height: 549px;
+        }
+
+        @include desktop-and-up {
+            height: 459px;
+        }
+    }
+
+    &__hero-container {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;
+        padding: 0 32px;
+
+        @include tablet-and-up {
+            padding: 0;
+            width: 637px;
+        }
+        
+        @include desktop-and-up {
+            flex-direction: row;
+            height: 283px;
+            width: 808px;
+        }
+    }
+
+    &__hero-image {
+        background-position: center;
+        background-size: cover;
+        height: 176px;
+        margin-bottom: 24px;
+        width: 176px;
+        
+        
+        @include tablet-and-up {
+            height: 198px;
+            margin-bottom: 32px;
+            width: 198px;
+        }
+
+
+        @include desktop-and-up {
+            height: 283px;
+            margin-bottom: 0;
+            width: 283px;
+        }
+    }
+
+    &__hero-content-container {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+
+
+        @include desktop-and-up {
+            align-items: flex-start;
+            text-align: left;
+            padding-left: 33px;
+        }
+    }
+
+    &__hero-title {
+        color: $color-black;
+        font-family: $title-font;
+        font-size: remCalc(32);
+        font-weight: normal;
+        line-height: 40px;
+        margin: 0;
+        margin-bottom: 24px;
+        padding: 0;
+
+        @include tablet-and-up {
+            font-size: remCalc(48);
+            font-weight: normal;
+        }
+
+        @include desktop-and-up {
+            max-width: 492px;
+        }
+    }
+
+    &__hero-cta {
+        background-color: $color-blue-50;
+        border-radius: 28px;
+        color: $color-white;
+        flex-shrink: 0;
+        font-size: remCalc(16);
+        font-weight: normal;
+        height: auto;
+        line-height: 18px;
+        margin-bottom: 16px;
+        min-width: 160px;
+        padding: 15px 33px;
+        text-align: center;
+        text-decoration: none;
+        width: 186px;
+    }
+
+    &__status {
+        color: $color-gray-secondary;
+        display: inline-block;
+        font-size: remCalc(14);
+        line-height: 24px;
+        letter-spacing: 0.0025em;
+        margin-bottom: 8px;
+    }
+
+    &__date-container {
+        color: $color-off-black;
+        font-size: remCalc(20);
+        line-height: 28px;
+        margin-bottom: 16px;
+    }
+
+    &__intro {
+        background-color: $color-gray-background;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 64px 32px;
+
+        @include tablet-and-up {
+            padding: 64px 64px;
+        }
+
+        @include desktop-and-up {
+            padding: 64px 0;
+        }
+    }
+
+    &__intro-card {
+        background-color: $color-white;
+        border-radius: 4px;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        font-size: remCalc(18);
+        line-height: 28px;
+        margin: auto;
+        max-width: 808px;
+        padding: 16px;
+
+        @include tablet-and-up {
+            padding: 25px;
+        }
+
+        @include desktop-and-up {
+            padding: 32px;
+        }
+
+        p {
+            margin: 0;
+            margin-bottom: 16px;
+            padding: 0;
+
+            @include tablet-and-up {
+                margin-bottom: 24px;
+            }
+
+            @include desktop-and-up {
+                margin-bottom: 32px;
+            }
+            
+        }
+    }
+
+    &__keyline {
+        background: $color-gray-30;
+        border: 0;
+        height: 1px;
+        margin: 0;
+        margin-bottom: 32px;
+        width: 100%;
+    }
+
+    &__share-container {
+        display: flex;
+        flex-direction: column;
+
+        @include tablet-and-up {
+            flex-direction: row;
+        }
+    }
+
+    &__tag {
+        background-color: $color-gray-20;
+        border-radius: 50px;
+        color: $color-gray-80;
+        font-size: remCalc(14);
+        letter-spacing: 0.0025em;
+        line-height: 20px;
+        padding: 10px 20px;
+    }
+    
+}
