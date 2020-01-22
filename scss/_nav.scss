@@ -376,13 +376,8 @@
     display: inline-block;
     text-decoration: none;
     @include desktop-and-up {
-      padding: 16px;
+		padding: 16px;
     }
-}
-
-footer .menu-item__link {
-  padding: 2px 0;
-  display: block;
 }
 
 .menu-mozilla-main-menu-container {

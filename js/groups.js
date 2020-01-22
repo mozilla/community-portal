@@ -59,6 +59,10 @@ jQuery(function(){
 
     });
 
+    jQuery('.create-group__image-instructions').click(function(e) {
+      e.preventDefault();
+    });
+
     jQuery('.create-group__input, .create-group__textarea, .create-group__select').on('change keyup input', function(e){
         var $this = jQuery(this);
 
@@ -76,21 +80,19 @@ jQuery(function(){
         
     });
 
-    jQuery('.create-group__tag').click(function(e) {
-        e.preventDefault();
-        var $this = jQuery(this);
-        var tag = $this.data('value');
-        var current = jQuery('#tags').val();
+    jQuery('.create-group__checkbox').on('change', function(e) {
+		var $this = jQuery(this);
+		var id = $this.prop('id');
+		var $label = jQuery('label[for=' + id + ']');
+		var tag = $this.data('value');
+		var current = jQuery('#tags').val();
 
-        if(!$this.hasClass('create-group__tag--active'))
-            jQuery('#tags').val(current + ',' + tag);
-        
-        if($this.hasClass('create-group__tag--active'))
-            jQuery('#tags').val(current.replace(',' + tag, ''));
-
-        $this.toggleClass('create-group__tag--active');
-
-        return false;
+		if(!$label.hasClass('create-group__tag--active'))
+		jQuery('#tags').val(current + ',' + tag);
+		if($label.hasClass('create-group__tag--active'))
+		jQuery('#tags').val(current.replace(',' + tag, ''));
+		$label.toggleClass('create-group__tag--active');
+		return false;
     });
 
     jQuery('.dz-remove').click(function(e){
@@ -104,6 +106,7 @@ jQuery(function(){
         jQuery('.create-group__image-instructions').removeClass('create-group__image-instructions--hide');
         jQuery('.dz-remove').addClass('dz-remove--hide');
         jQuery('#image-url').val('');
+        jQuery('.create-group__image-upload').css('background-size', '75px 75px');
         return false;
     });
 

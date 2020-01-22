@@ -66,22 +66,32 @@
                                     <div class="form__error"><?php print __("This field is required", "community-portal"); ?></div>
                                 </div>
                             </div>
-                            <div class="create-group__input-container create-group__input-container--40 create-group__input-container--flex">
-                                <label class="create-group__label create-group__label--full-width" for="group-desc"><?php print __("Online or Offline Group", "community-portal"); ?></label>
-                                <label class="create-group__radio-container">
-                                    <?php print __("Online", "community-portal"); ?>
-                                    <input type="radio" name="group_type" id="group-type-online" value="<?php print __("Online", "community-portal"); ?>"<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($form['group_type']) && $form['group_type'] == 'Online' || (empty($form['group_type']))): ?> checked<?php endif; ?> required />
-                                    <span class="create-group__radio"></span>
-                                </label>
-                                <label class="create-group__radio-container create-group__radio-container--second">
-                                    <?php print __("Offline", "community-portal"); ?>
-                                    <input type="radio" name="group_type" id="group-type-offline" value="<?php print __("Offline", "community-portal"); ?>" <?php if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($form['group_type']) && $form['group_type'] == 'Offline'): ?> checked<?php endif; ?> required />
-                                    <span class="create-group__radio"></span>
-                                </label>
-                                    <div class="form__error-container<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_type'])): ?> form__error-container--visible<?php endif; ?>">
-                                    <div class="form__error"><?php print __("This field is required", "community-portal"); ?></div>
-                                </div>
-                            </div>
+                            <div class="create-group__input-container create-group__input-container--40">
+								<fieldset class="fieldset">
+									<legend class="create-group__label create-group__label--full-width" for="group-desc"><?php print __("Online or Offline Group", "community-portal"); ?></legend>
+									<div class="create-group__input-container--flex">
+										<div class="create-group__radio-container">
+											<label for="group-type-online">
+												<?php print __("Online", "community-portal"); ?>
+											</label>
+											<input type="radio" name="group_type" id="group-type-online" value="<?php print __("Online", "community-portal"); ?>"<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($form['group_type']) && $form['group_type'] == 'Online' || (empty($form['group_type']))): ?> checked<?php endif; ?> required />
+											<span class="create-group__radio"></span>                               
+										</div>
+										<div class="create-group__radio-container create-group__radio-container--second">
+											<label for="group-type-offline">
+												<?php print __("Offline", "community-portal"); ?>
+											</label>
+											<input type="radio" name="group_type" id="group-type-offline" value="<?php print __("Offline", "community-portal"); ?>" <?php if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($form['group_type']) && $form['group_type'] == 'Offline'): ?> checked<?php endif; ?> required />
+											<span class="create-group__radio"></span>
+										</div>
+										<div class="form__error-container<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_type'])): ?> form__error-container--visible<?php endif; ?>">
+										<div class="form__error"><?php print __("This field is required", "community-portal"); ?></div>
+									</div>
+									
+										
+									</div>
+								</fieldset>
+							</div>
                         </div>
                         <div class="create-group__input-row">
                             <div class="create-group__input-container  create-group__input-container--40 create-group__input-container--vertical-spacing">
@@ -109,34 +119,38 @@
                                 </div>
                             </div>
                             <div class="create-group__input-container create-group__input-container--40 create-group__input-container--vertical-spacing">
-                                <label class="create-group__label" for="group-desc"><?php print __("Select an image", "community-portal"); ?></label>
+                                <label class="create-group__label"><?php print __("Select an image", "community-portal"); ?></label>
                                 <div id="group-photo-uploader" class="create-group__image-upload">
-                                   
-                                </div>
-                                <a class="dz-remove<?php if(!isset($form['image_url']) || strlen($form['image_url']) === 0): ?> dz-remove--hide<?php endif; ?>" href="#" data-dz-remove="" >Remove file</a>
-                                <div class="create-group__image-instructions">
-                                    <?php print __("Click or drag a photo above", "community-portal"); ?>
-                                    <span><?php print __('min dimensions 703px by 400px', "community-portal"); ?></span>
-                                    <div class="form__error-container">
-                                        <div class="form__error form__error--image"></div>
-                                    </div>
+									<div class="dz-message" data-dz-message="">
+										<div class="create-group__image-instructions">
+											<div class="form__error-container">
+												<div class="form__error form__error--image"></div>
+											</div>
+											<button class="create-group__image-instructions">
+												<?php print __("Click or drag a photo above", "community-portal"); ?>
+												<span><?php print __('min dimensions 703px by 400px', "community-portal"); ?></span>
+											</button>
+										</div>
+										<a class="dz-remove<?php if(!isset($form['image_url']) || strlen($form['image_url']) === 0): ?> dz-remove--hide<?php endif; ?>" href="#" data-dz-remove="" >Remove file</a>
+									</div>
                                 </div>
                                 <input type="hidden" name="image_url" id="image-url" value="<?php print (isset($form['image_url'])) ? $form['image_url'] : '' ?>" />
                             </div>
                         </div>
                         <div class="create-group__input-row">
                             <div class="create-group__input-container create-group__input-container--full create-group__input-container--vertical-spacing">
-                                <label class="create-group__label"><?php print __("Tags for your group", "community-portal"); ?></label>
-                                <?php 
-                                    // Get all tags
-                                    $tags = get_tags(array('hide_empty' => false));
-                                ?>
-                                <div class="create-group__tag-container">
-                                    <?php foreach($tags AS $tag): ?>
-                                    <a href="#" class="create-group__tag<?php if(in_array($tag->slug, $form_tags)): ?> create-group__tag--active<?php endif; ?>" data-value="<?php print __($tag->slug); ?>"> <?php print __($tag->name); ?></a>
-                                    <?php endforeach; ?>
-                                    <input type="hidden" value="<?php print (isset($form['tags'])) ? $form['tags'] : '' ?>" name="tags" id="tags" /> 
-                                </div>
+								<label class="create-group__label"><?php print __("Tags for your group", "community-portal"); ?></label>
+								<?php 
+									// Get all tags
+									$tags = get_tags(array('hide_empty' => false));
+								?>
+								<div class="create-group__tag-container">
+									<?php foreach($tags AS $tag): ?>
+										<input class="create-group__checkbox" type="checkbox" id="<?php echo $tag->slug ?>" data-value="<?php print __($tag->name); ?>">
+										<label class="create-group__tag<?php if(in_array($tag->slug, $form_tags)): ?> create-group__tag--active<?php endif; ?>" for="<?php echo $tag->slug ?>"><?php echo $tag->name ?></label>
+									<?php endforeach; ?>
+									<input type="hidden" value="<?php print (isset($form['tags'])) ? $form['tags'] : '' ?>" name="tags" id="tags" /> 
+								</div>
                             </div>
                         </div>
                     </section>
@@ -202,7 +216,7 @@
                         </div>
                         <div class="create-group__input-row">
                             <div class="create-group__input-container create-group__input-container--full">
-                                <label class="create-group__label"><?php print __("Username *", "community-portal"); ?></label>
+                                <label for="group-admin" class="create-group__label"><?php print __("Username *", "community-portal"); ?></label>
                                 <input type="text" name="group_admin" id="group-admin" class="create-group__input" value="<?php print isset($form['group_admin']) ? $form['group_admin'] : ''; ?>" placeholder="Username" required/>
                                 <div class="form__error-container<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_admin_id']) || (isset($form['group_admin_id']) && empty(trim($form['group_admin_id'])) )): ?> form__error-container--visible<?php endif; ?>">
                                     <div class="form__error"><?php print __("This field is required", "community-portal"); ?></div>

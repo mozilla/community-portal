@@ -17,6 +17,15 @@
     }
 }
 
+.input, 
+.textarea,
+.select {
+    &:focus {
+        outline: 0;
+        border: 1px solid $color-blue-50;
+    }
+}
+
 .input {
     background: $color-gray-20;
     border: 1px solid $color-gray-20;
@@ -25,11 +34,6 @@
     height: 43px;
     padding: 15px;
     width: 100%;
-
-    &:focus {
-        outline: 0;
-    }
-
     &--error {
         border-color: $error;
     }
@@ -137,6 +141,10 @@
     display: block;
 }
 
+.radio-container input:focus ~ .radio {
+    outline: 1px solid $color-blue-50;
+}
+
 
 .radio-container input:checked ~ .radio {
     background-color: $color-white;
@@ -206,6 +214,10 @@
     &--disabled {
         background-color: $color-white;
     }
+}
+
+.fieldset {
+  border: 0;
 }
 
 .cta {
