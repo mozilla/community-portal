@@ -1,4 +1,12 @@
 <?php 
+    $user = wp_get_current_user();
+    $meta = get_user_meta($user->ID);
+
+    if((!isset($meta['agree'][0]) || $meta['agree'][0] != 'I Agree')) {
+        wp_redirect("/people/{$user->user_nicename}/profile/edit/group/1/");
+        die();
+    }    
+
     get_header(); 
     $event_id = $_REQUEST['event_id'];
 ?>
