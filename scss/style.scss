@@ -10,8 +10,11 @@
 @import "utils/type";
 @import "utils/forms";
 
-@import "404";
 @import "base";
+
+@import "404";
+@import "activities";
+@import "activity";
 @import "button";
 @import "cards";
 @import "create-event";
@@ -33,6 +36,7 @@
 @import "share-lightbox";
 @import "tags";
 
+
 * {
     box-sizing: border-box;
 }
@@ -44,6 +48,10 @@ html {
 
 body.noscroll {
     overflow: hidden;
+}
+
+body.activity {
+    margin-top: 0;
 }
 
 @supports (font-variation-settings: normal) {

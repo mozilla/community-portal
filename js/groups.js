@@ -117,7 +117,6 @@ jQuery(function(){
 
             if($ele.val() == "" || $ele.val() == "0" || ($ele.is(':checkbox') && $ele.prop("checked") === false)) {
                 error = true;
-
                 if($ele.is(':checkbox')) {
                     var checkboxes = $ele.siblings('.create-group__check');
                     if(checkboxes.length === 1) {
@@ -129,6 +128,27 @@ jQuery(function(){
                 $errorMsg.addClass('form__error-container--visible');
             }
         });
+
+        if(!jQuery('#group-admin-id').val()) {
+            jQuery('#group-admin-id').prev('.form__error-container').addClass('form__error-container--visible');
+
+            if(jQuery('#group-admin').length > 0) {
+                var errMsg = jQuery('#group-admin').val().length <= 0 ? 'This field is required' : 'Invalid user';
+    
+                jQuery('#group-admin').addClass('create-group__input--error');
+                jQuery('#group-admin-id').prev('.form__error-container').first('.form__error').text(errMsg);
+                error = true;
+            } else {
+                error = false;
+            }
+            
+        } else {
+            jQuery('#group-admin-id').prev('.form__error-container').removeClass('form__error-container--visible');
+            jQuery('#group-admin-id').prev('.form__error-container').first('.form__error').text('This field is required');
+            jQuery('#group-admin-id').removeClass('create-group__input--error');
+            jQuery('#group-admin').removeClass('create-group__input--error');
+            error = false;
+        }
 
         if(error || jQuery('.create-group__input--error').length > 0) {
             jQuery('#create-group-form').find('.create-group__input--error:first').focus();

@@ -103,7 +103,9 @@ function mozilla_init() {
         'show_in_menu'       => true,
         'show_in_rest'       => true,
         'menu_icon'          => 'dashicons-format-aside',
-        'rewrite'            =>  Array('slug'    =>  'p')
+        'rewrite'            =>  Array('slug'    =>  'p'),
+        'supports'           => array('title', 'editor', 'thumbnail', 'excerpt'),
+        'taxonomies'         => array('post_tag')
     );
 
     register_post_type('static-page', $args);
@@ -121,7 +123,9 @@ function mozilla_init() {
         'show_in_menu'       => true,
         'show_in_rest'       => true,
         'menu_icon'          => 'dashicons-chart-line',
-        'rewrite'            =>  Array('slug'    =>  'activities')
+        'rewrite'            => Array('slug'    =>  'activities'),
+        'supports'           => Array('title', 'editor', 'thumbnail', 'excerpt'),
+        'taxonomies'         => Array('post_tag')
     );
 
     register_post_type('activity', $args);
@@ -138,10 +142,12 @@ function mozilla_init() {
         'show_in_menu'       => true,
         'show_in_rest'       => true,
         'menu_icon'          => 'dashicons-admin-site-alt3',
-        'rewrite'            =>  Array('slug'    =>  'campaigns')
+        'rewrite'            =>  Array('slug'    =>  'campaigns'),
+        'supports'           => array('title', 'editor', 'thumbnail', 'excerpt')
     );
 
     register_post_type('campaign', $args);
+    add_theme_support('post-thumbnails', array( 'post', 'activity', 'campaign', 'static-page')); 
 }
 
 ?>

@@ -247,6 +247,7 @@ function mozilla_update_member() {
                     }
                 }   
 
+     
                 update_user_meta($user->ID, 'community-meta-fields', $additional_meta);
 
             }

@@ -17,6 +17,7 @@
 
     $section = mozilla_determine_site_section();
     $theme_url  = get_template_directory_uri();
+
 ?>
 
 <!DOCTYPE html>
@@ -32,14 +33,13 @@
                     global $bp;
                     $group = $bp->groups->current_group;
                     $group_meta = groups_get_groupmeta($group->id, 'meta');
-                    $og_title = isset($group->name) && strlen($ghoup_name) > 0 ? $group->name : "Groups - Mozilla Community Portal";
+                    $og_title = isset($group->name) && strlen($group->name) > 0 ? "{$group->name} - Mozilla Community Portal" : "Groups - Mozilla Community Portal";
                     $title = $og_title;
                     $og_desc = isset($group->description) && strlen($group->description) > 0 ? $group->description : get_bloginfo('description');
                     $og_image = isset($group_meta['group_image_url']) && strlen($group_meta['group_image_url']) > 0 ? $group_meta['group_image_url'] : get_stylesheet_directory_uri(). "/images/group.png";
                     break;
 
                 case 'events':
-            
                     global $post;
                     $event = em_get_event($post->ID, 'post_id'); 
 
@@ -54,15 +54,24 @@
                         $og_image = get_stylesheet_directory_uri(). "/images/event.jpg";
                     }
                     break;
-                case 'members': 
+                    
+                case 'people': 
                     $user_id = bp_displayed_user_id();
                     $du = get_user_by('ID', $user_id);
                     $meta = get_user_meta($user_id);
-                    $og_title = $du ? "Member {$du->user_nicename} - Mozilla Community Portal" : "Members - Mozilla Community Portal";
+                    $og_title = $du ? "{$du->user_nicename} - Mozilla Community Portal" : "People - Mozilla Community Portal";
                     $og_image = get_stylesheet_directory_uri()."/images/group.png";
                     $title = $og_title;
                     $og_desc =  get_bloginfo('description');
 
+                    break;
+                case 'activities':
+                    global $post;
+                    $title = $post->post_title;
+                    $og_title = "{$title} - Mozilla Community Portal";
+                    $og_image = get_the_post_thumbnail_url();
+                    $og_desc = substr($post->post_content, 0, 155);
+            
                     break;
                 default:
                     $title = get_bloginfo('name')." - ".get_bloginfo('description');

@@ -58,9 +58,9 @@
     <div class="members">
         <div class="members__hero">
             <div class="members__hero-container">
-                <h1 class="members__title"><?php print __("People"); ?></h1>
+                <h1 class="members__title"><?php print __("People", "community-portal"); ?></h1>
                 <p class="members__hero-copy">
-                    <?php print __("Ready to make it official? Set up a profile to attend events, join groups and manage your subscription settings. "); ?>
+                    <?php print __("Ready to make it official? Set up a profile to attend events, join groups and manage your subscription settings. ", "community-portal"); ?>
                 </p>
                 <div class="members__search-container">
                     <form method="GET" action="/people/" class="members__form">
@@ -70,9 +70,9 @@
                             <path d="M17.5 17.5L13.875 13.875" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
 
-                        <input type="text" name="u" id="members-search" class="members__search-input" placeholder="<?php print __("Search people"); ?>" value="<?php if($search_user): ?><?php print $search_user; ?><?php endif; ?>" />
+                        <input type="text" name="u" id="members-search" class="members__search-input" placeholder="<?php print __("Search people", "community-portal"); ?>" value="<?php if($search_user): ?><?php print $search_user; ?><?php endif; ?>" />
                         </div>
-                        <input type="submit" class="members__search-cta" value="<?php print __("Search"); ?>" />
+                        <input type="submit" class="members__search-cta" value="<?php print __("Search", "community-portal"); ?>" />
                     </form>
                 </div>
             </div>
@@ -123,7 +123,7 @@
             <?php endforeach; ?>
             </div>
             <?php else: ?>
-                <h2 class="members__title--no-members-found">No members found</h2>
+                <h2 class="members__title--no-members-found"><?php print __('No members found', "community-portal"); ?></h2>
             <?php endif; ?>
             <?php 
                 $range = ($page > 3) ? 3 : 5;

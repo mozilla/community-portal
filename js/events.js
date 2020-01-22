@@ -400,12 +400,12 @@ jQuery(function() {
     }
 
     function trackLocationType() {
-      const $locationTypeInput = jQuery('#location-type-placeholder');
-      const $locationType = jQuery('#location-type');
-      $locationType.change(function() {
+        const $locationTypeInput = jQuery('#location-type-placeholder');
+        const $locationType = jQuery('#location-type');
+        $locationType.change(function() {
         const $this = jQuery(this);
-        $locationTypeInput.val($this.val());
-      });
+            $locationTypeInput.val($this.val());
+        });
     }
 
     function init() {

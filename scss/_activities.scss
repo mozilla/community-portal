@@ -1,0 +1,265 @@
+.activities {
+    width: 100%;
+
+    &__container {
+        @extend .container;
+        align-content: flex-start;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        @include tablet-and-up {
+            margin-top: -28px;
+        }
+    }
+
+    &__hero {
+        background-color: $color-red-5;
+        height: 384px;
+        padding: 0 $mobile-padding;
+        width: 100%;
+
+        @include tablet-and-up {
+            background-image: url('./images/activities.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: right -50px bottom -10px;
+            height: 404px;
+            padding: 0 $tablet-padding;
+        }
+        
+        @include desktop-and-up {
+            background-image: none;
+            height: 332px;
+            padding: 0 $desktop-padding;
+        }
+    }
+
+    &__hero-container {
+        @extend .container; 
+        background-repeat: no-repeat;
+        height: 100%;
+        justify-content: center;
+        max-width: 1228px;
+        padding: 0;
+        padding-top: 24px;
+        position: relative;
+        text-align: center;
+
+        @include tablet-and-up {
+            display: flex;
+            flex-direction: column;
+            padding-top: 0;
+            text-align: left;
+        }
+
+        @include desktop-and-up {
+            background-image: url('./images/activities.png');
+            background-position: right center;
+            background-size: contain;
+        }
+
+    }
+
+    &__hero-link {
+        color: $color-black;
+    }
+
+    &__title {
+        @extend .hero-title;
+
+        &:after {
+            background-color: $color-red-50;
+        }
+    }
+
+    &__hero-copy {
+        @extend .hero-copy;
+
+        @include desktop-and-up {
+            max-width: 493px;
+        }
+    }
+
+    &__activities {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        width: 100%;
+
+        @include tablet-and-up {
+            flex-direction: row;
+            justify-content: flex-start;
+        }
+
+        &:after {
+            content: '';
+            flex: auto;
+        }
+    }
+
+    &__card {
+        background-color: $color-white;
+        border-radius: 5px;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        flex-wrap: wrap;
+        display: block;
+        margin-bottom: 24px;
+        min-height: 375px;
+        overflow: hidden;
+        text-decoration: none;
+        transition: box-shadow 0.3s ease-in-out;
+        width: 100%;
+        
+        &.groups__card--homepage {
+            height: 100%;
+            max-height: 435px;
+        }
+
+
+        @include tablet-and-up {
+            flex: 0 48%;
+            margin-right: 4%;
+            min-height: 390px;
+
+            &:nth-of-type(2n) {
+                margin-right: 0;
+            }
+        }
+
+        @include desktop-and-up {
+            flex: 0 32%;
+            margin-right: 2%;
+            min-height: 439px;
+
+            &:nth-of-type(2n) {
+                margin-right: 2%;
+            }
+
+            &:nth-of-type(3n) {
+                margin-right: 0;
+            }
+        }
+
+        &:hover {
+            box-shadow: 0 0 0 4px #d7d7db;
+        }
+    }
+
+    &__activity-image {
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 122px;
+
+        @include tablet-and-up {
+            height: 140px;
+        }
+        
+        @include desktop-and-up {
+            height: 175px;
+        }
+    }
+
+    &__activity-title {
+        color: $color-black;
+        font-family: $title-font;
+        font-size: remCalc(24);
+        line-height: 32px;
+        margin: 0;
+        margin-bottom: 16px;
+        padding: 0;
+    }
+
+    &__card-content {
+        color: $color-gray-secondary;
+        display: flex;
+        flex-direction: column;
+        font-size: remCalc(14);
+        height: calc(100% - 122px);
+        justify-content: flex-start;
+        line-height: 20px;
+        padding: 24px 32px;
+
+        @include tablet-and-up {
+            height: calc(100% - 140px);
+        }
+
+        @include desktop-and-up {
+            height: calc(100% - 175px);
+        }
+    }
+
+    &__tag-container {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        margin-top: auto;
+
+        svg {
+            margin-left: 16px;
+        }
+    }
+
+    &__tag {
+        background-color: $color-gray-20;
+        border-radius: 50px;
+        color: $color-gray-80;
+        font-size: remCalc(12);
+        line-height: 16px;
+        padding: 6px 12px;
+    }
+
+    &__time-commitment {
+        margin-left: 10px;
+    }
+
+    &__copy {
+        padding: 0;
+        margin: 0;
+    }
+
+    &__pagination {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-top: 40px;
+        width: 100%;
+    }
+
+    &__pagination-container {
+        align-items: center;
+        color: $color-black;
+        display: flex;
+        flex-direction: row;
+        font-size: remCalc(14);
+        height: 24px;
+        justify-content: space-between;
+        line-height: 22px;
+        max-width: 324px;
+        width: 100%;
+    }
+
+    &__pagination-link {
+        color: $color-black;
+        font-size: remCalc(14);
+        line-height: 22px;
+        margin-right: 1em;
+        text-decoration: none;
+
+        &.activities__pagination-link--active {
+            position: relative;
+
+            &:after {
+                content : '';
+                position: absolute;
+                border-bottom: 1px solid $color-black;
+                bottom: -2px;
+                display: block;
+                width: 100%;
+                left: 0;
+            }
+        }
+
+    }
+}

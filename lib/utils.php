@@ -99,6 +99,7 @@ function mozilla_init_scripts() {
     // Custom scripts
     wp_enqueue_script('groups', get_stylesheet_directory_uri()."/js/groups.js", array('jquery'));
     wp_enqueue_script('events', get_stylesheet_directory_uri()."/js/events.js", array('jquery'));
+    wp_enqueue_script('activities', get_stylesheet_directory_uri()."/js/activities.js", array('jquery'));
     wp_enqueue_script('cleavejs', get_stylesheet_directory_uri()."/js/vendor/cleave.min.js", array());
     wp_enqueue_script('nav', get_stylesheet_directory_uri()."/js/nav.js", array('jquery'));
     wp_enqueue_script('profile', get_stylesheet_directory_uri()."/js/profile.js", array('jquery'));
@@ -123,6 +124,14 @@ function mozilla_theme_settings() {
 
     if(current_user_can('manage_options') && $_SERVER['REQUEST_METHOD'] === 'POST') {
         if(isset($_POST['admin_nonce_field']) && wp_verify_nonce($_REQUEST['admin_nonce_field'], 'protect_content')) {
+            if(isset($_POST['github_link'])) {
+                update_option('github_link', sanitize_text_field($_POST['github_link']));
+            }
+
+            if(isset($_POST['community_discourse'])) {
+                update_option('community_discourse', sanitize_text_field($_POST['community_discourse']));
+            }
+
             if(isset($_POST['google_analytics_id'])) {
                 update_option('google_analytics_id', sanitize_text_field($_POST['google_analytics_id']));
             }
@@ -203,6 +212,8 @@ function mozilla_add_query_vars_filter($vars) {
     $vars[] = "view";
     $vars[] = "country";
     $vars[] = "tag";
+    $vars[] = "a";
+
     return $vars;
 }
 
