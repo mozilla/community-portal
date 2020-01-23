@@ -77,6 +77,9 @@
                         case 'text_card':
                             include "{$theme_dir}/templates/blocks/text_card_block.php";
                             break;
+                        case 'events_block':
+                            include "{$theme_dir}/templates/blocks/events_block.php";
+                            break;
                     }
                 ?>
                 <?php endforeach; ?>
