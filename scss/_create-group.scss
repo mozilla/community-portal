@@ -451,8 +451,15 @@
         margin-top: 15px;
         &__copy {
 			margin: 0;
-        }
-    }
+		}
+	}
+	&__checkbox-container__link,
+	&__checkbox-container__link:visited,
+	&__terms a, 
+	&__terms a:visited {
+		color: $color-blue-50;
+		text-decoration: none;
+	}
 
     &__checkbox-container input {
         @extend .checkbox-container;

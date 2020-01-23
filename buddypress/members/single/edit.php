@@ -602,7 +602,7 @@ include("{$theme_directory}/languages.php");
             <label class="create-group__checkbox-container" for="agree">
                 <p class="create-group__checkbox-container__copy">
 					<?php print __("I agree to respect and adhere to", "community-portal"); ?>
-					<a href="https://www.mozilla.org/en-US/about/governance/policies/participation/"><?php print __("Mozilla’s Community Participation Guidelines*", "community-portal") ?></a>
+					<a class="create-group__checkbox-container__link" href="https://www.mozilla.org/en-US/about/governance/policies/participation/"><?php print __("Mozilla’s Community Participation Guidelines*", "community-portal") ?></a>
                 </p>
                 <input type="checkbox" name="agree" id="agree" value="<?php print "I Agree"; ?>" required />
                 <div class="form__error-container form__error-container--checkbox">
