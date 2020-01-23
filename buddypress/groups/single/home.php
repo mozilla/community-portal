@@ -7,6 +7,7 @@
     $is_member = groups_is_user_member($user->ID, $group->id);
     $admins = groups_get_group_admins($group->id);   
     $admin_count = sizeof($admins);
+    $user = wp_get_current_user();
 
     $args = Array(
         'group_id'      =>  $group->id,
@@ -14,6 +15,7 @@
     );
     
     $members = groups_get_group_members($args); 
+
     $is_admin = groups_is_user_admin($user->ID, $group->id);
 
     $edit_group = bp_is_group_admin_page() && $is_admin;
@@ -24,7 +26,9 @@
 
 
     if($edit_group) {
+
         include("{$theme_directory}/buddypress/groups/single/edit.php");
+
     } else {
         $is_events = false;
         $is_people = false;
