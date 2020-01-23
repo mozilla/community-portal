@@ -418,6 +418,9 @@
     }
 
     &__image-text-block-text-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         margin-bottom: 24px;
 
         @include tablet-and-up {
