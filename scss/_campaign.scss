@@ -131,10 +131,10 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        padding: 64px 32px;
+        padding: 64px $mobile-padding;
 
         @include tablet-and-up {
-            padding: 64px 64px;
+            padding: 64px $tablet-padding;
         }
 
         @include desktop-and-up {
@@ -315,11 +315,11 @@
 
     &__1up-text-block {
         background-color: $color-white;
-        padding: 64px 40px;
+        padding: 64px $mobile-padding;
         width: 100%;
 
         @include tablet-and-up {
-            padding: 64px;
+            padding: $tablet-padding;
         }
 
         @include desktop-and-up {
@@ -333,11 +333,11 @@
 
     &__2up-text-block {
         background-color: $color-white;
-        padding: 64px 40px;
+        padding: 64px $mobile-padding;
         width: 100%;
 
         @include tablet-and-up {
-            padding: 64px;
+            padding: $tablet-padding;
         }
 
         @include desktop-and-up {
@@ -377,11 +377,11 @@
 
     &__image-text-block {
         background-color: $color-white;
-        padding: 64px 40px;
+        padding: 64px $mobile-padding;
         width: 100%;
 
         @include tablet-and-up {
-            padding: 64px;
+            padding: $tablet-padding;    
         }
 
         @include desktop-and-up {
@@ -402,22 +402,19 @@
         }
     }
 
-
     &__image-text-block-text-container {
+        margin-bottom: 24px;
 
         @include tablet-and-up {
-            max-width: 305px;
-        }
-
-        @include desktop-and-up {
-            max-width: 495px;
+            margin-bottom: 0;
         }
     }
 
     &__image-text-block-image-container {
-        padding-left: 32px;        
 
-        
+        @include tablet-and-up {
+            padding-left: 32px;        
+        }
     }
 
     &__image-text-block-image {
@@ -425,6 +422,10 @@
         display: block;
         height: auto;
         width: 100%;
+
+        @include tablet-and-up {
+            min-width: 308px;
+        }
     }
 
 
