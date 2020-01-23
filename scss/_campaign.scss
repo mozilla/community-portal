@@ -142,6 +142,7 @@
         }
     }
 
+    &__card,
     &__intro-card {
         background-color: $color-white;
         border-radius: 4px;
@@ -153,7 +154,7 @@
         padding: 16px;
 
         @include tablet-and-up {
-            padding: 25px;
+            padding: 24px;
         }
 
         @include desktop-and-up {
@@ -391,6 +392,20 @@
         &.campaign__image-text-block--grey {
             background-color: $color-gray-background;
         } 
+    }
+
+    &__text-card-block {
+        background-color: $color-gray-background;
+        padding: 64px $mobile-padding;
+        width: 100%;
+
+        @include tablet-and-up {
+            padding: $tablet-padding;    
+        }
+
+        @include desktop-and-up {
+            padding: 64px 0;
+        }
     }
 
     &__image-text-block-container {
