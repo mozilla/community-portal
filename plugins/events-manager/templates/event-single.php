@@ -219,8 +219,8 @@
                                 });
                         </script>
                     <?php endif; ?>
-                </div>
-                <?php endif; ?>
+					<?php endif; ?>
+				</div>
             </div>
             <div class="events-single__description">
                 <h2 class="title--secondary"><?php echo __('Description') ?></h2>

@@ -19,8 +19,7 @@
 
 .input, 
 .textarea,
-.select,
-input {
+.select {
     &:focus {
         outline: 0;
         border: 1px solid $color-blue-50;
@@ -28,7 +27,7 @@ input {
 }
 
 .input {
-    background: $color-gray-20;
+    background-color: $color-gray-20;
     border: 1px solid $color-gray-20;
     border-radius: 5px;
     box-sizing: border-box;

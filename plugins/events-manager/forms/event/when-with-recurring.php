@@ -9,7 +9,7 @@ $admin_recurring = is_admin() && $EM_Event->is_recurring();
 <div id="em-form-with-recurrence" class="event-form-with-recurrence event-form-when">
 	<div class="em-date-range event-creator__three-up">
     <div class="wide wide--md-half">
-      <label for="start-date" class="em-event-text event-creator__label"><?php _e ( 'Start date *', 'commuity-portal'); ?></label>				
+      <label for="start-date" class="em-event-text event-creator__label"><?php _e( 'Start date *', 'community-portal'); ?></label>				
       <input id="start-date" class="em-date-start em-date-input-loc event-creator__input" type="text" autocomplete="off" required/>
       <input class="em-date-input" type="hidden" name="event_start_date" value="<?php echo $EM_Event->start()->getDate(); ?>" />
 
@@ -22,7 +22,7 @@ $admin_recurring = is_admin() && $EM_Event->is_recurring();
   </div>
 	<div class="event-creator__three-up">
     <div class="wide wide--md-third">
-      <label for="start-time" class="em-event-text event-creator__label"><?php _e('Start time *','commuity-portal'); ?></label>
+      <label for="start-time" class="em-event-text event-creator__label"><?php _e('Start time *','community-portal'); ?></label>
       <input id="start-time" class="em-time-input em-time-start event-creator__dropdown" type="text" size="8" maxlength="8" name="event_start_time" value="<?php echo $EM_Event->start()->i18n($hours_format); ?>" required />
     </div>
     <div class="wide wide--md-third">

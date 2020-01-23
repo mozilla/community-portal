@@ -1,4 +1,7 @@
 jQuery(function() {
+    jQuery('.event-creator__image-instructions').on('click', function(e) {
+      e.preventDefault();
+    });
     Dropzone.autoDiscover = false;
 
     jQuery("#event-creator-photo-uploader").dropzone({
@@ -28,7 +31,8 @@ jQuery(function() {
             response = response.replace(/\n/g, "");
             if(pattern.test(response.replace(/\s/g, ""))) {
 
-                jQuery(".dz-preview").remove();
+				jQuery(".dz-preview").remove();
+				jQuery(".event-creator__image-instructions").addClass('event-creator__image-instructions--hide');
                 jQuery('.form__error--image').parent().removeClass('form__error-container--visible');
                 jQuery("#image-delete").show();
                 jQuery("#image-url").val(response);
@@ -47,8 +51,8 @@ jQuery(function() {
                 );
 
             } else {
-                jQuery(".dz-preview").remove();
-
+				jQuery(".dz-preview").remove();
+				
                 jQuery('.form__error--image').text(response);
                 jQuery('.form__error--image').parent().addClass('form__error-container--visible');
             }
@@ -316,7 +320,8 @@ jQuery(function() {
         if ($deleteBtn.length) {
             $deleteBtn.on("click", function(e) {
                 e.preventDefault();
-                $photoUpload.css("background-image", "").css("background-size", "auto");
+				$photoUpload.css("background-image", "").css("background-size", "auto");
+				jQuery(".event-creator__image-instructions").removeClass('event-creator__image-instructions--hide');
                 $photoUpload.css("background-position", "center");
                 $imageInput.val("");
                 $deleteBtn.hide();
