@@ -170,21 +170,19 @@ jQuery(function(){
 
     });
 
-    jQuery('.profile__tag').click(function(e) {
-        e.preventDefault();
-        var $this = jQuery(this);
-        var tag = $this.data('value');
-        var current = jQuery('#tags').val();
+    jQuery('.profile__checkbox').change(function(e) {
+		var $this = jQuery(this);
+		var id = $this.prop('id');
+		var $label = jQuery('label[for=' + id + ']');
+		var tag = $this.data('value');
+		var current = jQuery('#tags').val();
 
-        if(!$this.hasClass('profile__tag--active'))
-            jQuery('#tags').val(current + ',' + tag);
-        
-        if($this.hasClass('profile__tag--active'))
-            jQuery('#tags').val(current.replace(',' + tag, ''));
-
-        $this.toggleClass('profile__tag--active');
-
-        return false;
+		if(!$label.hasClass('profile__tag--active'))
+		jQuery('#tags').val(current + ',' + tag);
+		if($label.hasClass('profile__tag--active'))
+		jQuery('#tags').val(current.replace(',' + tag, ''));
+		$label.toggleClass('profile__tag--active');
+		return false;
     });
 
 

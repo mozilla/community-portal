@@ -1033,7 +1033,15 @@
 
     &__select {
         width: 95%;
-    }
+	}
+	
+	&__checkbox {	
+		opacity: 0;	
+		position: absolute;	
+		&:focus + label {	
+			outline: 1px solid $color-blue-50;	
+		}	
+	}
 
     &__textarea {
         @extend .textarea;

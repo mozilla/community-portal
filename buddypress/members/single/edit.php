@@ -491,7 +491,7 @@ include("{$theme_directory}/languages.php");
 						?>
 						<div class="profile__tag-container">
 							<?php foreach($tags AS $tag): ?>
-								<input class="profile__checkbox" type="checkbox" id="<?php echo $tag->slug ?>" data-value="<?php print __($tag->name); ?>">
+								<input class="profile__checkbox" type="checkbox" id="<?php echo $tag->slug ?>" data-value="<?php print __($tag->slug); ?>">
 								<label class="profile__tag<?php if(in_array($tag->slug, $form_tags)): ?> profile__tag--active<?php endif; ?>" for="<?php echo $tag->slug ?>"><?php echo $tag->name ?></label>
 							<?php endforeach; ?>
 						</div>
