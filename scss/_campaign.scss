@@ -423,6 +423,24 @@
         }
     }
 
+    &__video-block {
+        background-color: $color-white;
+        padding: 64px $mobile-padding;
+        width: 100%;
+
+        @include tablet-and-up {
+            padding: $tablet-padding;    
+        }
+
+        @include desktop-and-up {
+            padding: 64px 0;
+        }
+
+        &.campaign__video-block--grey {
+            background-color: $color-gray-background;
+        } 
+    }
+
 
     &__image-text-block-container {
         display: flex;
@@ -655,5 +673,20 @@
         letter-spacing: 0.0025em;
         line-height: 20px;
         margin-bottom: 24px;
+    }
+
+    &__video-container {
+        height: 0;
+        margin-top: 24px;
+        padding-bottom: 56.25%;
+        padding-top: 0;
+        position: relative;
+    }
+
+    &__video {
+        border: 0;
+        height: 100%;
+        position: absolute;
+        width: 100%;
     }
 }
