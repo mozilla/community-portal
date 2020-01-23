@@ -245,6 +245,9 @@ jQuery(function(){
 
 
 
+    jQuery('.profile__image-instructions').on('click', function(e) {
+		e.preventDefault();
+	});
 
     jQuery("#profile-photo-uploader").dropzone({
         url: '/wp-admin/admin-ajax.php?action=upload_group_image',
@@ -277,9 +280,12 @@ jQuery(function(){
                 jQuery('#profile-photo-uploader').css('background-size', 'cover');
                 jQuery('#profile-photo-uploader').addClass("profile__image-upload--complete");
                 jQuery('.form__error--image').parent().removeClass('form__error-container--visible');
+                jQuery('.dz-remove').removeClass('dz-remove--hide');
+                jQuery('.profile__image-instructions').addClass('profile__image-instructions--hidden');
             } else {
                 jQuery('.dz-preview').remove();
                 jQuery('.dz-remove').removeClass('dz-remove--hide');
+                jQuery('.profile__image-instructions').addClass('profile__image-instructions--hide');
                 jQuery('.form__error--image').text(response);
                 jQuery('.form__error--image').parent().addClass('form__error-container--visible');
             }
@@ -336,5 +342,12 @@ jQuery(function(){
 
         return false;
     });
-
+	jQuery('#profile-photo-uploader .dz-remove').on('click', function(e) {
+		e.preventDefault();
+		jQuery('.profile__image-instructions').removeClass('profile__image-instructions--hide');
+		jQuery('.profile__image-upload').css('background-image', "url('/wp-content/themes/community-portal/images/upload-image.svg')");
+        jQuery('.profile__image-upload').removeClass('profile__image-upload--done');
+        jQuery('.profile__upload-image-svg').removeClass('.profile__upload-image-svg--hide');
+        jQuery('.profile__image-upload').css('background-size', '75px 75px');
+	});
 });

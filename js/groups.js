@@ -98,8 +98,6 @@ jQuery(function(){
     jQuery('.dz-remove').click(function(e){
         e.preventDefault();
         jQuery('.create-group__image-upload').css('background-image', "url('/wp-content/themes/community-portal/images/upload-image.svg')");
-        jQuery('#image-url').val('');
-        
         jQuery('.create-group__image-upload').removeClass('create-group__image-upload--done');
         jQuery('.dz-preview').addClass('dz-hide');
         jQuery('.create-group__upload-image-svg').removeClass('.create-group__upload-image-svg--hide');

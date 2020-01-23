@@ -139,18 +139,20 @@
                         </div>
                         <div class="create-group__input-row">
                             <div class="create-group__input-container create-group__input-container--full create-group__input-container--vertical-spacing">
-								<label class="create-group__label"><?php print __("Tags for your group", "community-portal"); ?></label>
-								<?php 
-									// Get all tags
-									$tags = get_tags(array('hide_empty' => false));
-								?>
-								<div class="create-group__tag-container">
-									<?php foreach($tags AS $tag): ?>
-										<input class="create-group__checkbox" type="checkbox" id="<?php echo $tag->slug ?>" data-value="<?php print __($tag->name); ?>">
-										<label class="create-group__tag<?php if(in_array($tag->slug, $form_tags)): ?> create-group__tag--active<?php endif; ?>" for="<?php echo $tag->slug ?>"><?php echo $tag->name ?></label>
-									<?php endforeach; ?>
+								<fieldset class="fieldset">
+									<legend class="create-group__label"><?php print __("Tags for your group", "community-portal"); ?></legend>
+									<?php 
+										// Get all tags
+										$tags = get_tags(array('hide_empty' => false));
+									?>
+									<div class="create-group__tag-container">
+										<?php foreach($tags AS $tag): ?>
+											<input class="create-group__checkbox" type="checkbox" id="<?php echo $tag->slug ?>" data-value="<?php print __($tag->name); ?>">
+											<label class="create-group__tag<?php if(in_array($tag->slug, $form_tags)): ?> create-group__tag--active<?php endif; ?>" for="<?php echo $tag->slug ?>"><?php echo $tag->name ?></label>
+										<?php endforeach; ?>
+									</div>
 									<input type="hidden" value="<?php print (isset($form['tags'])) ? $form['tags'] : '' ?>" name="tags" id="tags" /> 
-								</div>
+								</fieldset>
                             </div>
                         </div>
                     </section>

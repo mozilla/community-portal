@@ -85,16 +85,18 @@ include("{$theme_directory}/languages.php");
                             
                         ?>
                         <div id="profile-photo-uploader" class="profile__image-upload"<?php if($form && isset($form['image_url']) && strlen($form['image_url']) > 0): ?> style="background: url('<?php print $avatar_url; ?>') cover;"<?php else: ?><?php if(is_array($community_fields) && isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0): ?> style="background: url('<?php print $avatar_url; ?>'); background-size: cover;"<?php endif; ?><?php endif; ?>>
-                        <?php if(!is_array($community_fields) || !isset($community_fields['image_url'])): ?>
-        
-                        <?php endif; ?>
-                    </div>
-                    <div class="profile__image-instructions">
-                        <div><?php print __("Click or drag a photo above ", "community-portal"); ?></div>
-                        <div><?php print __("Minimum dimensions: 175 x 175px", "community-portal"); ?></div>
-                        <div class="form__error-container form__error-container--visible">
-                            <div class="form__error form__error--image"></div>
-                        </div>
+							<div class="dz-message" data-dz-message="">
+								<div class="profile__image-instructions">
+									<div class="form__error-container">
+										<div class="form__error form__error--image"></div>
+									</div>
+									<button class="profile__image-instructions">
+										<?php print __("Click or drag a photo above", "community-portal"); ?>
+										<span><?php print __('minimum dimensions 175px by 175px', "community-portal"); ?></span>
+									</button>
+								</div>
+								<a class="dz-remove<?php if(!isset($form['image_url']) || strlen($form['image_url']) === 0): ?> dz-remove--hide<?php endif; ?>" href="#" data-dz-remove="" >Remove file</a>
+							</div>
                     </div>
                     <input type="hidden" name="image_url" id="image-url" value="<?php if($form && isset($form['image_url'])): ?><?php $form['image_url']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['image_url'])): ?><?php print $community_fields['image_url']; ?><?php endif; ?><?php endif; ?>" />
                 </div>
@@ -481,13 +483,20 @@ include("{$theme_directory}/languages.php");
             <hr class="profile__keyline" />
             <div class="profile__form-field">
                 <div>
-                    <label class="profile__label" for=""><?php print __("Skills and interests (optional)", "community-portal"); ?></label>
-                    <div class="profile__tag-container">
-                        <?php foreach($tags AS $tag): ?>
-                        <a href="#" class="profile__tag<?php if(in_array($tag->slug, $form_tags)): ?> profile__tag--active<?php endif; ?>" data-value="<?php print __($tag->slug); ?>"> <?php print __($tag->name); ?></a>
-                        <?php endforeach; ?>
-                        <input type="hidden" value="<?php print ($form && isset($form['tags'])) ? $form['tags'] : ($community_fields && isset($community_fields['tags'])) ? $community_fields['tags'] : ""; ?>" name="tags" id="tags" /> 
-                    </div>
+					<fieldset class="fieldset">
+						<legend class="profile__label"><?php print __("Skills and interests (optional)", "community-portal"); ?></legend>
+						<?php 
+							// Get all tags
+							$tags = get_tags(array('hide_empty' => false));
+						?>
+						<div class="profile__tag-container">
+							<?php foreach($tags AS $tag): ?>
+								<input class="profile__checkbox" type="checkbox" id="<?php echo $tag->slug ?>" data-value="<?php print __($tag->name); ?>">
+								<label class="profile__tag<?php if(in_array($tag->slug, $form_tags)): ?> profile__tag--active<?php endif; ?>" for="<?php echo $tag->slug ?>"><?php echo $tag->name ?></label>
+							<?php endforeach; ?>
+						</div>
+						<input type="hidden" value="<?php print ($form && isset($form['tags'])) ? $form['tags'] : ($community_fields && isset($community_fields['tags'])) ? $community_fields['tags'] : ""; ?>" name="tags" id="tags" /> 
+					</fieldset>
                 </div>
                 <div class="profile__select-container">
                     <label class="profile__label" for="profile-telegram-visibility"><?php print __("Can be viewed by", "community-portal"); ?></label>
@@ -585,10 +594,10 @@ include("{$theme_directory}/languages.php");
                     print __("Some messaging around signing up for the email newsletter here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed commodo malesuada tincidunt.", "community-portal");
                 ?>
             </p>
-            <label class="create-group__checkbox-container" for="signup">
+            <label class="profile__checkbox-container" for="signup">
                 <?php print __("Sign me up for the Mozilla Community Portal email newsletter "); ?>
                 <input type="checkbox" name="signup" id="signup" value="<?php print __("Sign me up for the Mozilla Community Portal email newsletter "); ?>" />
-                <span class="create-group__check">
+                <span class="profile__check">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline>
                     </svg>
                 </span>
@@ -599,13 +608,13 @@ include("{$theme_directory}/languages.php");
         <?php if(sizeof($guidelines) === 1): ?>
         <section class="profile__form-container">
             <?php print apply_filters('the_content', $guidelines[0]->post_content); ?>
-            <label class="create-group__checkbox-container" for="agree">
+            <label class="profile__checkbox-container" for="agree">
                 <?php print __("I agree to respect and adhere to Mozilla’s Community Participation Guidelines *", "community-portal"); ?>
                 <input type="checkbox" name="agree" id="agree" value="<?php print "I Agree"; ?>" required />
                 <div class="form__error-container form__error-container--checkbox">
                     <div class="form__error"><?php print __("This field is required", "community-portal"); ?></div>
                 </div>
-                <span class="create-group__check">
+                <span class="profile__check">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline>
                     </svg>
                 </span>

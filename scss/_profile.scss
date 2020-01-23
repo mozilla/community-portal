@@ -315,7 +315,9 @@
             flex-direction: row;
             flex-wrap: wrap;
             justify-content: flex-start;
+            position: relative;
         }
+        
     }
 
     &__form-field {
@@ -1001,12 +1003,27 @@
         font-size: remCalc(12);
         justify-content: center;
         line-height: 16px;
-        margin-left: 16px;
-    }
+		border: none;
+		background: none;
+		&--hide {
+			display: none;
+		}
+	}
 
     .dz-preview {
         display: none;
         z-index: 80;
+	}
+	
+	.dz-remove--hide {
+		display: none;
+	}
+    
+    .dz-message {
+		position: absolute;
+		left: 120px;
+		top: 50%;
+		bottom: 0;
     }
 
     &__select {

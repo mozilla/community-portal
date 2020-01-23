@@ -59,7 +59,7 @@
     border-radius: 5px;
     padding: 15px;
     width: 100%;
-
+	resize: none;
     &--error {
         border-color: $error;
     }

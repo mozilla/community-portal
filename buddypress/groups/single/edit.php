@@ -120,16 +120,19 @@
                     <div class="create-group__input-container create-group__input-container--40 create-group__input-container--vertical-spacing">
                         <label class="create-group__label" for="group-desc"><?php print __("Group Photo", "community-portal"); ?></label>
                         <div id="group-photo-uploader" class="create-group__image-upload<?php if(isset($form['image_url']) && strlen($form['image_url']) > 0): ?> create-group__image-upload--done<?php endif; ?>"<?php if(isset($form['image_url']) && strlen($form['image_url']) > 0): ?> style="background-image: url('<?php print $form['image_url'];?>')"<?php endif; ?>>
-                        
-                        </div>
-                        <a class="dz-remove<?php if(!isset($form['image_url']) || strlen($form['image_url']) === 0): ?> dz-remove--hide<?php endif; ?>" href="#" data-dz-remove="" >Remove file</a>
-                            <div class="create-group__image-instructions<?php if(isset($form['image_url']) && strlen($form['image_url']) > 0): ?> create-group__image-instructions--hide<?php endif;?>">
-                            <?php print __("Click or drag a photo above", "community-portal"); ?>
-                            <span><?php print __('min dimensions 703px by 400px', "community-portal"); ?></span>
-                            <div class="form__error-container">
-                                <div class="form__error form__error--image"></div>
-                            </div>
-                        </div>
+							<div class="dz-message" data-dz-message="">
+								<div class="create-group__image-instructions">
+									<div class="form__error-container">
+										<div class="form__error form__error--image"></div>
+									</div>
+									<button class="create-group__image-instructions">
+										<?php print __("Click or drag a photo above", "community-portal"); ?>
+										<span><?php print __('min dimensions 703px by 400px', "community-portal"); ?></span>
+									</button>
+								</div>
+								<a class="dz-remove<?php if(!isset($form['image_url']) || strlen($form['image_url']) === 0): ?> dz-remove--hide<?php endif; ?>" href="#" data-dz-remove="" >Remove file</a>
+							</div>
+						</div>
                         <input type="hidden" name="image_url" id="image-url" value="<?php print (isset($form['image_url']) && strlen($form['image_url']) > 0) ? $form['image_url'] : '' ?>" />
                     </div>
                 </div>
