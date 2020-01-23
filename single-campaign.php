@@ -11,7 +11,10 @@
     $campaign_start_date = get_field('campaign_start_date');
     $campaign_end_date = get_field('campaign_end_date');
 
+    $campaign_content = get_field('campaign_content');
+
     $tags = get_the_terms($post, 'post_tag');
+
 ?>
     <div class="content">
         <div class="campaign">
@@ -53,6 +56,27 @@
                         </a>
                     </div>
                 </div>
+            </div>
+            <div class="campaign__container">
+                <?php foreach($campaign_content AS $block): ?>
+                <?php 
+                    $theme_dir = get_template_directory();
+                    switch($block['acf_fc_layout']) {
+                        case 'text_1up_block':
+                            include "{$theme_dir}/templates/blocks/text_1up_block.php";
+                            break;
+                        case 'text_2up_block':
+                            include "{$theme_dir}/templates/blocks/text_2up_block.php";
+                            break;
+                        case 'text_3up_block':
+                            include "{$theme_dir}/templates/blocks/text_3up_block.php";
+                            break;
+                        case 'text_image':
+                            include "{$theme_dir}/templates/blocks/text_image_block.php";
+                            break;
+                    }
+                ?>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>
