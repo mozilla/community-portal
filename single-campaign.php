@@ -85,7 +85,10 @@
                             break;
                         case 'imagery_block':
                             include "{$theme_dir}/templates/blocks/imagery_block.php";
-                            break;                            
+                            break;            
+                        case 'outro_cta_block':
+                            include "{$theme_dir}/templates/blocks/outro_cta_block.php";
+                            break;            
                     }
                 ?>
                 <?php endforeach; ?>

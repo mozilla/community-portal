@@ -7,11 +7,6 @@
             <?php if(isset($block['images'])): ?>
             <div class="campaign__imagery-images-container">
             <?php foreach($block['images'] AS $image): ?>
-            <?php 
-                // print "<pre>";
-                // print_r($image);
-                // print "</pre>";
-            ?>
             <div class="campaign__imagery-image-container">
                 <img src="<?php print $image['image']['url']; ?>" class="campaign__imagery-image" />
                 <div class="campaign__imagery-caption"><?php print $image['caption']; ?></div>
