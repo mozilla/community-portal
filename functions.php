@@ -33,6 +33,7 @@ add_action('wp_ajax_upload_group_image', 'mozilla_upload_image');
 add_action('wp_ajax_join_group', 'mozilla_join_group');
 add_action('wp_ajax_nopriv_join_group', 'mozilla_join_group');
 add_action('wp_ajax_leave_group', 'mozilla_leave_group');
+add_action('wp_ajax_nopriv_leave_group', 'mozilla_leave_group');
 add_action('wp_ajax_get_users', 'mozilla_get_users');
 add_action('wp_ajax_validate_email', 'mozilla_validate_email');
 add_action('wp_ajax_nopriv_validate_group', 'mozilla_validate_group_name');
@@ -47,6 +48,10 @@ add_action('auth0_user_login', 'mozilla_post_user_creation', 10, 6);
 add_action('bp_before_create_group_page', 'mozilla_create_group', 10, 1);
 add_action('bp_before_edit_group_page', 'mozilla_edit_group', 10, 1);
 add_action('bp_before_edit_member_page', 'mozilla_update_member', 10, 1);
+
+add_action('groups_join_group', 'mozilla_add_members_discourse', 10, 2);
+add_action('groups_remove_member', 'mozilla_remove_members_discourse', 10, 2);
+
 
 // Remove Actions
 remove_action('init', 'bp_nouveau_get_container_classes');
