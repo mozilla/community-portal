@@ -181,7 +181,7 @@ function mozilla_discourse_api($type, $data, $request = 'get') {
                     curl_setopt($curl, CURLOPT_URL, "{$api_url}/groups/{$data['group_id']}/users");
                     curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PATCH");
 
-                    if(is_array($data['add_users'])) {
+                    if(isset($data['add_users']) && is_array($data['add_users'])) {
                         $api_data['add'] = $data['add_users'];
                     }
 
