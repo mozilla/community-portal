@@ -83,6 +83,9 @@
                         case 'video_block':
                             include "{$theme_dir}/templates/blocks/video_block.php";
                             break;
+                        case 'imagery_block':
+                            include "{$theme_dir}/templates/blocks/imagery_block.php";
+                            break;                            
                     }
                 ?>
                 <?php endforeach; ?>
