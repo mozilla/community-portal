@@ -463,6 +463,12 @@
         &__copy {
 			margin: 0;
 		}
+		input[type=checkbox] {
+			position: ab;
+		}
+		input[type=checkbox]:focus ~ .create-group__check {
+			outline: 1px solid $color-blue-50;
+		}
 	}
 	&__checkbox-container__link,
 	&__checkbox-container__link:visited,
@@ -478,9 +484,7 @@
         cursor: pointer;
         height: 0;
         line-height: 24px;
-        opacity: 0;
         position: absolute;
-        width: 0;
     }
 
     &__radio-container {
@@ -514,7 +518,7 @@
     }
 
     &__check {
-        @extend .checkbox-check;
+		@extend .checkbox-check;
 
         &--error {
             border-color: $error;
@@ -763,5 +767,4 @@
             display: none;
         }
     }
-
 }

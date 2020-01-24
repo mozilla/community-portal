@@ -650,7 +650,10 @@
         margin-top: 15px;
 
         &--error {
-            @extend .input--error;
+			@extend .input--error;
+			.form__error-container {
+				display: block;
+			}
         }
     }
 
@@ -666,13 +669,19 @@
         cursor: pointer;
         height: 0;
         opacity: 0;
-        position: absolute;
-        width: 0;
-    }
+        position: absolute !important;
+		width: 0;
+	}
+	
+	&__check {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+	}
 
     &__checkbox-container input:checked ~ .profile__check  {
         border: 1px solid $color-blue-50;
-        transition: none;
+		transition: none;
 
         &:hover {
             box-shadow: none;
@@ -1314,4 +1323,5 @@
        line-height: 20px;
        margin-bottom: 8px;
    }
+
 }

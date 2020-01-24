@@ -241,20 +241,14 @@
                         <div class="create-group__terms">
                             <?php print apply_filters('the_content', $terms_of_service_posts[0]->post_content); ?> 
                         </div>
-                        <div class="create-group__input-container create-group__input-container--full">
-                            <label class="create-group__checkbox-container" for="agree">
-                                <p class="create-group__checkbox-container__copy">
-									<?php print __("I agree to respect and adhere to", "community-portal"); ?>
-									<a class="create-group__checkbox-container__link" href="https://www.mozilla.org/en-US/about/governance/policies/participation/"><?php print __("Mozilla’s Community Participation Guidelines *", "community-portal") ?></a>
-                                </p>
-                                <input type="checkbox" name="agree" id="agree" value="<?php print __("I Agree", "community-portal"); ?>" required />
+                        <div class="create-group__input-container create-group__input-container--full cpg">
+							<input class="checkbox--hidden" type="checkbox" name="agree" id="agree" value="<?php print __("I Agree", "community-portal"); ?>" required />
+                            <label class="cpg__label" for="agree">
+								<?php print __("I agree to respect and adhere to", "community-portal"); ?>
+								<a class="create-group__checkbox-container__link" href="https://www.mozilla.org/en-US/about/governance/policies/participation/"><?php print __("Mozilla’s Community Participation Guidelines *", "community-portal") ?></a>
                                 <div class="form__error-container form__error-container--checkbox">
                                     <div class="form__error"><?php print __("This field is required", "community-portal"); ?></div>
                                 </div>
-                                <span class="create-group__check">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                </span>
                             </label>
                         </div>
                         <?php endif; ?>
