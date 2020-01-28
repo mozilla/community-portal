@@ -67,8 +67,16 @@
                     break;
                 case 'activities':
                     global $post;
-                    $title = $post->post_title;
-                    $og_title = "{$title} - Mozilla Community Portal";
+                    $title = (trim($post->post_type) == 'activity') ? "{$post->post_title} - Mozilla Community Portal" : 'Activities - Mozilla Community Portal';
+                    $og_title = $title;
+                    $og_image = get_the_post_thumbnail_url();
+                    $og_desc = substr($post->post_content, 0, 155);
+            
+                    break;
+                case 'campaigns':
+                    global $post;
+                    $title = (trim($post->post_type) == 'campaign') ? "{$post->post_title} - Mozilla Community Portal" : 'Campaigns - Mozilla Community Portal';
+                    $og_title = $title;
                     $og_image = get_the_post_thumbnail_url();
                     $og_desc = substr($post->post_content, 0, 155);
             
