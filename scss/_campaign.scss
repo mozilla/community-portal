@@ -49,6 +49,7 @@
     &__hero-image {
         background-position: center;
         background-size: cover;
+        border-radius: 4px;
         height: 176px;
         margin-bottom: 24px;
         width: 176px;
@@ -65,6 +66,18 @@
             height: 283px;
             margin-bottom: 0;
             width: 283px;
+        }
+
+        &.campaign__hero-image--card {
+            margin-bottom: 0;
+            height: 240px;
+            width: 240px;
+
+            @include tablet-and-up {
+                height: 168px;
+                min-width: 168px;
+                width: auto;
+            }
         }
     }
 
@@ -118,6 +131,12 @@
         text-align: center;
         text-decoration: none;
         width: 186px;
+
+        &.campaign__hero-cta--secondary {
+            background-color: $color-white;
+            border: 1px solid $color-blue-50;
+            color: $color-blue-50;
+        }
     }
 
     &__status {
