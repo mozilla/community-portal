@@ -71,18 +71,16 @@
 									<legend class="create-group__label create-group__label--full-width" for="group-desc"><?php print __("Online or Offline Group", "community-portal"); ?></legend>
 									<div class="create-group__input-container--flex">
 										<div class="create-group__radio-container">
+											<input class="radio--custom" type="radio" name="group_type" id="group-type-online" value="<?php print __("Online", "community-portal"); ?>"<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($form['group_type']) && $form['group_type'] == 'Online' || (empty($form['group_type']))): ?> checked<?php endif; ?> required />
 											<label for="group-type-online">
 												<?php print __("Online", "community-portal"); ?>
-											</label>
-											<input type="radio" name="group_type" id="group-type-online" value="<?php print __("Online", "community-portal"); ?>"<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($form['group_type']) && $form['group_type'] == 'Online' || (empty($form['group_type']))): ?> checked<?php endif; ?> required />
-											<span class="create-group__radio"></span>                               
+											</label>                           
 										</div>
 										<div class="create-group__radio-container create-group__radio-container--second">
+											<input class="radio--custom" type="radio" name="group_type" id="group-type-offline" value="<?php print __("Offline", "community-portal"); ?>" <?php if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($form['group_type']) && $form['group_type'] == 'Offline'): ?> checked<?php endif; ?> required />
 											<label for="group-type-offline">
 												<?php print __("Offline", "community-portal"); ?>
 											</label>
-											<input type="radio" name="group_type" id="group-type-offline" value="<?php print __("Offline", "community-portal"); ?>" <?php if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($form['group_type']) && $form['group_type'] == 'Offline'): ?> checked<?php endif; ?> required />
-											<span class="create-group__radio"></span>
 										</div>
 										<div class="form__error-container<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_type'])): ?> form__error-container--visible<?php endif; ?>">
 										<div class="form__error"><?php print __("This field is required", "community-portal"); ?></div>
@@ -147,7 +145,7 @@
 									?>
 									<div class="create-group__tag-container">
 										<?php foreach($tags AS $tag): ?>
-											<input class="create-group__checkbox" type="checkbox" id="<?php echo $tag->slug ?>" data-value="<?php print __($tag->name); ?>">
+											<input class="create-group__checkbox" type="checkbox" id="<?php echo $tag->slug ?>" data-value="<?php print __($tag->slug); ?>">
 											<label class="create-group__tag<?php if(in_array($tag->slug, $form_tags)): ?> create-group__tag--active<?php endif; ?>" for="<?php echo $tag->slug ?>"><?php echo $tag->name ?></label>
 										<?php endforeach; ?>
 									</div>

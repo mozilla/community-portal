@@ -187,18 +187,30 @@ jQuery(function() {
                 handleCityForOnline($this, $locationCity);
             });
         }
-    }
+	}
+	
+	function handleFocusClear($this) {
+		const input_id = $this.attr("id");
+		const $label = jQuery(`label[for=${input_id}]`);
+		$this.removeClass("event-creator__error");
+		$label.removeClass("event-creator__error-text");
+		const $parent = $label.parent();
+		toggleError($parent);
+	}
 
     function clearErrors(input) {
-        input.one("focus", function() {
-            const $this = jQuery(this);
-            const input_id = $this.attr("id");
-            const $label = jQuery(`label[for=${input_id}]`);
-            $this.removeClass("event-creator__error");
-            $label.removeClass("event-creator__error-text");
-            const $parent = $label.parent();
-            toggleError($parent);
-        });
+        input.on("focus", function() {
+			const $this = jQuery(this);
+			if ($this.hasClass('event-creator__error')){
+				handleFocusClear($this);
+			}
+		});
+		input.on("blur", function() {
+			const $this = jQuery(this);
+			if ($this.hasClass('event-creator__error')){
+				handleFocusClear($this);
+			}
+		});
     }
 
     function toggleError(parent, errMsg = 'This field is required') {
@@ -254,6 +266,7 @@ jQuery(function() {
                         },
                         1000
                     );
+                    $this.focus();
                     $first = false;
                 }
 
@@ -331,7 +344,8 @@ jQuery(function() {
 
     function toggleInputAbility(input, typeValue) {
         if (input.prop("disabled") !== false) {
-            input.attr("disabled", false);
+			input.attr("disabled", false);
+			input.attr('tabindex', '0');
             if (typeValue) {
                 input.val(typeValue);
             }

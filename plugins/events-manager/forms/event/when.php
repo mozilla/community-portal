@@ -32,7 +32,7 @@ $admin_recurring = is_admin() && $EM_Event->is_recurring();
         </div>
         <?php if( get_option('dbem_timezone_enabled') ): ?>
         <div class="thin wide--md-third">
-            <label class="event-creator__label" for="event-timezone event-creator__label"><?php _e('Timezone *', 'community-portal'); ?></label>
+            <label class="event-creator__label" for="event-timezone"><?php _e('Timezone *', 'community-portal'); ?></label>
             <select class="" id="event-timezone" name="event_timezone" aria-describedby="timezone-description" <?php if ( ! is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ): echo _('required'); endif ?>>
             <?php echo wp_timezone_choice( $EM_Event->get_timezone()->getName(), get_user_locale() ); ?>
             </select>

@@ -55,8 +55,8 @@ if(!empty($_REQUEST['success'])){
                 <input class="event-creator__input event-creator__input" type="text" name="event_name" id="event-name" required value="<?php echo esc_attr($EM_Event->event_name,ENT_QUOTES); ?>" />
             </div>
             <?php if( $EM_Event->can_manage('upload_event_images','upload_event_images') ): ?>
-			    <?php em_locate_template('forms/event/featured-image-public.php',true); ?>
-		    <?php endif; ?>
+				<?php em_locate_template('forms/event/featured-image-public.php',true); ?>
+			<?php endif; ?>
             <?php em_locate_template('forms/event/when.php',true); ?>
             <div class="inside event-form-where">
                 <?php

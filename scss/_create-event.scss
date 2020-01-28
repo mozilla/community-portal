@@ -65,7 +65,7 @@ div.time-picker ul li {
         margin-top: 24px;
 
         @include tablet-and-up {
-          margin-top: 32px;
+			margin-top: 32px;
         }
     }
 
@@ -95,7 +95,11 @@ div.time-picker ul li {
 
         &.event-creator__error {
             border: 1px solid $error;
-        }
+		}
+		
+		&.event-creator__error ~ .event-creator__error-field {
+			display: block;
+		}
 
         &.event-creator__textarea {
             height: 215px;
@@ -451,6 +455,7 @@ div.time-picker ul li {
     }
 
     &__error-field {
+		display: none;
         font-size: remCalc(12);
     }
     &__checkbox:checked + .event-creator__cpg {

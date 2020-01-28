@@ -651,10 +651,7 @@
 
         &--error {
 			@extend .input--error;
-			.form__error-container {
-				display: block;
-			}
-        }
+		}
     }
 
     &__checkbox-container {
