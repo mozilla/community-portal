@@ -7,7 +7,7 @@
           ?>
             <div class="col-lg-12 col-md-6 col-sm-12">
               <p class="events-single__label"><?php echo __('Links') ?></p>
-              <p><a href="<?php echo esc_attr($external_url) ?>" class="events-single__externam-link"><?php echo __($external_url) ?></a></p>
+              <p><a href="<?php echo mozilla_verify_url($external_url) ?>" class="events-single__externam-link"><?php echo __($external_url) ?></a></p>
             </div>
           <?php 
             endif;

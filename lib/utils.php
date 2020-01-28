@@ -250,4 +250,12 @@ function mozilla_redirect_admin() {
     }
 }
 
+function mozilla_verify_url($url) {
+	if (!preg_match('/http(s?)\:\/\//i', $url)):
+		$url = 'http://'.$url;
+		return $url;
+	endif;
+	return $url;
+}
+
 ?>
