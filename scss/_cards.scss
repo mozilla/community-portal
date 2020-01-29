@@ -82,8 +82,13 @@
     &__location {
         align-items: center;
         display: flex;
-
+        
+        
         p {
+            color: $color-gray-secondary;
+            font-size: remCalc(14);
+            letter-spacing: 0.0025em;
+            line-height: 20px;
             margin: 0;
             padding-left: 8px;
         }

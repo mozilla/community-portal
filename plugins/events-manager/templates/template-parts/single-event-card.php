@@ -18,6 +18,9 @@
     $location = em_get_location($event->location_id);
     $site_url = get_site_url();
     $url = $site_url.'/events/'.$event->slug;  
+
+
+
 ?> 
 
 <div class="col-lg-4 col-md-6 events__column">
@@ -83,6 +86,14 @@
                         }
                     ?>
                     </p>
+                </div>
+                <?php endif; ?>
+                <?php if(isset($event_meta[0]->campaign) && strlen($event_meta[0]->campaign) > 0): ?>
+                <?php
+                    $campaign = get_post(intval($event_meta[0]->campaign));
+                ?>
+                <div class="events__campaign">
+                    <?php print sprintf(__('Part of ')."%s", $campaign->post_title); ?>
                 </div>
                 <?php endif; ?>
             </div>

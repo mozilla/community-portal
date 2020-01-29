@@ -7,7 +7,7 @@
   <div class="event-categories event-creator__container">
     <!-- START Categories -->
     <fieldset class="event-creator__fieldset" id="event_categories[]">
-      <legend class="event-creator__label" for="event_categories[]"><?php __( 'Select tag(s) for your event', 'commuity-portal'); ?></legend>
+      <legend class="event-creator__label" for="event_categories[]"><?php print __( 'Select tag(s) for your event', 'commuity-portal'); ?></legend>
         <?php
           $selected = $EM_Event->get_categories()->get_ids();
           foreach($categories as $category) {

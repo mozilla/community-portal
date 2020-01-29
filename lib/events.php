@@ -67,7 +67,15 @@ function mozilla_save_event($post_id, $post, $update) {
         $event->image_url = esc_url_raw($_POST['image_url']);
         $event->location_type = sanitize_text_field($_POST['location-type']);
         $event->external_url = esc_url_raw($_POST['event_external_link']);
-        $event->campaign = sanitize_text_field($_POST['event_campaign']);
+        // $event->campaign = sanitize_text_field($_POST['event_campaign']);
+        
+        if(isset($_POST['campaign_id']) && strlen($_POST['campaign_id']) > 0) {
+            $campaign_id = intval($_POST['campaign_id']);
+            $campaign = get_post($campaign_id);
+            if($campaign && $campaign->post_type === 'campaign') {
+                $event->campaign = $campaign_id;
+            }
+        }
 
         $discourse_api_data = Array();
 
@@ -94,6 +102,7 @@ function mozilla_save_event($post_id, $post, $update) {
         }
 
         update_post_meta($post_id, 'event-meta', $event);
+
     }
 }
 

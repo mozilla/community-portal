@@ -548,6 +548,17 @@
             line-height: 20px;
         }
     }
+
+    &__campaign {
+        align-items: center;
+        color: $color-gray-secondary;
+        display: flex;
+        flex-direction: row;
+        font-size: remCalc(14);
+        letter-spacing: 0.0025em;
+        line-height: 20px;
+        margin-top: 8px;
+    }
 }
 
 .events__container + .footer,
@@ -592,6 +603,8 @@
             display: block;
         }
     }
+
+
 }
 
 .em-pagination {
