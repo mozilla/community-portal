@@ -127,7 +127,7 @@
                         <label class="create-group__label" for="group-desc"><?php print __("Group Photo", "community-portal"); ?></label>
                         <div id="group-photo-uploader" class="create-group__image-upload<?php if(isset($form['image_url']) && strlen($form['image_url']) > 0): ?> create-group__image-upload--done<?php endif; ?>"<?php if(isset($form['image_url']) && strlen($form['image_url']) > 0): ?> style="background-image: url('<?php print $form['image_url'];?>')"<?php endif; ?>>
 							<div class="dz-message" data-dz-message="">
-								<div class="create-group__image-instructions <?php echo (isset($form['image_url']) || strlen($form['image_url']) > 0 ? 'create-group__image-instructions--hide' : '' ) ?>">
+								<div class="create-group__image-instructions <?php echo (isset($form['image_url']) && strlen($form['image_url']) > 0 ? 'create-group__image-instructions--hide' : '' ) ?>">
 									<div class="form__error-container">
 										<div class="form__error form__error--image"></div>
 									</div>
