@@ -7,6 +7,31 @@
         <div class="campaign__block-content ">
 
             <?php if(isset($block['events'])):?>
+            <?php 
+                if(!$block['events'] || (is_array($block['events']) && sizeof($block['events']) < 4)) {
+                    $args = Array('scope' =>  'future');
+                    $events = EM_Events::get($args);        
+                    $related_events = Array();
+
+                    foreach($events AS $e) {
+                        $event_meta = get_post_meta($e->post_id, 'event-meta');
+
+                        if(isset($event_meta[0]->initiative) && intval($event_meta[0]->initiative) === $post->ID) {
+        
+                            $related_events[] = Array('event'   =>  get_post($e->post_id));
+                        }
+
+                        if(sizeof($related_events) === 4)
+                            break;
+                    }
+
+                    if($block['events'] === false)
+                        $block['events'] = $related_events;
+                    else 
+                        $block['events'] = array_merge($block['events'], $related_events);
+                }
+
+            ?>
             <div class="campaign__events-container">
             <?php foreach($block['events'] AS $event): ?>
                 <?php 
