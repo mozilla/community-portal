@@ -9,7 +9,7 @@
     }
 
     asort($ddm_countries);
-    //foreach($ddm_countries as $country_code => $country_name);
+    
     $categories = EM_Categories::get();
     if(count($categories) > 0) {
         foreach($categories as $category) {
@@ -35,14 +35,56 @@
     <form action="" class="events__filter__form">
         <?php
             $field_name = "Country";
-            $field_label = "Location";
+            $field_label = __("Location", 'community-portal');
             $options = $ddm_countries;
             include(locate_template('plugins/events-manager/templates/template-parts/options.php', false, false));    
 
             $field_name =  "Tag";
-            $field_label = "Tag";
+            $field_label = __("Tag", 'community-portal');
             $options = $categories;
-            include(locate_template('plugins/events-manager/templates/template-parts/options.php', false, false));    
+            include(locate_template('plugins/events-manager/templates/template-parts/options.php', false, false));   
+            
+            
+            $field_name = "Initiative";
+            $field_label = __("Initiative", 'community-portal');
+            $args = Array(
+                'post_type' =>  'campaign',
+                'per_page'  =>  -1
+            );
+        
+            $campaigns = new WP_Query($args);
+            $initiatives = Array();
+
+            foreach($campaigns->posts AS $campaign) {
+                $start = strtotime(get_field('campaign_start_date', $campaign->ID));
+                $end = strtotime(get_field('campaign_end_date', $campaign->ID));
+                $today = time();
+
+                $campaign_status = get_field('campaign_status', $campaign->ID);
+
+                if(strtolower($campaign_status) !== 'closed') {
+                    $initiatives[$campaign->ID] = $campaign->post_title;
+                    continue;
+                }
+
+                if($today >= $start && $today <= $end) {
+                    $initiatives[$campaign->ID] = $campaign->post_title;
+                }
+            }
+
+            $args = Array(
+                'post_type' =>  'activity',
+                'per_page'  =>  -1
+            );
+
+            $activities = new WP_Query($args);
+            foreach($activities->posts AS $activity) {
+                $initiatives[$activity->ID] = $activity->post_title;
+            }
+
+            $options = $initiatives;
+            include(locate_template('plugins/events-manager/templates/template-parts/options.php', false, false));   
+
         ?>
     </form>
 </div>
