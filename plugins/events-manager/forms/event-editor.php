@@ -8,7 +8,7 @@ $event_id = $_REQUEST['event_id'];
 if(isset($event_id)) {
     $event_meta = get_post_meta($EM_Event->post_id, 'event-meta');
     $external_url = $event_meta[0]->external_url;
-    $event_campaign = isset($event_meta[0]->campaign) && strlen($event_meta[0]->campaign) > 0 ? intval($event_meta[0]->campaign) : false;   
+    $event_initiative = isset($event_meta[0]->initiative) && strlen($event_meta[0]->initiative) > 0 ? intval($event_meta[0]->initiative) : false;   
 }
 ?>
 
@@ -82,9 +82,8 @@ if(!empty($_REQUEST['success'])){
                         'per_page'  =>  -1
                     );
                 
-                    $campaign_count = 0;
                     $campaigns = new WP_Query($args);
-                    $active_campaigns = Array();
+                    $initiatives = Array();
 
                     foreach($campaigns->posts AS $campaign) {
                         $start = strtotime(get_field('campaign_start_date', $campaign->ID));
@@ -94,25 +93,35 @@ if(!empty($_REQUEST['success'])){
                         $campaign_status = get_field('campaign_status', $campaign->ID);
 
                         if(strtolower($campaign_status) !== 'closed') {
-                            $active_campaigns[] = $campaign;
+                            $initiatives[] = $campaign;
                             continue;
                         }
 
                         if($today >= $start && $today <= $end) {
-                            $active_campaigns[] = $campaign;
+                            $initiatives[] = $campaign;
                         }
                     }
-            
+
+                    $args = Array(
+                        'post_type' =>  'activity',
+                        'per_page'  =>  -1
+                    );
+
+                    $activities = new WP_Query($args);
+                    $initiatives = array_merge($initiatives, $activities->posts);
+                    
             ?>
+            <?php if(sizeof($initiatives) > 0): ?>
             <div class="event-creator__container">
-                <label class="event-form-details event-creator__label"><?php print __('Is this event part of an initiative?', 'community-portal'); ?></label>
-                <select name="campaign_id" id="campaign" class="event-creator__dropdown">
+                <label class="event-form-details event-creator__label" for="initiative"><?php print __('Is this event part of an activity or campaign?', 'community-portal'); ?></label>
+                <select name="initiative_id" id="initiative" class="event-creator__dropdown">
                 <option value=""><?php print __('No', 'community-portal');?></option>
-                <?php foreach($active_campaigns AS $campaign): ?>
-                <option value="<?php print $campaign->ID; ?>"<?php if($event_campaign && $event_campaign == $campaign->ID): ?> selected<?php  endif; ?>><?php print $campaign->post_title; ?></option>
+                <?php foreach($initiatives AS $initiative): ?>
+                <option value="<?php print $initiative->ID; ?>"<?php if($event_initiative && $event_initiative == $initiative->ID): ?> selected<?php  endif; ?>><?php print $initiative->post_title; ?> (<?php if($initiative->post_type === 'campaign'): ?>Campaign<?php else: ?>Activity<?php endif; ?>)</option>
                 <?php endforeach; ?>
                 </select>
             </div>
+            <?php endif; ?>
         <?php if(get_option('dbem_categories_enabled')) { em_locate_template('forms/event/categories-public.php',true); }  ?>
             <div class="event-creator__container">
                 <label class="event-creator__label" for="event-creator-link"><?php print __('External link URL', 'commuity-portal'); ?></label>
