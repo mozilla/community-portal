@@ -88,12 +88,24 @@
                     </p>
                 </div>
                 <?php endif; ?>
-                <?php if(isset($event_meta[0]->campaign) && strlen($event_meta[0]->campaign) > 0): ?>
+                <?php if(isset($event_meta[0]->initiative) && strlen($event_meta[0]->initiative) > 0): ?>
                 <?php
-                    $campaign = get_post(intval($event_meta[0]->campaign));
+                    $initiative = get_post(intval($event_meta[0]->initiative));
                 ?>
                 <div class="events__campaign">
-                    <?php print sprintf(__('Part of ')."%s", $campaign->post_title); ?>
+                    <?php if($initiative->post_type === 'campaign'): ?>
+                    <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.233 4.89288L6.46173 5.83569C6.46173 5.83569 2.87906 6.58994 2.31337 7.15562C1.86082 7.60817 2.06196 8.03558 2.21909 8.19271C2.59621 8.56984 3.94757 9.92119 4.57611 10.5497" stroke="#737373" stroke-width="2"/>
+                        <path d="M14.0041 8.66376L13.0613 12.435C13.0613 12.435 12.307 16.0177 11.7414 16.5834C11.2888 17.0359 10.8614 16.8348 10.7043 16.6776C10.3271 16.3005 8.97578 14.9492 8.34724 14.3206" stroke="#737373" stroke-width="2"/>
+                        <path d="M5.24658 11.7637L3.86891 13.1413L4.81172 14.0842L5.75453 15.027L7.1322 13.6493" stroke="#737373" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M14.816 7.85125L8.34727 14.32L6.46165 12.4343L4.57603 10.5487L11.0448 4.08001C12.5375 2.58723 14.7898 2.84912 15.4183 3.47766C16.0469 4.1062 16.3088 6.35847 14.816 7.85125Z" stroke="#737373" stroke-width="2"/>
+                    </svg>
+                    <?php else: ?>
+                    <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M14.6666 7H11.9999L9.99992 13L5.99992 1L3.99992 7H1.33325" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <?php endif; ?>
+                    <?php print sprintf(__('Part of ')."%s %s", $initiative->post_title, ($initiative->post_type === 'campaign') ? __('Campaign') : __('Activity')); ?>
                 </div>
                 <?php endif; ?>
             </div>
