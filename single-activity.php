@@ -20,34 +20,7 @@
 
     // Tags for activity
     $tags = get_the_terms($post, 'post_tag');
-    $related_events = Array();
 
-    foreach($tags AS $t) {
-        // Lets get related events now
-        $args = Array();
-        $args['scope'] = 'future';
-        $args['category'] = $t->name;
-        $events = EM_Events::get($args);
-
-        if(!empty($events)) {
-            foreach($events AS $event) {
-                $related_events[] = $event;
-
-                if(sizeof($related_events) === 4) {
-                    break;   
-                }
-            }
-        }
-
-        if(sizeof($related_events) === 4) {
-            break;
-        }
-
-    }
-
-    $event_counter = 0;
-
-    
 
 ?>
     <div class="content">
@@ -169,18 +142,35 @@
                             </div>
                         </div>
                         <?php endif; ?>
+                        <?php 
+
+                        $args = Array('scope' =>  'future');
+                        $events = EM_Events::get($args);        
+
+                        foreach($events AS $e) {
+                            $event_meta = get_post_meta($e->post_id, 'event-meta');
+
+                            if(isset($event_meta[0]->initiative) && intval($event_meta[0]->initiative) === $post->ID) {
+                                $related_events[] = $e;
+                            }
+
+                            if(sizeof($related_events) === 4)
+                                break;
+                        }
+                        ?>
                         <?php if(sizeof($related_events) > 0): ?>
                         <div class="activity__card activity__card--related-events">
                             <div class="activity__card-content">
                                 <span><?php print __("Related Events"); ?></span>
+                                
                                 <?php foreach($related_events AS $event): ?>
                                 <?php 
                                     $event_time = strtotime($event->start_date);
                                     $event_date = date("M d", $event_time);
-
+                                    
                                     $location = em_get_location($event->location_id);                                
                                 ?>
-                                <a class="activity__event" href="/events/<?php print $event->event_slug; ?>"> 
+                                <a class="activity__event<?php if(next($related_events) === false): ?> activity__event--last<?php endif; ?>" href="/events/<?php print $event->event_slug; ?>"> 
                                     <div class="activity__event-date">
                                         <?php print $event_date; ?>
                                     </div>
@@ -195,24 +185,25 @@
                                                 <path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                             </svg>
                                             <?php if($location->location_country === 'OE'): ?>
-                                              <?php print __("Online Event"); ?>
+                                            <?php print __("Online Event"); ?>
                                             <?php elseif($location->location_town && $location->location_country): ?>
-                                                <?php print "{$location->location_town}, {$countries[$location->location_country]}"; ?>
+                                            <?php print "{$location->location_town}, {$countries[$location->location_country]}"; ?>
                                             <?php elseif($location->location_town && !$location->location_country): ?>
-                                                <?php print "{$location->location_town}"; ?>
+                                            <?php print "{$location->location_town}"; ?>
                                             <?php elseif(!$location->location_town && $location->location_country): ?>
-                                                <?php print "{$countries[$location->location_country]}"; ?>
+                                            <?php print "{$countries[$location->location_country]}"; ?>
                                             <?php endif; ?>
                                         </div>
                                     </div>
                                 </a>   
                                 <?php endforeach; ?>
-                                <a href="/events/" class="activity__events-link">
+                        
+                                <a href="/events/?initiative=<?php print $post->ID; ?>" class="activity__events-link">
                                     <?php print __('View more events'); ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                                 </a>
                             </div>
-                        </div>
                         <?php endif; ?>
+                        </div>
                     </div>
                 </div>
             </div>
