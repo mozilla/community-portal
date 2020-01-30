@@ -9,7 +9,7 @@
 			$view = get_query_var( 'view', $default = '');
 			$args['search_url'] = '/events/?view='.$view;
 		?>
-		<form method="POST" action="<?php echo !empty($args['search_url']) ? esc_url($args['search_url']) : EM_URI; ?>" class="events__form">
+		<form method="GET" action="<?php echo !empty($args['search_url']) ? esc_url($args['search_url']) : EM_URI; ?>" class="events__form">
 			<input type="hidden" name="action" value="<?php echo esc_attr($args['search_action']); ?>" />
 			<?php do_action('em_template_events_search_form_header'); //hook in here to add extra fields, text etc. ?>
 			<div class="events__input-container">
