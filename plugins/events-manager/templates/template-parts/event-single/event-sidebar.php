@@ -18,13 +18,25 @@
                     </ul>
                 </div>
             <?php endif; ?>
-            <?php if($campaign): ?>
+            <?php if($initiative): ?>
                 <?php 
-                    $c = get_post($campaign);
+                    $c = get_post($initiative);
                 ?>
                 <div class="col-lg-12 col-md-6 col-sm-12">
                     <p class="events-single__label"><?php print __('Part of'); ?></p>
-                    <a href="/campaigns/<?php print $c->post_name; ?>" class="events-single__externam-link events-single__externam-link--icon">
+                    <a href="<?php if($c->post_type === 'campaign'): ?>/campaigns/<?php else: ?>/activities/<?php endif; ?><?php print $c->post_name; ?>" class="events-single__externam-link events-single__externam-link--icon">
+                    <?php if($c->post_type === 'campaign'): ?>
+                    <svg width="27" height="28" viewBox="0 0 27 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M14.8491 7.33834L9.19223 8.75256C9.19223 8.75256 3.81822 9.88393 2.96969 10.7325C2.29087 11.4113 2.59257 12.0524 2.82827 12.2881C3.39396 12.8538 5.421 14.8808 6.3638 15.8236" stroke="#0060DF" stroke-width="2"/>
+                        <path d="M20.5059 12.9956L19.0917 18.6525C19.0917 18.6525 17.9603 24.0265 17.1118 24.875C16.433 25.5539 15.7918 25.2522 15.5561 25.0165C14.9905 24.4508 12.9634 22.4237 12.0206 21.4809" stroke="#0060DF" stroke-width="2"/>
+                        <path d="M7.36963 17.6465L5.30312 19.713L6.71733 21.1272L8.13155 22.5414L10.1981 20.4749" stroke="#0060DF" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M21.7236 11.7788L12.0205 21.4819L9.19211 18.6535L6.36368 15.825L16.0668 6.12197C18.3059 3.8828 21.6843 4.27564 22.6271 5.21845C23.5699 6.16126 23.9628 9.53966 21.7236 11.7788Z" stroke="#0060DF" stroke-width="2"/>
+                    </svg>
+                    <?php else: ?>
+                    <svg width="27" height="28" viewBox="0 0 27 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 10H17L14 19L8 1L5 10H1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <?php endif; ?>
                         <?php print $c->post_title; ?>
                     </a>
                 </div>
