@@ -95,6 +95,10 @@
             </div>
         </div>
     </div>
+    <div id="campaign-share-lightbox" class="lightbox">
+        <?php include(locate_template('templates/share-modal.php', false, false)); ?>
+    </div>
+
 <?php 
     get_footer();
 ?>
