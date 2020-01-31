@@ -412,5 +412,32 @@ function acf_load_bp_groups( $field ) {
     return $field;
 }
 
+function mozilla_add_members_discourse($group_id, $user_id) {
+    
+    $discourse_group_info = mozilla_get_discourse_info($group_id);
+    $discourse_api_data = Array();
+    $discourse_users = Array();
+
+    $discourse_users[] = mozilla_get_user_auth0($user_id);
+    $discourse_api_data['group_id'] = $discourse_group_info['discourse_group_id'];
+    $discourse_api_data['add_users'] = $discourse_users;
+
+    $discourse = mozilla_discourse_api('groups/users', $discourse_api_data, 'patch');
+    return true;
+}
+
+function mozilla_remove_members_discourse($group_id, $user_id) {
+    $discourse_group_info = mozilla_get_discourse_info($group_id);
+    $discourse_api_data = Array();
+    $discourse_users = Array();
+
+    $discourse_users[] = mozilla_get_user_auth0($user_id);
+
+    $discourse_api_data['group_id'] = $discourse_group_info['discourse_group_id'];
+    $discourse_api_data['remove_users'] = $discourse_users;
+    $discourse = mozilla_discourse_api('groups/users', $discourse_api_data, 'patch');
+
+    return true;
+}
 
 ?>

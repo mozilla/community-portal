@@ -227,7 +227,10 @@
                         </div>
                         <div class="create-group__input-container create-group__input-container--full">
                             <label class="create-group__checkbox-container" for="agree">
-                                <?php print __("I agree to respect and adhere to Mozilla’s Community Participation Guidelines *", "community-portal"); ?>
+                                <p class="create-group__checkbox-container__copy">
+									<?php print __("I agree to respect and adhere to", "community-portal"); ?>
+									<a class="create-group__checkbox-container__link" href="https://www.mozilla.org/en-US/about/governance/policies/participation/"><?php print __("Mozilla’s Community Participation Guidelines *", "community-portal") ?></a>
+                                </p>
                                 <input type="checkbox" name="agree" id="agree" value="<?php print __("I Agree", "community-portal"); ?>" required />
                                 <div class="form__error-container form__error-container--checkbox">
                                     <div class="form__error"><?php print __("This field is required", "community-portal"); ?></div>

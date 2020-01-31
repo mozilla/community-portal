@@ -244,6 +244,11 @@
                 font-size: remCalc(18);
             }
         }
+		a,
+		a:visited {
+			color: $color-blue-50;
+			text-decoration: none;
+        }
         
         @include tablet-and-up {
             min-width: 640px;

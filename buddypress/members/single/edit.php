@@ -600,7 +600,10 @@ include("{$theme_directory}/languages.php");
         <section class="profile__form-container">
             <?php print apply_filters('the_content', $guidelines[0]->post_content); ?>
             <label class="create-group__checkbox-container" for="agree">
-                <?php print __("I agree to respect and adhere to Mozilla’s Community Participation Guidelines *", "community-portal"); ?>
+                <p class="create-group__checkbox-container__copy">
+					<?php print __("I agree to respect and adhere to", "community-portal"); ?>
+					<a class="create-group__checkbox-container__link" href="https://www.mozilla.org/en-US/about/governance/policies/participation/"><?php print __("Mozilla’s Community Participation Guidelines*", "community-portal") ?></a>
+                </p>
                 <input type="checkbox" name="agree" id="agree" value="<?php print "I Agree"; ?>" required />
                 <div class="form__error-container form__error-container--checkbox">
                     <div class="form__error"><?php print __("This field is required", "community-portal"); ?></div>
