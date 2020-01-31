@@ -379,7 +379,6 @@
         <?php include(locate_template('templates/share-modal.php', false, false)); ?>
     </div>
 </div>
-<?php $options = wp_load_alloptions(); ?>
 <?php if(isset($options['report_email'])): ?>
 <div class="events-single__report-container">
     <a href="mailto:<?php print $options['report_email']; ?>?subject=<?php print sprintf('%s %s - %s', __('Reporting Event', 'community-portal'), $group->name, "https://{$_SERVER[HTTP_HOST]}{$_SERVER[REQUEST_URI]}" ); ?>&body=<?php print __('Please provide a reason you are reporting this event', 'community-portal'); ?>" class="events-single__report-group-link">

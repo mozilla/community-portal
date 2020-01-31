@@ -685,7 +685,6 @@
                     </div>
                     <?php endif; ?>
                 </section>
-                <?php $options = wp_load_alloptions(); ?>
                 <?php if(isset($options['report_email'])): ?>
                 <div class="group__report-container">
                     <a href="mailto:<?php print $options['report_email']; ?>?subject=<?php print sprintf('%s %s - %s', __('Reporting Group', 'community-portal'), $group->name, "https://{$_SERVER[HTTP_HOST]}{$_SERVER[REQUEST_URI]}" ); ?>&body=<?php print __('Please provide a reason you are reporting this group', 'community-portal'); ?>" class="group__report-group-link">
