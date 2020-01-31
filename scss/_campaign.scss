@@ -181,6 +181,7 @@
         margin: auto;
         max-width: 808px;
         padding: 16px;
+        width: 100%;
 
         @include tablet-and-up {
             padding: 24px;
