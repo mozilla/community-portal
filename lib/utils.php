@@ -171,6 +171,10 @@ function mozilla_theme_settings() {
             if(isset($_POST['mapbox'])) {
                 update_option('mapbox', sanitize_text_field($_POST['mapbox']));
             }   
+
+            if(isset($_POST['report_email'])) {
+                update_option('report_email', sanitize_text_field($_POST['report_email']));
+            }
         }
     }
 
