@@ -685,6 +685,19 @@
                     </div>
                     <?php endif; ?>
                 </section>
+                <?php $options = wp_load_alloptions(); ?>
+                <?php if(isset($options['report_email'])): ?>
+                <div class="group__report-container">
+                    <a href="mailto:<?php print $options['report_email']; ?>?subject=<?php print sprintf('%s %s - %s', __('Reporting Group', 'community-portal'), $group->name, "https://{$_SERVER[HTTP_HOST]}{$_SERVER[REQUEST_URI]}" ); ?>&body=<?php print __('Please provide a reason you are reporting this group', 'community-portal'); ?>" class="group__report-group-link">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 8V12" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="12" cy="16" r="0.5" fill="#CDCDD4" stroke="#0060DF"/>
+                        </svg>
+                        <?php print __("Report Group", 'community-portal'); ?>
+                    </a>
+                </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>
