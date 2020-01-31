@@ -84,18 +84,18 @@ include("{$theme_directory}/languages.php");
                             }
                             
                         ?>
-                        <div id="profile-photo-uploader" class="profile__image-upload"<?php if($form && isset($form['image_url']) && strlen($form['image_url']) > 0): ?> style="background: url('<?php print $avatar_url; ?>') cover;"<?php else: ?><?php if(is_array($community_fields) && isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0): ?> style="background: url('<?php print $avatar_url; ?>'); background-size: cover;"<?php endif; ?><?php endif; ?>>
+                        <div id="dropzone-photo-uploader" class="profile__image-upload"<?php if($form && isset($form['image_url']) && strlen($form['image_url']) > 0): ?> style="background: url('<?php print $avatar_url; ?>') cover;"<?php else: ?><?php if(is_array($community_fields) && isset($community_fields['image_url']) && strlen($community_fields['image_url']) > 0): ?> style="background: url('<?php print $avatar_url; ?>'); background-size: cover;"<?php endif; ?><?php endif; ?>>
 							<div class="dz-message" data-dz-message="">
 								<div class="profile__image-instructions">
 									<div class="form__error-container">
 										<div class="form__error form__error--image"></div>
 									</div>
-									<button class="profile__image-instructions">
+									<button class="dropzone__image-instructions profile__image-instructions <?php if(isset($community_fields['image_url']) || strlen($community_fields['image_url']) !== 0):?> dropzone__image-instructions--hidden <?php endif; ?>">
 										<?php print __("Click or drag a photo above", "community-portal"); ?>
 										<span><?php print __('minimum dimensions 175px by 175px', "community-portal"); ?></span>
 									</button>
 								</div>
-								<a class="dz-remove<?php if(!isset($form['image_url']) || strlen($form['image_url']) === 0): ?> dz-remove--hide<?php endif; ?>" href="#" data-dz-remove="" >Remove file</a>
+								<a class="dz-remove<?php if(!isset($community_fields['image_url']) || strlen($community_fields['image_url']) === 0): ?> dz-remove--hide<?php endif; ?>" href="#" data-dz-remove="" >Remove file</a>
 							</div>
                     </div>
                     <input type="hidden" name="image_url" id="image-url" value="<?php if($form && isset($form['image_url'])): ?><?php $form['image_url']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['image_url'])): ?><?php print $community_fields['image_url']; ?><?php endif; ?><?php endif; ?>" />

@@ -979,13 +979,13 @@
         display: block;
     }
 
-    #profile-photo-uploader {
+    .profile__image-upload {
         align-items: center;
         background-color: $color-gray-20;
         background-image: url('/wp-content/themes/community-portal/images/upload-image.svg');
         background-size: 75px 75px;
         background-position: center center;
-        background-repeat: no-repeat;
+        background-repeat: no-repeat !important;
         border-radius: 50%;
         display: flex;
         height: 105px;

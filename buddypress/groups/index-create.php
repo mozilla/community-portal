@@ -118,13 +118,13 @@
                             </div>
                             <div class="create-group__input-container create-group__input-container--40 create-group__input-container--vertical-spacing">
                                 <label class="create-group__label"><?php print __("Select an image", "community-portal"); ?></label>
-                                <div id="group-photo-uploader" class="create-group__image-upload">
+                                <div id="dropzone-photo-uploader" class="create-group__image-upload">
 									<div class="dz-message" data-dz-message="">
-										<div class="create-group__image-instructions">
+										<div>
 											<div class="form__error-container">
 												<div class="form__error form__error--image"></div>
 											</div>
-											<button class="create-group__image-instructions">
+											<button id="dropzone-trigger" class="dropzone__image-instructions create-group__image-instructions">
 												<?php print __("Click or drag a photo above", "community-portal"); ?>
 												<span><?php print __('min dimensions 703px by 400px', "community-portal"); ?></span>
 											</button>

@@ -170,7 +170,8 @@ div.time-picker ul li {
         left: 0;
         position: absolute;
         top: 0;
-        width: 100%;
+		width: 100%;
+		display: none;
 
         .dz-image {
             background-position: center;
