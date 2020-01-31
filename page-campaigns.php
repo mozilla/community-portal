@@ -19,19 +19,24 @@
             $end = strtotime(get_field('campaign_end_date', $c->ID));
             $today = time();
 
-            if($start && !$end) {
-                if($today >= $start) {
-                    $current_campaign = $c;
-                    break;
+            $status =  get_field('campaign_status', $c->ID);
+
+            if(strtolower($status) !== 'closed') {
+                if($start && !$end) {
+                    if($today >= $start) {
+                        $current_campaign = $c;
+                        break;
+                    }
+                }
+    
+                if($start && $end) {
+                    if($today >= $start && $today < $end) {
+                        $current_campaign = $c;
+                        break;
+                    }
                 }
             }
 
-            if($start && $end) {
-                if($today >= $start && $today < $end) {
-                    $current_campaign = $c;
-                    break;
-                }
-            }
         }
     }
     
@@ -161,6 +166,7 @@
                 </div>
             </div>
             <?php endif; ?>
+            <?php if(sizeof($campaigns) > 0): ?>
             <div class="campaigns__past-campaigns">
                 <h2 class="campaigns__active-campaign-title"><?php print __("Past Campaigns"); ?></h2>
                 <p class="campaigns__incoming-campaign-copy"><?php print __('Mozilla communities do great work together. These campaigns are over now but feel free to check out what everyone accomplished.'); ?></p>
@@ -253,6 +259,7 @@
                     <?php endif; ?>
                 </div>
             </div>
+            <?php endif; ?>
         </div>
     </div>
 </div>
