@@ -46,7 +46,7 @@
             
             
             $field_name = "Initiative";
-            $field_label = __("Initiative", 'community-portal');
+            $field_label = __("Campaign or Activity", 'community-portal');
             $args = Array(
                 'post_type' =>  'campaign',
                 'per_page'  =>  -1
