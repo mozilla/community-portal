@@ -78,6 +78,27 @@
             </div>
         </div>
         <div class="members__container">
+            <div class="members__filter-container<?php if(!isset($_GET['location']) && !isset($_GET['mygroups'])): ?> members__filter-container--hidden<?php endif; ?>">
+                <span><?php print __("Filter by:", "community-portal"); ?></span>
+                <div class="members__select-container">
+                    <label class="groups__label">Location </label>
+                    <select class="groups__location-select">
+                        <option value=""><?php print __('All', "community-portal"); ?></option>
+                        <?php foreach($used_country_list AS $code   =>  $country): ?>
+                        <option value="<?php print $code; ?>"<?php if(isset($_GET['location']) && strlen($_GET['location']) > 0 && $_GET['location'] == $code): ?> selected<?php endif; ?>><?php print $country; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="members__select-container">
+                    <label class="members__label">Tag </label>
+                    <select class="members__tag-select">
+                        <option value=""><?php print __('All', "community-portal"); ?></option>
+                        <?php foreach($tags AS $tag): ?>
+                        <option value="<?php print $tag->slug; ?>" <?php if(isset($_GET['tag']) && strtolower(trim($_GET['tag'])) == strtolower($tag->slug)): ?> selected<?php endif; ?>><?php print $tag->name; ?></option>
+                        <?php endforeach; ?>
+                    </select>  
+                </div>
+            </div>
             <div class="members__people-container">
             <?php if(sizeof($members) > 0): ?>
             <?php foreach($members AS $member): ?>
