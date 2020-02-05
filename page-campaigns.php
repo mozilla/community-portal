@@ -100,7 +100,7 @@
 
     $campaigns = array_slice($past_campaigns, $offset, $campaigns_per_page);
     $total_pages = ceil($campaign_count / $campaigns_per_page);
-    
+
 ?>
 <div class="content">
     <div class="campaigns">
@@ -113,7 +113,7 @@
             </div>
         </div>
         <div class="campaigns__container">
-            
+            <?php if($current_campaign): ?>
             <div class="campaigns__active-campaign">
                 <div class="campaigns__active-campaign-hero-container">
                     <div class="campaign__hero-image" style="background-image: url(<?php print $current_campaign_image; ?>);">
@@ -138,6 +138,7 @@
                 </div>
                 <?php endif; ?>
             </div>
+            <?php endif; ?>
             <?php if($incoming_campaign): ?>
                 <div class="campaigns__incoming-campaign-container">
                     <h2 class="campaigns__active-campaign-title"><?php print __("Campaign Incoming!"); ?></h2>
