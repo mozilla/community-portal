@@ -25,7 +25,7 @@
 				<div class="form__error-container">
 					<div class="form__error form__error--image"></div>
 				</div>
-				<button class="dropzone__image-instructions event-creator__image-instructions">
+				<button id="dropzone-trigger" class="dropzone__image-instructions event-creator__image-instructions">
 					<?php print __("Click or drag a .PNG or .JPG above. Min dimensions 703px by 400px", "community-portal"); ?>
 				</button>
 			</div>

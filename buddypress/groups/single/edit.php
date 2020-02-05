@@ -131,7 +131,7 @@
 									<div class="form__error-container">
 										<div class="form__error form__error--image"></div>
 									</div>
-									<button class="dropzone__image-instructions create-group__image-instructions <?php echo (isset($form['image_url']) && strlen($form['image_url']) > 0 ? 'dropzone__image-instructions--hidden' : '' ) ?>">
+									<button id="dropzone-trigger" class="dropzone__image-instructions create-group__image-instructions <?php echo (isset($form['image_url']) && strlen($form['image_url']) > 0 ? 'dropzone__image-instructions--hidden' : '' ) ?>">
 										<?php print __("Click or drag a photo above", "community-portal"); ?>
 										<span><?php print __('min dimensions 703px by 400px', "community-portal"); ?></span>
 									</button>

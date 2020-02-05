@@ -90,7 +90,7 @@ include("{$theme_directory}/languages.php");
 									<div class="form__error-container">
 										<div class="form__error form__error--image"></div>
 									</div>
-									<button class="dropzone__image-instructions profile__image-instructions <?php if(isset($community_fields['image_url']) || strlen($community_fields['image_url']) !== 0):?> dropzone__image-instructions--hidden <?php endif; ?>">
+									<button id="dropzone-trigger" class="dropzone__image-instructions profile__image-instructions <?php if(isset($community_fields['image_url']) || strlen($community_fields['image_url']) !== 0):?> dropzone__image-instructions--hidden <?php endif; ?>">
 										<?php print __("Click or drag a photo above", "community-portal"); ?>
 										<span><?php print __('minimum dimensions 175px by 175px', "community-portal"); ?></span>
 									</button>

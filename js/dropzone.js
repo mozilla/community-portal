@@ -96,6 +96,7 @@ jQuery(function() {
 		jQuery(".dropzone__image-instructions").removeClass('dropzone__image-instructions--hidden');
 		$photoUpload.css("background-position", "center");
 		$imageInput.val("");
+		jQuery('#dropzone-trigger').focus();
 		$deleteBtn.hide();
 	}
 
