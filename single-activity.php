@@ -146,7 +146,8 @@
 
                         $args = Array('scope' =>  'future');
                         $events = EM_Events::get($args);        
-
+                        $related_events = Array();
+                        
                         foreach($events AS $e) {
                             $event_meta = get_post_meta($e->post_id, 'event-meta');
 
