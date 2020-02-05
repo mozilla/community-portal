@@ -337,4 +337,24 @@ jQuery(function(){
         return false;
     });
 
+
+    jQuery('.members__location-select').change(function(e) {
+        var location = jQuery(this).val();
+        jQuery('input[name="location"]').val(location);
+
+        if(jQuery('input[name="tag"]').val().length === 0) {
+            jQuery('input[name="tag"]').prop('disabled', true);
+        }
+
+        jQuery('#members-search-form').submit();
+
+    });
+
+    jQuery('.members__tag-select').change(function(e){
+        var tag = jQuery(this).val();
+        jQuery('input[name="tag"]').val(tag);
+        jQuery('#members-search-form').submit();
+    });
+
+
 });
