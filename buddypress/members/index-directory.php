@@ -49,7 +49,24 @@
         $offset = sizeof($filtered_members) - $members_per_page;
     }
 
+    $used_country_list = Array();
+
+
+    // Time to filter stuff
+    foreach($filtered_members AS $member) {
+        $info = mozilla_get_user_info($current_user, $member, $logged_in);
+        if($info['location']->display) {
+            $key = array_search($info['location']->value, $countries);
+            if($key)
+                $used_country_list[$key] = $countries[$key];
+        }
+
+        $member->info = $info;
+    }
+
+    print_r($used_country_list);
     $members = array_slice($filtered_members, $offset, $members_per_page);
+
 
     $total_pages = ceil(sizeof($filtered_members) / $members_per_page);
 
@@ -103,10 +120,8 @@
             <?php if(sizeof($members) > 0): ?>
             <?php foreach($members AS $member): ?>
             <?php 
-               
-                $is_me = $logged_in && intval($current_user->ID) === intval($member->ID);
-            
-                $info = mozilla_get_user_info($current_user, $member, $logged_in);
+                $info = $member->info;
+                
                 if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
                     $avatar_url = preg_replace("/^http:/i", "https:", $info['profile_image']->value);
                 } else {
