@@ -58,6 +58,7 @@
                 </div>
             </div>
             <div class="campaign__container">
+                <?php if($campaign_content && is_array($campaign_content)): ?>
                 <?php foreach($campaign_content AS $block): ?>
                 <?php 
                     $theme_dir = get_template_directory();
@@ -92,6 +93,7 @@
                     }
                 ?>
                 <?php endforeach; ?>
+                <?php endif; ?>
             </div>
         </div>
     </div>
