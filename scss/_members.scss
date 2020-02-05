@@ -86,7 +86,9 @@
         background-color: $color-white;
         border-radius: 5px;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        margin: 0 auto;
         margin-bottom: 24px;
+        max-width: 1228px;
         padding: 16px 30px;
         width: 100%;
         
@@ -101,24 +103,24 @@
             }
         }
 
-        &.groups__filter-container--hidden {
+        &.members__filter-container--hidden {
             display: none;
 
             @include tablet-and-up {
-                display: flex!important;// We need this because of the inline styles applied by slideToggle
-                flex-direction: row!important;  
+                display: flex;// We need this because of the inline styles applied by slideToggle
+                flex-direction: row;  
             }
         }
 
         @include tablet-and-up {
-            align-items: center!important;
-            display: flex!important;
-            flex-direction: row!important;
-            flex-wrap: wrap!important;
+            align-items: center;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
         }
 
         @include desktop-and-up {
-            justify-content: space-between!important;
+            justify-content: space-between;
         }
 
     }
