@@ -134,8 +134,11 @@
 
         .menu-item__link {
             color: $color-white;
+            padding: 2px 0;
+            display: block;
         }
     }
+    
 
     &__menu-title {
         display: block;

@@ -45,9 +45,7 @@ function mozilla_get_discourse_info($id, $type = 'group') {
                 $discourse_info['discourse_group_id'] = $group_meta['discourse_group_id'];
                 $data = Array();
                 $data['group_id'] = $group_meta['discourse_group_id'];
-    
                 $discourse_group = mozilla_discourse_api('groups', $data, 'get');
-
                 if($discourse_group && !isset($discourse_group->status)) {
                     $discourse_info['discourse_group_name'] = $discourse_group->name;
                     $discourse_info['discourse_group_description'] = $discourse_group->description;
