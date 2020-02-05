@@ -49,14 +49,14 @@ if(!empty($_REQUEST['success'])){
 				<?php do_action('em_font_event_form_guest'); //deprecated ?>
 			</div>
 		<?php endif; ?>
-	    <div class="inside event-form-name event">
+		<div class="inside event-form-name event">
             <div class="event-creator__container">
                 <label class="event-form-name event-creator__label" for="event-name"><?php print __( 'Event Name *', 'commuity-portal'); ?></label>
                 <input class="event-creator__input event-creator__input" type="text" name="event_name" id="event-name" required value="<?php echo esc_attr($EM_Event->event_name,ENT_QUOTES); ?>" />
             </div>
             <?php if( $EM_Event->can_manage('upload_event_images','upload_event_images') ): ?>
-			    <?php em_locate_template('forms/event/featured-image-public.php',true); ?>
-		    <?php endif; ?>
+				<?php em_locate_template('forms/event/featured-image-public.php',true); ?>
+			<?php endif; ?>
             <?php em_locate_template('forms/event/when.php',true); ?>
             <div class="inside event-form-where">
                 <?php
@@ -139,20 +139,14 @@ if(!empty($_REQUEST['success'])){
         <div class="event-creator__container">
             <p>
                 <?php echo __('The Mozilla Project welcomes contributions from everyone who shares our goals and wants to contribute in a healthy and constructive manner within our communities. By creating an event on this platform you are agreeing to respect and adhere to') ?> 
-                <a href="#"><?php echo __('Mozilla’s Community Participation Guidelines (“CPG”)') ?></a> 
+                <a class="event-creator__link" href="https://www.mozilla.org/about/governance/policies/participation/"><?php echo __('Mozilla’s Community Participation Guidelines (“CPG”)') ?></a> 
                 <?php echo __('in order to help us create a safe and positive community experience for all. Events that do not share our goals, or violate the CPG in any way, will be removed from the platform and potentially subject to further consequences.') ?>
             </p>
         </div>
-        <div class="event-creator__container">
-            <input class="event-creator__checkbox"type="checkbox" id="cpg" required <?php if ($event_id) { echo 'checked'; }?>>
-            <label class="event-creator__cpg" for="cpg">
-                <span class="event-creator__custom-check">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline>
-                    </svg>
-                </span>
-                <span>
-                    <?php echo __('I agree to respect and adhere to Mozilla’s Community Participation Guidelines *') ?>
-                </span>
+        <div class="event-creator__container cpg">
+            <input class="checkbox--hidden" type="checkbox" id="cpg" required <?php if ($event_id) { echo 'checked'; }?>>
+            <label class="cpg__label event-creator__cpg" for="cpg">
+                <?php echo __('I agree to respect and adhere to Mozilla’s Community Participation Guidelines *') ?>
             </label>
         </div>
     </div>

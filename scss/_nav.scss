@@ -340,7 +340,7 @@
     display: inline-block;
     height: 100%;
     width: 130px;
-    padding: 16px;
+    padding: 0;
     text-align: center;
 
     &:first-of-type {
@@ -360,9 +360,9 @@
                 border-bottom: 2px solid $color-white;
                 content: '';
                 display: block;
-                left: 0;
+                left: 16px;
                 position: absolute;
-                width: 100%;
+                width: calc(100% - 32px);
             }
         }
     }
@@ -373,7 +373,11 @@
     font-size: remCalc(16);
     line-height: 24px;
     padding: 18px 0;
+    display: inline-block;
     text-decoration: none;
+    @include desktop-and-up {
+		padding: 16px;
+    }
 }
 
 .menu-mozilla-main-menu-container {

@@ -161,7 +161,7 @@
                         <?php else: ?>
                             <p><?php echo __($location->location_town.', '.$allCountries[$EM_Event->location->location_country]) ?></p>
                         <?php endif; ?>
-                        <p><a href="/events/?country=<?php print $allCountries[$EM_Event->location->location_country]; ?>"><?php print __('View more events in',  "community-portal"); ?><?php print $allCountries[$EM_Event->location->location_country]; ?></a></p>
+                        <p><a href="/events/?country=<?php print $allCountries[$EM_Event->location->location_country]; ?>"><?php print __('View more events in ',  "community-portal"); ?><?php print $allCountries[$EM_Event->location->location_country]; ?></a></p>
                     <?php else: ?>
                         <p><?php echo __("This is an online-only event", "community-portal") ?></p>
                         <?php if(filter_var($EM_Event->location->name, FILTER_VALIDATE_URL)): ?>
@@ -221,8 +221,8 @@
                                 });
                         </script>
                     <?php endif; ?>
-                </div>
-                <?php endif; ?>
+					<?php endif; ?>
+				</div>
             </div>
             <div class="events-single__description">
                 <h2 class="title--secondary"><?php echo __('Description') ?></h2>
