@@ -524,7 +524,7 @@
                                     <?php foreach($topics AS $topic): ?>
                                         <tr>
                                             <td class="group__table-cell group__table-cell--topic">
-                                                <a href="<?php print $options['discourse_url']; ?>/t/<?php print $topic->slug; ?>" class="group__topic-link">
+                                                <a href="<?php print $options['discourse_url']; ?>/t/topic/<?php print $topic->id; ?>" class="group__topic-link">
                                                     <div class="group__topic-title"><?php print $topic->title; ?></div>
                                                     <div class="group__topic-date"><?php print date("F j, Y", strtotime($topic->created_at)); ?></div>
                                                 </a>

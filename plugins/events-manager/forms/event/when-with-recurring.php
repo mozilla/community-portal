@@ -12,7 +12,6 @@ $admin_recurring = is_admin() && $EM_Event->is_recurring();
       <label for="start-date" class="em-event-text event-creator__label"><?php print __('Start date *', 'commuity-portal'); ?></label>				
       <input id="start-date" class="em-date-start em-date-input-loc event-creator__input" type="text" autocomplete="off" required/>
       <input class="em-date-input" type="hidden" name="event_start_date" value="<?php echo $EM_Event->start()->getDate(); ?>" />
-
     </div>
     <div class="wide wide--md-half">
       <label for="end-date" class="em-event-text event-creator__label"><?php print __('End Date *','commuity-portal'); ?></label>
