@@ -65,7 +65,7 @@ div.time-picker ul li {
         margin-top: 24px;
 
         @include tablet-and-up {
-          margin-top: 32px;
+			margin-top: 32px;
         }
     }
 
@@ -95,7 +95,11 @@ div.time-picker ul li {
 
         &.event-creator__error {
             border: 1px solid $error;
-        }
+		}
+		
+		&.event-creator__error ~ .event-creator__error-field {
+			display: block;
+		}
 
         &.event-creator__textarea {
             height: 215px;
@@ -136,16 +140,16 @@ div.time-picker ul li {
 
     &__image-upload {
         @extend .input;
-
         align-items: center;
         background-color: $color-gray-20;
-        background-image: url("./images/event-upload.svg");
+        background-image: url('/wp-content/themes/community-portal/images/upload-image.svg');
         background-position: center;
         background-repeat: no-repeat;
         display: flex;
         justify-content: center;
         min-height: 180px;
-        position: relative;
+		position: relative;
+		margin-bottom: 50px;
 
         @include tablet-and-up {
             min-height: 238px;
@@ -166,7 +170,8 @@ div.time-picker ul li {
         left: 0;
         position: absolute;
         top: 0;
-        width: 100%;
+		width: 100%;
+		display: none;
 
         .dz-image {
             background-position: center;
@@ -210,8 +215,18 @@ div.time-picker ul li {
     }
 
     &__image-instructions {
+		border: 0;
+		background: none;
         color: $color-gray-secondary;
-        font-size: remCalc(12);
+		font-size: remCalc(12);
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: -15px;
+		padding: 0;
+		&--hide {
+			display: none;
+		}
     }
 
     &__submit {
@@ -238,7 +253,12 @@ div.time-picker ul li {
     }
 
     &__checkbox {
-        display: none;
+        opacity: 0;
+        position: absolute;
+        &:focus + .event-creator__tag,
+        &:focus + .event-creator__cpg .event-creator__custom-check {
+          outline: 1px solid $color-blue-50;
+        }
 
         & + .event-creator__tag {
             background: $color-white;
@@ -436,9 +456,9 @@ div.time-picker ul li {
     }
 
     &__error-field {
+		display: none;
         font-size: remCalc(12);
     }
-
     &__checkbox:checked + .event-creator__cpg {
         svg {
             display: inline-block;
@@ -522,6 +542,11 @@ div.time-picker ul li {
         @include tablet-and-up {
             margin: 0 32px 0 0 ;
         }
+    }
+    &__link,
+    &__link:visited {
+      color: $color-blue-50;
+      text-decoration: none;
     }
 }
 

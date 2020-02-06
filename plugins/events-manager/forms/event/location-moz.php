@@ -29,7 +29,7 @@ endif;
     ?>
     <div class="event-creator__three-up">
       <div class="wide <?php echo ($event) ? esc_attr("wide--md-third") : null ?>">
-        <label class="event-creator__label" for="online"><?php echo __('Is this event online or on location? *') ?></label>
+        <label class="event-creator__label" for="location-type"><?php echo __('Is this event online or on location? *') ?></label>
         <select class="event-creator__dropdown" name="location-type" id="location-type" <?php echo ($event) ? esc_attr('disabled') : null ?> required>
           <option value="online" <?php if ($location_type === 'online'): echo esc_attr('selected'); endif; ?> default ><?php echo __('Online', "community-portal") ?></option>
           <option value="address" <?php if ($location_type === 'address'): echo 'selected'; endif; ?>><?php echo __('Physical Location', "community-portal") ?></option>
@@ -44,7 +44,7 @@ endif;
     </div>
     <div class="event-creator__three-up <?php if ($location_type === 'online' || !$event_id): echo esc_attr('event-creator__hidden') ; endif; ?>">
       <div class="em-location-data-address wide--full">
-        <label class="event-creator__label" for="location-address"><?php __( 'Address *', 'commuity-portal')?></label>
+        <label class="event-creator__label" for="location-address"><?php _e( 'Address *', 'commuity-portal')?></label>
         <input class="event-creator__input" id="location-address" type="text" name="location_address" required value="<?php echo $EM_Location->location_address ? esc_attr($EM_Location->location_address) : esc_attr("Online")  ; ?>" required/>
 
       </div>
@@ -69,7 +69,7 @@ endif;
         </select>
       </div>
       <div class="wide--double">
-        <label class="event-creator__label" for="location-town"><?php __( 'City *', 'commuity-portal')?></label>
+        <label class="event-creator__label" for="location-town"><?php _e( 'City *', 'commuity-portal')?></label>
         <input class="event-creator__input" id="location-town" type="text" name="location_town" value="<?php echo esc_attr($EM_Location->location_town); ?>"  maxlength="180" required/>
       </div>
     </div>

@@ -105,6 +105,7 @@ function mozilla_init_scripts() {
     wp_enqueue_script('profile', get_stylesheet_directory_uri()."/js/profile.js", array('jquery'));
     wp_enqueue_script('lightbox', get_stylesheet_directory_uri()."/js/lightbox.js", array('jquery'));
     wp_enqueue_script('gdpr', get_stylesheet_directory_uri()."/js/gdpr.js", array('jquery'));
+    wp_enqueue_script('dropzone', get_stylesheet_directory_uri()."/js/dropzone.js", array('jquery'));
 }
 
 function mozilla_init_admin_scripts() {
@@ -171,6 +172,10 @@ function mozilla_theme_settings() {
             if(isset($_POST['mapbox'])) {
                 update_option('mapbox', sanitize_text_field($_POST['mapbox']));
             }   
+
+            if(isset($_POST['report_email'])) {
+                update_option('report_email', sanitize_text_field($_POST['report_email']));
+            }
         }
     }
 
