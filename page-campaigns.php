@@ -132,7 +132,7 @@
                 <div class="campaigns__active-campaign-description">
                     <?php print $current_campaign_card_description; ?>
                 </div>
-                <?php if(sizeof($current_campaign_tags) > 0): ?>
+                <?php if(is_array($current_campaign_tags) && sizeof($current_campaign_tags) > 0): ?>
                 <div class="campaigns__active-campaign-tags">
                     <span class="campaigns__active-campaign-tag"><?php print $current_campaign_tags[0]->name; ?></span>
                 </div>
@@ -159,7 +159,7 @@
                     <div class="campaigns__active-campaign-description">
                         <?php print $incoming_campaignn_card_description; ?>
                     </div>
-                    <?php if(sizeof($incoming_campaign_tags) > 0): ?>
+                    <?php if(is_array($incoming_campaign_tags) && sizeof($incoming_campaign_tags) > 0): ?>
                     <div class="campaigns__active-campaign-tags">
                         <span class="campaigns__active-campaign-tag"><?php print $incoming_campaign_tags[0]->name; ?></span>
                     </div>
@@ -205,7 +205,7 @@
                         <?php print $campaign_card_description; ?>
                     </div>
                 </div>
-                <?php if(sizeof($campaign_tags) > 0): ?>
+                <?php if(is_array($campaign_tags) && sizeof($campaign_tags) > 0): ?>
                 <div class="campaigns__active-campaign-tags campaigns__active-campaign-tags--card">
                     <span class="campaigns__active-campaign-tag"><?php print $campaign_tags[0]->name; ?></span>
                 </div>
