@@ -796,10 +796,17 @@
     }
 
     &__imagery-image {
+        background-size: contain;
+        background-position: center center;
+        background-repeat: no-repeat;
         border-radius: 4px;
-        height: auto;
+        height: 342px;
         margin-bottom: 8px;
         width: 100%;
+
+        @include tablet-and-up {
+            background-size: cover;
+        }
     }
 
     &__imagery-caption {
