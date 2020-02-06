@@ -7,59 +7,33 @@
     $page = isset($_GET['page']) ? intval($_GET['page']) : 0;
 
     $offset = ($page - 1) * $members_per_page;
-    
+
     if($offset < 0)
         $offset = 0;
 
     $args = Array('offset'  => 0, 'number'  =>  -1);
 
     $search_user = isset($_GET['u']) && strlen(trim($_GET['u'])) > 0 ? sanitize_text_field(trim($_GET['u'])) : false;
-    if($search_user) {
-        $args['search'] = "*{$search_user}*";
-        $args['search_columns'] = Array('nicename');
-    }
 
-    $wp_user_query = new WP_User_Query($args);
-    $members = Array();
+    $wp_user_query = new WP_User_Query(Array(
+        'offset'    =>  0,
+        'number'    =>  -1
+    ));
     $members = $wp_user_query->get_results();
-    
-    if($logged_in && $search_user) {
-        $wp_user_query = new WP_User_Query(Array(
-            'number'        =>  -1,
-            'offset'        =>  0,
-            'meta_query'    =>  Array(
-                Array(
-                    'key' => 'first_name',
-                    'value' => $search_user,
-                    'compare' => 'LIKE'
-                )
-            )
-        ));
 
-        $first_name_members = $wp_user_query->get_results();
-    } else {
-        $first_name_members = Array();
-    }
-
-    $total_members = array_merge($members, $first_name_members);
-    $unique_members = array_unique($total_members, SORT_REGULAR);
 
     $filtered_members = Array();
-    if($offset >= sizeof($filtered_members)) {
-        $offset = sizeof($filtered_members) - $members_per_page;
-    }
-
     $used_country_list = Array();
 
     // Time to filter stuff
-    foreach($unique_members AS $member) {
+    foreach($members AS $index => $member) {
+     
         $info = mozilla_get_user_info($current_user, $member, $logged_in);
         $member->info = $info;
         $member_tags = array_filter(explode(',', $info['tags']->value));
 
         $country_code = isset($_GET['location']) && strlen($_GET['location']) > 0 ? strtoupper(trim($_GET['location'])) : false;
         $get_tag = isset($_GET['tag']) && strlen($_GET['tag']) > 0 ? strtolower($_GET['tag']) : false;
-
 
         if($info['location']->display) {
             $key = array_search($info['location']->value, $countries);
@@ -88,26 +62,49 @@
         }
         
         if($get_tag) {
-            print "<pre>";
-            print "HERE<br>";
-            // var_dump($member);
-            var_dump($info['tags']->display)."<br>";
-            // var_dump($member_tags)."<br>";
-            print "</pre>";
-            if(in_array(strtolower(trim($_GET['tag'])), array_map('strtolower', $member_tags))  && $info['tags']->display) {
+            if(in_array(strtolower(trim($_GET['tag'])), array_map('strtolower', $member_tags)) && $info['tags']->display) {
                 $filtered_members[] = $member;
             }
             continue;
-
         } 
 
+        if($search_user) {
+            if(stripos($member->data->user_nicename, $search_user) !== false) {
+                $filtered_members[] = $member;
+                continue;
+            }
+
+            if(!$info['first_name']->display) {
+                continue;
+            } else {
+                if(stripos($search_user, $info['first_name']->value) !== false) {
+                    $filtered_members[] = $member;
+                    continue;
+                }
+            }
+    
+            if(!$info['last_name']->display) {
+                continue;
+            } else {
+                if(stripos($search_user, $info['las_name']->value) !== false) {
+                    $filtered_members[] = $member;
+                    continue;
+                }
+            }
+
+            continue;
+        }
+        
         $filtered_members[] = $member;
         
     }
 
+    if($offset >= sizeof($filtered_members)) {
+        $offset = sizeof($filtered_members) - $members_per_page;
+    }
+
     $tags = get_tags(Array('hide_empty' => false));
     $members = array_slice($filtered_members, $offset, $members_per_page);
-
 
     $total_pages = ceil(sizeof($filtered_members) / $members_per_page);
 
@@ -244,17 +241,17 @@
             <div class="members__pagination">
                 <div class="members__pagination-container">
                     <?php if($total_pages > 1): ?>
-                    <a href="/people/?page=<?php print $previous_page?><?php if($search_user): ?>&u=<?php print $search_user; ?><?php endif; ?><?php if(isset($_GET['location'])): ?>&location=<?php print $_GET['location']; ?><?php endif; ?>" class="members__pagination-link">
+                    <a href="/people/?page=<?php print $previous_page?><?php if($search_user): ?>&u=<?php print $search_user; ?><?php endif; ?><?php if(isset($_GET['location'])): ?>&location=<?php print $_GET['location']; ?><?php endif; ?><?php if(isset($_GET['tag'])): ?>&tag=<?php print $_GET['tag']; ?><?php endif; ?>" class="members__pagination-link">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path d="M17 23L6 12L17 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </a>
-                    <?php if($page_min > 1): ?><a href="/people/?page=1<?php if($search_user): ?>&u=<?php print $search_user; ?><?php endif; ?><?php if(isset($_GET['location'])): ?>&location=<?php print $_GET['location']; ?><?php endif; ?>" class="members__pagination-link members__pagination-link--first"><?php print "1"; ?></a>&hellip; <?php endif; ?>
+                    <?php if($page_min > 1): ?><a href="/people/?page=1<?php if($search_user): ?>&u=<?php print $search_user; ?><?php endif; ?><?php if(isset($_GET['location'])): ?>&location=<?php print $_GET['location']; ?><?php endif; ?><?php if(isset($_GET['tag'])): ?>&tag=<?php print $_GET['tag']; ?><?php endif; ?>" class="members__pagination-link members__pagination-link--first"><?php print "1"; ?></a>&hellip; <?php endif; ?>
                     <?php for($x = $page_min - 1; $x < $page_max; $x++): ?>
-                    <a href="/people/?page=<?php print $x + 1; ?><?php if($search_user): ?>&u=<?php print $search_user; ?><?php endif; ?><?php if(isset($_GET['location'])): ?>&location=<?php print $_GET['location']; ?><?php endif; ?>" class="members__pagination-link<?php if($page === $x + 1):?> members__pagination-link--active<?php endif; ?><?php if($x === $page_max - 1):?> members__pagination-link--last<?php endif; ?>"><?php print ($x + 1); ?></a>
+                    <a href="/people/?page=<?php print $x + 1; ?><?php if($search_user): ?>&u=<?php print $search_user; ?><?php endif; ?><?php if(isset($_GET['location'])): ?>&location=<?php print $_GET['location']; ?><?php endif; ?><?php if(isset($_GET['tag'])): ?>&tag=<?php print $_GET['tag']; ?><?php endif; ?>" class="members__pagination-link<?php if($page === $x + 1):?> members__pagination-link--active<?php endif; ?><?php if($x === $page_max - 1):?> members__pagination-link--last<?php endif; ?>"><?php print ($x + 1); ?></a>
                     <?php endfor; ?>
-                    <?php if($total_pages > $range && $page < $total_pages - 1): ?>&hellip; <a href="/people/?page=<?php print $total_pages; ?><?php if($search_user): ?>&u=<?php print $search_user; ?><?php endif; ?><?php if(isset($_GET['location'])): ?>&location=<?php print $_GET['location']; ?><?php endif; ?>" class="members__pagination-link<?php if($page === $total_pages):?> members__pagination-link--active<?php endif; ?>"><?php print $total_pages; ?></a><?php endif; ?>
-                    <a href="/people/?page=<?php print $next_page; ?><?php if($search_user): ?>&u=<?php print $search_user; ?><?php endif; ?><?php if(isset($_GET['location'])): ?>&location=<?php print $_GET['location']; ?><?php endif; ?>" class="members__pagination-link">
+                    <?php if($total_pages > $range && $page < $total_pages - 1): ?>&hellip; <a href="/people/?page=<?php print $total_pages; ?><?php if($search_user): ?>&u=<?php print $search_user; ?><?php endif; ?><?php if(isset($_GET['location'])): ?>&location=<?php print $_GET['location']; ?><?php endif; ?><?php if(isset($_GET['tag'])): ?>&tag=<?php print $_GET['tag']; ?><?php endif; ?>" class="members__pagination-link<?php if($page === $total_pages):?> members__pagination-link--active<?php endif; ?>"><?php print $total_pages; ?></a><?php endif; ?>
+                    <a href="/people/?page=<?php print $next_page; ?><?php if($search_user): ?>&u=<?php print $search_user; ?><?php endif; ?><?php if(isset($_GET['location'])): ?>&location=<?php print $_GET['location']; ?><?php endif; ?><?php if(isset($_GET['tag'])): ?>&tag=<?php print $_GET['tag']; ?><?php endif; ?>" class="members__pagination-link">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                         <path d="M7 23L18 12L7 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
