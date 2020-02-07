@@ -3,7 +3,7 @@
     $logged_in = mozilla_is_logged_in();
     $current_user = wp_get_current_user()->data;
     
-    $members_per_page = 1;
+    $members_per_page = 20;
     $page = isset($_GET['page']) ? intval($_GET['page']) : 0;
 
     $offset = ($page - 1) * $members_per_page;
@@ -13,15 +13,16 @@
 
     $args = Array('offset'  => 0, 'number'  =>  -1);
 
-    $search_user = isset($_GET['u']) && strlen(trim($_GET['u'])) > 0 ? sanitize_text_field(trim($_GET['u'])) : false;
+    $search_user = isset($_GET['u']) && strlen(trim($_GET['u'])) > 0 ? trim($_GET['u']) : false;
+    $country_code = isset($_GET['location']) && strlen($_GET['location']) > 0 ? strtoupper(trim($_GET['location'])) : false;
+    $get_tag = isset($_GET['tag']) && strlen(trim($_GET['tag'])) > 0 ? strtolower(trim($_GET['tag'])) : false;
 
     $wp_user_query = new WP_User_Query(Array(
         'offset'    =>  0,
         'number'    =>  -1
     ));
+
     $members = $wp_user_query->get_results();
-
-
     $filtered_members = Array();
     $used_country_list = Array();
 
@@ -31,9 +32,6 @@
         $info = mozilla_get_user_info($current_user, $member, $logged_in);
         $member->info = $info;
         $member_tags = array_filter(explode(',', $info['tags']->value));
-
-        $country_code = isset($_GET['location']) && strlen($_GET['location']) > 0 ? strtoupper(trim($_GET['location'])) : false;
-        $get_tag = isset($_GET['tag']) && strlen(trim($_GET['tag'])) > 0 ? strtolower(trim($_GET['tag'])) : false;
 
         if($info['location']->display) {
             $key = array_search($info['location']->value, $countries);
