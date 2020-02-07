@@ -145,21 +145,30 @@ body.home-page {
         }
 
         &__grid {
+			.events__column,
+			.groups__column {
+				@include tablet-and-up {
+					max-width: calc(50% - 16px);
+				}
+				@include desktop-and-up {
+					max-width: calc(33.33% - 22px);
+				}
+			}
             .events__column:nth-of-type(3n),
             .groups__column:nth-of-type(3n) {
                 @include tablet-and-up {
-                    padding-right: 16px;
+                    margin-right: 16px;
                 }
 
                 @include desktop-and-up {
-                    padding-right: 0;
+                    margin-right: 0;
                 }
             }
 
             .events__column:nth-of-type(3n + 1),
             .groups__column:nth-of-type(3n + 1)  {
                 @include desktop-and-up {
-                    padding-left: 0;
+                    margin-left: 0;
                 }
             }
 
@@ -167,7 +176,7 @@ body.home-page {
             .events__column:nth-of-type(2n + 1) {
                 //@include tablet-and-up {
                 @media (min-width: $screen-tablet-min) and (max-width: $screen-desktop-min) {
-                    padding-left: 0;
+                    margin-left: 0;
                 }
             }
 
@@ -175,7 +184,7 @@ body.home-page {
             .events__column:nth-of-type(2n) {
                 //@include tablet-and-up {
                 @media (min-width: $screen-tablet-min) and (max-width: $screen-desktop-min) {
-                    padding-right: 0px;
+                    margin-right: 0px;
                 }
             }
 
@@ -183,7 +192,7 @@ body.home-page {
             .events__column {
                 padding: 16px 0;
                 @include tablet-and-up {
-                    padding: 32px 16px;
+                    margin: 32px 16px;
                 }
 
                 .card {
