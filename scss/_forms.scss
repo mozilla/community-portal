@@ -17,19 +17,23 @@
     }
 }
 
+.input, 
+.textarea,
+.select {
+    &:focus {
+        outline: 0;
+        border: 1px solid $color-blue-50;
+    }
+}
+
 .input {
-    background: $color-gray-20;
+    background-color: $color-gray-20;
     border: 1px solid $color-gray-20;
     border-radius: 5px;
     box-sizing: border-box;
     height: 43px;
     padding: 15px;
     width: 100%;
-
-    &:focus {
-        outline: 0;
-    }
-
     &--error {
         border-color: $error;
     }
@@ -55,7 +59,7 @@
     border-radius: 5px;
     padding: 15px;
     width: 100%;
-
+	resize: none;
     &--error {
         border-color: $error;
     }
@@ -70,7 +74,6 @@
 }
 
 .checkbox-container {
-    height: 48px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -81,12 +84,60 @@
         box-shadow: 0px 0px 0px 4px  $color-gray-30;
         cursor: pointer;
         transition: all 0.3s ease-in;
-    }
+	}
+	&:focus input ~ .checkbox-check {
+		outline: 1px solid $color-blue-50;
+	}
 }
 
 
 .checkbox-container input:checked ~ .checkbox-check:after {
     display: block;
+}
+
+.checkbox--hidden {
+	opacity: 0;
+	position: absolute;
+	&.profile__input--error + .cpg__label .form__error-container  {
+		display: block;
+	}
+}
+
+.cpg {
+	height: auto;
+	&__label {
+		line-height: 24px;
+		padding-left: 40px;
+		position: relative;
+		&:hover::before {
+			background-color: $color-gray-20;
+			;
+		}
+		&::before {
+			transition: background-color 0.2s ease-in-out;
+			background-color: white;
+			content: '';
+			display: inline-block;
+			height: 24px;
+			width: 24px;
+			align-items: center;
+			border: 1px solid $color-gray-secondary;
+			border-radius: 2px;
+			margin-right: 10px;
+			position: absolute;
+			left: 0;
+		}
+	}
+	.checkbox--hidden:focus + .cpg__label::before {
+		outline: 1px solid $color-blue-50;
+	}
+	.checkbox--hidden.profile__input--error:focus + .cpg__label::before {
+		outline: 0;
+		border: 1px solid $error;
+	}
+	.checkbox--hidden:checked + .cpg__label::before {
+		background-image: url('./images/blue-check.svg');
+	}
 }
 
 .checkbox-check {
@@ -96,7 +147,7 @@
     height: 24px;
     left: 0;
     position: absolute;
-    top: 0;
+    bottom: 0;
     width: 24px;
 
     svg {
@@ -124,24 +175,9 @@
     line-height: 24px;
     margin-bottom: 12px;
     position: relative;
-    padding-left: 35px;
     user-select: none;
-
-    &:hover input ~ .radio {
-        background-color: $color-gray-30;
-    }
 }
 
-.radio-container input:checked ~ .radio:after {
-    background-color: $color-blue-50;
-    display: block;
-}
-
-
-.radio-container input:checked ~ .radio {
-    background-color: $color-white;
-    border-color: $color-blue-50;
-}
 
 
 .radio-container input {
@@ -153,20 +189,34 @@
 }
 
 .radio {
-    background-color: $color-white;
-    border: 2px solid $color-gray-40;
-    border-radius: 50%;
-    height: 24px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 24px;
-
-    &:after {
-        content: '';
-        display: none;
-        position: absolute;
-    }
+	&--custom {
+		& + label {
+			position: relative;
+			padding-left: 35px;
+		}
+		&:focus + label::before {
+			outline: 1px solid $color-blue-50;
+		}
+		& + label:before {
+			position: absolute;
+			left: 0;
+			content: '';
+			height: 20px;
+			width: 20px;
+			display: inline-block;
+			border-radius: 50%;
+			border: 2px solid $color-gray-40;
+			transition: background-color 0.2s ease-in-out;
+		}
+		&:hover + label::before {
+			background: $color-gray-30;
+		}
+		&:checked + label::before {
+			background: $color-blue-50;
+			border: 2px solid $color-blue-50;
+			box-shadow: inset 0 0 0 2px white;
+		}
+	}
 }
 
 .radio-container .radio:after {
@@ -206,6 +256,10 @@
     &--disabled {
         background-color: $color-white;
     }
+}
+
+.fieldset {
+  border: 0;
 }
 
 .cta {

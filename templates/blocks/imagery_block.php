@@ -8,7 +8,7 @@
             <div class="campaign__imagery-images-container">
             <?php foreach($block['images'] AS $image): ?>
             <div class="campaign__imagery-image-container">
-                <img src="<?php print $image['image']['url']; ?>" class="campaign__imagery-image" />
+                <div style="background-image: url('<?php print $image['image']['url']; ?>'); background-color: <?php if(isset($image['background_color']) && strlen($image['background_color']) > 0): ?><?php print $image['background_color']; ?><?php else: ?> #ffffff<?php endif; ?>;" class="campaign__imagery-image"></div>
                 <div class="campaign__imagery-caption"><?php print $image['caption']; ?></div>
             </div>
             <?php endforeach; ?>

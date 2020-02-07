@@ -1,6 +1,5 @@
 jQuery(function(){
 
-
     jQuery('.members__avatar--identicon').each(function(index, ele) {
 
         var $ele = jQuery(ele);
@@ -170,21 +169,19 @@ jQuery(function(){
 
     });
 
-    jQuery('.profile__tag').click(function(e) {
-        e.preventDefault();
-        var $this = jQuery(this);
-        var tag = $this.data('value');
-        var current = jQuery('#tags').val();
+    jQuery('.profile__checkbox').change(function(e) {
+		var $this = jQuery(this);
+		var id = $this.prop('id');
+		var $label = jQuery('label[for=' + id + ']');
+		var tag = $this.data('value');
+		var current = jQuery('#tags').val();
 
-        if(!$this.hasClass('profile__tag--active'))
-            jQuery('#tags').val(current + ',' + tag);
-        
-        if($this.hasClass('profile__tag--active'))
-            jQuery('#tags').val(current.replace(',' + tag, ''));
-
-        $this.toggleClass('profile__tag--active');
-
-        return false;
+		if(!$label.hasClass('profile__tag--active'))
+		jQuery('#tags').val(current + ',' + tag);
+		if($label.hasClass('profile__tag--active'))
+		jQuery('#tags').val(current.replace(',' + tag, ''));
+		$label.toggleClass('profile__tag--active');
+		return false;
     });
 
 
@@ -242,61 +239,6 @@ jQuery(function(){
             }
         })
     });
-
-
-
-
-    jQuery("#profile-photo-uploader").dropzone({
-        url: '/wp-admin/admin-ajax.php?action=upload_group_image',
-        acceptedFiles: 'image/*',
-        createImageThumbnails: false,
-        addRemoveLinks: true,
-        init: function() {
-            this.on("sending", function(file, xhr, formData){
-                var nonce = jQuery('#my_nonce_field').val();
-                formData.append('my_nonce_field', nonce);
-                formData.append('profile_image', 'true');
-            });
-        },
-        success: function (file, response) {
-            
-            var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-                '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
-                '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-                '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-                '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-                '(\\#[-a-z\\d_]*)?$','i');
-
-            response = response.replace(/\n/g, "");
-            if(pattern.test(response.replace(/\s/g, ""))) {
-                jQuery('#image-url').removeClass('profile__input--error');
-                file.previewElement.classList.add("dz-success");
-                file['attachment_id'] = response; // push the id for future reference
-                jQuery('#image-url').val(response);
-                jQuery('#profile-photo-uploader').css('background-image', 'url(' +  response + ')');
-                jQuery('#profile-photo-uploader').css('background-size', 'cover');
-                jQuery('#profile-photo-uploader').addClass("profile__image-upload--complete");
-                jQuery('.form__error--image').parent().removeClass('form__error-container--visible');
-            } else {
-                jQuery('.dz-preview').remove();
-                jQuery('.dz-remove').removeClass('dz-remove--hide');
-                jQuery('.form__error--image').text(response);
-                jQuery('.form__error--image').parent().addClass('form__error-container--visible');
-            }
-        },
-        error: function (file, response) {
-            
-            file.previewElement.classList.add("dz-error");
-        },
-        sending: function(file, xhr, formData) {
-        },
-        removedfile: function(file) {
-            jQuery('#profile-photo-uploader').css('background-size', 'cover');
-            return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;     
-        }
-    });
-
-
 
     jQuery('.profile__input, .profile__textarea, .profile__select').on('change keyup', function(e){
         var $this = jQuery(this);
