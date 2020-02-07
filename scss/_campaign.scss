@@ -632,6 +632,11 @@
         }
 
         &.campaign__columns-container--three {
+
+            @include tablet-and-up {
+                align-items: flex-start;
+            }
+
             .campaign__column {
                 margin-bottom: 32px;
                 text-align: center;
