@@ -242,7 +242,7 @@ jQuery(function() {
     }
 
     function validateForm() {
-        const $eventForm = jQuery("#event-form");
+        const $eventForm = jQuery("#event-form")[0];
 
         if ($eventForm) {
             const $requiredInputs = jQuery("input, textarea, select").filter("[required]");
@@ -323,6 +323,7 @@ jQuery(function() {
     }
 
     function handleSubmit() {
+        
         const $form = jQuery("#event-form");
         if ($form) {
             $form.on("submit", function(e) {

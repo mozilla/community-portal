@@ -111,7 +111,7 @@
 						<h2 class="subheader homepage__groups__subheader"><?php echo __($fieldValues->featured_groups_title)?></h2>
 					</div>
 					<div class="col-md-6 col-sm-12 homepage__groups__cta">
-						<a href="/events" class="btn btn--small btn--dark"><?php echo __($fieldValues->featured_groups_cta_text); ?></a>
+						<a href="/groups" class="btn btn--small btn--dark"><?php echo __($fieldValues->featured_groups_cta_text); ?></a>
 					</div>
 				</div>
 				<div class="row homepage__groups__grid">
@@ -166,14 +166,16 @@
 										<?php 
 												$tag_counter = 0;
 										?>
+										<ul class="groups__card-tags__container">
 										<?php foreach($meta['group_tags'] AS $key =>  $value): ?>
-											<span class="groups__tag"><?php print $value; ?></span>
+											<li class="groups__tag"><?php print $value; ?></li>
 											<?php $tag_counter++; ?>
 											<?php if($tag_counter === 2 && sizeof($meta['group_tags']) > 2): ?>
-												<span class="groups__tag">+ <?php print sizeof($meta['group_tags']) - 2; ?> <?php print __(' more tags'); ?></span>
+												<li class="groups__tag">+ <?php print sizeof($meta['group_tags']) - 2; ?> <?php print __(' more tags'); ?></li>
 												<?php break; ?>
 											<?php endif; ?>
 										<?php endforeach; ?>
+										</ul>
 									</div>
 								</div>
 							</div>
