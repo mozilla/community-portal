@@ -30,7 +30,6 @@ jQuery(function() {
 				file['attachment_id'] = response; // push the id for future reference
 				jQuery('#image-url').val(response);
 				jQuery('#dropzone-photo-uploader').css('background-image', 'url(' +  response + ')');
-				jQuery('#dropzone-photo-uploader').css('background-size', 'contain');
 				jQuery('#dropzone-photo-uploader').addClass("profile__image-upload--complete");
 				jQuery('.form__error--image').parent().removeClass('form__error-container--visible');
 				jQuery('.dz-remove').removeClass('dz-remove--hide');
@@ -52,7 +51,6 @@ jQuery(function() {
 		sending: function(file, xhr, formData) {
 		},
 		removedfile: function(file) {
-			jQuery('#dropzone-photo-uploader').css('background-size', 'cover');
 			return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;     
 		}
 	});
