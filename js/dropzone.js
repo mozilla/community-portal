@@ -30,7 +30,7 @@ jQuery(function() {
 				file['attachment_id'] = response; // push the id for future reference
 				jQuery('#image-url').val(response);
 				jQuery('#dropzone-photo-uploader').css('background-image', 'url(' +  response + ')');
-				jQuery('#dropzone-photo-uploader').css('background-size', 'cover');
+				jQuery('#dropzone-photo-uploader').css('background-size', 'contain');
 				jQuery('#dropzone-photo-uploader').addClass("profile__image-upload--complete");
 				jQuery('.form__error--image').parent().removeClass('form__error-container--visible');
 				jQuery('.dz-remove').removeClass('dz-remove--hide');
