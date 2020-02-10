@@ -5,6 +5,14 @@
         <tbody>
             <tr>
                 <th scope="row">
+                    <label for="report-email">Report Group / Event Email</label>
+                </th>
+                <td>
+                    <input type="text" id="report-email" name="report_email" class="regular-text" value="<?php print isset($options['report_email']) ? $options['report_email'] : ''; ?>" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
                     <label for="github-link">Github Link</label>
                 </th>
                 <td>

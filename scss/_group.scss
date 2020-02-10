@@ -798,4 +798,31 @@
             margin-left: 8px;
         }
     }
+
+    &__report-container {
+        align-items: center;
+        border-bottom: 1px solid $color-gray-40;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        margin: 0;
+        margin-top: 32px;
+        padding: 0;
+        padding-bottom: 32px;
+        width: 100%
+    }
+
+    &__report-group-link {
+        align-items: center;
+        color: $color-blue-50;
+        display: flex;
+        flex-direction: row;
+        font-size: remCalc(16);
+        line-height: 24px;
+        text-decoration: none;
+
+        svg {
+            margin-right: 8px;
+        }
+    }
 }

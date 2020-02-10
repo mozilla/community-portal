@@ -1,0 +1,388 @@
+.campaigns {
+    width: 100%;
+
+    &__container {
+        @extend .container;
+        align-content: flex-start;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        @include tablet-and-up {
+            margin-top: -28px;
+        }
+    }
+
+    &__hero {
+        background-color: $color-purple-5;
+        height: 384px;
+        padding: 0 $mobile-padding;
+        width: 100%;
+
+        @include tablet-and-up {
+            background-image: url('./images/campaigns.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: right -50px bottom -10px;
+            height: 404px;
+            padding: 0 $tablet-padding;
+        }
+        
+        @include desktop-and-up {
+            background-image: none;
+            height: 332px;
+            padding: 0 $desktop-padding;
+        }
+    }
+
+    &__hero-container {
+        @extend .container; 
+        background-repeat: no-repeat;
+        height: 100%;
+        justify-content: center;
+        max-width: 1228px;
+        padding: 0;
+        padding-top: 24px;
+        position: relative;
+        text-align: center;
+
+        @include tablet-and-up {
+            display: flex;
+            flex-direction: column;
+            padding-top: 0;
+            text-align: left;
+        }
+
+        @include desktop-and-up {
+            background-image: url('./images/campaigns.png');
+            background-position: right center;
+            background-size: contain;
+        }
+
+    }
+
+    &__hero-link {
+        color: $color-black;
+    }
+
+    &__title {
+        @extend .hero-title;
+
+        &:after {
+            background-color: $color-purple-40;
+        }
+    }
+
+    &__hero-copy {
+        @extend .hero-copy;
+
+        @include desktop-and-up {
+            max-width: 493px;
+        }
+    }
+
+    &__past-campaigns-container {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        width: 100%;
+
+        @include tablet-and-up {
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+    }
+
+    &__active-campaign {
+        background-color: $color-white;
+        border-radius: 4px;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        margin: 0 auto;
+        margin-top: -162px;
+        padding: 16px;
+        width: 100%;
+        z-index: 10;
+
+        @include tablet-and-up {
+            margin-top: 0;
+            padding: 24px;
+        }
+
+        @include desktop-and-up {
+            max-width: 1018px;
+            padding: 48px $desktop-padding;
+        }
+        
+    }
+
+    &__active-campaign-hero-container {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        
+
+        &.campaigns__active-campaign-hero-container--card {
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        @include tablet-and-up {
+            flex-direction: row;
+        }
+    }
+
+    &__active-campaign-status {
+        color: $color-gray-secondary;
+        font-size: remCalc(14);
+        letter-spacing: 0.0025em;
+        line-height: 24px;
+        margin: 0;
+        margin-bottom: 8px;
+        padding: 0;
+
+    }
+
+    &__active-campaign-title {
+        @extend .hero-title;
+        color: $color-off-black;
+        font-size: remCalc(32);
+        line-height: 40px;
+        margin: 0;
+        padding: 0;
+
+        &.campaigns__active-campaign-title--card {
+            font-size: remCalc(24);
+            line-height: 32px;
+            text-align: center;
+
+            @include tablet-and-up {
+                text-align: left;
+            }
+        }
+    }
+
+    &__active-campaign-title-container {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0;
+
+
+        @include tablet-and-up {
+            align-items: flex-start;
+            margin-left: 24px;
+        }
+
+        @include desktop-and-up {
+            margin-left: 32px;
+        }
+
+        &.campaigns__active-campaign-title-container--card {
+            align-items: flex-start;
+            margin-top: 16px;
+            text-align: center;
+
+            @include tablet-and-up {
+                margin-top: 0;
+            }
+        }
+    }
+
+    &__active-campaign-date-container {
+        color: $color-off-black;
+        font-size: remCalc(16);
+        line-height: 24px;
+        margin: 0;
+        margin-bottom: 24px;
+        margin-top: 10px;
+
+        &.campaigns__active-campaign-date-container--card {
+            font-size: remCalc(14);
+            line-height: 24px;
+            margin-bottom: 0;
+            text-align: center;
+            width: 100%;
+            
+            @include tablet-and-up {
+                text-align: left;
+            }
+        }
+    }
+
+    &__active-campaign-description {
+        color: $color-off-black;
+        font-size: remCalc(16);
+        line-height: 24px;
+        margin: 0;
+        margin-top: 24px;
+        padding: 0;
+        text-align: left;
+
+        p {
+            margin: 0;
+            padding: 0;
+        }
+        
+        @include tablet-and-up {
+            font-size: remCalc(18);
+            line-height: 28px;
+        }
+
+        &.campaigns__active-campaign-description--card {
+            font-size: remCalc(16);
+            line-height: 24px;
+            margin: 0;
+            margin-top: 16px;
+            padding-bottom: 16px;
+            width: 100%;
+        }
+    }
+
+    &__incoming-campaign-container {
+        margin: 0 auto;
+        margin-top: 48px;
+        text-align: center;
+        width: 100%;
+        
+        @include tablet-and-up {
+            margin-top: 64px;
+        }
+    
+        .campaigns__active-campaign {
+            margin-top: 0;
+        }
+    }
+
+    &__incoming-campaign-copy {
+        margin: 0;
+        margin-bottom: 32px;
+        margin-top: 16px;
+        padding: 0;
+    }
+
+    &__active-campaign-tags {
+        margin-top: 24px;
+        text-align: left;
+        
+        @include desktop-and-up {
+            margin-top: 36px;
+        }
+
+        &.campaigns__active-campaign-tags--card {
+            margin-top: auto;
+        }
+    }
+
+    &__active-campaign-tag {
+        background-color: $color-gray-20;   
+        border-radius: 50px;
+        color: $color-gray-80;
+        display: inline-block;
+        font-size: remCalc(12);
+        line-height: 16px;
+        padding: 6px 12px;
+    }
+
+    &__past-campaigns {
+        margin-top: 48px;
+        text-align: center;
+        width: 100%;
+
+        @include tablet-and-up {
+            margin-top: 64px;
+        }
+
+        @include desktop-and-up {
+            margin-top: 88px;
+        }
+
+        .campaigns__incoming-campaign-copy {
+            margin: 0 auto;
+            margin-top: 16px;
+            max-width: 665px;
+        }
+    }
+
+    &__campaign {
+        background-color: $color-white;
+        border-radius: 4px;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        display: flex;
+        flex-direction: column;
+        margin-top: 32px;
+        padding: 24px;
+        text-decoration: none;
+        transition: box-shadow 0.3s ease-in-out;
+
+        &:hover {
+            box-shadow: 0 0 0 4px #d7d7db;
+        }
+
+        @include tablet-and-up {
+            padding: 32px;
+            width: 100%;
+        }
+
+        @include desktop-and-up {
+            max-width: 48%;
+        }
+    }
+
+    &__pagination {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-top: 40px;
+        width: 100%;
+    }
+
+    &__pagination-container {
+        align-items: center;
+        color: $color-black;
+        display: flex;
+        flex-direction: row;
+        font-size: remCalc(14);
+        height: 24px;
+        justify-content: space-between;
+        line-height: 22px;
+        max-width: 324px;
+        width: 100%;
+    }
+
+    &__pagination-link {
+        color: $color-black;
+        font-size: remCalc(14);
+        line-height: 22px;
+        margin-right: 1em;
+        text-decoration: none;
+
+        &.campaigns__pagination-link--active {
+            position: relative;
+
+            &:after {
+                content : '';
+                position: absolute;
+                border-bottom: 1px solid $color-black;
+                bottom: -2px;
+                display: block;
+                width: 100%;
+                left: 0;
+            }
+        }
+    }
+
+    &__past-campaign-hero {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        @include tablet-and-up {
+            flex-direction: row;
+        }
+    }
+}
+

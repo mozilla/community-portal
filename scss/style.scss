@@ -17,6 +17,7 @@
 @import "activity";
 @import "button";
 @import "campaign";
+@import "campaigns";
 @import "cards";
 @import "create-event";
 @import "create-group";
@@ -36,10 +37,15 @@
 @import "profile";
 @import "share-lightbox";
 @import "tags";
+@import "dropzone";
 
 
 * {
     box-sizing: border-box;
+}
+
+*:focus {
+  outline: 1px solid $color-blue-50;
 }
 
 html {
