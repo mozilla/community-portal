@@ -70,14 +70,20 @@
 
         &__image {
             align-items: flex-start;
-            background-size: cover;
             background-color: $color-gray-10;
             background-position: center;
             background-repeat: no-repeat;
             border-top-left-radius: 4px;
             border-top-right-radius: 4px;
-            display: flex;
-            justify-content: flex-end;
+			display: flex;
+			background-size: contain;
+			justify-content: flex-end;
+			position: relative;
+			&--active .card__edit-btn {
+				position: absolute;
+				top: 0;
+				right: 0;
+			}
         }
 
         &__date {

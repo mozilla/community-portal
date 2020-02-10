@@ -138,26 +138,23 @@ div.time-picker ul li {
         }
     }
 
-    &__image-upload {
-        @extend .input;
-        align-items: center;
-        background-color: $color-gray-20;
-        background-image: url('/wp-content/themes/community-portal/images/upload-image.svg');
-        background-position: center;
-        background-repeat: no-repeat;
-        display: flex;
-        justify-content: center;
-        min-height: 180px;
-		position: relative;
-		margin-bottom: 50px;
-
-        @include tablet-and-up {
-            min-height: 238px;
-        }
-
-        @include desktop-and-up {
-            min-height: 364px;
-        }
+	&__image-upload {
+		@extend .input;
+		&#dropzone-photo-uploader {
+			border: 0;
+			background-size: contain;
+			align-items: center;
+			background-color: $color-gray-20;
+			background-image: url('/wp-content/themes/community-portal/images/upload-image.svg');
+			background-position: center;
+			background-repeat: no-repeat;
+			display: flex;
+			justify-content: center;
+			position: relative;
+			margin-bottom: 50px;
+			padding: 0;
+			padding-top: 45.3%;
+		}
     }
 
     .dz-remove--hide {
