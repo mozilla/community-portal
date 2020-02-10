@@ -9,6 +9,7 @@
         flex-direction: row;
         flex-wrap: wrap;
         margin-top: 24px;
+        max-width: 1020px;
 
         @include tablet-and-up {
             margin-top: 69px;    
@@ -37,6 +38,102 @@
             font-size: remCalc(48);
             line-height: 56px;
         }
+    }
+
+
+    &__result {
+        margin: 0;
+        margin-top: 24px;
+        width: 100%;
+
+        &:first-of-type {
+            margin-top: 0;
+        }
+    }
+
+
+    &__result-title {
+        color: $color-black;
+        display: block;
+        font-family: $title-font;
+        font-size: remCalc(18);
+        font-weight: normal;
+        line-height: 24px;
+        margin: 0;
+        padding: 0;
+        padding-left: 16px;
+        position: relative;
+
+        &:before {
+            border-radius: 50%;
+            content: '';
+            display: block;
+            height: 8px;
+            left: 0;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+        }
+
+        &.search__result-title--activity {
+            &:before {
+                background-color: $color-red-50;
+            }
+        }
+
+        &.search__result-title--campaign {
+            &:before {
+                background-color: $color-purple-40;
+            }
+        }
+
+        &.search__result-title--group {
+            &:before {
+                background-color: $color-blue-30;
+            }
+        }
+
+        &.search__result-title--event {
+            &:before {
+                background-color: $color-yellow-30;
+            }
+        }
+
+        &.search__result-title--member {
+            &:before {
+                background-color: $color-green-60;
+            }
+        }
+    }
+
+    &__result-link {
+        color: $color-blue-50;
+        display: block;
+        font-family: $title-font;
+        font-size: 24px;
+        line-height: 32px;
+        margin-bottom: 8px;
+    }
+
+    &__result-description {
+        color: $color-gray-90;
+        font-size: remCalc(16);
+        line-height: 24px;
+        margin: 0;
+        padding: 0;
+    }
+
+    &__group-location {
+        color: $color-gray-70;
+        font-size: remCalc(14);
+        line-height: 24px;
+    }
+
+    &__group-members {
+        color: $color-gray-70;
+        font-size: remCalc(14);
+        line-height: 24px; 
     }
 
 }
