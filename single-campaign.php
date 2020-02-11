@@ -44,7 +44,7 @@
                     <div class="campaign__share-container">
                         <div class="campaign__tag-container">
                             <?php print __('Tags'); ?>
-                            <?php if(sizeof($tags) > 0): ?>
+                            <?php if(is_array($tags) && sizeof($tags) > 0): ?>
                                 <span class="campaign__tag"><?php print $tags[0]->name; ?></span>
                             <?php endif; ?>
                         </div>
