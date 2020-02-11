@@ -101,6 +101,7 @@ jQuery(function() {
         );
 
         toggleLightbox('#activity-share-lightbox', '.activity__cta--share', "#close-share-lightbox", 'a');
+        toggleLightbox('#campaign-share-lightbox', '.campaign__share-cta', "#close-share-lightbox", 'a');
 
         handleCopyToClipboardClick();
     }
