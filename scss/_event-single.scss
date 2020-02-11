@@ -11,6 +11,16 @@
 
     &__externam-link {
         color: $color-blue-50;
+
+        &.events-single__externam-link--icon {
+            align-items: center;
+            display: flex;
+            flex-direction: row;
+
+            svg {
+                margin-right: 8px;
+            }
+        }
     }
 
     a {

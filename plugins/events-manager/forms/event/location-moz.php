@@ -44,9 +44,8 @@ endif;
     </div>
     <div class="event-creator__three-up <?php if ($location_type === 'online' || !$event_id): echo esc_attr('event-creator__hidden') ; endif; ?>">
       <div class="em-location-data-address wide--full">
-        <label class="event-creator__label" for="location-address"><?php _e( 'Address *', 'commuity-portal')?></label>
+        <label class="event-creator__label" for="location-address"><?php print __( 'Address *', 'commuity-portal')?></label>
         <input class="event-creator__input" id="location-address" type="text" name="location_address" required value="<?php echo $EM_Location->location_address ? esc_attr($EM_Location->location_address) : esc_attr("Online")  ; ?>" required/>
-
       </div>
     </div>
     <div class="event-creator__three-up">
@@ -69,7 +68,7 @@ endif;
         </select>
       </div>
       <div class="wide--double">
-        <label class="event-creator__label" for="location-town"><?php _e( 'City *', 'commuity-portal')?></label>
+        <label class="event-creator__label" for="location-town"><?php print __( 'City *', 'commuity-portal')?></label>
         <input class="event-creator__input" id="location-town" type="text" name="location_town" value="<?php echo esc_attr($EM_Location->location_town); ?>"  maxlength="180" required/>
       </div>
     </div>

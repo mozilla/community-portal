@@ -44,7 +44,7 @@
                     <div class="campaign__share-container">
                         <div class="campaign__tag-container">
                             <?php print __('Tags'); ?>
-                            <?php if(sizeof($tags) > 0): ?>
+                            <?php if(is_array($tags) && sizeof($tags) > 0): ?>
                                 <span class="campaign__tag"><?php print $tags[0]->name; ?></span>
                             <?php endif; ?>
                         </div>
@@ -58,6 +58,7 @@
                 </div>
             </div>
             <div class="campaign__container">
+                <?php if($campaign_content && is_array($campaign_content)): ?>
                 <?php foreach($campaign_content AS $block): ?>
                 <?php 
                     $theme_dir = get_template_directory();
@@ -92,9 +93,14 @@
                     }
                 ?>
                 <?php endforeach; ?>
+                <?php endif; ?>
             </div>
         </div>
     </div>
+    <div id="campaign-share-lightbox" class="lightbox">
+        <?php include(locate_template('templates/share-modal.php', false, false)); ?>
+    </div>
+
 <?php 
     get_footer();
 ?>

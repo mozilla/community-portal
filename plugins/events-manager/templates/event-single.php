@@ -20,7 +20,9 @@
 
     $location_type = $event_meta[0]->location_type;
     $external_url = $event_meta[0]->external_url;
-    $campaign = $event_meta[0]->campaign;
+
+    $initiative = isset($event_meta[0]->initiative) ? $event_meta[0]->initiative : false;
+
     $months = array(
         '01' => 'January',
         '02' => 'February',
