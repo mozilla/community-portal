@@ -13,7 +13,13 @@
 
     $args = Array('offset'  => 0, 'number'  =>  -1);
 
-    $search_user = isset($_GET['u']) && strlen(trim($_GET['u'])) > 0 ? trim($_GET['u']) : false;
+	$search_user = isset($_GET['u']) && strlen(trim($_GET['u'])) > 0 ? trim($_GET['u']) : false;
+	$search_user = preg_replace('/\\\/', "", $search_user);
+	$original_query = preg_replace('/^\"|\"$/', "&quot;", $search_user);
+	$search_user = preg_replace('/^\"|\"$|^\'|\'$/', "", $search_user);
+
+	// $search_user = addslashes($search_user);
+	
     $country_code = isset($_GET['location']) && strlen($_GET['location']) > 0 ? strtoupper(trim($_GET['location'])) : false;
     $get_tag = isset($_GET['tag']) && strlen(trim($_GET['tag'])) > 0 ? strtolower(trim($_GET['tag'])) : false;
 
@@ -270,7 +276,7 @@
                         </svg>
                         <input type="hidden" value="<?php if(isset($_GET['tag']) && strlen($_GET['tag']) > 0): print trim($_GET['tag']); endif; ?>" name="tag" id="user-tag" />
                         <input type="hidden" value="<?php if(isset($_GET['location']) && strlen($_GET['location']) > 0): print trim($_GET['location']); endif; ?>" name="location" id="user-location" />
-                        <input type="text" name="u" id="members-search" class="members__search-input" placeholder="<?php print __("Search people", "community-portal"); ?>" value="<?php if($search_user): ?><?php print $search_user; ?><?php endif; ?>" />
+                        <input type="text" name="u" id="members-search" class="members__search-input" placeholder="<?php print __("Search people", "community-portal"); ?>" value="<?php if($original_query): ?><?php print $original_query; ?><?php endif; ?>" />
                         </div>
                         <input type="submit" class="members__search-cta" value="<?php print __("Search", "community-portal"); ?>" />
                     </form>

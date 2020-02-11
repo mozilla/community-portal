@@ -19,7 +19,6 @@
 	$q = preg_replace('/\\\/', "", $q);
 	$original_query = preg_replace('/^\"|\"$/', "&quot;", $q);
 	$q = preg_replace('/^\"|\"$|^\'|\'$/', "", $q);
-	$q = addslashes($q);
     if($q) {
         $args['search_columns'] = Array('name');
         $args['search_terms'] = $q;
