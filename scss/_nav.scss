@@ -375,8 +375,13 @@
     padding: 18px 0;
     display: inline-block;
     text-decoration: none;
+
     @include desktop-and-up {
-		padding: 16px;
+        padding: 16px;
+        
+        &:first-of-type {
+            padding-left: 0;
+        }
     }
 }
 
