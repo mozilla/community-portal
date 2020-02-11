@@ -71,7 +71,9 @@
         flex-wrap: wrap;
         justify-self: flex-end;
         margin: 0;
+        margin-top: auto;
         padding: 0 32px 24px;
+        width: 100%;
 
         .tag {
             margin-right: 11px;
@@ -82,8 +84,13 @@
     &__location {
         align-items: center;
         display: flex;
-
+        
+        
         p {
+            color: $color-gray-secondary;
+            font-size: remCalc(14);
+            letter-spacing: 0.0025em;
+            line-height: 20px;
             margin: 0;
             padding-left: 8px;
         }
