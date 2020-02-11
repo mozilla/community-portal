@@ -255,4 +255,9 @@ function mozilla_redirect_admin() {
     }
 }
 
+
+function mozilla_sort_search_results($a, $b) {
+    print "HERE";
+}
+
 ?>

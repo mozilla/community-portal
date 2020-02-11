@@ -84,6 +84,8 @@
         $results = array_merge($results, $events);
     }
 
+    // usort($results, "mozilla_sort_search_results");
+
     $count = sizeof($results);
     $offset = ($p - 1) * $results_per_page;
 
@@ -201,13 +203,15 @@
                         ?>
                         <h3 class="search__result-title search__result-title--event"><?php print __("Event", 'community-portal'); ?></h3>
                         <a href="/events/<?php print $result->event_slug; ?>" class="search__result-link"><?php print $result->event_name; ?></a>
-                        <?php 
-                            // print "<pre>";
-                            // print_r($result);
-                            // print "</pre>";
-                        ?>
+                      
                         <div class="search__event-date">
                         <?php print date("F j, Y", strtotime($result->event_start_date)) ; ?>
+                        <?php if(isset($result->event_start_time)): ?>
+                            @ <?php print date("H:i", strtotime($result->event_start_time)); ?> 
+                        <?php endif; ?>
+                        <?php if(isset($results->event_end_time) && $result->event_start_time != $results->event_end_time): ?>
+                            - <?php print date("H:i", strtotime($result->event_end_time)); ?> 
+                        <?php endif; ?>
                         </div>
                         <div class="search__event-location">
                             <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
