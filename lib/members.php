@@ -393,7 +393,7 @@ function mozilla_get_user_info($me, $user, $logged_in) {
     // Tags
     $object = new stdClass();
     $object->value = isset($community_fields['tags']) && strlen($community_fields['tags']) > 0 ? $community_fields['tags'] : false;
-    $object->display = mozilla_display_field('tags', isset($community_fields['tags_visibility']) ? $community_fields['tags_visibility'] : false , $is_me, $logged_in);
+    $object->display = mozilla_display_field('tags', isset($community_fields['profile_tags_visibility']) ? $community_fields['profile_tags_visibility'] : false , $is_me, $logged_in);
     $data['tags'] = $object;
     
     $object = null;
