@@ -29,13 +29,13 @@ jQuery(function() {
 				file.previewElement.classList.add("dz-success");
 				file['attachment_id'] = response; // push the id for future reference
 				jQuery('#image-url').val(response);
-        jQuery('#dropzone-photo-uploader').css('background-image', 'url(' +  response + ')');
-        if (jQuery('.event-creator__image-upload')) {
-          jQuery('.event-creator__image-upload').css('background-size', 'contain')
-        }
-        if (jQuery('.profile__image-upload')) {
-          jQuery('.profile__image-upload').css('background-size', 'cover');
-        }
+				jQuery('#dropzone-photo-uploader').css('background-image', 'url(' +  response + ')');
+				if (jQuery('.event-creator__image-upload')) {
+					jQuery('.event-creator__image-upload').css('background-size', 'contain')
+				}
+				if (jQuery('.profile__image-upload')) {
+					jQuery('.profile__image-upload').css('background-size', 'cover');
+				}
 				jQuery('#dropzone-photo-uploader').addClass("profile__image-upload--complete");
 				jQuery('.form__error--image').parent().removeClass('form__error-container--visible');
 				jQuery('.dz-remove').removeClass('dz-remove--hide');
