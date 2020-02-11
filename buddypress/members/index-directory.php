@@ -7,48 +7,230 @@
     $page = isset($_GET['page']) ? intval($_GET['page']) : 0;
 
     $offset = ($page - 1) * $members_per_page;
-    
+
     if($offset < 0)
         $offset = 0;
 
     $args = Array('offset'  => 0, 'number'  =>  -1);
 
-    $search_user = isset($_GET['u']) && strlen(trim($_GET['u'])) > 0 ? sanitize_text_field(trim($_GET['u'])) : false;
-    if($search_user) {
-        $args['search'] = "*{$search_user}*";
-        $args['search_columns'] = Array('nicename');
-    }
+    $search_user = isset($_GET['u']) && strlen(trim($_GET['u'])) > 0 ? trim($_GET['u']) : false;
+    $country_code = isset($_GET['location']) && strlen($_GET['location']) > 0 ? strtoupper(trim($_GET['location'])) : false;
+    $get_tag = isset($_GET['tag']) && strlen(trim($_GET['tag'])) > 0 ? strtolower(trim($_GET['tag'])) : false;
 
-    $wp_user_query = new WP_User_Query($args);
-    $members = Array();
+    $wp_user_query = new WP_User_Query(Array(
+        'offset'    =>  0,
+        'number'    =>  -1
+    ));
+
     $members = $wp_user_query->get_results();
-    
-    if($logged_in && $search_user) {
-        $wp_user_query = new WP_User_Query(Array(
-            'number'        =>  -1,
-            'offset'        =>  0,
-            'meta_query'    =>  Array(
-                Array(
-                    'key' => 'first_name',
-                    'value' => $search_user,
-                    'compare' => 'LIKE'
-                )
-            )
-        ));
+    $filtered_members = Array();
+    $used_country_list = Array();
 
-        $first_name_members = $wp_user_query->get_results();
-    } else {
-        $first_name_members = Array();
+    // Time to filter stuff
+    foreach($members AS $index => $member) {
+     
+        $info = mozilla_get_user_info($current_user, $member, $logged_in);
+        $member->info = $info;
+        $member_tags = array_filter(explode(',', $info['tags']->value));
+
+        if($info['location']->display) {
+            $key = array_search($info['location']->value, $countries);
+            if($key)
+                $used_country_list[$key] = $countries[$key];
+        }
+
+        // All three criteria to search
+        if($country_code && $get_tag && $search_user) {
+
+            // Country / Tag / Username
+            if($info['tags']->display && 
+                $info['location']->display && 
+                array_key_exists($country_code, $countries) && 
+                strtolower($countries[$country_code]) === strtolower($info['location']->value) && 
+                in_array($get_tag, array_map('strtolower', $member_tags)) &&
+                stripos($member->data->user_nicename, $search_user) !== false)
+            {   
+                    $filtered_members[] = $member;
+                    continue;
+            }
+
+            // Country / Tag / First Name
+            if($info['tags']->display && 
+                $info['location']->display && 
+                array_key_exists($country_code, $countries) && 
+                strtolower($countries[$country_code]) === strtolower($info['location']->value) && 
+                in_array($get_tag, array_map('strtolower', $member_tags)) &&
+                $info['first_name']->display &&
+                stripos($search_user, $info['first_name']->value) !== false)
+            {   
+                    $filtered_members[] = $member;
+                    continue;
+            }
+
+            // Country / Tag / Last Name
+            if($info['tags']->display && $info['location']->display && 
+                array_key_exists($country_code, $countries) && 
+                strtolower($countries[$country_code]) === strtolower($info['location']->value) && 
+                in_array($get_tag, array_map('strtolower', $member_tags)) &&
+                $info['last_name']->display &&
+                stripos($search_user, $info['last_name']->value) !== false)
+            {   
+                    $filtered_members[] = $member;
+                    continue;
+            }
+
+            continue;
+        }
+
+        // Country and search
+        if($country_code && $search_user && $get_tag === false) {
+            $country_code = strtoupper(trim($_GET['location']));
+
+            // Country and username
+            if(array_key_exists($country_code, $countries) && 
+                strtolower($countries[$country_code]) === strtolower($info['location']->value) && 
+                $info['location']->display &&
+                stripos($member->data->user_nicename, $search_user) !== false) 
+            {
+                $filtered_members[] = $member;
+                continue;
+            }
+
+            // Country and first name
+            if(array_key_exists($country_code, $countries) && 
+                strtolower($countries[$country_code]) === strtolower($info['location']->value) && 
+                $info['location']->display &&
+                $info['first_name']->display &&
+                stripos($search_user, $info['first_name']->value) !== false) 
+            {
+                $filtered_members[] = $member;
+                continue;
+            }
+
+
+            // Country and last name
+            if(array_key_exists($country_code, $countries) && 
+                strtolower($countries[$country_code]) === strtolower($info['location']->value) && 
+                $info['location']->display &&
+                $info['last_name']->display &&
+                stripos($search_user, $info['last_name']->value) !== false) 
+            {
+                $filtered_members[] = $member;
+                continue;
+            }
+
+
+            continue;
+        }
+        
+
+        // Tag and search
+        if($get_tag && $search_user && $country_code === false) {
+
+            // Tag and username
+            if(in_array($get_tag, array_map('strtolower', $member_tags)) && 
+                $info['tags']->display &&
+                stripos($member->data->user_nicename, $search_user) !== false) 
+            {
+                $filtered_members[] = $member;
+                continue;
+            }
+
+            // Tag and first name
+            if(in_array($get_tag, array_map('strtolower', $member_tags)) && 
+                $info['tags']->display &&
+                $info['first_name']->display &&
+                stripos($search_user, $info['first_name']->value) !== false) 
+            {
+                $filtered_members[] = $member;
+                continue;
+            }
+
+            // Tag and first name
+            if(in_array($get_tag, array_map('strtolower', $member_tags)) && 
+                $info['tags']->display &&
+                $info['last_name']->display &&
+                stripos($search_user, $info['last_name']->value) !== false) 
+            {
+                $filtered_members[] = $member;
+                continue;
+            }
+
+            continue;
+        } 
+
+        if($country_code && $get_tag && $search_user === false) {
+            if($info['tags']->display && 
+                $info['location']->display && 
+                array_key_exists($country_code, $countries) && 
+                strtolower($countries[$country_code]) === strtolower($info['location']->value) && 
+                in_array($get_tag, array_map('strtolower', $member_tags)))
+            {   
+                    $filtered_members[] = $member;
+                    continue;
+            }
+
+            continue;
+        }
+
+        // Just Country
+        if($country_code && $get_tag === false && $search_user === false) {
+            if($info['location']->display && 
+                array_key_exists($country_code, $countries) && 
+                strtolower($countries[$country_code]) === strtolower($info['location']->value))
+            {   
+                    $filtered_members[] = $member;
+                    continue;
+            }
+
+            continue;
+        }
+
+        // Just Tags
+        if($get_tag && $country_code === false && $search_user === false) {
+            if($info['tags']->display && 
+                in_array($get_tag, array_map('strtolower', $member_tags)))
+            {   
+                    $filtered_members[] = $member;
+                    continue;
+            }
+
+            continue;
+        }
+
+        // Just search
+        if($search_user && $country_code === false && $get_tag === false) {
+
+            // Username
+            if(stripos($member->data->user_nicename, $search_user) !== false) {
+                $filtered_members[] = $member;
+                continue;
+            }
+
+            // First name
+            if($info['first_name']->display && stripos($search_user, $info['first_name']->value) !== false) {
+                $filtered_members[] = $member;
+                continue;
+            }
+
+            // Last name
+            if($info['last_name']->display && stripos($search_user, $info['last_name']->value) !== false) {
+                $filtered_members[] = $member;
+                continue;
+            }
+
+            continue;
+        }
+        
+        $filtered_members[] = $member;
+        
     }
 
-    $total_members = array_merge($members, $first_name_members);
-    $filtered_members = array_unique($total_members, SORT_REGULAR);
-
-    
     if($offset >= sizeof($filtered_members)) {
         $offset = sizeof($filtered_members) - $members_per_page;
     }
 
+    $tags = get_tags(Array('hide_empty' => false));
     $members = array_slice($filtered_members, $offset, $members_per_page);
 
     $total_pages = ceil(sizeof($filtered_members) / $members_per_page);
@@ -63,13 +245,14 @@
                     <?php print __("Ready to make it official? Set up a profile to attend events, join groups and manage your subscription settings. ", "community-portal"); ?>
                 </p>
                 <div class="members__search-container">
-                    <form method="GET" action="/people/" class="members__form">
+                    <form method="GET" action="/people/" class="members__form" id="members-search-form">
                         <div class="members__input-container">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M9.16667 15.8333C12.8486 15.8333 15.8333 12.8486 15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M17.5 17.5L13.875 13.875" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-
+                        <input type="hidden" value="<?php if(isset($_GET['tag']) && strlen($_GET['tag']) > 0): print trim($_GET['tag']); endif; ?>" name="tag" id="user-tag" />
+                        <input type="hidden" value="<?php if(isset($_GET['location']) && strlen($_GET['location']) > 0): print trim($_GET['location']); endif; ?>" name="location" id="user-location" />
                         <input type="text" name="u" id="members-search" class="members__search-input" placeholder="<?php print __("Search people", "community-portal"); ?>" value="<?php if($search_user): ?><?php print $search_user; ?><?php endif; ?>" />
                         </div>
                         <input type="submit" class="members__search-cta" value="<?php print __("Search", "community-portal"); ?>" />
@@ -78,14 +261,33 @@
             </div>
         </div>
         <div class="members__container">
+            <div class="members__filter-container<?php if(!isset($_GET['location']) && !isset($_GET['mygroups'])): ?> members__filter-container--hidden<?php endif; ?>">
+                <span><?php print __("Search criteria:", "community-portal"); ?></span>
+                <div class="members__select-container">
+                    <label class="members__label">Location </label>
+                    <select class="members__location-select">
+                        <option value=""><?php print __('All', "community-portal"); ?></option>
+                        <?php foreach($used_country_list AS $code   =>  $country): ?>
+                        <option value="<?php print $code; ?>"<?php if(isset($_GET['location']) && strlen($_GET['location']) > 0 && $_GET['location'] == $code): ?> selected<?php endif; ?>><?php print $country; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="members__select-container">
+                    <label class="members__label">Tag </label>
+                    <select class="members__tag-select">
+                        <option value=""><?php print __('All', "community-portal"); ?></option>
+                        <?php foreach($tags AS $tag): ?>
+                        <option value="<?php print $tag->slug; ?>" <?php if(isset($_GET['tag']) && strtolower(trim($_GET['tag'])) == strtolower($tag->slug)): ?> selected<?php endif; ?>><?php print $tag->name; ?></option>
+                        <?php endforeach; ?>
+                    </select>  
+                </div>
+            </div>
             <div class="members__people-container">
             <?php if(sizeof($members) > 0): ?>
             <?php foreach($members AS $member): ?>
             <?php 
-               
-                $is_me = $logged_in && intval($current_user->ID) === intval($member->ID);
-            
-                $info = mozilla_get_user_info($current_user, $member, $logged_in);
+                $info = $member->info;
+                
                 if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
                     $avatar_url = preg_replace("/^http:/i", "https:", $info['profile_image']->value);
                 } else {
@@ -166,17 +368,17 @@
             <div class="members__pagination">
                 <div class="members__pagination-container">
                     <?php if($total_pages > 1): ?>
-                    <a href="/people/?page=<?php print $previous_page?><?php if($search_user): ?>&u=<?php print $search_user; ?><?php endif; ?>" class="members__pagination-link">
+                    <a href="/people/?page=<?php print $previous_page?><?php if($search_user): ?>&u=<?php print $search_user; ?><?php endif; ?><?php if(isset($_GET['location'])): ?>&location=<?php print $_GET['location']; ?><?php endif; ?><?php if(isset($_GET['tag'])): ?>&tag=<?php print $_GET['tag']; ?><?php endif; ?>" class="members__pagination-link">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path d="M17 23L6 12L17 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </a>
-                    <?php if($page_min > 1): ?><a href="/people/?page=1<?php if($search_user): ?>&u=<?php print $search_user; ?><?php endif; ?>" class="members__pagination-link members__pagination-link--first"><?php print "1"; ?></a>&hellip; <?php endif; ?>
+                    <?php if($page_min > 1): ?><a href="/people/?page=1<?php if($search_user): ?>&u=<?php print $search_user; ?><?php endif; ?><?php if(isset($_GET['location'])): ?>&location=<?php print $_GET['location']; ?><?php endif; ?><?php if(isset($_GET['tag'])): ?>&tag=<?php print $_GET['tag']; ?><?php endif; ?>" class="members__pagination-link members__pagination-link--first"><?php print "1"; ?></a>&hellip; <?php endif; ?>
                     <?php for($x = $page_min - 1; $x < $page_max; $x++): ?>
-                    <a href="/people/?page=<?php print $x + 1; ?><?php if($search_user): ?>&u=<?php print $search_user; ?><?php endif; ?>" class="members__pagination-link<?php if($page === $x + 1):?> members__pagination-link--active<?php endif; ?><?php if($x === $page_max - 1):?> members__pagination-link--last<?php endif; ?>"><?php print ($x + 1); ?></a>
+                    <a href="/people/?page=<?php print $x + 1; ?><?php if($search_user): ?>&u=<?php print $search_user; ?><?php endif; ?><?php if(isset($_GET['location'])): ?>&location=<?php print $_GET['location']; ?><?php endif; ?><?php if(isset($_GET['tag'])): ?>&tag=<?php print $_GET['tag']; ?><?php endif; ?>" class="members__pagination-link<?php if($page === $x + 1):?> members__pagination-link--active<?php endif; ?><?php if($x === $page_max - 1):?> members__pagination-link--last<?php endif; ?>"><?php print ($x + 1); ?></a>
                     <?php endfor; ?>
-                    <?php if($total_pages > $range && $page < $total_pages - 1): ?>&hellip; <a href="/people/?page=<?php print $total_pages; ?><?php if($search_user): ?>&u=<?php print $search_user; ?><?php endif; ?>" class="members__pagination-link<?php if($page === $total_pages):?> members__pagination-link--active<?php endif; ?>"><?php print $total_pages; ?></a><?php endif; ?>
-                    <a href="/people/?page=<?php print $next_page; ?><?php if($search_user): ?>&u=<?php print $search_user; ?><?php endif; ?>" class="members__pagination-link">
+                    <?php if($total_pages > $range && $page < $total_pages - 1): ?>&hellip; <a href="/people/?page=<?php print $total_pages; ?><?php if($search_user): ?>&u=<?php print $search_user; ?><?php endif; ?><?php if(isset($_GET['location'])): ?>&location=<?php print $_GET['location']; ?><?php endif; ?><?php if(isset($_GET['tag'])): ?>&tag=<?php print $_GET['tag']; ?><?php endif; ?>" class="members__pagination-link<?php if($page === $total_pages):?> members__pagination-link--active<?php endif; ?>"><?php print $total_pages; ?></a><?php endif; ?>
+                    <a href="/people/?page=<?php print $next_page; ?><?php if($search_user): ?>&u=<?php print $search_user; ?><?php endif; ?><?php if(isset($_GET['location'])): ?>&location=<?php print $_GET['location']; ?><?php endif; ?><?php if(isset($_GET['tag'])): ?>&tag=<?php print $_GET['tag']; ?><?php endif; ?>" class="members__pagination-link">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                         <path d="M7 23L18 12L7 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>

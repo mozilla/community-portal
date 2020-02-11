@@ -15,7 +15,7 @@
 <div class="event-creator__container">
     <label for="group" class="event-creator__label"><?php echo __('Hosted By') ?></label>
     <select name="group_id" id="group" class="event-creator__dropdown">
-        <option value=""><?php __('No group', 'commuity-portal'); ?></option>
+        <option value=""><?php print __('No group', 'commuity-portal'); ?></option>
         <?php if( count($active_groups) > 0 ): ?>
         <?php foreach($active_groups as $BP_Group): ?>
             <option value="<?php echo esc_attr($BP_Group->id); ?>" <?php echo ($BP_Group->id == $EM_Event->group_id) ? esc_attr('selected') : null; ?>><?php echo __($BP_Group->name); ?>

@@ -411,18 +411,38 @@
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
-        margin: 16px -16px;
+        margin: 0 -16px;
         padding: 16px 24px;
         text-decoration: none;
         
+        &:first-of-type {
+            border-bottom: none;
+            margin-top: 16px;
+
+            @include tablet-and-up {
+                margin-top: 24px;
+            }
+
+            @include desktop-and-up {
+                margin-top: 32px;
+            }
+        }
+
+        &.activity__event--last {
+            border-bottom: 1px solid $color-gray-background;
+        }
+
         @include tablet-and-up {
-            margin: 24px -24px;
+            margin: 0 -24px;
             padding: 24px 32px;
         }
 
         @include desktop-and-up {
-            margin: 32px -32px;
+            margin: 0 -32px;
         }
+
+
+        
     }
  
     &__event-date {
@@ -459,9 +479,20 @@
         font-size: remCalc(16);
         line-height: 24px;
         text-decoration: none;
-
+        
         svg {
             margin-left: 4px;
+        }
+
+        
+        margin-top: 16px;
+
+        @include tablet-and-up {
+            margin-top: 24px;
+        }
+
+        @include desktop-and-up {
+            margin-top: 32px;
         }
     }
 
@@ -490,10 +521,6 @@
                 margin-bottom: 16px;
             }
         }
-
-
-            
     }
-
 
 }

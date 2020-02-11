@@ -8,7 +8,7 @@ $event_id = $_REQUEST['event_id'];
 if(isset($event_id)) {
     $event_meta = get_post_meta($EM_Event->post_id, 'event-meta');
     $external_url = $event_meta[0]->external_url;
-    $event_campaign = $event_meta[0]->campaign;
+    $event_initiative = isset($event_meta[0]->initiative) && strlen($event_meta[0]->initiative) > 0 ? intval($event_meta[0]->initiative) : false;   
 }
 ?>
 
@@ -51,7 +51,7 @@ if(!empty($_REQUEST['success'])){
 		<?php endif; ?>
 		<div class="inside event-form-name event">
             <div class="event-creator__container">
-                <label class="event-form-name event-creator__label" for="event-name"><?php echo __( 'Event Name *', 'community-portal'); ?></label>
+                <label class="event-form-name event-creator__label" for="event-name"><?php print __( 'Event Name *', 'commuity-portal'); ?></label>
                 <input class="event-creator__input event-creator__input" type="text" name="event_name" id="event-name" required value="<?php echo esc_attr($EM_Event->event_name,ENT_QUOTES); ?>" />
             </div>
             <?php if( $EM_Event->can_manage('upload_event_images','upload_event_images') ): ?>
@@ -73,12 +73,58 @@ if(!empty($_REQUEST['success'])){
     <div class="wrap event-creator">
         <div class="event-editor">
             <div class="event-creator__container">
-                <label class="event-form-details event-creator__label" for="event-description"><?php _e('Event description *', 'commuity-portal'); ?></label>
+                <label class="event-form-details event-creator__label" for="event-description"><?php print __('Event description *', 'commuity-portal'); ?></label>
                 <textarea name="content" id="event-description" placeholder="Add in the details of your event’s agenda here. If this is a multi-day event, you can add in the details of each day’s schedule and start/end time." rows="10" id="event-description" class="event-creator__input event-creator__textarea" style="width:100%" required maxlength="3000"><?php echo __($EM_Event->post_content) ?></textarea>
             </div>
+            <?php 
+                    $args = Array(
+                        'post_type' =>  'campaign',
+                        'per_page'  =>  -1
+                    );
+                
+                    $campaigns = new WP_Query($args);
+                    $initiatives = Array();
+
+                    foreach($campaigns->posts AS $campaign) {
+                        $start = strtotime(get_field('campaign_start_date', $campaign->ID));
+                        $end = strtotime(get_field('campaign_end_date', $campaign->ID));
+                        $today = time();
+
+                        $campaign_status = get_field('campaign_status', $campaign->ID);
+
+                        if(strtolower($campaign_status) !== 'closed') {
+                            $initiatives[] = $campaign;
+                            continue;
+                        }
+
+                        if($today >= $start && $today <= $end) {
+                            $initiatives[] = $campaign;
+                        }
+                    }
+
+                    $args = Array(
+                        'post_type' =>  'activity',
+                        'per_page'  =>  -1
+                    );
+
+                    $activities = new WP_Query($args);
+                    $initiatives = array_merge($initiatives, $activities->posts);
+                    
+            ?>
+            <?php if(sizeof($initiatives) > 0): ?>
+            <div class="event-creator__container">
+                <label class="event-form-details event-creator__label" for="initiative"><?php print __('Is this event part of an activity or campaign?', 'community-portal'); ?></label>
+                <select name="initiative_id" id="initiative" class="event-creator__dropdown">
+                <option value=""><?php print __('No', 'community-portal');?></option>
+                <?php foreach($initiatives AS $initiative): ?>
+                <option value="<?php print $initiative->ID; ?>"<?php if($event_initiative && $event_initiative == $initiative->ID): ?> selected<?php  endif; ?>><?php print $initiative->post_title; ?> (<?php if($initiative->post_type === 'campaign'): ?>Campaign<?php else: ?>Activity<?php endif; ?>)</option>
+                <?php endforeach; ?>
+                </select>
+            </div>
+            <?php endif; ?>
         <?php if(get_option('dbem_categories_enabled')) { em_locate_template('forms/event/categories-public.php',true); }  ?>
             <div class="event-creator__container">
-                <label class="event-creator__label" for="event-creator-link"><?php _e('External link URL', 'commuity-portal'); ?></label>
+                <label class="event-creator__label" for="event-creator-link"><?php print __('External link URL', 'commuity-portal'); ?></label>
                 <input type="text" class="event-creator__input" name="event_external_link" id="event-creator-link" value="<?php echo (isset($external_url) && $external_url !== '') ? esc_attr($external_url) : '' ;?>" />
             </div>
             <?php em_locate_template('forms/event/group.php',true); ?>
