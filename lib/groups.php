@@ -20,7 +20,8 @@ function mozilla_create_group() {
             'group_address_type',
             'group_address',
             'group_meeting_details',
-            'group_discourse',
+            'group_dis
+            urse',
             'group_facebook',
             'group_telegram',
             'group_github',
@@ -302,7 +303,7 @@ function mozilla_search_groups($name, $gid) {
             continue;
         } else {
             $x = trim(strtolower($g->name));
-            $y = trim(strtolower($name));
+			$y = trim(strtolower($name));
             if(sanitize_text_field($x) ==  sanitize_text_field($y))
                 return true;
                     

@@ -15,7 +15,11 @@
         'per_page'  =>  -1
     );
 
-    $q = (isset($_GET['q']) && strlen($_GET['q']) > 0) ? sanitize_text_field(trim($_GET['q'])) : false;
+	$q = (isset($_GET['q']) && strlen($_GET['q']) > 0) ? sanitize_text_field(trim($_GET['q'])) : false;
+	$q = preg_replace('/\\\/', "", $q);
+	$original_query = preg_replace('/^\"|\"$/', "&quot;", $q);
+	$q = preg_replace('/^\"|\"$|^\'|\'$/', "", $q);
+	$q = addslashes($q);
     if($q) {
         $args['search_columns'] = Array('name');
         $args['search_terms'] = $q;
@@ -39,9 +43,9 @@
         $groups = groups_get_groups($args);
     }
 
-    $groups = $groups['groups'];
+	$groups = $groups['groups'];
     $filtered_groups = Array();
-    $country_code_with_groups = Array();
+    $countries_with_groups = Array();
     $used_country_list = Array();
 
     foreach($groups AS $group) {
@@ -70,8 +74,8 @@
         } else {
             $filtered_groups[] = $group;
         }
-    }
-
+	}
+	
     $country_code_with_groups = array_unique($countries_with_groups);
     
     foreach($country_code_with_groups AS $code) {
@@ -124,7 +128,7 @@
                             <path d="M17.5 17.5L13.875 13.875" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
 
-                        <input type="text" name="q" id="groups-search" class="groups__search-input" placeholder="<?php print __("Search groups", "community-portal"); ?>" value="<?php if($q): ?><?php print $q; ?><?php endif; ?>" />
+                        <input type="text" name="q" id="groups-search" class="groups__search-input" placeholder="<?php print __("Search groups", "community-portal"); ?>" value="<?php if(isset($original_query)): ?><?php print $original_query; ?><?php endif; ?>" />
                         </div>
                         <input type="button" class="groups__search-cta" value="<?php print __("Search", "community-portal"); ?>" />
                     </form>
@@ -175,9 +179,9 @@
                 <?php if(sizeof($groups) === 0): ?>
                     <div class="groups__no-results"><?php print __('No results found.  Please try another search term.', "community-portal"); ?></div>
                 <?php else: ?>
-                <?php if($q): ?>
+                <?php if($original_query): ?>
                 <div class="groups__results-query">
-                <?php print __("Results for ", "community-portal")."\"{$q}\""; ?>
+                <?php print __("Results for ", "community-portal")."\"{$original_query}\""; ?>
                 </div>
                 <?php endif; ?>
                 <?php foreach($groups AS $group): ?>
