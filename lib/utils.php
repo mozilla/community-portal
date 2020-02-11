@@ -255,4 +255,23 @@ function mozilla_redirect_admin() {
     }
 }
 
+function mozilla_verify_url($url, $secure) {
+	if (preg_match('/\.[a-zA-Z]{2,4}\b/', $url)) {
+		$parts = parse_url($url);
+		if (!isset($parts["scheme"])) {
+			if ($secure) {
+				$url = 'https://'.$url;
+			} else {
+				$url = 'http://'.$url;
+
+			}
+		}
+	}
+	if (filter_var($url, FILTER_VALIDATE_URL)) {
+		return $url;
+	}
+	return false;
+}
+
+
 ?>
