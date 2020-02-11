@@ -107,7 +107,7 @@
                     <div class="activity__right-column">
                         <div class="activity__card">
                             <div class="activity__card-content">
-                                <?php if(sizeof($tags) > 0 && is_array($tags)): ?>
+                                <?php if(is_array($tags) && sizeof($tags) > 0): ?>
                                 <span><?php print __("Tags"); ?></span>
                                 <div class="activity__tags">
                                 <?php foreach($tags AS $tag): ?>
@@ -159,7 +159,7 @@
                                 break;
                         }
                         ?>
-                        <?php if(sizeof($related_events) > 0): ?>
+                        <?php if(is_array($related_events) && sizeof($related_events) > 0): ?>
                         <div class="activity__card activity__card--related-events">
                             <div class="activity__card-content">
                                 <span><?php print __("Related Events"); ?></span>
