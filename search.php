@@ -203,7 +203,6 @@
                         ?>
                         <h3 class="search__result-title search__result-title--event"><?php print __("Event", 'community-portal'); ?></h3>
                         <a href="/events/<?php print $result->event_slug; ?>" class="search__result-link"><?php print $result->event_name; ?></a>
-                      
                         <div class="search__event-date">
                         <?php print date("F j, Y", strtotime($result->event_start_date)) ; ?>
                         <?php if(isset($result->event_start_time)): ?>
