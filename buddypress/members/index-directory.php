@@ -32,9 +32,26 @@
         $info = mozilla_get_user_info($current_user, $member, $logged_in);
         $member->info = $info;
         $member_tags = array_filter(explode(',', $info['tags']->value));
+        $member_country = false;
 
         if($info['location']->display) {
-            $key = array_search($info['location']->value, $countries);
+            if(strpos($info['location']->value, ',') != false) {
+                $member_country = explode(',', $info['location']->value);
+                foreach($member_country AS $i => $part) {
+                    $member_country[$i] = trim($part);
+                }
+
+                if(sizeof($member_country) == 2) 
+                    $member_country = $member_country[1];
+                else
+                    $member_country = $info['location']->value;
+
+            } else {
+                $member_country = $info['location']->value;
+            }
+
+
+            $key = array_search($member_country, $countries);
             if($key)
                 $used_country_list[$key] = $countries[$key];
         }
@@ -46,7 +63,7 @@
             if($info['tags']->display && 
                 $info['location']->display && 
                 array_key_exists($country_code, $countries) && 
-                strtolower($countries[$country_code]) === strtolower($info['location']->value) && 
+                strtolower($countries[$country_code]) === strtolower($member_country) && 
                 in_array($get_tag, array_map('strtolower', $member_tags)) &&
                 stripos($member->data->user_nicename, $search_user) !== false)
             {   
@@ -58,7 +75,7 @@
             if($info['tags']->display && 
                 $info['location']->display && 
                 array_key_exists($country_code, $countries) && 
-                strtolower($countries[$country_code]) === strtolower($info['location']->value) && 
+                strtolower($countries[$country_code]) === strtolower($member_country) && 
                 in_array($get_tag, array_map('strtolower', $member_tags)) &&
                 $info['first_name']->display &&
                 stripos($search_user, $info['first_name']->value) !== false)
@@ -70,7 +87,7 @@
             // Country / Tag / Last Name
             if($info['tags']->display && $info['location']->display && 
                 array_key_exists($country_code, $countries) && 
-                strtolower($countries[$country_code]) === strtolower($info['location']->value) && 
+                strtolower($countries[$country_code]) === strtolower($member_country) && 
                 in_array($get_tag, array_map('strtolower', $member_tags)) &&
                 $info['last_name']->display &&
                 stripos($search_user, $info['last_name']->value) !== false)
@@ -88,7 +105,7 @@
 
             // Country and username
             if(array_key_exists($country_code, $countries) && 
-                strtolower($countries[$country_code]) === strtolower($info['location']->value) && 
+                strtolower($countries[$country_code]) === strtolower($member_country) && 
                 $info['location']->display &&
                 stripos($member->data->user_nicename, $search_user) !== false) 
             {
@@ -98,7 +115,7 @@
 
             // Country and first name
             if(array_key_exists($country_code, $countries) && 
-                strtolower($countries[$country_code]) === strtolower($info['location']->value) && 
+                strtolower($countries[$country_code]) === strtolower($member_country) && 
                 $info['location']->display &&
                 $info['first_name']->display &&
                 stripos($search_user, $info['first_name']->value) !== false) 
@@ -110,7 +127,7 @@
 
             // Country and last name
             if(array_key_exists($country_code, $countries) && 
-                strtolower($countries[$country_code]) === strtolower($info['location']->value) && 
+                strtolower($countries[$country_code]) === strtolower($member_country) && 
                 $info['location']->display &&
                 $info['last_name']->display &&
                 stripos($search_user, $info['last_name']->value) !== false) 
@@ -163,7 +180,7 @@
             if($info['tags']->display && 
                 $info['location']->display && 
                 array_key_exists($country_code, $countries) && 
-                strtolower($countries[$country_code]) === strtolower($info['location']->value) && 
+                strtolower($countries[$country_code]) === strtolower($member_country) && 
                 in_array($get_tag, array_map('strtolower', $member_tags)))
             {   
                     $filtered_members[] = $member;
@@ -177,7 +194,7 @@
         if($country_code && $get_tag === false && $search_user === false) {
             if($info['location']->display && 
                 array_key_exists($country_code, $countries) && 
-                strtolower($countries[$country_code]) === strtolower($info['location']->value))
+                strtolower($countries[$country_code]) === strtolower($member_country))
             {   
                     $filtered_members[] = $member;
                     continue;
