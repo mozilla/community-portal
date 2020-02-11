@@ -55,7 +55,7 @@
                             $tags = get_the_tags($activity->ID);
                         ?>
                         <div class="activities__tag-container">
-                            <?php if(sizeof($tags) > 0): ?>
+                            <?php if(is_array($tags) && sizeof($tags) > 0): ?>
                             <span class="activities__tag"><?php print $tags[0]->name; ?></span>
                             <?php endif; ?>
                             <?php if($time_commitment): ?>
