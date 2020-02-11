@@ -31,12 +31,16 @@ jQuery(function() {
 				jQuery('#image-url').val(response);
 				jQuery('#dropzone-photo-uploader').css('background-image', 'url(' +  response + ')');
 				if (jQuery('.event-creator__image-upload')) {
-					jQuery('.event-creator__image-upload').css('background-size', 'contain')
+					jQuery('.event-creator__image-upload').css('background-size', 'contain');
+				}
+				if (jQuery('.create-group__image-upload')) {
+					jQuery('.create-group__image-upload').css('background-size', 'contain');
+					jQuery('.create-group__image-upload').css('background-position', 'top center');
 				}
 				if (jQuery('.profile__image-upload')) {
 					jQuery('.profile__image-upload').css('background-size', 'cover');
 				}
-				jQuery('#dropzone-photo-uploader').addClass("profile__image-upload--complete");
+				jQuery('#dropzone-photo-uploader').addClass("dropzone__image-upload--complete");
 				jQuery('.form__error--image').parent().removeClass('form__error-container--visible');
 				jQuery('.dz-remove').removeClass('dz-remove--hide');
 				jQuery('.dropzone__image-instructions').addClass('dropzone__image-instructions--hidden');
@@ -96,7 +100,6 @@ jQuery(function() {
 	function handleClearImage($deleteBtn) {
 		const $photoUpload = jQuery("#dropzone-photo-uploader");
         const $imageInput = jQuery("#image-url");
-		$photoUpload.css("background-image", "").css("background-size", "auto");
 		jQuery(".dropzone__image-instructions").removeClass('dropzone__image-instructions--hidden');
 		$photoUpload.css("background-position", "center");
 		$imageInput.val("");
