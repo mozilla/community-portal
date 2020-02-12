@@ -14,11 +14,10 @@
     $args = Array('offset'  => 0, 'number'  =>  -1);
 
 	$search_user = isset($_GET['u']) && strlen(trim($_GET['u'])) > 0 ? trim($_GET['u']) : false;
-	$search_user = preg_replace('/\\\/', "", $search_user);
+	$search_user = stripslashes($search_user);
 	$original_query = preg_replace('/^\"|\"$/', "&quot;", $search_user);
 	$search_user = preg_replace('/^\"|\"$|^\'|\'$/', "", $search_user);
 
-	// $search_user = addslashes($search_user);
 	
     $country_code = isset($_GET['location']) && strlen($_GET['location']) > 0 ? strtoupper(trim($_GET['location'])) : false;
     $get_tag = isset($_GET['tag']) && strlen(trim($_GET['tag'])) > 0 ? strtolower(trim($_GET['tag'])) : false;
@@ -84,7 +83,7 @@
                 strtolower($countries[$country_code]) === strtolower($member_country) && 
                 in_array($get_tag, array_map('strtolower', $member_tags)) &&
                 $info['first_name']->display &&
-                stripos($search_user, $info['first_name']->value) !== false)
+                stripos($info['first_name']->value, $search_user) !== false)
             {   
                     $filtered_members[] = $member;
                     continue;
@@ -96,7 +95,7 @@
                 strtolower($countries[$country_code]) === strtolower($member_country) && 
                 in_array($get_tag, array_map('strtolower', $member_tags)) &&
                 $info['last_name']->display &&
-                stripos($search_user, $info['last_name']->value) !== false)
+                stripos($info['last_name']->value, $search_user) !== false)
             {   
                     $filtered_members[] = $member;
                     continue;
@@ -124,7 +123,7 @@
                 strtolower($countries[$country_code]) === strtolower($member_country) && 
                 $info['location']->display &&
                 $info['first_name']->display &&
-                stripos($search_user, $info['first_name']->value) !== false) 
+                stripos($info['first_name']->value, $search_user) !== false) 
             {
                 $filtered_members[] = $member;
                 continue;
@@ -136,7 +135,7 @@
                 strtolower($countries[$country_code]) === strtolower($member_country) && 
                 $info['location']->display &&
                 $info['last_name']->display &&
-                stripos($search_user, $info['last_name']->value) !== false) 
+                stripos($info['last_name']->value, $search_user) !== false) 
             {
                 $filtered_members[] = $member;
                 continue;
@@ -163,7 +162,7 @@
             if(in_array($get_tag, array_map('strtolower', $member_tags)) && 
                 $info['tags']->display &&
                 $info['first_name']->display &&
-                stripos($search_user, $info['first_name']->value) !== false) 
+                stripos($info['first_name']->value, $search_user) !== false) 
             {
                 $filtered_members[] = $member;
                 continue;
@@ -173,7 +172,7 @@
             if(in_array($get_tag, array_map('strtolower', $member_tags)) && 
                 $info['tags']->display &&
                 $info['last_name']->display &&
-                stripos($search_user, $info['last_name']->value) !== false) 
+                stripos($info['last_name']->value, $search_user) !== false) 
             {
                 $filtered_members[] = $member;
                 continue;
@@ -231,13 +230,13 @@
             }
 
             // First name
-            if($info['first_name']->display && stripos($search_user, $info['first_name']->value) !== false) {
+            if($info['first_name']->display && stripos($info['first_name']->value, $search_user) !== false) {
                 $filtered_members[] = $member;
                 continue;
             }
 
             // Last name
-            if($info['last_name']->display && stripos($search_user, $info['last_name']->value) !== false) {
+            if($info['last_name']->display && stripos($info['last_name']->value, $search_user) !== false) {
                 $filtered_members[] = $member;
                 continue;
             }

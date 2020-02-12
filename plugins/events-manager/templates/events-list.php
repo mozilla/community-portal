@@ -2,8 +2,8 @@
     $page = isset($_REQUEST['pno']) ? intval($_REQUEST['pno']) : 1;
 	$args = apply_filters('em_content_events_args', $args);
 	if (isset($args['search'])) {
-		$args['search'] = preg_replace('/^\"|\"$/', "", $args['search']);
-		$args['search'] = preg_replace('/^\'|\'$/', "", $args['search']);
+    $original_search = $args['search'];
+    $args['search'] = preg_replace('/^\"|\"$|^\'|\'$/', "", $args['search']);
 		$args['search'] = addslashes($args['search']);
 	}
     $view = get_query_var( 'view', $default = '');
@@ -119,9 +119,9 @@
     </div>
     <?php include(locate_template('plugins/events-manager/templates/template-parts/events-filters.php', false, false)); ?>
     <?php if(count($events)): ?>
-    <?php if($args['search']): ?>
+    <?php if(isset($original_search)): ?>
         <div class="col-sm-12 events__search-terms">
-            <p><?php echo __('Results for "'.$args['search'].'"')?></p>
+            <p><?php echo __('Results for "'.$original_search.'"')?></p>
         </div>
     <?php endif; ?>
     <div class="row events__cards">
