@@ -20,8 +20,7 @@ function mozilla_create_group() {
             'group_address_type',
             'group_address',
             'group_meeting_details',
-            'group_dis
-            urse',
+            'group_discourse',
             'group_facebook',
             'group_telegram',
             'group_github',
