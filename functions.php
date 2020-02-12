@@ -71,6 +71,10 @@ add_filter('em_event_delete', 'mozilla_delete_events', 10, 2);
 add_filter('body_class', 'mozilla_update_body_class');
 add_filter('acf/load_field/name=featured_group', 'acf_load_bp_groups', 10, 1);
 add_filter('query_vars', 'mozilla_add_query_vars_filter');
+add_filter('bp_groups_list_table_get_columns', 'mozilla_add_group_columns');
+add_filter('bp_groups_admin_get_group_custom_column', 'mozilla_group_addional_column_info', 10, 3);
+
+
 
 // Include theme style.css file not in admin page
 if(!is_admin()) {

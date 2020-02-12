@@ -255,4 +255,22 @@ function mozilla_redirect_admin() {
     }
 }
 
+function mozilla_add_group_columns($columns) {
+
+    //print_r($columns);
+    $columns['group_created'] = __("Group Created On", "community-portal");
+    return $columns;
+    
+}
+
+function mozilla_group_addional_column_info($retval = "", $column_name, $item) {
+    if($column_name !== 'group_created') 
+        return $retval;
+
+    if(isset($item['date_created']))
+        return $item['date_created'];
+
+    return '-';
+}
+
 ?>
