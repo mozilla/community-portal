@@ -369,7 +369,8 @@
     }
 
     &__avatar {
-        background-color: $color-gray-20;
+		background-color: $color-gray-20;
+		background-position: center;
         border-radius: 50%!important;
         background-size: cover;
         height: 80px;
