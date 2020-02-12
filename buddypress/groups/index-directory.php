@@ -18,7 +18,11 @@
 	$q = (isset($_GET['q']) && strlen($_GET['q']) > 0) ? sanitize_text_field(trim($_GET['q'])) : false;
 	if (isset($q)) {
 
-		if (strpos($q, '"') || strpos($q, "'") || strpos($q, '\\')) {
+		if (
+			strpos($q, '"') !== false || 
+			strpos($q, "'") !== false || 
+			strpos($q, '\\') !== false
+		) {
 			$q = stripslashes($q);
 			$q = preg_replace('/^\"|\"$|^\'|\'$/', "", $q);
 			$original_query = $q;

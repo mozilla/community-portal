@@ -1,7 +1,13 @@
 <?php
     $page = isset($_REQUEST['pno']) ? intval($_REQUEST['pno']) : 1;
 	$args = apply_filters('em_content_events_args', $args);
-	if (isset($args['search']) && (strpos($args['search'], '"') || strpos($args['search'], "'") || strpos($args['search'], '\\'))) {
+	var_dump(strpos($args['search'], "'"));
+	if (
+		isset($args['search']) && 
+		(strpos($args['search'], '"') !== false || 
+		strpos($args['search'], "'") !== false || 
+		strpos($args['search'], '\\') !== false)
+	) {
 		$args['search'] = preg_replace('/^\"|\"$|^\'|\'$/', "", $args['search']);
 		$original_search = $args['search'];
 		$args['search'] = addslashes($args['search']);

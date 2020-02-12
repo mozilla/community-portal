@@ -14,7 +14,12 @@
     $args = Array('offset'  => 0, 'number'  =>  -1);
 
 	$search_user = isset($_GET['u']) && strlen(trim($_GET['u'])) > 0 ? trim($_GET['u']) : false;
-	if (isset($search_user) && (strpos($search_user, '"') || strpos($search_user, "'") || strpos($search_user, '\\'))) {
+	if (
+		isset($search_user) && 
+		(strpos($search_user, '"') !== false || 
+		strpos($search_user, "'") !== false || 
+		strpos($search_user, '\\') !== false)
+	) {
 		$search_user = str_replace('\\', '', $search_user);
 		$search_user = preg_replace('/^\"|\"$|^\'|\'$/', "", $search_user);
 	}
