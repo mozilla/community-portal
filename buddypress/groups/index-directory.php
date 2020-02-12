@@ -16,14 +16,18 @@
     );
 
 	$q = (isset($_GET['q']) && strlen($_GET['q']) > 0) ? sanitize_text_field(trim($_GET['q'])) : false;
-	$q = stripslashes($q);
-	$q = preg_replace('/^\"|\"$|^\'|\'$/', "", $q);
-	$original_query = $q;
-	$q = addslashes($q);
-    if($q) {
-        $args['search_columns'] = Array('name');
+	if (isset($q)) {
+
+		if (strpos($q, '"') || strpos($q, "'") || strpos($q, '\\')) {
+			$q = stripslashes($q);
+			$q = preg_replace('/^\"|\"$|^\'|\'$/', "", $q);
+			$original_query = $q;
+			$q = addslashes($q);
+		}
+
+		$args['search_columns'] = Array('name');
         $args['search_terms'] = $q;
-    }
+	}
 
     $group_count = 0;
     $user = wp_get_current_user()->data;
