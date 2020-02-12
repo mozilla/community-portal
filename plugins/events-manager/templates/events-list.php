@@ -2,8 +2,8 @@
     $page = isset($_REQUEST['pno']) ? intval($_REQUEST['pno']) : 1;
 	$args = apply_filters('em_content_events_args', $args);
 	if (isset($args['search'])) {
-    $original_search = $args['search'];
     $args['search'] = preg_replace('/^\"|\"$|^\'|\'$/', "", $args['search']);
+    $original_search = $args['search'];
 		$args['search'] = addslashes($args['search']);
 	}
     $view = get_query_var( 'view', $default = '');
@@ -178,7 +178,7 @@
     </div>
     <?php else: ?>
         <div class="events__zero-state col-sm-12">
-            <p><?php echo ($args['search'] ? __('No results found. Please try another search term.', "community-portal") : __('There are currently no events.', "community-portal")) ?></p>
+            <p><?php echo ($original_search ? __('No results found. Please try another search term.', "community-portal") : __('There are currently no events.', "community-portal")) ?></p>
         </div>
     <?php endif; ?>
     </div>

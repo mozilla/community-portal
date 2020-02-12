@@ -7,7 +7,8 @@
 	<div class="em-events-search em-search col-lg-7 col-sm-12">
 		<?php 
 			$view = get_query_var( 'view', $default = '');
-			$args['search_url'] = '/events/?view='.$view;
+      $args['search_url'] = '/events/?view='.$view;
+      $args['search'] = preg_replace('/^\"|\"$|^\'|\'$/', "", $args['search']);
 		?>
 		<form method="GET" action="<?php echo !empty($args['search_url']) ? esc_url($args['search_url']) : EM_URI; ?>" class="events__form">
 			<input type="hidden" name="action" value="<?php echo esc_attr($args['search_action']); ?>" />
