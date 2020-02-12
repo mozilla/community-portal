@@ -14,6 +14,18 @@
     $args = Array('offset'  => 0, 'number'  =>  -1);
 
     $search_user = isset($_GET['u']) && strlen(trim($_GET['u'])) > 0 ? trim($_GET['u']) : false;
+    $first_name = false;
+    $last_name = false;
+
+    // We aren't searching a username rather a full name
+    if($search_user && strpos($search_user, ' ') !== false) {
+        $name = explode(' ', $search_user);
+        if(is_array($name) && sizeof($name) === 2) {
+            $first_name = $name[0];
+            $last_name = $name[1];
+        }
+    }
+
     $country_code = isset($_GET['location']) && strlen($_GET['location']) > 0 ? strtoupper(trim($_GET['location'])) : false;
     $get_tag = isset($_GET['tag']) && strlen(trim($_GET['tag'])) > 0 ? strtolower(trim($_GET['tag'])) : false;
 
@@ -50,7 +62,6 @@
                 $member_country = $info['location']->value;
             }
 
-
             $key = array_search($member_country, $countries);
             if($key)
                 $used_country_list[$key] = $countries[$key];
@@ -72,28 +83,56 @@
             }
 
             // Country / Tag / First Name
-            if($info['tags']->display && 
-                $info['location']->display && 
-                array_key_exists($country_code, $countries) && 
-                strtolower($countries[$country_code]) === strtolower($member_country) && 
-                in_array($get_tag, array_map('strtolower', $member_tags)) &&
-                $info['first_name']->display &&
-                stripos($search_user, $info['first_name']->value) !== false)
-            {   
-                    $filtered_members[] = $member;
-                    continue;
+            if($first_name) {
+                if($info['tags']->display && 
+                    $info['location']->display && 
+                    array_key_exists($country_code, $countries) && 
+                    strtolower($countries[$country_code]) === strtolower($member_country) && 
+                    in_array($get_tag, array_map('strtolower', $member_tags)) &&
+                    $info['first_name']->display &&
+                    stripos($info['first_name']->value, $first_name) !== false)
+                {   
+                        $filtered_members[] = $member;
+                        continue;
+                }
+            } else {
+                if($info['tags']->display && 
+                    $info['location']->display && 
+                    array_key_exists($country_code, $countries) && 
+                    strtolower($countries[$country_code]) === strtolower($member_country) && 
+                    in_array($get_tag, array_map('strtolower', $member_tags)) &&
+                    $info['first_name']->display &&
+                    stripos($info['first_name']->value, $search_user) !== false)
+                {   
+                        $filtered_members[] = $member;
+                        continue;
+                }
             }
 
             // Country / Tag / Last Name
-            if($info['tags']->display && $info['location']->display && 
-                array_key_exists($country_code, $countries) && 
-                strtolower($countries[$country_code]) === strtolower($member_country) && 
-                in_array($get_tag, array_map('strtolower', $member_tags)) &&
-                $info['last_name']->display &&
-                stripos($search_user, $info['last_name']->value) !== false)
-            {   
-                    $filtered_members[] = $member;
-                    continue;
+            if($last_name) {
+                if($info['tags']->display && $info['location']->display && 
+                    array_key_exists($country_code, $countries) && 
+                    strtolower($countries[$country_code]) === strtolower($member_country) && 
+                    in_array($get_tag, array_map('strtolower', $member_tags)) &&
+                    $info['last_name']->display &&
+                    stripos($info['last_name']->value, $last_name) !== false)
+                {   
+                        $filtered_members[] = $member;
+                        continue;
+                }
+
+            } else {
+                if($info['tags']->display && $info['location']->display && 
+                    array_key_exists($country_code, $countries) && 
+                    strtolower($countries[$country_code]) === strtolower($member_country) && 
+                    in_array($get_tag, array_map('strtolower', $member_tags)) &&
+                    $info['last_name']->display &&
+                    stripos($info['last_name']->value, $search_user) !== false)
+                {   
+                        $filtered_members[] = $member;
+                        continue;
+                }
             }
 
             continue;
@@ -113,29 +152,52 @@
                 continue;
             }
 
+            
             // Country and first name
-            if(array_key_exists($country_code, $countries) && 
-                strtolower($countries[$country_code]) === strtolower($member_country) && 
-                $info['location']->display &&
-                $info['first_name']->display &&
-                stripos($search_user, $info['first_name']->value) !== false) 
-            {
-                $filtered_members[] = $member;
-                continue;
+            if($first_name) {
+                if(array_key_exists($country_code, $countries) && 
+                    strtolower($countries[$country_code]) === strtolower($member_country) && 
+                    $info['location']->display &&
+                    $info['first_name']->display &&
+                    stripos($info['first_name']->value, $first_name) !== false) 
+                {
+                    $filtered_members[] = $member;
+                    continue;
+                }
+            } else {
+                if(array_key_exists($country_code, $countries) && 
+                    strtolower($countries[$country_code]) === strtolower($member_country) && 
+                    $info['location']->display &&
+                    $info['first_name']->display &&
+                    stripos($info['first_name']->value, $search_user) !== false) 
+                {
+                    $filtered_members[] = $member;
+                    continue;
+                }
             }
-
 
             // Country and last name
-            if(array_key_exists($country_code, $countries) && 
-                strtolower($countries[$country_code]) === strtolower($member_country) && 
-                $info['location']->display &&
-                $info['last_name']->display &&
-                stripos($search_user, $info['last_name']->value) !== false) 
-            {
-                $filtered_members[] = $member;
-                continue;
+            if($last_name) {
+                if(array_key_exists($country_code, $countries) && 
+                    strtolower($countries[$country_code]) === strtolower($member_country) && 
+                    $info['location']->display &&
+                    $info['first_name']->display &&
+                    stripos($info['last_name']->value, $last_name) !== false) 
+                {
+                    $filtered_members[] = $member;
+                    continue;
+                }
+            } else {
+                if(array_key_exists($country_code, $countries) && 
+                    strtolower($countries[$country_code]) === strtolower($member_country) && 
+                    $info['location']->display &&
+                    $info['last_name']->display &&
+                    stripos($info['last_name']->value, $search_user) !== false) 
+                {
+                    $filtered_members[] = $member;
+                    continue;
+                }
             }
-
 
             continue;
         }
@@ -154,28 +216,52 @@
             }
 
             // Tag and first name
-            if(in_array($get_tag, array_map('strtolower', $member_tags)) && 
-                $info['tags']->display &&
-                $info['first_name']->display &&
-                stripos($search_user, $info['first_name']->value) !== false) 
-            {
-                $filtered_members[] = $member;
-                continue;
+            if($first_name) {
+                if(in_array($get_tag, array_map('strtolower', $member_tags)) && 
+                    $info['tags']->display &&
+                    $info['first_name']->display &&
+                    stripos($info['first_name']->value, $first_name) !== false) 
+                {
+                    $filtered_members[] = $member;
+                    continue;
+                }
+            } else {
+                if(in_array($get_tag, array_map('strtolower', $member_tags)) && 
+                    $info['tags']->display &&
+                    $info['first_name']->display &&
+                    stripos($info['first_name']->value, $search_user) !== false) 
+                {
+                    $filtered_members[] = $member;
+                    continue;
+                }
+
             }
 
             // Tag and first name
-            if(in_array($get_tag, array_map('strtolower', $member_tags)) && 
-                $info['tags']->display &&
-                $info['last_name']->display &&
-                stripos($search_user, $info['last_name']->value) !== false) 
-            {
-                $filtered_members[] = $member;
-                continue;
+            if($last_name) {
+                if(in_array($get_tag, array_map('strtolower', $member_tags)) && 
+                    $info['tags']->display &&
+                    $info['last_name']->display &&
+                    stripos($info['last_name']->value, $last_name) !== false) 
+                {
+                    $filtered_members[] = $member;
+                    continue;
+                }
+            } else {
+                if(in_array($get_tag, array_map('strtolower', $member_tags)) && 
+                    $info['tags']->display &&
+                    $info['last_name']->display &&
+                    stripos($info['last_name']->value, $search_user) !== false) 
+                {
+                    $filtered_members[] = $member;
+                    continue;
+                }
             }
 
             continue;
         } 
 
+        // Country and tag
         if($country_code && $get_tag && $search_user === false) {
             if($info['tags']->display && 
                 $info['location']->display && 
@@ -225,15 +311,29 @@
             }
 
             // First name
-            if($info['first_name']->display && stripos($search_user, $info['first_name']->value) !== false) {
-                $filtered_members[] = $member;
-                continue;
+            if($first_name) {
+                if($info['first_name']->display && stripos($info['first_name']->value, $first_name) !== false) {
+                    $filtered_members[] = $member;
+                    continue;
+                }
+            } else {
+                if($info['first_name']->display && stripos($info['first_name']->value, $search_user) !== false) {
+                    $filtered_members[] = $member;
+                    continue;
+                }
             }
 
             // Last name
-            if($info['last_name']->display && stripos($search_user, $info['last_name']->value) !== false) {
-                $filtered_members[] = $member;
-                continue;
+            if($last_name) {
+                if($info['last_name']->display && stripos($info['last_name']->value, $last_name) !== false) {
+                    $filtered_members[] = $member;
+                    continue;
+                }
+            } else {
+                if($info['last_name']->display && stripos($info['last_name']->value, $search_user) !== false) {
+                    $filtered_members[] = $member;
+                    continue;
+                }
             }
 
             continue;
@@ -301,6 +401,7 @@
             </div>
             <div class="members__people-container">
             <?php if(sizeof($members) > 0): ?>
+            <?php if(isset($_GET['u']) && strlen($_GET['u']) > 0): ?><div class="members__results-for"><?php print __(sprintf("Results for \"%s\"", trim($_GET['u']))); ?></div><?php endif; ?>
             <?php foreach($members AS $member): ?>
             <?php 
                 $info = $member->info;
