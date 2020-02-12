@@ -17,8 +17,8 @@
 
 	$q = (isset($_GET['q']) && strlen($_GET['q']) > 0) ? sanitize_text_field(trim($_GET['q'])) : false;
 	$q = stripslashes($q);
-  $q = preg_replace('/^\"|\"$|^\'|\'$/', "", $q);
-  $original_query = $q;
+	$q = preg_replace('/^\"|\"$|^\'|\'$/', "", $q);
+	$original_query = $q;
 	$q = addslashes($q);
     if($q) {
         $args['search_columns'] = Array('name');
