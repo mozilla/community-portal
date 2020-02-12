@@ -25,6 +25,7 @@ add_action('get_header', 'mozilla_remove_admin_login_header');
 add_action('wp_enqueue_scripts', 'mozilla_init_scripts');
 add_action('admin_enqueue_scripts', 'mozilla_init_admin_scripts');
 add_action('admin_menu', 'mozilla_add_menu_item');
+add_action('bp_group_admin_edit_after', 'mozilla_save_group');
 add_action('save_post', 'mozilla_save_event', 10, 3);
 
 // Ajax Calls
@@ -159,5 +160,22 @@ function mozilla_init() {
     register_post_type('campaign', $args);
     add_theme_support('post-thumbnails', array( 'post', 'activity', 'campaign', 'static-page')); 
 }
+
+
+add_filter('query', 'mozilla_column_test');
+
+function mozilla_column_test($query) {
+    
+    if(!is_admin()) {
+        return $query;
+    }
+
+    
+
+
+    return $query;
+
+}
+
 
 ?>
