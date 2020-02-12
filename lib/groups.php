@@ -208,7 +208,7 @@ function mozilla_edit_group() {
                     groups_create_group($args);
                     // Update both category and group 
                     $discourse_api_data = Array();
-                    $meta = Array();
+                    $meta = groups_get_groupmeta($group_id, 'meta');
 
                     $group_discourse_info = mozilla_get_discourse_info($group_id, 'group');
 
@@ -440,4 +440,27 @@ function mozilla_remove_members_discourse($group_id, $user_id) {
     return true;
 }
 
+
+function mozilla_save_group($group_id) {
+    if(!is_admin()) {
+        return;
+    }
+
+    $group = groups_get_group(Array('group_id' => $group_id));
+    $group_meta = groups_get_groupmeta($group->id, 'meta');
+
+    // If verifying group store when we did it
+    if(!isset($group_meta['verified_date']) && isset($_POST['group-status']) && trim($_POST['group-status']) === 'public') {
+        $group_meta['verified_date'] = time();
+        groups_update_groupmeta($group_id, 'meta', $group_meta);
+    }    
+
+    // If unverifying a group unset the value
+    if(isset($group_meta['verified_date']) && isset($_POST['group-status']) && trim($_POST['group']) !== 'public') {
+        unset($group_meta['verified_date']);
+        groups_update_groupmeta($group_id, 'meta', $group_meta);
+    }
+
+
+}
 ?>
