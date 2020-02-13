@@ -53,56 +53,6 @@
 				</div>
 				</div>
 			</div>
-			<?php if($hasEvents): ?>
-			<div class="homepage__events">
-				<div class="homepage__events__background"></div>
-				<div class="row homepage__events__meta">
-					<div class="col-md-6 col-sm-12">
-						<h2 class="subheader homepage__events__subheader"><?php echo __($fieldValues->featured_events_title)?></h2>
-					</div>
-					<div class="col-md-6 col-sm-12 homepage__events__cta">
-						<a href="/events" class="btn btn--small btn--dark"><?php echo __($fieldValues->featured_events_cta_text); ?></a>
-					</div>
-				</div>
-				<div class="row homepage__events__grid">
-					<?php 
-						if(is_array($fieldValues->featured_events)) {
-
-							foreach($fieldValues->featured_events as $featured_event) {
-								if($featured_event['single_event']) {
-									$event = EM_Events::get(array('post_id' => $featured_event['single_event']->ID, 'scope'	=>	'all'));
-									$event = array_shift(array_values($event));
-						
-									include(locate_template('plugins/events-manager/templates/template-parts/single-event-card.php', false, false));
-								} 
-							}
-						}
-					?>
-					<div class="col-lg-4 col-md-6 events__column homepage__events__count">
-						<?php 
-							$eventsTotal = count(EM_Events::get());
-							if ($eventsTotal > 15 && $eventsTotal <= 105):
-								$eventsTotal = floor(($eventsTotal / 10)) * 10;
-								$eventsTotal .= '+';
-							elseif ($eventsTotal > 105 && $eventsTotal <= 1005):
-								$eventsTotal = floor(($eventsTotal) / 100) * 100;
-								$eventsTotal .= '+';
-							elseif ($eventsTotal > 1005): 
-								$eventsTotal = floor(($eventsTotal / 1000) * 1000);
-								$eventsTotal .= '+';
-							else: 
-								$eventsTotal = 10;
-							endif;
-						?>
-						<p>
-							<span class="large-number homepage__events__count__span"><?php echo __($eventsTotal) ?></span>
-							<?php echo __('More Events.')?>
-							<a href="/events" class="homepage__events__count__link"><?php echo __($fieldValues->featured_events_secondary_cta_text) ?></a>
-						</p>
-					</div>
-				</div>
-			</div>
-			<?php endif; ?>
 			<?php if($fieldValues->featured_groups && is_array($fieldValues->featured_groups) && sizeof($fieldValues->featured_groups) > 0): ?>
 			<div class="homepage__groups">
 				<div class="homepage__groups__background"></div>
@@ -194,13 +144,63 @@
 								$groups_total = floor(($groups_total / 1005) * 1005);
 								$groups_total .= '+';
 							else: 
-								$groups_total = 10;
+								$groups_total = '10+';
 							endif;
 						?>
 						<p>
 							<span class="large-number homepage__events__count__span"><?php echo __($groups_total) ?></span>
 							<?php echo __('More Groups.')?>
 							<a href="/groups/" class="homepage__events__count__link"><?php echo __($fieldValues->featured_groups_secondary_cta_text) ?></a>
+						</p>
+					</div>
+				</div>
+			</div>
+			<?php endif; ?>
+      <?php if($hasEvents): ?>
+			<div class="homepage__events">
+				<div class="homepage__events__background"></div>
+				<div class="row homepage__events__meta">
+					<div class="col-md-6 col-sm-12">
+						<h2 class="subheader homepage__events__subheader"><?php echo __($fieldValues->featured_events_title)?></h2>
+					</div>
+					<div class="col-md-6 col-sm-12 homepage__events__cta">
+						<a href="/events" class="btn btn--small btn--dark"><?php echo __($fieldValues->featured_events_cta_text); ?></a>
+					</div>
+				</div>
+				<div class="row homepage__events__grid">
+					<?php 
+						if(is_array($fieldValues->featured_events)) {
+
+							foreach($fieldValues->featured_events as $featured_event) {
+								if($featured_event['single_event']) {
+									$event = EM_Events::get(array('post_id' => $featured_event['single_event']->ID, 'scope'	=>	'all'));
+									$event = array_shift(array_values($event));
+						
+									include(locate_template('plugins/events-manager/templates/template-parts/single-event-card.php', false, false));
+								} 
+							}
+						}
+					?>
+					<div class="col-lg-4 col-md-6 events__column homepage__events__count">
+						<?php 
+							$eventsTotal = count(EM_Events::get());
+							if ($eventsTotal > 15 && $eventsTotal <= 105):
+								$eventsTotal = floor(($eventsTotal / 10)) * 10;
+								$eventsTotal .= '+';
+							elseif ($eventsTotal > 105 && $eventsTotal <= 1005):
+								$eventsTotal = floor(($eventsTotal) / 100) * 100;
+								$eventsTotal .= '+';
+							elseif ($eventsTotal > 1005): 
+								$eventsTotal = floor(($eventsTotal / 1000) * 1000);
+								$eventsTotal .= '+';
+							else: 
+								$eventsTotal = '10+';
+							endif;
+						?>
+						<p>
+							<span class="large-number homepage__events__count__span"><?php echo __($eventsTotal) ?></span>
+							<?php echo __('More Events.')?>
+							<a href="/events" class="homepage__events__count__link"><?php echo __($fieldValues->featured_events_secondary_cta_text) ?></a>
 						</p>
 					</div>
 				</div>
