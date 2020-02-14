@@ -129,7 +129,8 @@ body.home-page {
     }
 
     &__events,
-    &__groups {
+	&__groups,
+	&__activities {
         margin-top: 36px;
         padding-bottom: 36px;
         position: relative;
@@ -146,44 +147,54 @@ body.home-page {
 
         &__grid {
             .events__column:nth-of-type(3n),
-            .groups__column:nth-of-type(3n) {
+            .groups__column:nth-of-type(3n),
+            .activities__column:nth-of-type(3n) {
                 @include tablet-and-up {
-                    padding-right: 16px;
+                    margin-right: 16px;
                 }
 
                 @include desktop-and-up {
-                    padding-right: 0;
-                }
-            }
-
-            .events__column:nth-of-type(3n + 1),
-            .groups__column:nth-of-type(3n + 1)  {
-                @include desktop-and-up {
-                    padding-left: 0;
+                    margin-right: 0;
                 }
             }
 
             .groups__column:nth-of-type(2n + 1),
-            .events__column:nth-of-type(2n + 1) {
+            .events__column:nth-of-type(2n + 1),
+            .activities__column:nth-of-type(2n + 1)  {
                 //@include tablet-and-up {
                 @media (min-width: $screen-tablet-min) and (max-width: $screen-desktop-min) {
-                    padding-left: 0;
+					margin-left: 0;
+					margin-right: 16px;
+                }
+			}
+			
+			.events__column:nth-of-type(3n + 1),
+            .groups__column:nth-of-type(3n + 1),
+            .activities__column:nth-of-type(3n + 1) {
+                @include desktop-and-up {
+                    margin-left: 0;
                 }
             }
 
             .groups__column:nth-of-type(2n),
+            .activities__column:nth-of-type(2n),
             .events__column:nth-of-type(2n) {
                 //@include tablet-and-up {
                 @media (min-width: $screen-tablet-min) and (max-width: $screen-desktop-min) {
-                    padding-right: 0px;
+                    margin-right: 0px;
                 }
             }
 
             .groups__column,
+            .activities__column,
             .events__column {
-                padding: 16px 0;
-                @include tablet-and-up {
-                    padding: 32px 16px;
+				margin: 16px 0;
+				@include tablet-and-up {
+					max-width: calc(50% - 16px);
+                    margin: 32px 16px;
+                }
+                @include desktop-and-up {
+					max-width: calc(33.33% - 22px);
                 }
 
                 .card {
@@ -254,34 +265,89 @@ body.home-page {
                 }
             }
         }
-    }
+	}
+
+	&__groups,
+	&__events {
+		&__grid {
+			padding-bottom: 110px;
+			@include tablet-and-up {
+				padding-bottom: 0;
+			}
+		}
+	}
 
 
     &__events, 
     &__hero, 
-    &__groups {
+	&__groups,
+	&__activities {
         &__background {
-            border-bottom-left-radius: 30px;
-            left: -24px;
             min-width: 320px;
             position: absolute;
             width: 100vw;
             z-index: -1;
-
-            @include tablet-and-up {
-                left: 135px;
-            }
         }
-    }
+	}
+	
+	&__events, 
+    &__hero, 
+	&__groups {
+		&__background {
+            height: calc(100% - 232px);
+			border-bottom-left-radius: 30px;
+            left: -24px;
+			@include tablet-and-up {
+                height: calc(100% - 248px);
+				left: 135px;
+			}
+		}
+	}
+
+	&__activities {
+		position: relative;
+		padding-bottom: 110px;
+		@include tablet-and-up {
+			padding-bottom: 240px;
+		}
+		@include desktop-and-up {
+			padding-bottom: 60px;
+		}
+		&__background {
+			border-bottom-right-radius: 30px;
+			right: 0;
+			height: 60%;
+			@include tablet-and-up {
+				height: 50%;
+			}
+			@include desktop-and-up {
+                height: calc(100% - 248px);
+				right: 455px;
+			}
+		}
+		&::after {
+			content: url('./images/Union.svg');
+			position: absolute;
+			bottom: 0;
+			z-index: -1;
+			display: block;
+			right: -24px;
+			@include tablet-and-up {
+				right: 0;
+			}
+			@include desktop-and-up {
+				right: -100px;
+			}
+		}
+	}
+
 
     &__events, 
-    &__groups {
+	&__groups,
+	&__activities {
         &__background {
-            height: calc(100% - 232px);
             top: 190px;
-
             @include tablet-and-up {
-                height: calc(100% - 248px);
                 top: 200px;
             }
 
@@ -301,5 +367,9 @@ body.home-page {
     &__groups__background,
     &__hero__background {
         background-color: #F2FCFD;
-    }
+	}
+	
+	&__activities__background {
+		background-color: $color-red-5;
+	}
 }
