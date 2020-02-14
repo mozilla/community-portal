@@ -8,6 +8,9 @@
 				'hero_cta_existing',
 				'hero_cta_new',
 				'hero_cta_text',
+				'featured_campaign',
+				'featured_campaign_title',
+				'featured_campaign_copy',
 				'featured_events',
 				'featured_events_title',
 				'featured_events_cta_text',
@@ -38,24 +41,80 @@
 
 		?>
 		<div class="homepage homepage__container">
-		<div class="homepage__hero">
-			<div class="homepage__hero__background">
-			</div>
-			<div class="row">
-				<div class="col-md-5 homepage__hero__splash">
-					<div class="homepage__hero__image">
-						<img src="<?php echo $fieldValues->hero_image['url'] ?>" alt="<?php echo $fieldValues->hero_image['alt'] ?>">
+			<div class="homepage__hero">
+				<div class="homepage__hero__background">
+				</div>
+				<div class="row">
+					<div class="col-md-5 homepage__hero__splash">
+						<div class="homepage__hero__image">
+							<img src="<?php echo $fieldValues->hero_image['url'] ?>" alt="<?php echo $fieldValues->hero_image['alt'] ?>">
+						</div>
+					</div>
+					<div class="col-md-4 col-md-offset-1">
+						<div class="homepage__content">
+							<h1 class="homepage__hero__title title title--main"><?php echo $fieldValues->hero_title; ?></h1>
+							<p class="homepage__hero__subtitle subtitle"><?php echo $fieldValues->hero_subtitle ?></p>
+							<a href="<?php echo (is_user_logged_in() ? esc_attr($fieldValues->hero_cta_existing) : esc_attr($fieldValues->hero_cta_new)) ?>"class="btn btn--dark btn--small homepage__hero__cta"><?php echo __($fieldValues->hero_cta_text) ?></a>
+						</div>
 					</div>
 				</div>
-				<div class="col-md-4 col-md-offset-1">
-					<div class="homepage__content">
-						<h1 class="homepage__hero__title title title--main"><?php echo $fieldValues->hero_title; ?></h1>
-						<p class="homepage__hero__subtitle subtitle"><?php echo $fieldValues->hero_subtitle ?></p>
-						<a href="<?php echo (is_user_logged_in() ? esc_attr($fieldValues->hero_cta_existing) : esc_attr($fieldValues->hero_cta_new)) ?>"class="btn btn--dark btn--small homepage__hero__cta"><?php echo __($fieldValues->hero_cta_text) ?></a>
+			</div>
+			<?php if (isset($fieldValues->featured_campaign)): 
+				$current_campaign = $fieldValues->featured_campaign;
+				if($current_campaign) {
+					$current_campaign_image = get_the_post_thumbnail_url($current_campaign->ID);
+					
+					$current_campaign_status = get_field('campaign_status', $current_campaign->ID);
+					$current_campaign_hero_cta = get_field('hero_cta', $current_campaign->ID);
+					$current_campaign_hero_cta_link = get_field('hero_cta_link', $current_campaign->ID);
+					
+					$current_campaign_start_date = get_field('campaign_start_date', $current_campaign->ID);
+					$current_campaign_end_date = get_field('campaign_end_date', $current_campaign->ID);
+					$current_campaign_card_description = get_field('card_description', $current_campaign->ID);
+					$current_campaign_tags = get_the_terms($current_campaign, 'post_tag');        
+				}
+			?>
+				<div class="homepage__campaign">
+					<div class="homepage__campaign__background"></div>
+					<div class="row homepage__campaign__container">
+						<div class="col-md-3">
+							<img src="<?php print get_stylesheet_directory_uri()."/images/homepage-campaign.svg"?>" alt="">
+							<h2 class="subheader homepage__campaign__subheader"><?php echo __($fieldValues->featured_campaign_title, 'community portal'); ?></h2>
+							<p>
+								<?php echo __($fieldValues->featured_campaign_copy); ?>
+							</p>
+						</div>
+						<div class="col-md-8 offset-1 homepage__campaign__active">
+						<?php if($current_campaign): ?>
+							<div class="campaigns__active-campaign">
+								<div class="campaigns__active-campaign-hero-container">
+									<div class="campaign__hero-image" style="background-image: url(<?php print $current_campaign_image; ?>);">
+									</div>
+									<div class="campaigns__active-campaign-title-container">
+										<div class="campaigns__active-campaign-status"><?php print $current_campaign_status; ?></div>
+										<h2 class="campaigns__active-campaign-title"><?php print $current_campaign->post_title?></h2>
+										<div class="campaigns__active-campaign-date-container">
+											<?php print $current_campaign_start_date; ?><?php if($current_campaign_end_date): ?> - <?php print $current_campaign_end_date; ?><?php endif; ?>
+										</div>
+										
+										<a href="/campaigns/<?php print $current_campaign->post_name; ?>" class="campaign__hero-cta"><?php print __('Get Involved', 'community-portal'); ?></a>
+										
+									</div>
+								</div>
+								<div class="campaigns__active-campaign-description">
+									<?php print $current_campaign_card_description; ?>
+								</div>
+								<?php if(is_array($current_campaign_tags) && sizeof($current_campaign_tags) > 0): ?>
+								<div class="campaigns__active-campaign-tags">
+									<span class="campaigns__active-campaign-tag"><?php print $current_campaign_tags[0]->name; ?></span>
+								</div>
+								<?php endif; ?>
+							</div>
+							<?php endif; ?>
+						</div>
 					</div>
 				</div>
-				</div>
-			</div>
+			<?php endif; ?>
 			<?php if($fieldValues->featured_groups && is_array($fieldValues->featured_groups) && sizeof($fieldValues->featured_groups) > 0): ?>
 			<div class="homepage__groups">
 				<div class="homepage__groups__background"></div>
@@ -159,7 +218,7 @@
 				</div>
 			</div>
 			<?php endif; ?>
-      <?php if($hasEvents): ?>
+			<?php if($hasEvents): ?>
 			<div class="homepage__events">
 				<div class="homepage__events__background"></div>
 				<div class="row homepage__events__meta">

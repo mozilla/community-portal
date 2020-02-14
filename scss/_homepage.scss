@@ -7,6 +7,10 @@ body.home-page {
     }
 }
 
+.offset-1 {
+	margin-left: calc(100% / 12);
+}
+
 .homepage {
     position: relative;
 
@@ -126,7 +130,26 @@ body.home-page {
                 left: -50px;
             }
         }
-    }
+	}
+	
+	&__campaign__active {
+		background: white;
+		position: relative;
+		&::before {
+			content: url('./images/Rectangle.svg');
+			display: block;
+			position: absolute;
+			right: -32px;
+			top: -32px;
+			z-index: -1;
+		}
+		&::after {
+			content: url('./images/red-line.svg');
+			display: block;
+			position: absolute;
+			bottom: -20px;
+		}
+	}
 
     &__events,
 	&__groups,
@@ -281,7 +304,8 @@ body.home-page {
     &__events, 
     &__hero, 
 	&__groups,
-	&__activities {
+	&__activities,
+	&__campaign {
         &__background {
             min-width: 320px;
             position: absolute;
@@ -301,6 +325,19 @@ body.home-page {
                 height: calc(100% - 248px);
 				left: 135px;
 			}
+		}
+	}
+
+	&__campaign {
+		&__container {
+			padding: 106px 0;
+		}
+		position: relative;
+		&__background {
+			right: 105px;
+			background-color: $color-purple-5;
+			height: 100%;
+			border-radius: 30px;
 		}
 	}
 
@@ -325,7 +362,7 @@ body.home-page {
 				right: 455px;
 			}
 		}
-		&::after {
+		&::before {
 			content: url('./images/Union.svg');
 			position: absolute;
 			bottom: 0;
