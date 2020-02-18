@@ -306,7 +306,16 @@ function mozilla_group_addional_column_info($retval = "", $column_name, $item) {
             $group_meta = groups_get_groupmeta($item['id'], 'meta');
 
             if(isset($group_meta['verified_date'])) {
-                return date("Y-m-d H:i:s", $group_meta['verified_date']);
+                $dateCheck = strtotime('+1 year', $group_meta['verified_date']);
+
+                if($dateCheck < time()) {
+                    $class = "admin__group-status--red";
+                } else {
+                    $class = "admin__group-status--new";
+                }
+
+                $verified_date = date("Y-m-d H:i:s", $group_meta['verified_date']);
+                return "<div class=\"{$class}\">{$verified_date}</div>";
             } else {
                 return "-";
             }
