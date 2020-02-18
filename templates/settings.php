@@ -29,6 +29,14 @@
             </tr>
             <tr>
                 <th scope="row">
+                    <label for="mailchimp">Mailchimp API Key</label>
+                </th>
+                <td>
+                    <input type="text" id="mailchimp" name="mailchimp" class="regular-text" value="<?php print $options['mailchimp']; ?>" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
                     <label for="google-analytics-id">Google Analytics ID</label>
                 </th>
                 <td>

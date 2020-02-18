@@ -176,6 +176,10 @@ function mozilla_theme_settings() {
             if(isset($_POST['report_email'])) {
                 update_option('report_email', sanitize_text_field($_POST['report_email']));
             }
+
+            if(isset($_POST['mailchimp'])) {
+                update_option('mailchimp', sanitize_text_field($_POST['mailchimp']));
+            }
         }
     }
 
