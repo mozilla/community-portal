@@ -60,8 +60,27 @@
 				</div>
 			</div>
 			<?php if (isset($fieldValues->featured_campaign)): 
-				$current_campaign = $fieldValues->featured_campaign;
-				if($current_campaign) {
+				$c = $fieldValues->featured_campaign;
+				if ($c) {
+
+					$start = strtotime(get_field('campaign_start_date', $c->ID));
+					$end = strtotime(get_field('campaign_end_date', $c->ID));
+					$today = time();
+		
+					$status =  get_field('campaign_status', $c->ID);
+					if(strtolower($status) !== 'closed') {
+						if($start && !$end) {
+							if($today >= $start) {
+								$current_campaign = $c;
+							}
+						} elseif ($start && $end) {
+							if($today >= $start && $today < $end) {
+								$current_campaign = $c;
+							}
+						}
+					}
+				}
+				if($current_campaign):
 					$current_campaign_image = get_the_post_thumbnail_url($current_campaign->ID);
 					
 					$current_campaign_status = get_field('campaign_status', $current_campaign->ID);
@@ -72,19 +91,20 @@
 					$current_campaign_end_date = get_field('campaign_end_date', $current_campaign->ID);
 					$current_campaign_card_description = get_field('card_description', $current_campaign->ID);
 					$current_campaign_tags = get_the_terms($current_campaign, 'post_tag');        
-				}
 			?>
 				<div class="homepage__campaign">
 					<div class="homepage__campaign__background"></div>
 					<div class="row homepage__campaign__container">
-						<div class="col-md-3">
-							<img src="<?php print get_stylesheet_directory_uri()."/images/homepage-campaign.svg"?>" alt="">
-							<h2 class="subheader homepage__campaign__subheader"><?php echo __($fieldValues->featured_campaign_title, 'community portal'); ?></h2>
-							<p>
-								<?php echo __($fieldValues->featured_campaign_copy); ?>
-							</p>
+						<div class="col-lg-3 homepage__campaign__meta">
+							<img class="homepage__campaign__image" src="<?php print get_stylesheet_directory_uri()."/images/homepage-campaign.svg"?>" alt="">
+							<div class="homepage__campaign__copy">
+								<h2 class="subheader homepage__campaign__subheader"><?php echo __($fieldValues->featured_campaign_title, 'community portal'); ?></h2>
+								<p>
+									<?php echo __($fieldValues->featured_campaign_copy); ?>
+								</p>
+							</div>
 						</div>
-						<div class="col-md-8 offset-1 homepage__campaign__active">
+						<div class="col-lg-8 col-lg-offset-1 homepage__campaign__active">
 						<?php if($current_campaign): ?>
 							<div class="campaigns__active-campaign">
 								<div class="campaigns__active-campaign-hero-container">
@@ -114,6 +134,7 @@
 						</div>
 					</div>
 				</div>
+				<?php endif;?>
 			<?php endif; ?>
 			<?php if($fieldValues->featured_groups && is_array($fieldValues->featured_groups) && sizeof($fieldValues->featured_groups) > 0): ?>
 			<div class="homepage__groups">

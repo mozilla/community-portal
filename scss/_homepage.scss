@@ -131,23 +131,99 @@ body.home-page {
             }
         }
 	}
-	
+	&__campaign {
+		&__image {
+			display: none;
+			@include desktop-and-up {
+				display: block;
+			}
+		}
+		&__copy {
+			margin: 0 auto;
+			text-align: center;
+			margin-bottom: 48px;
+			@include tablet-and-up {
+				margin-bottom: 82px;
+				max-width: 50%;
+			}
+			@include desktop-and-up {
+				max-width: 100%;
+			}
+		}
+	}
 	&__campaign__active {
+		height: 100%;
 		background: white;
 		position: relative;
+		.campaigns__active-campaign {
+			&-hero-container {
+				flex-wrap: wrap;
+				justify-content: center;
+			}
+			&-title-container {
+				flex: 1 0 50%;
+				padding: 0 16px;
+				margin: 0;
+				margin-top: 16px;
+				@include tablet-and-up {
+					margin-top: 0;
+				}
+			}
+			margin-top: 0;
+			@include desktop-and-up {
+				padding: 74px;
+			}
+		}
+		.campaigns__active-campaign-description {
+			@include desktop-and-up {
+				padding: 0 16px;
+			}
+		}
+		.campaign__hero-image {
+			padding-top: calc(100% - 32px);
+			background-size: 100%;
+			background-repeat: no-repeat;
+			flex: 1 1 50%;
+			min-height: 226px;
+			margin-bottom: 0;
+			@include tablet-and-up {
+				padding-top: calc(50% - 24px);
+				width: 50%;
+			}
+			@include desktop-and-up {
+				padding-top: calc(50% - 90px);
+				flex: 0 1 226px;
+				margin-left: 16px;
+				margin-right: 16px;
+				margin-bottom: 10px;
+			}
+			width: 100%;
+			height: auto;
+		}
 		&::before {
 			content: url('./images/Rectangle.svg');
 			display: block;
 			position: absolute;
 			right: -32px;
 			top: -32px;
+			max-width: 100%;
 			z-index: -1;
+			display: none;
+			@include tablet-and-up {
+				display: block;
+			}
 		}
 		&::after {
-			content: url('./images/red-line.svg');
+			content: url('./images/Line.svg');
 			display: block;
 			position: absolute;
-			bottom: -20px;
+			bottom: -50px;
+			max-width: 100%;
+			right: -40px;
+			display: none;
+			@include tablet-and-up {
+				display: block;
+			}
 		}
 	}
 
@@ -329,15 +405,32 @@ body.home-page {
 	}
 
 	&__campaign {
-		&__container {
-			padding: 106px 0;
-		}
 		position: relative;
+		&__subheader {
+			margin-bottom: 0;
+		}
+		&__container {
+			padding: 64px 0 76px;
+			@include tablet-and-up {
+				padding: 106px 0;
+			}
+		}
+		&__meta {
+			margin-top: auto;
+			margin-bottom: auto;
+		}
+		&__image {
+			margin: 0 auto;
+		}
 		&__background {
-			right: 105px;
 			background-color: $color-purple-5;
 			height: 100%;
-			border-radius: 30px;
+			right: -24px;
+			@include tablet-and-up {
+				right: 105px;
+				height: 100%;
+				border-radius: 30px;
+			}
 		}
 	}
 
@@ -351,11 +444,11 @@ body.home-page {
 			padding-bottom: 60px;
 		}
 		&__background {
-			border-bottom-right-radius: 30px;
-			right: 0;
+			right: -24px;
 			height: 60%;
 			@include tablet-and-up {
 				height: 50%;
+				border-radius: 30px;
 			}
 			@include desktop-and-up {
                 height: calc(100% - 248px);
