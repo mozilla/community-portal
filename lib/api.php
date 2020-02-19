@@ -222,11 +222,19 @@ function mozilla_discourse_get_category_topics($url) {
     return $topics;
 }
 
-function mozilla_create_mailchimp_list($campaign, $apikey) {
+
+function mozilla_create_mailchimp_list($campaign) {
 
     $options = wp_load_alloptions();
-    
+
     if(isset($options['mailchimp'])) {
+        // if(!isset($options['company']) || strlen($options['company']) <= 0) {
+          
+        // } 
+
+      
+
+
         $dc = substr($apikey, -3);
         if($dc) {
 
@@ -244,8 +252,18 @@ function mozilla_create_mailchimp_list($campaign, $apikey) {
             $data = Array();
             $data['apikey'] = $apikey;
             $data['name'] = $campaign_list_name;
-            
+            $data['contact'] = Array(
+                'company'       =>      $options['company'],
+                'address1'      =>      $options['address'],
+                'address2'      =>      '',
+                'city'          =>      $options['city'],
+                'state'         =>      $options['state'],
+                'zip'           =>      $options['zip'],
+                'country'       =>      $options['country'],
+                'phone'         =>      $options['phone']
+            );
 
+       
 
             $json = json_encode($data);
 
