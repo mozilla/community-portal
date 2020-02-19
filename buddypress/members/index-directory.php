@@ -13,7 +13,17 @@
 
     $args = Array('offset'  => 0, 'number'  =>  -1);
 
-    $search_user = isset($_GET['u']) && strlen(trim($_GET['u'])) > 0 ? trim($_GET['u']) : false;
+	$search_user = isset($_GET['u']) && strlen(trim($_GET['u'])) > 0 ? trim($_GET['u']) : false;
+	if (
+		isset($search_user) && 
+		(strpos($search_user, '"') !== false || 
+		strpos($search_user, "'") !== false || 
+		strpos($search_user, '\\') !== false)
+	) {
+		$search_user = str_replace('\\', '', $search_user);
+		$search_user = preg_replace('/^\"|\"$|^\'|\'$/', "", $search_user);
+	}
+	
     $first_name = false;
     $last_name = false;
 
@@ -24,7 +34,7 @@
             $first_name = $name[0];
             $last_name = $name[1];
         }
-    }
+	}
 
     $country_code = isset($_GET['location']) && strlen($_GET['location']) > 0 ? strtoupper(trim($_GET['location'])) : false;
     $get_tag = isset($_GET['tag']) && strlen(trim($_GET['tag'])) > 0 ? strtolower(trim($_GET['tag'])) : false;
@@ -40,7 +50,7 @@
 
     // Time to filter stuff
     foreach($members AS $index => $member) {
-     
+
         $info = mozilla_get_user_info($current_user, $member, $logged_in);
         $member->info = $info;
         $member_tags = array_filter(explode(',', $info['tags']->value));
@@ -205,7 +215,6 @@
 
         // Tag and search
         if($get_tag && $search_user && $country_code === false) {
-
             // Tag and username
             if(in_array($get_tag, array_map('strtolower', $member_tags)) && 
                 $info['tags']->display &&
@@ -263,6 +272,7 @@
 
         // Country and tag
         if($country_code && $get_tag && $search_user === false) {
+			
             if($info['tags']->display && 
                 $info['location']->display && 
                 array_key_exists($country_code, $countries) && 
@@ -401,7 +411,7 @@
             </div>
             <div class="members__people-container">
             <?php if(sizeof($members) > 0): ?>
-            <?php if(isset($_GET['u']) && strlen($_GET['u']) > 0): ?><div class="members__results-for"><?php print __(sprintf("Results for \"%s\"", trim($_GET['u']))); ?></div><?php endif; ?>
+            <?php if(isset($_GET['u']) && strlen($_GET['u']) > 0): ?><div class="members__results-for"><?php print __(sprintf("Results for \"%s\"", $search_user)); ?></div><?php endif; ?>
             <?php foreach($members AS $member): ?>
             <?php 
                 $info = $member->info;

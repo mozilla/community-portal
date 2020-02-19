@@ -1,11 +1,20 @@
 <?php
     $page = isset($_REQUEST['pno']) ? intval($_REQUEST['pno']) : 1;
-    $args = apply_filters('em_content_events_args', $args);
-
+	$args = apply_filters('em_content_events_args', $args);
+	if (
+		isset($args['search']) && 
+		(strpos($args['search'], '"') !== false || 
+		strpos($args['search'], "'") !== false || 
+		strpos($args['search'], '\\') !== false)
+	) {
+		$args['search'] = preg_replace('/^\"|\"$|^\'|\'$/', "", $args['search']);
+		$original_search = $args['search'];
+		$args['search'] = addslashes($args['search']);
+	}
     $view = get_query_var( 'view', $default = '');
     $country = urldecode(get_query_var('country', $default = 'all'));
     $tag = urldecode(get_query_var('tag', $default = 'all'));
-  
+
     $args['scope'] = 'future';
     switch(strtolower(trim($view))) {
         case 'past': 
@@ -115,9 +124,9 @@
     </div>
     <?php include(locate_template('plugins/events-manager/templates/template-parts/events-filters.php', false, false)); ?>
     <?php if(count($events)): ?>
-    <?php if($args['search']): ?>
+    <?php if(isset($original_search)): ?>
         <div class="col-sm-12 events__search-terms">
-            <p><?php echo __('Results for "'.$args['search'].'"')?></p>
+            <p><?php echo __('Results for "'.$original_search.'"')?></p>
         </div>
     <?php endif; ?>
     <div class="row events__cards">
@@ -174,7 +183,7 @@
     </div>
     <?php else: ?>
         <div class="events__zero-state col-sm-12">
-            <p><?php echo ($args['search'] ? __('No results found. Please try another search term.', "community-portal") : __('There are currently no events.', "community-portal")) ?></p>
+            <p><?php echo ($original_search ? __('No results found. Please try another search term.', "community-portal") : __('There are currently no events.', "community-portal")) ?></p>
         </div>
     <?php endif; ?>
     </div>

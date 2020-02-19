@@ -110,8 +110,9 @@ function mozilla_init_scripts() {
 
 function mozilla_init_admin_scripts() {
     $screen = get_current_screen();
-
+    
     if(strtolower($screen->id) === 'toplevel_page_bp-groups') {
+        wp_enqueue_style('styles', get_stylesheet_directory_uri()."/style.css", false, '1.0.0');
         wp_enqueue_script('groups', get_stylesheet_directory_uri()."/js/admin.js", array('jquery'));
     }
 }
@@ -175,6 +176,38 @@ function mozilla_theme_settings() {
 
             if(isset($_POST['report_email'])) {
                 update_option('report_email', sanitize_text_field($_POST['report_email']));
+            }
+
+            if(isset($_POST['mailchimp'])) {
+                update_option('mailchimp', sanitize_text_field($_POST['mailchimp']));
+            }
+
+            if(isset($_POST['company'])) {
+                update_option('company', sanitize_text_field($_POST['company']));
+            }
+
+            if(isset($_POST['address'])) {
+                update_option('address', sanitize_text_field($_POST['address']));
+            }
+
+            if(isset($_POST['city'])) {
+                update_option('city', sanitize_text_field($_POST['city']));
+            }
+
+            if(isset($_POST['state'])) {
+                update_option('state', sanitize_text_field($_POST['state']));
+            }
+
+            if(isset($_POST['zip'])) {
+                update_option('zip', sanitize_text_field($_POST['zip']));
+            }
+
+            if(isset($_POST['country'])) {
+                update_option('country', sanitize_text_field($_POST['country']));
+            }
+
+            if(isset($_POST['phone'])) {
+                update_option('phone', sanitize_text_field($_POST['phone']));
             }
         }
     }
@@ -252,6 +285,133 @@ function mozilla_redirect_admin() {
     if((!current_user_can('manage_options') || current_user_can('subscriber'))  && '/wp-admin/admin-ajax.php' != $_SERVER['PHP_SELF']) {
         wp_redirect("/");
         die();
+    }
+}
+
+function mozilla_add_group_columns($columns) {
+
+    $columns['group_created'] = __("Group Created On", "community-portal");
+    $columns['admins'] = __("Admins", "community-portal");
+    $columns['events'] = __("Events", 'community-portal');
+    $columns['verified_date'] = __("Group Verified On", "community-portal");
+
+    return $columns;
+    
+}
+
+function mozilla_group_addional_column_info($retval = "", $column_name, $item) {
+    if($column_name !== 'group_created' 
+        && $column_name !== 'events' 
+        && $column_name !== 'admins'
+        && $column_name !== 'verified_date') 
+        return $retval;
+
+
+
+    switch($column_name) {
+        case 'group_created':
+            if(isset($item['date_created'])) {
+                if(strtotime($item['date_created']) < strtotime('-1 month')) {
+                    $class = "admin__group-status--passed";
+                } else {
+                    $class = "admin__group-status--new";
+                }
+
+                return "<div class=\"{$class}\">{$item['date_created']}</div>";
+            }
+
+            break;
+        case 'events':
+            $args = Array(
+                'group'     => $item['id'],
+                'scope'     =>  'all'
+            );
+
+            $events = EM_Events::get($args);
+            return sizeof($events);
+
+            break;
+        case 'admins':
+            $admins = groups_get_group_admins($item['id']);
+            return sizeof($admins);
+            break;
+
+        case 'verified_date':
+            $group_meta = groups_get_groupmeta($item['id'], 'meta');
+
+            if(isset($group_meta['verified_date'])) {
+                $dateCheck = strtotime('+1 year', $group_meta['verified_date']);
+
+                if($dateCheck < time()) {
+                    $class = "admin__group-status--red";
+                } else {
+                    $class = "admin__group-status--new";
+                }
+
+                $verified_date = date("Y-m-d H:i:s", $group_meta['verified_date']);
+                return "<div class=\"{$class}\">{$verified_date}</div>";
+            } else {
+                return "-";
+            }
+    }
+
+    return '-';
+}
+
+function mozilla_save_post($post_id, $post, $update) {
+
+    if($post->post_type === 'event') {
+
+        $user = wp_get_current_user();
+
+        $event = new stdClass();
+        $event->image_url = esc_url_raw($_POST['image_url']);
+        $event->location_type = sanitize_text_field($_POST['location-type']);
+        $event->external_url = esc_url_raw($_POST['event_external_link']);
+        
+        if(isset($_POST['initiative_id']) && strlen($_POST['initiative_id']) > 0) {
+            $initiative_id = intval($_POST['initiative_id']);
+            $initiative = get_post($initiative_id);
+            if($initiative && ($initiative->post_type === 'campaign' || $initiative->post_type === 'activity')) {
+                $event->initiative = $initiative_id;
+            }
+        }
+
+        $discourse_api_data = Array();
+
+        $discourse_api_data['name'] = $post->post_name;
+        $discourse_api_data['description'] = $post->post_content;
+        
+        if($update) {
+            $event_meta = get_post_meta($post_id, 'event-meta');
+            if(!empty($event_meta) && isset($event_meta[0]->discourse_group_id)) {
+                $discourse_api_data['group_id'] = $event_meta[0]->discourse_group_id;
+                $discourse_event = mozilla_get_discourse_info($post_id, 'event');
+                $discourse_api_data['users'] = $discourse_event['discourse_group_users'];
+                $discourse_group = mozilla_discourse_api('groups', $discourse_api_data, 'patch');
+            }
+        } else {
+            $auth0Ids = Array();
+            $auth0Ids[] = mozilla_get_user_auth0($user->ID);
+            $discourse_api_data['users'] = $auth0Ids;
+            $discourse_group = mozilla_discourse_api('groups', $discourse_api_data, 'post');
+        }
+
+        if($discourse_group) {
+            $event->discourse_group_id = $discourse_group->id;
+        }
+
+        update_post_meta($post_id, 'event-meta', $event);
+    }
+
+    if($post->post_type === 'campaign') {
+        
+
+        if(mozilla_create_mailchimp_list($post)) {
+
+            $meta = get_post_meta($post_id, 'meta');
+
+        }
     }
 }
 
