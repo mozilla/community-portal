@@ -154,6 +154,13 @@ function mozilla_init() {
 
     register_post_type('campaign', $args);
     add_theme_support('post-thumbnails', array( 'post', 'activity', 'campaign', 'static-page')); 
+	
+	/** Disable Curly Quotes */
+	remove_filter("the_content", "wptexturize");
+	remove_filter("the_title", "wptexturize");
+	remove_filter("the_excerpt", "wptexturize");
 }
+
+
 
 ?>

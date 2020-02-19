@@ -1,7 +1,6 @@
 <?php
     $page = isset($_REQUEST['pno']) ? intval($_REQUEST['pno']) : 1;
 	$args = apply_filters('em_content_events_args', $args);
-	var_dump(strpos($args['search'], "'"));
 	if (
 		isset($args['search']) && 
 		(strpos($args['search'], '"') !== false || 

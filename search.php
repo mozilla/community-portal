@@ -5,17 +5,29 @@
     $p = intval(get_query_var('page')) <= 1 ? 1 : intval(get_query_var('page'));
 
     $results_per_page = 12;
-
+    $search_term = $_GET['s'];
     // Lets get some search results
-    if(isset($_GET['s']) && strlen($_GET['s']) > 0) {
+    if(isset($search_term) && strlen($search_term) > 0) {
 
         $args = Array(
             'posts_per_page'    =>  -1,
             'offset'            =>  0,
             'post_type'         => Array('campaign', 'activity')
         );
+        if (
+			strpos($search_term, '"') !== false || 
+			strpos($search_term, "'") !== false || 
+			strpos($search_term, '\\') !== false
+        ) {
+			$search_term = stripslashes($_GET['s']);
+			$search_term = preg_replace('/^\"|\"$|^\'|\'$/', "", $search_term);
+			$original_query = $search_term;
+			$search_term = addslashes($search_term);
+        } else {
+			$original_query = $search_term;
+		}
 
-        $args['s'] = trim($_GET['s']);
+        $args['s'] = trim($search_term);
 
         $query = new WP_Query($args);
         $results = $query->posts;
@@ -23,7 +35,7 @@
 
     // Search Groups
     $group_args = Array(
-        'search_terms'  =>  trim($_GET['s']),
+        'search_terms'  =>  $search_term,
         'per_page'      =>  -1
     );
 
@@ -44,7 +56,7 @@
 
     $members = $wp_user_query->get_results();
     $filtered_members = Array();
-    $search_user = trim($_GET['s']);
+    $search_user = trim($search_term);
 
     foreach($members AS $index  =>  $member) {
         $info = mozilla_get_user_info($current_user, $member, $logged_in);
@@ -74,8 +86,8 @@
     }
 
     // Search Events
-    $events_args['scope'] = 'all';  
-    $events_args['search'] = trim($_GET['s']);
+	$events_args['scope'] = 'all'; 
+    $events_args['search'] = trim($search_term);
     $events = EM_Events::get($events_args);
     $allCountries = Array();
 
@@ -95,7 +107,7 @@
     <div class="content">
         <div class="search">
             <div class="search__container">
-                <h1 class="search__title"><?php if(strlen($_GET['s']) > 0): ?><?php print __(sprintf('Results for %s', $_GET['s']), 'community-portal'); ?><?php else: ?><?php print __('Search','community-portal'); ?><?php endif; ?></h1>
+                <h1 class="search__title"><?php if(strlen($original_query) > 0): ?><?php print __(sprintf('Results for %s', $original_query), 'community-portal'); ?><?php else: ?><?php print __('Search','community-portal'); ?><?php endif; ?></h1>
                 <div class="search__search-form-container">
                     <form method="GET" action="/" class="groups__form" id="group-search-form">
                         <div class="search__input-container">
@@ -103,7 +115,7 @@
                                 <path d="M9.16667 15.8333C12.8486 15.8333 15.8333 12.8486 15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M17.5 17.5L13.875 13.875" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
-                            <input type="text" name="s" id="search" class="groups__search-input" placeholder="<?php print __("Search", "community-portal"); ?>" value="<?php if(isset($_GET['s']) && strlen($_GET['s']) > 0): ?><?php print trim($_GET['s']); ?><?php endif; ?>" />
+                            <input type="text" name="s" id="search" class="groups__search-input" placeholder="<?php print __("Search", "community-portal"); ?>" value="<?php if(isset($original_query) && strlen($original_query) > 0): ?><?php print trim($original_query); ?><?php endif; ?>" />
                         </div>
                         <input type="button" class="groups__search-cta" value="<?php print __("Search", "community-portal"); ?>" />
                     </form>
