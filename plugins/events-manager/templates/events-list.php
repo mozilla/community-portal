@@ -1,7 +1,6 @@
 <?php
     $page = isset($_REQUEST['pno']) ? intval($_REQUEST['pno']) : 1;
 	$args = apply_filters('em_content_events_args', $args);
-	var_dump(strpos($args['search'], "'"));
 	if (
 		isset($args['search']) && 
 		(strpos($args['search'], '"') !== false || 
@@ -11,6 +10,8 @@
 		$args['search'] = preg_replace('/^\"|\"$|^\'|\'$/', "", $args['search']);
 		$original_search = $args['search'];
 		$args['search'] = addslashes($args['search']);
+	} else {
+		$original_search = $args['search'];
 	}
     $view = get_query_var( 'view', $default = '');
     $country = urldecode(get_query_var('country', $default = 'all'));
