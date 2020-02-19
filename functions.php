@@ -25,6 +25,8 @@ add_action('get_header', 'mozilla_remove_admin_login_header');
 add_action('wp_enqueue_scripts', 'mozilla_init_scripts');
 add_action('admin_enqueue_scripts', 'mozilla_init_admin_scripts');
 add_action('admin_menu', 'mozilla_add_menu_item');
+
+add_action('bp_group_admin_edit_after', 'mozilla_save_group');
 add_action('save_post', 'mozilla_save_post', 10, 3);
 
 // Ajax Calls
@@ -71,6 +73,10 @@ add_filter('em_event_delete', 'mozilla_delete_events', 10, 2);
 add_filter('body_class', 'mozilla_update_body_class');
 add_filter('acf/load_field/name=featured_group', 'acf_load_bp_groups', 10, 1);
 add_filter('query_vars', 'mozilla_add_query_vars_filter');
+add_filter('bp_groups_list_table_get_columns', 'mozilla_add_group_columns');
+add_filter('bp_groups_admin_get_group_custom_column', 'mozilla_group_addional_column_info', 10, 3);
+
+
 
 // Include theme style.css file not in admin page
 if(!is_admin()) {
@@ -155,5 +161,22 @@ function mozilla_init() {
     register_post_type('campaign', $args);
     add_theme_support('post-thumbnails', array( 'post', 'activity', 'campaign', 'static-page')); 
 }
+
+
+add_filter('query', 'mozilla_column_test');
+
+function mozilla_column_test($query) {
+    
+    if(!is_admin()) {
+        return $query;
+    }
+
+    
+
+
+    return $query;
+
+}
+
 
 ?>
