@@ -19,19 +19,24 @@
             $end = strtotime(get_field('campaign_end_date', $c->ID));
             $today = time();
 
-            if($start && !$end) {
-                if($today >= $start) {
-                    $current_campaign = $c;
-                    break;
+            $status =  get_field('campaign_status', $c->ID);
+
+            if(strtolower($status) !== 'closed') {
+                if($start && !$end) {
+                    if($today >= $start) {
+                        $current_campaign = $c;
+                        break;
+                    }
+                }
+    
+                if($start && $end) {
+                    if($today >= $start && $today < $end) {
+                        $current_campaign = $c;
+                        break;
+                    }
                 }
             }
 
-            if($start && $end) {
-                if($today >= $start && $today < $end) {
-                    $current_campaign = $c;
-                    break;
-                }
-            }
         }
     }
     
@@ -95,7 +100,7 @@
 
     $campaigns = array_slice($past_campaigns, $offset, $campaigns_per_page);
     $total_pages = ceil($campaign_count / $campaigns_per_page);
-    
+
 ?>
 <div class="content">
     <div class="campaigns">
@@ -108,7 +113,7 @@
             </div>
         </div>
         <div class="campaigns__container">
-            
+            <?php if($current_campaign): ?>
             <div class="campaigns__active-campaign">
                 <div class="campaigns__active-campaign-hero-container">
                     <div class="campaign__hero-image" style="background-image: url(<?php print $current_campaign_image; ?>);">
@@ -127,12 +132,13 @@
                 <div class="campaigns__active-campaign-description">
                     <?php print $current_campaign_card_description; ?>
                 </div>
-                <?php if(sizeof($current_campaign_tags) > 0): ?>
+                <?php if(is_array($current_campaign_tags) && sizeof($current_campaign_tags) > 0): ?>
                 <div class="campaigns__active-campaign-tags">
                     <span class="campaigns__active-campaign-tag"><?php print $current_campaign_tags[0]->name; ?></span>
                 </div>
                 <?php endif; ?>
             </div>
+            <?php endif; ?>
             <?php if($incoming_campaign): ?>
                 <div class="campaigns__incoming-campaign-container">
                     <h2 class="campaigns__active-campaign-title"><?php print __("Campaign Incoming!"); ?></h2>
@@ -153,7 +159,7 @@
                     <div class="campaigns__active-campaign-description">
                         <?php print $incoming_campaignn_card_description; ?>
                     </div>
-                    <?php if(sizeof($incoming_campaign_tags) > 0): ?>
+                    <?php if(is_array($incoming_campaign_tags) && sizeof($incoming_campaign_tags) > 0): ?>
                     <div class="campaigns__active-campaign-tags">
                         <span class="campaigns__active-campaign-tag"><?php print $incoming_campaign_tags[0]->name; ?></span>
                     </div>
@@ -161,6 +167,7 @@
                 </div>
             </div>
             <?php endif; ?>
+            <?php if(sizeof($campaigns) > 0): ?>
             <div class="campaigns__past-campaigns">
                 <h2 class="campaigns__active-campaign-title"><?php print __("Past Campaigns"); ?></h2>
                 <p class="campaigns__incoming-campaign-copy"><?php print __('Mozilla communities do great work together. These campaigns are over now but feel free to check out what everyone accomplished.'); ?></p>
@@ -198,7 +205,7 @@
                         <?php print $campaign_card_description; ?>
                     </div>
                 </div>
-                <?php if(sizeof($campaign_tags) > 0): ?>
+                <?php if(is_array($campaign_tags) && sizeof($campaign_tags) > 0): ?>
                 <div class="campaigns__active-campaign-tags campaigns__active-campaign-tags--card">
                     <span class="campaigns__active-campaign-tag"><?php print $campaign_tags[0]->name; ?></span>
                 </div>
@@ -218,8 +225,8 @@
                     $range_min = ($range % 2 == 0) ? ($range / 2) - 1 : ($range - 1) / 2;
                     $range_max = ($range % 2 == 0) ? $range_min + 1 : $range_min;
 
-                    $page_min  = $page - $range_min;
-                    $page_max = $page + $range_max;
+                    $page_min  = $p - $range_min;
+                    $page_max = $p + $range_max;
 
                     $page_min = ($page_min < 1 ) ? 1 : $page_min;
                     $page_max = ($page_max < ($page_min + $range - 1)) ? $page_min + $range - 1 : $page_max;
@@ -253,6 +260,7 @@
                     <?php endif; ?>
                 </div>
             </div>
+            <?php endif; ?>
         </div>
     </div>
 </div>

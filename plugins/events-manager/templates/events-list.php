@@ -1,15 +1,38 @@
 <?php
-    $page = $_REQUEST['pno'];
-    $args = apply_filters('em_content_events_args', $args);
-    $args['pagination'] = '1';
+    $page = isset($_REQUEST['pno']) ? intval($_REQUEST['pno']) : 1;
+	$args = apply_filters('em_content_events_args', $args);
+	var_dump(strpos($args['search'], "'"));
+	if (
+		isset($args['search']) && 
+		(strpos($args['search'], '"') !== false || 
+		strpos($args['search'], "'") !== false || 
+		strpos($args['search'], '\\') !== false)
+	) {
+		$args['search'] = preg_replace('/^\"|\"$|^\'|\'$/', "", $args['search']);
+		$original_search = $args['search'];
+		$args['search'] = addslashes($args['search']);
+	}
     $view = get_query_var( 'view', $default = '');
     $country = urldecode(get_query_var('country', $default = 'all'));
     $tag = urldecode(get_query_var('tag', $default = 'all'));
-  
-    if($view === 'past') {
-        $args['scope'] = $view;
-    } else {
-        $args['scope'] = 'future';
+
+    $args['scope'] = 'future';
+    switch(strtolower(trim($view))) {
+        case 'past': 
+            $args['scope'] = 'past';
+            break;
+        case 'organized':
+            if(is_user_logged_in()) {
+                $user_id = get_current_user_id();
+                $args['scope'] = 'all';
+                $args['owner'] = $user_id;
+                $args['status'] = false;
+            }
+            break;
+        case 'attending':
+            $args['scope'] = 'all';
+            $args['bookings'] = 'user';
+            break;
     }
 
     if($country !== 'all') {
@@ -20,16 +43,29 @@
         $args['category'] = $tag;
     }
 
-    $paginationLinks = $args;
-
-    if(isset($page) && strlen($page))
-        $args['page'] = $page;
-  
     $args['limit'] = '0';
-    $events = EM_Events::get($args);  
-    $total_pages = count($events);
-    $args['limit'] = '12';
-    $events = EM_Events::get($args);  
+    $all_events = EM_Events::get($args);  
+    $events = Array();
+
+    if(isset($_GET['initiative']) && strlen($_GET['initiative']) > 0 && strtolower($_GET['initiative']) != 'all') {
+        foreach($all_events AS $e) {
+            $event_meta = get_post_meta($e->post_id, 'event-meta');
+    
+            if(isset($event_meta[0]->initiative) && intval($event_meta[0]->initiative) === intval($_GET['initiative'])) {
+                $events[] = $e;
+            }
+        }
+    } else {
+        $events = $all_events;
+    }
+
+    $events_per_page = 12;
+    $offset = ($page - 1) * $events_per_page;
+
+    $event_count = sizeof($events);
+    $events = array_slice($events, $offset, $events_per_page);
+    $total_pages = ceil($event_count / $events_per_page);
+
 ?>
 
 <div class="row events">
@@ -87,22 +123,12 @@
             </svg>
         </form>
     </div>
-    <?php
-        include(locate_template('plugins/events-manager/templates/template-parts/events-filters.php', false, false));
-    ?>
-
-    <?php
-        if($view === 'attending') {
-            include(locate_template('plugins/events-manager/templates/my-bookings.php', false, false));
-        }elseif($view === 'organized') {
-            include(locate_template('plugins/events-manager/buddypress/my-events.php', false, false));
-        } else {
-            if(count($events)):
-                if($args['search']):
-    ?>
-    <div class="col-sm-12 events__search-terms">
-        <p><?php echo __('Results for "'.$args['search'].'"')?></p>
-    </div>
+    <?php include(locate_template('plugins/events-manager/templates/template-parts/events-filters.php', false, false)); ?>
+    <?php if(count($events)): ?>
+    <?php if(isset($original_search)): ?>
+        <div class="col-sm-12 events__search-terms">
+            <p><?php echo __('Results for "'.$original_search.'"')?></p>
+        </div>
     <?php endif; ?>
     <div class="row events__cards">
     <?php
@@ -110,18 +136,56 @@
             include(locate_template('plugins/events-manager/templates/template-parts/event-cards.php', false, false));
         }
     ?>
-    <?php if($total_pages > 12): ?>
-        <div class="events__pagination col-sm-12">
-            <?php 
-                echo EM_Events::get_pagination_links($args, $total_pages, $search_action = 'search_events',$default_args = array());
-            ?>
+    <?php 
+        $range = ($page > 3) ? 3 : 5;
+        
+        if($page > $total_pages - 2) 
+            $range = 5;
+        
+        $previous_page = ($page > 1) ? $page - 1 : 1;
+        $next_page = ($page <= $total_pages) ? $page + 1 : $total_pages;
+
+        if($total_pages > 1 ) {
+            $range_min = ($range % 2 == 0) ? ($range / 2) - 1 : ($range - 1) / 2;
+            $range_max = ($range % 2 == 0) ? $range_min + 1 : $range_min;
+
+            $page_min  = $page - $range_min;
+            $page_max = $page + $range_max;
+
+            $page_min = ($page_min < 1 ) ? 1 : $page_min;
+            $page_max = ($page_max < ($page_min + $range - 1)) ? $page_min + $range - 1 : $page_max;
+
+            if($page_max > $total_pages) {
+                $page_min = ($page_min > 1) ? $total_pages - $range + 1 : 1;
+                $page_max = $total_pages;
+            }
+        }
+    ?>
+    <div class="campaigns__pagination">
+        <div class="campaigns__pagination-container">
+            <?php if($total_pages > 1): ?>
+            <a href="/events/?pno=<?php print $previous_page?><?php if($country && $country != 'all'): ?>&country=<?php print $country; ?><?php endif; ?><?php if($tag && $tag != 'all'): ?>&tag=<?php print $tag; ?><?php endif; ?><?php if(isset($_GET['initiative']) && strlen($_GET['initiative']) > 0 && strtolower($_GET['initiative']) != 'all'): ?>&initiative=<?php print $_GET['initiative']; ?><?php endif; ?>" class="campaigns__pagination-link">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M17 23L6 12L17 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
+            <?php if($page_min > 1): ?><a href="/events/?pno=1<?php if($country && $country != 'all'): ?>&country=<?php print $country; ?><?php endif; ?><?php if($tag && $tag != 'all'): ?>&tag=<?php print $tag; ?><?php endif; ?><?php if(isset($_GET['initiative']) && strlen($_GET['initiative']) > 0 && strtolower($_GET['initiative']) != 'all'): ?>&initiative=<?php print $_GET['initiative']; ?><?php endif; ?>" class="campaigns__pagination-link campaigns__pagination-link--first"><?php print "1"; ?></a>&hellip; <?php endif; ?>
+            <?php for($x = $page_min - 1; $x < $page_max; $x++): ?>
+            <a href="/events/?pno=<?php print $x + 1; ?><?php if($country && $country != 'all'): ?>&country=<?php print $country; ?><?php endif; ?><?php if($tag && $tag != 'all'): ?>&tag=<?php print $tag; ?><?php endif; ?><?php if(isset($_GET['initiative']) && strlen($_GET['initiative']) > 0 && strtolower($_GET['initiative']) != 'all'): ?>&initiative=<?php print $_GET['initiative']; ?><?php endif; ?>" class="campaigns__pagination-link<?php if($page == $x + 1):?> campaigns__pagination-link--active<?php endif; ?><?php if($x === $page_max - 1):?> campaigns__pagination-link--last<?php endif; ?>"><?php print ($x + 1); ?></a>
+            <?php endfor; ?>
+            <?php if($total_pages > $range && $page < $total_pages - 1): ?>&hellip; <a href="/events/?pno=<?php print $total_pages; ?><?php if($country && $country != 'all'): ?>&country=<?php print $country; ?><?php endif; ?><?php if($tag && $tag != 'all'): ?>&tag=<?php print $tag; ?><?php endif; ?><?php if(isset($_GET['initiative']) && strlen($_GET['initiative']) > 0 && strtolower($_GET['initiative']) != 'all'): ?>&initiative=<?php print $_GET['initiative']; ?><?php endif; ?>" class="campaigns__pagination-link<?php if($page === $total_pages):?> campaigns__pagination-link--active<?php endif; ?>"><?php print $total_pages; ?></a><?php endif; ?>
+            <a href="/events/?pno=<?php print $next_page; ?><?php if($country && $country != 'all'): ?>&country=<?php print $country; ?><?php endif; ?><?php if($tag && $tag != 'all'): ?>&tag=<?php print $tag; ?><?php endif; ?><?php if(isset($_GET['initiative']) && strlen($_GET['initiative']) > 0 && strtolower($_GET['initiative']) != 'all'): ?>&initiative=<?php print $_GET['initiative']; ?><?php endif; ?>" class="campaigns__pagination-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M7 23L18 12L7 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            </a>
+            <?php endif; ?>
         </div>
-    <?php endif; ?>
+    </div>
     <?php else: ?>
         <div class="events__zero-state col-sm-12">
-            <p><?php echo ($args['search'] ? __('No results found. Please try another search term.', "community-portal") : __('There are currently no events.', "community-portal")) ?></p>
+            <p><?php echo ($original_search ? __('No results found. Please try another search term.', "community-portal") : __('There are currently no events.', "community-portal")) ?></p>
         </div>
     <?php endif; ?>
-    <?php } ?>
     </div>
 </div>

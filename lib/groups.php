@@ -302,7 +302,7 @@ function mozilla_search_groups($name, $gid) {
             continue;
         } else {
             $x = trim(strtolower($g->name));
-            $y = trim(strtolower($name));
+			$y = trim(strtolower($name));
             if(sanitize_text_field($x) ==  sanitize_text_field($y))
                 return true;
                     

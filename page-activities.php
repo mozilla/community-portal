@@ -55,7 +55,7 @@
                             $tags = get_the_tags($activity->ID);
                         ?>
                         <div class="activities__tag-container">
-                            <?php if(sizeof($tags) > 0): ?>
+                            <?php if(is_array($tags) && sizeof($tags) > 0): ?>
                             <span class="activities__tag"><?php print $tags[0]->name; ?></span>
                             <?php endif; ?>
                             <?php if($time_commitment): ?>
@@ -83,8 +83,8 @@
                         $range_min = ($range % 2 == 0) ? ($range / 2) - 1 : ($range - 1) / 2;
                         $range_max = ($range % 2 == 0) ? $range_min + 1 : $range_min;
 
-                        $page_min  = $page - $range_min;
-                        $page_max = $page + $range_max;
+                        $page_min  = $p - $range_min;
+                        $page_max = $p + $range_max;
 
                         $page_min = ($page_min < 1 ) ? 1 : $page_min;
                         $page_max = ($page_max < ($page_min + $range - 1)) ? $page_min + $range - 1 : $page_max;
