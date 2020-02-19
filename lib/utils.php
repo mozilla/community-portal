@@ -180,6 +180,34 @@ function mozilla_theme_settings() {
             if(isset($_POST['mailchimp'])) {
                 update_option('mailchimp', sanitize_text_field($_POST['mailchimp']));
             }
+
+            if(isset($_POST['company'])) {
+                update_option('company', sanitize_text_field($_POST['company']));
+            }
+
+            if(isset($_POST['address'])) {
+                update_option('address', sanitize_text_field($_POST['address']));
+            }
+
+            if(isset($_POST['city'])) {
+                update_option('city', sanitize_text_field($_POST['city']));
+            }
+
+            if(isset($_POST['state'])) {
+                update_option('state', sanitize_text_field($_POST['state']));
+            }
+
+            if(isset($_POST['zip'])) {
+                update_option('zip', sanitize_text_field($_POST['zip']));
+            }
+
+            if(isset($_POST['country'])) {
+                update_option('country', sanitize_text_field($_POST['country']));
+            }
+
+            if(isset($_POST['phone'])) {
+                update_option('phone', sanitize_text_field($_POST['phone']));
+            }
         }
     }
 
@@ -307,7 +335,9 @@ function mozilla_save_post($post_id, $post, $update) {
     }
 
     if($post->post_type === 'campaign') {
-        if(mozilla_create_mailchimp_list($post, $options['mailchimp'])) {
+        
+
+        if(mozilla_create_mailchimp_list($post)) {
 
             $meta = get_post_meta($post_id, 'meta');
 
