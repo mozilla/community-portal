@@ -339,13 +339,19 @@
 .menu-item {
     display: inline-block;
     height: 100%;
-    width: 130px;
     padding: 0;
-    text-align: center;
+	text-align: center;
+	@include desktop-and-up {
+		margin: 0 4px;
+	}
 
     &:first-of-type {
         padding-left: 0;
-        text-align: left;
+		text-align: left;
+		margin-left: 0;
+		.menu-item__link {
+			padding-left: 0;
+		}
     }
 
     &.menu-item--active {
@@ -364,25 +370,23 @@
                 position: absolute;
                 width: calc(100% - 32px);
             }
-        }
+		}
+		&:first-of-type .menu-item__link::after {	
+			width: calc(100% - 16px);
+			left: 0;
+		}
     }
 }
 
 .menu-item__link {
     color: $color-white;
     font-size: remCalc(16);
-    line-height: 24px;
-    padding: 18px 0;
+	line-height: 24px;
     display: inline-block;
-    text-decoration: none;
-
-    @include desktop-and-up {
-        padding: 16px;
-        
-        &:first-of-type {
-            padding-left: 0;
-        }
-    }
+	text-decoration: none;
+	@include desktop-and-up {
+		padding: 18px 16px;
+	}
 }
 
 .menu-mozilla-main-menu-container {
