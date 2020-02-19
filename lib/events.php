@@ -58,53 +58,6 @@ function mozilla_events_redirect($location) {
     return $location;
 }
 
-function mozilla_save_event($post_id, $post, $update) {
-    if ($post->post_type === 'event') {
-
-        $user = wp_get_current_user();
-
-        $event = new stdClass();
-        $event->image_url = esc_url_raw($_POST['image_url']);
-        $event->location_type = sanitize_text_field($_POST['location-type']);
-        $event->external_url = esc_url_raw($_POST['event_external_link']);
-        
-        if(isset($_POST['initiative_id']) && strlen($_POST['initiative_id']) > 0) {
-            $initiative_id = intval($_POST['initiative_id']);
-            $initiative = get_post($initiative_id);
-            if($initiative && ($initiative->post_type === 'campaign' || $initiative->post_type === 'activity')) {
-                $event->initiative = $initiative_id;
-            }
-        }
-
-        $discourse_api_data = Array();
-
-        $discourse_api_data['name'] = $post->post_name;
-        $discourse_api_data['description'] = $post->post_content;
-        
-        if($update) {
-            $event_meta = get_post_meta($post_id, 'event-meta');
-            if(!empty($event_meta) && isset($event_meta[0]->discourse_group_id)) {
-                $discourse_api_data['group_id'] = $event_meta[0]->discourse_group_id;
-                $discourse_event = mozilla_get_discourse_info($post_id, 'event');
-                $discourse_api_data['users'] = $discourse_event['discourse_group_users'];
-                $discourse_group = mozilla_discourse_api('groups', $discourse_api_data, 'patch');
-            }
-        } else {
-            $auth0Ids = Array();
-            $auth0Ids[] = mozilla_get_user_auth0($user->ID);
-            $discourse_api_data['users'] = $auth0Ids;
-            $discourse_group = mozilla_discourse_api('groups', $discourse_api_data, 'post');
-        }
-
-        if($discourse_group) {
-            $event->discourse_group_id = $discourse_group->id;
-        }
-
-        update_post_meta($post_id, 'event-meta', $event);
-
-    }
-}
-
 function mozilla_delete_events($id, $post) {
     $post_id = $post->post_id;
     wp_delete_post($post_id);

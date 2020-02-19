@@ -82,6 +82,15 @@
 
     }
 
+    &__results-for {
+        color: $color-black;
+        font-size: remCalc(20);
+        line-height: 28px;
+        margin-top: 8px;
+        margin-bottom: 32px;
+        width: 100%;
+    }
+
     &__filter-container {
         background-color: $color-white;
         border-radius: 5px;
