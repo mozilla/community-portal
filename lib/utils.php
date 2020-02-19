@@ -274,6 +274,8 @@ function mozilla_group_addional_column_info($retval = "", $column_name, $item) {
         && $column_name !== 'verified_date') 
         return $retval;
 
+
+
     switch($column_name) {
         case 'group_created':
             if(isset($item['date_created'])) {
