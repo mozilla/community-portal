@@ -15,6 +15,7 @@ jQuery(function() {
 			});
 		},
 		success: function (file, response) {
+			console.log(response);
 			var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
 			'((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
 			'((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
@@ -49,7 +50,7 @@ jQuery(function() {
 				}
 			} else {
 				jQuery('.dz-preview').remove();
-				jQuery('.dz-remove').removeClass('dz-remove--hide');
+				jQuery('.dz-remove').addClass('dz-remove--hide');
 				jQuery('.dropzone__image-instructions').addClass('dropzone__image-instructions--hide');
 				jQuery('.form__error--image').text(response);
 				jQuery('.form__error--image').parent().addClass('form__error-container--visible');

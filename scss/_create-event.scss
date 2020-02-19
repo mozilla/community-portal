@@ -151,7 +151,7 @@ div.time-picker ul li {
 			display: flex;
 			justify-content: center;
 			position: relative;
-			margin-bottom: 50px;
+			margin-bottom: 90px;
 			padding: 0;
 			padding-top: 45.3%;
 		}
@@ -219,10 +219,13 @@ div.time-picker ul li {
 		position: absolute;
 		left: 0;
 		right: 0;
-		bottom: -15px;
+		bottom: -35px;
 		padding: 0;
 		&--hide {
 			display: none;
+		}
+		@include tablet-and-up {
+			bottom: -25px;
 		}
     }
 
@@ -237,7 +240,7 @@ div.time-picker ul li {
         text-align: center;
 
         @include tablet-and-up {
-           flex-direction: row;
+			flex-direction: row;
         }
     }
 
@@ -445,7 +448,7 @@ div.time-picker ul li {
             font-size: remCalc(12);
             margin: 0;
             position: absolute;
-        }
+		}
     }
 
     &__error-field {
@@ -542,8 +545,8 @@ div.time-picker ul li {
     }
     &__link,
     &__link:visited {
-      color: $color-blue-50;
-      text-decoration: none;
+		color: $color-blue-50;
+		text-decoration: none;
     }
 }
 

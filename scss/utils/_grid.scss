@@ -4,137 +4,140 @@ $gutter-compensation: ($gutter-width * 0.5) * -1;
 $half-gutter-width: $gutter-width * 0.5;
 
 @function strip-unit($number) {
-  @if type-of($number) == "number" and not unitless($number) {
-    @return $number / ($number * 0 + 1);
-  }
-
-  @return $number;
+	@if type-of($number) == "number" and not unitless($number) {
+		@return $number / ($number * 0 + 1);
+	}
+	
+	@return $number;
 }
 
 .container-fluid,
 .container {
-  margin-right: auto;
-  margin-left: auto;
+	margin-right: auto;
+	margin-left: auto;
 }
 
 .container-fluid {
-  padding-right: $outer-margin;
-  padding-left: $outer-margin;
+	padding-right: $outer-margin;
+	padding-left: $outer-margin;
 }
 
 .row {
-  box-sizing: border-box;
-  display: flex;
-  flex: 1 1 auto;
-  flex-direction: row;
-  flex-wrap: wrap;
+	box-sizing: border-box;
+	display: flex;
+	flex: 1 1 auto;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.event-wrap {
+	max-width: 1018px;
+	margin: 0 auto; 
 }
 
 .row.reverse {
-  flex-direction: row-reverse;
+	flex-direction: row-reverse;
 }
 
 .col.reverse {
-  flex-direction: column-reverse;
+	flex-direction: column-reverse;
 }
 
 [class^="col-"] {
-  box-sizing: border-box;
-  flex: 0 1 auto;
-  max-width: 100%;
-  flex-basis: 100%;
+	box-sizing: border-box;
+	flex: 0 1 auto;
+	max-width: 100%;
+	flex-basis: 100%;
 }
 
 @mixin generateColumnWidths($className) {
-  @for $i from 1 through $columns {
-    .col-#{$className}-#{$i} {
-      flex-basis: $i / $columns * 100%;
-      max-width: $i / $columns * 100%;
-    }
-  }
+	@for $i from 1 through $columns {
+		.col-#{$className}-#{$i} {
+			flex-basis: $i / $columns * 100%;
+			max-width: $i / $columns * 100%;
+		}
+	}
 }
 
 @mixin generateOffset($className) {
-  @for $i from 1 through $columns {
-    .col-#{$className}-offset-#{$i} {
-      margin-left: $i / $columns * 100%;
-    }
-  }
+	@for $i from 1 through $columns {
+		.col-#{$className}-offset-#{$i} {
+			margin-left: $i / $columns * 100%;
+		}
+	}
 }
 
 @mixin helperClasses($className) {
-  .col-#{$className} {
-    flex-grow: 1;
-    flex-basis: 0;
-    max-width: 100%;
-  }
+	.col-#{$className} {
+		flex-grow: 1;
+		flex-basis: 0;
+		max-width: 100%;
+	}
+	.start-#{$className} {
+		justify-content: flex-start;
+		text-align: start;
+	}
 
-  .start-#{$className} {
-    justify-content: flex-start;
-    text-align: start;
-  }
+	.center-#{$className} {
+		justify-content: center;
+	}
 
-  .center-#{$className} {
-    justify-content: center;
-  }
+	.end-#{$className} {
+		justify-content: flex-end;
+		text-align: end;
+	}
 
-  .end-#{$className} {
-    justify-content: flex-end;
-    text-align: end;
-  }
+	.top-#{$className} {
+		align-items: flex-start;
+	}
 
-  .top-#{$className} {
-    align-items: flex-start;
-  }
+	.middle-#{$className} {
+		align-items: center;
+	}
 
-  .middle-#{$className} {
-    align-items: center;
-  }
+	.bottom-#{$className} {
+		align-items: flex-end;
+	}
 
-  .bottom-#{$className} {
-    align-items: flex-end;
-  }
+	.around-#{$className} {
+		justify-content: space-around;
+	}
 
-  .around-#{$className} {
-    justify-content: space-around;
-  }
+	.between-#{$className} {
+		justify-content: space-between;
+	}
 
-  .between-#{$className} {
-    justify-content: space-between;
-  }
+	.first-#{$className} {
+		order: -1;
+	}
 
-  .first-#{$className} {
-    order: -1;
-  }
-
-  .last-#{$className} {
-    order: 1;
-  }
+	.last-#{$className} {
+		order: 1;
+	}
 }
 
 @mixin makeGrid($sizes...) {
-  @each $classname, $width in keywords($sizes) {
-    $minwidth: strip-unit($width);
-    @if $width {
-      @media screen and (min-width: #{$minwidth}px) {
-        .container {
-          width: #{$minwidth}px;
-        }
-
-        @include generateColumnWidths($classname);
-        @include generateOffset($classname);
-        @include helperClasses($classname);
-      }
-    } @else {
-      @include generateColumnWidths($classname);
-      @include generateOffset($classname);
-      @include helperClasses($classname);
-    }
-  }
+	@each $classname, $width in keywords($sizes) {
+		$minwidth: strip-unit($width);
+		@if $width {
+			@media screen and (min-width: #{$minwidth}px) {
+				.container {
+					width: #{$minwidth}px;
+				}
+				@include generateColumnWidths($classname);
+				@include generateOffset($classname);
+				@include helperClasses($classname);
+			}
+		} @else {
+			@include generateColumnWidths($classname);
+			@include generateOffset($classname);
+			@include helperClasses($classname);
+		}
+	}
 }
 
 @include makeGrid(
-  $sm: $screen-mobile-min,
-  $md: $screen-tablet-min,
-  $lg: $screen-desktop-min
+	$sm: $screen-mobile-min,
+	$md: $screen-tablet-min,
+	$lg: $screen-desktop-min
 );

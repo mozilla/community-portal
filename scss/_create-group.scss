@@ -625,9 +625,9 @@
         cursor: pointer;
         padding-top: 44.5%;
         margin-top: 15px;
-        margin-bottom: 60px;
-        
+        margin-bottom: 90px;
         @include tablet-and-up {
+			margin-bottom: 60px;
             max-width: none;
         }
 
