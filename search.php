@@ -257,7 +257,7 @@
 
                         <?php if(get_class($result) === 'WP_User'):?>
                         <h3 class="search__result-title search__result-title--member"><?php print __("Member", 'community-portal'); ?></h3>
-                        <a href="/members/<?php print $result->user_nicename; ?>" class="search__result-link"><?php print $result->user_nicename; ?></a>
+                        <a href="/people/<?php print $result->user_nicename; ?>" class="search__result-link"><?php print $result->user_nicename; ?></a>
                         <div class="search__member-name">
                         <?php if($result->info['first_name']->display): ?>
                         <?php print $result->info['first_name']->value; ?>
