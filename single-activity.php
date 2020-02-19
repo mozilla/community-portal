@@ -82,7 +82,7 @@
                                             <input class="activity__accordion-input" id="ac-<?php print $accordion_counter; ?>" name="accordion-<?php print $accordion_counter; ?>" type="checkbox"<?php if($accordion_counter === 0): ?>checked<?php endif; ?> />
                                             <label class="activity__accordion-label" for="ac-<?php print $accordion_counter; ?>"><?php print $flow['title']; ?></label>
                                             <div class="activity__accordion-content">
-                                                <?php print $activity_flow[0]['copy']; ?>
+                                                <?php print $flow['copy']; ?>
                                             </div>
                                         </div>
                                         <?php endif; ?>

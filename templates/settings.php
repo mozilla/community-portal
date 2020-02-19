@@ -29,6 +29,70 @@
             </tr>
             <tr>
                 <th scope="row">
+                    <label for="mailchimp">Mailchimp API Key</label>
+                </th>
+                <td>
+                    <input type="text" id="mailchimp" name="mailchimp" class="regular-text" value="<?php print $options['mailchimp']; ?>" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    <label for="company">Company</label>
+                </th>
+                <td>
+                    <input type="text" id="company" name="company" class="regular-text" value="<?php print $options['company']; ?>" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    <label for="address">Address</label>
+                </th>
+                <td>
+                    <input type="text" id="address" name="address" class="regular-text" value="<?php print $options['address']; ?>" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    <label for="city">City</label>
+                </th>
+                <td>
+                    <input type="text" id="city" name="address" class="regular-text" value="<?php print $options['address']; ?>" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    <label for="state">State / Province</label>
+                </th>
+                <td>
+                    <input type="text" id="state" name="state" class="regular-text" value="<?php print $options['state']; ?>" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    <label for="zip">Postal /Zip</label>
+                </th>
+                <td>
+                    <input type="text" id="zip" name="zip" class="regular-text" value="<?php print $options['zip']; ?>" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    <label for="country">Country</label>
+                </th>
+                <td>
+                    <input type="text" id="country" name="country" class="regular-text" value="<?php print $options['country']; ?>" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    <label for="phone">Phone</label>
+                </th>
+                <td>
+                    <input type="text" id="phone" name="phone" class="regular-text" value="<?php print $options['phone']; ?>" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
                     <label for="google-analytics-id">Google Analytics ID</label>
                 </th>
                 <td>

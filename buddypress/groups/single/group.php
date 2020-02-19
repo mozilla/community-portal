@@ -530,7 +530,7 @@
                                             </td>
                                             <td class="group__table-cell">
                                                 <?php 
-                                                    $reply_count = intval($topic->post_count) > 0  ? intval($topic->post_count) - 1 : 0;
+                                                    $reply_count = intval($topic->posts_count) > 0  ? intval($topic->posts_count) - 1 : 0;
                                                 ?>
                                                 <div class="group__topic-replies"><?php print $reply_count; ?></div>
                                             </td>
