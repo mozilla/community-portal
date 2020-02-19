@@ -154,6 +154,9 @@ div.time-picker ul li {
 			margin-bottom: 90px;
 			padding: 0;
 			padding-top: 45.3%;
+			@include tablet-and-up {
+				margin-bottom: 80px;
+			}
 		}
     }
 

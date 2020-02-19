@@ -17,9 +17,6 @@
     }
     &__error--image {
       text-align: center;
-      @include tablet-and-up {
-        text-align: left;
-      }
     }
 }
 
