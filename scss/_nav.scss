@@ -346,6 +346,10 @@
     &:first-of-type {
         padding-left: 0;
         text-align: left;
+
+        .menu-item__link {
+            padding-left: 0;
+        }
     }
 
     &.menu-item--active {
@@ -378,10 +382,6 @@
 
     @include desktop-and-up {
         padding: 16px;
-        
-        &:first-of-type {
-            padding-left: 0;
-        }
     }
 }
 
