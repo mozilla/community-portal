@@ -296,6 +296,27 @@ function mozilla_verify_url($url) {
 	return $url;
 }
 
+
+function mozilla_verify_url($url, $secure) {
+  if (preg_match('/\.[a-zA-Z]{2,4}\b/', $url)) {
+    $parts = parse_url($url);
+    if (!isset($parts["scheme"])) {
+      if ($secure) {
+        $url = 'https://'.$url;
+      } else {
+        $url = 'http://'.$url;
+
+      }
+    }
+  }
+  if (filter_var($url, FILTER_VALIDATE_URL)) {
+    return $url;
+  }
+  return false;
+}
+
+
+
 function mozilla_add_group_columns($columns) {
 
     $columns['group_created'] = __("Group Created On", "community-portal");
@@ -412,15 +433,6 @@ function mozilla_save_post($post_id, $post, $update) {
         update_post_meta($post_id, 'event-meta', $event);
     }
 
-    if($post->post_type === 'campaign') {
-        
-
-        if(mozilla_create_mailchimp_list($post)) {
-
-            $meta = get_post_meta($post_id, 'meta');
-
-        }
-    }
 }
 
 ?>

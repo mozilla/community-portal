@@ -199,7 +199,6 @@
         margin: 0;
         padding: 0;
         width: 100%;
-
         @include tablet-and-up {
             font-size: remCalc(36);
             line-height: 43px;
@@ -214,19 +213,25 @@
     &__section-title {
         align-items: center;
         color: $color-black;
-        display: flex;
+		display: flex;
+		flex-wrap: wrap;
         flex-direction: row;
         font-size: remCalc(20);
         font-weight: 600;
         justify-content: flex-start;
         line-height: 28px;
-
+		margin: 0;
         svg {
             flex-shrink: 0;
             margin-left: 8px;
         }
-    }
-
+	}
+    &__section-subtitle {
+		margin: 0;
+		flex-basis: 100%;
+		font-size: remCalc(14);
+		color: $color-gray-secondary;
+	}
     &__menu-link {
         color: $color-black;
         font-size: remCalc(14);

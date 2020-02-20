@@ -236,12 +236,17 @@
 
         li.menu-item {
             display: inline-block;
-            line-height: 54px;
             margin: 0;
-            margin-right: 32px;
             padding: 0;
             text-align: left;
-            width: auto;
+			      width: auto;
+			&:first-child .group__menu-link {
+				padding-left: 0;
+				&--active::after {
+					width: calc(100% - 16px);
+					left: 0;
+				}
+			}
         }
     }
 
@@ -259,15 +264,16 @@
 
             &:after {
                 background-color: $color-blue-50;
+
                 bottom: 0;
                 content: '';
-                height: 2px;
-                left: 0;
+				        height: 2px;
+				        left: 16px;
+				        width: calc(100% - 32px);
                 position: absolute;
-                width: 100%;
             }
         }
-    }
+	}
 
     &__card-title {
         font-family: $title-font;
@@ -531,6 +537,7 @@
 
         .members__avatar {
             background-color: $color-gray-20;
+            background-position: center;
             border-radius: 50%!important;
             height: 64px;
             min-width: 64px;

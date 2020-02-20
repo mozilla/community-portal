@@ -388,35 +388,35 @@
                                 || (isset($group_meta['group_other']) && strlen($group_meta['group_other']) > 0)): ?>
                                 <div class="group__community-links">
                                     <span class="no-line"><?php print __("Community Links", "community-portal"); ?></span>
-                                    <?php if(isset($group_meta['group_telegram']) && strlen($group_meta['group_telegram']) > 0): ?>
+                                    <?php if(isset($group_meta['group_telegram']) && strlen($group_meta['group_telegram']) > 0 && mozilla_verify_url($group_meta('group_telegram'))): ?>
                                         <div class="group__community-link-container">
                                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
                                                 <path d="M24.3332 7.66699L15.1665 16.8337" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                                 <path d="M24.3332 7.66699L18.4998 24.3337L15.1665 16.8337L7.6665 13.5003L24.3332 7.66699Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                             </svg>
-                                            <a href="<?php print $group_meta['group_telegram']; ?>" class="group__social-link"><?php print __("Telegram", "community-portal"); ?></a>
+                                            <a href="<?php print mozilla_verify_url($group_meta['group_telegram']); ?>" class="group__social-link"><?php print __("Telegram", "community-portal"); ?></a>
                                         </div>
-                                    <?php endif; ?>
-                                    <?php if(isset($group_meta['group_facebook']) && strlen(trim($group_meta['group_facebook'])) > 0): ?>
+									<?php endif; ?>
+                                    <?php if(isset($group_meta['group_facebook']) && strlen(trim($group_meta['group_facebook'])) > 0 && mozilla_verify_url($group_meta['group_facebook'], true)): ?>
                                         <div class="group__community-link-container">
                                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
                                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M26 16C26 10.4771 21.5229 6 16 6C10.4771 6 6 10.4771 6 16C6 20.9913 9.65686 25.1283 14.4375 25.8785V18.8906H11.8984V16H14.4375V13.7969C14.4375 11.2906 15.9304 9.90625 18.2146 9.90625C19.3087 9.90625 20.4531 10.1016 20.4531 10.1016V12.5625H19.1921C17.9499 12.5625 17.5625 13.3333 17.5625 14.1242V16H20.3359L19.8926 18.8906H17.5625V25.8785C22.3431 25.1283 26 20.9913 26 16Z" fill="black"/>
                                             </svg>
-                                            <a href="<?php print $group_meta['group_facebook']; ?>" class="group__social-link"><?php print __("Facebook", "community-portal"); ?></a>
+                                            <a href="<?php print mozilla_verify_url($group_meta['group_facebook'], true); ?>" class="group__social-link"><?php print __("Facebook", "community-portal"); ?></a>
                                         </div>
                                     <?php endif; ?>
-                                    <?php if(isset($group_meta['group_discourse']) && strlen(trim($group_meta['group_discourse'])) > 0): ?>
+                                    <?php if(isset($group_meta['group_discourse']) && strlen(trim($group_meta['group_discourse'])) > 0 && mozilla_verify_url($group_meta['group_discourse'], true)): ?>
                                         <div class="group__community-link-container">
                                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
                                                 <path d="M23.5 15.5834C23.5029 16.6832 23.2459 17.7683 22.75 18.75C22.162 19.9265 21.2581 20.916 20.1395 21.6078C19.021 22.2995 17.7319 22.6662 16.4167 22.6667C15.3168 22.6696 14.2318 22.4126 13.25 21.9167L8.5 23.5L10.0833 18.75C9.58744 17.7683 9.33047 16.6832 9.33333 15.5834C9.33384 14.2682 9.70051 12.9791 10.3923 11.8605C11.084 10.7419 12.0735 9.838 13.25 9.25002C14.2318 8.75413 15.3168 8.49716 16.4167 8.50002H16.8333C18.5703 8.59585 20.2109 9.32899 21.4409 10.5591C22.671 11.7892 23.4042 13.4297 23.5 15.1667V15.5834Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                            <a href="<?php print $group_meta['group_discourse']; ?>" class="group__social-link"><?php print __("Discourse", "community-portal"); ?></a>
+											</svg>
+                                            <a href="<?php print mozilla_verify_url($group_meta['group_discourse'], true); ?>" class="group__social-link"><?php print __("Discourse", "community-portal"); ?></a>
                                         </div>
                                     <?php endif; ?>
-                                    <?php if(isset($group_meta['group_github']) && strlen(trim($group_meta['group_github'])) > 0): ?>
+                                    <?php if(isset($group_meta['group_github']) && strlen(trim($group_meta['group_github'])) > 0 && mozilla_verify_url($group_meta['group_github'], true)): ?>
                                         <div class="group__community-link-container">
                                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
@@ -429,19 +429,19 @@
                                                 </clipPath>
                                                 </defs>
                                             </svg>
-                                            <a href="<?php print $group_meta['group_github']; ?>" class="group__social-link"><?php print __("Github", "community-portal"); ?></a>
+                                            <a href="<?php print mozilla_verify_url($group_meta['group_github'], true); ?>" class="group__social-link"><?php print __("Github", "community-portal"); ?></a>
                                         </div>
                                     <?php endif; ?>
-                                    <?php if(isset($group_meta['group_twitter']) && strlen(trim($group_meta['group_twitter'])) > 0): ?>
+                                    <?php if(isset($group_meta['group_twitter']) && strlen(trim($group_meta['group_twitter'])) > 0 && mozilla_verify_url($group_meta['group_twitter'], true)): ?>
                                         <div class="group__community-link-container">
                                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
                                                 <path d="M12.3766 23.9366C19.7469 23.9366 23.7781 17.8303 23.7781 12.535C23.7781 12.3616 23.7781 12.1889 23.7664 12.017C24.5506 11.4498 25.2276 10.7474 25.7656 9.94281C25.0343 10.2669 24.2585 10.4794 23.4641 10.5733C24.3006 10.0725 24.9267 9.28482 25.2258 8.35688C24.4392 8.82364 23.5786 9.15259 22.6812 9.32953C22.0771 8.6871 21.278 8.26169 20.4077 8.11915C19.5374 7.97661 18.6444 8.12487 17.8668 8.541C17.0893 8.95713 16.4706 9.61792 16.1064 10.4211C15.7422 11.2243 15.6529 12.1252 15.8523 12.9842C14.2592 12.9044 12.7006 12.4903 11.2778 11.7691C9.85506 11.0478 8.59987 10.0353 7.59375 8.7975C7.08132 9.67966 6.92438 10.724 7.15487 11.7178C7.38536 12.7116 7.98596 13.5802 8.83437 14.1467C8.19667 14.1278 7.57287 13.9558 7.01562 13.6452C7.01562 13.6616 7.01562 13.6788 7.01562 13.6959C7.01588 14.6211 7.33614 15.5177 7.9221 16.2337C8.50805 16.9496 9.32362 17.4409 10.2305 17.6241C9.64052 17.785 9.02155 17.8085 8.42109 17.6928C8.67716 18.489 9.17568 19.1853 9.84693 19.6843C10.5182 20.1832 11.3286 20.4599 12.1648 20.4756C10.7459 21.5908 8.99302 22.1962 7.18828 22.1944C6.86946 22.1938 6.55094 22.1745 6.23438 22.1366C8.0669 23.3126 10.1992 23.9363 12.3766 23.9334" fill="black"/>
                                             </svg>
-                                            <a href="<?php print $group_meta['group_twitter']; ?>" class="group__social-link"><?php print __("Twitter", "community-portal"); ?></a>
+                                            <a href="<?php print mozilla_verify_url($group_meta['group_twitter'], true) ?>" class="group__social-link"><?php print __("Twitter", "community-portal"); ?></a>
                                         </div>
                                     <?php endif; ?>
-                                    <?php if(isset($group_meta['group_other']) && strlen($group_meta['group_other']) > 0): ?>
+                                    <?php if(isset($group_meta['group_other']) && strlen($group_meta['group_other']) > 0 && mozilla_verify_url($group_meta['group_other'], false)): ?>
                                         <div class="group__community-link-container">
                                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
@@ -457,7 +457,7 @@
                                                 </clipPath>
                                                 </defs>
                                             </svg>
-                                            <a href="<?php print $group_meta['group_other']; ?>" class="group__social-link"><?php print __("Other"); ?></a>
+                                            <a href="<?php print mozilla_verify_url($group_meta['group_other'], false); ?>" class="group__social-link"><?php print __("Other"); ?></a>
                                         </div>
                                     <?php endif; ?>
                                 </div>
@@ -626,7 +626,7 @@
                                         </div>
                                     </div>
                                 </a>
-                                <a href="/groups/<?php print $group->slug; ?>/events/" class="group__events-link">
+                                <a href="/groups/<?php print $group->slug; ?>/?view=events" class="group__events-link">
                                     <?php print __('View more events', "community-portal"); ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                                 </a>
                             </div>

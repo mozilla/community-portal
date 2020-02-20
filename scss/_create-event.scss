@@ -32,6 +32,9 @@ div.time-picker ul li {
     box-shadow: 0px 4px 4px $color-gray-30;
     padding: 48px $mobile-padding;
 
+    max-width: $container-max-width;
+    margin: 0 auto;
+    
     .hidden {
         display: none;
     }

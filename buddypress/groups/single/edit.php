@@ -184,29 +184,36 @@
                 </div>
             </section>
             <section class="create-group__details">
-                <div class="create-group__section-title"><?php print __("Community Links", "community-portal"); ?></div>
+				<h2 class="create-group__section-title"><?php print __("Community Links", "community-portal"); ?></h2>
+				<p class="create-group__section-subtitle"><?php print __("Full URLs Required", "community-portal")?></p>
                 <div class="create-group__input-row">
                     <div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--50">
-                        <label class="create-group__label" for="group-discourse"><?php print __("Discourse", "community-portal"); ?></label><input type="text" name="group_discourse" id="group-discourse" class="create-group__input create-group__input--inline" value="<?php print isset($form['group_discourse']) ? $form['group_discourse'] : ''; ?>" />
+						<label class="create-group__label" for="group-discourse"><?php print __("Discourse", "community-portal"); ?></label>
+						<input placeholder="https://" type="text" name="group_discourse" id="group-discourse" class="create-group__input create-group__input--inline" value="<?php print isset($form['group_discourse']) ? $form['group_discourse'] : ''; ?>" />
                     </div>
                     <div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--50">
-                        <label class="create-group__label" for="group-github"><?php print __("GitHub", "community-portal"); ?></label><input type="text" name="group_github" id="group-github" class="create-group__input create-group__input--inline"  value="<?php print isset($form['group_github']) ? $form['group_github'] : ''; ?>"/>
+						<label class="create-group__label" for="group-github"><?php print __("GitHub", "community-portal"); ?></label>
+						<input placeholder="https://" type="text" name="group_github" id="group-github" class="create-group__input create-group__input--inline"  value="<?php print isset($form['group_github']) ? $form['group_github'] : ''; ?>"/>
                     </div>
                 </div>
                 <div class="create-group__input-row">
                     <div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--50">
-                        <label class="create-group__label" for="group-facebook"><?php print __("Facebook", "community-portal"); ?></label><input type="text" name="group_facebook" id="group-facebook" class="create-group__input create-group__input--inline"  value="<?php print isset($form['group_facebook']) ? $form['group_facebook'] : ''; ?>"/>
+						<label class="create-group__label" for="group-facebook"><?php print __("Facebook", "community-portal"); ?></label>
+						<input placeholder="https://" type="text" name="group_facebook" id="group-facebook" class="create-group__input create-group__input--inline"  value="<?php print isset($form['group_facebook']) ? $form['group_facebook'] : ''; ?>"/>
                     </div>
                     <div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--50">
-                        <label class="create-group__label" for="group-twitter"><?php print __("Twitter", "community-portal"); ?></label><input type="text" name="group_twitter" id="group-twitter" class="create-group__input create-group__input--inline"  value="<?php print isset($form['group_twitter']) ? $form['group_twitter'] : ''; ?>"/>
+						<label class="create-group__label" for="group-twitter"><?php print __("Twitter", "community-portal"); ?></label>
+						<input placeholder="https://" type="text" name="group_twitter" id="group-twitter" class="create-group__input create-group__input--inline"  value="<?php print isset($form['group_twitter']) ? $form['group_twitter'] : ''; ?>"/>
                     </div>
                 </div>
                 <div class="create-group__input-row">
                     <div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--50">
-                        <label class="create-group__label" for="group-telegram"><?php print __("Telegram", "community-portal"); ?></label><input type="text" name="group_telegram" id="group-telegram" class="create-group__input create-group__input--inline"  value="<?php print isset($form['group_telegram']) ? $form['group_telegram'] : ''; ?>"/>
+						<label class="create-group__label" for="group-telegram"><?php print __("Telegram", "community-portal"); ?></label>
+						<input type="text" placeholder="https://" name="group_telegram" id="group-telegram" class="create-group__input create-group__input--inline"  value="<?php print isset($form['group_telegram']) ? $form['group_telegram'] : ''; ?>"/>
                     </div>
                     <div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--50">
-                        <label class="create-group__label"  for="group-other"><?php print __("Other", "community-portal"); ?></label><input type="text" name="group_other" id="group-other" class="create-group__input create-group__input--inline"  value="<?php print isset($form['group_other']) ? $form['group_other'] : ''; ?>"/>
+						<label class="create-group__label"  for="group-other"><?php print __("Other", "community-portal"); ?></label>
+						<input type="text" placeholder="https://" name="group_other" id="group-other" class="create-group__input create-group__input--inline"  value="<?php print isset($form['group_other']) ? $form['group_other'] : ''; ?>"/>
                     </div>
                 </div>
             </section>
