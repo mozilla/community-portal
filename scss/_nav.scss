@@ -347,16 +347,26 @@
 
     &:first-of-type {
         padding-left: 0;
-		text-align: left;
-		margin-left: 0;
-		.menu-item__link {
-			padding-left: 0;
-		}
+		    text-align: left;
+		    margin-left: 0;
+      
+		    .menu-item__link {
+			      padding-left: 0;
+		    }
     }
 
     &.menu-item--active {
         background-color: $color-black;
         display: inline-block;
+
+        &:first-of-type { 
+            .menu-item__link { 
+                &:after {
+                    left: 0;
+                    width: calc(100% - 16px);
+                }   
+            }
+        }
 
         .menu-item__link { 
             position: relative;
@@ -381,12 +391,14 @@
 .menu-item__link {
     color: $color-white;
     font-size: remCalc(16);
-	line-height: 24px;
+	  line-height: 24px;
     display: inline-block;
-	text-decoration: none;
-	@include desktop-and-up {
-		padding: 18px 16px;
-	}
+
+    text-decoration: none;
+
+    @include desktop-and-up {
+        padding: 16px;
+    }
 }
 
 .menu-mozilla-main-menu-container {
