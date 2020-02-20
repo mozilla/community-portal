@@ -356,6 +356,15 @@
         background-color: $color-black;
         display: inline-block;
 
+        &:first-of-type { 
+            .menu-item__link { 
+                &:after {
+                    left: 0;
+                    width: calc(100% - 16px);
+                }   
+            }
+        }
+
         .menu-item__link { 
             position: relative;
 
