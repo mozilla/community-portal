@@ -33,6 +33,17 @@
         $results = $query->posts;
     }
 
+    // Search Events
+	$events_args['scope'] = 'all'; 
+    $events_args['search'] = trim($search_term);
+    $events = EM_Events::get($events_args);
+    $allCountries = Array();
+
+    if(sizeof($events) > 0) {
+        $allCountries = em_get_countries();
+        $results = array_merge($results, $events);
+    }
+
     // Search Groups
     $group_args = Array(
         'search_terms'  =>  $search_term,
@@ -84,19 +95,6 @@
     if(sizeof($filtered_members) > 0) {
         $results = array_merge($results, $filtered_members);
     }
-
-    // Search Events
-	$events_args['scope'] = 'all'; 
-    $events_args['search'] = trim($search_term);
-    $events = EM_Events::get($events_args);
-    $allCountries = Array();
-
-    if(sizeof($events) > 0) {
-        $allCountries = em_get_countries();
-        $results = array_merge($results, $events);
-    }
-
-    // usort($results, "mozilla_sort_search_results");
 
     $count = sizeof($results);
     $offset = ($p - 1) * $results_per_page;
@@ -158,7 +156,52 @@
                         <div class="search__result-description">
                         <?php print $description; ?>
                         </div>
-                        <?php endif; ?>                
+                        <?php endif; ?>      
+                        <?php if(isset($result->post_type) && $result->post_type === 'event'):?>
+                        <?php
+                            $location = em_get_location($result->location_id);
+                        ?>
+                        <h3 class="search__result-title search__result-title--event"><?php print __("Event", 'community-portal'); ?></h3>
+                        <a href="/events/<?php print $result->event_slug; ?>" class="search__result-link"><?php print $result->event_name; ?></a>
+                        <div class="search__event-date">
+                        <?php print date("F j, Y", strtotime($result->event_start_date)) ; ?>
+                        <?php if(isset($result->event_start_time)): ?>
+                            @ <?php print date("H:i", strtotime($result->event_start_time)); ?> 
+                        <?php endif; ?>
+                        <?php if(isset($results->event_end_time) && $result->event_start_time != $results->event_end_time): ?>
+                            - <?php print date("H:i", strtotime($result->event_end_time)); ?> 
+                        <?php endif; ?>
+                        </div>
+                        <div class="search__event-location">
+                            <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M14 7.66699C14 12.3337 8 16.3337 8 16.3337C8 16.3337 2 12.3337 2 7.66699C2 6.07569 2.63214 4.54957 3.75736 3.42435C4.88258 2.29913 6.4087 1.66699 8 1.66699C9.5913 1.66699 11.1174 2.29913 12.2426 3.42435C13.3679 4.54957 14 6.07569 14 7.66699Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M8 9.66699C9.10457 9.66699 10 8.77156 10 7.66699C10 6.56242 9.10457 5.66699 8 5.66699C6.89543 5.66699 6 6.56242 6 7.66699C6 8.77156 6.89543 9.66699 8 9.66699Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <?php if($location->country === 'OE'): ?>
+                                <?php print __("Online", "community-portal"); ?>
+                            <?php else: ?>
+
+                                <?php if($location->location_address): ?>
+                                <?php print $location->location_address; ?> - 
+                                <?php endif; ?>
+                                <?php if($location->town): ?>
+                                <?php 
+                                    $city = strlen($location->town) > 180 ? substr($location->town, 0, 180) : $location->town;
+                                    print $city;
+                                ?>
+                                <?php if($location->country): ?>
+                                    <?php if($city): ?>
+                                    ,&nbsp;
+                                    <?php endif; ?>
+                                    <?php print $allCountries[$location->country]; ?>
+                                <?php endif; ?>
+                                    <?php print $allCountries[$location->country]; ?>
+                                <?php else: ?>
+
+                                <?php endif; ?>
+                            <?php endif; ?>
+                        </div>
+                        <?php endif; ?>              
                         <?php if(get_class($result) === 'BP_Groups_Group'):?>
                         <h3 class="search__result-title search__result-title--group"><?php print __("Group", 'community-portal'); ?></h3>
                         <a href="/groups/<?php print $result->slug; ?>" class="search__result-link"><?php print $result->name; ?></a>
@@ -208,52 +251,7 @@
                         <div class="search__result-description">
                         <?php print $description; ?>
                         </div>
-                        <?php endif; ?>                
-                        <?php if(isset($result->post_type) && $result->post_type === 'event'):?>
-                        <?php
-                            $location = em_get_location($result->location_id);
-                        ?>
-                        <h3 class="search__result-title search__result-title--event"><?php print __("Event", 'community-portal'); ?></h3>
-                        <a href="/events/<?php print $result->event_slug; ?>" class="search__result-link"><?php print $result->event_name; ?></a>
-                        <div class="search__event-date">
-                        <?php print date("F j, Y", strtotime($result->event_start_date)) ; ?>
-                        <?php if(isset($result->event_start_time)): ?>
-                            @ <?php print date("H:i", strtotime($result->event_start_time)); ?> 
-                        <?php endif; ?>
-                        <?php if(isset($results->event_end_time) && $result->event_start_time != $results->event_end_time): ?>
-                            - <?php print date("H:i", strtotime($result->event_end_time)); ?> 
-                        <?php endif; ?>
-                        </div>
-                        <div class="search__event-location">
-                            <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M14 7.66699C14 12.3337 8 16.3337 8 16.3337C8 16.3337 2 12.3337 2 7.66699C2 6.07569 2.63214 4.54957 3.75736 3.42435C4.88258 2.29913 6.4087 1.66699 8 1.66699C9.5913 1.66699 11.1174 2.29913 12.2426 3.42435C13.3679 4.54957 14 6.07569 14 7.66699Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M8 9.66699C9.10457 9.66699 10 8.77156 10 7.66699C10 6.56242 9.10457 5.66699 8 5.66699C6.89543 5.66699 6 6.56242 6 7.66699C6 8.77156 6.89543 9.66699 8 9.66699Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            <?php if($location->country === 'OE'): ?>
-                                <?php print __("Online", "community-portal"); ?>
-                            <?php else: ?>
-
-                                <?php if($location->location_address): ?>
-                                <?php print $location->location_address; ?> - 
-                                <?php endif; ?>
-                                <?php if($location->town): ?>
-                                <?php 
-                                    $city = strlen($location->town) > 180 ? substr($location->town, 0, 180) : $location->town;
-                                    print $city;
-                                ?>
-                                <?php if($location->country): ?>
-                                    <?php if($city): ?>
-                                    ,&nbsp;
-                                    <?php endif; ?>
-                                    <?php print $allCountries[$location->country]; ?>
-                                <?php endif; ?>
-                                    <?php print $allCountries[$location->country]; ?>
-                                <?php else: ?>
-
-                                <?php endif; ?>
-                            <?php endif; ?>
-                        </div>
-                        <?php endif; ?>       
+                        <?php endif; ?>                   
 
                         <?php if(get_class($result) === 'WP_User'):?>
                         <h3 class="search__result-title search__result-title--member"><?php print __("Member", 'community-portal'); ?></h3>
