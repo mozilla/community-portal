@@ -404,15 +404,6 @@ function mozilla_save_post($post_id, $post, $update) {
         update_post_meta($post_id, 'event-meta', $event);
     }
 
-    if($post->post_type === 'campaign') {
-        
-
-        if(mozilla_create_mailchimp_list($post)) {
-
-            $meta = get_post_meta($post_id, 'meta');
-
-        }
-    }
 }
 
 ?>
