@@ -346,11 +346,24 @@
     &:first-of-type {
         padding-left: 0;
         text-align: left;
+
+        .menu-item__link {
+            padding-left: 0;
+        }
     }
 
     &.menu-item--active {
         background-color: $color-black;
         display: inline-block;
+
+        &:first-of-type { 
+            .menu-item__link { 
+                &:after {
+                    left: 0;
+                    width: calc(100% - 16px);
+                }   
+            }
+        }
 
         .menu-item__link { 
             position: relative;
@@ -375,8 +388,9 @@
     padding: 18px 0;
     display: inline-block;
     text-decoration: none;
+
     @include desktop-and-up {
-		padding: 16px;
+        padding: 16px;
     }
 }
 
