@@ -290,21 +290,23 @@ function mozilla_redirect_admin() {
 
 
 function mozilla_verify_url($url, $secure) {
-  if (preg_match('/\.[a-zA-Z]{2,4}\b/', $url)) {
-    $parts = parse_url($url);
-    if (!isset($parts["scheme"])) {
-      if ($secure) {
-        $url = 'https://'.$url;
-      } else {
-        $url = 'http://'.$url;
+    if (preg_match('/\.[a-zA-Z]{2,4}\b/', $url)) {
+        $parts = parse_url($url);
+        if (!isset($parts["scheme"])) {
+            if ($secure) {
+                $url = 'https://'.$url;
+            } else {
+                $url = 'http://'.$url;
 
-      }
+            }
+        }
     }
-  }
-  if (filter_var($url, FILTER_VALIDATE_URL)) {
-    return $url;
-  }
-  return false;
+
+    if(filter_var($url, FILTER_VALIDATE_URL)) {
+        return $url;
+    }
+
+    return false;
 }
 
 
@@ -424,6 +426,23 @@ function mozilla_save_post($post_id, $post, $update) {
         update_post_meta($post_id, 'event-meta', $event);
     }
 
+    return;
+}
+
+function mozilla_insert_post($post_id, $post, $update) {
+    if($post->post_type === 'campaign') {
+        if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
+            return;
+
+        // don't run the echo if the function is called for saving revision.
+        if($post->post_status == 'auto-draft')
+            return;
+            
+        if(mozilla_create_mailchimp_list($post)){
+              
+            
+        }
+    }
 }
 
 ?>
