@@ -222,8 +222,65 @@ function mozilla_discourse_get_category_topics($url) {
     return $topics;
 }
 
+function mozilla_create_mailchimp_list($campaign) {
+    $options = wp_load_alloptions();
 
 
+
+    if(isset($options['mailchimp'])) {
+        $apikey = trim($options['mailchimp']);
+        $dc = substr($apikey, -3);
+
+        if($dc) {
+            
+            $curl = curl_init();
+            $api_url = "https://{$dc}.api.mailchimp.com/3.0/lists";
+            $auth = base64_encode("user:{$apikey}");
+            
+            curl_setopt($curl, CURLOPT_URL, $api_url);
+            curl_setopt($curl, CURLOPT_HTTPHEADER, Array("Content-Type: application/json", "Authorization: Basic {$auth}"));
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl, CURLOPT_POST, true);
+            $campaign_list_name = "{$post->post_title} - Mozilla";
+            
+            $data = Array();
+            $data['apikey'] = $apikey;
+            $data['name'] = $campaign_list_name;
+
+            $data['contact'] = Array(
+                'company'   =>  $options['company'],
+                'address1'  =>  $options['address'],
+                'address2'  =>  '',
+                'city'      =>  $options['city'],
+                'state'     =>  $options['state'],
+                'zip'       =>  $options['zip'],
+                'country'   =>  $options['country'],
+                'phone'     =>  $options['phone']
+            );
+
+            $data['campaign_defaults'] = Array(
+                'from_name'     =>  '',
+                'from_email'    =>  '',
+                'subject'       =>  $campaign_list_name,
+                'language'      =>  'English'
+            );
+
+            $data['email_type_option'] = true;
+            $json = json_encode($data);
+
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $json);
+
+            $result = curl_exec($curl);
+            $result = json_decode($result);
+
+
+            return $result_json;
+        }
+    }
+
+    return false;
+}
 
 
 ?>
