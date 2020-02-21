@@ -28,7 +28,9 @@ add_action('admin_menu', 'mozilla_add_menu_item');
 
 add_action('bp_group_admin_edit_after', 'mozilla_save_group');
 add_action('save_post', 'mozilla_save_post', 10, 3);
-add_action('wp_insert_post', 'mozilla_insert_post', 10, 3);
+
+add_action('transition_post_status', 'mozilla_post_status_transition', 10, 3);
+
 
 // Ajax Calls
 add_action('wp_ajax_nopriv_upload_group_image', 'mozilla_upload_image');

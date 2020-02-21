@@ -429,19 +429,16 @@ function mozilla_save_post($post_id, $post, $update) {
     return;
 }
 
-function mozilla_insert_post($post_id, $post, $update) {
-    if($post->post_type === 'campaign') {
-        if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
-            return;
+function mozilla_post_status_transition($new_status, $old_status, $post) { 
 
-        // don't run the echo if the function is called for saving revision.
-        if($post->post_status == 'auto-draft')
-            return;
-            
-        if(mozilla_create_mailchimp_list($post)){
-              
-            
-        }
+    if($new_status == 'publish' && 
+        $old_status == 'auto-draft' && 
+        !wp_is_post_revision($post->ID) && 
+        !wp_is_post_autosave($post->ID)) 
+    {
+        if($post->post_type === 'campaign') {            
+            mozilla_create_mailchimp_list($post);
+        }    
     }
 }
 
