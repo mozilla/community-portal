@@ -390,12 +390,20 @@ body.home-page {
     &__hero, 
 	&__groups {
 		&__background {
-            height: calc(100% - 232px);
 			border-bottom-left-radius: 30px;
             left: -24px;
 			@include tablet-and-up {
-                height: calc(100% - 248px);
 				left: 135px;
+			}
+		}
+	}
+
+	&__events, 
+	&__groups {
+		&__background {
+			height: calc(100% - 232px);
+			@include tablet-and-up {
+				height: calc(100% - 248px);
 			}
 		}
 	}
@@ -468,7 +476,7 @@ body.home-page {
 	}
 
 
-    &__events, 
+    &__events, 	
 	&__groups,
 	&__activities {
         &__background {

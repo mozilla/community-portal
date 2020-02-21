@@ -46,15 +46,21 @@
 				</div>
 				<div class="row">
 					<div class="col-md-5 homepage__hero__splash">
-						<div class="homepage__hero__image">
-							<img src="<?php echo $fieldValues->hero_image['url'] ?>" alt="<?php echo $fieldValues->hero_image['alt'] ?>">
-						</div>
+						<?php if (isset($fieldValues->hero_image['url']) && strlen($fieldValues->hero_image['url']) > 0): ?>
+							<div class="homepage__hero__image">
+								<img src="<?php echo $fieldValues->hero_image['url'] ?>" alt="<?php echo (isset($fieldValues->hero_image['alt']) ? $fieldValues->hero_image['alt'] : '')?>">
+							</div>
+						<?php endif; ?>
 					</div>
 					<div class="col-md-4 col-md-offset-1">
 						<div class="homepage__content">
 							<h1 class="homepage__hero__title title title--main"><?php echo $fieldValues->hero_title; ?></h1>
 							<p class="homepage__hero__subtitle subtitle"><?php echo $fieldValues->hero_subtitle ?></p>
-							<a href="<?php echo (is_user_logged_in() ? esc_attr($fieldValues->hero_cta_existing) : esc_attr($fieldValues->hero_cta_new)) ?>"class="btn btn--dark btn--small homepage__hero__cta"><?php echo __($fieldValues->hero_cta_text) ?></a>
+							<?php if ((isset($fieldValues->hero_cta_existing) && strlen($fieldValues->hero_cta_existing) > 0)|| (isset($fieldValues->hero_cta_new) && strlen($fieldValues->hero_cta_new) > 0)): ?>
+								<a href="<?php echo (is_user_logged_in() ? esc_attr($fieldValues->hero_cta_existing) : esc_attr($fieldValues->hero_cta_new)) ?>"class="btn btn--dark btn--small homepage__hero__cta">
+									<?php echo (isset($fieldValues->hero_cta_text) ? $fieldValues->hero_cta_text : "") ?>
+								</a>
+							<?php endif; ?>
 						</div>
 					</div>
 				</div>
@@ -98,9 +104,9 @@
 						<div class="col-lg-3 homepage__campaign__meta">
 							<img class="homepage__campaign__image" src="<?php print get_stylesheet_directory_uri()."/images/homepage-campaign.svg"?>" alt="">
 							<div class="homepage__campaign__copy">
-								<h2 class="subheader homepage__campaign__subheader"><?php echo __($fieldValues->featured_campaign_title, 'community portal'); ?></h2>
+								<h2 class="subheader homepage__campaign__subheader"><?php echo $fieldValues->featured_campaign_title ?></h2>
 								<p>
-									<?php echo __($fieldValues->featured_campaign_copy); ?>
+									<?php echo $fieldValues->featured_campaign_copy ?>
 								</p>
 							</div>
 						</div>
@@ -141,10 +147,10 @@
 				<div class="homepage__groups__background"></div>
 				<div class="row homepage__groups__meta">
 					<div class="col-md-6 col-sm-12">
-						<h2 class="subheader homepage__groups__subheader"><?php echo __($fieldValues->featured_groups_title)?></h2>
+						<h2 class="subheader homepage__groups__subheader"><?php echo $fieldValues->featured_groups_title ?></h2>
 					</div>
 					<div class="col-md-6 col-sm-12 homepage__groups__cta">
-						<a href="/events" class="btn btn--small btn--dark"><?php echo __($fieldValues->featured_groups_cta_text); ?></a>
+						<a href="/events" class="btn btn--small btn--dark"><?php echo $fieldValues->featured_groups_cta_text ?></a>
 					</div>
 				</div>
 				<div class="row homepage__groups__grid">
@@ -231,9 +237,9 @@
 							endif;
 						?>
 						<p>
-							<span class="large-number homepage__events__count__span"><?php echo __($groups_total) ?></span>
+							<span class="large-number homepage__events__count__span"><?php echo $groups_total ?></span>
 							<?php echo __('More Groups.')?>
-							<a href="/groups/" class="homepage__events__count__link"><?php echo __($fieldValues->featured_groups_secondary_cta_text) ?></a>
+							<a href="/groups/" class="homepage__events__count__link"><?php echo $fieldValues->featured_groups_secondary_cta_text ?></a>
 						</p>
 					</div>
 				</div>
@@ -244,10 +250,14 @@
 				<div class="homepage__events__background"></div>
 				<div class="row homepage__events__meta">
 					<div class="col-md-6 col-sm-12">
-						<h2 class="subheader homepage__events__subheader"><?php echo __($fieldValues->featured_events_title)?></h2>
+						<?php if (isset($fieldValues->featured_events_title) && strlen($fieldValues->featured_events_title) > 0): ?>
+							<h2 class="subheader homepage__events__subheader"><?php echo $fieldValues->featured_events_title ?></h2>
+						<?php endif; ?>
 					</div>
 					<div class="col-md-6 col-sm-12 homepage__events__cta">
-						<a href="/events" class="btn btn--small btn--dark"><?php echo __($fieldValues->featured_events_cta_text); ?></a>
+						<?php if (isset($fieldValues->featured_events_cta_text) && strlen($fieldValues->featured_events_cta_text) > 0): ?>
+							<a href="/events" class="btn btn--small btn--dark"><?php echo $fieldValues->featured_events_cta_text ?></a>
+						<?php endif; ?>
 					</div>
 				</div>
 				<div class="row homepage__events__grid">
@@ -281,9 +291,11 @@
 							endif;
 						?>
 						<p>
-							<span class="large-number homepage__events__count__span"><?php echo __($eventsTotal) ?></span>
+							<span class="large-number homepage__events__count__span"><?php echo $eventsTotal ?></span>
 							<?php echo __('More Events.')?>
-							<a href="/events" class="homepage__events__count__link"><?php echo __($fieldValues->featured_events_secondary_cta_text) ?></a>
+							<?php if (isset($fieldValues->featured_events_secondary_cta_text) && strlen($fieldValues->featured_events_secondary_cta_text) > 0):?>
+								<a href="/events" class="homepage__events__count__link"><?php echo $fieldValues->featured_events_secondary_cta_text ?></a>
+							<?php endif; ?>
 						</p>
 					</div>
 				</div>
@@ -294,10 +306,14 @@
 				<div class="homepage__activities__background"></div>
 				<div class="row homepage__activities__meta">
 					<div class="col-md-6 col-sm-12">
-						<h2 class="subheader homepage__activities__subheader"><?php echo __($fieldValues->featured_activities_title)?></h2>
+						<?php if (isset($fieldValues->featured_activities_title) && strlen($fieldValues->featured_activities_title) > 0): ?>
+							<h2 class="subheader homepage__activities__subheader"><?php echo $fieldValues->featured_activities_title ?></h2>
+						<?php endif; ?>
 					</div>
 					<div class="col-md-6 col-sm-12 homepage__events__cta">
-						<a href="/activities" class="btn btn--small btn--dark"><?php echo __($fieldValues->featured_activities_cta_text); ?></a>
+						<?php if (isset($fieldValues->featured_activities_cta_text) && strlen($fieldValues->featured_activities_cta_text) > 0): ?>
+							<a href="/activities" class="btn btn--small btn--dark"><?php echo $fieldValues->featured_activities_cta_text; ?></a>
+						<?php endif; ?>
 					</div>
 				</div>
 				<div class="row homepage__activities__grid">
