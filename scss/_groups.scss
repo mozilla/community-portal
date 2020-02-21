@@ -256,14 +256,24 @@
         padding: 0;
 
         .menu-item {
-            width: auto;
+			width: auto;
+			&:first-child .groups__menu-link {
+				padding-left: 0;
+			}
+			&:first-child .group__menu-link--active::after {
+				width: calc(100% - 16px);
+				left: 0;
+			}
         }
     }
 
     &__menu-link {
         color: $color-black;
         font-size: remCalc(14);
-        text-decoration: none;
+		text-decoration: none;
+		display: inline-block;
+		padding: 16px;
+
     }
 
 
