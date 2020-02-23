@@ -67,6 +67,11 @@
         color: $color-black;
     }
 
+	&__link {
+		display: block;
+		height: 100%;
+		position: relative;
+	}
     &__title {
         @extend .hero-title;
 
@@ -104,15 +109,11 @@
         background-color: $color-white;
         border-radius: 5px;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-        flex-wrap: wrap;
-        display: block;
         margin-bottom: 24px;
-        min-height: 375px;
-        overflow: hidden;
         text-decoration: none;
         transition: box-shadow 0.3s ease-in-out;
         width: 100%;
-        
+		height: 100%;
         &.groups__card--homepage {
             height: 100%;
             max-height: 435px;
@@ -122,7 +123,6 @@
         @include tablet-and-up {
             flex: 0 48%;
             margin-right: 4%;
-            min-height: 390px;
 
             &:nth-of-type(2n) {
                 margin-right: 0;
@@ -132,7 +132,6 @@
         @include desktop-and-up {
             flex: 0 32%;
             margin-right: 2%;
-            min-height: 439px;
 
             &:nth-of-type(2n) {
                 margin-right: 2%;
@@ -149,18 +148,17 @@
     }
 
     &__activity-image {
-        background-size: cover;
+        background-size: contain;
         background-repeat: no-repeat;
-        background-position: center;
-        height: 122px;
-
-        @include tablet-and-up {
-            height: 140px;
-        }
-        
-        @include desktop-and-up {
-            height: 175px;
-        }
+        background-position: top center;
+		padding-top: 45.4%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: auto;
+		border-top-right-radius: 5px;
+		border-top-left-radius: 5px;
     }
 
     &__activity-title {
@@ -178,18 +176,13 @@
         display: flex;
         flex-direction: column;
         font-size: remCalc(14);
-        height: calc(100% - 122px);
         justify-content: flex-start;
         line-height: 20px;
-        padding: 24px 32px;
-
-        @include tablet-and-up {
-            height: calc(100% - 140px);
-        }
-
-        @include desktop-and-up {
-            height: calc(100% - 175px);
-        }
+		padding: 24px 32px;	
+		flex-grow: 1;
+		padding-top: calc(45.4% + 24px);
+		height: 100%;
+		min-height: 380px;
     }
 
     &__tag-container {

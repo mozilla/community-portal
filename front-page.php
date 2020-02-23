@@ -8,6 +8,9 @@
 				'hero_cta_existing',
 				'hero_cta_new',
 				'hero_cta_text',
+				'featured_campaign',
+				'featured_campaign_title',
+				'featured_campaign_copy',
 				'featured_events',
 				'featured_events_title',
 				'featured_events_cta_text',
@@ -15,7 +18,10 @@
 				'featured_groups',
 				'featured_groups_title',
 				'featured_groups_cta_text',
-				'featured_groups_secondary_cta_text'
+				'featured_groups_secondary_cta_text',
+				'featured_activities',
+				'featured_activities_title',
+				'featured_activities_cta_text',
 			);
 
 			$fieldValues = new stdClass();
@@ -35,83 +41,116 @@
 
 		?>
 		<div class="homepage homepage__container">
-		<div class="homepage__hero">
-			<div class="homepage__hero__background">
+			<div class="homepage__hero">
+				<div class="homepage__hero__background">
+				</div>
+				<div class="row">
+					<div class="col-md-5 homepage__hero__splash">
+						<?php if (isset($fieldValues->hero_image['url']) && strlen($fieldValues->hero_image['url']) > 0): ?>
+							<div class="homepage__hero__image">
+								<img src="<?php echo $fieldValues->hero_image['url'] ?>" alt="<?php echo (isset($fieldValues->hero_image['alt']) ? $fieldValues->hero_image['alt'] : '')?>">
+							</div>
+						<?php endif; ?>
+					</div>
+					<div class="col-md-4 col-md-offset-1">
+						<div class="homepage__content">
+							<h1 class="homepage__hero__title title title--main"><?php echo $fieldValues->hero_title; ?></h1>
+							<p class="homepage__hero__subtitle subtitle"><?php echo $fieldValues->hero_subtitle ?></p>
+							<?php if ((isset($fieldValues->hero_cta_existing) && strlen($fieldValues->hero_cta_existing) > 0)|| (isset($fieldValues->hero_cta_new) && strlen($fieldValues->hero_cta_new) > 0)): ?>
+								<a href="<?php echo (is_user_logged_in() ? esc_attr($fieldValues->hero_cta_existing) : esc_attr($fieldValues->hero_cta_new)) ?>"class="btn btn--dark btn--small homepage__hero__cta">
+									<?php echo (isset($fieldValues->hero_cta_text) ? $fieldValues->hero_cta_text : "") ?>
+								</a>
+							<?php endif; ?>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-5 homepage__hero__splash">
-					<div class="homepage__hero__image">
-						<img src="<?php echo $fieldValues->hero_image['url'] ?>" alt="<?php echo $fieldValues->hero_image['alt'] ?>">
-					</div>
-				</div>
-				<div class="col-md-4 col-md-offset-1">
-					<div class="homepage__content">
-						<h1 class="homepage__hero__title title title--main"><?php echo $fieldValues->hero_title; ?></h1>
-						<p class="homepage__hero__subtitle subtitle"><?php echo $fieldValues->hero_subtitle ?></p>
-						<a href="<?php echo (is_user_logged_in() ? esc_attr($fieldValues->hero_cta_existing) : esc_attr($fieldValues->hero_cta_new)) ?>"class="btn btn--dark btn--small homepage__hero__cta"><?php echo __($fieldValues->hero_cta_text) ?></a>
-					</div>
-				</div>
-				</div>
-			</div>
-			<?php if($hasEvents): ?>
-			<div class="homepage__events">
-				<div class="homepage__events__background"></div>
-				<div class="row homepage__events__meta">
-					<div class="col-md-6 col-sm-12">
-						<h2 class="subheader homepage__events__subheader"><?php echo __($fieldValues->featured_events_title)?></h2>
-					</div>
-					<div class="col-md-6 col-sm-12 homepage__events__cta">
-						<a href="/events" class="btn btn--small btn--dark"><?php echo __($fieldValues->featured_events_cta_text); ?></a>
-					</div>
-				</div>
-				<div class="row homepage__events__grid">
-					<?php 
-						if(is_array($fieldValues->featured_events)) {
+			<?php if (isset($fieldValues->featured_campaign)): 
+				$c = $fieldValues->featured_campaign;
+				if ($c) {
 
-							foreach($fieldValues->featured_events as $featured_event) {
-								if($featured_event['single_event']) {
-									$event = EM_Events::get(array('post_id' => $featured_event['single_event']->ID, 'scope'	=>	'all'));
-									$event = array_shift(array_values($event));
-						
-									include(locate_template('plugins/events-manager/templates/template-parts/single-event-card.php', false, false));
-								} 
+					$start = strtotime(get_field('campaign_start_date', $c->ID));
+					$end = strtotime(get_field('campaign_end_date', $c->ID));
+					$today = time();
+		
+					$status =  get_field('campaign_status', $c->ID);
+					if(strtolower($status) !== 'closed') {
+						if($start && !$end) {
+							if($today >= $start) {
+								$current_campaign = $c;
+							}
+						} elseif ($start && $end) {
+							if($today >= $start && $today < $end) {
+								$current_campaign = $c;
 							}
 						}
-					?>
-					<div class="col-lg-4 col-md-6 events__column homepage__events__count">
-						<?php 
-							$eventsTotal = count(EM_Events::get());
-							if ($eventsTotal > 15 && $eventsTotal <= 105):
-								$eventsTotal = floor(($eventsTotal / 10)) * 10;
-								$eventsTotal .= '+';
-							elseif ($eventsTotal > 105 && $eventsTotal <= 1005):
-								$eventsTotal = floor(($eventsTotal) / 100) * 100;
-								$eventsTotal .= '+';
-							elseif ($eventsTotal > 1005): 
-								$eventsTotal = floor(($eventsTotal / 1000) * 1000);
-								$eventsTotal .= '+';
-							else: 
-								$eventsTotal = 10;
-							endif;
-						?>
-						<p>
-							<span class="large-number homepage__events__count__span"><?php echo __($eventsTotal) ?></span>
-							<?php echo __('More Events.')?>
-							<a href="/events" class="homepage__events__count__link"><?php echo __($fieldValues->featured_events_secondary_cta_text) ?></a>
-						</p>
+					}
+				}
+				if($current_campaign):
+					$current_campaign_image = get_the_post_thumbnail_url($current_campaign->ID);
+					
+					$current_campaign_status = get_field('campaign_status', $current_campaign->ID);
+					$current_campaign_hero_cta = get_field('hero_cta', $current_campaign->ID);
+					$current_campaign_hero_cta_link = get_field('hero_cta_link', $current_campaign->ID);
+					
+					$current_campaign_start_date = get_field('campaign_start_date', $current_campaign->ID);
+					$current_campaign_end_date = get_field('campaign_end_date', $current_campaign->ID);
+					$current_campaign_card_description = get_field('card_description', $current_campaign->ID);
+					$current_campaign_tags = get_the_terms($current_campaign, 'post_tag');        
+			?>
+				<div class="homepage__campaign">
+					<div class="homepage__campaign__background"></div>
+					<div class="row homepage__campaign__container">
+						<div class="col-lg-3 homepage__campaign__meta">
+							<img class="homepage__campaign__image" src="<?php print get_stylesheet_directory_uri()."/images/homepage-campaign.svg"?>" alt="">
+							<div class="homepage__campaign__copy">
+								<h2 class="subheader homepage__campaign__subheader"><?php echo $fieldValues->featured_campaign_title ?></h2>
+								<p>
+									<?php echo $fieldValues->featured_campaign_copy ?>
+								</p>
+							</div>
+						</div>
+						<div class="col-lg-8 col-lg-offset-1 homepage__campaign__active">
+						<?php if($current_campaign): ?>
+							<div class="campaigns__active-campaign">
+								<div class="campaigns__active-campaign-hero-container">
+									<div class="campaign__hero-image" style="background-image: url(<?php print $current_campaign_image; ?>);">
+									</div>
+									<div class="campaigns__active-campaign-title-container">
+										<div class="campaigns__active-campaign-status"><?php print $current_campaign_status; ?></div>
+										<h2 class="campaigns__active-campaign-title"><?php print $current_campaign->post_title?></h2>
+										<div class="campaigns__active-campaign-date-container">
+											<?php print $current_campaign_start_date; ?><?php if($current_campaign_end_date): ?> - <?php print $current_campaign_end_date; ?><?php endif; ?>
+										</div>
+										
+										<a href="/campaigns/<?php print $current_campaign->post_name; ?>" class="campaign__hero-cta"><?php print __('Get Involved', 'community-portal'); ?></a>
+										
+									</div>
+								</div>
+								<div class="campaigns__active-campaign-description">
+									<?php print $current_campaign_card_description; ?>
+								</div>
+								<?php if(is_array($current_campaign_tags) && sizeof($current_campaign_tags) > 0): ?>
+								<div class="campaigns__active-campaign-tags">
+									<span class="campaigns__active-campaign-tag"><?php print $current_campaign_tags[0]->name; ?></span>
+								</div>
+								<?php endif; ?>
+							</div>
+							<?php endif; ?>
+						</div>
 					</div>
 				</div>
-			</div>
+				<?php endif;?>
 			<?php endif; ?>
 			<?php if($fieldValues->featured_groups && is_array($fieldValues->featured_groups) && sizeof($fieldValues->featured_groups) > 0): ?>
 			<div class="homepage__groups">
 				<div class="homepage__groups__background"></div>
 				<div class="row homepage__groups__meta">
 					<div class="col-md-6 col-sm-12">
-						<h2 class="subheader homepage__groups__subheader"><?php echo __($fieldValues->featured_groups_title)?></h2>
+						<h2 class="subheader homepage__groups__subheader"><?php echo $fieldValues->featured_groups_title ?></h2>
 					</div>
 					<div class="col-md-6 col-sm-12 homepage__groups__cta">
-						<a href="/events" class="btn btn--small btn--dark"><?php echo __($fieldValues->featured_groups_cta_text); ?></a>
+						<a href="/events" class="btn btn--small btn--dark"><?php echo $fieldValues->featured_groups_cta_text ?></a>
 					</div>
 				</div>
 				<div class="row homepage__groups__grid">
@@ -194,15 +233,139 @@
 								$groups_total = floor(($groups_total / 1005) * 1005);
 								$groups_total .= '+';
 							else: 
-								$groups_total = 10;
+								$groups_total = '10+';
 							endif;
 						?>
 						<p>
-							<span class="large-number homepage__events__count__span"><?php echo __($groups_total) ?></span>
+							<span class="large-number homepage__events__count__span"><?php echo $groups_total ?></span>
 							<?php echo __('More Groups.')?>
-							<a href="/groups/" class="homepage__events__count__link"><?php echo __($fieldValues->featured_groups_secondary_cta_text) ?></a>
+							<a href="/groups/" class="homepage__events__count__link"><?php echo $fieldValues->featured_groups_secondary_cta_text ?></a>
 						</p>
 					</div>
+				</div>
+			</div>
+			<?php endif; ?>
+			<?php if($hasEvents): ?>
+			<div class="homepage__events">
+				<div class="homepage__events__background"></div>
+				<div class="row homepage__events__meta">
+					<div class="col-md-6 col-sm-12">
+						<?php if (isset($fieldValues->featured_events_title) && strlen($fieldValues->featured_events_title) > 0): ?>
+							<h2 class="subheader homepage__events__subheader"><?php echo $fieldValues->featured_events_title ?></h2>
+						<?php endif; ?>
+					</div>
+					<div class="col-md-6 col-sm-12 homepage__events__cta">
+						<?php if (isset($fieldValues->featured_events_cta_text) && strlen($fieldValues->featured_events_cta_text) > 0): ?>
+							<a href="/events" class="btn btn--small btn--dark"><?php echo $fieldValues->featured_events_cta_text ?></a>
+						<?php endif; ?>
+					</div>
+				</div>
+				<div class="row homepage__events__grid">
+					<?php 
+						if(is_array($fieldValues->featured_events)) {
+
+							foreach($fieldValues->featured_events as $featured_event) {
+								if($featured_event['single_event']) {
+									$event = EM_Events::get(array('post_id' => $featured_event['single_event']->ID, 'scope'	=>	'all'));
+									$event = array_shift(array_values($event));
+						
+									include(locate_template('plugins/events-manager/templates/template-parts/single-event-card.php', false, false));
+								} 
+							}
+						}
+					?>
+					<div class="col-lg-4 col-md-6 events__column homepage__events__count">
+						<?php 
+							$eventsTotal = count(EM_Events::get());
+							if ($eventsTotal > 15 && $eventsTotal <= 105):
+								$eventsTotal = floor(($eventsTotal / 10)) * 10;
+								$eventsTotal .= '+';
+							elseif ($eventsTotal > 105 && $eventsTotal <= 1005):
+								$eventsTotal = floor(($eventsTotal) / 100) * 100;
+								$eventsTotal .= '+';
+							elseif ($eventsTotal > 1005): 
+								$eventsTotal = floor(($eventsTotal / 1000) * 1000);
+								$eventsTotal .= '+';
+							else: 
+								$eventsTotal = '10+';
+							endif;
+						?>
+						<p>
+							<span class="large-number homepage__events__count__span"><?php echo $eventsTotal ?></span>
+							<?php echo __('More Events.')?>
+							<?php if (isset($fieldValues->featured_events_secondary_cta_text) && strlen($fieldValues->featured_events_secondary_cta_text) > 0):?>
+								<a href="/events" class="homepage__events__count__link"><?php echo $fieldValues->featured_events_secondary_cta_text ?></a>
+							<?php endif; ?>
+						</p>
+					</div>
+				</div>
+			</div>
+			<?php endif; ?>
+			<?php if(isset($fieldValues->featured_activities)): ?>
+			<div class="homepage__activities">
+				<div class="homepage__activities__background"></div>
+				<div class="row homepage__activities__meta">
+					<div class="col-md-6 col-sm-12">
+						<?php if (isset($fieldValues->featured_activities_title) && strlen($fieldValues->featured_activities_title) > 0): ?>
+							<h2 class="subheader homepage__activities__subheader"><?php echo $fieldValues->featured_activities_title ?></h2>
+						<?php endif; ?>
+					</div>
+					<div class="col-md-6 col-sm-12 homepage__events__cta">
+						<?php if (isset($fieldValues->featured_activities_cta_text) && strlen($fieldValues->featured_activities_cta_text) > 0): ?>
+							<a href="/activities" class="btn btn--small btn--dark"><?php echo $fieldValues->featured_activities_cta_text; ?></a>
+						<?php endif; ?>
+					</div>
+				</div>
+				<div class="row homepage__activities__grid">
+					<?php 
+						if(is_array($fieldValues->featured_activities)) {
+							foreach($fieldValues->featured_activities as $activity) {
+								if ($activity['single_activity']) {
+									$activity = $activity['single_activity'];
+								} else {
+									continue;
+								}
+								$activity_image = wp_get_attachment_url(get_post_thumbnail_id($activity->ID));
+								$activitiy_desc = get_field('card_description', $activity->ID);
+								$time_commitment = get_field('time_commitment', $activity->ID);
+							?>
+							<div class="col-lg-4 col-md-6 activities__column">
+								<div class="activities__card">
+									<a href="/activities/<?php print $activity->post_name; ?>" class="activities__link">
+										<div class="activities__activity-image" style="background-image: url('<?php print (strlen($activity_image) > 0) ? $activity_image : get_stylesheet_directory_uri().'/images/activity.png'; ?>');">
+										</div>
+										<div class="activities__card-content">
+											<h2 class="activities__activity-title"><?php print str_replace('\\', '', stripslashes($activity->post_title)); ?></h2>
+											<div class="activities__copy-container">
+												<p class="activities__copy">
+													<?php
+														print $activitiy_desc;
+													?>
+												</p>
+											</div>
+											<?php
+												$tags = get_the_tags($activity->ID);
+											?>
+											<div class="activities__tag-container">
+											<?php if(is_array($tags) && sizeof($tags) > 0): ?>
+												<span class="activities__tag"><?php print $tags[0]->name; ?></span>
+											<?php endif; ?>
+											<?php if($time_commitment): ?>
+												<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+													<path d="M7.99992 14.6654C11.6818 14.6654 14.6666 11.6806 14.6666 7.9987C14.6666 4.3168 11.6818 1.33203 7.99992 1.33203C4.31802 1.33203 1.33325 4.3168 1.33325 7.9987C1.33325 11.6806 4.31802 14.6654 7.99992 14.6654Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+													<path d="M8 4V8L10.6667 9.33333" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+												</svg>
+												<span class="activities__time-commitment"><?php print $time_commitment; ?></span>
+											<?php endif; ?>
+											</div>
+										</div>
+									</a>
+								</div>
+							</div>
+							<?php 
+							}
+						}
+					?>
 				</div>
 			</div>
 			<?php endif; ?>
