@@ -13,7 +13,7 @@ if(isset($event_id)) {
 ?>
 
 <?php if(is_object($EM_Event) && !$EM_Event->can_manage('edit_events','edit_others_events') ){ ?>
-	<div class="event-creator wrap"><h2><?php __('Unauthorized Access','commuity-portal'); ?></h2><p><?php echo sprintf(__('You do not have the rights to manage this %s.','commuity-portal'),__('Event','commuity-portal')); ?></p></div>
+	<div class="event-creator event-wrap"><h2><?php __('Unauthorized Access','commuity-portal'); ?></h2><p><?php echo sprintf(__('You do not have the rights to manage this %s.','commuity-portal'),__('Event','commuity-portal')); ?></p></div>
 <?php
     return false;
 } elseif (!is_object($EM_Event) ){
@@ -32,7 +32,7 @@ if(!empty($_REQUEST['success'])){
 
 <form enctype='multipart/form-data' id="event-form" novalidate class="em-event-admin-editor <?php if( $EM_Event->is_recurring() ) echo 'em-event-admin-recurring' ?>" method="post" action="<?php echo esc_url(add_query_arg(array('success'=>null))); ?>">
 <?php print wp_nonce_field('protect_content', 'my_nonce_field'); ?>
-    <div class="wrap event-creator">
+    <div class="event-wrap event-creator">
 		<?php do_action('em_front_event_form_header', $EM_Event); ?>
 		<?php if(get_option('dbem_events_anonymous_submissions') && !is_user_logged_in()): ?>
 			<h3 class="event-form-submitter"><?php __( 'Your Details', 'commuity-portal'); ?></h3>
@@ -70,7 +70,7 @@ if(!empty($_REQUEST['success'])){
         </div> 	
     </div>
     <?php if(!is_admin() && (!defined('DOING_AJAX') || !DOING_AJAX)): ?>
-    <div class="wrap event-creator">
+    <div class="event-wrap event-creator">
         <div class="event-editor">
             <div class="event-creator__container">
                 <label class="event-form-details event-creator__label" for="event-description"><?php print __('Event description *', 'commuity-portal'); ?></label>
@@ -135,7 +135,7 @@ if(!empty($_REQUEST['success'])){
         <?php em_locate_template('forms/event/bookings.php',true); ?>
     </div>
     <?php if (!$event_id): ?>
-    <div class="wrap event-creator">
+    <div class="event-wrap event-creator">
         <div class="event-creator__container">
             <p>
                 <?php echo __('The Mozilla Project welcomes contributions from everyone who shares our goals and wants to contribute in a healthy and constructive manner within our communities. By creating an event on this platform you are agreeing to respect and adhere to') ?> 

@@ -205,14 +205,16 @@
 										<?php 
 												$tag_counter = 0;
 										?>
+										<ul class="groups__card-tags__container">
 										<?php foreach($meta['group_tags'] AS $key =>  $value): ?>
-											<span class="groups__tag"><?php print $value; ?></span>
+											<li class="groups__tag"><?php print $value; ?></li>
 											<?php $tag_counter++; ?>
 											<?php if($tag_counter === 2 && sizeof($meta['group_tags']) > 2): ?>
-												<span class="groups__tag">+ <?php print sizeof($meta['group_tags']) - 2; ?> <?php print __(' more tags'); ?></span>
+												<li class="groups__tag">+ <?php print sizeof($meta['group_tags']) - 2; ?> <?php print __(' more tags'); ?></li>
 												<?php break; ?>
 											<?php endif; ?>
 										<?php endforeach; ?>
+										</ul>
 									</div>
 								</div>
 							</div>

@@ -628,12 +628,11 @@
         border: 1px solid $color-gray-20;
         border-radius: 5px;
         cursor: pointer;
-        height: 160px;
+        padding-top: 44.5%;
         margin-top: 15px;
-        margin-bottom: 60px;
-        
+        margin-bottom: 90px;
         @include tablet-and-up {
-            height: 160px;
+			margin-bottom: 60px;
             max-width: none;
         }
 
@@ -683,7 +682,7 @@
         }
 
         &--done {
-            background-size: cover;
+            background-size: contain;
             border: none;
 
             &:after {

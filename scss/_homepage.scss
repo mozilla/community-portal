@@ -241,6 +241,15 @@ body.home-page {
         }
 
         &__grid {
+			.events__column,
+			.groups__column {
+				@include tablet-and-up {
+					max-width: calc(50% - 16px);
+				}
+				@include desktop-and-up {
+					max-width: calc(33.33% - 22px);
+				}
+			}
             .events__column:nth-of-type(3n),
             .groups__column:nth-of-type(3n),
             .activities__column:nth-of-type(3n) {
