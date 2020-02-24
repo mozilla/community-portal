@@ -35,9 +35,9 @@
                             </div>
                             <?php endif; ?>
                             <div class="activity__card-content">
-                                <div class="activity__cta-container <?php echo (!isset($primary_cta_copy) || !strlen($primary_cta_copy) > 0 || !isset($primary_cta_url)  || !mozilla_verify_url($primary_cta_url, false) ? 'activity__cta-container--single' : '' )?>">
-									<?php if (isset($primary_cta_copy) && strlen($primary_cta_copy) > 0 && isset($primary_cta_url) && mozilla_verify_url($primary_cta_url, false)):?>
-										<a href="<?php print mozilla_verify_url($primary_cta_url, false); ?>" class="activity__cta"><?php print __("{$primary_cta_copy}"); ?></a>
+                                <div class="activity__cta-container <?php echo (!isset($primary_cta_copy) || !strlen($primary_cta_copy) > 0 || !isset($primary_cta_url)  || !strlen($primary_cta_url) > 0 ? 'activity__cta-container--single' : '' )?>">
+									<?php if (isset($primary_cta_copy) && strlen($primary_cta_copy) > 0 && isset($primary_cta_url) && strlen($primary_cta_url) > 0):?>
+										<a href="<?php print $primary_cta_url ?>" class="activity__cta"><?php print __("{$primary_cta_copy}"); ?></a>
 									<?php endif; ?>
                                     <a href="#" class="activity__cta activity__cta--share">
                                         <svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
