@@ -267,9 +267,9 @@
 
                 bottom: 0;
                 content: '';
-				        height: 2px;
-				        left: 16px;
-				        width: calc(100% - 32px);
+				height: 2px;
+				left: 16px;
+				width: calc(100% - 32px);
                 position: absolute;
             }
         }
@@ -295,7 +295,8 @@
         height: 100%;
         padding-top: 45.5%;
         position: relative;
-        width: 100%;
+		width: 100%;
+		background-color: #f8f8f8;
 
         .group__edit-link {
             align-items: center;
