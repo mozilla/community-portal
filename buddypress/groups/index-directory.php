@@ -86,11 +86,14 @@
 	
     $country_code_with_groups = array_unique($countries_with_groups);
     
+
+
     foreach($country_code_with_groups AS $code) {
         $used_country_list[$code] = $countries[$code];
     }
 
-    ksort($used_country_list);
+    sort($used_country_list);
+
 
     $filtered_groups = array_unique($filtered_groups, SORT_REGULAR);
     $group_count = sizeof($filtered_groups);
