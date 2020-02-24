@@ -261,7 +261,6 @@
                                                 $month = substr($event->start_date, 5, 2);
                                                 $date = substr($event->start_date, 8, 2);
                                                 $year = substr($event->start_date, 0, 4);
-                                             
                                             ?>
                                             <p class="event-card__image__date"><span><?php echo substr($months[intval($month)],0,3) ?> </span><span><?php echo $date; ?></span></p>
                                         </div>
@@ -298,28 +297,15 @@
                                         <ul class="events__tags">
                                             <?php
                                             if (is_array($categories->terms)): 
-                                                if (count($categories->terms) <= 2): 
-                                                foreach($categories->terms as $category) {
+												if (count($categories->terms) <= 2): 
+													foreach($categories->terms as $category) {
                                             ?>
-                                                <li class="tag"><?php echo $category->name; ?></li>
-                                            <?php
-                                            }
-                                            elseif (count($categories->terms) > 0):
-                                                $i = 0;
-                                                foreach ($categories->terms as $category) {
-                                                ?>
-                                                <li class="tag"><?php echo $category->name; ?></li>
-                                                <?php
-                                                $i = $i + 1;
-                                                if ($i === 2) {
-                                                    break;
-                                                }
-                                                }
-                                                ?>
-                                                <li class="tag"><?php echo '+'; echo count($categories->terms) - 2; echo __(' more tag(s)', "community-portal"); ?></li>        
-                                                <?php
-                                            endif;
-                                            endif;
+													<li class="tag"><?php echo $category->name; ?></li>
+												<?php
+													break;
+												}
+												endif;
+											endif;
                                             ?>
                                         </ul>
                                     </a>
@@ -615,7 +601,7 @@
                                                 <path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                             </svg>
                                             <?php if($location->location_country === 'OE'): ?>
-                                              <?php print __("Online Event", "community-portal"); ?>
+											<?php print __("Online Event", "community-portal"); ?>
                                             <?php elseif($location->location_town && $location->location_country): ?>
                                                 <?php print "{$location->location_town}, {$countries[$location->location_country]}"; ?>
                                             <?php elseif($location->location_town && !$location->location_country): ?>

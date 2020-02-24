@@ -13,7 +13,8 @@
                     <p class="events-single__label"><?php print __('Tags', 'community-portal'); ?></p>
                     <ul class="events-single__tags">
                         <?php foreach($categories as $category): ?>
-                        <li class="tag"><a class="events-single__tag-link" href="/events/?tag=<?php print $category->name; ?>"><?php echo $category->name ?></a></li>
+							<li class="tag"><a class="events-single__tag-link" href="/events/?tag=<?php print $category->name; ?>"><?php echo $category->name ?></a></li>
+							<?php break;?>
                         <?php endforeach; ?>
                     </ul>
                 </div>

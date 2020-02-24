@@ -126,10 +126,106 @@ body.home-page {
                 left: -50px;
             }
         }
-    }
+	}
+	&__campaign {
+		&__image {
+			display: none;
+			@include desktop-and-up {
+				display: block;
+			}
+		}
+		&__copy {
+			margin: 0 auto;
+			text-align: center;
+			margin-bottom: 48px;
+			@include tablet-and-up {
+				margin-bottom: 82px;
+				max-width: 50%;
+			}
+			@include desktop-and-up {
+				max-width: 100%;
+			}
+		}
+	}
+	&__campaign__active {
+		height: 100%;
+		background: white;
+		position: relative;
+		.campaigns__active-campaign {
+			&-hero-container {
+				flex-wrap: wrap;
+				justify-content: center;
+			}
+			&-title-container {
+				flex: 1 0 50%;
+				padding: 0 16px;
+				margin: 0;
+				margin-top: 16px;
+				@include tablet-and-up {
+					margin-top: 0;
+				}
+			}
+			margin-top: 0;
+			@include desktop-and-up {
+				padding: 74px;
+			}
+		}
+		.campaigns__active-campaign-description {
+			@include desktop-and-up {
+				padding: 0 16px;
+			}
+		}
+		.campaign__hero-image {
+			padding-top: calc(100% - 32px);
+			background-size: 100%;
+			background-repeat: no-repeat;
+			flex: 1 1 50%;
+			min-height: 226px;
+			margin-bottom: 0;
+			@include tablet-and-up {
+				padding-top: calc(50% - 24px);
+				width: 50%;
+			}
+			@include desktop-and-up {
+				padding-top: calc(50% - 90px);
+				flex: 0 1 226px;
+				margin-left: 16px;
+				margin-right: 16px;
+				margin-bottom: 10px;
+			}
+			width: 100%;
+			height: auto;
+		}
+		&::before {
+			content: url('./images/Rectangle.svg');
+			display: block;
+			position: absolute;
+			right: -32px;
+			top: -32px;
+			max-width: 100%;
+			z-index: -1;
+			display: none;
+			@include tablet-and-up {
+				display: block;
+			}
+		}
+		&::after {
+			content: url('./images/Line.svg');
+			display: block;
+			position: absolute;
+			bottom: -50px;
+			max-width: 100%;
+			right: -40px;
+			display: none;
+			@include tablet-and-up {
+				display: block;
+			}
+		}
+	}
 
     &__events,
-    &__groups {
+	&__groups,
+	&__activities {
         margin-top: 36px;
         padding-bottom: 36px;
         position: relative;
@@ -155,7 +251,8 @@ body.home-page {
 				}
 			}
             .events__column:nth-of-type(3n),
-            .groups__column:nth-of-type(3n) {
+            .groups__column:nth-of-type(3n),
+            .activities__column:nth-of-type(3n) {
                 @include tablet-and-up {
                     margin-right: 16px;
                 }
@@ -165,22 +262,26 @@ body.home-page {
                 }
             }
 
-            .events__column:nth-of-type(3n + 1),
-            .groups__column:nth-of-type(3n + 1)  {
+            .groups__column:nth-of-type(2n + 1),
+            .events__column:nth-of-type(2n + 1),
+            .activities__column:nth-of-type(2n + 1)  {
+                //@include tablet-and-up {
+                @media (min-width: $screen-tablet-min) and (max-width: $screen-desktop-min) {
+					margin-left: 0;
+					margin-right: 16px;
+                }
+			}
+			
+			.events__column:nth-of-type(3n + 1),
+            .groups__column:nth-of-type(3n + 1),
+            .activities__column:nth-of-type(3n + 1) {
                 @include desktop-and-up {
                     margin-left: 0;
                 }
             }
 
-            .groups__column:nth-of-type(2n + 1),
-            .events__column:nth-of-type(2n + 1) {
-                //@include tablet-and-up {
-                @media (min-width: $screen-tablet-min) and (max-width: $screen-desktop-min) {
-                    margin-left: 0;
-                }
-            }
-
             .groups__column:nth-of-type(2n),
+            .activities__column:nth-of-type(2n),
             .events__column:nth-of-type(2n) {
                 //@include tablet-and-up {
                 @media (min-width: $screen-tablet-min) and (max-width: $screen-desktop-min) {
@@ -189,10 +290,15 @@ body.home-page {
             }
 
             .groups__column,
+            .activities__column,
             .events__column {
-                padding: 16px 0;
-                @include tablet-and-up {
+				margin: 16px 0;
+				@include tablet-and-up {
+					max-width: calc(50% - 16px);
                     margin: 32px 16px;
+                }
+                @include desktop-and-up {
+					max-width: calc(33.33% - 22px);
                 }
 
                 .card {
@@ -263,34 +369,128 @@ body.home-page {
                 }
             }
         }
-    }
+	}
+
+	&__groups,
+	&__events {
+		&__grid {
+			padding-bottom: 110px;
+			@include tablet-and-up {
+				padding-bottom: 0;
+			}
+		}
+	}
 
 
     &__events, 
     &__hero, 
-    &__groups {
+	&__groups,
+	&__activities,
+	&__campaign {
         &__background {
-            border-bottom-left-radius: 30px;
-            left: -24px;
             min-width: 320px;
             position: absolute;
             width: 100vw;
             z-index: -1;
-
-            @include tablet-and-up {
-                left: 135px;
-            }
         }
-    }
+	}
+	
+	&__events, 
+    &__hero, 
+	&__groups {
+		&__background {
+			border-bottom-left-radius: 30px;
+            left: -24px;
+			@include tablet-and-up {
+				left: 135px;
+			}
+		}
+	}
 
-    &__events, 
-    &__groups {
-        &__background {
-            height: calc(100% - 232px);
-            top: 190px;
+	&__events, 
+	&__groups {
+		&__background {
+			height: calc(100% - 232px);
+			@include tablet-and-up {
+				height: calc(100% - 248px);
+			}
+		}
+	}
 
-            @include tablet-and-up {
+	&__campaign {
+		position: relative;
+		&__subheader {
+			margin-bottom: 0;
+		}
+		&__container {
+			padding: 64px 0 76px;
+			@include tablet-and-up {
+				padding: 106px 0;
+			}
+		}
+		&__meta {
+			margin-top: auto;
+			margin-bottom: auto;
+		}
+		&__image {
+			margin: 0 auto;
+		}
+		&__background {
+			background-color: $color-purple-5;
+			height: 100%;
+			right: -24px;
+			@include tablet-and-up {
+				right: 105px;
+				height: 100%;
+				border-radius: 30px;
+			}
+		}
+	}
+
+	&__activities {
+		position: relative;
+		padding-bottom: 110px;
+		@include tablet-and-up {
+			padding-bottom: 240px;
+		}
+		@include desktop-and-up {
+			padding-bottom: 60px;
+		}
+		&__background {
+			right: -24px;
+			height: 60%;
+			@include tablet-and-up {
+				height: 50%;
+				border-radius: 30px;
+			}
+			@include desktop-and-up {
                 height: calc(100% - 248px);
+				right: 455px;
+			}
+		}
+		&::before {
+			content: url('./images/Union.svg');
+			position: absolute;
+			bottom: 0;
+			z-index: -1;
+			display: block;
+			right: -24px;
+			@include tablet-and-up {
+				right: 0;
+			}
+			@include desktop-and-up {
+				right: -100px;
+			}
+		}
+	}
+
+
+    &__events, 	
+	&__groups,
+	&__activities {
+        &__background {
+            top: 190px;
+            @include tablet-and-up {
                 top: 200px;
             }
 
@@ -310,5 +510,9 @@ body.home-page {
     &__groups__background,
     &__hero__background {
         background-color: #F2FCFD;
-    }
+	}
+	
+	&__activities__background {
+		background-color: $color-red-5;
+	}
 }

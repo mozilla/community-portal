@@ -10,6 +10,8 @@
 		$args['search'] = preg_replace('/^\"|\"$|^\'|\'$/', "", $args['search']);
 		$original_search = $args['search'];
 		$args['search'] = addslashes($args['search']);
+	} else {
+		$original_search = $args['search'];
 	}
     $view = get_query_var( 'view', $default = '');
     $country = urldecode(get_query_var('country', $default = 'all'));
