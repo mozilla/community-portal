@@ -11,7 +11,9 @@
     $campaign_start_date = get_field('campaign_start_date');
     $campaign_end_date = get_field('campaign_end_date');
 
-    $campaign_content = get_field('campaign_content');
+	$campaign_content = get_field('campaign_content');
+	
+	$mailchimp_info = get_post_meta($post->ID, 'mailchimp-list-id', true);
 
     $tags = get_the_terms($post, 'post_tag');
 
@@ -37,6 +39,9 @@
                     </div>
                 </div>
             </div>
+			<?php if (isset($mailchimp_info->id) && strlen($mailchimp_info->id) > 0): ?>
+				<button id="unsubscribe" data-campaign="<?php echo $mailchimp_info->id ?>" data-nonce="<?php echo wp_create_nonce('mailchimp_unsubscribe')?>">Unsubscribe</button>
+			<?php endif; ?>
             <div class="campaign__intro">
                 <div class="campaign__intro-card">
                     <?php print $post->post_content; ?>
