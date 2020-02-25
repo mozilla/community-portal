@@ -23,7 +23,8 @@
         $form['group_address_type'] = isset($group_meta['group_address_type']) ? $group_meta['group_address_type'] : 'Address';
         $form['group_address'] = isset($group_meta['group_address']) ? $group_meta['group_address'] : '';
         $form['group_meeting_details'] = isset($group_meta['group_meeting_details']) ? $group_meta['group_meeting_details'] : '';
-        $form['group_discourse'] = isset($group_meta['group_discourse']) ? $group_meta['group_discourse'] : '';
+		$form['group_discourse'] = isset($group_meta['group_discourse']) ? $group_meta['group_discourse'] : '';
+        $form['group_telegram'] = isset($group_meta['group_telegram']) ? $group_meta['group_telegram'] : '';
         $form['group_facebook'] = isset($group_meta['group_facebook']) ? $group_meta['group_facebook'] : '';
         $form['group_github'] = isset($group_meta['group_github']) ? $group_meta['group_github'] : '';
         $form['group_twitter'] = isset($group_meta['group_twitter']) ? $group_meta['group_twitter'] : '';

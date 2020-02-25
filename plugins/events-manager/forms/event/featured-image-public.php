@@ -12,7 +12,7 @@
             }
         }
     ?>
-	<div id="dropzone-photo-uploader" class="event-creator__image-upload<?php if(isset($img_url) && strlen($img_url) > 0): ?> create-group__image-upload--done<?php endif; ?>"<?php if(isset($img_url)): ?> style="background-image: url('<?php print $img_url ?>')"<?php endif; ?>> 
+	<div id="dropzone-photo-uploader" class="event-creator__image-upload<?php if(isset($img_url) && strlen($img_url) > 0): ?> event-creator__image-upload--done<?php endif; ?>  style="<?php echo (isset($img_url) ? "background-image: url(".$img_url.")" : "background-size: '75px 75px'" )?>" > 
 		<button id="image-delete" class="btn event-creator__image-delete <?php echo (!isset($img_url) || strlen($img_url) === 0) ? esc_attr('hidden') : null ?>">
 			<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<circle cx="20" cy="20" r="20" fill="white"/>

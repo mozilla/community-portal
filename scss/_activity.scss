@@ -164,8 +164,14 @@
         @include tablet-and-up {
             flex-direction: row;
             flex-wrap: wrap;
-            justify-content: space-between;
-        }
+			justify-content: space-between;
+		}
+
+		&--single {
+			@include tablet-and-up {
+				justify-content: flex-end;
+			}
+		}
 
         .activity__cta {
             background-color: $color-blue-50;

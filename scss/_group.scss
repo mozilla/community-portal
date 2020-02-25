@@ -239,7 +239,7 @@
             margin: 0;
             padding: 0;
             text-align: left;
-			width: auto;
+			      width: auto;
 			&:first-child .group__menu-link {
 				padding-left: 0;
 				&--active::after {
@@ -253,16 +253,19 @@
     &__menu-link {
         color: $color-black;
         font-size: remCalc(14);
-		text-decoration: none;
-		padding: 16px;
-		display: inline-block;
+        line-height: 22px;
+        text-decoration: none;
+        display: inline-block;
+        padding: 16px;
+
         &--active {
             font-weight: 600;
             position: relative;
 
             &:after {
                 background-color: $color-blue-50;
-                bottom: 0px;
+
+                bottom: 0;
                 content: '';
 				height: 2px;
 				left: 16px;
@@ -285,23 +288,15 @@
 
     &__card-image {
         background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
+        background-position: top center;
+        background-size: contain;
         border-top-left-radius: 4px;
         border-top-right-radius: 4px;
         height: 100%;
-        max-height: 298px;
-        min-height: 128px;
+        padding-top: 45.5%;
         position: relative;
-        width: 100%;
-
-        @include tablet-and-up {
-            height: 298px;
-        }
-
-        @include desktop-and-up {
-            height: 328px;
-        }
+		width: 100%;
+		background-color: #f8f8f8;
 
         .group__edit-link {
             align-items: center;

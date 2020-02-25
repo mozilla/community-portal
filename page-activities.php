@@ -40,7 +40,7 @@
                 ?>
 
                 <a href="/activities/<?php print $activity->post_name; ?>" class="activities__card">
-                    <div class="activities__activity-image" style="background-image: url('<?php print (strlen($activity_image) > 0) ? $activity_image : get_stylesheet_directory_uri().'/images/group.png'; ?>');">
+                    <div class="activities__activity-image" style="background-image: url('<?php print (strlen($activity_image) > 0) ? $activity_image : get_stylesheet_directory_uri().'/images/activity.png'; ?>');">
                     </div>
                     <div class="activities__card-content">
                         <h2 class="activities__activity-title"><?php print str_replace('\\', '', stripslashes($activity->post_title)); ?></h2>
