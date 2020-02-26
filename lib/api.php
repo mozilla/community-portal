@@ -292,7 +292,6 @@ function mozilla_add_email_to_list($id, $email) {
             
             $curl = curl_init();
             $api_url = "https://{$dc}.api.mailchimp.com/3.0/lists/{$id}/members";
-
             $auth_string = "user:{$apikey}";
             $auth = base64_encode($auth_string);
 
@@ -311,8 +310,9 @@ function mozilla_add_email_to_list($id, $email) {
             $result = curl_exec($curl);
             curl_close($curl);
 
-            $json_result = json_decode($result);
+            $result = json_decode($result);
         
+            return $json_result;
         }
     }
 }

@@ -15,6 +15,7 @@
 
     $tags = get_the_terms($post, 'post_tag');
 
+    $mailchimp = get_post_meta($post->ID, 'mailchimp-list-id', true);
 ?>
     <div class="content">
         <div class="campaign">
