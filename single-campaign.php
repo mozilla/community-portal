@@ -34,8 +34,8 @@
                             - <?php print $campaign_end_date; ?>
                             <?php endif; ?>
                         </div>
-                        <?php if($campaign_hero_cta && $logged_in): ?>
-                        <a href="<?php print ($campaign_hero_cta_link) ? $campaign_hero_cta_link : '#'; ?>" class="campaign__hero-cta"<?php if(isset($mailchimp->id)): ?> data-campaign="<?php print $mailchimp->id; ?>"<?php endif; ?>><?php print $campaign_hero_cta; ?></a>
+                        <?php if($campaign_hero_cta && $logged_in && isset($mailchimp->id)): ?>
+<a href="<?php print ($campaign_hero_cta_link) ? $campaign_hero_cta_link : '#'; ?>" class="campaign__hero-cta<?php if(isset($mailchimp->id)): ?> campaign__hero-cta--sub<?php endif; ?>"<?php if(isset($mailchimp->id)): ?> data-campaign="<?php print $mailchimp->id; ?>"<?php endif; ?>><?php print $campaign_hero_cta; ?></a>
                         <?php endif; ?>
                     </div>
                 </div>

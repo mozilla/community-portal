@@ -1,6 +1,6 @@
 jQuery(function() {
 
-    jQuery(document).on('click', '.campaign__hero-cta', function(e) {
+    jQuery(document).on('click', '.campaign__hero-cta--sub', function(e) {
         e.preventDefault();
         var $this = jQuery(this);
         var campaign = $this.data('campaign');
