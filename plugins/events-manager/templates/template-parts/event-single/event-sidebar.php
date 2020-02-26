@@ -5,7 +5,7 @@
             <?php if (isset($external_url) && strlen($external_url) > 0 && filter_var($external_url, FILTER_VALIDATE_URL)): ?>
                 <div class="col-lg-12 col-md-6 col-sm-12">
                     <p class="events-single__label"><?php echo __('Links', 'community-portal') ?></p>
-                    <p><a href="<?php echo mozilla_verify_url($external_url) ?>" class="events-single__externam-link"><?php echo $external_url; ?></a></p>
+                    <p><a href="<?php echo mozilla_verify_url($external_url, false) ?>" class="events-single__externam-link"><?php echo $external_url; ?></a></p>
                 </div>
             <?php endif; ?>
             <?php if (is_array($categories)): ?>
