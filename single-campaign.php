@@ -16,6 +16,8 @@
     $tags = get_the_terms($post, 'post_tag');
 
     $mailchimp = get_post_meta($post->ID, 'mailchimp-list-id', true);
+    $logged_in = mozilla_is_logged_in();
+
 ?>
     <div class="content">
         <div class="campaign">
@@ -32,8 +34,8 @@
                             - <?php print $campaign_end_date; ?>
                             <?php endif; ?>
                         </div>
-                        <?php if($campaign_hero_cta): ?>
-                        <a href="<?php print ($campaign_hero_cta_link) ? $campaign_hero_cta_link : '#'; ?>" class="campaign__hero-cta"><?php print $campaign_hero_cta; ?></a>
+                        <?php if($campaign_hero_cta && $logged_in): ?>
+                        <a href="<?php print ($campaign_hero_cta_link) ? $campaign_hero_cta_link : '#'; ?>" class="campaign__hero-cta"<?php if(isset($mailchimp->id)): ?> data-campaign="<?php print $mailchimp->id; ?>"<?php endif; ?>><?php print $campaign_hero_cta; ?></a>
                         <?php endif; ?>
                     </div>
                 </div>
