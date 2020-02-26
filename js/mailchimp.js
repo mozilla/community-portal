@@ -2,10 +2,10 @@ jQuery(function() {
 	function handleUnsubscribe($btn) {
 			const url =  '/wp-admin/admin-ajax.php?action=mailchimp_unsubscribe';
 			$btn.click(function() {
-			const campaignId = $btn.data('campaign');
+			const campaign = $btn.data('campaign');
 			const nonce = $btn.data('nonce');
 			const data = {
-				campaignId, 
+				campaign, 
 				nonce
 			}
 			jQuery.ajax({
@@ -16,8 +16,8 @@ jQuery(function() {
 					console.log(resp);
 				}
 			})
-      })
-  	};
+		})
+	};
 	
 	const $unsubscribeBtn = jQuery('#unsubscribe');
 	if ($unsubscribeBtn) {
