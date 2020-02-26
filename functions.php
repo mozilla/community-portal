@@ -13,6 +13,7 @@ include("{$theme_directory}/countries.php");
 
 // Require
 require_once("{$theme_directory}/lib/api.php");
+require_once("{$theme_directory}/lib/campaigns.php");
 require_once("{$theme_directory}/lib/groups.php");
 require_once("{$theme_directory}/lib/members.php");
 require_once("{$theme_directory}/lib/events.php");
