@@ -40,7 +40,6 @@
                 </div>
             </div>
 			<?php if (isset($mailchimp_info->id) && strlen($mailchimp_info->id) > 0): ?>
-				<button id="unsubscribe" data-campaign="<?php echo $mailchimp_info->id ?>" data-nonce="<?php echo wp_create_nonce('mailchimp_unsubscribe')?>">Unsubscribe</button>
 			<?php endif; ?>
             <div class="campaign__intro">
                 <div class="campaign__intro-card">
@@ -58,8 +57,12 @@
                                 <path d="M1 9V15C1 15.3978 1.15804 15.7794 1.43934 16.0607C1.72064 16.342 2.10218 16.5 2.5 16.5H11.5C11.8978 16.5 12.2794 16.342 12.5607 16.0607C12.842 15.7794 13 15.3978 13 15V9M10 4.5L7 1.5M7 1.5L4 4.5M7 1.5V11.25" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                             <?php print __('Share Campaign'); ?>
+
                         </a>
+						
                     </div>
+					<button id="unsubscribe" data-campaign="<?php echo $mailchimp_info->id ?>" data-nonce="<?php echo wp_create_nonce('mailchimp_unsubscribe')?>">Unsubscribe</button>
+
                 </div>
             </div>
             <div class="campaign__container">
