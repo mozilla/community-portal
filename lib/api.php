@@ -311,8 +311,7 @@ function mozilla_add_email_to_list($id, $email) {
             curl_close($curl);
 
             $result = json_decode($result);
-        
-            return $json_result;
+            return $result;
         }
     }
 }
