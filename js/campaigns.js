@@ -35,9 +35,11 @@ jQuery(function() {
         e.preventDefault();
         var $this = jQuery(this);
         var campaign = $this.data('campaign');
+        var list = $this.data('list');
 
         var post = {
-            'campaign': campaign
+            'campaign': campaign,
+            'list': list
         };
 
         var url =  '/wp-admin/admin-ajax.php?action=mailchimp_subscribe';
@@ -48,8 +50,9 @@ jQuery(function() {
             method: 'POST',
             success: function(response) {
                 response = jQuery.parseJSON(response);
-                if(response.status == 'success') {
-                   
+                if(response.status == 'OK') {
+                    console.log($this.data('unsub-copy'));
+                    $this.text($this.data('unsub-copy'));
                 } else {
                     
                 }
