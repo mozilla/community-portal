@@ -13,6 +13,7 @@ include("{$theme_directory}/countries.php");
 
 // Require
 require_once("{$theme_directory}/lib/api.php");
+require_once("{$theme_directory}/lib/campaigns.php");
 require_once("{$theme_directory}/lib/groups.php");
 require_once("{$theme_directory}/lib/members.php");
 require_once("{$theme_directory}/lib/events.php");
@@ -48,6 +49,8 @@ add_action('wp_ajax_check_user', 'mozilla_validate_username');
 add_action('wp_ajax_delete_user', 'mozilla_delete_user');
 add_action('wp_ajax_mailchimp_unsubscribe', 'mozilla_mailchimp_unsubscribe');
 add_action('wp_ajax_nopriv_mailchimp_unsubscribe', 'mozilla_mailchimp_unsubscribe');
+add_action('wp_ajax_mailchimp_subscribe', 'mozilla_mailchimp_subscribe');
+add_action('wp_ajax_nopriv_mailchimp_subscribe', 'mozilla_mailchimp_subscribe');
 
 
 // Auth0 Actions
