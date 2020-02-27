@@ -61,7 +61,6 @@
                         </a>
 						
                     </div>
-					<button id="unsubscribe" data-campaign="<?php echo $mailchimp_info->id ?>" data-nonce="<?php echo wp_create_nonce('mailchimp_unsubscribe')?>">Unsubscribe</button>
 
                 </div>
             </div>

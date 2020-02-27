@@ -2,12 +2,24 @@
 
 function mozilla_mailchimp_unsubscribe() {
 	if($_SERVER['REQUEST_METHOD'] === 'POST') {
-		if(isset($_POST['campaign']) && strlen($_POST['campaign']) > 0) {
+		if(isset($_POST['list']) && strlen($_POST['list']) > 0) {
 			$user = wp_get_current_user();
 			if(isset($user->data->user_email)) {
-				$campaign = $_POST['campaign'];    
-				$result = mozilla_remove_email_from_list($campaign, $user->data->user_email);
+				$list = trim($_POST['list']);    
+				$result = mozilla_remove_email_from_list($list, $user->data->user_email);
+				if(isset($result->id)) {
+					print json_encode(Array('status' =>  'success'));
+				} else {
+					print json_encode(Array('status'    =>  'ERROR', 'message'  =>  'User not unsubscribed'));
+				}
+			} else {
+				print json_encode(Array('status'    =>  'ERROR', 'message'  =>  'Could not find User email'));
 			}
+		} else {
+			print json_encode(Array('status'    =>  'ERROR', 'message'  =>  'No list provided. Please provide list ID'));
 		}
+	} else {
+		print json_encode(Array('status'    =>  'ERROR', 'message'  =>  'This method is not allowed'));
 	}
+	die();
 }

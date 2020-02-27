@@ -3,17 +3,22 @@ jQuery(function() {
 			const url =  '/wp-admin/admin-ajax.php?action=mailchimp_unsubscribe';
 			$btn.click(function() {
 			const campaign = $btn.data('campaign');
-			const nonce = $btn.data('nonce');
+			const list = $btn.data('list');
 			const data = {
-				campaign, 
-				nonce
+				campaign,
+				list 
 			}
 			jQuery.ajax({
 				url, 
 				data,
 				method: 'POST',
 				success: function(resp) {
-					console.log(resp);
+					const response = jQuery.parseJSON(resp);
+					if (response.status === 'success') {  
+
+					} else {
+
+					}
 				}
 			})
 		})
