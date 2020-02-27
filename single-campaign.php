@@ -6,6 +6,7 @@
 
     $campaign_status = get_field('campaign_status');
     $campaign_hero_cta = get_field('hero_cta');
+    $campaign_hero_unsub_cta = get_field('hero_cta_unsub');
     $campaign_hero_cta_link = get_field('hero_cta_link');
 
     $campaign_start_date = get_field('campaign_start_date');
@@ -35,7 +36,7 @@
                             <?php endif; ?>
                         </div>
                         <?php if($campaign_hero_cta && $logged_in && isset($mailchimp->id)): ?>
-<a href="<?php print ($campaign_hero_cta_link) ? $campaign_hero_cta_link : '#'; ?>" class="campaign__hero-cta<?php if(isset($mailchimp->id)): ?> campaign__hero-cta--sub<?php endif; ?>"<?php if(isset($mailchimp->id)): ?> data-campaign="<?php print $mailchimp->id; ?>"<?php endif; ?>><?php print $campaign_hero_cta; ?></a>
+                            <a href="<?php print ($campaign_hero_cta_link) ? $campaign_hero_cta_link : '#'; ?>" class="campaign__hero-cta<?php if(isset($mailchimp->id)): ?> campaign__hero-cta--sub<?php endif; ?>"<?php if(isset($mailchimp->id)): ?> data-list="<?php print $mailchimp->id; ?>"<?php endif; ?> data-unsub-copy="<?php print $campaign_hero_unsub_cta; ?>" data-campaign="<?php print $post->ID;?>"><?php print $campaign_hero_cta; ?></a>
                         <?php endif; ?>
                     </div>
                 </div>
