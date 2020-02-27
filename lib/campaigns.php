@@ -6,11 +6,15 @@ function mozilla_mailchimp_unsubscribe() {
 			$user = wp_get_current_user();
 			if(isset($user->data->user_email)) {
 				$list = trim($_POST['list']);    
-				$result = mozilla_remove_email_from_list($list, $user->data->user_email);
-				if(isset($result->id)) {
-					print json_encode(Array('status' =>  'success'));
-				} else {
-					print json_encode(Array('status'    =>  'ERROR', 'message'  =>  'User not unsubscribed'));
+				$campaign_id = intval($_POST['campaign']);
+				$campaign = get_post($campaign_id);
+				if ($campaign && $campaign->post_type === 'campaign') {
+					$result = mozilla_remove_email_from_list($list, $user->data->user_email);
+					if(isset($result->id)) {
+						print json_encode(Array('status' =>  'success'));
+					} else {
+						print json_encode(Array('status'    =>  'ERROR', 'message'  =>  'User not unsubscribed'));
+					}
 				}
 			} else {
 				print json_encode(Array('status'    =>  'ERROR', 'message'  =>  'Could not find User email'));
