@@ -13,6 +13,7 @@ include("{$theme_directory}/countries.php");
 
 // Require
 require_once("{$theme_directory}/lib/api.php");
+require_once("{$theme_directory}/lib/campaigns.php");
 require_once("{$theme_directory}/lib/groups.php");
 require_once("{$theme_directory}/lib/members.php");
 require_once("{$theme_directory}/lib/events.php");
@@ -45,6 +46,10 @@ add_action('wp_ajax_nopriv_validate_group', 'mozilla_validate_group_name');
 add_action('wp_ajax_validate_group', 'mozilla_validate_group_name');
 add_action('wp_ajax_check_user', 'mozilla_validate_username');
 add_action('wp_ajax_delete_user', 'mozilla_delete_user');
+add_action('wp_ajax_mailchimp_subscribe', 'mozilla_mailchimp_subscribe');
+add_action('wp_ajax_nopriv_mailchimp_subscribe', 'mozilla_mailchimp_subscribe');
+
+
 
 // Auth0 Actions
 add_action('auth0_user_login', 'mozilla_post_user_creation', 10, 6);
