@@ -1294,6 +1294,9 @@
        justify-content: flex-start;
    }
 
+    
+
+
    &__event-date {
        color: $color-blue-50;
        display: flex;
@@ -1320,5 +1323,41 @@
        line-height: 20px;
        margin-bottom: 8px;
    }
+
+    &__campaign {
+        color: $color-black;
+    }
+
+    &__campaign-title {
+        color: $color-off-black;
+        font-family: $title-font;
+        font-size: remCalc(24);
+        line-height: 32px;
+        margin: 0;
+        margin-bottom: 8px;
+    }
+
+    &__campaign-dates {
+        color: $color-off-black;
+        font-size: remCalc(14);
+        line-height: 24px;
+        margin: 0;
+        margin-bottom: 8px;
+    }
+
+    &__campaign-tags {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    &__campaign-desc {
+        color: $color-gray-90;
+        font-size: remCalc(16);
+        line-height: 24px;
+        margin: 0;
+        margin-bottom: 24px;
+    }
 
 }

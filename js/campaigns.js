@@ -1,13 +1,13 @@
 jQuery(function() {
 	
-	jQuery(document).on('click', '.campaign__hero-cta--unsub', function(e) {
+	jQuery(document).one('click', '.campaign__hero-cta--unsub', function(e) {
         var url =  '/wp-admin/admin-ajax.php?action=mailchimp_unsubscribe';
   
         $this = jQuery(this);
 
+        e.stopImmediatePropagation();
         e.preventDefault();
-        e.stopPropagation();
-
+        
         const campaign = $this.data('campaign');
         const list = $this.data('list');
         
@@ -35,10 +35,10 @@ jQuery(function() {
         return false;
     });
 
-    jQuery(document).on('click', '.campaign__hero-cta--sub', function(e) {
+    jQuery(document).one('click', '.campaign__hero-cta--sub', function(e) {
 
+        e.stopImmediatePropagation();
         e.preventDefault();
-        e.stopPropagation();
 
         var $this = jQuery(this);
         var campaign = $this.data('campaign');
