@@ -352,6 +352,10 @@ function mozilla_get_user_info($me, $user, $logged_in) {
     $object->display = mozilla_display_field('events_organized', isset($community_fields['profile_events_organized_visibility']) ? $community_fields['profile_events_organized_visibility'] : false , $is_me, $logged_in);
     $data['events_organized'] = $object;
     
+    // Campaigns
+    $object = new StdClass();
+    $object->display = mozilla_display_field('campaigns_participated', isset($community_fields['profile_campaigns_visibility']) ? $community_fields['profile_campaigns_visibility'] : false , $is_me, $logged_in);
+    $data['campaigns_participated'] = $object;
 
     // Social Media 
     $object = new stdClass();
