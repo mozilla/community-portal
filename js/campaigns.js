@@ -58,9 +58,9 @@ jQuery(function() {
             success: function(response) {
                 response = jQuery.parseJSON(response);
                 if(response.status == 'OK') {
-                    // $this.removeClass('campaign__hero-cta--sub');
-                    // $this.addClass('campaign__hero-cta--unsub');
-                    // $this.text($this.data('unsub-copy'));
+                    $this.removeClass('campaign__hero-cta--sub');
+                    $this.addClass('campaign__hero-cta--unsub');
+                    $this.text($this.data('unsub-copy'));
                 } else {
                     
                 }
