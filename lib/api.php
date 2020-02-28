@@ -297,18 +297,13 @@ function mozilla_remove_email_from_list($id, $email) {
             curl_setopt($curl, CURLOPT_HTTPHEADER, Array("Content-Type: application/json"));
             curl_setopt($curl, CURLOPT_USERPWD, 'user:' . $apikey);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PATCH");
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "DELETE");
          
-            $data = Array();
-            $data['status'] = "unsubscribed";
-          
-            $json = json_encode($data);
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $json);
             $result = curl_exec($curl);
             curl_close($curl);
 
             $json_result = json_decode($result);
-			      return $json_result;
+            return $json_result;
         }
     }
   
@@ -332,6 +327,7 @@ function mozilla_add_email_to_list($id, $email) {
             curl_setopt($curl, CURLOPT_HTTPHEADER, Array("Content-Type: application/json"));
             curl_setopt($curl, CURLOPT_USERPWD, 'user:' . $apikey);
             curl_setopt($curl, CURLOPT_POST, true);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
             $data = Array();
             $data['email_address'] = $email;
@@ -343,8 +339,8 @@ function mozilla_add_email_to_list($id, $email) {
             $result = curl_exec($curl);
             curl_close($curl);
           
-			      $json_result = json_decode($result);
-			      return $json_result;
+            $json_result = json_decode($result);
+            return $json_result;
         }
     }
 
