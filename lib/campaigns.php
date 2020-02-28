@@ -12,7 +12,6 @@ function mozilla_mailchimp_unsubscribe() {
                 $campaign = get_post($campaign_id);
                 
 				if ($campaign && $campaign->post_type === 'campaign') {
-                    $user->data->user_email = 'ryan@playgroundinc.com';
 
                     $result = mozilla_remove_email_from_list($list, $user->data->user_email);
                     $members_participating = get_post_meta($campaign->ID, 'members-participating', true);
@@ -65,7 +64,7 @@ function mozilla_mailchimp_subscribe() {
                 $campaign = get_post($campaign_id);
 
                 if($campaign && $campaign->post_type === 'campaign') {
-                    $user->data->user_email = 'ryan@playgroundinc.com';
+                    
 
                     $result = mozilla_add_email_to_list($list, $user->data->user_email);
                     if(isset($result->id)) {
@@ -111,4 +110,5 @@ function mozilla_mailchimp_subscribe() {
 
     die();
 }
+
 ?>
