@@ -263,6 +263,24 @@
             <?php endif; ?>
         </div>
     </div>
+	<form class="campaigns__subscribe-form" action="https://www.mozilla.org/en-US/newsletter" method="POST">
+		<input type="hidden" id="fmt" name="fmt" value="H">
+		<input type="hidden" id="newsletters" name="newsletters" value="mozilla-community">
+		<div id="newsletter_errors" class="newsletter_errors"></div>
+		<label for="email">Email Address</label>
+		<input type="email" id="email">
+		<label for="region">Select Region</label>
+		<select name="region" id="region">
+			<option value="CA">Canada</option>
+		</select>
+		<label for="language">Select a Language</label>
+		<select name="language" id="language">
+			<option value="en">English</option>
+		</select>
+		<label for="privacy">I'm okay with Mozilla handling my info as explained in this Privacy Policy.</label>
+		<input type="checkbox" name="privacy" id="privacy">
+		<input type="submit" value="Subscribe">
+	</form>
 </div>
 
 <?php 
