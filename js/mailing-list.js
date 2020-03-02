@@ -1,27 +1,25 @@
 jQuery(function() {
-	const newsletterForm = jQuery('.campaigns__subscribe-form');
-	
-		var errorArray = [];
-    var newsletterErrors = document.getElementById('newsletter_errors');
-    function newsletterError(e) {
-        var errorList = document.createElement('ul');
+	const newsletterForm = jQuery('#newsletter_form');
+	const $emailInput = jQuery('.newsletter__form input[name=email]');
+	const $privacyCheckbox = jQuery('#privacy');
 
-        if(errorArray.length) {
-            for (var i = 0; i < errorArray.length; i++) {
-                var item = document.createElement('li');
-                item.appendChild(document.createTextNode(errorArray[i]));
-                errorList.appendChild(item);
-            }
-        } else {
-            // no error messages, forward to server for better troubleshooting
-            newsletterForm.attr('data-skip-xhr', true);
-            newsletterForm.submit();
-        }
+	const verifyEmail = function(input) {
+		const $this = jQuery(input);
+		if ($this[0].validity.valid === false) {
+			$this.addClass('error');
+			return false;
+		} 
+		$this.removeClass('error');
+		return true
+	}
 
-        newsletterErrors.appendChild(errorList);
-        newsletterErrors.style.display = 'block';
-    }
+	$emailInput.on('blur', function() {
+		verifyEmail(this);
+	});
 
+	const newsletterError = function() {
+		console.log(error);
+	}
     // show sucess message
     function newsletterThanks() {
         var thanks = document.getElementById('newsletter_thanks');
@@ -30,20 +28,24 @@ jQuery(function() {
     }
 
     // XHR subscribe; handle errors; display thanks message on success.
-    newsletterForm.on('submit', function(e) { {
+    newsletterForm.on('submit', function(e) { 
 		e.preventDefault();
-        e.stopPropagation();
+		e.stopPropagation();
+		validEmail = verifyEmail($emailInput);
+		const privacyCheck = $privacyCheckbox.prop('checked');
+		const $cpgError = jQuery('.newsletter__cpg__error');
+
+		if (!privacyCheck) {
+			$cpgError.addClass('newsletter__cpg__error--active');
+		}
+
+		if (!validEmail || !privacyCheck) {
+			return;
+		}
+
         var skipXHR = newsletterForm.attr('data-skip-xhr');
         if (skipXHR) {
-            return true;
-        }
-        
-
-        // new submission, clear old errors
-        errorArray = [];
-        newsletterErrors.style.display = 'none';
-        while (newsletterErrors.firstChild) {
-            newsletterErrors.removeChild(newsletterErrors.firstChild);
+			return true;
         }
 
         var fmt = document.getElementById('fmt').value;
@@ -52,21 +54,21 @@ jQuery(function() {
         var privacy = document.querySelector('input[name="privacy"]:checked') ? '&privacy=true' : '';
         var params = 'email=' + encodeURIComponent(email) +
 					'&newsletters=' + newsletter +
-					privacy +
+					'&privacy=true' +
 					'&fmt=' + fmt +
 					'&source_url=' + encodeURIComponent(document.location.href);
+
 
         var xhr = new XMLHttpRequest();
 
         xhr.onload = function(r) {
             if (r.target.status >= 200 && r.target.status < 300) {
 				// response is null if handled by service worker
-				console.log(r);
-                // if(response === null) {
-                //     newsletterError(new Error());
-                //     return;
-                // }
-                var response = r.target.response;
+                if(response === null) {
+                    return;
+				}
+				var response = r.target.response;
+				console.log(response);
                 // if (response.success === true) {
 				// 	console.log(JSON.parse(response));
                 //     newsletterForm.style.display = 'none';
@@ -85,6 +87,7 @@ jQuery(function() {
         };
 
         xhr.onerror = function(e) {
+			console.log(e);
             newsletterError(e);
         };
 
@@ -99,6 +102,6 @@ jQuery(function() {
         xhr.send(params);
 
         return false;
-    }
 	})
+
 });

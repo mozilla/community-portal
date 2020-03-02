@@ -1,0 +1,65 @@
+.newsletter {
+	background: white;
+	&.content {
+		min-height: unset;
+	}
+	&__container {
+		@extend .container;
+	}
+	&__label {
+		@extend .label;
+		display: block;
+		margin-bottom: 8px;
+	}
+	&__input {
+		@extend .input;
+		&.error + .newsletter__error {
+			display: block;
+		}
+	}
+	&__dropdown {
+		@extend .select;
+		display: block;
+		width: 100%;
+	}
+	&__fields {
+		margin-bottom: 32px;
+	}
+	&__form,
+	&__details {
+		padding: 64px 0;
+		form {
+			margin: 0;
+		}
+	}
+	&__subtext {
+		margin: 8px 0 0;
+		color: $color-gray-secondary;
+	}
+	&__details {
+		background-image: url(./images/campaign-bg.png);
+		background-repeat: no-repeat;
+		padding: 64px 0 400px;
+		background-position: bottom center;
+	}
+	&__submit {
+		text-align: center;
+		margin-top: 32px;
+	}
+	&__error {
+		color: $error;
+		font-size: remCalc(12);
+		display: none;
+	}
+	&__cpg {
+		margin-top: 32px;
+		&__error {
+			color: $error;
+			display: none;
+			font-size: remCalc(12);
+			&--active {
+				display: block;
+			}
+		}
+	}
+}
