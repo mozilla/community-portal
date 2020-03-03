@@ -279,12 +279,14 @@
         <?php foreach($campaigns AS $campaign_id): ?>
         <?php 
             $campaign = get_post($campaign_id);
+        ?>
+        <?php if($campaign): ?>
+        <?php 
             $description = get_field('card_description', $campaign->ID);
             $start = get_field('campaign_start_date', $campaign->ID);
             $end = get_field('campaign_end_date', $campaign->ID);
             $campaign_tags = get_the_terms($campaign, 'post_tag');
         ?>
-        <?php if($campaign): ?>
         <a class="profile__campaign" href="/campaigns/<?php print $campaign->post_name; ?>">
             <h3 class="profile__campaign-title"><?php print $campaign->post_title; ?></h3>
             <div class="profile__campaign-dates">
