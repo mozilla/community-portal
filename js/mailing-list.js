@@ -51,7 +51,6 @@ jQuery(function() {
         var fmt = document.getElementById('fmt').value;
         var email = document.getElementById('email').value;
         var newsletter = document.getElementById('newsletters').value;
-        var privacy = document.querySelector('input[name="privacy"]:checked') ? '&privacy=true' : '';
         var params = 'email=' + encodeURIComponent(email) +
 					'&newsletters=' + newsletter +
 					'&privacy=true' +
