@@ -1,10 +1,14 @@
 .newsletter {
 	background: white;
+	@include desktop-and-up {
+		background: linear-gradient(to right, $light-blue 50%, white 50%);
+	}
 	&.content {
 		min-height: unset;
 	}
 	&__container {
 		@extend .container;
+		padding: 0;
 	}
 	&__label {
 		@extend .label;
@@ -25,12 +29,15 @@
 	&__fields {
 		margin-bottom: 32px;
 	}
-	&__form,
+	&__signup,
 	&__details {
-		padding: 64px 0;
-		form {
-			margin: 0;
+		padding: 40px 24px;
+		@include tablet-and-up {
+			padding: 64px 106px;
 		}
+	}
+	&__form {
+		margin: 0;
 	}
 	&__subtext {
 		margin: 8px 0 0;
@@ -38,9 +45,14 @@
 	}
 	&__details {
 		background-image: url(./images/campaign-bg.png);
+		background-color: $light-blue;
 		background-repeat: no-repeat;
-		padding: 64px 0 400px;
-		background-position: bottom center;
+		background-position: center 200px;
+		padding-bottom: 300px;
+		@include tablet-and-up {
+			background-position: bottom center;
+			padding: 64px 106px 400px;
+		}
 	}
 	&__submit {
 		text-align: center;
@@ -49,6 +61,9 @@
 	&__error {
 		color: $error;
 		font-size: remCalc(12);
+		display: none;
+	}
+	&__success {
 		display: none;
 	}
 	&__cpg {

@@ -1,7 +1,4 @@
 jQuery(function() {
-	const newsletterForm = jQuery('#newsletter_form');
-	const $emailInput = jQuery('.newsletter__form input[name=email]');
-	const $privacyCheckbox = jQuery('#privacy');
 
 	const verifyEmail = function(input) {
 		const $this = jQuery(input);
@@ -13,25 +10,46 @@ jQuery(function() {
 		return true
 	}
 
-	$emailInput.on('blur', function() {
-		verifyEmail(this);
-	});
+	const clearErrors = function(input) {
+		input.on('blur', function() {
+			verifyEmail(this);
+		});
+	}
 
-	const newsletterError = function() {
+	const updateUserMeta = function() {
+		const url = "/wp-admin/admin-ajax.php?action=newsletter_subscribe";
+		jQuery.ajax({
+			url,
+			method: "POST",
+			success: function(resp) {
+				if (resp.data.status === 'success') {
+					newsletterThanks()
+				}
+			}
+		})
+	}
+
+	const newsletterError = function(error) {
 		console.log(error);
 	}
+
     // show sucess message
     function newsletterThanks() {
-        var thanks = document.getElementById('newsletter_thanks');
-        // show thanks message
-        thanks.style.display = 'block';
+		const $newsletterForm = jQuery('.newsletter__form');
+		$newsletterForm.css('display', 'none');
+		const $success = jQuery('.newsletter__success');
+		$success.css('display', 'block');
     }
 
     // XHR subscribe; handle errors; display thanks message on success.
-    newsletterForm.on('submit', function(e) { 
+    const handleSubmit = function(e) {
 		e.preventDefault();
-		e.stopPropagation();
+		const $this = jQuery(this);
+		const skipXHR = $this.attr('data-skip-xhr');
+		const $emailInput = jQuery('.newsletter__form input[name=email]');
 		validEmail = verifyEmail($emailInput);
+		clearErrors($emailInput);
+		const $privacyCheckbox = jQuery('#privacy');
 		const privacyCheck = $privacyCheckbox.prop('checked');
 		const $cpgError = jQuery('.newsletter__cpg__error');
 
@@ -43,18 +61,15 @@ jQuery(function() {
 			return;
 		}
 
-        var skipXHR = newsletterForm.attr('data-skip-xhr');
         if (skipXHR) {
 			return true;
         }
 
-        var fmt = document.getElementById('fmt').value;
-        var email = document.getElementById('email').value;
-        var newsletter = document.getElementById('newsletters').value;
+		const email = $emailInput.val();
         var params = 'email=' + encodeURIComponent(email) +
-					'&newsletters=' + newsletter +
+					'&newsletters=about-mozilla' +
 					'&privacy=true' +
-					'&fmt=' + fmt +
+					'&fmt=H'+
 					'&source_url=' + encodeURIComponent(document.location.href);
 
 
@@ -67,30 +82,21 @@ jQuery(function() {
                     return;
 				}
 				var response = r.target.response;
-				console.log(response);
-                // if (response.success === true) {
-				// 	console.log(JSON.parse(response));
-                //     newsletterForm.style.display = 'none';
-                //     newsletterThanks();
-                // } else {
-                //     if(response.errors) {
-                //         for (var i = 0; i < response.errors.length; i++) {
-                //             errorArray.push(response.errors[i]);
-                //         }
-                //     }
-                //     newsletterError(new Error());
-                // }
+				if (response.success) {
+					updateUserMeta();
+					return;
+				}
+				newsletterError();
             } else {
-                newsletterError(new Error());
+                newsletterError();
             }
         };
 
         xhr.onerror = function(e) {
-			console.log(e);
             newsletterError(e);
         };
 
-        var url = newsletterForm.attr('action');
+		const url = $this.attr('action');
 
         xhr.open('POST', `https://cors-anywhere.herokuapp.com/${url}`, true);
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -99,8 +105,17 @@ jQuery(function() {
         xhr.ontimeout = newsletterError;
         xhr.responseType = 'json';
         xhr.send(params);
-
         return false;
-	})
-
+	}
+	const initNewsletter = function() {
+		const newsletterForms = jQuery('.newsletter__form');
+		const $emailInput = jQuery('.newsletter__form input[name=email]');
+		clearErrors($emailInput);
+		if (newsletterForms.length > 0) {
+			newsletterForms.each((i, form) => {
+				jQuery(form).on('submit', handleSubmit);
+			})
+		}
+	}
+	initNewsletter();
 });
