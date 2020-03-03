@@ -17,7 +17,7 @@ require_once("{$theme_directory}/lib/groups.php");
 require_once("{$theme_directory}/lib/members.php");
 require_once("{$theme_directory}/lib/events.php");
 require_once("{$theme_directory}/lib/utils.php");
-require_once("{$theme_directory}/lib/mailing-list.php");
+require_once("{$theme_directory}/lib/newsletter.php");
 
 // Native Wordpress Actions
 add_action('init', 'mozilla_init');

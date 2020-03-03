@@ -106,7 +106,7 @@ function mozilla_init_scripts() {
     wp_enqueue_script('lightbox', get_stylesheet_directory_uri()."/js/lightbox.js", array('jquery'));
     wp_enqueue_script('gdpr', get_stylesheet_directory_uri()."/js/gdpr.js", array('jquery'));
     wp_enqueue_script('dropzone', get_stylesheet_directory_uri()."/js/dropzone.js", array('jquery'));
-    wp_enqueue_script('mailing-list', get_stylesheet_directory_uri()."/js/mailing-list.js", array('jquery'));
+    wp_enqueue_script('newsletter', get_stylesheet_directory_uri()."/js/newsletter.js", array('jquery'));
 }
 
 function mozilla_init_admin_scripts() {

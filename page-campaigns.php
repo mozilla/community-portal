@@ -1,5 +1,7 @@
 <?php 
-    get_header();
+	get_header();
+	$user = wp_get_current_user();
+	$subscribed = get_post_meta($user->ID, 'newsletter', true);
     $p = intval(get_query_var('a')) <= 1 ? 1 : intval(get_query_var('a'));
 
     $campaigns_per_page = 12;
@@ -77,8 +79,8 @@
         $incoming_campaign_end_date = get_field('campaign_end_date', $incoming_campaign->ID);
         $incoming_campaignn_card_description = get_field('card_description', $incoming_campaign->ID);
         $incoming_campaign_tags = get_the_terms($incoming_campaign, 'post_tag');        
-    }
-
+	}
+	
     $past_campaigns = Array();
     foreach($campaigns->posts  AS $c) {
         $s = get_field('campaign_status', $c->ID);
@@ -102,7 +104,7 @@
     $total_pages = ceil($campaign_count / $campaigns_per_page);
 
 ?>
-<div class="content">
+<div>
     <div class="campaigns">
         <div class="campaigns__hero">
             <div class="campaigns__hero-container">
@@ -112,6 +114,7 @@
                 </p>
             </div>
         </div>
+		<?php if ($incoming_campaign || $current_campaign): ?>
         <div class="campaigns__container">
             <?php if($current_campaign): ?>
             <div class="campaigns__active-campaign">
@@ -167,13 +170,25 @@
                 </div>
             </div>
             <?php endif; ?>
+		<?php 
+			else:	
+		?>
+			</div>
+		</div>
+		<?php 
+			include get_template_directory()."/templates/campaigns_newsletter.php";
+		?>
+	<div class="content">
+		<div class="campaigns">
+			<div class="campaigns__container">
+
+	<?php endif; ?>
             <?php if(sizeof($campaigns) > 0): ?>
             <div class="campaigns__past-campaigns">
                 <h2 class="campaigns__active-campaign-title"><?php print __("Past Campaigns"); ?></h2>
                 <p class="campaigns__incoming-campaign-copy"><?php print __('Mozilla communities do great work together. These campaigns are over now but feel free to check out what everyone accomplished.'); ?></p>
             </div>
             <div class="campaigns__past-campaigns-container">
-     
             <?php foreach($campaigns AS $campaign): ?>
             <?php 
 
@@ -265,7 +280,9 @@
     </div>
 </div>
 <?php 
-	include get_template_directory()."/templates/campaigns_newsletter.php";
+	if ($current_campaign || $incoming_campaign) {
+		include get_template_directory()."/templates/campaigns_newsletter.php";
+	}
 ?>
 
 <?php 
