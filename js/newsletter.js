@@ -30,7 +30,10 @@ jQuery(function() {
 	}
 
 	const newsletterError = function(error) {
-		console.log(error);
+		const $newsletterForm = jQuery('.newsletter__form');
+		$newsletterForm.css('display', 'none');
+		const $failure = jQuery('.newsletter__failure');
+		$failure.css('display', 'block');
 	}
 
     // show sucess message

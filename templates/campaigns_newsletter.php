@@ -15,6 +15,10 @@
 				<h2>Thanks!</h2>
 				<p class="newsletter__text">If you haven’t previously confirmed a subscription to a Mozilla-related newsletter you may have to do so. Please check your inbox and spam filter for an email from us.</p>
 			</div>
+			<div class="newsletter__failure">
+				<h2>Sorry!</h2>
+				<p class="newsletter__text">Looks like something went wrong.</p>
+			</div>
 		</div>
 	</div>
 </div>
