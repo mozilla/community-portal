@@ -129,7 +129,7 @@
 												<span><?php print __('min dimensions 703px by 400px', "community-portal"); ?></span>
 											</button>
 										</div>
-										<button type="button" class="dz-remove<?php if(!isset($form['image_url']) || strlen($form['image_url']) === 0): ?> dz-remove--hide<?php endif; ?>" href="#" data-dz-remove="" >Remove file</button>
+										<button type="button" class="dz-remove<?php if(!isset($form['image_url']) || strlen($form['image_url']) === 0): ?> dz-remove--hide<?php endif; ?>" data-dz-remove="" >Remove file</button>
 									</div>
                                 </div>
                                 <input type="hidden" name="image_url" id="image-url" value="<?php print (isset($form['image_url'])) ? $form['image_url'] : '' ?>" />
