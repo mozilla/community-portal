@@ -454,14 +454,18 @@ function mozilla_export_users() {
         $language_string = '';
         foreach($user_languages AS $language_code) {
             if(strlen($language_code) > 0) {
-                $language_string .= "{$languages[$language_code]} ";
+                $language_string .= "{$languages[$language_code]},";
             }
         }
+
+        // Remove ending comma
+        $language_string = rtrim($language_string, ',');
 
         $country = isset($community_fields['country']) && strlen($community_fields['country']) > 0 ? $countries[$community_fields['country']] : '';
         $date = date("d/m/Y", strtotime($user->data->user_registered));
         
-        print "{$first_name}, {$last_name}, {$user->data->user_email}, {$date}, {$language_string}, {$country}\n";
+        // Print out CSV row
+        print "{$first_name},{$last_name},{$user->data->user_email},{$date},\"{$language_string}\",{$country}\n";
     }
 
 
