@@ -13,7 +13,7 @@
         }
     ?>
 	<div id="dropzone-photo-uploader" class="event-creator__image-upload<?php if(isset($img_url) && strlen($img_url) > 0): ?> event-creator__image-upload--done<?php endif; ?>  style="<?php echo (isset($img_url) ? "background-image: url(".$img_url.")" : "background-size: '75px 75px'" )?>" > 
-		<button id="image-delete" class="btn event-creator__image-delete <?php echo (!isset($img_url) || strlen($img_url) === 0) ? esc_attr('hidden') : null ?>">
+		<button id="image-delete" type="button" class="btn event-creator__image-delete <?php echo (!isset($img_url) || strlen($img_url) === 0) ? esc_attr('hidden') : null ?>">
 			<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<circle cx="20" cy="20" r="20" fill="white"/>
 				<path d="M29 11L11 29" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -25,7 +25,7 @@
 				<div class="form__error-container">
 					<div class="form__error form__error--image"></div>
 				</div>
-				<button id="dropzone-trigger" class="dropzone__image-instructions event-creator__image-instructions">
+				<button id="dropzone-trigger" type="button" class="dropzone__image-instructions event-creator__image-instructions">
 					<?php print __("Click or drag a .PNG or .JPG above. Min dimensions 703px by 400px", "community-portal"); ?>
 				</button>
 			</div>

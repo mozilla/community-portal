@@ -323,7 +323,6 @@ jQuery(function() {
     }
 
     function handleSubmit() {
-        
         const $form = jQuery("#event-form");
         if ($form) {
             $form.on("submit", function(e) {
