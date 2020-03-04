@@ -1,8 +1,8 @@
 <?php 
 	get_header();
 	$user = wp_get_current_user();
-	$subscribed = get_post_meta($user->ID, 'newsletter', true);
-    $p = intval(get_query_var('a')) <= 1 ? 1 : intval(get_query_var('a'));
+	$subscribed = get_post_meta($user->ID, 'newsletter', true) ? get_post_meta($user->ID, 'newsletter', true) : '';
+	$p = intval(get_query_var('a')) <= 1 ? 1 : intval(get_query_var('a'));
 
     $campaigns_per_page = 12;
 
@@ -171,7 +171,8 @@
             </div>
 			<?php endif; ?>
 		<?php 
-			if ((!$current_campaign  && $incoming_campaign) || ($current_campaign && $incoming_campaign) || (!$current_campaign && !$incoming_campaign)):	
+			if (isset($subscribed) && $subscribed !== 'subscribed'):
+				if ((!$current_campaign  && $incoming_campaign) || ($current_campaign && $incoming_campaign) || (!$current_campaign && !$incoming_campaign)):	
 		?>
 		</div>
 	</div>
@@ -182,8 +183,9 @@
 		<div class="campaigns">
 			<div class="campaigns__container">
 	<?php 
+			endif;
 		endif;
-		else:	
+		elseif (isset($subscribed) && $subscribed !== 'subscribed'):	
 	?>
 			</div>
 		</div>
@@ -194,6 +196,10 @@
 			<div class="campaigns">
 				<div class="campaigns__container">
 		<?php 
+		else: 
+		?>
+		<div class="campaigns__container">
+		<?php
 		endif; 
 	?>
             <?php if(sizeof($campaigns) > 0): ?>
@@ -293,7 +299,7 @@
     </div>
 </div>
 <?php 
-	if ($current_campaign && !$incoming_campaign) {
+	if (($current_campaign && !$incoming_campaign) && (isset($subscribed) && $subscribed !== 'subscribed')) {
 ?>
 	<div class="newsletter newsletter--hero">
 		<?php include get_template_directory()."/templates/campaigns_newsletter.php"; ?>
