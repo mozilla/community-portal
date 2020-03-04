@@ -1,10 +1,18 @@
 .newsletter {
 	background: white;
+	margin-top: 48px;
+	@include tablet-and-up {
+		margin-top: 64px;
+	}
 	@include desktop-and-up {
 		background: linear-gradient(to right, $light-blue 50%, white 50%);
+		margin-top: 88px;
 	}
 	&.content {
 		min-height: unset;
+	}
+	&__text {
+		line-height: 28px;
 	}
 	&__container {
 		@extend .container;
@@ -79,5 +87,8 @@
 	}
 	& + .footer {
 		margin-top: 0;
+	}
+	&--hero {
+		margin: 0;
 	}
 }

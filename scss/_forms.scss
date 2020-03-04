@@ -111,7 +111,8 @@
 	&__label {
 		line-height: 24px;
 		padding-left: 40px;
-		position: relative;
+    position: relative;
+    display: block;
 		&:hover::before {
 			background-color: $color-gray-20;
 			;

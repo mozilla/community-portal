@@ -169,20 +169,33 @@
                     <?php endif; ?>
                 </div>
             </div>
-            <?php endif; ?>
+			<?php endif; ?>
 		<?php 
-			else:	
+			if ((!$current_campaign  && $incoming_campaign) || ($current_campaign && $incoming_campaign) || (!$current_campaign && !$incoming_campaign)):	
 		?>
-			</div>
 		</div>
-		<?php 
-			include get_template_directory()."/templates/campaigns_newsletter.php";
-		?>
+	</div>
+	<div class="newsletter">
+		<?php include get_template_directory()."/templates/campaigns_newsletter.php"; ?>
+	</div>
 	<div class="content">
 		<div class="campaigns">
 			<div class="campaigns__container">
-
-	<?php endif; ?>
+	<?php 
+		endif;
+		else:	
+	?>
+			</div>
+		</div>
+		<div class="newsletter newsletter--hero"> 
+			<?php include get_template_directory()."/templates/campaigns_newsletter.php"; ?>
+		</div>
+		<div class="content">
+			<div class="campaigns">
+				<div class="campaigns__container">
+		<?php 
+		endif; 
+	?>
             <?php if(sizeof($campaigns) > 0): ?>
             <div class="campaigns__past-campaigns">
                 <h2 class="campaigns__active-campaign-title"><?php print __("Past Campaigns"); ?></h2>
@@ -280,12 +293,13 @@
     </div>
 </div>
 <?php 
-	if ($current_campaign || $incoming_campaign) {
-		include get_template_directory()."/templates/campaigns_newsletter.php";
-	}
+	if ($current_campaign && !$incoming_campaign) {
 ?>
-
-<?php 
+	<div class="newsletter newsletter--hero">
+		<?php include get_template_directory()."/templates/campaigns_newsletter.php"; ?>
+	</div>
+	<?php 
+	}
 
     get_footer();
 
