@@ -15,11 +15,24 @@
         'per_page'  =>  -1
     );
 
-    $q = (isset($_GET['q']) && strlen($_GET['q']) > 0) ? sanitize_text_field(trim($_GET['q'])) : false;
-    if($q) {
-        $args['search_columns'] = Array('name');
-        $args['search_terms'] = $q;
+	$q = (isset($_GET['q']) && strlen($_GET['q']) > 0) ? sanitize_text_field(trim($_GET['q'])) : false;
+	if (isset($q)) {
+		if (
+			strpos($q, '"') !== false || 
+			strpos($q, "'") !== false || 
+			strpos($q, '\\') !== false
+		) {
+			$q = stripslashes($q);
+			$q = preg_replace('/^\"|\"$|^\'|\'$/', "", $q);
+			$original_query = $q;
+			$q = addslashes($q);
+		} else {
+      $original_query = $q;
     }
+
+		$args['search_columns'] = Array('name');
+        $args['search_terms'] = $q;
+	}
 
     $group_count = 0;
     $user = wp_get_current_user()->data;
@@ -39,9 +52,9 @@
         $groups = groups_get_groups($args);
     }
 
-    $groups = $groups['groups'];
+	$groups = $groups['groups'];
     $filtered_groups = Array();
-    $country_code_with_groups = Array();
+    $countries_with_groups = Array();
     $used_country_list = Array();
 
     foreach($groups AS $group) {
@@ -70,15 +83,18 @@
         } else {
             $filtered_groups[] = $group;
         }
-    }
-
+	}
+	
     $country_code_with_groups = array_unique($countries_with_groups);
     
+
+
     foreach($country_code_with_groups AS $code) {
         $used_country_list[$code] = $countries[$code];
     }
 
-    ksort($used_country_list);
+    asort($used_country_list);
+
 
     $filtered_groups = array_unique($filtered_groups, SORT_REGULAR);
     $group_count = sizeof($filtered_groups);
@@ -124,7 +140,7 @@
                             <path d="M17.5 17.5L13.875 13.875" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
 
-                        <input type="text" name="q" id="groups-search" class="groups__search-input" placeholder="<?php print __("Search groups", "community-portal"); ?>" value="<?php if($q): ?><?php print $q; ?><?php endif; ?>" />
+                        <input type="text" name="q" id="groups-search" class="groups__search-input" placeholder="<?php print __("Search groups", "community-portal"); ?>" value="<?php if(isset($original_query)): ?><?php print $original_query; ?><?php endif; ?>" />
                         </div>
                         <input type="button" class="groups__search-cta" value="<?php print __("Search", "community-portal"); ?>" />
                     </form>
@@ -175,9 +191,9 @@
                 <?php if(sizeof($groups) === 0): ?>
                     <div class="groups__no-results"><?php print __('No results found.  Please try another search term.', "community-portal"); ?></div>
                 <?php else: ?>
-                <?php if($q): ?>
+                <?php if($original_query): ?>
                 <div class="groups__results-query">
-                <?php print __("Results for ", "community-portal")."\"{$q}\""; ?>
+                <?php print __("Results for ", "community-portal")."\"{$original_query}\""; ?>
                 </div>
                 <?php endif; ?>
                 <?php foreach($groups AS $group): ?>
@@ -204,6 +220,7 @@
                         <div class="groups__group-image" style="background-image: url('<?php print (isset($meta['group_image_url']) && strlen($meta['group_image_url']) > 0) ? $group_image_url : get_stylesheet_directory_uri().'/images/group.png'; ?>');">
                         </div>
                         <div class="groups__card-content">
+							<div>
                             <h2 class="groups__group-title"><?php print str_replace('\\', '', stripslashes($group_name)); ?></h2>
                                 <?php if(isset($meta['group_city']) && strlen(trim($meta['group_city'])) > 0 || isset($meta['group_country']) && $meta['group_country'] != "0"): ?>
                                 <div class="groups__card-location">
@@ -235,21 +252,24 @@
                                         <path d="M11.6667 2.08691C12.2404 2.23378 12.7488 2.56738 13.1118 3.03512C13.4749 3.50286 13.672 4.07813 13.672 4.67025C13.672 5.26236 13.4749 5.83763 13.1118 6.30537C12.7488 6.77311 12.2404 7.10671 11.6667 7.25358" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
                                     <?php print "{$member_count}&nbsp;".__("Members", "community-portal"); ?>
-                                </div>
+								</div>
+							</div>
                             <div class="groups__card-info">
                                 <div class="groups__card-tags">
                                     <?php 
                                         $tag_counter = 0;
                                     ?>
                                     <?php if(isset($meta['group_tags']) && is_array($meta['group_tags'])): ?>
+                                    <ul class="groups__card-tags__container">
                                     <?php foreach(array_unique($meta['group_tags']) AS $key =>  $value): ?>
-                                        <span class="groups__tag"><?php print $value; ?></span>
+                                        <li class="groups__tag"><?php print $value; ?></li>
                                         <?php $tag_counter++; ?>
                                         <?php if($tag_counter === 2 && sizeof($meta['group_tags']) > 2): ?>
-                                        <span class="groups__tag">+ <?php print sizeof($meta['group_tags']) - 2; ?> <?php print __(' more tags', "community-portal"); ?></span>
+                                        <li class="groups__tag">+ <?php print sizeof($meta['group_tags']) - 2; ?> <?php print __(' more tags', "community-portal"); ?></li>
                                         <?php break; ?>
                                         <?php endif; ?>
                                     <?php endforeach; ?>
+                                    </ul>
                                     <?php endif; ?>
                                 </div>
                             </div>

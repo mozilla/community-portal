@@ -32,6 +32,9 @@ div.time-picker ul li {
     box-shadow: 0px 4px 4px $color-gray-30;
     padding: 48px $mobile-padding;
 
+    max-width: $container-max-width;
+    margin: 0 auto;
+    
     .hidden {
         display: none;
     }
@@ -138,26 +141,26 @@ div.time-picker ul li {
         }
     }
 
-    &__image-upload {
-        @extend .input;
-        align-items: center;
-        background-color: $color-gray-20;
-        background-image: url('/wp-content/themes/community-portal/images/upload-image.svg');
-        background-position: center;
-        background-repeat: no-repeat;
-        display: flex;
-        justify-content: center;
-        min-height: 180px;
-		position: relative;
-		margin-bottom: 50px;
-
-        @include tablet-and-up {
-            min-height: 238px;
-        }
-
-        @include desktop-and-up {
-            min-height: 364px;
-        }
+	&__image-upload {
+		@extend .input;
+		&#dropzone-photo-uploader {
+			border: 0;
+			background-size: contain;
+			align-items: center;
+			background-color: $color-gray-20;
+			background-image: url('/wp-content/themes/community-portal/images/upload-image.svg');
+			background-position: center;
+			background-repeat: no-repeat;
+			display: flex;
+			justify-content: center;
+			position: relative;
+			margin-bottom: 90px;
+			padding: 0;
+			padding-top: 45.3%;
+			@include tablet-and-up {
+				margin-bottom: 80px;
+			}
+		}
     }
 
     .dz-remove--hide {
@@ -222,10 +225,13 @@ div.time-picker ul li {
 		position: absolute;
 		left: 0;
 		right: 0;
-		bottom: -15px;
+		bottom: -35px;
 		padding: 0;
 		&--hide {
 			display: none;
+		}
+		@include tablet-and-up {
+			bottom: -25px;
 		}
     }
 
@@ -240,7 +246,7 @@ div.time-picker ul li {
         text-align: center;
 
         @include tablet-and-up {
-           flex-direction: row;
+			flex-direction: row;
         }
     }
 
@@ -448,7 +454,7 @@ div.time-picker ul li {
             font-size: remCalc(12);
             margin: 0;
             position: absolute;
-        }
+		}
     }
 
     &__error-field {
@@ -545,8 +551,8 @@ div.time-picker ul li {
     }
     &__link,
     &__link:visited {
-      color: $color-blue-50;
-      text-decoration: none;
+		color: $color-blue-50;
+		text-decoration: none;
     }
 }
 

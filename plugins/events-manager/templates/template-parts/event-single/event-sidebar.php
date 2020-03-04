@@ -4,8 +4,8 @@
             <div class="row">
             <?php if (isset($external_url) && strlen($external_url) > 0 && filter_var($external_url, FILTER_VALIDATE_URL)): ?>
                 <div class="col-lg-12 col-md-6 col-sm-12">
-                    <p class="events-single__label"><?php echo __('Links') ?></p>
-                    <p><a href="<?php echo esc_attr($external_url) ?>" class="events-single__externam-link"><?php echo __($external_url) ?></a></p>
+                    <p class="events-single__label"><?php echo __('Links', 'community-portal') ?></p>
+                    <p><a href="<?php echo mozilla_verify_url($external_url, false) ?>" class="events-single__externam-link"><?php echo $external_url; ?></a></p>
                 </div>
             <?php endif; ?>
             <?php if (is_array($categories)): ?>
@@ -13,7 +13,8 @@
                     <p class="events-single__label"><?php print __('Tags', 'community-portal'); ?></p>
                     <ul class="events-single__tags">
                         <?php foreach($categories as $category): ?>
-                        <li class="tag"><a class="events-single__tag-link" href="/events/?tag=<?php print $category->name; ?>"><?php echo $category->name ?></a></li>
+							<li class="tag"><a class="events-single__tag-link" href="/events/?tag=<?php print $category->name; ?>"><?php echo $category->name ?></a></li>
+							<?php break;?>
                         <?php endforeach; ?>
                     </ul>
                 </div>

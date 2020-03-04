@@ -101,7 +101,7 @@
                         $img_url = $img_url;
                     }
                 ?>
-                <div class="card__image" <?php if($img_url && $img_url !== ''): ?>style="background-image: url(<?php echo esc_url_raw($img_url); ?>); min-height: 317px; width: 100%;"<?php endif; ?>>
+                <div class="card__image <?php echo ($img_url && $img_url !== '' ? 'card__image--active' : '') ?>" <?php if($img_url && $img_url !== ''): ?>style="background-image: url(<?php echo esc_url_raw($img_url); ?>); padding-top: 45.4%; width: 100%;"<?php endif; ?>>
                     <?php $current_user_id = get_current_user_id(); ?>
                     <?php if(strval($current_user_id) == $EM_Event->owner || mozilla_is_site_admin()): ?>
                         <a class="btn card__edit-btn<?php if($img_url):?> card__edit-btn--white<?php endif; ?>" href="<?php echo esc_attr(get_site_url().'/events/edit-event/?action=edit&event_id='.$EM_Event->event_id)?>">

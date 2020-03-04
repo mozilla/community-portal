@@ -39,7 +39,7 @@
             ?>
 
             <?php if ($img_url && $img_url !== ''): ?>
-             style="background-image: url(<?php echo $img_url ?>)"
+				style="background-image: url(<?php echo $img_url ?>)"
             <?php endif; ?>
             >
                 <?php 
@@ -111,25 +111,10 @@
             </div>
             <ul class="events__tags">
             <?php if ($categories !== false && is_array($categories->terms)): ?>
-            <?php if ($categories !== false && count($categories->terms) <= 2): ?>
-            <?php foreach($categories->terms as $category): ?>
-                <li class="tag"><?php echo __($category->name); ?></li>
-            <?php endforeach; ?>
-            <?php elseif ($categories !== false && count($categories->terms) > 0): ?>
-            <?php             
-                $i = 0;
-            ?>
-            <?php foreach ($categories->terms as $category): ?>
-                <li class="tag"><?php echo $category->name; ?></li>
-                <?php
-                    $i = $i + 1;
-                    if ($i === 2) {
-                        break;
-                    }
-                ?>
-            <?php endforeach; ?>
-                <li class="tag"><?php echo __('+'); echo count($categories->terms) - 2; echo __(' more tag(s)'); ?></li>        
-            <?php endif; ?>
+				<?php foreach($categories->terms as $category): ?>
+					<li class="tag"><?php echo __($category->name); ?></li>
+					<?php break;?>
+				<?php endforeach; ?>
             <?php endif; ?>
             </ul>
         </a>
