@@ -99,9 +99,11 @@ jQuery(function() {
             newsletterError(e);
         };
 
-		const url = $this.attr('action');
-
-        xhr.open('POST', `https://cors-anywhere.herokuapp.com/${url}`, true);
+		let url = $this.attr('action');
+		if (location.protocol === 'http') {
+			url = `https://cors-anywhere.herokuapp.com/${url}`;
+		}
+        xhr.open('POST', url, true);
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhr.setRequestHeader('X-Requested-With','XMLHttpRequest');
         xhr.timeout = 5000;
