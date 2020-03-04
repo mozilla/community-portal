@@ -42,6 +42,7 @@ add_action('wp_ajax_nopriv_validate_group', 'mozilla_validate_group_name');
 add_action('wp_ajax_validate_group', 'mozilla_validate_group_name');
 add_action('wp_ajax_check_user', 'mozilla_validate_username');
 add_action('wp_ajax_delete_user', 'mozilla_delete_user');
+add_action('wp_ajax_export_users', 'mozilla_export_users');
 
 // Auth0 Actions
 add_action('auth0_user_login', 'mozilla_post_user_creation', 10, 6);
