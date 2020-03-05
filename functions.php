@@ -173,20 +173,4 @@ function mozilla_init() {
 }
 
 
-add_filter('query', 'mozilla_column_test');
-
-function mozilla_column_test($query) {
-    
-    if(!is_admin()) {
-        return $query;
-    }
-
-    
-
-
-    return $query;
-
-}
-
-
 ?>
