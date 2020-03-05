@@ -272,14 +272,21 @@
         <?php 
             $campaigns = get_user_meta($user->ID, 'campaigns', true);
             $campaign_count = 0;
+            $campaign_objects = Array();
+
+            if(is_array($campaigns)) {
+                foreach($campaigns AS $cid) {
+                    $object = get_post($cid);
+                    if($object) {
+                        $campaign_objects[] = $object;
+                    }
+                }
+            }
         ?>
-        <?php if(is_array($campaigns) && sizeof($campaigns) > 0): ?>
+        <?php if(sizeof($campaign_objects) > 0): ?>
         <h2 class="profile__heading"><?php print __("Campaigns Participated In", "community-portal"); ?></h2>
         <div class="profile__card">
-        <?php foreach($campaigns AS $campaign_id): ?>
-        <?php 
-            $campaign = get_post($campaign_id);
-        ?>
+        <?php foreach($campaign_objects AS $campaign): ?>
         <?php if($campaign): ?>
         <?php 
             $description = get_field('card_description', $campaign->ID);
@@ -310,7 +317,7 @@
             <?php endif; ?>
         </a>
         <?php $campaign_count++; ?>
-        <?php if($campaign_count < sizeof($campaigns)): ?>
+        <?php if($campaign_count < sizeof($campaign_objects)): ?>
             <hr class="profile__group-line" />
         <?php endif; ?>
         <?php endif; ?>
