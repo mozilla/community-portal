@@ -1,8 +1,8 @@
 <?php 
 	$user = wp_get_current_user();
-	$user_meta = get_user_meta($user->ID, 'community-meta-fields');
-	$user_language = isset($user_meta[0]['languages'][0]) ? $user_meta[0]['languages'][0] : '';
-	$user_country = isset($user_meta[0]['country']) ? $user_meta[0]['country'] : '';
+	$user_meta = get_user_meta($user->ID, 'community-meta-fields', true);
+	$user_language = sizeof($user_meta) > 0 && isset($user_meta['languages']) && sizeof($user_meta['languages']) > 0 ? $user_meta['languages'][0] : '';
+	$user_country = sizeof($user_meta) > 0 && isset($user_meta['country']) ? $user_meta['country'] : '';
 ?>
 <form id="newsletter_form" name="newsletter__form" action="https://www.mozilla.org/en-US/newsletter/" method="post" class="newsletter__form" novalidate>
 	<input type="hidden" id="fmt" name="fmt" value="H">

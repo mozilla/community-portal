@@ -1,8 +1,8 @@
 <?php 
 	get_header();
 	$user = wp_get_current_user();
-	$subscribed = get_user_meta($user->ID, 'newsletter');
-	$subscribed = isset($subscribed[0]) && strlen($subscribed[0]) > 0 ? $subscribed[0] : '';
+	$subscribed = get_user_meta($user->ID, 'newsletter', true);
+	$subscribed = isset($subscribed) && strlen($subscribed) > 0 ? $subscribed : '';
 
 	$p = intval(get_query_var('a')) <= 1 ? 1 : intval(get_query_var('a'));
 
