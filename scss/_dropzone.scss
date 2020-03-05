@@ -1,5 +1,10 @@
 .dropzone {
-  &__image-instructions--hidden {
-    display: none;
-  }
+	&__image-instructions--hidden {
+		display: none;
+	}
+}
+button.dz-remove {
+	border: 0;
+	background: transparent;
+	color: $color-blue-50;
 }

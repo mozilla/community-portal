@@ -90,12 +90,12 @@ include("{$theme_directory}/languages.php");
 									<div class="form__error-container">
 										<div class="form__error form__error--image"></div>
 									</div>
-									<button id="dropzone-trigger" class="dropzone__image-instructions profile__image-instructions <?php if(isset($community_fields['image_url']) || strlen($community_fields['image_url']) !== 0):?> dropzone__image-instructions--hidden <?php endif; ?>">
+									<button id="dropzone-trigger" type="button" class="dropzone__image-instructions profile__image-instructions <?php if(isset($community_fields['image_url']) || strlen($community_fields['image_url']) !== 0):?> dropzone__image-instructions--hidden <?php endif; ?>">
 										<?php print __("Click or drag a photo above", "community-portal"); ?>
 										<span><?php print __('minimum dimensions 175px by 175px', "community-portal"); ?></span>
 									</button>
 								</div>
-								<a class="dz-remove<?php if(!isset($community_fields['image_url']) || strlen($community_fields['image_url']) === 0): ?> dz-remove--hide<?php endif; ?>" href="#" data-dz-remove="" >Remove file</a>
+								<button class="dz-remove<?php if(!isset($community_fields['image_url']) || strlen($community_fields['image_url']) === 0): ?> dz-remove--hide<?php endif; ?>" type="button" data-dz-remove="" >Remove file</button>
 							</div>
                     </div>
                     <input type="hidden" name="image_url" id="image-url" value="<?php if($form && isset($form['image_url'])): ?><?php $form['image_url']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['image_url'])): ?><?php print $community_fields['image_url']; ?><?php endif; ?><?php endif; ?>" />
@@ -424,7 +424,7 @@ include("{$theme_directory}/languages.php");
                             <option value="<?php print $key; ?>"><?php print $language; ?></option>
                             <?php endforeach; ?>
                         </select>
-                        <button class="profile__remove-language">&mdash;</button>
+                        <button type="button" class="profile__remove-language">&mdash;</button>
                     </div>
                     <div class="profile__select-container profile__select-container--empty">
           
@@ -446,7 +446,7 @@ include("{$theme_directory}/languages.php");
                                 <?php endforeach; ?>
                             </select>
                             <?php if($index > 0): ?>
-                            <button class="profile__remove-language">&mdash;</button>
+                            <button type="button" class="profile__remove-language">&mdash;</button>
                             <?php endif; ?>
                         </div>
                         <?php if($index === 0 ): ?>
