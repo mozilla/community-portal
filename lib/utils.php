@@ -476,6 +476,51 @@ function mozilla_post_status_transition($new_status, $old_status, $post) {
         }    
     } 
 
+} 
+
+function mozilla_export_users() {
+
+    // Only admins
+    if(!is_admin()) {
+        return;
+    }
+
+    $theme_directory = get_template_directory();
+    include("{$theme_directory}/languages.php");
+    include("{$theme_directory}/countries.php");
+
+    $users = get_users(Array());
+
+    header("Content-Type: text/csv");
+    header("Content-Disposition: attachment; filename=users.csv;");
+
+    // CSV Column Titles
+    print "first name, last name, email,date registered, languages, country\n ";
+    foreach($users AS $user) {
+        $meta = get_user_meta($user->ID);
+        $community_fields = isset($meta['community-meta-fields'][0]) ? unserialize($meta['community-meta-fields'][0]) : Array();
+    
+        $first_name = isset($meta['first_name'][0]) ? $meta['first_name'][0] : '';
+        $last_name = isset($meta['last_name'][0]) ? $meta['last_name'][0] : '';
+        $user_languages = isset($community_fields['languages']) && sizeof($community_fields['languages']) > 0 ? $community_fields['languages'] : Array();
+
+        $language_string = '';
+        foreach($user_languages AS $language_code) {
+            if(strlen($language_code) > 0) {
+                $language_string .= "{$languages[$language_code]},";
+            }
+        }
+
+        // Remove ending comma
+        $language_string = rtrim($language_string, ',');
+
+        $country = isset($community_fields['country']) && strlen($community_fields['country']) > 0 ? $countries[$community_fields['country']] : '';
+        $date = date("d/m/Y", strtotime($user->data->user_registered));
+        
+        // Print out CSV row
+        print "{$first_name},{$last_name},{$user->data->user_email},{$date},\"{$language_string}\",{$country}\n";
+    }
+    die();
 }
 
 ?>

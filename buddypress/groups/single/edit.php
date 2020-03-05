@@ -132,12 +132,12 @@
 									<div class="form__error-container">
 										<div class="form__error form__error--image"></div>
 									</div>
-									<button id="dropzone-trigger" class="dropzone__image-instructions create-group__image-instructions <?php echo (isset($form['image_url']) && strlen($form['image_url']) > 0 ? 'dropzone__image-instructions--hidden' : '' ) ?>">
+									<button type="button" id="dropzone-trigger" class="dropzone__image-instructions create-group__image-instructions <?php echo (isset($form['image_url']) && strlen($form['image_url']) > 0 ? 'dropzone__image-instructions--hidden' : '' ) ?>">
 										<?php print __("Click or drag a photo above", "community-portal"); ?>
 										<span><?php print __('min dimensions 703px by 400px', "community-portal"); ?></span>
 									</button>
 								</div>
-								<button class="dz-remove<?php if(!isset($form['image_url']) || strlen($form['image_url']) === 0): ?> dz-remove--hide<?php endif; ?>" data-dz-remove="" >Remove file</button>
+								<button type="button" class="dz-remove<?php if(!isset($form['image_url']) || strlen($form['image_url']) === 0): ?> dz-remove--hide<?php endif; ?>" data-dz-remove="" >Remove file</button>
 							</div>
 						</div>
                         <input type="hidden" name="image_url" id="image-url" value="<?php print (isset($form['image_url']) && strlen($form['image_url']) > 0) ? $form['image_url'] : '' ?>" />

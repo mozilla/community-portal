@@ -65,43 +65,21 @@ jQuery(function() {
 		}
 	});
 
-	const implicitSubmit = function(event, $form) {
-		event.preventDefault();
-		$form.submit();
-	}
-
 	const triggerDropzone = function(event) {
 		event.preventDefault();
 		jQuery('#dropzone-photo-uploader').click();
-	}
-
-	const handleForms = function(form) {
-		
-		const $form = jQuery(form);
-		
-		$form.keydown(function(e) {
-			if (e.keyCode === 13) {
-				implicitSubmit(e, $form);
-			} 
-		});
-		
 	}
 
 	jQuery('.dropzone__image-instructions').on('click', function(e) {
 		e.preventDefault();
 	});
 
-	jQuery('.dropzone__image-instructions').on('keydown', function(e) {
-		if (e.keyCode === 32) {
-			triggerDropzone(e);
-		} 
-	});
-
 	function handleClearImage($deleteBtn) {
 		const $photoUpload = jQuery("#dropzone-photo-uploader");
-        const $imageInput = jQuery("#image-url");
+    const $imageInput = jQuery("#image-url");
 		jQuery(".dropzone__image-instructions").removeClass('dropzone__image-instructions--hidden');
-		$photoUpload.css("background-position", "center");
+    $photoUpload.css("background-position", "center");
+    $photoUpload.css("background-image", "");
 		$imageInput.val("");
 		jQuery('#dropzone-trigger').focus();
 		$deleteBtn.hide();
@@ -120,21 +98,7 @@ jQuery(function() {
 			e.preventDefault();
 			handleClearImage($deleteBtn);
 		});
-
-		$deleteBtn.on('keydown', function(e) {
-			if (e.keyCode === 13) {
-				e.preventDefault();
-				implicitSubmit('event-form');
-			}
-			if (e.keyCode === 32) {
-				e.preventDefault();
-				handleClearImage($deleteBtn);
-			}
-		});	
 	}
 
 	clearImage();
-	handleForms('#event-form');
-	handleForms('#create-group-form');
-	handleForms('#complete-profile-form');
 })

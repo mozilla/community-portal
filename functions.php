@@ -51,6 +51,7 @@ add_action('wp_ajax_mailchimp_unsubscribe', 'mozilla_mailchimp_unsubscribe');
 add_action('wp_ajax_nopriv_mailchimp_unsubscribe', 'mozilla_mailchimp_unsubscribe');
 add_action('wp_ajax_mailchimp_subscribe', 'mozilla_mailchimp_subscribe');
 add_action('wp_ajax_nopriv_mailchimp_subscribe', 'mozilla_mailchimp_subscribe');
+add_action('wp_ajax_export_users', 'mozilla_export_users');
 add_action('wp_ajax_update_group_discourse', 'mozilla_update_group_discourse_category_id');
 
 
