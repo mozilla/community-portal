@@ -23,7 +23,7 @@ jQuery(function() {
 			method: "POST",
 			success: function(resp) {
 				if (resp.data.status === 'success') {
-					newsletterThanks()
+					return true;
 				}
 			}
 		})
@@ -86,7 +86,10 @@ jQuery(function() {
 				}
 				var response = r.target.response;
 				if (response.success) {
-					updateUserMeta();
+					const success = updateUserMeta();
+					if (success) {
+						newsletterThanks()
+					}
 					return;
 				}
 				newsletterError();
@@ -112,15 +115,97 @@ jQuery(function() {
         xhr.send(params);
         return false;
 	}
-	const initNewsletter = function() {
-		const newsletterForms = jQuery('.newsletter__form');
+
+	const handleProfileSubmit = function(e) {
+		e.preventDefault();
+		const $this = jQuery(this);
+		const skipXHR = $this.attr('data-skip-xhr');
+		const $emailInput = jQuery('.newsletter__form input[name=email]');
+		validEmail = verifyEmail($emailInput);
+		clearErrors($emailInput);
+		if (!validEmail) {
+			return;
+		}
+
+        if (skipXHR) {
+			return true;
+        }
+
+		const email = $emailInput.val();
+        var params = 'email=' + encodeURIComponent(email) +
+					'&newsletters=about-mozilla' +
+					'&privacy=true' +
+					'&fmt=H'+
+					'&source_url=' + encodeURIComponent(document.location.href);
+
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.onload = function(r) {
+            if (r.target.status >= 200 && r.target.status < 300) {
+				// response is null if handled by service worker
+                if(response === null) {
+                    return;
+				}
+				var response = r.target.response;
+				if (response.success) {
+					const success = updateUserMeta();
+					console.log(success);
+					return;
+				}
+            } 
+        };
+
+        xhr.onerror = function(e) {
+            console.log(e);
+        };
+
+		let url = $this.attr('action');
+		if (location.protocol === 'http') {
+			url = `https://cors-anywhere.herokuapp.com/${url}`;
+		}
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.setRequestHeader('X-Requested-With','XMLHttpRequest');
+        xhr.timeout = 5000;
+        xhr.ontimeout = newsletterError;
+        xhr.responseType = 'json';
+        xhr.send(params);
+        return false;
+	}
+	
+	const initNewsletter = function(selector) {
+		const newsletterForms = jQuery(selector);
+		if (!newsletterForms.length > 0) {
+			return;
+		}
 		const $emailInput = jQuery('.newsletter__form input[name=email]');
 		clearErrors($emailInput);
-		if (newsletterForms.length > 0) {
-			newsletterForms.each((i, form) => {
-				jQuery(form).on('submit', handleSubmit);
-			})
-		}
+		
+		newsletterForms.each((i, form) => {
+			jQuery(form).on('submit', handleSubmit);
+		})
 	}
-	initNewsletter();
+
+	const initProifileNewsletter = function(selector) {
+		const newsletterForms = jQuery(selector);
+		if (!newsletterForms.length > 0) {
+			return;
+		}
+		const $newsletterAgreement = jQuery('#newsletter');
+		
+		if (!$newsletterAgreement || !$newsletterAgreement.prop('checked')) {
+
+			return;
+		}
+		const $emailInput = jQuery('.newsletter__form input[name=email]');
+		clearErrors($emailInput);
+		newsletterForms.each((i, form) => {
+			
+			jQuery(form).on('submit', handleProfileSubmit);
+		})
+	}
+
+	initNewsletter('.newsletter__form');
+	initProifileNewsletter('.profile__form');
 });
