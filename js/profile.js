@@ -7,6 +7,7 @@ jQuery(function(){
 			method: "POST",
 			success: function(resp) {
 				if (resp.data.status === 'success') {
+					console.log('submit form')
 					// jQuery('#complete-profile-form').submit();
 					return true;
 				} 

@@ -10,7 +10,7 @@
 	<div class="col-lg-4 profile__newsletter__fields">
 		<label class="newsletter__label" for="newsletter-email">Email</label>
 		<input class="newsletter__input" aria-label="Enter your e-mail" aria-required="true" type="email" id="newsletter-email" name="newsletter-email" value="<?php echo (isset($user->user_email) && strlen($user->user_email) > 0 ? $user->user_email : '')?>">
-		<p class="newsletter__error">This field is required.</p>
+		<p class="newsletter__error">Invalid email.</p>
 	</div>
 	<div class="col-lg-4 profile__newsletter__fields">
 		<label class="newsletter__label" for="newsletter-country">Country or Region</label>

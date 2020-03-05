@@ -18,9 +18,9 @@
 				<input type="hidden" id="fmt" name="fmt" value="H">
 				<input type="hidden" id="newsletters" name="newsletters" value="about-mozilla">
 				<div id="newsletter_email" class="newsletter__fields">
-					<label class="newsletter__label" for="email">Email</label>
-					<input class="newsletter__input" aria-label="Enter your e-mail" aria-required="true" type="email" id="email" name="email" required="" value="<?php echo (isset($user->user_email) && strlen($user->user_email) > 0 ? $user->user_email : '')?>">
-					<p class="newsletter__error">This field is required.</p>
+					<label class="newsletter__label" for="newsletter-email">Email</label>
+					<input class="newsletter__input" aria-label="Enter your e-mail" aria-required="true" type="email" id="newsletter-email" name="email" required="" value="<?php echo (isset($user->user_email) && strlen($user->user_email) > 0 ? $user->user_email : '')?>">
+					<p class="newsletter__error">Invalid email.</p>
 				</div>
 				<div id="newsletter_details">
 					<div class="newsletter__fields">
