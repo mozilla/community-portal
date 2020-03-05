@@ -46,7 +46,7 @@
                             <?php endif; ?>
                         </div>
                         <?php if($campaign_hero_cta && $logged_in && isset($mailchimp->id)): ?>
-                            <a href="<?php print ($campaign_hero_cta_link) ? $campaign_hero_cta_link : '#'; ?>" class="campaign__hero-cta<?php if(isset($mailchimp->id) && $sub === true): ?> campaign__hero-cta--sub<?php else: ?> campaign__hero-cta--unsub<?php endif; ?>"<?php if(isset($mailchimp->id)): ?> data-list="<?php print $mailchimp->id; ?>"<?php endif; ?> data-unsub-copy="<?php print $sub ? $campaign_hero_unsub_cta : $campaign_hero_cta; ?>" data-campaign="<?php print $post->ID;?>"><?php print $sub ? $campaign_hero_cta : $campaign_hero_unsub_cta; ?></a>
+                            <a href="<?php print ($campaign_hero_cta_link) ? $campaign_hero_cta_link : '#'; ?>" class="campaign__hero-cta<?php if(isset($mailchimp->id) && $sub === true): ?> campaign__hero-cta--sub<?php else: ?> campaign__hero-cta--unsub<?php endif; ?>"<?php if(isset($mailchimp->id)): ?> data-list="<?php print $mailchimp->id; ?>"<?php endif; ?> data-unsub-copy="<?php print $campaign_hero_unsub_cta; ?>" data-sub-copy="<?php print $campaign_hero_cta; ?>" data-campaign="<?php print $post->ID;?>"><?php print $sub ? $campaign_hero_cta : $campaign_hero_unsub_cta; ?></a>
                         <?php endif; ?>
                     </div>
                 </div>

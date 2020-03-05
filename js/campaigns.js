@@ -26,7 +26,7 @@ jQuery(function() {
                 if (response.status === 'OK') {  
                     $this.addClass('campaign__hero-cta--sub');
                     $this.removeClass('campaign__hero-cta--unsub');
-                    $this.text('Participate');
+                    $this.text($this.data('sub-copy'));
                 } 
             }
         });
@@ -59,7 +59,7 @@ jQuery(function() {
                 if(response.status == 'OK') {
                     $this.removeClass('campaign__hero-cta--sub');
                     $this.addClass('campaign__hero-cta--unsub');
-                    $this.text('Unsubscribe');
+                    $this.text($this.data('unsub-copy'));
                 } else {
                     
                 }
