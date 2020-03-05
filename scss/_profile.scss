@@ -259,6 +259,23 @@
             max-width: $container-max-width;
             padding: 64px 104px 80px 104px;
         }
+		.profile__newsletter {
+			&__container {
+				justify-content: space-between;
+			}
+			&__fields {
+				margin-top: 24px;
+			}
+			.newsletter__subtext {
+				font-size: remCalc(14);
+			}
+			h2.profile__form-title {
+				margin: 0 0 16px;
+			}
+			.cpg {
+				margin-top: 32px;
+			}
+        }
     }
 
     &__form-primary {
@@ -1320,13 +1337,6 @@
 		line-height: 20px;
 		margin-bottom: 8px;
 	}
-	&__newsletter {
-		.row {
-			justify-content: space-between;
-		}
-		.cpg {
-			margin-top: 32px;
-		}
-	}
+
 
 }

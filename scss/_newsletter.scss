@@ -69,6 +69,7 @@
 	&__error {
 		color: $error;
 		font-size: remCalc(12);
+		margin-top: 4px;
 		display: none;
 	}
 	&__success {
