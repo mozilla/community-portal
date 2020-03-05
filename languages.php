@@ -642,6 +642,7 @@
         'vls'=> 'West Flemish',
         'bgn'=> 'Western Balochi',
         'cja'=> 'Western Cham',
+        'fy' => 'Western Frisian',
         'nhw'=> 'Western Huasteca Nahuat',
         'lcp'=> 'Western Lawa',
         'mrd'=> 'Western Magar',
