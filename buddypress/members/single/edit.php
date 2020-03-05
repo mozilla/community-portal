@@ -606,6 +606,9 @@ include("{$theme_directory}/languages.php");
         -->
 		<?php if(!isset($meta['agree'][0]) || $meta['agree'][0] != 'I Agree'): ?>
         <?php if(sizeof($guidelines) === 1): ?>
+        <section class="profile__form-container">
+            <?php include get_template_directory()."/templates/campaigns_newsletter.php"; ?>
+        </section> 
         <section class="profile__form-container cpg">
 			<?php print apply_filters('the_content', $guidelines[0]->post_content); ?>
 			<input class="checkbox--hidden" type="checkbox" name="agree" id="agree" value="<?php print "I Agree"; ?>" required />
