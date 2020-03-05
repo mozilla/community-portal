@@ -461,8 +461,7 @@ function mozilla_update_group_discourse_category_id() {
         print_r($meta);
         print "</pre>";
     }
-
-    return;
+    die();
 }
 
 function mozilla_post_status_transition($new_status, $old_status, $post) { 
@@ -476,7 +475,6 @@ function mozilla_post_status_transition($new_status, $old_status, $post) {
             mozilla_create_mailchimp_list($post);
         }    
     } 
-    die();
 
 }
 
