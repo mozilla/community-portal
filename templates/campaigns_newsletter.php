@@ -1,6 +1,6 @@
 <?php 
 	include("{$theme_directory}/countries.php");
-	include("{$theme_directory}/languages.php");
+  include("{$theme_directory}/languages.php");
 ?>
 
 <div class="content newsletter__container">
