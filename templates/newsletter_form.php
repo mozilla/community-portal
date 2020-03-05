@@ -8,8 +8,8 @@
 	<input type="hidden" id="fmt" name="fmt" value="H">
 	<input type="hidden" id="newsletters" name="newsletters" value="about-mozilla">
 	<div class="col-lg-4 profile__newsletter__fields">
-		<label class="newsletter__label" for="email">Email</label>
-		<input class="newsletter__input" aria-label="Enter your e-mail" aria-required="true" type="email" id="email" name="email" required="" value="<?php echo (isset($user->user_email) && strlen($user->user_email) > 0 ? $user->user_email : '')?>">
+		<label class="newsletter__label" for="newsletter-email">Email</label>
+		<input class="newsletter__input" aria-label="Enter your e-mail" aria-required="true" type="email" id="newsletter-email" name="newsletter-email" value="<?php echo (isset($user->user_email) && strlen($user->user_email) > 0 ? $user->user_email : '')?>">
 		<p class="newsletter__error">This field is required.</p>
 	</div>
 	<div class="col-lg-4 profile__newsletter__fields">
@@ -32,7 +32,7 @@
 	</div>
 	<p class="newsletter__subtext">We’ll default to English but send in these languages whenever we can.</p>
 	<div class="cpg">
-		<input class="checkbox--hidden" type="checkbox" id="newsletter" required>
+		<input class="checkbox--hidden" type="checkbox" id="newsletter">
 		<label class="cpg__label" for="newsletter">
 			<?php echo __('Yes, subscribe me to the newsletter') ?>
 		</label>
