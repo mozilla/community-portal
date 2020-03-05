@@ -8,7 +8,7 @@
         flex-direction: row;
         flex-wrap: wrap;
         position: relative;
-        z-index: 1000;
+        z-index: 50;
 
         @include tablet-and-up {
             margin-top: -28px;
@@ -113,7 +113,7 @@
         text-decoration: none;
         transition: box-shadow 0.3s ease-in-out;
         width: 100%;
-		height: 100%;
+		
 		position: relative;
         &.groups__card--homepage {
             height: 100%;

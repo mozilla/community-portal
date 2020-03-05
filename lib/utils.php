@@ -426,6 +426,41 @@ function mozilla_save_post($post_id, $post, $update) {
 
         update_post_meta($post_id, 'event-meta', $event);
     }
+}
+
+
+function mozilla_update_group_discourse_category_id() {
+
+    // Only site admins
+    if(!is_admin()) {
+        die('Invalid Permissions');
+    }
+
+    if(isset($_GET['group'])) {
+
+        $group_id = intval($_GET['group']);
+        $meta = groups_get_groupmeta($group_id, 'meta');
+        print "Before Meta Update<br>";
+        print "<pre>";
+        print_r($meta);
+        print "</pre>";
+
+        if(isset($_GET['category'])) {
+            $category_id = intval($_GET['category']);
+            
+            if(isset($meta['discourse_category_id'])) {
+                $meta['discourse_category_id'] = $category_id;
+            }
+
+            groups_update_groupmeta($group_id, 'meta', $meta);
+        }
+
+        print "After Meta Update<br>";
+        $meta = groups_get_groupmeta($group_id, 'meta');
+        print "<pre>";
+        print_r($meta);
+        print "</pre>";
+    }
 
     return;
 }
@@ -441,6 +476,8 @@ function mozilla_post_status_transition($new_status, $old_status, $post) {
             mozilla_create_mailchimp_list($post);
         }    
     } 
+    die();
+
 }
 
 ?>

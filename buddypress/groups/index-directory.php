@@ -93,7 +93,7 @@
         $used_country_list[$code] = $countries[$code];
     }
 
-    sort($used_country_list);
+    asort($used_country_list);
 
 
     $filtered_groups = array_unique($filtered_groups, SORT_REGULAR);
