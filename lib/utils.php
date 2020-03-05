@@ -422,7 +422,91 @@ function mozilla_save_post($post_id, $post, $update) {
 
         update_post_meta($post_id, 'event-meta', $event);
     }
+}
 
+
+function mozilla_update_group_discourse_category_id() {
+
+    // Only site admins
+    if(!is_admin()) {
+        die('Invalid Permissions');
+    }
+
+    if(isset($_GET['group'])) {
+
+        $group_id = intval($_GET['group']);
+        $meta = groups_get_groupmeta($group_id, 'meta');
+        print "Before Meta Update<br>";
+        print "<pre>";
+        print_r($meta);
+        print "</pre>";
+
+        if(isset($_GET['category'])) {
+            $category_id = intval($_GET['category']);
+            
+            if(isset($meta['discourse_category_id'])) {
+                $meta['discourse_category_id'] = $category_id;
+            }
+
+            groups_update_groupmeta($group_id, 'meta', $meta);
+        }
+
+        print "After Meta Update<br>";
+        $meta = groups_get_groupmeta($group_id, 'meta');
+        print "<pre>";
+        print_r($meta);
+        print "</pre>";
+    }
+
+    die();
+}
+
+
+function mozilla_export_users() {
+
+    // Only admins
+    if(!is_admin()) {
+        return;
+    }
+
+    $theme_directory = get_template_directory();
+    include("{$theme_directory}/languages.php");
+    include("{$theme_directory}/countries.php");
+
+    $users = get_users(Array());
+
+    header("Content-Type: text/csv");
+    header("Content-Disposition: attachment; filename=users.csv;");
+
+    // CSV Column Titles
+    print "first name, last name, email,date registered, languages, country\n ";
+    foreach($users AS $user) {
+        $meta = get_user_meta($user->ID);
+        $community_fields = isset($meta['community-meta-fields'][0]) ? unserialize($meta['community-meta-fields'][0]) : Array();
+    
+        $first_name = isset($meta['first_name'][0]) ? $meta['first_name'][0] : '';
+        $last_name = isset($meta['last_name'][0]) ? $meta['last_name'][0] : '';
+        $user_languages = isset($community_fields['languages']) && sizeof($community_fields['languages']) > 0 ? $community_fields['languages'] : Array();
+
+        $language_string = '';
+        foreach($user_languages AS $language_code) {
+            if(strlen($language_code) > 0) {
+                $language_string .= "{$languages[$language_code]},";
+            }
+        }
+
+        // Remove ending comma
+        $language_string = rtrim($language_string, ',');
+
+        $country = isset($community_fields['country']) && strlen($community_fields['country']) > 0 ? $countries[$community_fields['country']] : '';
+        $date = date("d/m/Y", strtotime($user->data->user_registered));
+        
+        // Print out CSV row
+        print "{$first_name},{$last_name},{$user->data->user_email},{$date},\"{$language_string}\",{$country}\n";
+    }
+
+
+    die();
 }
 
 ?>
