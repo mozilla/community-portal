@@ -12,8 +12,8 @@ jQuery(function() {
         const list = $this.data('list');
         
         const data = {
-            campaign,
-            list 
+            'campaign': campaign,
+            'list': list
         };
         
         jQuery.ajax({
