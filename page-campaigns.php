@@ -3,6 +3,7 @@
 	$user = wp_get_current_user();
 	$subscribed = get_user_meta($user->ID, 'newsletter', true);
 	$subscribed = isset($subscribed) && strlen($subscribed) > 0 ? $subscribed : '';
+	$subscribed = '';
 
 	$p = intval(get_query_var('a')) <= 1 ? 1 : intval(get_query_var('a'));
 

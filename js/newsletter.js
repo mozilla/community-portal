@@ -1,8 +1,10 @@
 jQuery(function() {
 
 	const verifyEmail = function(input) {
+		const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		const $this = jQuery(input);
-		if ($this[0].validity.valid === false) {
+
+		if (re.test($this.val())=== false) {
 			$this.addClass('error');
 			return false;
 		} 
@@ -112,15 +114,20 @@ jQuery(function() {
         xhr.send(params);
         return false;
 	}
-	const initNewsletter = function() {
-		const newsletterForms = jQuery('.newsletter__form');
+
+	
+	const initNewsletter = function(selector) {
+		const newsletterForms = jQuery(selector);
+		if (!newsletterForms.length > 0) {
+			return;
+		}
 		const $emailInput = jQuery('.newsletter__form input[name=email]');
 		clearErrors($emailInput);
-		if (newsletterForms.length > 0) {
-			newsletterForms.each((i, form) => {
-				jQuery(form).on('submit', handleSubmit);
-			})
-		}
+		
+		newsletterForms.each((i, form) => {
+			jQuery(form).on('submit', handleSubmit);
+		})
 	}
-	initNewsletter();
+
+	initNewsletter('.newsletter__form');
 });

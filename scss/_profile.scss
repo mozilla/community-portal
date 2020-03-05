@@ -1270,55 +1270,63 @@
         margin-bottom: 4px;
     }
     
-   &__group-line {
-       background-color: $color-gray-20;
-       border: none;
-       color: $color-gray-20;
-       display: block;
-       height: 1px;
-       margin: 16px -16px;    
+	&__group-line {
+		background-color: $color-gray-20;
+		border: none;
+		color: $color-gray-20;
+		display: block;
+		height: 1px;
+		margin: 16px -16px;    
 
-       @include tablet-and-up {
-            margin: 24px -24px;    
-       }
+		@include tablet-and-up {
+				margin: 24px -24px;    
+		}
 
-       @include desktop-and-up {
-            margin: 32px -32px;    
-       }
-   }
+		@include desktop-and-up {
+			margin: 32px -32px;    
+		}
+	}
 
-   &__event {
-       color: $color-black;
-       display: flex;
-       flex-direction: row;
-       justify-content: flex-start;
-   }
+	&__event {
+		color: $color-black;
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+	}
 
-   &__event-date {
-       color: $color-blue-50;
-       display: flex;
-       flex-direction: column;
-       font-size: remCalc(20);
-       justify-content: center;
-       line-height: 28px;
-       margin-right: 24px;
-       text-align: center;
-       width: 36px;
-   }
+	&__event-date {
+		color: $color-blue-50;
+		display: flex;
+		flex-direction: column;
+		font-size: remCalc(20);
+		justify-content: center;
+		line-height: 28px;
+		margin-right: 24px;
+		text-align: center;
+		width: 36px;
+	}
 
-   &__event-title {
-       font-size: remCalc(16);
-       font-weight: 600;
-       line-height: 24px;
-       margin-bottom: 8px;
-   }
+	&__event-title {
+		font-size: remCalc(16);
+		font-weight: 600;
+		line-height: 24px;
+		margin-bottom: 8px;
+	}
 
-   &__event-location,
-   &__event-time {
-       color: $color-gray-secondary;
-       font-size: remCalc(14);
-       line-height: 20px;
-       margin-bottom: 8px;
-   }
+	&__event-location,
+	&__event-time {
+		color: $color-gray-secondary;
+		font-size: remCalc(14);
+		line-height: 20px;
+		margin-bottom: 8px;
+	}
+	&__newsletter {
+		.row {
+			justify-content: space-between;
+		}
+		.cpg {
+			margin-top: 32px;
+		}
+	}
 
 }
