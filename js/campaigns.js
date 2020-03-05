@@ -22,13 +22,12 @@ jQuery(function() {
             method: 'POST',
             success: function(resp) {
                 const response = jQuery.parseJSON(resp);
+
                 if (response.status === 'OK') {  
                     $this.addClass('campaign__hero-cta--sub');
                     $this.removeClass('campaign__hero-cta--unsub');
-                    $this.text($this.data('unsub-copy'));
-                } else {
-
-                }
+                    $this.text('Participate');
+                } 
             }
         });
 
@@ -60,7 +59,7 @@ jQuery(function() {
                 if(response.status == 'OK') {
                     $this.removeClass('campaign__hero-cta--sub');
                     $this.addClass('campaign__hero-cta--unsub');
-                    $this.text($this.data('unsub-copy'));
+                    $this.text('Unsubscribe');
                 } else {
                     
                 }
