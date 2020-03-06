@@ -56,7 +56,7 @@
                     <label for="city">City</label>
                 </th>
                 <td>
-                    <input type="text" id="city" name="address" class="regular-text" value="<?php print $options['address']; ?>" />
+                    <input type="text" id="city" name="city" class="regular-text" value="<?php print $options['city']; ?>" />
                 </td>
             </tr>
             <tr>

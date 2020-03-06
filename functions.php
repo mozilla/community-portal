@@ -13,11 +13,13 @@ include("{$theme_directory}/countries.php");
 
 // Require
 require_once("{$theme_directory}/lib/api.php");
+require_once("{$theme_directory}/lib/campaigns.php");
 require_once("{$theme_directory}/lib/groups.php");
 require_once("{$theme_directory}/lib/members.php");
 require_once("{$theme_directory}/lib/events.php");
 require_once("{$theme_directory}/lib/utils.php");
 require_once("{$theme_directory}/lib/newsletter.php");
+require_once("{$theme_directory}/lib/campaigns.php");
 
 // Native Wordpress Actions
 add_action('init', 'mozilla_init');
@@ -29,6 +31,9 @@ add_action('admin_menu', 'mozilla_add_menu_item');
 
 add_action('bp_group_admin_edit_after', 'mozilla_save_group');
 add_action('save_post', 'mozilla_save_post', 10, 3);
+
+add_action('transition_post_status', 'mozilla_post_status_transition', 10, 3);
+
 
 // Ajax Calls
 add_action('wp_ajax_nopriv_upload_group_image', 'mozilla_upload_image');
@@ -43,10 +48,12 @@ add_action('wp_ajax_nopriv_validate_group', 'mozilla_validate_group_name');
 add_action('wp_ajax_validate_group', 'mozilla_validate_group_name');
 add_action('wp_ajax_check_user', 'mozilla_validate_username');
 add_action('wp_ajax_delete_user', 'mozilla_delete_user');
-
 add_action('wp_ajax_newsletter_subscribe', 'mozilla_newsletter_subscribe');
 add_action('wp_ajax_nopriv_newsletter_subscribe', 'mozilla_newsletter_subscribe');
-
+add_action('wp_ajax_mailchimp_unsubscribe', 'mozilla_mailchimp_unsubscribe');
+add_action('wp_ajax_nopriv_mailchimp_unsubscribe', 'mozilla_mailchimp_unsubscribe');
+add_action('wp_ajax_mailchimp_subscribe', 'mozilla_mailchimp_subscribe');
+add_action('wp_ajax_nopriv_mailchimp_subscribe', 'mozilla_mailchimp_subscribe');
 add_action('wp_ajax_export_users', 'mozilla_export_users');
 add_action('wp_ajax_update_group_discourse', 'mozilla_update_group_discourse_category_id');
 
@@ -168,22 +175,6 @@ function mozilla_init() {
 
     register_post_type('campaign', $args);
     add_theme_support('post-thumbnails', array( 'post', 'activity', 'campaign', 'static-page')); 
-}
-
-
-add_filter('query', 'mozilla_column_test');
-
-function mozilla_column_test($query) {
-    
-    if(!is_admin()) {
-        return $query;
-    }
-
-    
-
-
-    return $query;
-
 }
 
 
