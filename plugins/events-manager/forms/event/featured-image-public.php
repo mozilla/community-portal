@@ -4,15 +4,18 @@
     <?php
         if ($_REQUEST['event_id']) {
             $event = em_get_event($_REQUEST['event_id']); 
-            $event_meta = get_post_meta($event->post_id, 'event-meta');
+			$event_meta = get_post_meta($event->post_id, 'event-meta');
+
             $img_url = $event_meta[0]->image_url;
 
             if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
                 $img_url = preg_replace("/^http:/i", "https:", $img_url);
-            }
-        }
+			}
+			
+		}
+
     ?>
-	<div id="dropzone-photo-uploader" class="event-creator__image-upload<?php if(isset($img_url) && strlen($img_url) > 0): ?> event-creator__image-upload--done<?php endif; ?>  style="<?php echo (isset($img_url) ? "background-image: url(".$img_url.")" : "background-size: '75px 75px'" )?>" > 
+	<div id="dropzone-photo-uploader" class="event-creator__image-upload<?php if(isset($img_url) && strlen($img_url) > 0): ?> event-creator__image-upload--done<?php endif; ?>"  style="<?php print (isset($img_url) ? "background-image: url('{$img_url}')" : "background-size: '75px 75px'" )?>" > 
 		<button id="image-delete" type="button" class="btn event-creator__image-delete <?php echo (!isset($img_url) || strlen($img_url) === 0) ? esc_attr('hidden') : null ?>">
 			<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<circle cx="20" cy="20" r="20" fill="white"/>
@@ -32,4 +35,4 @@
 		</div>
 	</div>
 </div>
-<input type="hidden" name="image_url" id="image-url" value="<?php print ($img_url ? esc_attr($img_url) : ''  )?>" />
+<input type="hidden" name="image_url" id="image-url" value="<?php print ($img_url ? $img_url : ''  )?>" />

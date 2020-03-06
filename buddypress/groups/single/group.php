@@ -258,11 +258,13 @@
                                         >
                                             <?php 
 
-                                                $month = substr($event->start_date, 5, 2);
+                                                $month = substr($event->start_date, 5, 1);
                                                 $date = substr($event->start_date, 8, 2);
                                                 $year = substr($event->start_date, 0, 4);
+                                                
+                                                $event_time = strtotime($event->start_date);
                                             ?>
-                                            <p class="event-card__image__date"><span><?php echo substr($months[intval($month)],0,3) ?> </span><span><?php echo $date; ?></span></p>
+                                            <p class="event-card__image__date"><span><?php echo date("M", $event_time); ?></span><span><?php echo date("d", $event_time); ?></span></p>
                                         </div>
                                         <div class="event-card__description">
                                             <h3 class="event-card__description__title title--event-card"><?php echo $event->event_name; ?></h2>
@@ -579,6 +581,7 @@
                             $event = isset($events[0]) ? $events[0] : false;
                             $event_time = strtotime($event->start_date);
                             $event_date = date("M d", $event_time);
+
            
                             $location = em_get_location($event->location_id);
                         ?>
