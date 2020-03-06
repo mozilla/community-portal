@@ -226,7 +226,8 @@ jQuery(function(){
             data: get,
             method: 'GET',
             success: function(data) {
-                var response = jQuery.parseJSON(data);
+                var response = jQuery.parseJSON(data.trim());
+                
                 if(response == false) {
                     $this.addClass('profile__input--error');
                     $errorContainer.addClass('form__error-container--visible');
@@ -237,7 +238,9 @@ jQuery(function(){
                     $errorContainer.children('.form__error').text('This field is required');
                 }
             }
-        })
+        });
+
+        
     });
 
     jQuery('.profile__input, .profile__textarea, .profile__select').on('change keyup', function(e){

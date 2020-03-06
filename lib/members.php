@@ -47,8 +47,10 @@ function mozilla_validate_email() {
             ));
    
             print (sizeof($query->get_results()) === 0) ? json_encode(true) : json_encode(false);
+            die();
         }
     }
+
     die();
 }
 
