@@ -176,13 +176,14 @@
         color: $color-gray-secondary;
         display: flex;
         flex-direction: column;
+		flex-grow: 1;
         font-size: remCalc(14);
+		height: 100%;
         justify-content: flex-start;
         line-height: 20px;
 		padding: 24px 32px;	
-		flex-grow: 1;
-		padding-top: calc(45.4% + 24px);
-		height: 100%;
+        padding-top: calc(45.4% + 24px);
+        margin-bottom: 16px;
 		min-height: 380px;
     }
 
