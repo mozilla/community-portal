@@ -268,6 +268,63 @@
         </div>
         <?php endif; ?>
         <?php endif; ?>
+        <?php if($info['campaigns_participated']->display): ?>
+        <?php 
+            $campaigns = get_user_meta($user->ID, 'campaigns', true);
+            $campaign_count = 0;
+            $campaign_objects = Array();
+
+            if(is_array($campaigns)) {
+                foreach($campaigns AS $cid) {
+                    $object = get_post($cid);
+                    if($object) {
+                        $campaign_objects[] = $object;
+                    }
+                }
+            }
+        ?>
+        <?php if(sizeof($campaign_objects) > 0): ?>
+        <h2 class="profile__heading"><?php print __("Campaigns Participated In", "community-portal"); ?></h2>
+        <div class="profile__card">
+        <?php foreach($campaign_objects AS $campaign): ?>
+        <?php if($campaign): ?>
+        <?php 
+            $description = get_field('card_description', $campaign->ID);
+            $start = get_field('campaign_start_date', $campaign->ID);
+            $end = get_field('campaign_end_date', $campaign->ID);
+            $campaign_tags = get_the_terms($campaign, 'post_tag');
+        ?>
+        <a class="profile__campaign" href="/campaigns/<?php print $campaign->post_name; ?>">
+            <h3 class="profile__campaign-title"><?php print $campaign->post_title; ?></h3>
+            <div class="profile__campaign-dates">
+            <?php if($end): ?>
+                <?php print date('F j', strtotime($start)); ?> - <?php print date('F j Y', strtotime($end));?>
+            <?php else: ?>
+                <?php print date('F j Y', strtotime($start)); ?>
+            <?php endif; ?>
+            </div>
+            <div class="profile__campaign-desc">
+            <?php print $description; ?>
+            </div>
+            <?php if(is_array($campaign_tags) && sizeof($campaign_tags) > 0): ?>
+            <div class="profile__campaign-tags">
+                <?php foreach($campaign_tags AS $ctag): ?>
+                    <span class="profile__static-tag">
+                        <?php print $ctag->name; ?>
+                    </span>
+                <?php endforeach; ?>
+            </div>
+            <?php endif; ?>
+        </a>
+        <?php $campaign_count++; ?>
+        <?php if($campaign_count < sizeof($campaign_objects)): ?>
+            <hr class="profile__group-line" />
+        <?php endif; ?>
+        <?php endif; ?>
+        <?php endforeach; ?>
+        </div>
+        <?php endif; ?>
+        <?php endif; ?>
     </section>
     <section class="profile__section profile__section--right">
         <?php if(

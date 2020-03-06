@@ -99,6 +99,7 @@ function mozilla_init_scripts() {
     // Custom scripts
     wp_enqueue_script('groups', get_stylesheet_directory_uri()."/js/groups.js", array('jquery'));
     wp_enqueue_script('events', get_stylesheet_directory_uri()."/js/events.js", array('jquery'));
+    wp_enqueue_script('campaigns', get_stylesheet_directory_uri()."/js/campaigns.js", array('jquery'));
     wp_enqueue_script('activities', get_stylesheet_directory_uri()."/js/activities.js", array('jquery'));
     wp_enqueue_script('cleavejs', get_stylesheet_directory_uri()."/js/vendor/cleave.min.js", array());
     wp_enqueue_script('nav', get_stylesheet_directory_uri()."/js/nav.js", array('jquery'));
@@ -106,6 +107,7 @@ function mozilla_init_scripts() {
     wp_enqueue_script('lightbox', get_stylesheet_directory_uri()."/js/lightbox.js", array('jquery'));
     wp_enqueue_script('gdpr', get_stylesheet_directory_uri()."/js/gdpr.js", array('jquery'));
     wp_enqueue_script('dropzone', get_stylesheet_directory_uri()."/js/dropzone.js", array('jquery'));
+    wp_enqueue_script('mailchimp', get_stylesheet_directory_uri()."/js/campaigns.js", array('jquery'));
 }
 
 function mozilla_init_admin_scripts() {
@@ -289,20 +291,23 @@ function mozilla_redirect_admin() {
 }
 
 function mozilla_verify_url($url, $secure) {
-	if (preg_match('/\.[a-zA-Z]{2,4}\b/', $url)) {
-		$parts = parse_url($url);
-		if (!isset($parts["scheme"])) {
-			if ($secure) {
-				$url = 'https://'.$url;
-			} else {
-				$url = 'http://'.$url;
-			}
-		} 
-	}
-	if (filter_var($url, FILTER_VALIDATE_URL)) {
-		return $url;
-	}
-	return false;
+    if (preg_match('/\.[a-zA-Z]{2,4}\b/', $url)) {
+        $parts = parse_url($url);
+        if (!isset($parts["scheme"])) {
+            if ($secure) {
+                $url = 'https://'.$url;
+            } else {
+                $url = 'http://'.$url;
+
+            }
+        }
+    }
+
+    if(filter_var($url, FILTER_VALIDATE_URL)) {
+        return $url;
+    }
+
+    return false;
 }
 
 
@@ -456,10 +461,22 @@ function mozilla_update_group_discourse_category_id() {
         print_r($meta);
         print "</pre>";
     }
-
     die();
 }
 
+function mozilla_post_status_transition($new_status, $old_status, $post) { 
+
+    if($new_status == 'publish' && 
+        $old_status == 'auto-draft' && 
+        !wp_is_post_revision($post->ID) && 
+        !wp_is_post_autosave($post->ID)) 
+    {
+        if($post->post_type === 'campaign') {            
+            mozilla_create_mailchimp_list($post);
+        }    
+    } 
+
+} 
 
 function mozilla_export_users() {
 
@@ -503,8 +520,6 @@ function mozilla_export_users() {
         // Print out CSV row
         print "{$first_name},{$last_name},{$user->data->user_email},{$date},\"{$language_string}\",{$country}\n";
     }
-
-
     die();
 }
 
