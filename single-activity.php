@@ -81,7 +81,7 @@
                                     <?php foreach($activity_flow AS $flow): ?>
                                         <?php if(strlen($flow['title']) > 0 && strlen($flow['copy']) > 0): ?>
                                         <div class="activity__accordion-container">
-                                            <input class="activity__accordion-input" id="ac-<?php print $accordion_counter; ?>" name="accordion-<?php print $accordion_counter; ?>" type="checkbox"<?php if($accordion_counter === 0): ?>checked<?php endif; ?> />
+                                            <input class="activity__accordion-input" id="ac-<?php print $accordion_counter; ?>" name="accordion-<?php print $accordion_counter; ?>" type="checkbox" />
                                             <label class="activity__accordion-label" for="ac-<?php print $accordion_counter; ?>"><?php print $flow['title']; ?></label>
                                             <div class="activity__accordion-content">
                                                 <?php print $flow['copy']; ?>
