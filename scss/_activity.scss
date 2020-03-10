@@ -293,9 +293,9 @@
         position: relative;
     }
 
-    &__accordion-input {
-        display: none;
-    }
+    // &__accordion-input {
+    //     display: none;
+    // }
 
     &__accordion-input + &__accordion-label {
         transition: opacity 0.5s ease-in;
