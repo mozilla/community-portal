@@ -259,8 +259,7 @@
 
     &__search-cta {
         @extend .cta;
-        
-        border: none;
+        border: 1px solid $color-blue-50;
         text-align: center;
         width: 100%;
 

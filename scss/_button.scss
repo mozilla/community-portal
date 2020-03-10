@@ -1,10 +1,14 @@
 .btn {
     background: none;
-    border: none;
+    border: 1px solid $color-blue-50;
     display: inline-block;
+    transition: background-color 0.2s ease-in;
     -webkit-appearance: none;
 
+    &:focus,
     &:hover {
+        background-color: $color-white;
+        color: $color-blue-50;
         cursor: pointer;
     }
 
@@ -19,6 +23,19 @@
         border: 1px solid $color-blue-50;
         border-radius: 28px;
         color: $color-blue-50;
+
+        &:focus,
+        &:hover {
+            background-color: $color-blue-50;
+            color: $color-white;
+            svg {
+                path {
+                    stroke: $color-white;
+                }
+            }
+        }
+
+        
     }
 
     &--dark {
@@ -30,6 +47,7 @@
     &--submit {
         border-radius: 28px;
         padding: 15px 35px;
+
     }
 
     &--small {

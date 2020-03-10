@@ -440,6 +440,7 @@
     &__leave-cta,
     &__join-cta {
         border-radius: 28px;
+        border: 1px solid $color-blue-50;
         background-color: $color-blue-50;
         color: $color-white;
         font-size: remCalc(16);
@@ -450,7 +451,15 @@
         padding: 15px 33px;
         text-align: center;
         text-decoration: none;
+        transition: background-color 0.2s ease-in;
         width: 188px;
+
+        &:focus,
+        &:hover {
+            background-color: $color-white;
+            color: $color-blue-50;
+        }
+
 
         @include tablet-and-up {
             margin-bottom: 0;
@@ -460,7 +469,7 @@
 
 
     &__share-cta {
-        border: 2px solid $color-blue-50;
+        border: 1px solid $color-blue-50;
         border-radius: 28px;
         color: $color-blue-50;
         font-size: remCalc(16);
@@ -472,7 +481,22 @@
         position: relative;
         text-align: center;
         text-decoration: none;
+        transition: background-color 0.2s ease-in;
         width: 188px;
+
+        &:focus,
+        &:hover {
+            background-color: $color-blue-50;
+            border-color: $color-blue-50;
+            color: $color-white;
+
+            svg {
+                path {
+                    stroke: $color-white;
+                }
+            }
+        }
+
 
         @include tablet-and-up {
             width: 188px;
