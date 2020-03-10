@@ -564,8 +564,7 @@
 
         .profile__cta {
             @extend .cta;
-
-            border: none;
+            border: 1px solid $color-blue-50;
             border-radius: 28px !important;
         }
 
