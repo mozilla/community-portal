@@ -5,19 +5,29 @@ jQuery(function(){
 		jQuery.ajax({
 			url,
 			method: "POST",
+			data: {
+				subscribed: 1,
+			},
 			success: function(resp) {
-				if (resp.data.status === 'success') {
-					console.log('submit form')
-					// jQuery('#complete-profile-form').submit();
-					return true;
-				} 
+				jQuery('#complete-profile-form').submit();
 			}
 		})
 	}
 
 	const newsletterError = function(e) {
-		console.log(e);
+		const url = "/wp-admin/admin-ajax.php?action=newsletter_subscribe";
+		jQuery.ajax({
+			url,
+			method: "POST",
+			data: {
+				subscribed: 2,
+			},
+			success: function(resp) {
+				jQuery('#complete-profile-form').submit();
+			}
+		})
 	}
+
 	const handleSignUpSubmit = function(email, country, language) {
         let params = 'email=' + encodeURIComponent(email) +
 					'&newsletters=about-mozilla' +
@@ -101,8 +111,7 @@ jQuery(function(){
 	const newsletterSignup = function() {
 		const $newsletterCheck = jQuery('#newsletter');
 		if (!$newsletterCheck || !$newsletterCheck.prop('checked')) {
-			// jQuery('#complete-profile-form').submit();
-			console.log('submit form');
+			jQuery('#complete-profile-form').submit();
 			return;
 		}
 		handleSignUp();

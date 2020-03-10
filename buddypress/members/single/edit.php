@@ -4,7 +4,7 @@ $theme_directory = get_template_directory();
 
 include("{$theme_directory}/countries.php");
 include("{$theme_directory}/languages.php");
-
+$subscribed = get_user_meta($user->ID, 'newsletter', true);
 ?>
 
 <?php if($complete === true && $edit === false): ?>
@@ -16,6 +16,19 @@ include("{$theme_directory}/languages.php");
                     print __('Your Account has been created! You can keep adding to your profile or dive right in. You are now ready to connect with other users, participate in events and projects, and get involved in the Mozilla community.', "community-portal");
                 ?>
             </p>
+			<?php if(isset($subscribed) && intval($subscribed) !== 1): ?>	
+				<p class="profile__error-message">
+					<?php 
+						print_r("Notice: We had a problem registering you for our newsletter. Please try signing up again later.");
+					?>
+						<a class="newsletter__link" href="/newsletter">
+							<?php print_r('Click here') ?>
+						</a>  
+					<?php 
+						print_r("to try again");
+					?>
+				</p>
+			<?php endif;?>
             <div class="profile__button-container">
                 <a href="/people/<?php print $updated_username ? $updated_username : $user->user_nicename; ?>/profile/edit/group/1/" class="profile__button"><?php print __('Complete your profile', "community-portal"); ?></a><a href="" class="profile__button profile__button--secondary"><?php print __('Go back to browsing', "community-portal"); ?></a>
             </div>
@@ -604,13 +617,19 @@ include("{$theme_directory}/languages.php");
             </label>
         </section>
         -->
+		<?php 
+			if (!isset($subscribed) || (isset($subscribed) && intval($subscribed) !== 1)):
+			?>
+				<section class="profile__form-container">
+					<div class="profile__newsletter">
+						<?php include get_template_directory()."/templates/newsletter_form.php"; ?>
+					</div>
+				</section>
+			<?php
+			endif;
+		?>
 		<?php if(!isset($meta['agree'][0]) || $meta['agree'][0] != 'I Agree'): ?>
-        <?php if(sizeof($guidelines) === 1): ?>
-        <section class="profile__form-container">
-			<div class="profile__newsletter">
-				<?php include get_template_directory()."/templates/newsletter_form.php"; ?>
-			</div>
-        </section> 
+        <?php if(sizeof($guidelines) === 1): ?> 
         <section class="profile__form-container cpg">
 			<?php print apply_filters('the_content', $guidelines[0]->post_content); ?>
 			<input class="checkbox--hidden" type="checkbox" name="agree" id="agree" value="<?php print "I Agree"; ?>" required />

@@ -23,19 +23,34 @@ jQuery(function() {
 		jQuery.ajax({
 			url,
 			method: "POST",
+			data: {
+				subscribed: '1',
+			},
 			success: function(resp) {
-				if (resp.data.status === 'success') {
-					newsletterThanks()
-				}
+				newsletterThanks()
 			}
 		})
 	}
 
-	const newsletterError = function(error) {
+	const newsletterFailure = function() {
 		const $newsletterForm = jQuery('.newsletter__form');
 		$newsletterForm.css('display', 'none');
 		const $failure = jQuery('.newsletter__failure');
 		$failure.css('display', 'block');
+	}
+
+	const newsletterError = function(error) {
+		const url = "/wp-admin/admin-ajax.php?action=newsletter_subscribe";
+		jQuery.ajax({
+			url,
+			method: "POST",
+			data: {
+				subscribed: '2',
+			},
+			success: function(resp) {
+				newsletterFailure()
+			}
+		})
 	}
 
     // show sucess message

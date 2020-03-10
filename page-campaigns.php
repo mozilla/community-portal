@@ -3,7 +3,6 @@
 	$user = wp_get_current_user();
 	$subscribed = get_user_meta($user->ID, 'newsletter', true);
 	$subscribed = isset($subscribed) && strlen($subscribed) > 0 ? $subscribed : '';
-	$subscribed = '';
 
 	$p = intval(get_query_var('a')) <= 1 ? 1 : intval(get_query_var('a'));
 
@@ -174,7 +173,7 @@
             </div>
 			<?php endif; ?>
 		<?php 
-			if (isset($subscribed) && $subscribed !== 'subscribed'):
+			if (isset($subscribed) && intval($subscribed) !== 1):
 				if ((!$current_campaign  && $incoming_campaign) || ($current_campaign && $incoming_campaign) || (!$current_campaign && !$incoming_campaign)):	
 		?>
 		</div>
@@ -188,7 +187,7 @@
 	<?php 
 			endif;
 		endif;
-		elseif (isset($subscribed) && $subscribed !== 'subscribed'):	
+		elseif (isset($subscribed) && intval($subscribed) !== 1):	
 	?>
 			</div>
 		</div>
@@ -302,7 +301,7 @@
     </div>
 </div>
 <?php 
-	if (($current_campaign && !$incoming_campaign) && (isset($subscribed) && $subscribed !== 'subscribed')) {
+	if (($current_campaign && !$incoming_campaign) && (isset($subscribed) && intval($subscribed) !== 1)) {
 ?>
 	<div class="newsletter newsletter--hero">
 		<?php include get_template_directory()."/templates/campaigns_newsletter.php"; ?>

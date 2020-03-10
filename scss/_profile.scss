@@ -723,10 +723,17 @@
     &__success-message {
         font-size: remCalc(16);
         line-height: 24px;
+	}
+	
+	&__success-message,
+	&__error-message {
         margin: 0 auto;
         max-width: 595px;
-    }
+	}
 
+	&__error-message {
+		margin-top: 20px;
+	}
 
     &__button {
         @extend .cta;
