@@ -95,12 +95,28 @@
 
     asort($used_country_list);
 
-
     $filtered_groups = array_unique($filtered_groups, SORT_REGULAR);
+    $verified_groups = Array();
+    $unverified_groups = Array();
+
+    foreach($filtered_groups AS $g) {
+        if($g->status === 'public') {
+            $verified_groups[] = $g;
+        } else {
+            $unverified_groups[] = $g;
+        }
+    }
+    
+    // Randomize
+    shuffle($verified_groups);
+    shuffle($unverified_groups);
+
+    $filtered_groups = array_merge($verified_groups, $unverified_groups);
+
     $group_count = sizeof($filtered_groups);
     $offset = ($p - 1) * $groups_per_page;
-
     $groups = array_slice($filtered_groups, $offset, $groups_per_page);
+
     
     $total_pages = ceil($group_count / $groups_per_page);
     $tags = get_tags(Array('hide_empty' => false));
