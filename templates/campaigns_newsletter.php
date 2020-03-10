@@ -25,7 +25,7 @@
 				<div id="newsletter_details">
 					<div class="newsletter__fields">
 						<label class="newsletter__label" for="newsletter-country">Country or Region</label>
-						<select class="newsletter__dropdown" id="newsletter-country" name="country">
+						<select class="newsletter__dropdown" id="newsletter-country" name="newsletter-country">
 							<option value="" disabled="" selected="">Select country or region</option>
 							<?php foreach($countries as $index=>$country): ?>
 								<option value="<?php echo $index ?>" <?php echo ($user_country === $index ? 'selected' : '') ?>><?php echo $country ?></option>
@@ -34,7 +34,7 @@
 					</div>
 					<div class="newsletter__fields">
 						<label class="newsletter__label" for="newsletter-language">Language</label>
-						<select id="newsletter-language" class="newsletter__dropdown" name="country">
+						<select id="newsletter-language" class="newsletter__dropdown" name="newsletter-language">
 							<option value="" disabled="" selected="">Select language</option>
 							<?php foreach($languages as $index=>$language): ?>
 								<option value="<?php echo $index ?>" <?php echo (strtoupper($user_language) === strtoupper($index) ? 'selected' : '') ?>><?php echo $language ?></option>

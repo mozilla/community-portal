@@ -3,6 +3,7 @@
 	$user = wp_get_current_user();
 	$subscribed = get_user_meta($user->ID, 'newsletter', true);
 	$subscribed = isset($subscribed) && strlen($subscribed) > 0 ? $subscribed : '';
+	$subscribed = '2';
 
 	$p = intval(get_query_var('a')) <= 1 ? 1 : intval(get_query_var('a'));
 
@@ -171,39 +172,23 @@
                     <?php endif; ?>
                 </div>
             </div>
-			<?php endif; ?>
+		</div>
+			<?php 
+			endif; 
+		endif;
+		?>
 		<?php 
 			if (isset($subscribed) && intval($subscribed) !== 1):
 				if ((!$current_campaign  && $incoming_campaign) || ($current_campaign && $incoming_campaign) || (!$current_campaign && !$incoming_campaign)):	
 		?>
-		</div>
-	</div>
-	<div class="newsletter">
-		<?php include get_template_directory()."/templates/campaigns_newsletter.php"; ?>
-	</div>
-	<div class="content">
-		<div class="campaigns">
-			<div class="campaigns__container">
-	<?php 
-			endif;
-		endif;
-		elseif (isset($subscribed) && intval($subscribed) !== 1):	
-	?>
+			<div class="newsletter <?php echo (!$current_campaign && !$incoming_campaign ? 'newsletter__solo' : '')?>">
+				<?php include get_template_directory()."/templates/campaigns_newsletter.php"; ?>
 			</div>
-		</div>
-		<div class="newsletter newsletter--hero"> 
-			<?php include get_template_directory()."/templates/campaigns_newsletter.php"; ?>
-		</div>
-		<div class="content">
-			<div class="campaigns">
-				<div class="campaigns__container">
 		<?php 
-		else: 
+				endif;
+			endif; 
 		?>
 		<div class="campaigns__container">
-		<?php
-		endif; 
-	?>
             <?php if(sizeof($campaigns) > 0): ?>
             <div class="campaigns__past-campaigns">
                 <h2 class="campaigns__active-campaign-title"><?php print __("Past Campaigns"); ?></h2>

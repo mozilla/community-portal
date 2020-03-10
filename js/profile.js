@@ -55,14 +55,14 @@ jQuery(function(){
 					updateUserMeta();
 					return;
 				}
-				newsletterError('Unsuccessful response');
+				newsletterError();
             } else {
-                newsletterError('Returned an error status');
+                newsletterError();
             }
         };
 
         xhr.onerror = function(e) {
-			newsletterError(e);
+			newsletterError();
 
         };
 

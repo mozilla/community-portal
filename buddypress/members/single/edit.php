@@ -19,14 +19,11 @@ $subscribed = get_user_meta($user->ID, 'newsletter', true);
 			<?php if(isset($subscribed) && intval($subscribed) !== 1): ?>	
 				<p class="profile__error-message">
 					<?php 
-						print_r("Notice: We had a problem registering you for our newsletter. Please try signing up again later.");
+						echo __("Notice: We had a problem registering you for our newsletter. Please try signing up again later. To try again ");
 					?>
 						<a class="newsletter__link" href="/newsletter">
-							<?php print_r('Click here') ?>
-						</a>  
-					<?php 
-						print_r("to try again");
-					?>
+							<?php echo __('Click here') ?>
+						</a> 
 				</p>
 			<?php endif;?>
             <div class="profile__button-container">
@@ -600,23 +597,6 @@ $subscribed = get_user_meta($user->ID, 'newsletter', true);
                 'category'      =>  $category_id
             ));  
         ?>
-        <!--
-        <section class="profile__form-container">
-            <p>
-                <?php 
-                    print __("Some messaging around signing up for the email newsletter here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed commodo malesuada tincidunt.", "community-portal");
-                ?>
-            </p>
-            <label class="profile__checkbox-container" for="signup">
-                <?php print __("Sign me up for the Mozilla Community Portal email newsletter "); ?>
-                <input type="checkbox" name="signup" id="signup" value="<?php print __("Sign me up for the Mozilla Community Portal email newsletter "); ?>" />
-                <span class="profile__check">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline>
-                    </svg>
-                </span>
-            </label>
-        </section>
-        -->
 		<?php 
 			if (!isset($subscribed) || (isset($subscribed) && intval($subscribed) !== 1)):
 			?>

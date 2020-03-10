@@ -98,7 +98,8 @@
 	&__link {
 		color: $color-blue-50;
 	}
-	&__page {
+	&__page,
+	&__solo {
 		margin-top: 0;
 	}
 }
