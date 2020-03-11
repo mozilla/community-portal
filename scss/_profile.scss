@@ -259,6 +259,23 @@
             max-width: $container-max-width;
             padding: 64px 104px 80px 104px;
         }
+		.profile__newsletter {
+			&__container {
+				justify-content: space-between;
+			}
+			&__fields {
+				margin-top: 24px;
+			}
+			.newsletter__subtext {
+				font-size: remCalc(14);
+			}
+			h2.profile__form-title {
+				margin: 0 0 16px;
+			}
+			.cpg {
+				margin-top: 32px;
+			}
+        }
     }
 
     &__form-primary {
@@ -564,8 +581,7 @@
 
         .profile__cta {
             @extend .cta;
-
-            border: none;
+            border: 1px solid $color-blue-50;
             border-radius: 28px !important;
         }
 
@@ -706,10 +722,17 @@
     &__success-message {
         font-size: remCalc(16);
         line-height: 24px;
+	}
+	
+	&__success-message,
+	&__error-message {
         margin: 0 auto;
         max-width: 595px;
-    }
+	}
 
+	&__error-message {
+		margin-top: 20px;
+	}
 
     &__button {
         @extend .cta;
@@ -1293,8 +1316,6 @@
        flex-direction: row;
        justify-content: flex-start;
    }
-
-    
 
 
    &__event-date {

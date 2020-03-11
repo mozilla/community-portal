@@ -1,5 +1,122 @@
 jQuery(function(){
 
+	const updateUserMeta = function() {
+		const url = "/wp-admin/admin-ajax.php?action=newsletter_subscribe";
+		jQuery.ajax({
+			url,
+			method: "POST",
+			data: {
+				subscribed: 1,
+			},
+			success: function(resp) {
+				jQuery('#complete-profile-form').submit();
+			}
+		})
+	}
+
+	const newsletterError = function(e) {
+		const url = "/wp-admin/admin-ajax.php?action=newsletter_subscribe";
+		jQuery.ajax({
+			url,
+			method: "POST",
+			data: {
+				subscribed: 2,
+			},
+			success: function(resp) {
+				jQuery('#complete-profile-form').submit();
+			}
+		})
+	}
+
+	const handleSignUpSubmit = function(email, country, language) {
+        let params = 'email=' + encodeURIComponent(email) +
+					'&newsletters=about-mozilla' +
+					'&privacy=true' +
+					'&fmt=H'+
+					'&source_url=' + encodeURIComponent(document.location.href);
+
+		if (language){
+			params += '&lang=' + language;
+		} 
+		if (country) {
+			params += '&country' + country;
+		}
+        var xhr = new XMLHttpRequest();
+        xhr.onload = function(r) {
+
+            if (r.target.status >= 200 && r.target.status < 300) {
+				// response is null if handled by service worker
+                if(response === null) {
+                    return;
+				}
+
+				var response = r.target.response;
+				if (response.success) {
+					updateUserMeta();
+					return;
+				}
+				newsletterError();
+            } else {
+                newsletterError();
+            }
+        };
+
+        xhr.onerror = function(e) {
+			newsletterError();
+
+        };
+
+		let url = 'https://www.mozilla.org/en-US/newsletter/';
+		if (location.protocol === 'http') {
+			url = `https://cors-anywhere.herokuapp.com/${url}`;
+		}
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.setRequestHeader('X-Requested-With','XMLHttpRequest');
+        xhr.timeout = 5000;
+        xhr.ontimeout = newsletterError;
+        xhr.responseType = 'json';
+        xhr.send(params);
+        return false;
+	}
+
+
+	const verifyEmail = function(input) {
+		var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		const $this = jQuery(input);
+
+		if (re.test($this.val())=== false) {
+			$this.addClass('error');
+			return false;
+		} 
+		$this.removeClass('error');
+		return true
+	}
+
+	jQuery('#newsletter-email').on('blur', function() {
+		verifyEmail(this);
+	});
+	const handleSignUp = function() {
+		const email = jQuery('#newsletter-email');
+		const verified = verifyEmail(email);
+		if (!verified) {
+			return false;
+		} 
+		const country = jQuery('#newsletter-country').val();
+		const language = jQuery('#newsletter-language').val();
+		return handleSignUpSubmit(email.val(), country, language);
+
+	}
+
+	const newsletterSignup = function() {
+		const $newsletterCheck = jQuery('#newsletter');
+		if (!$newsletterCheck || !$newsletterCheck.prop('checked')) {
+			jQuery('#complete-profile-form').submit();
+			return;
+		}
+		handleSignUp();
+	}
+
     jQuery('.members__avatar--identicon').each(function(index, ele) {
 
         var $ele = jQuery(ele);
@@ -17,7 +134,7 @@ jQuery(function(){
     };
 
     jQuery('.profile__cta').click(function(e){
-        e.preventDefault();
+		e.preventDefault();
         var error = false;
 
         jQuery(':input[required]').each(function(index, element) {
@@ -54,7 +171,7 @@ jQuery(function(){
             }
             return false;
         } else {
-            jQuery('#complete-profile-form').submit();
+			newsletterSignup();
             return true;
         }
 

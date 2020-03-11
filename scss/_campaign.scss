@@ -118,6 +118,7 @@
 
     &__hero-cta {
         background-color: $color-blue-50;
+        border: 1px solid $color-blue-50;
         border-radius: 28px;
         color: $color-white;
         flex-shrink: 0;
@@ -130,11 +131,19 @@
         padding: 15px 33px;
         text-align: center;
         text-decoration: none;
+        transition: background-color 0.2s ease-in;
         width: 186px;
 
         &.campaign__hero-cta--secondary {
+            color: $color-blue-50;
             background-color: $color-white;
             border: 1px solid $color-blue-50;
+        }
+
+
+        &:focus,
+        &:hover {
+            background-color: $color-white;
             color: $color-blue-50;
         }
     }
@@ -255,7 +264,7 @@
     }
 
     &__share-cta {
-        border: 2px solid $color-blue-50;
+        border: 1px solid $color-blue-50;
         border-radius: 28px;
         color: $color-blue-50;
         font-size: remCalc(14);
@@ -268,8 +277,19 @@
         position: relative;
         text-align: center;
         text-decoration: none;
+        transition: background-color 0.2s ease-in;
         width: auto;
 
+        &:focus,
+        &:hover {
+            background-color: $color-blue-50;
+            color: $color-white;
+            svg {
+                path {
+                    stroke: $color-white;
+                }
+            }
+        }
 
         svg {
             left: 33px;
@@ -587,6 +607,10 @@
                 color: $color-white;
                 display: inline-block;
                 text-decoration: none;
+
+                &:hover {
+                    color: $color-blue-50;
+                }
             }
         }
 
@@ -608,6 +632,13 @@
         padding: 10px 16px;
         text-align: center;
         text-decoration: none;
+        transition: background-color 0.2s ease-in;
+
+        &:focus,
+        &:hover {
+            background-color: $color-blue-50;
+            color: $color-white;
+        }
     }
 
     &__columns-container {
@@ -821,12 +852,20 @@
 
     &__outro-cta {
         background-color: $color-blue-50;
+        border: 1px solid $color-blue-50;
         border-radius: 28px;
         color: $color-white;
         font-size: remCalc(16);
         line-height: 18px;
         padding: 15px 35px;
         text-align: center;
+        transition: background-color 0.2s ease-in;
+
+        &:focus,
+        &:hover {
+            background-color: $color-white;
+            color: $color-blue-50;  
+        }
     }
 
     &__campaign-events {

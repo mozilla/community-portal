@@ -107,6 +107,7 @@ function mozilla_init_scripts() {
     wp_enqueue_script('lightbox', get_stylesheet_directory_uri()."/js/lightbox.js", array('jquery'));
     wp_enqueue_script('gdpr', get_stylesheet_directory_uri()."/js/gdpr.js", array('jquery'));
     wp_enqueue_script('dropzone', get_stylesheet_directory_uri()."/js/dropzone.js", array('jquery'));
+    wp_enqueue_script('newsletter', get_stylesheet_directory_uri()."/js/newsletter.js", array('jquery'));
     wp_enqueue_script('mailchimp', get_stylesheet_directory_uri()."/js/campaigns.js", array('jquery'));
 }
 
@@ -466,10 +467,7 @@ function mozilla_update_group_discourse_category_id() {
 
 function mozilla_post_status_transition($new_status, $old_status, $post) { 
 
-    if($new_status == 'publish' && 
-        $old_status == 'auto-draft' && 
-        !wp_is_post_revision($post->ID) && 
-        !wp_is_post_autosave($post->ID)) 
+    if($new_status == 'publish')
     {
         if($post->post_type === 'campaign') {            
             mozilla_create_mailchimp_list($post);

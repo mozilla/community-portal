@@ -1,0 +1,105 @@
+.newsletter {
+	background: white;
+	margin-top: 48px;
+	@include tablet-and-up {
+		margin-top: 64px;
+	}
+	@include desktop-and-up {
+		background: linear-gradient(to right, $light-blue 50%, white 50%);
+		margin-top: 88px;
+	}
+	&.content {
+		min-height: unset;
+	}
+	&__text {
+		line-height: 28px;
+	}
+	&__container {
+		@extend .container;
+		padding: 0;
+	}
+	&__label {
+		@extend .label;
+		display: block;
+		margin-bottom: 8px;
+	}
+	&__input {
+		@extend .input;
+		&.error + .newsletter__error {
+			display: block;
+		}
+	}
+	&__dropdown {
+		@extend .select;
+		display: block;
+		width: 100%;
+	}
+	&__fields {
+		margin-bottom: 32px;
+	}
+	&__signup,
+	&__details {
+		padding: 40px 24px;
+		@include tablet-and-up {
+			padding: 64px 106px;
+		}
+	}
+	&__form {
+		margin: 0;
+	}
+	&__subtext {
+		margin: 8px 0 0;
+		color: $color-gray-secondary;
+	}
+	&__details {
+		background-image: url(./images/campaign-bg.png);
+		background-color: $light-blue;
+		background-repeat: no-repeat;
+		background-position: center 200px;
+		padding-bottom: 300px;
+		@include tablet-and-up {
+			background-position: bottom center;
+			padding: 64px 106px 400px;
+		}
+	}
+	&__submit {
+		text-align: center;
+		margin-top: 32px;
+	}
+	&__error {
+		color: $error;
+		font-size: remCalc(12);
+		margin-top: 4px;
+		display: none;
+	}
+	&__success {
+		display: none;
+	}
+	&__failure {
+		display: none;
+	}
+	&__cpg {
+		margin-top: 32px;
+		&__error {
+			color: $error;
+			display: none;
+			font-size: remCalc(12);
+			&--active {
+				display: block;
+			}
+		}
+	}
+	& + .footer {
+		margin-top: 0;
+	}
+	&--hero {
+		margin: 0;
+	}
+	&__link {
+		color: $color-blue-50;
+	}
+	&__page,
+	&__solo {
+		margin-top: 0;
+	}
+}

@@ -4,7 +4,7 @@ $theme_directory = get_template_directory();
 
 include("{$theme_directory}/countries.php");
 include("{$theme_directory}/languages.php");
-
+$subscribed = get_user_meta($user->ID, 'newsletter', true);
 ?>
 
 <?php if($complete === true && $edit === false): ?>
@@ -16,6 +16,16 @@ include("{$theme_directory}/languages.php");
                     print __('Your Account has been created! You can keep adding to your profile or dive right in. You are now ready to connect with other users, participate in events and projects, and get involved in the Mozilla community.', "community-portal");
                 ?>
             </p>
+			<?php if(isset($subscribed) && intval($subscribed) !== 1): ?>	
+				<p class="profile__error-message">
+					<?php 
+						echo __("Notice: We had a problem registering you for our newsletter. Please try signing up again later. To try again ");
+					?>
+						<a class="newsletter__link" href="/newsletter">
+							<?php echo __('Click here') ?>
+						</a> 
+				</p>
+			<?php endif;?>
             <div class="profile__button-container">
                 <a href="/people/<?php print $updated_username ? $updated_username : $user->user_nicename; ?>/profile/edit/group/1/" class="profile__button"><?php print __('Complete your profile', "community-portal"); ?></a><a href="" class="profile__button profile__button--secondary"><?php print __('Go back to browsing', "community-portal"); ?></a>
             </div>
@@ -587,25 +597,19 @@ include("{$theme_directory}/languages.php");
                 'category'      =>  $category_id
             ));  
         ?>
-        <!--
-        <section class="profile__form-container">
-            <p>
-                <?php 
-                    print __("Some messaging around signing up for the email newsletter here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed commodo malesuada tincidunt.", "community-portal");
-                ?>
-            </p>
-            <label class="profile__checkbox-container" for="signup">
-                <?php print __("Sign me up for the Mozilla Community Portal email newsletter "); ?>
-                <input type="checkbox" name="signup" id="signup" value="<?php print __("Sign me up for the Mozilla Community Portal email newsletter "); ?>" />
-                <span class="profile__check">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline>
-                    </svg>
-                </span>
-            </label>
-        </section>
-        -->
+		<?php 
+			if (!isset($subscribed) || (isset($subscribed) && intval($subscribed) !== 1)):
+			?>
+				<section class="profile__form-container">
+					<div class="profile__newsletter">
+						<?php include get_template_directory()."/templates/newsletter_form.php"; ?>
+					</div>
+				</section>
+			<?php
+			endif;
+		?>
 		<?php if(!isset($meta['agree'][0]) || $meta['agree'][0] != 'I Agree'): ?>
-        <?php if(sizeof($guidelines) === 1): ?>
+        <?php if(sizeof($guidelines) === 1): ?> 
         <section class="profile__form-container cpg">
 			<?php print apply_filters('the_content', $guidelines[0]->post_content); ?>
 			<input class="checkbox--hidden" type="checkbox" name="agree" id="agree" value="<?php print "I Agree"; ?>" required />
