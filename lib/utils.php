@@ -107,6 +107,7 @@ function mozilla_init_scripts() {
     wp_enqueue_script('lightbox', get_stylesheet_directory_uri()."/js/lightbox.js", array('jquery'));
     wp_enqueue_script('gdpr', get_stylesheet_directory_uri()."/js/gdpr.js", array('jquery'));
     wp_enqueue_script('dropzone', get_stylesheet_directory_uri()."/js/dropzone.js", array('jquery'));
+    wp_enqueue_script('newsletter', get_stylesheet_directory_uri()."/js/newsletter.js", array('jquery'));
     wp_enqueue_script('mailchimp', get_stylesheet_directory_uri()."/js/campaigns.js", array('jquery'));
 }
 

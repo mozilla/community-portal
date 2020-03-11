@@ -222,6 +222,7 @@ function mozilla_discourse_get_category_topics($url) {
     return $topics;
 }
 
+
 function mozilla_create_mailchimp_list($campaign) {
     $options = wp_load_alloptions();
 

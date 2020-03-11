@@ -1,6 +1,10 @@
 <?php 
-    get_header();
-    $p = intval(get_query_var('a')) <= 1 ? 1 : intval(get_query_var('a'));
+	get_header();
+	$user = wp_get_current_user();
+	$subscribed = get_user_meta($user->ID, 'newsletter', true);
+	$subscribed = isset($subscribed) && strlen($subscribed) > 0 ? $subscribed : '';
+
+	$p = intval(get_query_var('a')) <= 1 ? 1 : intval(get_query_var('a'));
 
     $campaigns_per_page = 12;
 
@@ -77,8 +81,8 @@
         $incoming_campaign_end_date = get_field('campaign_end_date', $incoming_campaign->ID);
         $incoming_campaignn_card_description = get_field('card_description', $incoming_campaign->ID);
         $incoming_campaign_tags = get_the_terms($incoming_campaign, 'post_tag');        
-    }
-
+	}
+	
     $past_campaigns = Array();
     foreach($campaigns->posts  AS $c) {
         $s = get_field('campaign_status', $c->ID);
@@ -102,7 +106,7 @@
     $total_pages = ceil($campaign_count / $campaigns_per_page);
 
 ?>
-<div class="content">
+<div>
     <div class="campaigns">
         <div class="campaigns__hero">
             <div class="campaigns__hero-container">
@@ -112,6 +116,7 @@
                 </p>
             </div>
         </div>
+		<?php if ($incoming_campaign || $current_campaign): ?>
         <div class="campaigns__container">
             <?php if($current_campaign): ?>
             <div class="campaigns__active-campaign">
@@ -142,7 +147,7 @@
             <?php if($incoming_campaign): ?>
                 <div class="campaigns__incoming-campaign-container">
                     <h2 class="campaigns__active-campaign-title"><?php print __("Campaign Incoming!"); ?></h2>
-                    <p class="campaigns__incoming-campaign-copy"><?php print __('An extra cool Mozilla cmapaign is coming soon.  Keep an eye out for when it launches.', 'community-portal'); ?></p>
+                    <p class="campaigns__incoming-campaign-copy"><?php print __('An extra cool Mozilla campaign is coming soon.  Keep an eye out for when it launches.', 'community-portal'); ?></p>
                     <div class="campaigns__active-campaign">
                     <div class="campaigns__active-campaign-hero-container">
                         <div class="campaign__hero-image" style="background-image: url(<?php print $incoming_campaign_image; ?>);">
@@ -166,14 +171,29 @@
                     <?php endif; ?>
                 </div>
             </div>
-            <?php endif; ?>
+		</div>
+			<?php 
+			endif; 
+		endif;
+		?>
+		<?php 
+			if (isset($subscribed) && intval($subscribed) !== 1):
+				if ((!$current_campaign  && $incoming_campaign) || ($current_campaign && $incoming_campaign) || (!$current_campaign && !$incoming_campaign)):	
+		?>
+			<div class="newsletter <?php echo (!$current_campaign && !$incoming_campaign ? 'newsletter__solo' : '')?>">
+				<?php include get_template_directory()."/templates/campaigns_newsletter.php"; ?>
+			</div>
+		<?php 
+				endif;
+			endif; 
+		?>
+		<div class="campaigns__container">
             <?php if(sizeof($campaigns) > 0): ?>
             <div class="campaigns__past-campaigns">
                 <h2 class="campaigns__active-campaign-title"><?php print __("Past Campaigns"); ?></h2>
                 <p class="campaigns__incoming-campaign-copy"><?php print __('Mozilla communities do great work together. These campaigns are over now but feel free to check out what everyone accomplished.'); ?></p>
             </div>
             <div class="campaigns__past-campaigns-container">
-     
             <?php foreach($campaigns AS $campaign): ?>
             <?php 
 
@@ -264,8 +284,14 @@
         </div>
     </div>
 </div>
-
 <?php 
+	if (($current_campaign && !$incoming_campaign) && (isset($subscribed) && intval($subscribed) !== 1)) {
+?>
+	<div class="newsletter newsletter--hero">
+		<?php include get_template_directory()."/templates/campaigns_newsletter.php"; ?>
+	</div>
+	<?php 
+	}
 
     get_footer();
 
