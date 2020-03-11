@@ -3,6 +3,14 @@
 	$user_meta = get_user_meta($user->ID, 'community-meta-fields', true);
 	$user_language = is_array($user_meta) && sizeof($user_meta) > 0 && isset($user_meta['languages']) && sizeof($user_meta['languages']) > 0 ? $user_meta['languages'][0] : '';
 	$user_country = is_array($user_meta) && sizeof($user_meta) > 0 && isset($user_meta['country']) ? $user_meta['country'] : '';
+	$newsletter_languages = array(
+		'de' => 'Deutsch',
+		'fr' => 'Français',
+		'en' => 'English',
+		'es' => 'Español',
+		'pt' => 'Português do Brasil',
+		'ru' => 'русский язык',
+	);
 ?>
 <h2 class="profile__form-title">Get Updates</h2>
 <p>Subscribe to our newsletter and join Mozillians all around the world and learn about impactful opportunities to support Mozilla’s mission.</p>
@@ -27,7 +35,7 @@
 		<label class="newsletter__label" for="newsletter-language">Language</label>
 		<select id="newsletter-language" class="newsletter__dropdown" name="newsletter-language">
 			<option value="" disabled="" selected="">Language</option>
-			<?php foreach($languages as $index=>$language): ?>
+			<?php foreach($newsletter_languages as $index=>$language): ?>
 				<option value="<?php echo $index ?>" <?php echo (strtoupper($user_language) === strtoupper($index) ? 'selected' : '') ?>><?php echo $language ?></option>
 			<?php endforeach; ?>
 		</select>

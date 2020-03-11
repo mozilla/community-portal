@@ -148,7 +148,7 @@
             <?php if($incoming_campaign): ?>
                 <div class="campaigns__incoming-campaign-container">
                     <h2 class="campaigns__active-campaign-title"><?php print __("Campaign Incoming!"); ?></h2>
-                    <p class="campaigns__incoming-campaign-copy"><?php print __('An extra cool Mozilla cmapaign is coming soon.  Keep an eye out for when it launches.', 'community-portal'); ?></p>
+                    <p class="campaigns__incoming-campaign-copy"><?php print __('An extra cool Mozilla campaign is coming soon.  Keep an eye out for when it launches.', 'community-portal'); ?></p>
                     <div class="campaigns__active-campaign">
                     <div class="campaigns__active-campaign-hero-container">
                         <div class="campaign__hero-image" style="background-image: url(<?php print $incoming_campaign_image; ?>);">

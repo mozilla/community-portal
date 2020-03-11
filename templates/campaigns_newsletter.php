@@ -1,6 +1,13 @@
 <?php 
 	include("{$theme_directory}/countries.php");
-	include("{$theme_directory}/languages.php");
+	$languages = array(
+		'de' => 'Deutsch',
+		'fr' => 'Français',
+		'en' => 'English',
+		'es' => 'Español',
+		'pt' => 'Português do Brasil',
+		'ru' => 'русский язык',
+	);
 	$user = wp_get_current_user();
 	$user_meta = get_user_meta($user->ID, 'community-meta-fields', true);
 	$user_language = is_array($user_meta) && sizeof($user_meta) > 0 && isset($user_meta['languages']) && sizeof($user_meta['languages']) > 0 ? $user_meta['languages'][0] : '';

@@ -67,8 +67,12 @@ jQuery(function() {
 		const $this = jQuery(this);
 		const skipXHR = $this.attr('data-skip-xhr');
 		const $emailInput = jQuery('.newsletter__form input[name=email]');
+		const language = jQuery('#newsletter-language').val();
+		const country = jQuery('#newsletter-country').val();
+
 		validEmail = verifyEmail($emailInput);
 		clearErrors($emailInput);
+		
 		const $privacyCheckbox = jQuery('#privacy');
 		const privacyCheck = $privacyCheckbox.prop('checked');
 		const $cpgError = jQuery('.newsletter__cpg__error');
@@ -92,6 +96,12 @@ jQuery(function() {
 					'&fmt=H'+
 					'&source_url=' + encodeURIComponent(document.location.href);
 
+		if (language){
+			params += '&lang=' + language;
+		} 
+		if (country) {
+			params += '&country' + country;
+		}
 
         var xhr = new XMLHttpRequest();
 
@@ -106,6 +116,7 @@ jQuery(function() {
 					updateUserMeta();
 					return;
 				}
+				
 				newsletterError();
             } else {
                 newsletterError();
