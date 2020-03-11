@@ -82,11 +82,11 @@
                                         <?php if(strlen($flow['title']) > 0 && strlen($flow['copy']) > 0): ?>
                                         <div class="activity__accordion-container">
 											<div role="heading" aria-level="1">
-												<button class="activity__accordion-input" id="ac-<?php print $accordion_counter; ?>" name="accordion-<?php print $accordion_counter; ?>" aria-expanded="false">
+												<button class="activity__accordion-input" id="ac-<?php print $accordion_counter; ?>" name="accordion-<?php print $accordion_counter; ?>" type="button" aria-expanded="false" aria-controls="ac-panel-<?php print $accordion_counter?>">
 													<?php print $flow['title']; ?>
 												</button>
 											</div>
-                                            <div class="activity__accordion-content" aria-labelledby="ac-<?php print $accordion_counter; ?>">
+                                            <div id="ac-panel-<?php print $accordion_counter ?>" class="activity__accordion-content" aria-labelledby="ac-<?php print $accordion_counter; ?>">
                                                 <?php print $flow['copy']; ?>
                                             </div>
                                         </div>

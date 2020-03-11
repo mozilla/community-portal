@@ -1,29 +1,30 @@
 jQuery(function() {
-	const handleAccordianToggle = function(accordian) {
-		const $accordian = jQuery(accordian);
-		const id = $accordian.attr('id');
+	const handleAccordionToggle = function(accordion) {
+		const $accordion = jQuery(accordion);
+		const id = $accordion.attr('id');
 		const $panel = jQuery(`.activity__accordion-content[aria-labelledby=${id}]`);
 		if ($panel.hasClass('active')) {
 			$panel.removeClass('active');
-			$accordian.attr('aria-expanded', 'true');
+			$accordion.attr('aria-expanded', 'false');
 			return;
 		}
-		$panel.addClass()
+    $panel.addClass('active');
+    $accordion.attr('aria-expanded', 'true');
 	};
 
-	const toggleAccordians = function() {
-		const $accordianContainers = jQuery('.activity__accordion-input');
-		if ($accordianContainers.length > 0) {
-			$accordianContainers.each((index, accordian) => {
-				const $accordian = jQuery(accordian)
-				$accordian.on('click', function() {
+	const toggleAccordions = function() {
+		const $accordionContainers = jQuery('.activity__accordion-input');
+		if ($accordionContainers.length > 0) {
+			$accordionContainers.each((index, accordion) => {
+				const $accordion = jQuery(accordion)
+				$accordion.on('click', function() {
 					const $this = jQuery(this);
-					handleAccordianToggle($this);
+					handleAccordionToggle($this);
 				})
 			});
 		}
 	}
 
-	toggleAccordians();
+	toggleAccordions();
 
 });
