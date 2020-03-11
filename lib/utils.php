@@ -466,10 +466,7 @@ function mozilla_update_group_discourse_category_id() {
 
 function mozilla_post_status_transition($new_status, $old_status, $post) { 
 
-    if($new_status == 'publish' && 
-        $old_status == 'auto-draft' && 
-        !wp_is_post_revision($post->ID) && 
-        !wp_is_post_autosave($post->ID)) 
+    if($new_status == 'publish')
     {
         if($post->post_type === 'campaign') {            
             mozilla_create_mailchimp_list($post);
