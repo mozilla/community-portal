@@ -81,9 +81,12 @@
                                     <?php foreach($activity_flow AS $flow): ?>
                                         <?php if(strlen($flow['title']) > 0 && strlen($flow['copy']) > 0): ?>
                                         <div class="activity__accordion-container">
-                                            <input class="activity__accordion-input" id="ac-<?php print $accordion_counter; ?>" name="accordion-<?php print $accordion_counter; ?>" type="checkbox" />
-                                            <label class="activity__accordion-label" for="ac-<?php print $accordion_counter; ?>"><?php print $flow['title']; ?></label>
-                                            <div class="activity__accordion-content">
+											<div role="heading" aria-level="3">
+												<button class="activity__accordion-input" id="ac-<?php print $accordion_counter; ?>" role="button" name="accordion-<?php print $accordion_counter; ?>" type="button" aria-expanded="false" aria-controls="ac-panel-<?php print $accordion_counter?>">
+													<?php print $flow['title']; ?>
+												</button>
+											</div>
+                                            <div id="ac-panel-<?php print $accordion_counter ?>" class="activity__accordion-content" aria-labelledby="ac-<?php print $accordion_counter; ?>">
                                                 <?php print $flow['copy']; ?>
                                             </div>
                                         </div>
