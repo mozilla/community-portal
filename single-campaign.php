@@ -45,14 +45,12 @@
                             - <?php print $campaign_end_date; ?>
                             <?php endif; ?>
                         </div>
-                        <?php if($campaign_hero_cta && $logged_in && $mailchimp && isset($mailchimp->id)): ?>
+                        <?php if(($campaign_hero_cta && $logged_in && $mailchimp && isset($mailchimp->id)) || is_preview()): ?>
                         <a href="<?php print ($campaign_hero_cta_link) ? $campaign_hero_cta_link : '#'; ?>" class="campaign__hero-cta<?php if($mailchimp && isset($mailchimp->id) && $sub === true): ?> campaign__hero-cta--sub<?php else: ?> campaign__hero-cta--unsub<?php endif; ?>"<?php if($mailchimp && isset($mailchimp->id)): ?><?php if($mailchimp): ?> data-list="<?php print $mailchimp->id; ?>"<?php endif; ?><?php endif; ?> data-unsub-copy="<?php print $campaign_hero_unsub_cta; ?>" data-sub-copy="<?php print $campaign_hero_cta; ?>" data-campaign="<?php print $post->ID;?>"><?php print $sub ? $campaign_hero_cta : $campaign_hero_unsub_cta; ?></a>
                         <?php endif; ?>
                     </div>
                 </div>
             </div>
-			<?php if (isset($mailchimp_info->id) && strlen($mailchimp_info->id) > 0): ?>
-			<?php endif; ?>
             <div class="campaign__intro">
                 <div class="campaign__intro-card">
                     <?php print $post->post_content; ?>
