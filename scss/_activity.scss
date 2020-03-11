@@ -175,6 +175,7 @@
 
         .activity__cta {
             background-color: $color-blue-50;
+            border: 1px solid $color-blue-50;
             border-radius: 28px;
             color: $color-white;
             flex-shrink: 0;
@@ -186,6 +187,14 @@
             padding: 15px 33px;
             text-align: center;
             text-decoration: none;
+            transition: background-color 0.2s ease-in;
+
+
+            &:focus,
+            &:hover {
+                background-color: $color-white;
+                color: $color-blue-50;
+            }
     
             @include tablet-and-up {
                 height: 48px;
@@ -193,7 +202,7 @@
 
             &.activity__cta--share {
                 background-color: $color-white;
-                border: 2px solid $color-blue-50;
+                border: 1px solid $color-blue-50;
                 border-radius: 28px;
                 color: $color-blue-50;
                 font-size: remCalc(16);
@@ -206,6 +215,18 @@
                 text-align: center;
                 text-decoration: none;
                   
+                &:focus,
+                &:hover {
+                    background-color: $color-blue-50;
+                    color: $color-white;
+                    
+                    svg {
+                        path {
+                            stroke: $color-white;
+                        }
+                    }
+                }
+
                 svg {
                     left: 33px;
                     position: absolute;
