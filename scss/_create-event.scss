@@ -301,7 +301,8 @@ div.time-picker ul li {
         margin-top: 24px;
 
         @include tablet-and-up {
-            margin-top: 32px;
+			margin-top: 32px;
+			flex-wrap: nowrap;
         }
 
         div:nth-child(n + 2) {
@@ -344,29 +345,32 @@ div.time-picker ul li {
 
         .wide {
             position: relative;
-            width: 100%;
+			flex-basis: 100%;
+			width: 100%;
 
             @include tablet-and-up {
-                width: calc(50% - 16px);
+                flex-basis: calc(50% - 16px);
             }
 
             @include desktop-and-up {
-                width: calc(35% - 16px);
+                flex-basis: calc(35% - 32px);
             }
 
             &--md-third {
+				
                 @include tablet-and-up {
-                    width: calc(33.33% - 16px);
+                    flex-basis: calc(33.33% - 32px);
                 }
 
                 @include desktop-and-up {
-                    width: calc(35% - 16px);
+                    flex-basis: calc(35% - 32px);
                 }
-            }
+			}
 
             &--double {
                 position: relative;
-                width: 100%;
+				width: 100%;
+				flex-grow: 1;
 
                 &:not(.event-creator__hidden) + .wide--double {
                     margin-left: 0;
@@ -375,13 +379,13 @@ div.time-picker ul li {
                 }
 
                 @include tablet-and-up {
-                    width: calc(50% - 16px);
+                    flex-basis: calc(50% - 16px);
                 }
 
                 @include desktop-and-up {
-                    width: calc(65% - 16px);
+                    flex-basis: calc(65% - 16px);
                 }
-            }
+			}
 
             &--full {
                 width: 100%;
@@ -390,18 +394,19 @@ div.time-picker ul li {
 
         .thin {
             position: relative;
-            width: 100%;
+			flex-basis: 100%;
+			
 
             select {
                 width: 100%;
             }
 
             @include tablet-and-up {
-                width: calc(33.33% - 32px);
+                flex-basis: calc(33.33% - 32px);
             }
 
             @include desktop-and-up {
-                width: calc(30% - 32px);
+                flex-basis: calc(30% - 32px);
             }
 
             &--bottom {
