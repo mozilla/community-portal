@@ -373,10 +373,23 @@
         position: relative;
 		transition: all 0.3s ease-in-out;
 		opacity: 0;
-		padding: 0 16px;
+        padding: 0 16px;
+        
         p {
             margin: 0;
-		}
+        }
+        
+        a {
+            color: $color-blue-50;
+            transition: color 0.2s ease-in;
+
+            &:focus,
+            &:hover {
+                color: $color-blue-50;
+                text-decoration: none;
+            }
+        }
+
 		@include tablet-and-up {
 			padding: 0 24px;
 		}
@@ -385,10 +398,12 @@
     &__accordion-content.active {
         height: auto;
 		overflow: visible;
-		padding-bottom: 16px;
+        padding-bottom: 16px;
+        
 		@include tablet-and-up {
 			padding-bottom: 24px;
-		}
+        }
+        
 		p {
 			margin-top: 5px;
 		}
@@ -509,6 +524,17 @@
         font-size: remCalc(16);
         line-height: 24px;
         text-decoration: none;
+        transition: color 0.2s ease-in;
+
+        &:focus,
+        &:hover {
+            color: $color-black;
+            svg {
+                path {
+                    stroke: $color-black;
+                }
+            }
+        }
         
         svg {
             margin-left: 4px;
@@ -549,6 +575,16 @@
 
             li {
                 margin-bottom: 16px;
+            }
+        }
+
+        a {
+            transition: color 0.2s ease-in;
+
+            &:focus,
+            &:hover {
+                color: $color-black;
+                text-decoration: none;
             }
         }
     }

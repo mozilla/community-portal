@@ -1,6 +1,15 @@
 .events-single {
     padding-bottom: 36px;
 
+    &__link {
+        transition: color 0.2s ease-in;
+
+        &:focus,
+        &:hover {
+            color: $color-black!important;
+        }
+    }
+
     @include tablet-and-up {
         padding-bottom: 88px;
     }
@@ -11,11 +20,31 @@
 
     &__externam-link {
         color: $color-blue-50;
+        transition: color 0.2s ease-in;
+
+        &:focus,
+        &:hover {
+            color: $color-black!important;
+            
+            svg {
+                path {
+                    stroke: $color-black;
+                }
+            }
+        }
+
 
         &.events-single__externam-link--icon {
             align-items: center;
             display: flex;
             flex-direction: row;
+
+            transition: color 0.2s ease-in;
+
+            &:focus,
+            &:hover {
+                color: $color-black;
+            }
 
             svg {
                 margin-right: 8px;
@@ -25,9 +54,23 @@
 
     a {
         text-decoration: none;
+        transition: color 0.2s ease-in;
+
+        &:focus,
+        &:hover {
+            color: $color-black;
+            text-decoration: underline;
+        }
 
         .events-single__tag-link {
             color: $color-black;
+            transition: color 0.2s ease-in;
+
+            &:focus,
+            &:hover {
+                color: $color-blue-50;
+                text-decoration: underline;
+            }
 
             &:visited {
                 color: $color-black;
@@ -160,6 +203,18 @@
             a {
                 margin: 0;
                 line-height: remCalc(28);
+                transition: color 0.2s ease-in;
+
+                &:focus,
+                &:hover {
+                    color: $color-black!important;
+
+                    svg {
+                        path {
+                            stroke: $color-black;
+                        }
+                    }
+                }
             }
             a:visited {
                 color: $color-blue-50;
@@ -242,7 +297,8 @@
                 display: flex;
                 flex-wrap: wrap;
                 margin-bottom: 0;
-
+                text-decoration: none;
+                
                 .events-single__name {
                     margin-left: 97px;
                     margin-top: -25px;
@@ -304,6 +360,13 @@
         .events-single__host {
             display: block;
             margin-top: 16px;
+            transition: color 0.2s ease-in;
+
+            &:focus,
+            &:hover {
+                color: $color-black;
+                text-decoration: underline;
+            }
         }
 
         @include tablet-and-up {
@@ -376,6 +439,7 @@
 
     &__username {
         @extend .members__username;
+        text-decoration:  none;
 
         &::before {
             content: "@";
@@ -544,9 +608,22 @@
         font-size: remCalc(16);
         line-height: 24px;
         text-decoration: none;
+        transition: color 0.2s ease-in;
 
         svg {
             margin-right: 8px;
+        }
+
+
+        &:focus,
+        &:hover {
+            color: $color-black;
+            svg {
+                circle,
+                path {
+                    stroke: $color-black;
+                }
+            }
         }
     }
 }

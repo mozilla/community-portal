@@ -602,6 +602,13 @@
 
         a {
             color: $color-blue-50;
+            transition: color 0.2s ease-in;
+
+            &:focus,
+            &:hover {
+                color: $color-black;
+                text-decoration: none;
+            }
 
             &.campaign__outro-cta {
                 color: $color-white;

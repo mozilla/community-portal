@@ -1259,6 +1259,12 @@
         min-width: 120px;
         line-height: 28px;
         text-decoration: none;
+        transition: color 0.2s ease-in;
+
+        &:focus,
+        &:hover {
+            color: $color-black;
+        }
 
         svg {
             flex-shrink: 0;

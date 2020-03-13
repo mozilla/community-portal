@@ -108,6 +108,13 @@
         display: inline-block;
         margin-left: 4px;
         text-decoration: underline!important;
+        transition: color 0.2s ease-in;
+
+        &:focus,
+        &:hover {
+            color: $color-blue-50;
+            text-decoration: none!important;
+        }
     }
 
     &__created,
@@ -170,6 +177,13 @@
         line-height: 20px;
         margin-left: 8px;
         text-decoration: none;
+        transition: color 0.2s ease-in;
+
+        &:focus,
+        &:hover {
+            color: $color-black;
+            text-decoration: underline;
+        }
 
         @include tablet-and-up {
             font-size: remCalc(16);
@@ -818,6 +832,18 @@
         font-size: remCalc(16);
         line-height: 24px;
         text-decoration: none;
+        transition: color 0.2s ease-in;
+
+        &:focus,
+        &:hover {
+            color: $color-black;
+            text-decoration: underline;
+            svg {
+                path {
+                    stroke: $color-black;
+                }
+            }
+        }
 
         svg {
             margin-left: 8px;
@@ -845,6 +871,19 @@
         font-size: remCalc(16);
         line-height: 24px;
         text-decoration: none;
+        transition: color 0.2s ease-in;
+
+        &:focus,
+        &:hover {
+            color: $color-black;
+            text-decoration: underline;
+            svg {
+                path,
+                circle {
+                    stroke: $color-black;
+                }
+            }
+        }
 
         svg {
             margin-right: 8px;

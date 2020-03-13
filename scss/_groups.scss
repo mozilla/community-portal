@@ -64,6 +64,13 @@
 
     &__hero-link {
         color: $color-black;
+        transition: color 0.2s ease-in;
+
+        &:focus,
+        &:hover {
+            color: $color-blue-50;
+            text-decoration: none;
+        }
     }
 
     &__title {
@@ -523,6 +530,13 @@
         line-height: 22px;
         margin-right: 1em;
         text-decoration: none;
+        transition: color 0.2s ease-in;
+
+        &:focus,
+        &:hover {
+            color: $color-blue-50;
+            text-decoration: underline;
+        }
 
         &.groups__pagination-link--active {
             position: relative;
