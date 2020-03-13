@@ -122,6 +122,13 @@
 
         a {
             color: $color-blue-50;
+            transition: color 0.2s ease-in;
+
+            &:focus,
+            &:hover {
+                color: $color-black;
+                text-decoration: underline;
+            }
         }
 
 
@@ -529,6 +536,7 @@
         &:focus,
         &:hover {
             color: $color-black;
+            text-decoration: underline;
             svg {
                 path {
                     stroke: $color-black;
