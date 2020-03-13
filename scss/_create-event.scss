@@ -336,7 +336,15 @@ div.time-picker ul li {
             @extend .select__label;
 
             display: block;
-        }
+		}
+		
+		.half {
+			flex-basis: 100%;
+			flex-grow: 1;
+			@include tablet-and-up {
+				flex-basis: 50%;
+			}
+		}
 
         .wide,
         .wide--double {
