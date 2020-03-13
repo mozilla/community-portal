@@ -13,8 +13,6 @@ if(isset($_REQUEST['event_id'])) {
 	$external_url = $event_meta[0]->external_url;
 	$event_initiative = isset($event_meta[0]->initiative) && strlen($event_meta[0]->initiative) > 0 ? intval($event_meta[0]->initiative) : false;   
 	$event_language = isset($event_meta[0]->language) && strlen($event_meta[0]->language) > 0 ? $event_meta[0]->language : false;
-	$event_goal = isset($event_meta[0]->goal) && strlen($event_meta[0]->goal) > 0 ? $event_meta[0]->goal : false;
-	$event_projected_attendees = isset($event_meta[0]->projected_attendees) ? $event_meta[0]->projected_attendees : false;
 }
 ?>
 
@@ -91,18 +89,6 @@ if(!empty($_REQUEST['success'])){
     <?php if(!is_admin() && (!defined('DOING_AJAX') || !DOING_AJAX)): ?>
     <div class="event-wrap event-creator">
         <div class="event-editor">
-		<div class="event-creator__container">
-				<div class="event-creator__three-up">
-					<div class="wide--double">
-						<label class="event-creator__label" for="goal"><?php print __( 'Event Goal'); ?></label>
-						<input class="event-creator__input" type="text" name="goal" id="goal" value="<?php echo ($event_goal ? $event_goal : '')?>"/>
-					</div>
-					<div class="wide wide--md-third">
-						<label class="event-creator__label" for="projected-attendees"><?php print __( 'Estimated # of Attendees'); ?></label>
-						<input class="event-creator__input" type="text" name="projected-attendees" id="projected-attendees" value="<?php echo ($event_projected_attendees ? $event_projected_attendees : '')?>" />
-					</div>
-				</div>
-            </div>
             <div class="event-creator__container">
                 <label class="event-form-details event-creator__label" for="event-description"><?php print __('Event description *', 'commuity-portal'); ?></label>
                 <textarea name="content" id="event-description" placeholder="Add in the details of your event’s agenda here. If this is a multi-day event, you can add in the details of each day’s schedule and start/end time." rows="10" id="event-description" class="event-creator__input event-creator__textarea" style="width:100%" required maxlength="3000"><?php echo __($EM_Event->post_content) ?></textarea>
