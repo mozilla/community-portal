@@ -129,6 +129,13 @@
                 color: $color-black;
                 text-decoration: underline;
             }
+
+            &.activity__event {
+                &:focus,
+                &:hover {
+                    text-decoration: none;
+                }
+            }
         }
 
 
@@ -492,8 +499,6 @@
         @include desktop-and-up {
             margin: 0 -32px;
         }
-
-
         
     }
  

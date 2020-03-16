@@ -136,6 +136,11 @@
             color: $color-white;
             padding: 2px 0;
             display: block;
+
+            &:focus,
+            &:hover {
+                text-decoration: underline;
+            }
         }
     }
     
@@ -165,6 +170,11 @@
 
     &__link {
         color: $color-white;
+
+        &:focus,
+        &:hover {
+            text-decoration: none;
+        }
 
     }
 }
@@ -238,6 +248,11 @@
             font-size: remCalc(12);
             line-height: 12px;
             text-decoration: underline;
+
+            &:focus,
+            &:hover {
+                text-decoration: none;
+            }
         }
     }
 }

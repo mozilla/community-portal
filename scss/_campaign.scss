@@ -644,7 +644,7 @@
         &:focus,
         &:hover {
             background-color: $color-blue-50;
-            color: $color-white;
+            color: $color-white!important;
         }
     }
 
