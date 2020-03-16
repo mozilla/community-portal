@@ -65,7 +65,7 @@ if(!empty($_REQUEST['success'])){
 					<div class="wide wide--md-third">
 						<label class="event-creator__label" for="language"><?php print __('Language') ?></label>
 						<select class="event-creator__dropdown" name="language" id="language">
-							<option value disabled selected></option>
+							<option value="" disabled selected></option>
 							<?php foreach($languages as $index=>$language): ?>
 								<option value="<?php echo $index ?>" <?php echo ($event_language && $event_language === $index ? 'selected' : '')?>> <?php echo $language; ?></option>
 							<?php endforeach ?>
@@ -94,7 +94,7 @@ if(!empty($_REQUEST['success'])){
 				<div class="event-creator__three-up">
 					<div class="half">
 						<label class="event-form-details event-creator__label" for="event-goal"><?php print __('Event goal(s)', 'commuity-portal'); ?></label>
-						<textarea name="goal" id="event-goal" rows="10" id="event-goal" class="event-creator__input event-creator__textarea" style="width:100%" required maxlength="3000"><?php echo ($event_goal ? $event_goal : '') ?></textarea>
+						<textarea name="goal" id="event-goal" rows="10" id="event-goal" class="event-creator__input event-creator__textarea" style="width:100%" maxlength="3000"><?php echo ($event_goal ? $event_goal : '') ?></textarea>
 					</div>
 					<div class="event-creator__container half">
 						<label class="event-form-details event-creator__label" for="event-description"><?php print __('Event description *', 'commuity-portal'); ?></label>
