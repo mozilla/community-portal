@@ -65,7 +65,7 @@ if(!empty($_REQUEST['success'])){
 					<div class="wide wide--md-third">
 						<label class="event-creator__label" for="language"><?php print __('Language') ?></label>
 						<select class="event-creator__dropdown" name="language" id="language">
-							<option value="" disabled selected></option>
+							<option value="0" disabled selected>Language</option>
 							<?php foreach($languages as $index=>$language): ?>
 								<option value="<?php echo $index ?>" <?php echo ($event_language && $event_language === $index ? 'selected' : '')?>> <?php echo $language; ?></option>
 							<?php endforeach ?>
