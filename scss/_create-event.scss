@@ -284,17 +284,22 @@ div.time-picker ul li {
             border: 1px solid $color-gray-20;
         }
 	}
+
+	
 	
 	&__three-up,
 	&__container {
-		&:nth-child(n + 2) {
-			margin-top: 24px;
-			@include tablet-and-up {
-				margin-top: 32px;
-			}
+		margin-top: 24px;
+		@include tablet-and-up {
+			margin-top: 32px;
 		}
 	}
-
+	.inside,
+	.event-editor {
+		& > .event-creator__three-up:first-child {
+			margin-top: 0;
+		}
+	} 
     &__three-up {
         align-items: flex-start;
         display: flex;
