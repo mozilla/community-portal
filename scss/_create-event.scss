@@ -64,14 +64,6 @@ div.time-picker ul li {
         padding: 80px 105px;
     }
 
-    &__container:nth-child(n + 2) {
-        margin-top: 24px;
-
-        @include tablet-and-up {
-			margin-top: 32px;
-        }
-    }
-
     &__container p {
         line-height: 24px;
     }
@@ -263,7 +255,7 @@ div.time-picker ul li {
         position: absolute;
         &:focus + .event-creator__tag,
         &:focus + .event-creator__cpg .event-creator__custom-check {
-          outline: 1px solid $color-blue-50;
+		outline: 1px solid $color-blue-50;
         }
 
         & + .event-creator__tag {
@@ -291,27 +283,32 @@ div.time-picker ul li {
             background: $color-gray-20;
             border: 1px solid $color-gray-20;
         }
-    }
-
+	}
+	
+	&__three-up,
+	&__container {
+		&:nth-child(n + 2) {
+			margin-top: 24px;
+			@include tablet-and-up {
+				margin-top: 32px;
+			}
+		}
+	}
 
     &__three-up {
         align-items: flex-start;
         display: flex;
-        flex-wrap: wrap;
-        margin-top: 24px;
-
+		flex-wrap: wrap;
         @include tablet-and-up {
-			margin-top: 32px;
 			flex-wrap: nowrap;
-        }
-
-        div:nth-child(n + 2) {
-            margin-top: 24px;
-
-            @include tablet-and-up {
-                margin-top: 0;
-            }
-        }
+		}
+		
+		div:nth-child(n + 2) {
+			margin-top: 24px;
+			@include tablet-and-up {
+				margin-top: auto;
+			}
+		}
 
         #end-time,
         #start-time {
@@ -348,7 +345,7 @@ div.time-picker ul li {
 
         .wide,
         .wide--double {
-            margin-bottom: auto;
+            margin-top: auto;
         }
 
         .wide {
@@ -382,7 +379,6 @@ div.time-picker ul li {
 
                 &:not(.event-creator__hidden) + .wide--double {
                     margin-left: 0;
-                    margin-top: 32px;
                     width: 100%;
                 }
 
@@ -515,7 +511,7 @@ div.time-picker ul li {
     &__location-edit {
         background: $color-gray-10;
         border: 1px solid $color-gray-30;
-        padding: 0 16px 16px;
+        padding: 16px;
 
         input,
         select {
