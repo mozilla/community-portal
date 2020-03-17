@@ -4,6 +4,9 @@
     // Main header template 
     get_header(); 
 
+    $template_dir = get_template_directory();
+    include("{$template_dir}/languages.php");
+
     // Execute actions by buddypress
     do_action('bp_before_directory_groups_page');
     do_action('bp_before_directory_groups');
@@ -65,20 +68,54 @@
             $countries_with_groups[] = $meta['group_country'];
         }
 
-        if(isset($_GET['tag']) && strlen($_GET['tag']) > 0 && isset($_GET['location']) && strlen($_GET['location']) > 0) {
-            if(in_array(strtolower(trim($_GET['tag'])), array_map('strtolower', $meta['group_tags'])) && trim(strtolower($_GET['location'])) == strtolower($meta['group_country'])) { 
-                $filtered_groups[] = $group;
-                continue;
+        if(isset($_GET['tag']) && strlen($_GET['tag']) > 0 
+            && isset($_GET['location']) && strlen($_GET['location']) > 0 
+            && isset($_GET['language']) && strlen($_GET['language']) > 0) {
+
+            if(isset($meta['group_language'])) {
+                if(in_array(strtolower(trim($_GET['tag'])), array_map('strtolower', $meta['group_tags'])) 
+                    && trim(strtolower($_GET['location'])) == strtolower($meta['group_country'])
+                    && trim(strtolower($_GET['language'])) == strtolower($meta['group_language'])) { 
+                    $filtered_groups[] = $group;
+                    continue;
+                }
             }
-        } elseif(isset($_GET['tag']) && strlen($_GET['tag']) > 0 && (!isset($_GET['location']) || strlen($_GET['location']) === 0)) {
+        } elseif((!isset($_GET['tag']) || strlen($_GET['tag']) === 0) 
+            && isset($_GET['location']) && strlen($_GET['location']) > 0 
+            && isset($_GET['language']) && strlen($_GET['language']) > 0) {
+
+            if(isset($meta['group_language'])) { 
+                if(trim(strtolower($_GET['location'])) == strtolower($meta['group_country'])
+                && trim(strtolower($_GET['language'])) == strtolower($meta['group_language'])) { 
+                    $filtered_groups[] = $group;
+                    continue;
+                }
+            }
+        } elseif(isset($_GET['tag']) && strlen($_GET['tag']) > 0
+            && (!isset($_GET['location']) || strlen($_GET['location']) === 0)
+            && (!isset($_GET['language']) || strlen($_GET['language']) === 0)) {
+
             if(in_array(strtolower(trim($_GET['tag'])), array_map('strtolower', $meta['group_tags']))) {
                 $filtered_groups[] = $group;
                 continue;
             }
-        } elseif(isset($_GET['location']) && strlen($_GET['location']) > 0 && (!isset($_GET['tag']) || strlen($_GET['tag']) === 0)) {
+        } elseif(isset($_GET['location']) && strlen($_GET['location']) > 0 
+            && (!isset($_GET['language']) || strlen($_GET['language']) === 0)
+            && (!isset($_GET['tag']) || strlen($_GET['tag']) === 0)
+            ) {
             if(trim(strtolower($_GET['location'])) == strtolower($meta['group_country'])) {
                 $filtered_groups[] = $group;
                 continue;
+            }
+        } elseif(isset($_GET['language']) && strlen($_GET['language']) > 0 
+            && (!isset($_GET['location']) || strlen($_GET['location']) === 0)
+            && (!isset($_GET['tag']) || strlen($_GET['tag']) === 0)
+        ) {
+            if(isset($meta['group_language'])) {
+                if(trim(strtolower($_GET['language'])) == strtolower($meta['group_language'])) {
+                    $filtered_groups[] = $group;
+                    continue;
+                }
             }
         } else {
             $filtered_groups[] = $group;
@@ -149,6 +186,7 @@
                     <form method="GET" action="/groups/" class="groups__form" id="group-search-form">
                         <input type="hidden" value="<?php if(isset($_GET['tag']) && strlen($_GET['tag']) > 0): print trim($_GET['tag']); endif; ?>" name="tag" id="group-tag" />
                         <input type="hidden" value="<?php if(isset($_GET['location']) && strlen($_GET['location']) > 0): print trim($_GET['location']); endif; ?>" name="location" id="group-location" />
+                        <input type="hidden" value="<?php if(isset($_GET['language']) && strlen($_GET['language']) > 0): print trim($_GET['language']); endif; ?>" name="language" id="group-language" />
                         <input type="hidden" name="mygroups" value="<?php if(isset($_GET['mygroups']) && $_GET['mygroups'] == 'true'): ?>true<?php else: ?>false<?php endif; ?>" />
                         <div class="groups__input-container">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -186,6 +224,15 @@
                         <option value=""><?php print __('All', "community-portal"); ?></option>
                         <?php foreach($used_country_list AS $code   =>  $country): ?>
                         <option value="<?php print $code; ?>"<?php if(isset($_GET['location']) && strlen($_GET['location']) > 0 && $_GET['location'] == $code): ?> selected<?php endif; ?>><?php print $country; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="groups__select-container">
+                    <label class="groups__label">Language </label>
+                    <select class="groups__language-select">
+                        <option value=""><?php print __('All', "community-portal"); ?></option>
+                        <?php foreach($languages AS $code   =>  $language): ?>
+                        <option value="<?php print $code; ?>"<?php if(isset($_GET['language']) && strlen($_GET['language']) > 0 && $_GET['language'] == $code): ?> selected<?php endif; ?>><?php print $language; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
