@@ -392,6 +392,10 @@ function mozilla_save_post($post_id, $post, $update) {
         $event->image_url = esc_url_raw($_POST['image_url']);
         $event->location_type = sanitize_text_field($_POST['location-type']);
         $event->external_url = esc_url_raw($_POST['event_external_link']);
+		$event->language = $_POST['language'] ? sanitize_text_field($_POST['language']) : '';
+		$event->goal = $_POST['goal'] ? sanitize_text_field($_POST['goal']): '';
+		$event->projected_attendees = $_POST['projected-attendees'] ? intval($_POST['projected-attendees']): '';
+
         
         if(isset($_POST['initiative_id']) && strlen($_POST['initiative_id']) > 0) {
             $initiative_id = intval($_POST['initiative_id']);

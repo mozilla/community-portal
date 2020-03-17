@@ -64,14 +64,6 @@ div.time-picker ul li {
         padding: 80px 105px;
     }
 
-    &__container:nth-child(n + 2) {
-        margin-top: 24px;
-
-        @include tablet-and-up {
-			margin-top: 32px;
-        }
-    }
-
     &__container p {
         line-height: 24px;
     }
@@ -263,7 +255,7 @@ div.time-picker ul li {
         position: absolute;
         &:focus + .event-creator__tag,
         &:focus + .event-creator__cpg .event-creator__custom-check {
-          outline: 1px solid $color-blue-50;
+		outline: 1px solid $color-blue-50;
         }
 
         & + .event-creator__tag {
@@ -291,26 +283,37 @@ div.time-picker ul li {
             background: $color-gray-20;
             border: 1px solid $color-gray-20;
         }
-    }
+	}
 
-
+	
+	
+	&__three-up,
+	&__container {
+		margin-top: 24px;
+		@include tablet-and-up {
+			margin-top: 32px;
+		}
+	}
+	.inside,
+	.event-editor {
+		& > .event-creator__three-up:first-child {
+			margin-top: 0;
+		}
+	} 
     &__three-up {
-        align-items: flex-end;
+        align-items: flex-start;
         display: flex;
-        flex-wrap: wrap;
-        margin-top: 24px;
-
+		flex-wrap: wrap;
         @include tablet-and-up {
-            margin-top: 32px;
-        }
-
-        div:nth-child(n + 2) {
-            margin-top: 24px;
-
-            @include tablet-and-up {
-                margin-top: 0;
-            }
-        }
+			flex-wrap: nowrap;
+		}
+		
+		div:nth-child(n + 2) {
+			margin-top: 24px;
+			@include tablet-and-up {
+				margin-top: auto;
+			}
+		}
 
         #end-time,
         #start-time {
@@ -335,53 +338,63 @@ div.time-picker ul li {
             @extend .select__label;
 
             display: block;
-        }
+		}
+		
+		.half {
+			flex-basis: 100%;
+			flex-grow: 1;
+			@include tablet-and-up {
+				flex-basis: 50%;
+			}
+		}
 
         .wide,
         .wide--double {
-            margin-bottom: auto;
+            margin-top: auto;
         }
 
         .wide {
             position: relative;
-            width: 100%;
+			flex-basis: 100%;
+			width: 100%;
 
             @include tablet-and-up {
-                width: calc(50% - 16px);
+                flex-basis: calc(50% - 16px);
             }
 
             @include desktop-and-up {
-                width: calc(35% - 16px);
+                flex-basis: calc(35% - 32px);
             }
 
             &--md-third {
+				
                 @include tablet-and-up {
-                    width: calc(33.33% - 16px);
+                    flex-basis: calc(33.33% - 32px);
                 }
 
                 @include desktop-and-up {
-                    width: calc(35% - 16px);
+                    flex-basis: calc(35% - 32px);
                 }
-            }
+			}
 
             &--double {
                 position: relative;
-                width: 100%;
+				width: 100%;
+				flex-grow: 1;
 
                 &:not(.event-creator__hidden) + .wide--double {
                     margin-left: 0;
-                    margin-top: 32px;
                     width: 100%;
                 }
 
                 @include tablet-and-up {
-                    width: calc(50% - 16px);
+                    flex-basis: calc(50% - 16px);
                 }
 
                 @include desktop-and-up {
-                    width: calc(65% - 16px);
+                    flex-basis: calc(65% - 16px);
                 }
-            }
+			}
 
             &--full {
                 width: 100%;
@@ -390,18 +403,19 @@ div.time-picker ul li {
 
         .thin {
             position: relative;
-            width: 100%;
+			flex-basis: 100%;
+			
 
             select {
                 width: 100%;
             }
 
             @include tablet-and-up {
-                width: calc(33.33% - 32px);
+                flex-basis: calc(33.33% - 32px);
             }
 
             @include desktop-and-up {
-                width: calc(30% - 32px);
+                flex-basis: calc(30% - 32px);
             }
 
             &--bottom {
@@ -502,7 +516,7 @@ div.time-picker ul li {
     &__location-edit {
         background: $color-gray-10;
         border: 1px solid $color-gray-30;
-        padding: 0 16px 16px;
+        padding: 16px;
 
         input,
         select {
