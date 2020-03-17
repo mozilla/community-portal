@@ -56,21 +56,19 @@ if(!empty($_REQUEST['success'])){
 			</div>
 		<?php endif; ?>
 		<div class="inside event-form-name event">
-            <div class="event-creator__container">
-				<div class="event-creator__three-up">
-					<div class="wide--double">
-						<label class="event-form-name event-creator__label" for="event-name"><?php print __( 'Event Name *', 'commuity-portal'); ?></label>
-						<input class="event-creator__input event-creator__input" type="text" name="event_name" id="event-name" required value="<?php echo esc_attr($EM_Event->event_name,ENT_QUOTES); ?>" />
-					</div>
-					<div class="wide wide--md-third">
-						<label class="event-creator__label" for="language"><?php print __('Language') ?></label>
-						<select class="event-creator__dropdown" name="language" id="language">
-							<option value="0" disabled selected>Language</option>
-							<?php foreach($languages as $index=>$language): ?>
-								<option value="<?php echo $index ?>" <?php echo ($event_language && $event_language === $index ? 'selected' : '')?>> <?php echo $language; ?></option>
-							<?php endforeach ?>
-						</select>
-					</div>
+			<div class="event-creator__three-up">
+				<div class="wide--double">
+					<label class="event-form-name event-creator__label" for="event-name"><?php print __( 'Event Name *', 'commuity-portal'); ?></label>
+					<input class="event-creator__input event-creator__input" type="text" name="event_name" id="event-name" required value="<?php echo esc_attr($EM_Event->event_name,ENT_QUOTES); ?>" />
+				</div>
+				<div class="wide wide--md-third">
+					<label class="event-creator__label" for="language"><?php print __('Language') ?></label>
+					<select class="event-creator__dropdown" name="language" id="language">
+						<option value="0" disabled selected>Language</option>
+						<?php foreach($languages as $index=>$language): ?>
+							<option value="<?php echo $index ?>" <?php echo ($event_language && $event_language === $index ? 'selected' : '')?>> <?php echo $language; ?></option>
+						<?php endforeach ?>
+					</select>
 				</div>
             </div>
             <?php if( $EM_Event->can_manage('upload_event_images','upload_event_images') ): ?>
