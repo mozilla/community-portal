@@ -97,6 +97,6 @@
 </div>
 <div class="col-md-12">
     <button class="events__filter__toggle btn btn--large btn--light">
-        <?php echo __('Show Filters') ?>
+        <?php echo __('Hide Filters') ?>
     </button>
 </div>

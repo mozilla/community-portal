@@ -47,18 +47,33 @@
     $args['limit'] = '0';
     $all_events = EM_Events::get($args);  
     $events = Array();
-
-    if(isset($_GET['initiative']) && strlen($_GET['initiative']) > 0 && strtolower($_GET['initiative']) != 'all') {
-        foreach($all_events AS $e) {
-            $event_meta = get_post_meta($e->post_id, 'event-meta');
-    
-            if(isset($event_meta[0]->initiative) && intval($event_meta[0]->initiative) === intval($_GET['initiative'])) {
-                $events[] = $e;
-            }
-        }
+	$initiative = isset($_GET['initiative']) && strlen($_GET['initiative']) > 0 && strtolower($_GET['initiative']) !== 'all' ? $_GET['initiative'] : false;
+	$language = isset($_GET['language']) && strlen($_GET['language']) > 0 && strtolower($_GET['language']) !== 'all' ? $_GET['language'] : false;
+	if ($initiative || $language) {
+		foreach($all_events AS $e) {
+			$event_meta = get_post_meta($e->post_id, 'event-meta');
+			if ($initiative && $language) {
+				if(
+					(isset($event_meta[0]->initiative) && intval($event_meta[0]->initiative) === intval($_GET['initiative'])) && 
+					(isset($event_meta[0]->language) && strtolower($event_meta[0]->language) === strtolower($_GET['language']))
+				) {
+					$events[] = $e;
+				}
+			} elseif ($initiative) {
+				if (isset($event_meta[0]->initiative) && intval($event_meta[0]->initiative) === intval($_GET['initiative'])) {
+					$events[] = $e;
+				}
+			} else {
+				if (isset($event_meta[0]->language) && strtolower($event_meta[0]->language) === strtolower($_GET['language'])) {
+					$events[] = $e;
+				}
+			}
+			
+		}
     } else {
         $events = $all_events;
-    }
+	}
+
 
     $events_per_page = 12;
     $offset = ($page - 1) * $events_per_page;
