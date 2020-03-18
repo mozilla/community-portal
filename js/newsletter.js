@@ -100,7 +100,7 @@ jQuery(function() {
 			params += '&lang=' + language;
 		} 
 		if (country) {
-			params += '&country' + country;
+			params += '&country=' + country;
 		}
 
         var xhr = new XMLHttpRequest();
