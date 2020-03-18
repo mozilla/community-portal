@@ -27,7 +27,7 @@
 		<select class="newsletter__dropdown" id="newsletter-country" name="newsletter-country">
 			<option value="" disabled="" selected="">Country or region</option>
 			<?php foreach($countries as $index=>$country): ?>
-				<option value="<?php echo $index ?>" <?php echo ($user_country === $index ? 'selected' : '') ?>><?php echo $country ?></option>
+				<option value="<?php echo strtolower($index) ?>" <?php echo ($user_country === $index ? 'selected' : '') ?>><?php echo $country ?></option>
 			<?php endforeach; ?>
 		</select>
 	</div>

@@ -111,6 +111,7 @@ jQuery(function() {
                 if(response === null) {
                     return;
 				}
+
 				var response = r.target.response;
 				if (response.success) {
 					updateUserMeta();
