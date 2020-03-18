@@ -12,7 +12,7 @@
             $form['tags'] = array_filter(explode(',', $form['tags']));
         }
     } else {
-        // Prepopulate
+		// Prepopulate
         $form['group_name'] = $group->name;
         $form['group_desc'] = $group->description;
         $form['group_type'] = isset($group_meta['group_type']) ? $group_meta['group_type'] : 'Online';
@@ -28,7 +28,8 @@
         $form['group_facebook'] = isset($group_meta['group_facebook']) ? $group_meta['group_facebook'] : '';
         $form['group_github'] = isset($group_meta['group_github']) ? $group_meta['group_github'] : '';
         $form['group_twitter'] = isset($group_meta['group_twitter']) ? $group_meta['group_twitter'] : '';
-        $form['group_other'] = isset($group_meta['group_other']) ? $group_meta['group_other'] : '';
+		$form['group_other'] = isset($group_meta['group_other']) ? $group_meta['group_other'] : '';
+		$form['group_matrix'] = isset($group_meta['group_matrix']) ? $group_meta['group_matrix'] : '';
 
 
         if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
@@ -212,6 +213,12 @@
 						<label class="create-group__label" for="group-telegram"><?php print __("Telegram", "community-portal"); ?></label>
 						<input type="text" placeholder="https://" name="group_telegram" id="group-telegram" class="create-group__input create-group__input--inline"  value="<?php print isset($form['group_telegram']) ? $form['group_telegram'] : ''; ?>"/>
                     </div>
+					<div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--50">
+						<label class="create-group__label"  for="group-matrix"><?php print __("Matrix", "community-portal"); ?></label>
+						<input type="text" placeholder="https://" name="group_matrix" id="group-matrix" class="create-group__input create-group__input--inline"  value="<?php print isset($form['group_matrix']) ? $form['group_matrix'] : ''; ?>"/>
+                    </div>
+                </div>
+				<div class="create-group__input-row">
                     <div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--50">
 						<label class="create-group__label"  for="group-other"><?php print __("Other", "community-portal"); ?></label>
 						<input type="text" placeholder="https://" name="group_other" id="group-other" class="create-group__input create-group__input--inline"  value="<?php print isset($form['group_other']) ? $form['group_other'] : ''; ?>"/>

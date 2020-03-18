@@ -25,6 +25,7 @@ function mozilla_create_group() {
             'group_telegram',
             'group_github',
             'group_twitter',
+            'group_matrix',
             'group_other',
             'group_country',
             'group_city'
@@ -263,6 +264,7 @@ function mozilla_edit_group() {
                     $meta['group_telegram'] = isset($_POST['group_telegram']) ? sanitize_text_field($_POST['group_telegram']) : '';
                     $meta['group_github'] = isset($_POST['group_github']) ? sanitize_text_field($_POST['group_github']) : '';
                     $meta['group_twitter'] = isset($_POST['group_twitter']) ? sanitize_text_field($_POST['group_twitter']) : '';
+                    $meta['group_matrix'] = isset($_POST['group_matrix']) ? sanitize_text_field($_POST['group_matrix']) : '';
                     $meta['group_other'] = isset($_POST['group_other']) ? sanitize_text_field($_POST['group_other']) : '';
 
                     groups_update_groupmeta($group_id, 'meta', $meta);
