@@ -372,7 +372,8 @@
                                 || (isset($group_meta['group_facebook']) && strlen(trim($group_meta['group_facebook'])) > 0 ) 
                                 || (isset($group_meta['group_discourse']) && strlen(trim($group_meta['group_discourse'])) > 0 ) 
                                 || (isset($group_meta['group_github']) && strlen(trim($group_meta['group_github'])) > 0) 
-                                || (isset($group_meta['group_twitter']) && strlen(trim($group_meta['group_twitter'])) > 0 ) 
+								|| (isset($group_meta['group_twitter']) && strlen(trim($group_meta['group_twitter'])) > 0 )
+                                || (isset($group_meta['group_matrix']) && strlen(trim($group_meta['group_matrix'])) > 0 )  
                                 || (isset($group_meta['group_other']) && strlen($group_meta['group_other']) > 0)): ?>
                                 <div class="group__community-links">
                                     <span class="no-line"><?php print __("Community Links", "community-portal"); ?></span>
@@ -427,6 +428,21 @@
                                                 <path d="M12.3766 23.9366C19.7469 23.9366 23.7781 17.8303 23.7781 12.535C23.7781 12.3616 23.7781 12.1889 23.7664 12.017C24.5506 11.4498 25.2276 10.7474 25.7656 9.94281C25.0343 10.2669 24.2585 10.4794 23.4641 10.5733C24.3006 10.0725 24.9267 9.28482 25.2258 8.35688C24.4392 8.82364 23.5786 9.15259 22.6812 9.32953C22.0771 8.6871 21.278 8.26169 20.4077 8.11915C19.5374 7.97661 18.6444 8.12487 17.8668 8.541C17.0893 8.95713 16.4706 9.61792 16.1064 10.4211C15.7422 11.2243 15.6529 12.1252 15.8523 12.9842C14.2592 12.9044 12.7006 12.4903 11.2778 11.7691C9.85506 11.0478 8.59987 10.0353 7.59375 8.7975C7.08132 9.67966 6.92438 10.724 7.15487 11.7178C7.38536 12.7116 7.98596 13.5802 8.83437 14.1467C8.19667 14.1278 7.57287 13.9558 7.01562 13.6452C7.01562 13.6616 7.01562 13.6788 7.01562 13.6959C7.01588 14.6211 7.33614 15.5177 7.9221 16.2337C8.50805 16.9496 9.32362 17.4409 10.2305 17.6241C9.64052 17.785 9.02155 17.8085 8.42109 17.6928C8.67716 18.489 9.17568 19.1853 9.84693 19.6843C10.5182 20.1832 11.3286 20.4599 12.1648 20.4756C10.7459 21.5908 8.99302 22.1962 7.18828 22.1944C6.86946 22.1938 6.55094 22.1745 6.23438 22.1366C8.0669 23.3126 10.1992 23.9363 12.3766 23.9334" fill="black"/>
                                             </svg>
                                             <a href="<?php print (mozilla_verify_url($group_meta['group_twitter'], true) ? mozilla_verify_url($group_meta['group_twitter'], true) : 'https://www.twitter.com/'.$group_meta['group_twitter']) ?>" class="group__social-link"><?php print __("Twitter", "community-portal"); ?></a>
+                                        </div>
+                                    <?php endif; ?>
+									<?php if(isset($group_meta['group_matrix']) && strlen(trim($group_meta['group_matrix'])) > 0): ?>
+                                        <div class="group__community-link-container">
+											<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
+												<path d="M12.6113 12.6035L12.6729 13.4307C13.1969 12.7881 13.9056 12.4668 14.7988 12.4668C15.7513 12.4668 16.4053 12.8428 16.7607 13.5947C17.2803 12.8428 18.0208 12.4668 18.9824 12.4668C19.7845 12.4668 20.3815 12.7015 20.7734 13.1709C21.1654 13.6357 21.3613 14.3376 21.3613 15.2764V20H19.3789V15.2832C19.3789 14.8639 19.2969 14.5586 19.1328 14.3672C18.9688 14.1712 18.6794 14.0732 18.2646 14.0732C17.6722 14.0732 17.262 14.3558 17.0342 14.9209L17.041 20H15.0654V15.29C15.0654 14.8617 14.9811 14.5518 14.8125 14.3604C14.6439 14.1689 14.3568 14.0732 13.9512 14.0732C13.3906 14.0732 12.985 14.3057 12.7344 14.7705V20H10.7588V12.6035H12.6113Z" fill="black"/>
+												<line x1="9" y1="9" x2="6" y2="9" stroke="black" stroke-width="2"/>
+												<line x1="26" y1="9" x2="23" y2="9" stroke="black" stroke-width="2"/>
+												<line x1="9" y1="24" x2="6" y2="24" stroke="black" stroke-width="2"/>
+												<line x1="26" y1="24" x2="23" y2="24" stroke="black" stroke-width="2"/>
+												<line x1="7" y1="9" x2="7" y2="23" stroke="black" stroke-width="2"/>
+												<line x1="25" y1="9" x2="25" y2="23" stroke="black" stroke-width="2"/>
+											</svg>
+                                            <a href="<?php print (mozilla_verify_url($group_meta['group_matrix'], true) ? mozilla_verify_url($group_meta['group_matrix'], true) : 'https://chat.mozilla.org/#/room/'.$group_meta['group_matrix']) ?>" class="group__social-link"><?php print __("Matrix", "community-portal"); ?></a>
                                         </div>
                                     <?php endif; ?>
                                     <?php if(isset($group_meta['group_other']) && strlen($group_meta['group_other']) > 0 && mozilla_verify_url($group_meta['group_other'], false)): ?>

@@ -199,16 +199,22 @@
 								<input type="text" name="group_twitter" id="group-twitter" placeholder="https://" class="create-group__input create-group__input--inline create-group__community-link"  value="<?php print isset($form['group_twitter']) ? $form['group_twitter'] : ''; ?>"/>
                             </div>
                         </div>
-                        <div class="create-group__input-row">
-                            <div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--50">
-								<label class="create-group__label" for="group-telegram"><?php print __("Telegram", "community-portal"); ?></label>
-								<input type="text" name="group_telegram" id="group-telegram" placeholder="https://" class="create-group__input create-group__input--inline create-group__community-link"  value="<?php print isset($form['group_telegram']) ? $form['group_telegram'] : ''; ?>"/>
-                            </div>
-                            <div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--50">
-								<label class="create-group__label"  for="group-other"><?php print __("Other", "community-portal"); ?></label>
-								<input type="text" name="group_other" id="group-other" placeholder="https://" class="create-group__input create-group__input--inline create-group__community-link"  value="<?php print isset($form['group_other']) ? $form['group_other'] : ''; ?>"/>
-                            </div>
-                        </div>
+						<div class="create-group__input-row">
+							<div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--50">
+							<label class="create-group__label" for="group-telegram"><?php print __("Telegram", "community-portal"); ?></label>
+							<input type="text" placeholder="https://" name="group_telegram" id="group-telegram" class="create-group__input create-group__input--inline"  value="<?php print isset($form['group_telegram']) ? $form['group_telegram'] : ''; ?>"/>
+						</div>
+						<div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--50">
+							<label class="create-group__label"  for="group-matrix"><?php print __("Matrix", "community-portal"); ?></label>
+							<input type="text" placeholder="https://" name="group_matrix" id="group-matrix" class="create-group__input create-group__input--inline"  value="<?php print isset($form['group_matrix']) ? $form['group_matrix'] : ''; ?>"/>
+						</div>
+					</div>
+					<div class="create-group__input-row">
+						<div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--50">
+							<label class="create-group__label"  for="group-other"><?php print __("Other", "community-portal"); ?></label>
+							<input type="text" placeholder="https://" name="group_other" id="group-other" class="create-group__input create-group__input--inline"  value="<?php print isset($form['group_other']) ? $form['group_other'] : ''; ?>"/>
+						</div>
+					</div>
                     </section>
                     <section class="create-group__details<?php if($step == 1): ?> create-group__details--hidden<?php endif; ?>">
                         <div class="create-group__section-title">
