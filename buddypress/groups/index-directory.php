@@ -99,6 +99,18 @@
                 $filtered_groups[] = $group;
                 continue;
             }
+        } elseif(isset($_GET['tag']) && strlen($_GET['tag']) > 0
+            && (!isset($_GET['location']) || strlen($_GET['location']) === 0)
+            && isset($_GET['language']) && strlen($_GET['language'])> 0) {
+
+            if(isset($meta['group_language'])) { 
+                if(in_array(strtolower(trim($_GET['tag'])), array_map('strtolower', $meta['group_tags'])) 
+                && trim(strtolower($_GET['language'])) == strtolower($meta['group_language'])) {
+                    $filtered_groups[] = $group;
+                    continue;
+                }   
+            }
+
         } elseif(isset($_GET['location']) && strlen($_GET['location']) > 0 
             && (!isset($_GET['language']) || strlen($_GET['language']) === 0)
             && (!isset($_GET['tag']) || strlen($_GET['tag']) === 0)
