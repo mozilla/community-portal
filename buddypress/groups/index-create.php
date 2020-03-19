@@ -1,6 +1,7 @@
 <?php
     session_start();
     do_action('bp_before_create_group_page');
+
     $user = wp_get_current_user();
     $meta = get_user_meta($user->ID);
 
@@ -23,6 +24,7 @@
 
     $template_dir = get_template_directory();
     include("{$template_dir}/countries.php");
+    include("{$template_dir}/languages.php");
 
     if(isset($_SESSION['form'])) {
         $form = $_SESSION['form'];
@@ -75,6 +77,19 @@
                                     </select>
                                 </div>
 							</div>
+                        </div>
+                        <div class="create-group__input-row">
+                            <div class="create-group__input-container create-group__input-container--full create-group__input-container--vertical-spacing">
+                                <label class="create-group__label" for="group-language"><?php print __("Language", "community-portal"); ?></label>
+                                <div class="create-group__select-container">
+                                    <select id="group-language" class="create-group__select" name="group_language">
+                                        <option value="0"><?php print __("Language", "community-portal"); ?></option>
+                                        <?php foreach($languages AS $code =>  $language_name): ?>
+                                        <option value="<?php print $code; ?>"<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($form['group_language']) && $form['group_language'] == $code): ?> selected<?php endif; ?>><?php print $language_name; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="create-group__input-row">
                             <div class="create-group__input-container  create-group__input-container--40 create-group__input-container--vertical-spacing">
