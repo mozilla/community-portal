@@ -27,6 +27,7 @@
 	$initiative = isset($event_meta[0]->initiative) ? $event_meta[0]->initiative : false;
 	$goal = isset($event_meta[0]->goal) && strlen($event_meta[0]->goal) > 0 ? $event_meta[0]->goal : false;
 	$language = isset($event_meta[0]->language) && strlen($event_meta[0]->language) > 0 ? $languages[$event_meta[0]->language] : false;
+	$projected_attendees = isset($event_meta[0]->projected_attendees) && intval($event_meta[0]->projected_attendees) > 0 ? $event_meta[0]->projected_attendees : false;
 
     $months = array(
         '01' => 'January',
@@ -250,7 +251,21 @@
                 }
             ?>
             <?php if (is_array($activeBookings) && count($activeBookings) > 0): ?>
-            <h2 class="title--secondary"><?php echo __('Attendees') ?> (<?php print sizeof($activeBookings); ?>)</h2>
+			<div class="events-single__title--with-parenthetical">
+				<h2 class="title--secondary">
+					<?php echo __('Attendees') ?> 
+				</h2>
+				<p class="events-single__parenthetical">
+				(
+					<span>
+						<?php print __('Actual: ') . sizeof($activeBookings); ?> 
+					</span>
+					<?php if ($projected_attendees): ?>
+						<span class="expected-attendees"><?php print __('Expecting: ') . $projected_attendees ?></span>
+					<?php endif; ?>
+				)
+				</p>
+			</div>
             <div class="row">
                 <?php $count = 0; ?>  
                 <?php foreach ($activeBookings as $booking): ?>
