@@ -850,4 +850,10 @@
             margin-right: 8px;
         }
     }
+
+    &__language {
+        color: $color-gray-80;
+        font-size: remCalc(14);
+        line-height: 20px;
+    }
 }
