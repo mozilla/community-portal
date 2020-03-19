@@ -1,5 +1,7 @@
 <?php
-    global $wpdb;
+    global $wpdb; 
+    $theme_directory = get_template_directory();
+    include("{$theme_directory}/languages.php");
     $countries = em_get_countries();
     $em_countries = $wpdb->get_results("SELECT DISTINCT location_country FROM ".EM_LOCATIONS_TABLE." WHERE location_country IS NOT NULL AND location_country != '' AND location_status=1 ORDER BY location_country ASC", ARRAY_N);
     $ddm_countries = array();
@@ -39,6 +41,11 @@
             $options = $ddm_countries;
             include(locate_template('plugins/events-manager/templates/template-parts/options.php', false, false));    
 
+			$field_name = "Language";
+            $field_label = __("Language", 'community-portal');
+            $options = $languages;
+			include(locate_template('plugins/events-manager/templates/template-parts/options.php', false, false));    
+			
             $field_name =  "Tag";
             $field_label = __("Tag", 'community-portal');
             $options = $categories;
@@ -90,6 +97,6 @@
 </div>
 <div class="col-md-12">
     <button class="events__filter__toggle btn btn--large btn--light">
-        <?php echo __('Show Filters') ?>
+        <?php echo __('Hide Filters') ?>
     </button>
 </div>
