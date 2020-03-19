@@ -14,6 +14,40 @@ jQuery(function(){
 		})
 	}
 
+	const checkMatrixValue = function(value) {
+		const regex = new RegExp(/^[a-z0-9.\-_=/]+:[A-Za-z0-9[]+/, 'gi');
+		const validMatrixId = regex.test(value);
+		return validMatrixId;
+	}
+
+	const formErrorState = function(input) {
+		const $this = jQuery(input);
+		$this.addClass('profile__input--error');
+		$this.next('.form__error-container').addClass('form__error-container--visible');
+	}
+
+	const formClearError = function(input) {
+		const $this = jQuery(input);
+		$this.removeClass('profile__input--error');
+		$this.next('.form__error-container').removeClass('form__error-container--visible');
+	}
+
+	const handleMatrixInput = function() {
+		const $this = jQuery(this);
+		if ($this.val() !== '') {
+			const validMatrixId = checkMatrixValue($this.val());
+			if (!validMatrixId) {
+				formErrorState(this);
+				return
+			} 
+		}
+		formClearError(this);
+	}
+
+	if (jQuery('#matrix')) {
+		jQuery('#matrix').on('blur', handleMatrixInput);
+	}
+
 	const newsletterError = function(e) {
 		const url = "/wp-admin/admin-ajax.php?action=newsletter_subscribe";
 		jQuery.ajax({
@@ -135,8 +169,15 @@ jQuery(function(){
 
     jQuery('.profile__cta').click(function(e){
 		e.preventDefault();
-        var error = false;
-
+		var error = false;
+		const $matrixInput = jQuery('#matrix');
+		if ($matrixInput.val() !== '') {
+			const validMatrixId = checkMatrixValue($matrixInput.val());
+			if (!validMatrixId) {
+				formErrorState($matrixInput);
+			}
+		}
+	
         jQuery(':input[required]').each(function(index, element) {
             var $ele = jQuery(element);
             var $errorMsg = $ele.next('.form__error-container');
@@ -416,7 +457,6 @@ jQuery(function(){
         var tag = jQuery(this).val();
         jQuery('input[name="tag"]').val(tag);
         jQuery('#members-search-form').submit();
-    });
-
+	});
 
 });

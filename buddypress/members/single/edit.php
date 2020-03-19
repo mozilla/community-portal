@@ -382,7 +382,10 @@ $subscribed = get_user_meta($user->ID, 'newsletter', true);
             <div class="profile__form-field">
                 <div class="profile__input-container">
                     <label class="profile__label" for="matrix"><?php print __("Matrix username (optional)", "community-portal"); ?></label>
-                    <input type="text" name="matrix" id="matrix" class="profile__input" value="<?php if($form && isset($form['matrix'])): ?><?php $form['matrix']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['matrix'])): ?><?php print $community_fields['matrix']; ?><?php endif; ?><?php endif; ?>"/>
+                    <input placeholder="username:domain" type="text" name="matrix" id="matrix" class="profile__input" value="<?php if($form && isset($form['matrix'])): ?><?php $form['matrix']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['matrix'])): ?><?php print $community_fields['matrix']; ?><?php endif; ?><?php endif; ?>"/>
+					<div class="form__error-container form__error-container--checkbox">
+						<div class="form__error"><?php print __("Please format as username:domain", "community-portal"); ?></div>
+					</div>
                 </div>
                 <div class="profile__select-container">
                     <label class="profile__label" for="profile-matrix-visibility"><?php print __("Can be viewed by", "community-portal"); ?></label>
