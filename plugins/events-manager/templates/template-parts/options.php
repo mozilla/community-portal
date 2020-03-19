@@ -6,7 +6,10 @@
         <option value="all">All</option>
         <?php foreach($options as $key  =>  $option): ?>
             <?php if($field_name === 'Initiative'): ?>
-                <option value="<?php print $key; ?>" <?php if(isset($_GET['initiative']) && strlen($_GET['initiative']) > 0 && intval($_GET['initiative']) == $key): ?> selected<?php endif; ?>><?php print $option; ?></option>
+				<option value="<?php print $key; ?>" <?php if(isset($_GET['initiative']) && strlen($_GET['initiative']) > 0 && intval($_GET['initiative']) == $key): ?> selected<?php endif; ?>><?php print $option; ?></option>
+			<?php elseif ($field_name === 'Language'): ?>
+				<option value="<?php print $key; ?>" <?php if(isset($_GET['language']) && strlen($_GET['language']) > 0 && strtolower($_GET['language']) === strtolower($key)): ?> selected<?php endif; ?>><?php print $option; ?></option>
+
             <?php else: ?>
             <?php if ($option === $country || $option === $tag): ?>
                 <option value="<?php echo $option ?>" selected><?php echo $option ?></option>

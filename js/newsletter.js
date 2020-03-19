@@ -100,7 +100,7 @@ jQuery(function() {
 			params += '&lang=' + language;
 		} 
 		if (country) {
-			params += '&country' + country;
+			params += '&country=' + country;
 		}
 
         var xhr = new XMLHttpRequest();
@@ -111,6 +111,7 @@ jQuery(function() {
                 if(response === null) {
                     return;
 				}
+
 				var response = r.target.response;
 				if (response.success) {
 					updateUserMeta();
