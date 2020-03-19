@@ -191,7 +191,8 @@
     }
 
     &__attributes.card,
-    &__group.card {
+	&__group.card,
+	&__language.card {
         margin-top: 32px;
         padding: 16px;
 
@@ -319,7 +320,7 @@
         }
     }
 
-    &__group.card {
+	&__group.card {
 
         p.events-single__label {
             margin-bottom: 0;
@@ -346,9 +347,19 @@
         }
     }
 
-    &__group {
+	&__group,
+	&__language {
         margin-top: 32px;
-    }
+	}
+	
+	&__language.card {
+		.col-sm-12 {
+			padding: 0;
+			@include tablet-and-up {
+				padding: 32px;
+			}
+		}
+	}
 
     &__member-card a {
         align-items: center;

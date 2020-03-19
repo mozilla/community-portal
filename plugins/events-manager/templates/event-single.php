@@ -3,7 +3,10 @@
     $current_user = wp_get_current_user()->data;
 
     global $EM_Event, $bp, $EM_Tags;
-    $options = wp_load_alloptions();
+	$options = wp_load_alloptions();
+	
+	$theme_directory = get_template_directory();
+	include("{$theme_directory}/languages.php");
 
     $mapBoxAccessToken = (isset($options['mapbox']) && strlen($options['mapbox']) > 0) ? trim($options['mapbox']) : false;
     
@@ -21,7 +24,9 @@
     $location_type = $event_meta[0]->location_type;
     $external_url = $event_meta[0]->external_url;
 
-    $initiative = isset($event_meta[0]->initiative) ? $event_meta[0]->initiative : false;
+	$initiative = isset($event_meta[0]->initiative) ? $event_meta[0]->initiative : false;
+	$goal = isset($event_meta[0]->goal) && strlen($event_meta[0]->goal) > 0 ? $event_meta[0]->goal : false;
+	$language = isset($event_meta[0]->language) && strlen($event_meta[0]->language) > 0 ? $languages[$event_meta[0]->language] : false;
 
     $months = array(
         '01' => 'January',
@@ -228,6 +233,12 @@
                 <h2 class="title--secondary"><?php echo __('Description') ?></h2>
                 <p><?php echo wpautop($EM_Event->post_content); ?></p>
             </div>
+			<?php if ($goal): ?>
+				<div class="events-single__description">
+					<h2 class="title--secondary"><?php echo __('Goals') ?></h2>
+					<p><?php echo wpautop($goal); ?></p>
+				</div>
+			<?php endif; ?>
             <?php
                 $activeBookings = array();
                 if (isset($EM_Event->bookings)) {
