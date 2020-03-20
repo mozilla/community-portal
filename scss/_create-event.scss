@@ -345,6 +345,9 @@ div.time-picker ul li {
 			flex-grow: 1;
 			@include tablet-and-up {
 				flex-basis: 50%;
+				&:nth-child(2) {
+					margin-top: 0;
+				}
 			}
 		}
 
