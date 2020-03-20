@@ -378,6 +378,24 @@ $subscribed = get_user_meta($user->ID, 'newsletter', true);
                     </select>
                 </div>
             </div>
+			<hr class="profile__keyline" />
+            <div class="profile__form-field">
+                <div class="profile__input-container">
+                    <label class="profile__label" for="matrix"><?php print __("Matrix username (optional)", "community-portal"); ?></label>
+                    <input placeholder="username:domain" type="text" name="matrix" id="matrix" class="profile__input" value="<?php if($form && isset($form['matrix'])): ?><?php $form['matrix']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['matrix'])): ?><?php print $community_fields['matrix']; ?><?php endif; ?><?php endif; ?>"/>
+					<div class="form__error-container form__error-container--checkbox">
+						<div class="form__error"><?php print __("Please format as username:domain", "community-portal"); ?></div>
+					</div>
+                </div>
+                <div class="profile__select-container">
+                    <label class="profile__label" for="profile-matrix-visibility"><?php print __("Can be viewed by", "community-portal"); ?></label>
+                    <select id="profile-matrix-visibility" name="profile_matrix_visibility" class="profile__select">
+                        <?php foreach($visibility_options AS $key   =>  $value): ?>
+                        <option value="<?php print $key; ?>"<?php if(isset($community_fields['profile_matrix_visibility']) && $community_fields['profile_matrix_visibility'] == $key): ?> selected<?php endif; ?>><?php print $value; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
         </section>
         <section class="profile__form-container">
             <div class="profile__form-primary">
@@ -509,7 +527,7 @@ $subscribed = get_user_meta($user->ID, 'newsletter', true);
 					</fieldset>
                 </div>
                 <div class="profile__select-container">
-                    <label class="profile__label" for="profile-telegram-visibility"><?php print __("Can be viewed by", "community-portal"); ?></label>
+                    <label class="profile__label" for="profile-tags-visibility"><?php print __("Can be viewed by", "community-portal"); ?></label>
                     <select id="profile-tags-visibility" name="profile_tags_visibility" class="profile__select">
                         <?php foreach($visibility_options AS $key   =>  $value): ?>
                         <option value="<?php print $key; ?>"<?php if($form && isset($form['profile_tags_visibility']) && $form['profile_tags_visibility'] == $key): ?> selected<?php else: ?><?php if(isset($community_fields['profile_tags_visibility']) && $community_fields['profile_tags_visibility'] == $key): ?> selected<?php endif; ?><?php endif; ?>><?php print $value; ?></option>

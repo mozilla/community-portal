@@ -52,5 +52,15 @@
             </div>
         </div>
     </div>
+	<?php include(locate_template('plugins/events-manager/templates/template-parts/event-single/event-host.php', false, false)); ?>
+	<?php if ($language): ?>
+	<div class="card events-single__language">
+		<div class="row">
+			<div class="col-lg-12 col-md-6 col-sm-12">
+				<p class="events-single__label"><?php echo __('Preferred Language') ?></p>
+				<p><?php echo $language ?></p>
+			</div>
+		</div>
+	</div>
+	<?php endif; ?>
 </div>
-<?php include(locate_template('plugins/events-manager/templates/template-parts/event-single/event-host.php', false, false)); ?>
