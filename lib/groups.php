@@ -27,7 +27,8 @@ function mozilla_create_group() {
             'group_twitter',
             'group_other',
             'group_country',
-            'group_city'
+            'group_city',
+            'group_language'
         );
 
         // If we're posting data lets create a group
@@ -251,7 +252,7 @@ function mozilla_edit_group() {
                     $meta['group_city'] = isset($_POST['group_city']) ? sanitize_text_field($_POST['group_city']) : '';
                     $meta['group_country'] = isset($_POST['group_country']) ? sanitize_text_field($_POST['group_country']): '';
                     $meta['group_type'] = isset($_POST['group_type']) ? sanitize_text_field($_POST['group_type']) : 'Online';
-                    
+                    $meta['group_language'] = isset($_POST['group_language']) ? sanitize_text_field($_POST['group_language']) : '';
 
                     if(isset($_POST['tags'])) {
                         $tags = array_filter(explode(',', $_POST['tags']));
@@ -396,7 +397,7 @@ function mozilla_join_group() {
 
 
 function acf_load_bp_groups( $field ) {
-    $allGroups = groups_get_groups(array());
+    $allGroups = groups_get_groups(array('per_page'  =>  -1));
 
     foreach ($allGroups['groups'] as $group):
         $groups[] = $group->name.'_'.$group->id;

@@ -1,6 +1,7 @@
 <?php
     session_start();
     do_action('bp_before_create_group_page');
+
     $user = wp_get_current_user();
     $meta = get_user_meta($user->ID);
 
@@ -23,6 +24,7 @@
 
     $template_dir = get_template_directory();
     include("{$template_dir}/countries.php");
+    include("{$template_dir}/languages.php");
 
     if(isset($_SESSION['form'])) {
         $form = $_SESSION['form'];
@@ -67,29 +69,27 @@
                                 </div>
                             </div>
                             <div class="create-group__input-container create-group__input-container--40">
-								<fieldset class="fieldset">
-									<legend class="create-group__label create-group__label--full-width" for="group-desc"><?php print __("Online or Offline Group", "community-portal"); ?></legend>
-									<div class="create-group__input-container--flex">
-										<div class="create-group__radio-container">
-											<input class="radio--custom" type="radio" name="group_type" id="group-type-online" value="<?php print __("Online", "community-portal"); ?>"<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($form['group_type']) && $form['group_type'] == 'Online' || (empty($form['group_type']))): ?> checked<?php endif; ?> required />
-											<label for="group-type-online">
-												<?php print __("Online", "community-portal"); ?>
-											</label>                           
-										</div>
-										<div class="create-group__radio-container create-group__radio-container--second">
-											<input class="radio--custom" type="radio" name="group_type" id="group-type-offline" value="<?php print __("Offline", "community-portal"); ?>" <?php if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($form['group_type']) && $form['group_type'] == 'Offline'): ?> checked<?php endif; ?> required />
-											<label for="group-type-offline">
-												<?php print __("Offline", "community-portal"); ?>
-											</label>
-										</div>
-										<div class="form__error-container<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_type'])): ?> form__error-container--visible<?php endif; ?>">
-										<div class="form__error"><?php print __("This field is required", "community-portal"); ?></div>
-									</div>
-									
-										
-									</div>
-								</fieldset>
+                                <label class="create-group__label" for="group-type"><?php print __("Group Type", "community-portal"); ?></label>
+                                <div class="create-group__select-container">
+                                    <select id="group-type" class="create-group__select" name="group_type" required>
+                                        <option value="Online"<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($form['group_type']) && $form['group_type'] == 'Online' || (empty($form['group_type']))): ?> selected<?php endif; ?>><?php print __("Online", "community-portal"); ?></option>
+                                        <option value="Offline"<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($form['group_type']) && $form['group_type'] == 'Offline'): ?> selected<?php endif; ?>><?php print __("Offline", "community-portal"); ?></option>
+                                    </select>
+                                </div>
 							</div>
+                        </div>
+                        <div class="create-group__input-row">
+                            <div class="create-group__input-container create-group__input-container--full create-group__input-container--vertical-spacing">
+                                <label class="create-group__label" for="group-language"><?php print __("Language", "community-portal"); ?></label>
+                                <div class="create-group__select-container">
+                                    <select id="group-language" class="create-group__select" name="group_language">
+                                        <option value="0"><?php print __("Language", "community-portal"); ?></option>
+                                        <?php foreach($languages AS $code =>  $language_name): ?>
+                                        <option value="<?php print $code; ?>"<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($form['group_language']) && $form['group_language'] == $code): ?> selected<?php endif; ?>><?php print $language_name; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="create-group__input-row">
                             <div class="create-group__input-container  create-group__input-container--40 create-group__input-container--vertical-spacing">

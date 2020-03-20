@@ -191,7 +191,8 @@
     }
 
     &__attributes.card,
-    &__group.card {
+	&__group.card,
+	&__language.card {
         margin-top: 32px;
         padding: 16px;
 
@@ -319,7 +320,7 @@
         }
     }
 
-    &__group.card {
+	&__group.card {
 
         p.events-single__label {
             margin-bottom: 0;
@@ -346,9 +347,19 @@
         }
     }
 
-    &__group {
+	&__group,
+	&__language {
         margin-top: 32px;
-    }
+	}
+	
+	&__language.card {
+		.col-sm-12 {
+			padding: 0;
+			@include tablet-and-up {
+				padding: 32px;
+			}
+		}
+	}
 
     &__member-card a {
         align-items: center;
@@ -406,7 +417,38 @@
         @include tablet-and-up {
             max-width: 204px;
         }
-    }
+	}
+	&__title--with-parenthetical {
+		display: flex;
+		flex-direction: column;
+		@include tablet-and-up {
+			align-items: center;
+			flex-direction: row;
+		}
+		.title--secondary {
+			margin-right: 8px;
+			margin-bottom: 0;
+			@include tablet-and-up {
+				margin-bottom: 0.83em;
+			}
+		}
+	}
+
+	&__parenthetical {
+		margin: 0 0 16px;
+		font-size: remCalc(18);
+		line-height: remCalc(36.8);
+		display: inline-block;
+		@include tablet-and-up {
+			padding-top: 4px;
+			margin: 0;
+		}
+	}
+	.expected-attendees::before {
+		content: "|";
+		display: inline-block;
+		padding: 0 8px 0 5px;
+	}
 
     &__location {
         .card__map {
