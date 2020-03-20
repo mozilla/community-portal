@@ -397,7 +397,7 @@ function mozilla_join_group() {
 
 
 function acf_load_bp_groups( $field ) {
-    $allGroups = groups_get_groups(array());
+    $allGroups = groups_get_groups(array('per_page'  =>  -1));
 
     foreach ($allGroups['groups'] as $group):
         $groups[] = $group->name.'_'.$group->id;
