@@ -161,6 +161,18 @@ jQuery(function(){
 
     });
 
+    jQuery('#profile-languages-visibility').change(function() {
+        var $this = jQuery(this);
+        jQuery('#profile-languages-visibility-mobile').val($this.val());
+        jQuery('input[name="profile_languages_visibility"]').val($this.val());
+    });
+
+    jQuery('#profile-languages-visibility-mobile').change(function() {
+        var $this = jQuery(this);
+        jQuery('#profile-languages-visibility').val($this.val());
+        jQuery('input[name="profile_languages_visibility"]').val($this.val());
+    });
+
     if(jQuery('.profile__avatar--empty').length > 0) {
         var user = jQuery('.profile__avatar--empty').data('user');
         var avatar = new Identicon(btoa(user + 'mozilla-community-portal'), { format: 'svg' }).toString();
