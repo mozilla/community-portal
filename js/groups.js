@@ -12,9 +12,41 @@ jQuery(function(){
             }
             e.stopPropagation();
         }
+	});
+	
+	const checkMatrixValue = function(value) {
+		const regex = new RegExp(/^[a-z0-9.\-_=/]+:[A-Za-z0-9[]+/, 'gi');
+		const validMatrixId = regex.test(value);
+		return validMatrixId;
+	}
 
-        
-    });
+	const formErrorState = function(input) {
+		const $this = jQuery(input);
+		$this.addClass('create-group__input--error');
+		$this.next('.form__error-container').addClass('form__error-container--visible');
+	}
+
+	const formClearError = function(input) {
+		const $this = jQuery(input);
+		$this.removeClass('create-group__input--error');
+		$this.next('.form__error-container').removeClass('form__error-container--visible');
+	}
+
+	const handleMatrixInput = function() {
+		const $this = jQuery(this);
+		if ($this.val() !== '') {
+			const validMatrixId = checkMatrixValue($this.val());
+			if (!validMatrixId) {
+				formErrorState(this);
+				return
+			} 
+		}
+		formClearError(this);
+	}
+
+	if (jQuery('#group-matrix')) {
+		jQuery('#group-matrix').on('blur', handleMatrixInput);
+	}
 
     jQuery('.create-group__checkbox').on('change', function(e) {
 		var $this = jQuery(this);
@@ -46,7 +78,15 @@ jQuery(function(){
 
     jQuery('.create-group__cta').click(function(e){
         e.preventDefault();
-        var error = false;
+		var error = false;
+		
+		const $matrixInput = jQuery('#group-matrix');
+		if ($matrixInput.val() !== '') {
+			const validMatrixId = checkMatrixValue($matrixInput.val());
+			if (!validMatrixId) {
+				formErrorState($matrixInput);
+			}
+		}
 
         jQuery(':input[required]').each(function(index, element){
             var $ele = jQuery(element);

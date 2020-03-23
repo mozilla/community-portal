@@ -191,7 +191,6 @@
             </section>
             <section class="create-group__details">
 				<h2 class="create-group__section-title"><?php print __("Community Links", "community-portal"); ?></h2>
-				<p class="create-group__section-subtitle"><?php print __("Full URLs Required", "community-portal")?></p>
                 <div class="create-group__input-row create-group__subsection">
                     <div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--50">
 						<label class="create-group__label" for="group-discourse"><?php print __("Discourse", "community-portal"); ?></label>
@@ -199,7 +198,10 @@
                     </div>
 					<div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--50">
 						<label class="create-group__label"  for="group-matrix"><?php print __("Matrix", "community-portal"); ?></label>
-						<input type="text" placeholder="https://" name="group_matrix" id="group-matrix" class="create-group__input create-group__input--inline"  value="<?php print isset($form['group_matrix']) ? $form['group_matrix'] : ''; ?>"/>
+						<input type="text" placeholder="username:domain" name="group_matrix" id="group-matrix" class="create-group__input create-group__input--inline"  value="<?php print isset($form['group_matrix']) ? $form['group_matrix'] : ''; ?>"/>
+						<div class="form__error-container form__error-container--checkbox">
+							<div class="form__error"><?php print __("Please format as username:domain", "community-portal"); ?></div>
+						</div>
                     </div>
                 </div>
                 <div class="create-group__input-row">

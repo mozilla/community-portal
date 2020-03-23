@@ -353,15 +353,13 @@
         display: flex;
         flex-direction: column;
         width: 100%;
-        &:first-of-type {
-            padding-bottom: 32px;
-        }
         @include tablet-and-up {
             flex-direction: row;
         }
     }
 
     &__subsection {
+        padding-bottom: 32px;
         border-bottom: 1px solid $color-gray-20;
     }
 
