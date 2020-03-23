@@ -263,6 +263,7 @@ jQuery(function(){
 
     jQuery('.groups__search-cta').click(function(e) {
         jQuery('input[name="tag"]').prop('disabled', true);
+        jQuery('input[name="language"]').prop('disabled', true);
         jQuery('input[name="location"]').prop('disabled', true);
         jQuery('input[name="mygroups"]').prop('disabled', true);
 
@@ -278,6 +279,30 @@ jQuery(function(){
     jQuery('.groups__location-select').change(function(e) {
         var location = jQuery(this).val();
         jQuery('input[name="location"]').val(location);
+
+        if(jQuery('input[name="tag"]').val().length === 0) {
+            jQuery('input[name="tag"]').prop('disabled', true);
+        }
+
+        if(jQuery('input[name="language"]').val().length === 0) {
+            jQuery('input[name="language"]').prop('disabled', true);
+        }
+
+        if(jQuery('input[name="mygroups"]').val() == 'false') {
+            jQuery('input[name="mygroups"]').prop('disabled', true);
+        }
+
+        jQuery('#group-search-form').submit();
+
+    });
+
+    jQuery('.groups__language-select').change(function(e) {
+        var language = jQuery(this).val();
+        jQuery('input[name="language"]').val(language);
+
+        if(jQuery('input[name="location"]').val().length === 0) {
+            jQuery('input[name="location"]').prop('disabled', true);
+        }
 
         if(jQuery('input[name="tag"]').val().length === 0) {
             jQuery('input[name="tag"]').prop('disabled', true);

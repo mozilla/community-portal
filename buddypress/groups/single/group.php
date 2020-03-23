@@ -674,6 +674,22 @@
                                 </div>
                             </div>
                         </div>
+                        <?php 
+
+                        
+                        ?>
+                        <?php if(strlen($group_meta['group_language']) > 0 && array_key_exists(strtolower($group_meta['group_language']), $languages)): ?>
+                        <div class="group__card">
+                            <div class="group__card-content group__card-content--small">
+                                <span><?php print __('Preferred Language', "community-portal"); ?></span>
+                                <div class="group__tags">
+                                    <div class="group__language">
+                                        <?php print $languages[strtolower($group_meta['group_language'])]; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php endif; ?>
                         <?php if(sizeof(array_unique($group_meta['group_tags'])) > 0): ?>
                         <div class="group__card">
                             <div class="group__card-content group__card-content--small">

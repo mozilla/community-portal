@@ -140,7 +140,9 @@ function mozilla_update_member() {
                 'github',
                 'profile_github_visibility',
                 'telegram',
-                'profile_telegram_visibility',
+				'profile_telegram_visibility',
+				'matrix',
+                'profile_matrix_visibility',
                 'languages',
                 'profile_languages_visibility',
                 'tags',
@@ -388,7 +390,12 @@ function mozilla_get_user_info($me, $user, $logged_in) {
     $object = new stdClass();
     $object->value = isset($community_fields['github']) && strlen($community_fields['github']) > 0 ? $community_fields['github'] : false;
     $object->display = mozilla_display_field('github', isset($community_fields['profile_github_visibility']) ? $community_fields['profile_github_visibility'] : false , $is_me, $logged_in);
-    $data['github'] = $object;
+	$data['github'] = $object;
+	
+	$object = new stdClass();
+    $object->value = isset($community_fields['matrix']) && strlen($community_fields['matrix']) > 0 ? $community_fields['matrix'] : false;
+    $object->display = mozilla_display_field('matrix', isset($community_fields['profile_matrix_visibility']) ? $community_fields['profile_matrix_visibility'] : false , $is_me, $logged_in);
+    $data['matrix'] = $object;
 
     //Languages
     $object = new stdClass();

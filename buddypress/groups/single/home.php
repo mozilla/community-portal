@@ -23,7 +23,7 @@
     $theme_directory = get_template_directory();
 
     include("{$theme_directory}/countries.php");
-
+    include("{$theme_directory}/languages.php");
 
     if($edit_group) {
 
