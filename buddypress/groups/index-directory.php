@@ -58,7 +58,10 @@
 	$groups = $groups['groups'];
     $filtered_groups = Array();
     $countries_with_groups = Array();
+    $languages_with_groups = Array();
     $used_country_list = Array();
+    $used_language_list = Array();
+
 
     foreach($groups AS $group) {
         $meta = groups_get_groupmeta($group->id, 'meta');
@@ -66,6 +69,10 @@
 
         if(isset($meta['group_country']) && strlen($meta['group_country']) > 1) {
             $countries_with_groups[] = $meta['group_country'];
+        }
+
+        if(isset($meta['group_language']) && strlen($meta['group_language']) > 0) {
+            $languages_with_groups[] = $meta['group_language'];
         }
 
         if(isset($_GET['tag']) && strlen($_GET['tag']) > 0 
@@ -135,13 +142,17 @@
 	}
 	
     $country_code_with_groups = array_unique($countries_with_groups);
-    
-
+    $language_code_with_groups = array_unique($languages_with_groups);
 
     foreach($country_code_with_groups AS $code) {
         $used_country_list[$code] = $countries[$code];
     }
 
+    foreach($language_code_with_groups AS $code) {
+        $used_language_list[$code] = $languages[$code];
+    }
+    
+    asort($used_language_list);
     asort($used_country_list);
 
     $filtered_groups = array_unique($filtered_groups, SORT_REGULAR);
@@ -239,15 +250,17 @@
                         <?php endforeach; ?>
                     </select>
                 </div>
+                <?php if(sizeof($used_language_list) > 0): ?>
                 <div class="groups__select-container">
                     <label class="groups__label">Language </label>
                     <select class="groups__language-select">
                         <option value=""><?php print __('All', "community-portal"); ?></option>
-                        <?php foreach($languages AS $code   =>  $language): ?>
+                        <?php foreach($used_language_list AS $code   =>  $language): ?>
                         <option value="<?php print $code; ?>"<?php if(isset($_GET['language']) && strlen($_GET['language']) > 0 && $_GET['language'] == $code): ?> selected<?php endif; ?>><?php print $language; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
+                <?php endif; ?>
                 <div class="groups__select-container">
                     <label class="groups__label">Tag </label>
                     <select class="groups__tag-select">
