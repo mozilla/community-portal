@@ -5,6 +5,7 @@ $theme_directory = get_template_directory();
 include("{$theme_directory}/countries.php");
 include("{$theme_directory}/languages.php");
 $subscribed = get_user_meta($user->ID, 'newsletter', true);
+
 ?>
 
 <?php if($complete === true && $edit === false): ?>
@@ -422,6 +423,7 @@ $subscribed = get_user_meta($user->ID, 'newsletter', true);
                     }
                 }
             ?>
+    
 
             <?php if(sizeof($languages_spoken) < 2 ): ?>
                 <hr class="profile__keyline" />
@@ -439,7 +441,7 @@ $subscribed = get_user_meta($user->ID, 'newsletter', true);
                         <label class="profile__label profile__label--full profile__label--max" for="profile-languages-visibility"><?php print __("Can be viewed by", "community-portal"); ?></label>
                         <select id="profile-languages-visibility" name="profile_languages_visibility" class="profile__select profile__select--flex">
                             <?php foreach($visibility_options AS $key   =>  $value): ?>
-                            <option value="<?php print $key; ?>"<?php if($form && isset($form['profile_languages_visibility']) && $form['profile_languages_visibility'] == $key): ?> selected<?php else: ?><?php if(isset($community_fields['profile_languages_visibility']) && $community_fields['profile_languages_visibility'] == $key): ?> selected<?php endif; ?><?php endif; ?>><?php print $value; ?></option>
+                            <option value="<?php print $key; ?>"<?php if(isset($community_fields['profile_languages_visibility']) && $community_fields['profile_languages_visibility'] == $key): ?> selected<?php else: ?><?php if(isset($community_fields['profile_languages_visibility']) && $community_fields['profile_languages_visibility'] == $key): ?> selected<?php endif; ?><?php endif; ?>><?php print $value; ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -480,7 +482,7 @@ $subscribed = get_user_meta($user->ID, 'newsletter', true);
                         <?php if($index === 0 ): ?>
                         <div class="profile__select-container profile__select-container--hide-mobile profile__select-container--flex">
                             <label class="profile__label profile__label--full profile__label--max" for="profile-languages-visibility"><?php print __("Can be viewed by", "community-portal"); ?></label>
-                            <select id="profile-languages-visibility" name="profile_languages_visibility" class="profile__select profile__select--flex">
+                            <select id="profile-languages-visibility" class="profile__select profile__select--flex">
                                 <option value=""><?php print __('Make Selection', "community-portal"); ?>
                                 <?php foreach($visibility_options AS $key   =>  $value): ?>
                                 <option value="<?php print $key; ?>"<?php if($form && isset($form['profile_languages_visibility']) && $form['profile_languages_visibility'] == $key): ?> selected<?php else: ?><?php if(isset($community_fields['profile_languages_visibility']) && $community_fields['profile_languages_visibility'] == $key): ?> selected<?php endif; ?><?php endif; ?>><?php print $value; ?></option>
@@ -502,12 +504,13 @@ $subscribed = get_user_meta($user->ID, 'newsletter', true);
             <?php endif; ?>
             <div class="profile__select-container profile__select-container--mobile">
                 <label class="profile__label" for=""><?php print __("Can be viewed by", "community-portal"); ?></label>
-                <select id="profile-languages-visibility" name="profile_languages_visibility" class="profile__select">
+                <select id="profile-languages-visibility-mobile" class="profile__select profile__select--mobile">
                     <?php foreach($visibility_options AS $key   =>  $value): ?>
                     <option value="<?php print $key; ?>"<?php if($form && isset($form['profile_languages_visibility']) && $form['profile_languages_visibility'] == $key): ?> selected<?php else: ?><?php if(isset($community_fields['profile_languages_visibility']) && $community_fields['profile_languages_visibility'] == $key): ?> selected<?php endif; ?><?php endif; ?>><?php print $value; ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
+            <input type="hidden" name="profile_languages_visibility" value="" />
             <hr class="profile__keyline" />
             <div class="profile__form-field">
                 <div>
