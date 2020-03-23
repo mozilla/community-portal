@@ -2,6 +2,9 @@
     get_header(); 
     $logged_in = mozilla_is_logged_in();
     $current_user = wp_get_current_user()->data;
+
+    $template_dir = get_template_directory();
+    include("{$template_dir}/languages.php");
     
     $members_per_page = 20;
     $page = isset($_GET['page']) ? intval($_GET['page']) : 0;
@@ -47,6 +50,7 @@
     $members = $wp_user_query->get_results();
     $filtered_members = Array();
     $used_country_list = Array();
+    $used_languages = Array();
 
     // Time to filter stuff
     foreach($members AS $index => $member) {
@@ -76,6 +80,16 @@
             if($key)
                 $used_country_list[$key] = $countries[$key];
         }
+
+        
+        if(isset($info['languages']) && $info['languages']->display && is_array($info['languages']->value)) {
+            foreach($info['languages']->value AS $l) {
+                $used_languages[$l] = $languages[$l];
+            }
+        }
+
+        $used_languages = array_unique($used_languages);
+        asort($used_languages);
 
         // All three criteria to search
         if($country_code && $get_tag && $search_user) {
@@ -388,7 +402,7 @@
             </div>
         </div>
         <div class="members__container">
-            <div class="members__filter-container<?php if(!isset($_GET['location']) && !isset($_GET['mygroups'])): ?> members__filter-container--hidden<?php endif; ?>">
+            <div class="members__filter-container members__filter-container--hidden">
                 <span><?php print __("Search criteria:", "community-portal"); ?></span>
                 <div class="members__select-container">
                     <label class="members__label">Location </label>
@@ -400,6 +414,15 @@
                     </select>
                 </div>
                 <div class="members__select-container">
+                    <label class="members__label">Language </label>
+                    <select class="members__tag-select">
+                        <option value=""><?php print __('All', "community-portal"); ?></option>
+                        <?php foreach($used_languages AS $code =>   $language): ?>
+                        <option value="<?php print $code; ?>" <?php if(isset($_GET['language']) && strtolower(trim($_GET['language'])) == strtolower($code)): ?> selected<?php endif; ?>><?php print $language; ?></option>
+                        <?php endforeach; ?>
+                    </select>  
+                </div>
+                <div class="members__select-container">
                     <label class="members__label">Tag </label>
                     <select class="members__tag-select">
                         <option value=""><?php print __('All', "community-portal"); ?></option>
@@ -408,6 +431,9 @@
                         <?php endforeach; ?>
                     </select>  
                 </div>
+            </div>
+            <div class="members__show-filters-container">
+                <a href="#" class="members__show-filter"><?php print __("Show Filters"); ?></a>
             </div>
             <div class="members__people-container">
             <?php if(sizeof($members) > 0): ?>

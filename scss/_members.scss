@@ -116,8 +116,8 @@
             display: none;
 
             @include tablet-and-up {
-                display: flex;// We need this because of the inline styles applied by slideToggle
-                flex-direction: row;  
+                display: flex !important;// We need this because of the inline styles applied by slideToggle
+                flex-direction: row !important;  
             }
         }
 
@@ -166,12 +166,13 @@
         @include desktop-and-up {
             flex-wrap: nowrap;
             margin-left: 16px;    
-            width: auto;
+            width: 25%;
         }
     }
 
     &__show-filters-container {
         margin: 0 auto;
+        margin-bottom: 24px;
         text-align:  center;
 
         @include tablet-and-up {

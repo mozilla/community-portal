@@ -457,6 +457,25 @@ jQuery(function(){
         var tag = jQuery(this).val();
         jQuery('input[name="tag"]').val(tag);
         jQuery('#members-search-form').submit();
-	});
+    });
+    
+    jQuery('.members__show-filter').click(function(e) {
+
+        e.preventDefault();
+        jQuery('.members__filter-container').slideToggle({
+            start: function() {
+                jQuery('.members__filter-container').css('display','flex');
+                jQuery('.members__filter-container').css('flex-direction','column');
+
+                if(jQuery('.members__show-filter').text() == 'Hide Filters') {
+                    jQuery('.members__show-filter').text('Show Filters');
+                } else {
+                    jQuery('.members__show-filter').text('Hide Filters');
+                }
+            }
+        });
+
+        return false;
+    });
 
 });
