@@ -788,15 +788,19 @@
                         <?php endforeach; ?>
                     </select>
                 </div>
+                <?php if(sizeof($used_languages) > 0): ?>
                 <div class="members__select-container">
                     <label class="members__label">Language </label>
                     <select class="members__language-select">
                         <option value=""><?php print __('Select', "community-portal"); ?></option>
                         <?php foreach($used_languages AS $code =>   $language): ?>
+                        <?php if(strlen($code) > 1): ?>
                         <option value="<?php print $code; ?>" <?php if(isset($_GET['language']) && strtolower(trim($_GET['language'])) == strtolower($code)): ?> selected<?php endif; ?>><?php print $language; ?></option>
+                        <?php endif; ?>
                         <?php endforeach; ?>
                     </select>  
                 </div>
+                <?php endif; ?>
                 <div class="members__select-container">
                     <label class="members__label">Tag </label>
                     <select class="members__tag-select">
