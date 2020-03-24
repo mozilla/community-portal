@@ -20,6 +20,7 @@ require_once("{$theme_directory}/lib/events.php");
 require_once("{$theme_directory}/lib/utils.php");
 require_once("{$theme_directory}/lib/newsletter.php");
 require_once("{$theme_directory}/lib/campaigns.php");
+require_once("{$theme_directory}/lib/activities.php");
 
 // Native Wordpress Actions
 add_action('init', 'mozilla_init');
@@ -61,6 +62,9 @@ add_action('wp_ajax_update_group_discourse', 'mozilla_update_group_discourse_cat
 add_action('wp_ajax_download_campaign_events', 'mozilla_download_campaign_events');
 add_action('add_meta_boxes', 'mozilla_campaign_metabox');
 
+
+add_action('wp_ajax_download_activity_events', 'mozilla_download_activity_events');
+add_action('add_meta_boxes', 'mozilla_activity_metabox');
 
 // Auth0 Actions
 add_action('auth0_user_login', 'mozilla_post_user_creation', 10, 6);
