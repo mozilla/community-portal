@@ -466,4 +466,48 @@ function mozilla_save_group($group_id) {
 
 
 }
+
+function mozilla_group_metabox() {
+    add_meta_box('mozilla-group-metabox', __( 'Export Events' ), 'mozilla_group_markup_metabox', get_current_screen()->id, 'side', 'core');
+}
+
+function mozilla_group_markup_metabox($post) {
+    print "<div><a href=\"/wp-admin/admin-ajax.php?action=download_group_events&group={$post->id}\">Export Events</a></div>";
+}   
+
+
+function mozilla_download_group_events() {
+    if(!is_admin()) {
+        return;
+    }
+
+    if(isset($_GET['group']) && strlen($_GET['group']) > 0) {
+        $group = groups_get_group(Array( 'group_id' => intval($_GET['group'])));
+
+        $args = Array();
+        $args['scope'] = 'all';
+        $args['limit'] = '0';
+
+        $events = EM_Events::get($args);  
+        $related_events = Array();
+
+        foreach($events AS $event) {
+            if(strlen($event->group_id) > 0 && $event->group_id == $group->id) {
+                $related_events[] = $event;
+            }
+        }
+
+        header("Content-Type: text/csv");
+        header("Content-Disposition: attachment; filename=group-{$group->id}-events.csv;");
+        foreach($related_events AS $related_event) {
+
+        }
+
+    }
+
+
+    die();
+}
+
+
 ?>

@@ -35,6 +35,9 @@ add_action('save_post', 'mozilla_save_post', 10, 3);
 add_action('transition_post_status', 'mozilla_post_status_transition', 10, 3);
 
 
+add_action('bp_groups_admin_meta_boxes', 'mozilla_group_metabox');
+
+
 // Ajax Calls
 add_action('wp_ajax_nopriv_upload_group_image', 'mozilla_upload_image');
 add_action('wp_ajax_upload_group_image', 'mozilla_upload_image');
@@ -56,6 +59,8 @@ add_action('wp_ajax_mailchimp_subscribe', 'mozilla_mailchimp_subscribe');
 add_action('wp_ajax_nopriv_mailchimp_subscribe', 'mozilla_mailchimp_subscribe');
 add_action('wp_ajax_export_users', 'mozilla_export_users');
 add_action('wp_ajax_update_group_discourse', 'mozilla_update_group_discourse_category_id');
+
+add_action('wp_ajax_download_group_events', 'mozilla_download_group_events');
 
 
 // Auth0 Actions
