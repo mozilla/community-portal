@@ -55,10 +55,12 @@
             $options = $ddm_countries;
             include(locate_template('plugins/events-manager/templates/template-parts/options.php', false, false));    
 
-			$field_name = "Language";
-            $field_label = __("Language", 'community-portal');
-            $options = $used_languages;
-			include(locate_template('plugins/events-manager/templates/template-parts/options.php', false, false));    
+            if(sizeof($used_languages) > 0) {
+                $field_name = "Language";
+                $field_label = __("Language", 'community-portal');
+                $options = $used_languages;
+                include(locate_template('plugins/events-manager/templates/template-parts/options.php', false, false));    
+            }
 			
             $field_name =  "Tag";
             $field_label = __("Tag", 'community-portal');
