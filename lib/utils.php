@@ -1,5 +1,24 @@
 <?php
 
+function mozilla_campaign_metabox() {
+    add_meta_box(
+        'campaign-export-events',       
+        'Export Events',                  
+        'mozilla_show_campaign_metabox',  
+        'campaign',                 
+        'side',
+        'default'
+    );
+    
+}
+
+function mozilla_show_campaign_metabox($post) {
+    print "<div><a href=\"/wp-admin/admin-ajax.php?action=download_campaign_events&campaign={$post->ID}\">Export events related to this campaign</a></div>";
+}
+
+
+
+
 function mozilla_upload_image() {
 
     if(!empty($_FILES) && wp_verify_nonce($_REQUEST['my_nonce_field'], 'protect_content')) {
@@ -524,5 +543,7 @@ function mozilla_export_users() {
     }
     die();
 }
+
+
 
 ?>

@@ -58,6 +58,10 @@ add_action('wp_ajax_export_users', 'mozilla_export_users');
 add_action('wp_ajax_update_group_discourse', 'mozilla_update_group_discourse_category_id');
 
 
+add_action('wp_ajax_download_campaign_events', 'mozilla_download_campaign_events');
+add_action('add_meta_boxes', 'mozilla_campaign_metabox');
+
+
 // Auth0 Actions
 add_action('auth0_user_login', 'mozilla_post_user_creation', 10, 6);
 

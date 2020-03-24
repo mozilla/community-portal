@@ -111,4 +111,37 @@ function mozilla_mailchimp_subscribe() {
     die();
 }
 
+function mozilla_download_campaign_events() {
+
+    if(!is_admin()) {
+        return;
+    }
+
+    if(isset($_GET['campaign']) && strlen($_GET['campaign']) > 0) {
+        $campaign = get_post(intval($_GET['campaign']));
+
+        $args = Array('scope' =>  'all');
+        $events = EM_Events::get($args);    
+        $related_events = Array();
+
+        foreach($events AS $event) {
+            $event_meta = get_post_meta($event->post_id, 'event-meta');
+            if(isset($event_meta[0]->initiative) && intval($event_meta[0]->initiative) === $campaign->ID) {
+                $event->meta = $event_meta[0];
+                $related_events[] = $event;
+            }
+        }
+
+        
+        header("Content-Type: text/csv");
+        header("Content-Disposition: attachment; filename=campaign-{$campaign->ID}-events.csv;");
+        foreach($related_events AS $related_event) {
+
+        }
+    }   
+
+
+    die();
+}
+
 ?>
