@@ -465,10 +465,20 @@ jQuery(function(){
 
     });
 
+    jQuery('.members__language-select').change(function(e){
+        var language = jQuery(this).val();
+         jQuery('input[name="language"]').val(language);
+
+         jQuery('#members-search-form').submit();
+        
+    });
+
     jQuery('.members__tag-select').change(function(e){
         var tag = jQuery(this).val();
         jQuery('input[name="tag"]').val(tag);
         jQuery('#members-search-form').submit();
+
+        
     });
     
     jQuery('.members__show-filter').click(function(e) {
