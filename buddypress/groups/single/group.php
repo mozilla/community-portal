@@ -684,7 +684,7 @@
                                 <span><?php print __('Preferred Language', "community-portal"); ?></span>
                                 <div class="group__tags">
                                     <div class="group__language">
-                                        <?php print $languages[strtolower($group_meta['group_language'])]; ?>
+                                        <a href="/groups/?language=<?php print strtolower($group_meta['group_language']); ?>" class="group__language-link"><?php print $languages[strtolower($group_meta['group_language'])]; ?></a>
                                     </div>
                                 </div>
                             </div>
