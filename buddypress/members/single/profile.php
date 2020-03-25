@@ -441,7 +441,7 @@
             <?php foreach($info['languages']->value AS $code): ?>
                 <?php $index++; ?>
                 <span>
-                    <?php print $languages[$code]; ?>
+                    <a href="/people/?language=<?php print $code; ?>" class="profile__languages-link"><?php print $languages[$code]; ?></a>
                     <?php if( $index < $languages_spoken): ?>
                     <?php print ","; ?>
                     <?php endif; ?>
