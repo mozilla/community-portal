@@ -9,6 +9,23 @@
         padding-bottom: 64px;
     }
 
+    &__language-link {
+        color: $color-blue-50;
+        font-size: remCalc(14);
+        line-height: 20px;
+        text-decoration: none;
+
+        @include tablet-and-up {
+            font-size: remCalc(16);
+            line-height: 24px;
+        }
+
+        @include desktop-and-up {
+            font-size: remCalc(18);
+            line-height: 28px;
+        }
+    }
+
     &__externam-link {
         color: $color-blue-50;
 

@@ -57,8 +57,10 @@
 	<div class="card events-single__language">
 		<div class="row">
 			<div class="col-lg-12 col-md-6 col-sm-12">
-				<p class="events-single__label"><?php echo __('Preferred Language') ?></p>
-				<p><?php echo $language ?></p>
+                <p class="events-single__label"><?php echo __('Preferred Language') ?></p>
+                <p>
+                <a href="/events/?language=<?php print $event_meta[0]->language; ?>" class="events-single__langauge-link"><?php echo $language ?></a>
+                </p>
 			</div>
 		</div>
 	</div>
