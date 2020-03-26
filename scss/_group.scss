@@ -872,5 +872,12 @@
         color: $color-gray-80;
         font-size: remCalc(14);
         line-height: 20px;
-    }
+	}
+	.members__search-container {
+		position: static;
+		margin-bottom: 24px;
+		@include tablet-and-up {
+			margin-bottom: 32px;
+		}
+	}
 }
