@@ -198,9 +198,9 @@
                     </div>
 					<div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--50">
 						<label class="create-group__label"  for="group-matrix"><?php print __("Matrix", "community-portal"); ?></label>
-						<input type="text" placeholder="username:domain" name="group_matrix" id="group-matrix" class="create-group__input create-group__input--inline"  value="<?php print isset($form['group_matrix']) ? $form['group_matrix'] : ''; ?>"/>
+						<input type="text" placeholder="room-alias:domain" name="group_matrix" id="group-matrix" class="create-group__input create-group__input--inline"  value="<?php print isset($form['group_matrix']) ? $form['group_matrix'] : ''; ?>"/>
 						<div class="form__error-container form__error-container--checkbox">
-							<div class="form__error"><?php print __("Please format as username:domain", "community-portal"); ?></div>
+							<div class="form__error"><?php print __("Please format as room-alias:domain", "community-portal"); ?></div>
 						</div>
                     </div>
                 </div>
