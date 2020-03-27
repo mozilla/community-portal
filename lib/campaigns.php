@@ -181,7 +181,7 @@ function mozilla_download_campaign_events() {
 
             $location = $location->country === 'OE' ? 'Online' : $address;
             $group_object = new BP_Groups_Group($related_event->group_id);
-            $group = ($group_object->id) ? "{$group->name} ($group->id)" : 'N/A';
+            $group = ($group_object->id) ? "{$group_object->name} ($group_object->id)" : 'N/A';
             $row = Array(
                             $related_event->event_id, 
                             $related_event->name,
