@@ -145,7 +145,7 @@ function mozilla_download_campaign_events() {
         header("Content-Disposition: attachment;filename=campaign-{$_GET['campaign']}-events.csv");
         $out = fopen('php://output', 'w');
 
-        $heading = Array('ID', 'Event Title', 'Event Start Date', 'Event End Date', 'Description', 'Goals', 'Attendee Count', 'Expected Attendee Count', 'Language', 'Location', 'Tags', 'Hosted By', 'Group');
+        $heading = Array('ID', 'Event Title', 'Event Start Date', 'Event End Date', 'Description', 'Goals', 'Attendee Count', 'Expected Attendee Count', 'Language', 'Location', 'Tags', 'Hosted By', 'User ID', 'Group', 'Group ID');
         fputcsv($out, $heading);
 
         foreach($related_events AS $related_event) {
@@ -181,7 +181,7 @@ function mozilla_download_campaign_events() {
 
             $location = $location->country === 'OE' ? 'Online' : $address;
             $group_object = new BP_Groups_Group($related_event->group_id);
-            $group = ($group_object->id) ? "{$group_object->name} ($group_object->id)" : 'N/A';
+            $group = ($group_object->id) ? $group_object->name : 'N/A';
             $row = Array(
                             $related_event->event_id, 
                             $related_event->name,
@@ -194,8 +194,10 @@ function mozilla_download_campaign_events() {
                             $language,
                             $location,
                             $tags,
-                            "{$event_creator->data->user_nicename} ({$user_id})",
-                            $group
+                            $event_creator->data->user_nicename,
+                            $user_id,
+                            $group,
+                            $group_object->id
             );
 
             fputcsv($out, $row);
