@@ -442,7 +442,7 @@
 												<line x1="7" y1="9" x2="7" y2="23" stroke="black" stroke-width="2"/>
 												<line x1="25" y1="9" x2="25" y2="23" stroke="black" stroke-width="2"/>
 											</svg>
-                                            <a href="<?php print (mozilla_verify_url($group_meta['group_matrix'], true) ? mozilla_verify_url($group_meta['group_matrix'], true) : 'https://chat.mozilla.org/#/room/'.$group_meta['group_matrix']) ?>" class="group__social-link"><?php print __("Matrix", "community-portal"); ?></a>
+                                            <a href="<?php print (mozilla_verify_url($group_meta['group_matrix'], true) ? mozilla_verify_url($group_meta['group_matrix'], true) : 'https://chat.mozilla.org/#/room/#'.$group_meta['group_matrix']) ?>" class="group__social-link"><?php print __("Matrix", "community-portal"); ?></a>
                                         </div>
                                     <?php endif; ?>
                                     <?php if(isset($group_meta['group_other']) && strlen($group_meta['group_other']) > 0 && mozilla_verify_url($group_meta['group_other'], false)): ?>

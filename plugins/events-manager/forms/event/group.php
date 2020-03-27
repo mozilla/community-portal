@@ -24,6 +24,6 @@
         <?php endif; ?>
     </select>
     <?php if(em_wp_is_super_admin()): ?>
-	    <!-- <p><em><?php __( 'As a site admin, you see all group events, users will only be able to choose groups they are admins of.', 'commuity-portal')?></em></p> -->
+		<!-- <p><em><?php __( 'As a site admin, you see all group events, users will only be able to choose groups they are admins of.', 'commuity-portal')?></em></p> -->
     <?php endif; ?>
 </div>
