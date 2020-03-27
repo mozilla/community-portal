@@ -16,7 +16,21 @@ function mozilla_show_campaign_metabox($post) {
     print "<div><a href=\"/wp-admin/admin-ajax.php?action=download_campaign_events&campaign={$post->ID}\">Export events related to this campaign</a></div>";
 }
 
+function mozilla_activity_metabox() {
+    add_meta_box(
+        'activity-export-events',       
+        'Export Events',                  
+        'mozilla_show_activity_metabox',  
+        'activity',                 
+        'side',
+        'default'
+    );
+    
+}
 
+function mozilla_show_activity_metabox($post) {
+    print "<div><a href=\"/wp-admin/admin-ajax.php?action=download_activity_events&activity={$post->ID}\">Export events related to this activity</a></div>";
+}
 
 
 function mozilla_upload_image() {
