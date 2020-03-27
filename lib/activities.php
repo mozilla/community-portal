@@ -26,7 +26,7 @@ $theme_directory = get_template_directory();
         $countries = em_get_countries();
 
         header("Content-Type: text/csv");
-        header("Content-Disposition: attachment;filename=campaign-{$_GET['campaign']}-events.csv");
+        header("Content-Disposition: attachment;filename=activity-{$_GET['activity']}-events.csv");
         $out = fopen('php://output', 'w');
 
         $heading = Array('ID', 'Event Title', 'Event Start Date', 'Event End Date', 'Description', 'Goals', 'Attendee Count', 'Expected Attendee Count', 'Language', 'Location', 'Tags', 'Hosted By', 'Group');
@@ -65,7 +65,7 @@ $theme_directory = get_template_directory();
 
             $location = $location->country === 'OE' ? 'Online' : $address;
             $group_object = new BP_Groups_Group($related_event->group_id);
-            $group = ($group_object->id) ? "{$group->name} ($group->id)" : 'N/A';
+            $group = ($group_object->id) ? "{$group_object->name} ($group_object->id)" : 'N/A';
             $row = Array(
                             $related_event->event_id, 
                             $related_event->name,
