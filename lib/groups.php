@@ -510,15 +510,14 @@ function mozilla_download_group_events() {
 
         foreach($related_events AS $related_event) {
             $attendees = sizeof($related_event->get_bookings()->bookings);
-            $language = isset($related_event->meta->language) && strlen($related_event->meta->language) > 0  ? $languages[$related_event->meta->language] : 'N/A';
             $event_meta = get_post_meta($related_event->post_id, 'event-meta');
+            $language = isset($event_meta[0]->language) && strlen($event_meta[0]->language) > 0  ? $languages[$event_meta[0]->language] : 'N/A';
             $location_type = isset($event_meta[0]->location_type) ? $event_meta[0]->location_type : '';
             $location_object = em_get_location($related_event->location_id);
             $tag_object = $related_event->get_categories();
             $tags = '';
             $user_id = $related_event->event_owner; 
             $event_creator = get_user_by('ID', $user_id);
-
             foreach($tag_object->terms AS $tag) {
                 $tags = $tag->name.', ';
             }
@@ -542,15 +541,16 @@ function mozilla_download_group_events() {
             $location = $location->country === 'OE' ? 'Online' : $address;
             $group_object = new BP_Groups_Group($related_event->group_id);
             $group = ($group_object->id) ? $group_object->name : 'N/A';
+
             $row = Array(
                             $related_event->event_id, 
                             $related_event->name,
                             $related_event->event_start_date, 
                             $related_event->event_end_date,
                             $related_event->post_content,
-                            $related_event->meta->goal,
+                            isset($event_meta[0]->goal) ? $event_meta[0]->goal : 'N/A',
                             $attendees, 
-                            $related_event->meta->projected_attendees,
+                            isset($event_meta[0]->projected_attendees) ? $event_meta[0]->projected_attendees : 'N/A',
                             $language,
                             $location,
                             $tags,
