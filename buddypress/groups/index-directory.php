@@ -167,9 +167,27 @@
         }
     }
     
-    // Randomize
-    shuffle($verified_groups);
-    shuffle($unverified_groups);
+    // Only Randomize on first page
+
+    if($page === 1) {
+
+        unset($_SESSION['verified_groups']);
+        unset($_SESSION['unverified_groups']);
+
+        shuffle($verified_groups);
+        shuffle($unverified_groups);
+
+        $_SESSION['verified_groups'] = $verified_groups;
+        $_SESSION['unverified_groups'] = $unverified_groups;
+    } else {
+
+        if(isset($_SESSION['verified_groups']))
+            $verified_groups = $_SESSION['verified_groups'];
+        
+        if(isset($_SESSION['unverified_groups']))
+            $unverified_groups = $_SESSION['unverified_groups'];
+        
+    }
 
     $filtered_groups = array_merge($verified_groups, $unverified_groups);
 
