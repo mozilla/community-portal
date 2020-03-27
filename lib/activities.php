@@ -33,7 +33,7 @@ $theme_directory = get_template_directory();
         fputcsv($out, $heading);
 
         foreach($related_events AS $related_event) {
-            $attendees = isset($related_event->get_bookings()->bookings) && is_array($related_event->get_bookings()->bookings) ? sizeof($related_event->get_bookings()->bookings) : 0;
+            $attendees = sizeof($related_event->get_bookings()->bookings);
             $language = isset($related_event->meta->language) && strlen($related_event->meta->language) > 0  ? $languages[$related_event->meta->language] : 'N/A';
             $event_meta = get_post_meta($related_event->post_id, 'event-meta');
             $location_type = isset($event_meta[0]->location_type) ? $event_meta[0]->location_type : '';
