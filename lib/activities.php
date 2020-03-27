@@ -21,7 +21,7 @@ function mozilla_download_activity_events() {
         }
 
         
-        $theme_directory = get_template_directory();
+$theme_directory = get_template_directory();
         include("{$theme_directory}/languages.php");
         $countries = em_get_countries();
 
