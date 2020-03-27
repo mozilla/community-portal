@@ -895,7 +895,7 @@
                         </div>
 
 				
-                        <h2 class="group__card-title"><?php print __("People", "community-portal")." ({$members['count']})"; ?></h2>
+                        <h2 class="group__card-title"><?php print __("People", "community-portal"); ?><?php echo ($search_user ? null : "({$members['count']})"); ?></h2>
 						<div class="members__search-container">
 								<form method="GET" action="<?php echo $_SERVER['REQUEST_URI'] ?>" class="members__form" id="members-search-form">
 									<div class="members__input-container">
@@ -951,7 +951,7 @@
 							</div>
                         <div class="group__members">
 						<?php if(sizeof($filtered_members) > 0): ?>
-							<?php if(isset($_GET['u']) && strlen($_GET['u']) > 0): ?><div class="members__results-for"><?php print __(sprintf("Results for \"%s\"", $search_user)); ?></div>
+							<?php if(isset($_GET['u']) && strlen($_GET['u']) > 0): ?><div class="members__results-for"><?php print __(sprintf("Results for \"%s\"", $search_user)). " ({$count})"; ?></div>
 							<?php endif; ?>			
                             <?php foreach($filtered_members AS $member): ?>
                             <?php
