@@ -12,6 +12,7 @@
     
     $categories = get_the_terms($EM_Event->post_id, EM_TAXONOMY_CATEGORY);  
     $event_meta = get_post_meta($EM_Event->post_id, 'event-meta');
+
     $allCountries = em_get_countries();
     $img_url = $event_meta[0]->image_url;
 
@@ -28,6 +29,10 @@
 	$goal = isset($event_meta[0]->goal) && strlen($event_meta[0]->goal) > 0 ? $event_meta[0]->goal : false;
 	$language = isset($event_meta[0]->language) && strlen($event_meta[0]->language) > 0 ? $languages[$event_meta[0]->language] : false;
 	$projected_attendees = isset($event_meta[0]->projected_attendees) && intval($event_meta[0]->projected_attendees) > 0 ? $event_meta[0]->projected_attendees : false;
+
+
+    
+
 
     $months = array(
         '01' => 'January',
@@ -89,6 +94,8 @@
             $users = get_current_user_id();
         }
     }
+
+    
 ?>
 
 <div class="content events__container events-single">
@@ -418,4 +425,27 @@
         <?php print __("Report Event", 'community-portal'); ?>
     </a>                                           
 </div>
+
 <?php endif ?>
+<?php if(in_array('administrator',  wp_get_current_user()->roles)): ?>
+<a href="#" id="events-show-debug-info" class="events-single__show-debug-info">Show Meta Data</a>
+<div class="events-single__debug-info events-single__debug-info--hidden">
+<h3>Debug Information</h3>
+
+Discourse Group Information
+<pre>
+    <?php
+        $discourse_group_info = mozilla_get_discourse_info($EM_Event->post_id, 'event');
+        print_r($discourse_group_info);
+    ?>
+</pre>
+
+Event Meta
+<pre>
+    <?php 
+        print_r($event_meta); 
+    ?>
+</pre>
+
+</div>
+<?php endif; ?>

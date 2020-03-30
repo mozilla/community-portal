@@ -515,7 +515,6 @@ function mozilla_post_status_transition($new_status, $old_status, $post) {
             mozilla_create_mailchimp_list($post);
         }    
     } 
-
 } 
 
 function mozilla_export_users() {

@@ -348,5 +348,14 @@ jQuery(function() {
         handleOnlineEvent();
     }
 
+
+    jQuery('#events-show-debug-info').click(function(e){
+        e.preventDefault();
+        jQuery('.events-single__debug-info').toggleClass('events-single__debug-info--hidden');
+        return false;
+
+
+    });
+
     init();
 });
