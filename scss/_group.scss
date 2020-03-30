@@ -892,4 +892,12 @@
             display: none;
         }
     }
+  
+	  .members__search-container {
+		    position: static;
+		    margin-bottom: 24px;
+		    @include tablet-and-up {
+			      margin-bottom: 32px;
+		    }
+	   }
 }

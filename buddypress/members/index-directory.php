@@ -692,12 +692,12 @@
             if($info['languages']->display &&
                 is_array($info['languages']->value) &&
                 in_array($language_code, $info['languages']->value)
-             ) {
+            ) {
                 $filtered_members[] = $member;
                 continue;
-             }
+            }
 
-             continue;
+            continue;
         }
 
         // Just search
