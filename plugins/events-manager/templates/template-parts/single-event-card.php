@@ -22,14 +22,13 @@
 
 
 ?> 
-
 <div class="col-lg-4 col-md-6 events__column">
     <div class="event-card">
         <a class="events__link" href="<?php echo $url?>">
             <div class="event-card__image"
             <?php 
-                $event_meta = get_post_meta($event->post_id, 'event-meta');
-                $img_url = $event_meta[0]->image_url;
+                $card_event_meta = get_post_meta($event->post_id, 'event-meta');
+                $img_url = $card_event_meta[0]->image_url;
 
                 if((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
                     $img_url = preg_replace("/^http:/i", "https:", $img_url);
@@ -88,9 +87,9 @@
                     </p>
                 </div>
                 <?php endif; ?>
-                <?php if(isset($event_meta[0]->initiative) && strlen($event_meta[0]->initiative) > 0): ?>
+                <?php if(isset($card_event_meta[0]->initiative) && strlen($card_event_meta[0]->initiative) > 0): ?>
                 <?php
-                    $initiative = get_post(intval($event_meta[0]->initiative));
+                    $initiative = get_post(intval($card_event_meta[0]->initiative));
                 ?>
                 <div class="events__campaign">
                     <?php if($initiative->post_type === 'campaign'): ?>

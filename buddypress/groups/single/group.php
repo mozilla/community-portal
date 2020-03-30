@@ -717,6 +717,22 @@
                     </a>
                 </div>
                 <?php endif; ?>
+                <?php if(in_array('administrator',  wp_get_current_user()->roles)): ?>
+                <a href="#" id="group-show-debug-info" class="group__show-debug-info">Show Meta Data</a>
+                <div class="group__debug-info group__debug-info--hidden">
+                    <h3>Debug Information</h3>
+
+                    Discourse Group Information
+                    <pre>
+                        <?php print_r($discourse_group); ?>
+                    </pre>
+
+                    Group Meta
+                    <pre>
+                        <?php print_r($group_meta); ?>
+                    </pre>
+                </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>

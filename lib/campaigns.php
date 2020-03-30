@@ -1,11 +1,6 @@
 
 <?php 
 
-
-
-print_r($languages);
-
-
 function mozilla_mailchimp_unsubscribe() {
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
 		if(isset($_POST['list']) && strlen($_POST['list']) > 0) {

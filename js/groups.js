@@ -411,4 +411,10 @@ jQuery(function(){
 
     });
 
+    jQuery('#group-show-debug-info').click(function(e){
+        e.preventDefault();
+        jQuery('.group__debug-info').toggleClass('group__debug-info--hidden');
+        return false;
+    });
+
 });
