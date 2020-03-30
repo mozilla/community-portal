@@ -253,8 +253,13 @@ function mozilla_theme_settings() {
 
 }
 
+function mozilla_export_events_control() {	
+	return;
+}
+
 function mozilla_add_menu_item() {
     add_menu_page('Mozilla Settings', 'Mozilla Settings', 'manage_options', 'theme-panel', 'mozilla_theme_settings', null, 99);
+    add_menu_page('Mozilla Export Events', 'Export Events', 'manage_options', 'events-export-panel', 'mozilla_export_events_control', 'dashicons-media-spreadsheet', 99);
 }
 
 function mozilla_is_site_admin(){
