@@ -70,4 +70,21 @@ function mozilla_add_online_to_countries($countries) {
 }
 
 
+function mozilla_event_export() {
+
+    if(!is_admin() && in_array('administrator', wp_get_current_user()->roles)) {
+        return;
+    }
+
+    $start = isset($_GET['start']) && strlen($_GET['start']) > 0 ? trim($_GET['start']) : false;
+    $end = isset($_GET['end']) && strlen($_GET['end']) > 0 ? trim($_GET['end']) : false;
+
+    $campaign_id = isset($_GET['campaign']) && strlen($_GET['campaign']) > 0 ? trim($_GET['campaign']) : false;
+    $activity_id = isset($_GET['activity']) && strlen($_GET['activity']) > 0 ? trim($_GET['activity']) : false;
+
+
+
+}
+
+
 ?>
