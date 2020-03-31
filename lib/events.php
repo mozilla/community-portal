@@ -76,12 +76,126 @@ function mozilla_event_export() {
         return;
     }
 
-    $start = isset($_GET['start']) && strlen($_GET['start']) > 0 ? trim($_GET['start']) : false;
-    $end = isset($_GET['end']) && strlen($_GET['end']) > 0 ? trim($_GET['end']) : false;
+    $start = isset($_GET['start']) && strlen($_GET['start']) > 0 ? strtotime(trim($_GET['start'])) : false;
+    $end = isset($_GET['end']) && strlen($_GET['end']) > 0 ? strtotime(trim($_GET['end'])) : false;
 
-    $campaign_id = isset($_GET['campaign']) && strlen($_GET['campaign']) > 0 ? trim($_GET['campaign']) : false;
-    $activity_id = isset($_GET['activity']) && strlen($_GET['activity']) > 0 ? trim($_GET['activity']) : false;
+    $campaign_id = isset($_GET['campaign']) && strlen($_GET['campaign']) > 0 ? intval(trim($_GET['campaign'])) : false;
+    $activity_id = isset($_GET['activity']) && strlen($_GET['activity']) > 0 ? intval(trim($_GET['activity'])) : false;
 
+    $args = Array('scope' =>  'all');
+    $events = EM_Events::get($args);    
+    $related_events = Array();
+
+    $theme_directory = get_template_directory();
+    include("{$theme_directory}/languages.php");
+    $countries = em_get_countries();
+
+    $related_events = Array();
+
+    foreach($events AS $event) {
+        $event_meta = get_post_meta($event->post_id, 'event-meta');
+
+        if($campaign_id || $activity_id) {
+            if(isset($event_meta[0]->initiative) && (intval($event_meta[0]->initiative) === $campaign_id || intval($event_meta[0]->initiative) === $activity_id)) {
+                if($start && $end) {
+                    if(strtotime($event->event_start_date) >= $start && strtotime($event->event_end_date) <= $end) {
+                        $event->meta = $event_meta[0];
+                        $related_events[] = $event;
+                    }
+                }
+           }
+        }
+
+        if($campaign_id === false && $activity_id === false) {
+            if($start && $end) {
+                if(strtotime($event->event_start_date) >= $start && strtotime($event->event_end_date) <= $end) {
+                    $event->meta = $event_meta[0];
+                    $related_events[] = $event;
+                }
+            }
+        }
+    }
+
+    header("Content-Type: text/csv");
+    header("Content-Disposition: attachment;filename=events.csv");
+    $out = fopen('php://output', 'w');
+
+    $heading = Array('ID', 'Event Title', 'Event Start Date', 'Event End Date', 'Description', 'Goals', 'Attendee Count', 'Expected Attendee Count', 'Language', 'Location', 'Tags', 'Hosted By', 'User ID', 'Group', 'Group ID', 'Campaign', 'Campaign ID', 'Activity', 'Activity ID');
+    fputcsv($out, $heading);
+    foreach($related_events AS $related_event) {
+        $attendees = sizeof($related_event->get_bookings()->bookings);
+        $language = isset($related_event->meta->language) && strlen($related_event->meta->language) > 0  ? $languages[$related_event->meta->language] : 'N/A';
+        $event_meta = get_post_meta($related_event->post_id, 'event-meta');
+        $location_type = isset($event_meta[0]->location_type) ? $event_meta[0]->location_type : '';
+        $location_object = em_get_location($related_event->location_id);
+        $tag_object = $related_event->get_categories();
+        $tags = '';
+        $user_id = $related_event->event_owner; 
+        $event_creator = get_user_by('ID', $user_id);
+
+        foreach($tag_object->terms AS $tag) {
+            $tags = $tag->name.', ';
+        }
+
+        // Remove last comma
+        $tags = rtrim($tags, ', ');
+
+        $address = $location_object->address;
+        if($location_object->city) {
+            $address = $address.' '.$location_object->city;
+        }
+
+        if($location_object->town) {
+            $address = $address.' '.$location_object->town;
+        }
+
+        if($location_object->country) {
+            $address = $address.' '.$countries[$location_object->country];
+        }
+
+        if($campaign_id) {
+            $campaign = get_post($campaign_id);
+        } else {
+            $campaign = null;
+        }
+
+        if($activity_id) {
+            $activity = get_post($activity_id);
+        } else {
+            $activity = null;
+        }
+
+        $location = $location->country === 'OE' ? 'Online' : $address;
+        $group_object = new BP_Groups_Group($related_event->group_id);
+        $group = ($group_object->id) ? $group_object->name : 'N/A';
+        $row = Array(
+                        $related_event->event_id, 
+                        $related_event->name,
+                        $related_event->event_start_date, 
+                        $related_event->event_end_date,
+                        $related_event->post_content,
+                        $related_event->meta->goal,
+                        $attendees, 
+                        $related_event->meta->projected_attendees,
+                        $language,
+                        $location,
+                        $tags,
+                        $event_creator->data->user_nicename,
+                        $user_id,
+                        $group,
+                        $group_object->id,
+                        ($campaign !== null) ? $campaign->post_title : 'N/A',
+                        ($campaign !== null) ? $campaign->ID : 'N/A',
+                        ($activity !== null) ? $activity->post_title : 'N/A',
+                        ($activity !== null) ? $activity->ID : 'N/A',
+        );
+
+        fputcsv($out, $row);
+    }
+    
+    fclose($out);
+
+    die();
 
 
 }

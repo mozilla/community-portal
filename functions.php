@@ -60,8 +60,8 @@ add_action('wp_ajax_mailchimp_subscribe', 'mozilla_mailchimp_subscribe');
 add_action('wp_ajax_nopriv_mailchimp_subscribe', 'mozilla_mailchimp_subscribe');
 add_action('wp_ajax_export_users', 'mozilla_export_users');
 add_action('wp_ajax_update_group_discourse', 'mozilla_update_group_discourse_category_id');
-add_action('wp_ajax_export_events', 'mozilla_export_events');
-add_action('wp_ajax_export_events', 'mozilla_export_events');
+add_action('wp_ajax_nopriv_export_events', 'mozilla_event_export');
+add_action('wp_ajax_export_events', 'mozilla_event_export');
 
 
 add_action('wp_ajax_download_group_events', 'mozilla_download_group_events');

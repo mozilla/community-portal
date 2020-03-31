@@ -13,8 +13,8 @@
 	$activities = new WP_Query($args);
 ?>
 <h1>Export Events</h1>
-<form method="POST" action>
-    <?php print wp_nonce_field('protect_content', 'admin_nonce_field'); ?>
+<form method="GET" action="/wp-admin/admin-ajax.php">
+    <input type="hidden" name="action" value="export_events" />
     <table class="form-table" role="presentation">
         <tbody>
             <tr>
@@ -22,7 +22,7 @@
                     <label for="start-date">Start Date</label>
                 </th>
                 <td>
-					<input type="text" id="start-date" name="start_date" class="custom_date"/>
+					<input type="text" id="start-date" name="start" class="custom_date"/>
                 </td>
             </tr>
 			<tr>
@@ -30,7 +30,7 @@
                     <label for="end-date">End Date</label>
                 </th>
                 <td>
-					<input type="text" id="end-date" name="end_date" class="custom_date"/>
+					<input type="text" id="end-date" name="end" class="custom_date"/>
                 </td>
             </tr>
 			<tr>
@@ -38,7 +38,7 @@
                     <label for="activities">Activities</label>
                 </th>
                 <td>
-					<select name="activities" id="activities">
+					<select name="activitiy" id="activities">
 						<option value=""><?php print __('Select', 'community-portal');?></option>
 						<?php foreach($activities->posts as $activity): ?>
 							<option value="<?php echo $activity->ID ?>"><?php echo $activity->post_title ?></option>
@@ -51,7 +51,7 @@
                     <label for="campaigns">Campaigns</label>
                 </th>
                 <td>
-					<select name="campaigns" id="campaigns">
+					<select name="campaign" id="campaigns">
 						<option value=""><?php print __('Select', 'community-portal');?></option>
 						<?php foreach($campaigns->posts as $campaign): ?>
 							<option value="<?php echo $campaign->ID ?>"><?php echo $campaign->post_title ?></option>
@@ -61,5 +61,5 @@
             </tr>
         </tbody>
     </table>
-    <input type="submit" value="Save Settings" />
+    <input type="submit" value="Export Events" id="export-events" class="button action" />
 </form>
