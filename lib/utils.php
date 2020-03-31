@@ -146,11 +146,15 @@ function mozilla_init_scripts() {
 
 function mozilla_init_admin_scripts() {
     $screen = get_current_screen();
-    
     if(strtolower($screen->id) === 'toplevel_page_bp-groups') {
         wp_enqueue_style('styles', get_stylesheet_directory_uri()."/style.css", false, '1.0.0');
         wp_enqueue_script('groups', get_stylesheet_directory_uri()."/js/admin.js", array('jquery'));
-    }
+	}
+    if(strtolower($screen->id) === 'toplevel_page_events-export-panel') {
+		wp_enqueue_script('jquery-ui-datepicker');
+		wp_enqueue_style('jquery-ui-css', 'http://mdmozdev.wpengine.com.test/wp-content/plugins/events-manager/includes/css/jquery-ui.min.css');
+		wp_enqueue_script('date', get_stylesheet_directory_uri()."/js/date.js", array('jquery'));
+	}
 }
 
 function mozilla_remove_admin_login_header() {
@@ -254,6 +258,8 @@ function mozilla_theme_settings() {
 }
 
 function mozilla_export_events_control() {	
+    $theme_dir = get_template_directory();
+	include "{$theme_dir}/templates/event-export.php";
 	return;
 }
 
