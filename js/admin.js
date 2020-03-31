@@ -25,4 +25,7 @@ jQuery(function(){
     jQuery('li.public').find('a').html(jQuery('li.public').find('a').html().replace("Public", "Verified"));
     jQuery('li.private').find('a').html(jQuery('li.private').find('a').html().replace("Private", "Unverified"));
 
+
+
+
 });
