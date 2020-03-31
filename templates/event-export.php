@@ -38,7 +38,7 @@
                     <label for="activities">Activities</label>
                 </th>
                 <td>
-					<select name="activitiy" id="activities">
+					<select name="activity" id="activities">
 						<option value=""><?php print __('Select', 'community-portal');?></option>
 						<?php foreach($activities->posts as $activity): ?>
 							<option value="<?php echo $activity->ID ?>"><?php echo $activity->post_title ?></option>
