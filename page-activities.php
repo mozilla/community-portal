@@ -6,13 +6,13 @@
 
     $args = Array(
         'post_type' =>  'activity',
-        'per_page'  =>  -1
+        'posts_per_page'  =>  -1
     );
 
     $activity_count = 0;
     $activities = new WP_Query($args);
 
-    $activity_count = sizeof($activities->posts);
+	$activity_count = sizeof($activities->posts);
     $offset = ($p - 1) * $activities_per_page;
 
     $activities = array_slice($activities->posts, $offset, $activities_per_page);
