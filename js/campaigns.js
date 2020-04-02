@@ -151,7 +151,6 @@ jQuery(function() {
             method: 'POST',
             success: function(response) {
                 response = jQuery.parseJSON(response);
-				console.log(response);
 				if (response.status === 'OK') {
 					jQuery('.campaign-rsvp').addClass('success');
 				} else {
