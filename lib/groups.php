@@ -449,7 +449,6 @@ function mozilla_save_group($group_id) {
         return;
     }
 
-
     $group = groups_get_group(Array('group_id' => $group_id));
     $group_meta = groups_get_groupmeta($group_id, 'meta');
 
@@ -479,7 +478,7 @@ function mozilla_group_markup_metabox($post) {
 
 
 function mozilla_download_group_events() {
-    if(!is_admin()) {
+    if(!is_admin() && in_array('administrator', wp_get_current_user()->roles) === false) {
         return;
     }
 

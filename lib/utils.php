@@ -488,7 +488,7 @@ function mozilla_save_post($post_id, $post, $update) {
 function mozilla_update_group_discourse_category_id() {
 
     // Only site admins
-    if(!is_admin()) {
+    if(!is_admin() && in_array('administrator', wp_get_current_user()->roles) === false) {
         die('Invalid Permissions');
     }
 
@@ -573,7 +573,7 @@ function mozilla_post_status_transition($new_status, $old_status, $post) {
 function mozilla_export_users() {
 
     // Only admins
-    if(!is_admin()) {
+    if(!is_admin() && in_array('administrator', wp_get_current_user()->roles) === false) {
         return;
     }
 
