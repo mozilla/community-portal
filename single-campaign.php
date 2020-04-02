@@ -117,6 +117,11 @@
     <div id="campaign-share-lightbox" class="lightbox">
         <?php include(locate_template('templates/share-modal.php', false, false)); ?>
     </div>
+    <?php if(($campaign_hero_cta && !$logged_in && $mailchimp && isset($mailchimp->id)) || is_preview()): ?>
+		<div id="campaign-rsvp-lightbox" class="lightbox">
+		</div>
+	<?php endif; ?>
+    
 
 <?php 
     get_footer();
