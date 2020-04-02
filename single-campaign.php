@@ -45,8 +45,12 @@
                             - <?php print $campaign_end_date; ?>
                             <?php endif; ?>
                         </div>
-                        <?php if(($campaign_hero_cta && $logged_in && $mailchimp && isset($mailchimp->id)) || is_preview()): ?>
-                        <a href="<?php print ($campaign_hero_cta_link) ? $campaign_hero_cta_link : '#'; ?>" class="campaign__hero-cta<?php if($mailchimp && isset($mailchimp->id) && $sub === true): ?> campaign__hero-cta--sub<?php else: ?> campaign__hero-cta--unsub<?php endif; ?>"<?php if($mailchimp && isset($mailchimp->id)): ?><?php if($mailchimp): ?> data-list="<?php print $mailchimp->id; ?>"<?php endif; ?><?php endif; ?> data-unsub-copy="<?php print $campaign_hero_unsub_cta; ?>" data-sub-copy="<?php print $campaign_hero_cta; ?>" data-campaign="<?php print $post->ID;?>"><?php print $sub ? $campaign_hero_cta : $campaign_hero_unsub_cta; ?></a>
+						<?php if(($campaign_hero_cta && $mailchimp && isset($mailchimp->id)) || is_preview()): ?>
+							<?php if ($logged_in): ?>
+								<a href="<?php print ($campaign_hero_cta_link) ? $campaign_hero_cta_link : '#'; ?>" class="campaign__hero-cta<?php if($mailchimp && isset($mailchimp->id) && $sub === true): ?> campaign__hero-cta--sub<?php else: ?> campaign__hero-cta--unsub<?php endif; ?>"<?php if($mailchimp && isset($mailchimp->id)): ?><?php if($mailchimp): ?> data-list="<?php print $mailchimp->id; ?>"<?php endif; ?><?php endif; ?> data-unsub-copy="<?php print $campaign_hero_unsub_cta; ?>" data-sub-copy="<?php print $campaign_hero_cta; ?>" data-campaign="<?php print $post->ID;?>"><?php print $sub ? $campaign_hero_cta : $campaign_hero_unsub_cta; ?></a>
+							<?php else: ?>
+								<a href="<?php print ($campaign_hero_cta_link) ? $campaign_hero_cta_link : '#'; ?>" class="campaign__hero-cta campaign__hero-cta--no-account" data-list="<?php print $mailchimp->id; ?>" data-campaign="<?php print $post->ID;?>"><?php print  $campaign_hero_cta ?></a>
+							<?php endif; ?>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -118,7 +122,7 @@
         <?php include(locate_template('templates/share-modal.php', false, false)); ?>
     </div>
     <?php if(($campaign_hero_cta && !$logged_in && $mailchimp && isset($mailchimp->id)) || is_preview()): ?>
-		<div id="campaign-rsvp-lightbox">
+		<div id="campaign-rsvp-lightbox" class="lightbox">
 			<?php include(locate_template('templates/campaign-rsvp.php', false, false)); ?>
 		</div>
 	<?php endif; ?>

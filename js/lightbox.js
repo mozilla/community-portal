@@ -98,7 +98,15 @@ jQuery(function() {
             ".group__share-cta",
             "#close-share-lightbox",
             "a"
-        );
+		);
+		
+		toggleLightbox(
+			"#campaign-rsvp-lightbox",
+			".campaign__hero-cta--no-account",
+			"#close-rsvp-lightbox",
+			"a"
+		)
+
 
         toggleLightbox('#activity-share-lightbox', '.activity__cta--share', "#close-share-lightbox", 'a');
         toggleLightbox('#campaign-share-lightbox', '.campaign__share-cta', "#close-share-lightbox", 'a');

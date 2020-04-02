@@ -1,6 +1,6 @@
 .btn {
-    background: none;
-    border: 1px solid $color-blue-50;
+	background: none;
+	border: 1px solid transparent;
     display: inline-block;
     transition: background-color 0.2s ease-in;
     -webkit-appearance: none;
@@ -8,7 +8,8 @@
     &:focus,
     &:hover {
         background-color: $color-white;
-        color: $color-blue-50;
+		color: $color-blue-50;
+		border: 1px solid $color-blue-50;
         cursor: pointer;
     }
 
