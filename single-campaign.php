@@ -118,7 +118,8 @@
         <?php include(locate_template('templates/share-modal.php', false, false)); ?>
     </div>
     <?php if(($campaign_hero_cta && !$logged_in && $mailchimp && isset($mailchimp->id)) || is_preview()): ?>
-		<div id="campaign-rsvp-lightbox" class="lightbox">
+		<div id="campaign-rsvp-lightbox">
+			<?php include(locate_template('templates/campaign-rsvp.php', false, false)); ?>
 		</div>
 	<?php endif; ?>
     

@@ -1,0 +1,53 @@
+.campaign-rsvp {
+	&__title,
+	&__subtitle {
+		@extend .title;
+	}
+	&__title {
+		font-size: remCalc(38);
+	}
+	&__subtitle {
+		font-size: remCalc(28);
+	}
+	&__form {
+		border-top: 1px solid #D7D7DB;
+		margin-top: 32px;
+	}
+	&__section {
+		justify-content: space-between;
+	}
+	&__section--center {
+		text-align: center;
+	}
+	.btn {
+		text-decoration: none;
+	}
+	&__row {
+		display: flex;
+		align-items: center;
+		margin-bottom: 24px;
+		&--double:first-child {
+			padding-right: 20px;
+		}
+		.campaign-rsvp__label {
+			flex-basis: 100px;
+			font-size: remCalc(14);
+		}
+		.campaign-rsvp__input {
+			width: auto;
+			flex-grow: 1;
+		}
+	}
+	&__input {
+		@extend .input;
+	}
+	&__label {
+		@extend .label;
+	}
+	.cpg {
+		margin-bottom: 16px;
+		&__label {
+			font-size: remCalc(12);
+		}
+	}
+}
