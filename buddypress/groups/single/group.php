@@ -55,7 +55,8 @@
             $verified = false;
 	}
 
-	$search_user = isset($_GET['u']) && strlen(trim($_GET['u'])) > 0 ? trim($_GET['u']) : false;
+	$search_user = isset($_GET['u']) && strlen(trim($_GET['u'])) > 0 ? htmlspecialchars(trim($_GET['u']), ENT_QUOTES, 'utf-8') : false;
+	
 	if (
 		isset($search_user) && 
 		(strpos($search_user, '"') !== false || 
@@ -907,9 +908,9 @@
 										<path d="M17.5 17.5L13.875 13.875" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 									</svg>
 									<input type="hidden" value="people" name="view" id="view" />
-									<input type="hidden" value="<?php if(isset($_GET['tag']) && strlen($_GET['tag']) > 0): print trim($_GET['tag']); endif; ?>" name="tag" id="user-tag" />
-									<input type="hidden" value="<?php if(isset($_GET['location']) && strlen($_GET['location']) > 0): print trim($_GET['location']); endif; ?>" name="location" id="user-location" />
-									<input type="hidden" value="<?php if(isset($_GET['language']) && strlen($_GET['language']) > 0): print trim($_GET['language']); endif; ?>" name="language" id="user-language" />
+									<input type="hidden" value="<?php if(isset($_GET['tag']) && strlen($_GET['tag']) > 0): print htmlspecialchars(trim($_GET['tag']), ENT_QUOTES, 'utf-8'); endif; ?>" name="tag" id="user-tag" />
+									<input type="hidden" value="<?php if(isset($_GET['location']) && strlen($_GET['location']) > 0): print htmlspecialchars(trim($_GET['location']), ENT_QUOTES, 'utf-8'); endif; ?>" name="location" id="user-location" />
+									<input type="hidden" value="<?php if(isset($_GET['language']) && strlen($_GET['language']) > 0): print htmlspecialchars(trim($_GET['language']), ENT_QUOTES, 'utf-8'); endif; ?>" name="language" id="user-language" />
 									<input type="text" name="u" id="members-search" class="members__search-input" placeholder="<?php print __("Search people", "community-portal"); ?>" value="<?php if($search_user): ?><?php print $search_user; ?><?php endif; ?>" />
 									</div>
 									<input type="submit" class="members__search-cta" value="<?php print __("Search", "community-portal"); ?>" />
