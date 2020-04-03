@@ -5,7 +5,8 @@
     $p = intval(get_query_var('page')) <= 1 ? 1 : intval(get_query_var('page'));
 
     $results_per_page = 12;
-    $search_term = $_GET['s'];
+    
+    $search_term = htmlspecialchars($_GET['s'], ENT_QUOTES, 'UTF-8');
     // Lets get some search results
     if(isset($search_term) && strlen($search_term) > 0) {
 
@@ -19,7 +20,7 @@
 			strpos($search_term, "'") !== false || 
 			strpos($search_term, '\\') !== false
         ) {
-			$search_term = stripslashes($_GET['s']);
+			$search_term = htmlspecialchars(stripslashes($_GET['s']), ENT_QUOTES, 'UTF-8');
 			$search_term = preg_replace('/^\"|\"$|^\'|\'$/', "", $search_term);
 			$original_query = $search_term;
 			$search_term = addslashes($search_term);
@@ -113,7 +114,7 @@
                                 <path d="M9.16667 15.8333C12.8486 15.8333 15.8333 12.8486 15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M17.5 17.5L13.875 13.875" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
-                            <input type="text" name="s" id="search" class="groups__search-input" placeholder="<?php print __("Search", "community-portal"); ?>" value="<?php if(isset($original_query) && strlen($original_query) > 0): ?><?php print trim($original_query); ?><?php endif; ?>" />
+                            <input type="text" name="s" id="search" class="groups__search-input" placeholder="<?php print __("Search", "community-portal"); ?>" value="<?php if(isset($original_query) && strlen($original_query) > 0): ?><?php print strip_tags(trim($original_query)); ?><?php endif; ?>" />
                         </div>
                         <input type="button" class="groups__search-cta" value="<?php print __("Search", "community-portal"); ?>" />
                     </form>
@@ -299,17 +300,17 @@
             <div class="campaigns__pagination">
                 <div class="campaigns__pagination-container">
                     <?php if($total_pages > 1): ?>
-                    <a href="/?s=<?php if(isset($_GET['s']) && strlen($_GET['s'])):?><?php print $_GET['s']; ?><?php endif; ?>&page=<?php print $previous_page?>" class="campaigns__pagination-link">
+                    <a href="/?s=<?php if(isset($_GET['s']) && strlen($_GET['s'])):?><?php print $search_term; ?><?php endif; ?>&page=<?php print $previous_page?>" class="campaigns__pagination-link">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path d="M17 23L6 12L17 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </a>
-                    <?php if($page_min > 1): ?><a href="/?s=<?php if(isset($_GET['s']) && strlen($_GET['s'])):?><?php print $_GET['s']; ?><?php endif; ?>&page=1" class="campaigns__pagination-link campaigns__pagination-link--first"><?php print "1"; ?></a>&hellip; <?php endif; ?>
+                    <?php if($page_min > 1): ?><a href="/?s=<?php if(isset($_GET['s']) && strlen($_GET['s'])):?><?php print $search_term; ?><?php endif; ?>&page=1" class="campaigns__pagination-link campaigns__pagination-link--first"><?php print "1"; ?></a>&hellip; <?php endif; ?>
                     <?php for($x = $page_min - 1; $x < $page_max; $x++): ?>
-                    <a href="/?s=<?php if(isset($_GET['s']) && strlen($_GET['s'])):?><?php print $_GET['s']; ?><?php endif; ?>&page=<?php print $x + 1; ?>" class="campaigns__pagination-link<?php if($p == $x + 1):?> campaigns__pagination-link--active<?php endif; ?><?php if($x === $page_max - 1):?> campaigns__pagination-link--last<?php endif; ?>"><?php print ($x + 1); ?></a>
+                    <a href="/?s=<?php if(isset($_GET['s']) && strlen($_GET['s'])):?><?php print $search_term; ?><?php endif; ?>&page=<?php print $x + 1; ?>" class="campaigns__pagination-link<?php if($p == $x + 1):?> campaigns__pagination-link--active<?php endif; ?><?php if($x === $page_max - 1):?> campaigns__pagination-link--last<?php endif; ?>"><?php print ($x + 1); ?></a>
                     <?php endfor; ?>
                     <?php if($total_pages > $range && $p < $total_pages - 1): ?>&hellip; <a href="/campaigns/?p=<?php print $total_pages; ?>" class="campaigns__pagination-link<?php if($p === $total_pages):?> campaigns__pagination-link--active<?php endif; ?>"><?php print $total_pages; ?></a><?php endif; ?>
-                    <a href="/?s=<?php if(isset($_GET['s']) && strlen($_GET['s'])):?><?php print $_GET['s']; ?><?php endif; ?>&page=<?php print $next_page; ?>" class="campaigns__pagination-link">
+                    <a href="/?s=<?php if(isset($_GET['s']) && strlen($_GET['s'])):?><?php print $search_term; ?><?php endif; ?>&page=<?php print $next_page; ?>" class="campaigns__pagination-link">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                         <path d="M7 23L18 12L7 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
