@@ -1,5 +1,38 @@
 <?php
 
+function mozilla_campaign_metabox() {
+    add_meta_box(
+        'campaign-export-events',       
+        'Export Events',                  
+        'mozilla_show_campaign_metabox',  
+        'campaign',                 
+        'side',
+        'default'
+    );
+    
+}
+
+function mozilla_show_campaign_metabox($post) {
+    print "<div><a href=\"/wp-admin/admin-ajax.php?action=download_campaign_events&campaign={$post->ID}\">Export events related to this campaign</a></div>";
+}
+
+function mozilla_activity_metabox() {
+    add_meta_box(
+        'activity-export-events',       
+        'Export Events',                  
+        'mozilla_show_activity_metabox',  
+        'activity',                 
+        'side',
+        'default'
+    );
+    
+}
+
+function mozilla_show_activity_metabox($post) {
+    print "<div><a href=\"/wp-admin/admin-ajax.php?action=download_activity_events&activity={$post->ID}\">Export events related to this activity</a></div>";
+}
+
+
 function mozilla_upload_image() {
 
     if(!empty($_FILES) && wp_verify_nonce($_REQUEST['my_nonce_field'], 'protect_content')) {
@@ -113,11 +146,15 @@ function mozilla_init_scripts() {
 
 function mozilla_init_admin_scripts() {
     $screen = get_current_screen();
-    
     if(strtolower($screen->id) === 'toplevel_page_bp-groups') {
         wp_enqueue_style('styles', get_stylesheet_directory_uri()."/style.css", false, '1.0.0');
         wp_enqueue_script('groups', get_stylesheet_directory_uri()."/js/admin.js", array('jquery'));
-    }
+	}
+    if(strtolower($screen->id) === 'toplevel_page_events-export-panel') {
+		wp_enqueue_script('jquery-ui-datepicker');
+		wp_enqueue_style('jquery-ui-css', 'http://mdmozdev.wpengine.com.test/wp-content/plugins/events-manager/includes/css/jquery-ui.min.css');
+		wp_enqueue_script('date', get_stylesheet_directory_uri()."/js/date.js", array('jquery'));
+	}
 }
 
 function mozilla_remove_admin_login_header() {
@@ -220,8 +257,15 @@ function mozilla_theme_settings() {
 
 }
 
+function mozilla_export_events_control() {	
+    $theme_dir = get_template_directory();
+	include "{$theme_dir}/templates/event-export.php";
+	return;
+}
+
 function mozilla_add_menu_item() {
     add_menu_page('Mozilla Settings', 'Mozilla Settings', 'manage_options', 'theme-panel', 'mozilla_theme_settings', null, 99);
+    add_menu_page('Mozilla Export Events', 'Export Events', 'manage_options', 'events-export-panel', 'mozilla_export_events_control', 'dashicons-media-spreadsheet', 99);
 }
 
 function mozilla_is_site_admin(){
@@ -384,18 +428,30 @@ function mozilla_group_addional_column_info($retval = "", $column_name, $item) {
 
 function mozilla_save_post($post_id, $post, $update) {
 
-    if($post->post_type === 'event') {
+    if($post->post_type === 'event' && $update) {
 
         $user = wp_get_current_user();
-
+        $event_update_meta = get_post_meta($post->ID, 'event-meta');
         $event = new stdClass();
+
+        if(isset($event_update_meta[0]->discourse_group_id))
+            $event->discourse_group_id = $event_update_meta[0]->discourse_group_id;
+
+        if(isset($event_update_meta[0]->discourse_group_name))
+            $event->discourse_group_name = $event_update_meta[0]->discourse_group_name;
+
+        if(isset($event_update_meta[0]->discourse_group_description))
+            $event->discourse_group_description = $event_update_meta[0]->discourse_group_description;
+
+        if(isset($event_update_meta[0]->discourse_group_users))
+            $event->discourse_group_users = $event_update_meta[0]->discourse_group_users;
+
         $event->image_url = esc_url_raw($_POST['image_url']);
         $event->location_type = sanitize_text_field($_POST['location-type']);
         $event->external_url = esc_url_raw($_POST['event_external_link']);
 		$event->language = $_POST['language'] ? sanitize_text_field($_POST['language']) : '';
 		$event->goal = $_POST['goal'] ? sanitize_text_field($_POST['goal']): '';
 		$event->projected_attendees = $_POST['projected-attendees'] ? intval($_POST['projected-attendees']): '';
-
         
         if(isset($_POST['initiative_id']) && strlen($_POST['initiative_id']) > 0) {
             $initiative_id = intval($_POST['initiative_id']);
@@ -405,31 +461,26 @@ function mozilla_save_post($post_id, $post, $update) {
             }
         }
 
+        
         $discourse_api_data = Array();
 
         $discourse_api_data['name'] = $post->post_name;
         $discourse_api_data['description'] = $post->post_content;
         
-        if($update) {
-            $event_meta = get_post_meta($post_id, 'event-meta');
-            if(!empty($event_meta) && isset($event_meta[0]->discourse_group_id)) {
-                $discourse_api_data['group_id'] = $event_meta[0]->discourse_group_id;
-                $discourse_event = mozilla_get_discourse_info($post_id, 'event');
-                $discourse_api_data['users'] = $discourse_event['discourse_group_users'];
-                $discourse_group = mozilla_discourse_api('groups', $discourse_api_data, 'patch');
-            }
-        } else {
-            $auth0Ids = Array();
-            $auth0Ids[] = mozilla_get_user_auth0($user->ID);
-            $discourse_api_data['users'] = $auth0Ids;
-            $discourse_group = mozilla_discourse_api('groups', $discourse_api_data, 'post');
+        if(!empty($event_update_meta) && isset($event_update_meta[0]->discourse_group_id)) {
+            $discourse_api_data['group_id'] = $event_update_meta[0]->discourse_group_id;
+            $discourse_event = mozilla_get_discourse_info($post_id, 'event');
+            $discourse_api_data['users'] = $discourse_event['discourse_group_users'];
+            $discourse_group = mozilla_discourse_api('groups', $discourse_api_data, 'patch');
         }
 
         if($discourse_group) {
-            $event->discourse_group_id = $discourse_group->id;
+            $event->discourse_log = $discourse_group;
         }
 
-        update_post_meta($post_id, 'event-meta', $event);
+        update_post_meta($post->ID, 'event-meta', $event);
+    
+
     }
 }
 
@@ -476,8 +527,47 @@ function mozilla_post_status_transition($new_status, $old_status, $post) {
         if($post->post_type === 'campaign') {            
             mozilla_create_mailchimp_list($post);
         }    
-    } 
 
+        if($post->post_type === 'event' && $old_status !== 'publish') {
+
+            $user = wp_get_current_user();
+            $event = new stdClass();
+            $event->image_url = esc_url_raw($_POST['image_url']);
+            $event->location_type = sanitize_text_field($_POST['location-type']);
+            $event->external_url = esc_url_raw($_POST['event_external_link']);
+            $event->language = $_POST['language'] ? sanitize_text_field($_POST['language']) : '';
+            $event->goal = $_POST['goal'] ? sanitize_text_field($_POST['goal']): '';
+            $event->projected_attendees = $_POST['projected-attendees'] ? intval($_POST['projected-attendees']): '';
+
+            if(isset($_POST['initiative_id']) && strlen($_POST['initiative_id']) > 0) {
+                $initiative_id = intval($_POST['initiative_id']);
+                $initiative = get_post($initiative_id);
+                if($initiative && ($initiative->post_type === 'campaign' || $initiative->post_type === 'activity')) {
+                    $event->initiative = $initiative_id;
+                }
+            }
+
+            $discourse_api_data = Array();
+            $discourse_api_data['name'] = $post->post_name;
+            $discourse_api_data['description'] = $post->post_content;
+            $auth0Ids = Array();
+            $auth0Ids[] = mozilla_get_user_auth0($user->ID);
+            $discourse_api_data['users'] = $auth0Ids;
+            $discourse_group = mozilla_discourse_api('groups', $discourse_api_data, 'post');
+
+            if($discourse_group) {
+                if(isset($discourse_group->id)) {
+                    $event->discourse_group_id = $discourse_group->id;
+                } else {
+                    $event->discourse_log = $discourse_group;
+                }
+            }
+
+            update_post_meta($post->ID, 'event-meta', $event);
+
+        }
+
+    } 
 } 
 
 function mozilla_export_users() {
@@ -524,5 +614,7 @@ function mozilla_export_users() {
     }
     die();
 }
+
+
 
 ?>

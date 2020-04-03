@@ -20,6 +20,7 @@ require_once("{$theme_directory}/lib/events.php");
 require_once("{$theme_directory}/lib/utils.php");
 require_once("{$theme_directory}/lib/newsletter.php");
 require_once("{$theme_directory}/lib/campaigns.php");
+require_once("{$theme_directory}/lib/activities.php");
 
 // Native Wordpress Actions
 add_action('init', 'mozilla_init');
@@ -33,6 +34,9 @@ add_action('bp_group_admin_edit_after', 'mozilla_save_group');
 add_action('save_post', 'mozilla_save_post', 10, 3);
 
 add_action('transition_post_status', 'mozilla_post_status_transition', 10, 3);
+
+
+add_action('bp_groups_admin_meta_boxes', 'mozilla_group_metabox');
 
 
 // Ajax Calls
@@ -56,7 +60,19 @@ add_action('wp_ajax_mailchimp_subscribe', 'mozilla_mailchimp_subscribe');
 add_action('wp_ajax_nopriv_mailchimp_subscribe', 'mozilla_mailchimp_subscribe');
 add_action('wp_ajax_export_users', 'mozilla_export_users');
 add_action('wp_ajax_update_group_discourse', 'mozilla_update_group_discourse_category_id');
+add_action('wp_ajax_nopriv_export_events', 'mozilla_event_export');
+add_action('wp_ajax_export_events', 'mozilla_event_export');
 
+
+add_action('wp_ajax_download_group_events', 'mozilla_download_group_events');
+
+
+add_action('wp_ajax_download_campaign_events', 'mozilla_download_campaign_events');
+add_action('add_meta_boxes', 'mozilla_campaign_metabox');
+
+
+add_action('wp_ajax_download_activity_events', 'mozilla_download_activity_events');
+add_action('add_meta_boxes', 'mozilla_activity_metabox');
 
 // Auth0 Actions
 add_action('auth0_user_login', 'mozilla_post_user_creation', 10, 6);

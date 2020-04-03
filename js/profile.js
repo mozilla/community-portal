@@ -15,8 +15,9 @@ jQuery(function(){
 	}
 
 	const checkMatrixValue = function(value) {
-		const regex = new RegExp(/^[a-z0-9.\-_=/]+:[A-Za-z0-9[]+/, 'gi');
-		const validMatrixId = regex.test(value);
+		const username = new RegExp(/^[a-z0-9.\-_=/]+:/, 'gi');
+		const domain = new RegExp(/(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$|(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9])$|\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*/, 'gi');
+		const validMatrixId = username.test(value) && domain.test(value);
 		return validMatrixId;
 	}
 
@@ -159,6 +160,18 @@ jQuery(function(){
         var avatar = new Identicon(btoa(user + 'mozilla-community-portal'), { format: 'svg' }).toString();
         $ele.css({'background-image': "url('data:image/svg+xml;base64," + avatar + "')"});
 
+    });
+
+    jQuery('#profile-languages-visibility').change(function() {
+        var $this = jQuery(this);
+        jQuery('#profile-languages-visibility-mobile').val($this.val());
+        jQuery('input[name="profile_languages_visibility"]').val($this.val());
+    });
+
+    jQuery('#profile-languages-visibility-mobile').change(function() {
+        var $this = jQuery(this);
+        jQuery('#profile-languages-visibility').val($this.val());
+        jQuery('input[name="profile_languages_visibility"]').val($this.val());
     });
 
     if(jQuery('.profile__avatar--empty').length > 0) {
@@ -453,10 +466,39 @@ jQuery(function(){
 
     });
 
+    jQuery('.members__language-select').change(function(e){
+        var language = jQuery(this).val();
+         jQuery('input[name="language"]').val(language);
+
+         jQuery('#members-search-form').submit();
+        
+    });
+
     jQuery('.members__tag-select').change(function(e){
         var tag = jQuery(this).val();
         jQuery('input[name="tag"]').val(tag);
         jQuery('#members-search-form').submit();
-	});
+
+        
+    });
+    
+    jQuery('.members__show-filter').click(function(e) {
+
+        e.preventDefault();
+        jQuery('.members__filter-container').slideToggle({
+            start: function() {
+                jQuery('.members__filter-container').css('display','flex');
+                jQuery('.members__filter-container').css('flex-direction','column');
+
+                if(jQuery('.members__show-filter').text() == 'Hide Filters') {
+                    jQuery('.members__show-filter').text('Show Filters');
+                } else {
+                    jQuery('.members__show-filter').text('Hide Filters');
+                }
+            }
+        });
+
+        return false;
+    });
 
 });

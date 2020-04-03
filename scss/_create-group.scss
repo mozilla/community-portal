@@ -353,10 +353,14 @@
         display: flex;
         flex-direction: column;
         width: 100%;
-
         @include tablet-and-up {
             flex-direction: row;
         }
+    }
+
+    &__subsection {
+        padding-bottom: 32px;
+        border-bottom: 1px solid $color-gray-20;
     }
 
     &__input {

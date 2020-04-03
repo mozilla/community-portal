@@ -237,6 +237,8 @@ function mozilla_update_member() {
                 // Update other fields here
                 $addtional_meta = Array();
 
+                
+
                 foreach($additional_fields AS $field) {
                     if(isset($_POST[$field])) {
                         if(is_array($_POST[$field])) {
@@ -245,15 +247,17 @@ function mozilla_update_member() {
                             if($field === 'bio') {
                                 $additional_meta[$field] = sanitize_textarea_field($_POST[$field]);
                             } else {
+                        
                                 $additional_meta[$field] = sanitize_text_field(trim($_POST[$field]));
                             }
                         }
                     }
                 }   
 
-     
+                
                 update_user_meta($user->ID, 'community-meta-fields', $additional_meta);
-
+                
+                
             }
         }
     }
@@ -400,7 +404,7 @@ function mozilla_get_user_info($me, $user, $logged_in) {
     //Languages
     $object = new stdClass();
     $object->value = isset($community_fields['languages']) && sizeof($community_fields['languages']) > 0 ? $community_fields['languages'] : false;
-    $object->display = mozilla_display_field('languages', isset($community_fields['languages_visibility']) ? $community_fields['languages_visibility'] : false , $is_me, $logged_in);
+    $object->display = mozilla_display_field('languages', isset($community_fields['profile_languages_visibility']) ? $community_fields['profile_languages_visibility'] : false , $is_me, $logged_in);
     $data['languages'] = $object;
 
     // Tags

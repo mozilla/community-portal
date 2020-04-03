@@ -10,6 +10,23 @@
 
     a {
         text-decoration: none;
+
+        &.profile__languages-link {
+            color: $color-blue-50;
+            font-size: remCalc(14);
+            line-height: 20px;
+            text-decoration: none;
+    
+            @include tablet-and-up {
+                font-size: remCalc(16);
+                line-height: 24px;
+            }
+    
+            @include desktop-and-up {
+                font-size: remCalc(18);
+                line-height: 28px;
+            }
+        }
     }
     
     
@@ -835,6 +852,7 @@
         letter-spacing: 0.0025em;
         margin-bottom: 16px;
     }
+    
 
     &__card-header-container {
         align-items: center;   
@@ -1265,6 +1283,7 @@
             margin-right: 8px;
         }
     }
+    
 
     &__group-title  {
         color: $color-off-black;

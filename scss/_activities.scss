@@ -71,6 +71,7 @@
 		display: block;
 		height: 100%;
 		position: relative;
+		text-decoration: none;
 	}
     &__title {
         @extend .hero-title;
@@ -91,10 +92,10 @@
     &__activities {
         display: flex;
         flex-direction: column;
-        flex-wrap: wrap;
         width: 100%;
 
         @include tablet-and-up {
+			flex-wrap: wrap;
             flex-direction: row;
             justify-content: flex-start;
         }
@@ -112,8 +113,9 @@
         margin-bottom: 24px;
         text-decoration: none;
         transition: box-shadow 0.3s ease-in-out;
-        width: 100%;
-		
+		width: 100%;
+		display: block;
+		height: 100%;
 		position: relative;
         &.groups__card--homepage {
             height: 100%;
@@ -184,7 +186,6 @@
 		padding: 24px 32px;	
         padding-top: calc(45.4% + 24px);
         margin-bottom: 16px;
-		min-height: 380px;
     }
 
     &__tag-container {

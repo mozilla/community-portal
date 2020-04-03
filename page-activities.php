@@ -38,37 +38,38 @@
                     $activitiy_desc = get_field('card_description', $activity->ID);
                     $time_commitment = get_field('time_commitment', $activity->ID);
                 ?>
+				<div class="activities__card">
+					<a href="/activities/<?php print $activity->post_name; ?>" class="activities__link">
+						<div class="activities__activity-image" style="background-image: url('<?php print (strlen($activity_image) > 0) ? $activity_image : get_stylesheet_directory_uri().'/images/activity.png'; ?>');">
+						</div>
+						<div class="activities__card-content">
+							<h2 class="activities__activity-title"><?php print str_replace('\\', '', stripslashes($activity->post_title)); ?></h2>
+							<div class="activities__copy-container">
+								<p class="activities__copy">
+									<?php 
+										print $activitiy_desc;
+									?>
+								</p>
+							</div>
+							<?php
+								$tags = get_the_tags($activity->ID);
+							?>
+							<div class="activities__tag-container">
+								<?php if(is_array($tags) && sizeof($tags) > 0): ?>
+								<span class="activities__tag"><?php print $tags[0]->name; ?></span>
+								<?php endif; ?>
+								<?php if($time_commitment): ?>
+								<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M7.99992 14.6654C11.6818 14.6654 14.6666 11.6806 14.6666 7.9987C14.6666 4.3168 11.6818 1.33203 7.99992 1.33203C4.31802 1.33203 1.33325 4.3168 1.33325 7.9987C1.33325 11.6806 4.31802 14.6654 7.99992 14.6654Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+									<path d="M8 4V8L10.6667 9.33333" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+								<span class="activities__time-commitment"><?php print $time_commitment; ?></span>
+								<?php endif; ?>
 
-                <a href="/activities/<?php print $activity->post_name; ?>" class="activities__card">
-                    <div class="activities__activity-image" style="background-image: url('<?php print (strlen($activity_image) > 0) ? $activity_image : get_stylesheet_directory_uri().'/images/activity.png'; ?>');">
-                    </div>
-                    <div class="activities__card-content">
-                        <h2 class="activities__activity-title"><?php print str_replace('\\', '', stripslashes($activity->post_title)); ?></h2>
-                        <div class="activities__copy-container">
-                            <p class="activities__copy">
-                                <?php 
-                                    print $activitiy_desc;
-                                ?>
-                            </p>
-                        </div>
-                        <?php
-                            $tags = get_the_tags($activity->ID);
-                        ?>
-                        <div class="activities__tag-container">
-                            <?php if(is_array($tags) && sizeof($tags) > 0): ?>
-                            <span class="activities__tag"><?php print $tags[0]->name; ?></span>
-                            <?php endif; ?>
-                            <?php if($time_commitment): ?>
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M7.99992 14.6654C11.6818 14.6654 14.6666 11.6806 14.6666 7.9987C14.6666 4.3168 11.6818 1.33203 7.99992 1.33203C4.31802 1.33203 1.33325 4.3168 1.33325 7.9987C1.33325 11.6806 4.31802 14.6654 7.99992 14.6654Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M8 4V8L10.6667 9.33333" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            <span class="activities__time-commitment"><?php print $time_commitment; ?></span>
-                            <?php endif; ?>
-
-                        </div>
-                    </div>
-                </a>
+							</div>
+						</div>
+					</a>
+				</div>
                 <?php endforeach; ?>
                 <?php 
                     $range = ($p > 3) ? 3 : 5;

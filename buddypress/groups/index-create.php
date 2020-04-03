@@ -178,16 +178,18 @@
                     </section>
                     <section class="create-group__details<?php if($step == 1): ?> create-group__details--hidden<?php endif; ?>">
 						<h2 class="create-group__section-title"><?php print __("Community Links", "community-portal"); ?></h2>
-						<p class="create-group__section-subtitle"><?php print __("Full URLs Required", "community-portal")?></p>
-                        <div class="create-group__input-row">
+                        <div class="create-group__input-row create-group__subsection">
                             <div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--50">
 								<label class="create-group__label" for="group-discourse"><?php print __("Discourse", "community-portal"); ?></label>
 								<input type="text" name="group_discourse" id="group-discourse" placeholder="https://" class="create-group__input create-group__input--inline create-group__community-link" value="<?php print isset($form['group_discourse']) ? $form['group_discourse'] : ''; ?>" />
                             </div>
-                            <div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--50">
-								<label class="create-group__label" for="group-github"><?php print __("GitHub", "community-portal"); ?></label>
-								<input type="text" name="group_github" id="group-github" placeholder="https://" class="create-group__input create-group__input--inline create-group__community-link"  value="<?php print isset($form['group_github']) ? $form['group_github'] : ''; ?>"/>
-                            </div>
+							<div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--50">
+								<label class="create-group__label"  for="group-matrix"><?php print __("Matrix", "community-portal"); ?></label>
+								<input type="text" placeholder="room-alias:domain" name="group_matrix" id="group-matrix" class="create-group__input 	create-group__input--inline"  value="<?php print isset($form['group_matrix']) ? $form['group_matrix'] : ''; ?>"/>
+								<div class="form__error-container form__error-container--checkbox">
+									<div class="form__error"><?php print __("Please format as room-alias:domain", "community-portal"); ?></div>
+								</div>
+							</div>
                         </div>
                         <div class="create-group__input-row">
                             <div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--50">
@@ -199,16 +201,23 @@
 								<input type="text" name="group_twitter" id="group-twitter" placeholder="https://" class="create-group__input create-group__input--inline create-group__community-link"  value="<?php print isset($form['group_twitter']) ? $form['group_twitter'] : ''; ?>"/>
                             </div>
                         </div>
-                        <div class="create-group__input-row">
-                            <div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--50">
-								<label class="create-group__label" for="group-telegram"><?php print __("Telegram", "community-portal"); ?></label>
-								<input type="text" name="group_telegram" id="group-telegram" placeholder="https://" class="create-group__input create-group__input--inline create-group__community-link"  value="<?php print isset($form['group_telegram']) ? $form['group_telegram'] : ''; ?>"/>
-                            </div>
-                            <div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--50">
-								<label class="create-group__label"  for="group-other"><?php print __("Other", "community-portal"); ?></label>
-								<input type="text" name="group_other" id="group-other" placeholder="https://" class="create-group__input create-group__input--inline create-group__community-link"  value="<?php print isset($form['group_other']) ? $form['group_other'] : ''; ?>"/>
-                            </div>
-                        </div>
+						<div class="create-group__input-row">
+							<div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--50">
+							<label class="create-group__label" for="group-telegram"><?php print __("Telegram", "community-portal"); ?></label>
+							<input type="text" placeholder="https://" name="group_telegram" id="group-telegram" class="create-group__input create-group__input--inline"  value="<?php print isset($form['group_telegram']) ? $form['group_telegram'] : ''; ?>"/>
+						</div>
+						<div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--50">
+							<label class="create-group__label" for="group-github"><?php print __("GitHub", "community-portal"); ?></label>
+							<input type="text" name="group_github" id="group-github" placeholder="https://" class="create-group__input create-group__input--inline create-group__community-link"  value="<?php print isset($form['group_github']) ? $form['group_github'] : ''; ?>"/>
+						</div>
+
+					</div>
+					<div class="create-group__input-row">
+						<div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--50">
+							<label class="create-group__label"  for="group-other"><?php print __("Other", "community-portal"); ?></label>
+							<input type="text" placeholder="https://" name="group_other" id="group-other" class="create-group__input create-group__input--inline"  value="<?php print isset($form['group_other']) ? $form['group_other'] : ''; ?>"/>
+						</div>
+					</div>
                     </section>
                     <section class="create-group__details<?php if($step == 1): ?> create-group__details--hidden<?php endif; ?>">
                         <div class="create-group__section-title">
