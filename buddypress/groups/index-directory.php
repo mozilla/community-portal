@@ -18,7 +18,13 @@
         'per_page'  =>  -1
     );
 
-	$q = (isset($_GET['q']) && strlen($_GET['q']) > 0) ? sanitize_text_field(trim($_GET['q'])) : false;
+    $q = (isset($_GET['q']) && strlen($_GET['q']) > 0) ? sanitize_text_field(trim($_GET['q'])) : false;
+    $mygroups = isset($_GET['mygroups']) ? htmlspecialchars($_GET['mygroups'], ENT_QUOTES, 'UTF-8') : ''; 
+    $location = isset($_GET['location']) ? htmlspecialchars($_GET['location'], ENT_QUOTES, 'UTF-8') : ''; 
+    $get_language = isset($_GET['language']) ? htmlspecialchars($_GET['language'], ENT_QUOTES, 'UTF-8') : ''; 
+    $get_tag = isset($_GET['tag']) ? htmlspecialchars($_GET['tag'], ENT_QUOTES, 'UTF-8') : ''; 
+
+
 	if (isset($q)) {
 		if (
 			strpos($q, '"') !== false || 
@@ -225,9 +231,9 @@
                 </p>
                 <div class="groups__search-container">
                     <form method="GET" action="/groups/" class="groups__form" id="group-search-form">
-                        <input type="hidden" value="<?php if(isset($_GET['tag']) && strlen($_GET['tag']) > 0): print trim($_GET['tag']); endif; ?>" name="tag" id="group-tag" />
-                        <input type="hidden" value="<?php if(isset($_GET['location']) && strlen($_GET['location']) > 0): print trim($_GET['location']); endif; ?>" name="location" id="group-location" />
-                        <input type="hidden" value="<?php if(isset($_GET['language']) && strlen($_GET['language']) > 0): print trim($_GET['language']); endif; ?>" name="language" id="group-language" />
+                        <input type="hidden" value="<?php if(isset($_GET['tag']) && strlen($_GET['tag']) > 0): print trim($get_tag); endif; ?>" name="tag" id="group-tag" />
+                        <input type="hidden" value="<?php if(isset($_GET['location']) && strlen($_GET['location']) > 0): print trim($location); endif; ?>" name="location" id="group-location" />
+                        <input type="hidden" value="<?php if(isset($_GET['language']) && strlen($_GET['language']) > 0): print trim($get_language); endif; ?>" name="language" id="group-language" />
                         <input type="hidden" name="mygroups" value="<?php if(isset($_GET['mygroups']) && $_GET['mygroups'] == 'true'): ?>true<?php else: ?>false<?php endif; ?>" />
                         <div class="groups__input-container">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -416,17 +422,17 @@
                 <div class="groups__pagination">
                     <div class="groups__pagination-container">
                         <?php if($total_pages > 1): ?>
-                        <a href="/groups/?page=<?php print $previous_page?><?php if($q): ?>&q=<?php print $q; ?><?php endif; ?><?php if(isset($_GET['mygroups'])): ?>&mygroups=<?php print $_GET['mygroups']; ?><?php endif; ?><?php if(isset($_GET['tag'])): ?>&tag=<?php print $_GET['tag']; ?><?php endif; ?><?php if(isset($_GET['location'])): ?>&location=<?php print $_GET['location']; ?><?php endif; ?><?php if(isset($_GET['language'])): ?>&language=<?php print $_GET['language']; ?><?php endif; ?>" class="groups__pagination-link">
+                        <a href="/groups/?page=<?php print $previous_page?><?php if($q): ?>&q=<?php print $q; ?><?php endif; ?><?php if(isset($_GET['mygroups'])): ?>&mygroups=<?php print $mygroups; ?><?php endif; ?><?php if(isset($_GET['tag'])): ?>&tag=<?php print $get_tag; ?><?php endif; ?><?php if(isset($_GET['location'])): ?>&location=<?php print $location; ?><?php endif; ?><?php if(isset($_GET['language'])): ?>&language=<?php print $get_language; ?><?php endif; ?>" class="groups__pagination-link">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                 <path d="M17 23L6 12L17 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </a>
-                        <?php if($page_min > 1): ?><a href="/groups/?page=1<?php if($q): ?>&q=<?php print $q; ?><?php endif; ?><?php if(isset($_GET['mygroups'])): ?>&mygroups=<?php print $_GET['mygroups']; ?><?php endif; ?><?php if(isset($_GET['tag'])): ?>&tag=<?php print $_GET['tag']; ?><?php endif; ?><?php if(isset($_GET['location'])): ?>&location=<?php print $_GET['location']; ?><?php endif; ?><?php if(isset($_GET['language'])): ?>&language=<?php print $_GET['language']; ?><?php endif; ?>" class="groups__pagination-link groups__pagination-link--first"><?php print "1"; ?></a>&hellip; <?php endif; ?>
+                        <?php if($page_min > 1): ?><a href="/groups/?page=1<?php if($q): ?>&q=<?php print $q; ?><?php endif; ?><?php if(isset($_GET['mygroups'])): ?>&mygroups=<?php print $mygroups; ?><?php endif; ?><?php if(isset($_GET['tag'])): ?>&tag=<?php print $get_tag; ?><?php endif; ?><?php if(isset($_GET['location'])): ?>&location=<?php print $location; ?><?php endif; ?><?php if(isset($_GET['language'])): ?>&language=<?php print $get_language; ?><?php endif; ?>" class="groups__pagination-link groups__pagination-link--first"><?php print "1"; ?></a>&hellip; <?php endif; ?>
                         <?php for($x = $page_min - 1; $x < $page_max; $x++): ?>
-                        <a href="/groups/?page=<?php print $x + 1; ?><?php if($q): ?>&q=<?php print $q; ?><?php endif; ?><?php if(isset($_GET['mygroups'])): ?>&mygroups=<?php print $_GET['mygroups']; ?><?php endif; ?><?php if(isset($_GET['tag'])): ?>&tag=<?php print $_GET['tag']; ?><?php endif; ?><?php if(isset($_GET['location'])): ?>&location=<?php print $_GET['location']; ?><?php endif; ?><?php if(isset($_GET['language'])): ?>&language=<?php print $_GET['language']; ?><?php endif; ?>" class="groups__pagination-link<?php if($p == $x + 1):?> groups__pagination-link--active<?php endif; ?><?php if($x === $page_max - 1):?> groups__pagination-link--last<?php endif; ?>"><?php print ($x + 1); ?></a>
+                        <a href="/groups/?page=<?php print $x + 1; ?><?php if($q): ?>&q=<?php print $q; ?><?php endif; ?><?php if(isset($_GET['mygroups'])): ?>&mygroups=<?php print $mygroups; ?><?php endif; ?><?php if(isset($_GET['tag'])): ?>&tag=<?php print $get_tag; ?><?php endif; ?><?php if(isset($_GET['location'])): ?>&location=<?php print $location; ?><?php endif; ?><?php if(isset($_GET['language'])): ?>&language=<?php print $get_language; ?><?php endif; ?>" class="groups__pagination-link<?php if($p == $x + 1):?> groups__pagination-link--active<?php endif; ?><?php if($x === $page_max - 1):?> groups__pagination-link--last<?php endif; ?>"><?php print ($x + 1); ?></a>
                         <?php endfor; ?>
-                        <?php if($total_pages > $range && $p < $total_pages - 1): ?>&hellip; <a href="/groups/?page=<?php print $total_pages; ?><?php if($q): ?>&q=<?php print $q; ?><?php endif; ?><?php if($_GET['mygroups']): ?>&mygroups=<?php print $_GET['mygroups']; ?><?php endif; ?><?php if($_GET['tag']): ?>&tag=<?php print $_GET['tag']; ?><?php endif; ?><?php if(isset($_GET['location'])): ?>&location=<?php print $_GET['location']; ?><?php endif; ?><?php if(isset($_GET['language'])): ?>&language=<?php print $_GET['language']; ?><?php endif; ?>" class="groups__pagination-link<?php if($p === $total_pages):?> groups__pagination-link--active<?php endif; ?>"><?php print $total_pages; ?></a><?php endif; ?>
-                        <a href="/groups/?page=<?php print $next_page; ?><?php if($q): ?>&q=<?php print $q; ?><?php endif; ?><?php if(isset($_GET['mygroups'])): ?>&mygroups=<?php print $_GET['mygroups']; ?><?php endif; ?><?php if(isset($_GET['tag'])): ?>&tag=<?php print $_GET['tag']; ?><?php endif; ?><?php if(isset($_GET['location'])): ?>&location=<?php print $_GET['location']; ?><?php endif; ?><?php if(isset($_GET['language'])): ?>&language=<?php print $_GET['language']; ?><?php endif; ?>" class="groups__pagination-link">
+                        <?php if($total_pages > $range && $p < $total_pages - 1): ?>&hellip; <a href="/groups/?page=<?php print $total_pages; ?><?php if($q): ?>&q=<?php print $q; ?><?php endif; ?><?php if($_GET['mygroups']): ?>&mygroups=<?php print $mygroups; ?><?php endif; ?><?php if($_GET['tag']): ?>&tag=<?php print $get_tag; ?><?php endif; ?><?php if(isset($_GET['location'])): ?>&location=<?php print $location; ?><?php endif; ?><?php if(isset($_GET['language'])): ?>&language=<?php print $get_language; ?><?php endif; ?>" class="groups__pagination-link<?php if($p === $total_pages):?> groups__pagination-link--active<?php endif; ?>"><?php print $total_pages; ?></a><?php endif; ?>
+                        <a href="/groups/?page=<?php print $next_page; ?><?php if($q): ?>&q=<?php print $q; ?><?php endif; ?><?php if(isset($_GET['mygroups'])): ?>&mygroups=<?php print $mygroups; ?><?php endif; ?><?php if(isset($_GET['tag'])): ?>&tag=<?php print $get_tag; ?><?php endif; ?><?php if(isset($_GET['location'])): ?>&location=<?php print $location; ?><?php endif; ?><?php if(isset($_GET['language'])): ?>&language=<?php print $get_language; ?><?php endif; ?>" class="groups__pagination-link">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path d="M7 23L18 12L7 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>

@@ -12,10 +12,11 @@
 		$args['search'] = addslashes($args['search']);
 	} else {
 		$original_search = $args['search'];
-	}
-    $view = get_query_var('view', $default = '');
-    $country = urldecode(get_query_var('country', $default = 'all'));
-    $tag = urldecode(get_query_var('tag', $default = 'all'));
+    }
+    
+    $view = htmlspecialchars(get_query_var('view', $default = ''), ENT_QUOTES, 'UTF-8');
+    $country = htmlspecialchars(urldecode(get_query_var('country', $default = 'all')), ENT_QUOTES, 'UTF-8');
+    $tag = htmlspecialchars(get_query_var('tag', $default = 'all'), ENT_QUOTES, 'UTF-8');
 
     $args['scope'] = 'future';
     switch(strtolower(trim($view))) {
@@ -180,28 +181,28 @@
     <div class="campaigns__pagination">
         <div class="campaigns__pagination-container">
             <?php if($total_pages > 1): ?>
-			<a href="/events/?pno=<?php print $previous_page?><?php if($country && $country != 'all'): ?>&country=<?php print $country; ?><?php endif; ?><?php if($tag && $tag != 'all'): ?>&tag=<?php print $tag; ?><?php endif; ?><?php if(isset($_GET['initiative']) && strlen($_GET['initiative']) > 0 && strtolower($_GET['initiative']) != 'all'): ?>&initiative=<?php print $_GET['initiative']; ?><?php endif; ?><?php if (isset($_GET['language']) && strlen($_GET['language']) > 0 && strtolower($_GET['language']) !== 'all'):?>&language=<?php print $_GET['language']; ?><?php endif; ?><?php if(strlen($view) > 0): ?>&view=<?php print trim($view); ?><?php endif; ?>" class="campaigns__pagination-link">
+			<a href="/events/?pno=<?php print $previous_page?><?php if($country && $country != 'all'): ?>&country=<?php print $country; ?><?php endif; ?><?php if($tag && $tag != 'all'): ?>&tag=<?php print $tag; ?><?php endif; ?><?php if(isset($_GET['initiative']) && strlen($_GET['initiative']) > 0 && strtolower($_GET['initiative']) != 'all'): ?>&initiative=<?php print htmlspecialchars($_GET['initiative'], ENT_QUOTES,'UTF-8'); ?><?php endif; ?><?php if (isset($_GET['language']) && strlen($_GET['language']) > 0 && strtolower($_GET['language']) !== 'all'):?>&language=<?php print htmlspecialchars($_GET['language'], ENT_QUOTES, 'UTF-8'); ?><?php endif; ?><?php if(strlen($view) > 0): ?>&view=<?php print trim($view); ?><?php endif; ?>" class="campaigns__pagination-link">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path d="M17 23L6 12L17 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </a>
             <?php if($page_min > 1): ?>
-				<a href="/events/?pno=1<?php if($country && $country != 'all'): ?>&country=<?php print $country; ?><?php endif; ?><?php if($tag && $tag != 'all'): ?>&tag=<?php print $tag; ?><?php endif; ?><?php if(isset($_GET['initiative']) && strlen($_GET['initiative']) > 0 && strtolower($_GET['initiative']) != 'all'): ?>&initiative=<?php print $_GET['initiative']; ?><?php endif; ?><?php if (isset($_GET['language']) && strlen($_GET['language']) > 0 && strtolower($_GET['language']) !== 'all'):?>&language=<?php print $_GET['language']; ?><?php endif; ?><?php if(strlen($view) > 0): ?>&view=<?php print trim($view); ?><?php endif; ?>" 
+				<a href="/events/?pno=1<?php if($country && $country != 'all'): ?>&country=<?php print $country; ?><?php endif; ?><?php if($tag && $tag != 'all'): ?>&tag=<?php print $tag; ?><?php endif; ?><?php if(isset($_GET['initiative']) && strlen($_GET['initiative']) > 0 && strtolower($_GET['initiative']) != 'all'): ?>&initiative=<?php print htmlspecialchars($_GET['initiative'], ENT_QUOTES, 'UTF-8'); ?><?php endif; ?><?php if (isset($_GET['language']) && strlen($_GET['language']) > 0 && strtolower($_GET['language']) !== 'all'):?>&language=<?php print htmlspecialchars($_GET['language'], ENT_QUOTES, 'UTF-8'); ?><?php endif; ?><?php if(strlen($view) > 0): ?>&view=<?php print trim($view); ?><?php endif; ?>" 
 					class="campaigns__pagination-link campaigns__pagination-link--first"><?php print "1"; ?>
 				</a>
 					&hellip; 
 					<?php endif; ?>
             <?php for($x = $page_min - 1; $x < $page_max; $x++): ?>
-            <a href="/events/?pno=<?php print $x + 1; ?><?php if($country && $country != 'all'): ?>&country=<?php print $country; ?><?php endif; ?><?php if($tag && $tag != 'all'): ?>&tag=<?php print $tag; ?><?php endif; ?><?php if(isset($_GET['initiative']) && strlen($_GET['initiative']) > 0 && strtolower($_GET['initiative']) != 'all'): ?>&initiative=<?php print $_GET['initiative']; ?><?php endif; ?><?php if (isset($_GET['language']) && strlen($_GET['language']) > 0 && strtolower($_GET['language']) !== 'all'):?>&language=<?php print $_GET['language']; ?><?php endif; ?><?php if(strlen($view) > 0): ?>&view=<?php print trim($view); ?><?php endif; ?>" 
+            <a href="/events/?pno=<?php print $x + 1; ?><?php if($country && $country != 'all'): ?>&country=<?php print $country; ?><?php endif; ?><?php if($tag && $tag != 'all'): ?>&tag=<?php print $tag; ?><?php endif; ?><?php if(isset($_GET['initiative']) && strlen($_GET['initiative']) > 0 && strtolower($_GET['initiative']) != 'all'): ?>&initiative=<?php print htmlspecialchars($_GET['initiative'], ENT_QUOTES, 'UTF-8'); ?><?php endif; ?><?php if (isset($_GET['language']) && strlen($_GET['language']) > 0 && strtolower($_GET['language']) !== 'all'):?>&language=<?php print htmlspecialchars($_GET['language'], ENT_QUOTES, 'UTF-8'); ?><?php endif; ?><?php if(strlen($view) > 0): ?>&view=<?php print trim($view); ?><?php endif; ?>" 
 				class="campaigns__pagination-link<?php if($page == $x + 1):?> campaigns__pagination-link--active<?php endif; ?><?php if($x === $page_max - 1):?> campaigns__pagination-link--last<?php endif; ?>"><?php print ($x + 1); ?>
 			</a>
             <?php endfor; ?>
             <?php if($total_pages > $range && $page < $total_pages - 1): ?>&hellip; 
-				<a href="/events/?pno=<?php print $total_pages; ?><?php if($country && $country != 'all'): ?>&country=<?php print $country; ?><?php endif; ?><?php if($tag && $tag != 'all'): ?>&tag=<?php print $tag; ?><?php endif; ?><?php if(isset($_GET['initiative']) && strlen($_GET['initiative']) > 0 && strtolower($_GET['initiative']) != 'all'): ?>&initiative=<?php print $_GET['initiative']; ?><?php endif; ?><?php if (isset($_GET['language']) && strlen($_GET['language']) > 0 && strtolower($_GET['language']) !== 'all'):?>&language=<?php print $_GET['language']; ?><?php endif; ?><?php if(strlen($view) > 0): ?>&view=<?php print trim($view); ?><?php endif; ?>" 
+				<a href="/events/?pno=<?php print $total_pages; ?><?php if($country && $country != 'all'): ?>&country=<?php print $country; ?><?php endif; ?><?php if($tag && $tag != 'all'): ?>&tag=<?php print $tag; ?><?php endif; ?><?php if(isset($_GET['initiative']) && strlen($_GET['initiative']) > 0 && strtolower($_GET['initiative']) != 'all'): ?>&initiative=<?php print htmlspecialchars($_GET['initiative'], ENT_QUOTES, 'UTF-8'); ?><?php endif; ?><?php if (isset($_GET['language']) && strlen($_GET['language']) > 0 && strtolower($_GET['language']) !== 'all'):?>&language=<?php print htmlspecialchars($_GET['language'], ENT_QUOTES, 'UTF-8'); ?><?php endif; ?><?php if(strlen($view) > 0): ?>&view=<?php print trim($view); ?><?php endif; ?>" 
 					class="campaigns__pagination-link<?php if($page === $total_pages):?> campaigns__pagination-link--active<?php endif; ?>"><?php print $total_pages; ?>
 				</a>
 			<?php endif; ?>
-            <a href="/events/?pno=<?php print $next_page; ?><?php if($country && $country != 'all'): ?>&country=<?php print $country; ?><?php endif; ?><?php if($tag && $tag != 'all'): ?>&tag=<?php print $tag; ?><?php endif; ?><?php if(isset($_GET['initiative']) && strlen($_GET['initiative']) > 0 && strtolower($_GET['initiative']) != 'all'): ?>&initiative=<?php print $_GET['initiative']; ?><?php endif; ?><?php if(strlen($view) > 0): ?>&view=<?php print $view; ?><?php endif; ?>" class="campaigns__pagination-link">
+            <a href="/events/?pno=<?php print $next_page; ?><?php if($country && $country != 'all'): ?>&country=<?php print $country; ?><?php endif; ?><?php if($tag && $tag != 'all'): ?>&tag=<?php print $tag; ?><?php endif; ?><?php if(isset($_GET['initiative']) && strlen($_GET['initiative']) > 0 && strtolower($_GET['initiative']) != 'all'): ?>&initiative=<?php print htmlspecialchars($_GET['initiative'], ENT_QUOTES, 'UTF-8'); ?><?php endif; ?><?php if(strlen($view) > 0): ?>&view=<?php print $view; ?><?php endif; ?>" class="campaigns__pagination-link">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path d="M7 23L18 12L7 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
