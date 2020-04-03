@@ -1,0 +1,121 @@
+.campaign-rsvp {
+	position: relative;
+	max-height: calc(100vh - 35px);
+	overflow: scroll;
+	border-radius: 4px;
+	box-shadow: 0px 5px 10px rgba(14, 13, 26, 0.12), 0px 3px 16px rgba(7, 48, 114, 0.12), 0px 8px 12px rgba(34, 0, 51, 0.04);
+	.btn--close {
+		position: absolute;
+		right: 0px;
+		@include tablet-and-up {
+			right: 30px;
+		}
+	}
+	&__title,
+	&__subtitle {
+		@extend .title;
+	}
+	&__title {
+		font-size: remCalc(38);
+		@include tablet-and-up {
+			margin-top: 0;
+		}
+	}
+	&__subtitle {
+		font-size: remCalc(28);
+	}
+	&__form {
+		border-top: 1px solid #D7D7DB;
+		margin-top: 32px;
+	}
+	&__section {
+		justify-content: space-between;
+	}
+	&__section--center {
+		text-align: center;
+	}
+	.btn {
+		text-decoration: none;
+	}
+	&__row {
+		position: relative;
+		margin-bottom: 24px;
+		@include tablet-and-up {
+			display: flex;
+			align-items: center;
+			.campaign-rsvp__label {
+				flex-basis: 100px;
+				font-size: remCalc(14);
+			}
+			.campaign-rsvp__input {
+				width: auto;
+				flex-grow: 1;
+			}
+		}
+		&--double:first-child {
+			@include desktop-and-up {
+				padding-right: 20px;
+			}
+		}
+		&.form__error {
+			input {
+				border: 1px solid red;
+			}
+			margin-bottom: 30px;
+		}
+		.form__error-container {
+			position: absolute;
+			bottom: -32px;
+			@include tablet-and-up {
+				left: 100px;
+			}
+		}
+	}
+	&__input {
+		@extend .input;
+	}
+	&__label {
+		@extend .label;
+	}
+	.cpg {
+		margin-bottom: 16px;
+		&__label {
+			font-size: remCalc(12);
+			padding-left: 25px;
+			&::before {
+				height: 16px;
+				width: 16px;
+				background-size: contain;
+			}
+		}
+	}
+	p.campaign-rsvp__login {
+		margin-top: 16px;
+	}
+	&__link {
+		color: $color-blue-50;
+	}
+	&__success,
+	&__failure {
+		text-align: center;
+		padding-top: 120px;
+		padding-bottom: 120px;
+		display: none;
+	}
+	&.success,
+	&.failure {
+		.campaign-rsvp__initial {
+			display: none;
+		}
+	}
+	&.success {
+		.campaign-rsvp__success {
+			display: block;
+		}
+	}
+	&.failure {
+		.campaign-rsvp__failure {
+			display: block;
+		}
+	}
+}

@@ -98,9 +98,23 @@ function mozilla_mailchimp_subscribe() {
                     }
                 }
 
-            } else {
-                print json_encode(Array('status'    =>  'ERROR', 'message'  =>  'Invalid user'));
-            }
+			} elseif (isset($_POST['first_name']) && strlen($_POST['first_name']) > 0 
+				&& isset($_POST['last_name']) && strlen($_POST['last_name']) > 0
+				&& isset($_POST['email']) && strlen($_POST['email']) > 0) 
+			{
+				$list = trim($_POST['list']);    
+				$name = Array();
+				$name['FNAME'] = trim($_POST['first_name']);
+				$name['LNAME'] = trim($_POST['last_name']);
+				$email = trim($_POST['email']);
+
+				$result = mozilla_add_email_to_list($list, $email, $name);
+				if ($result) {
+					print json_encode(Array('status' =>  'OK'));
+				}
+			} else {
+				print json_encode(Array('status'    =>  'ERROR', 'message'  =>  'Invalid request'));
+			}
         } else {
             print json_encode(Array('status'    =>  'ERROR', 'message'  =>  'Invalid request'));
         }

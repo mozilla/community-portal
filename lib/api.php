@@ -318,7 +318,7 @@ function mozilla_remove_email_from_list($id, $email) {
     return false;
 }
 
-function mozilla_add_email_to_list($id, $email) {
+function mozilla_add_email_to_list($id, $email, $name = false) {
 
     $options = wp_load_alloptions();
     
@@ -330,7 +330,7 @@ function mozilla_add_email_to_list($id, $email) {
             $api_url = "https://{$dc}.api.mailchimp.com/3.0/lists/{$id}/members";
             $auth_string = "user:{$apikey}";
             $auth = base64_encode($auth_string);
-
+		
             curl_setopt($curl, CURLOPT_URL, $api_url);
             curl_setopt($curl, CURLOPT_HTTPHEADER, Array("Content-Type: application/json"));
             curl_setopt($curl, CURLOPT_USERPWD, 'user:' . $apikey);
@@ -339,14 +339,16 @@ function mozilla_add_email_to_list($id, $email) {
 
             $data = Array();
             $data['email_address'] = $email;
-            $data['status'] = 'subscribed';
+			$data['status'] = 'subscribed';
+			if ($name) {
+				$data['merge_fields'] = $name;
+			}
 
 
             $json = json_encode($data);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $json);
             $result = curl_exec($curl);
             curl_close($curl);
-          
             $json_result = json_decode($result);
             return $json_result;
         }
