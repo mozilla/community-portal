@@ -196,7 +196,53 @@ function mozilla_event_export() {
     fclose($out);
 
     die();
+}
 
+function mozilla_update_event_discourse_data() {
+
+    if(!is_admin() && in_array('administrator', wp_get_current_user()->roles)) {
+        return;
+    }
+
+    if(isset($_GET['event'])) {
+        $event = new EM_Event(intval($_GET['event']), 'post_id');
+        $event_meta = get_post_meta(intval($_GET['event']), 'event-meta');
+
+        if(isset($_GET['discourse_group_id'])) {
+            $event_meta[0]->discourse_group_id = intval($_GET['discourse_group_id']);
+        }
+
+        update_post_meta(intval($_GET['event']), 'event-meta', $event_meta[0]);
+    }
+
+    die();
+}
+
+function mozilla_add_user_discourse() {
+
+    if(!is_admin() && in_array('administrator', wp_get_current_user()->roles)) {
+        return;
+    }
+
+    if(isset($_GET['event']) && isset($_GET['user'])) {
+        $event = new EM_Event(intval($_GET['event']), 'post_id');
+        $discourse_group_info = mozilla_get_discourse_info($_GET['event'], 'event');
+
+        $discourse_api_data = Array();
+        $discourse_api_data['group_id'] = $discourse_group_info['discourse_group_id'];
+        $user = get_user_by('slug', trim($_GET['user']));
+
+        if($user) {
+            $add = Array();
+            $add[] = mozilla_get_user_auth0($user->ID);
+            $discourse_api_data['add_users'] = $add;
+    
+            $discourse = mozilla_discourse_api('groups/users', $discourse_api_data, 'patch');
+        }
+    }
+
+
+    die();
 
 }
 
