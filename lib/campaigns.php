@@ -127,7 +127,7 @@ function mozilla_mailchimp_subscribe() {
 
 function mozilla_download_campaign_events() {
 
-    if(!is_admin()) {
+    if(!is_admin() && in_array('administrator',  wp_get_current_user()->roles) === false) {
         return;
     }
 

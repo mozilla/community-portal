@@ -30,10 +30,6 @@
 	$language = isset($event_meta[0]->language) && strlen($event_meta[0]->language) > 0 ? $languages[$event_meta[0]->language] : false;
 	$projected_attendees = isset($event_meta[0]->projected_attendees) && intval($event_meta[0]->projected_attendees) > 0 ? $event_meta[0]->projected_attendees : false;
 
-
-    
-
-
     $months = array(
         '01' => 'January',
         '02' => 'February',

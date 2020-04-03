@@ -72,7 +72,7 @@ function mozilla_add_online_to_countries($countries) {
 
 function mozilla_event_export() {
 
-    if(!is_admin() && in_array('administrator', wp_get_current_user()->roles)) {
+    if(!is_admin() && in_array('administrator', wp_get_current_user()->roles) === false) {
         return;
     }
 
