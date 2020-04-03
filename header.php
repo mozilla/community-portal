@@ -29,6 +29,7 @@
 		$original_query = preg_replace('/^\"|\"$|^\'|\'$/', "", $original_query);
 	}
 
+    $protocol = stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0 ? 'https://' : 'http://';
 ?>
 
 <!DOCTYPE html>
@@ -113,7 +114,7 @@
         <meta property="og:title" content="<?php print $og_title; ?>">
         <meta property="og:description" content="<?php print $og_desc; ?>">
         <meta property="og:image" content="<?php print $og_image; ?>">
-        <meta property="og:url" content="<?php print htmlspecialchars($_SERVER['REQUEST_URI'], ENT_QUOTES, 'UTF-8'); ?>">
+        <meta property="og:url" content="<?php print $protocol.$_SERVER['HTTP_HOST'].htmlspecialchars($_SERVER['REQUEST_URI'], ENT_QUOTES, 'UTF-8'); ?>">
         <meta name="twitter:card" content="summary_large_image">
 
         <!--  Non-Essential, But Recommended -->
