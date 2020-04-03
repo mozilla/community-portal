@@ -2,6 +2,8 @@
 	position: relative;
 	max-height: calc(100vh - 35px);
 	overflow: scroll;
+	border-radius: 4px;
+	box-shadow: 0px 5px 10px rgba(14, 13, 26, 0.12), 0px 3px 16px rgba(7, 48, 114, 0.12), 0px 8px 12px rgba(34, 0, 51, 0.04);
 	.btn--close {
 		position: absolute;
 		right: 0px;

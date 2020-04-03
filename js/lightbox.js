@@ -2,10 +2,13 @@ jQuery(function() {
 
     function toggleLightboxVisibility(lightbox) {
         lightbox.toggleClass("lightbox-show");
-    }
+	}
 
     function toggleLightbox(lightboxID, openBtnID, closeBtnID, firstSelector) {
-        var $lightbox = jQuery(lightboxID);
+		var $lightbox = jQuery(lightboxID);
+		$lightbox.on('click', function(e) {
+			closeByClickingOff(e.target);
+		});
         if ($lightbox.length > 0) {
             var $openBtn = jQuery(openBtnID);
             var $closeBtn = jQuery(closeBtnID);
@@ -38,7 +41,14 @@ jQuery(function() {
                 jQuery("body").removeClass("noscroll");
             }
         });
-    }
+	}
+	
+	function closeByClickingOff(target) {
+		const $target = jQuery(target);
+		if ($target.hasClass('lightbox')) {
+			toggleLightboxVisibility($target);
+		}
+	}
 
     function trapFocus($closeBtn, $lastBtn) {
         $closeBtn.on("keydown", e => {
