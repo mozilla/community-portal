@@ -1,7 +1,7 @@
 <?php
 function mozilla_download_activity_events() {
 
-    if(!is_admin()) {
+    if(!is_admin() && in_array('administrator',  wp_get_current_user()->roles) === false) {
         return;
     }
 
@@ -21,7 +21,7 @@ function mozilla_download_activity_events() {
         }
 
         
-$theme_directory = get_template_directory();
+        $theme_directory = get_template_directory();
         include("{$theme_directory}/languages.php");
         $countries = em_get_countries();
 

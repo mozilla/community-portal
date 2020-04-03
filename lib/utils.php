@@ -132,7 +132,6 @@ function mozilla_init_scripts() {
     // Custom scripts
     wp_enqueue_script('groups', get_stylesheet_directory_uri()."/js/groups.js", array('jquery'));
     wp_enqueue_script('events', get_stylesheet_directory_uri()."/js/events.js", array('jquery'));
-    wp_enqueue_script('campaigns', get_stylesheet_directory_uri()."/js/campaigns.js", array('jquery'));
     wp_enqueue_script('activities', get_stylesheet_directory_uri()."/js/activities.js", array('jquery'));
     wp_enqueue_script('cleavejs', get_stylesheet_directory_uri()."/js/vendor/cleave.min.js", array());
     wp_enqueue_script('nav', get_stylesheet_directory_uri()."/js/nav.js", array('jquery'));
@@ -488,7 +487,7 @@ function mozilla_save_post($post_id, $post, $update) {
 function mozilla_update_group_discourse_category_id() {
 
     // Only site admins
-    if(!is_admin()) {
+    if(!is_admin() && in_array('administrator', wp_get_current_user()->roles) === false) {
         die('Invalid Permissions');
     }
 
@@ -573,7 +572,7 @@ function mozilla_post_status_transition($new_status, $old_status, $post) {
 function mozilla_export_users() {
 
     // Only admins
-    if(!is_admin()) {
+    if(!is_admin() && in_array('administrator', wp_get_current_user()->roles) === false) {
         return;
     }
 

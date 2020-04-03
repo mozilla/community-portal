@@ -2,10 +2,13 @@ jQuery(function() {
 
     function toggleLightboxVisibility(lightbox) {
         lightbox.toggleClass("lightbox-show");
-    }
+	}
 
     function toggleLightbox(lightboxID, openBtnID, closeBtnID, firstSelector) {
-        var $lightbox = jQuery(lightboxID);
+		var $lightbox = jQuery(lightboxID);
+		$lightbox.on('click', function(e) {
+			closeByClickingOff(e.target);
+		});
         if ($lightbox.length > 0) {
             var $openBtn = jQuery(openBtnID);
             var $closeBtn = jQuery(closeBtnID);
@@ -38,7 +41,14 @@ jQuery(function() {
                 jQuery("body").removeClass("noscroll");
             }
         });
-    }
+	}
+	
+	function closeByClickingOff(target) {
+		const $target = jQuery(target);
+		if ($target.hasClass('lightbox')) {
+			toggleLightboxVisibility($target);
+		}
+	}
 
     function trapFocus($closeBtn, $lastBtn) {
         $closeBtn.on("keydown", e => {
@@ -98,7 +108,15 @@ jQuery(function() {
             ".group__share-cta",
             "#close-share-lightbox",
             "a"
-        );
+		);
+		
+		toggleLightbox(
+			"#campaign-rsvp-lightbox",
+			".campaign__hero-cta--no-account",
+			"#close-rsvp-lightbox",
+			"a"
+		)
+
 
         toggleLightbox('#activity-share-lightbox', '.activity__cta--share', "#close-share-lightbox", 'a');
         toggleLightbox('#campaign-share-lightbox', '.campaign__share-cta', "#close-share-lightbox", 'a');

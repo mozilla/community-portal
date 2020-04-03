@@ -10,7 +10,7 @@
 
     $args = Array(
         'post_type' =>  'campaign',
-        'per_page'  =>  -1
+        'posts_per_page'  =>  -1
     );
 
     $campaign_count = 0;
