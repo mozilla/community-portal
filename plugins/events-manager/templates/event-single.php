@@ -410,7 +410,7 @@
         <?php include(locate_template('templates/share-modal.php', false, false)); ?>
     </div>
 </div>
-<?php if(isset($options['report_email'])): ?>
+<?php if(isset($options['report_email']) && is_user_logged_in()): ?>
 <div class="events-single__report-container">
     <a href="mailto:<?php print $options['report_email']; ?>?subject=<?php print sprintf('%s %s', __('Reporting Event', 'community-portal'), $group->name); ?>&body=<?php print sprintf('%s %s', __('Please provide a reason you are reporting this event', 'community-portal'), "https://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}"); ?>" class="events-single__report-group-link">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

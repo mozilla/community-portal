@@ -1501,7 +1501,7 @@
                     </div>
                     <?php endif; ?>
                 </section>
-                <?php if(isset($options['report_email'])): ?>
+                <?php if(isset($options['report_email']) && is_user_logged_in()): ?>
                 <div class="group__report-container">
                     <a href="mailto:<?php print $options['report_email']; ?>?subject=<?php print sprintf('%s %s', __('Reporting Group', 'community-portal'), $group->name); ?>&body=<?php print __(sprintf('Please provide a reason you are reporting this group    %s', "https://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}"), 'community-portal'); ?>" class="group__report-group-link">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
