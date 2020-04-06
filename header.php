@@ -47,7 +47,7 @@
                     $group_meta = groups_get_groupmeta($group->id, 'meta');
                     $og_title = isset($group->name) && strlen($group->name) > 0 ? "{$group->name} - Mozilla Community Portal" : "Groups - Mozilla Community Portal";
                     $title = $og_title;
-                    $og_desc = isset($group->description) && strlen($group->description) > 0 ? $group->description : get_bloginfo('description');
+                    $og_desc = isset($group->description) && strlen($group->description) > 0 ? strip_tags($group->description) : get_bloginfo('description');
                     $og_image = isset($group_meta['group_image_url']) && strlen($group_meta['group_image_url']) > 0 ? $group_meta['group_image_url'] : get_stylesheet_directory_uri(). "/images/group.png";
                     break;
 
@@ -57,7 +57,7 @@
 
                     $og_title = isset($event->event_name) && strlen($event->event_name) > 0 ? "{$event->event_name} - Mozilla Community Portal" :  "Events - Mozilla Community Portal"; 
                     $title = $og_title;
-                    $og_desc = isset($event->post_content) && strlen($event->post_content) ? $event->post_content : get_bloginfo('description');
+                    $og_desc = isset($event->post_content) && strlen($event->post_content) ? strip_tags($event->post_content) : strip_tags(get_bloginfo('description'));
 
                     if(isset($event->event_attributes)) {
                         $event_meta = unserialize($event->event_attributes['event-meta']);
@@ -74,7 +74,7 @@
                     $og_title = $du ? "{$du->user_nicename} - Mozilla Community Portal" : "People - Mozilla Community Portal";
                     $og_image = get_stylesheet_directory_uri()."/images/group.png";
                     $title = $og_title;
-                    $og_desc =  get_bloginfo('description');
+                    $og_desc =  strip_tags(get_bloginfo('description'));
 
                     break;
                 case 'activities':
@@ -82,7 +82,7 @@
                     $title = (trim($post->post_type) == 'activity') ? "{$post->post_title} - Mozilla Community Portal" : 'Activities - Mozilla Community Portal';
                     $og_title = $title;
                     $og_image = get_the_post_thumbnail_url();
-                    $og_desc = substr($post->post_content, 0, 155);
+                    $og_desc = strip_tags(substr($post->post_content, 0, 155));
             
                     break;
                 case 'campaigns':
@@ -90,14 +90,14 @@
                     $title = (trim($post->post_type) == 'campaign') ? "{$post->post_title} - Mozilla Community Portal" : 'Campaigns - Mozilla Community Portal';
                     $og_title = $title;
                     $og_image = get_the_post_thumbnail_url();
-                    $og_desc = substr($post->post_content, 0, 155);
+                    $og_desc = strip_tags(substr($post->post_content, 0, 155));
             
                     break;
                 default:
                     $title = get_bloginfo('name')." - ".get_bloginfo('description');
                     $options = wp_load_alloptions();
                     $og_title = $options['default_open_graph_title'];
-                    $og_desc = $options['default_open_graph_desc'];
+                    $og_desc = strip_tags($options['default_open_graph_desc']);
                     $og_image = get_stylesheet_directory_uri()."/images/homepage-hero.jpg";
             }
         ?>
@@ -106,7 +106,7 @@
             $options = wp_load_alloptions();
             $title = get_bloginfo('name')." - ".get_bloginfo('description');
             $og_title = $options['default_open_graph_title'];
-            $og_desc = $options['default_open_graph_desc'];
+            $og_desc = strip_tags($options['default_open_graph_desc']);
             $og_image = get_stylesheet_directory_uri()."/images/homepage-hero.jpg";    
         ?>
         <?php endif; ?>

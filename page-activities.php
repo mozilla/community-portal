@@ -47,7 +47,7 @@
 								<div class="activities__copy-container">
 									<p class="activities__copy">
 										<?php 
-											print $activitiy_desc;
+											print strip_tags($activitiy_desc);
 										?>
 									</p>
 								</div>
