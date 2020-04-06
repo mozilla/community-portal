@@ -112,7 +112,7 @@
             <div class="campaigns__hero-container">
                 <h1 class="campaigns__title"><?php print __("Campaigns"); ?></h1>
                 <p class="campaigns__hero-copy">
-                    <?php print __("Activities are “evergreen” because they’re always important, relevant to Mozilla’s mission and need your participation now!", 'community-portal'); ?>
+                    <?php print __("Campaigns are how we come together to solve big problems. Take a look at our active campaigns and join in!", 'community-portal'); ?>
                 </p>
             </div>
         </div>
