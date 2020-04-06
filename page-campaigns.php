@@ -222,7 +222,7 @@
                         </div>
                     </div>
                     <div class="campaigns__active-campaign-description campaigns__active-campaign-description--card">
-                        <?php print $campaign_card_description; ?>
+                        <?php print strip_tags($campaign_card_description); ?>
                     </div>
                 </div>
                 <?php if(is_array($campaign_tags) && sizeof($campaign_tags) > 0): ?>
