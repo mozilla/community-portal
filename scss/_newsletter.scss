@@ -89,11 +89,14 @@
 			}
 		}
 	}
+	
 	& + .footer {
 		margin-top: 0;
 	}
+
 	&--hero {
 		margin: 0;
+		margin-top: 24px;
 	}
 	&__link {
 		color: $color-blue-50;
