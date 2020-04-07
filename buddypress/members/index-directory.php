@@ -46,7 +46,7 @@
 	}
 
     $country_code = isset($_GET['location']) && strlen($_GET['location']) > 0 ? strtoupper(trim($_GET['location'])) : false;
-    $get_tag = isset($_GET['tag']) && strlen(trim($_GET['tag'])) > 0 ? strtolower(trim($_GET['tag'])) : false;
+    $get_tag = isset($_GET['tag']) && strlen(trim($_GET['tag'])) > 0 ? htmlspecialchars(strtolower(trim($_GET['tag'])), ENT_QUOTES, 'UTF-8') : false;
     $language_code = isset($_GET['language']) && strlen($_GET['language']) > 0 ? strtolower(trim($_GET['language'])) : false;
 
     $wp_user_query = new WP_User_Query(Array(
