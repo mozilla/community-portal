@@ -614,6 +614,24 @@ function mozilla_export_users() {
     die();
 }
 
+function mozilla_hide_menu_emails($items, $args) {
+
+    switch($args->menu->name) {
+        case 'Mozilla':
+            foreach($items AS $index => $item) {
+                if($item->post_name === 'contact-us' && !is_user_logged_in()) {
+                    unset($items[$index]);
+                }
+
+                $index++;
+            }
+            break;
+
+    }
+
+
+    return $items;
+}
 
 
 ?>

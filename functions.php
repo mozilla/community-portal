@@ -107,7 +107,7 @@ add_filter('acf/load_field/name=featured_group', 'acf_load_bp_groups', 10, 1);
 add_filter('query_vars', 'mozilla_add_query_vars_filter');
 add_filter('bp_groups_list_table_get_columns', 'mozilla_add_group_columns');
 add_filter('bp_groups_admin_get_group_custom_column', 'mozilla_group_addional_column_info', 10, 3);
-
+add_filter('wp_nav_menu_objects', 'mozilla_hide_menu_emails', 10, 2);
 
 
 // Include theme style.css file not in admin page
