@@ -37,13 +37,13 @@
                             <div class="activity__card-content">
                                 <div class="activity__cta-container <?php echo (!isset($primary_cta_copy) || !strlen($primary_cta_copy) > 0 || !isset($primary_cta_url)  || !strlen($primary_cta_url) > 0 ? 'activity__cta-container--single' : '' )?>">
 									<?php if (isset($primary_cta_copy) && strlen($primary_cta_copy) > 0 && isset($primary_cta_url) && strlen($primary_cta_url) > 0):?>
-										<a href="<?php print $primary_cta_url ?>" class="activity__cta"><?php print __("{$primary_cta_copy}"); ?></a>
+										<a href="<?php print $primary_cta_url ?>" class="activity__cta"><?php print "{$primary_cta_copy}"; ?></a>
 									<?php endif; ?>
                                     <a href="#" class="activity__cta activity__cta--share">
                                         <svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M1 9V15C1 15.3978 1.15804 15.7794 1.43934 16.0607C1.72064 16.342 2.10218 16.5 2.5 16.5H11.5C11.8978 16.5 12.2794 16.342 12.5607 16.0607C12.842 15.7794 13 15.3978 13 15V9M10 4.5L7 1.5M7 1.5L4 4.5M7 1.5V11.25" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                         </svg>
-                                        <?php print __('Share Activity'); ?>
+                                        <?php print __('Share Activity', "community-portal"); ?>
                                     </a>
                                 </div>
                                 <hr class="activity__keyline" />
@@ -167,7 +167,7 @@
                         <?php if(is_array($related_events) && sizeof($related_events) > 0): ?>
                         <div class="activity__card activity__card--related-events">
                             <div class="activity__card-content">
-                                <span><?php print __("Related Events"); ?></span>
+                                <span><?php print __("Related Events", "community-portal"); ?></span>
                                 
                                 <?php foreach($related_events AS $event): ?>
                                 <?php 
@@ -191,7 +191,7 @@
                                                 <path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                             </svg>
                                             <?php if($location->location_country === 'OE'): ?>
-                                            <?php print __("Online Event"); ?>
+                                            <?php print __("Online Event", "community-portal"); ?>
                                             <?php elseif($location->location_town && $location->location_country): ?>
                                             <?php print "{$location->location_town}, {$countries[$location->location_country]}"; ?>
                                             <?php elseif($location->location_town && !$location->location_country): ?>
@@ -205,7 +205,7 @@
                                 <?php endforeach; ?>
                         
                                 <a href="/events/?initiative=<?php print $post->ID; ?>" class="activity__events-link">
-                                    <?php print __('View more events'); ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    <?php print __('View more events', "community-portal"); ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                                 </a>
                             </div>
                         <?php endif; ?>
