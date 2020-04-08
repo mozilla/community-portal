@@ -12,42 +12,42 @@
 		'ru' => 'русский язык',
 	);
 ?>
-<h2 class="profile__form-title">Get Updates</h2>
-<p>Subscribe to our newsletter and join Mozillians all around the world and learn about impactful opportunities to support Mozilla’s mission.</p>
+<h2 class="profile__form-title"><?php print __('Get Updates', 'community-portal') ?></h2>
+<p><?php print __('Subscribe to our newsletter and join Mozillians all around the world and learn about impactful opportunities to support Mozilla’s mission.', 'community-portal') ?></p>
 <input type="hidden" id="fmt" name="fmt" value="H">
 <input type="hidden" id="newsletters" name="newsletters" value="about-mozilla">
 <div class="row profile__newsletter__container">
 	<div class="col-lg-4 profile__newsletter__fields">
 		<label class="newsletter__label" for="newsletter-email">Email</label>
 		<input class="newsletter__input" aria-label="Enter your e-mail" aria-required="true" type="email" id="newsletter-email" name="newsletter-email" value="<?php echo (isset($user->user_email) && strlen($user->user_email) > 0 ? $user->user_email : '')?>">
-		<span class="newsletter__error">Invalid email.</span>
+		<span class="newsletter__error"><?php print __('Invalid email.', 'community-portal') ?></span>
 	</div>
 	<div class="col-lg-4 profile__newsletter__fields">
-		<label class="newsletter__label" for="newsletter-country">Country or Region</label>
+		<label class="newsletter__label" for="newsletter-country"><?php __('Country or Region', 'community-portal') ?></label>
 		<select class="newsletter__dropdown" id="newsletter-country" name="newsletter-country">
-			<option value="" disabled="" selected="">Country or region</option>
+			<option value="" disabled="" selected=""><?php print __('Country or region', 'community-portal') ?></option>
 			<?php foreach($countries as $index=>$country): ?>
 				<option value="<?php echo strtolower($index) ?>" <?php echo ($user_country === $index ? 'selected' : '') ?>><?php echo $country ?></option>
 			<?php endforeach; ?>
 		</select>
 	</div>
 	<div class="col-lg-3 profile__newsletter__fields">
-		<label class="newsletter__label" for="newsletter-language">Language</label>
+		<label class="newsletter__label" for="newsletter-language"><?php print __('Language', 'community-portal') ?></label>
 		<select id="newsletter-language" class="newsletter__dropdown" name="newsletter-language">
-			<option value="" disabled="" selected="">Language</option>
+			<option value="" disabled="" selected=""><?php print __('Language', 'community-portal') ?></option>
 			<?php foreach($newsletter_languages as $index=>$language): ?>
 				<option value="<?php echo $index ?>" <?php echo (strtoupper($user_language) === strtoupper($index) ? 'selected' : '') ?>><?php echo $language ?></option>
 			<?php endforeach; ?>
 		</select>
 	</div>
 	<div class="col-lg-12">
-		<p class="newsletter__subtext">We’ll default to English but send in these languages whenever we can.</p>
+		<p class="newsletter__subtext"><?php print __('We’ll default to English but send in these languages whenever we can.', 'community-portal') ?></p>
 		<div class="cpg">
 			<input class="checkbox--hidden" type="checkbox" id="newsletter">
 			<label class="cpg__label" for="newsletter">
-				<?php echo __('Yes, subscribe me to the newsletter') ?>
+				<?php echo __('Yes, subscribe me to the newsletter', 'community-portal') ?>
 			</label>
-			<p class="newsletter__cpg__error"><?php echo __('You must agree to the privacy notice.') ?></p>
+			<p class="newsletter__cpg__error"><?php echo __('You must agree to the privacy notice.', 'community-portal') ?></p>
 		</div>
 	</div>
 </div>

@@ -58,11 +58,11 @@
 		</div>
 	</div>
 	<div class="campaign-rsvp__success">
-		<h3 class="campaign-rsvp__title"><?php print __('Thank you for getting involved!')?></h3>
-		<p><?php print __('An email has been sent with more details')?></p>
+		<h3 class="campaign-rsvp__title"><?php print __('Thank you for getting involved!', 'community-portal')?></h3>
+		<p><?php print __('An email has been sent with more details', 'community-portal')?></p>
 	</div>
 	<div class="campaign-rsvp__failure">
-		<h3 class="campaign-rsvp__title"><?php print __('Something went wrong.')?></h3>
-		<p><?php print __('Please try again later.')?></p>
+		<h3 class="campaign-rsvp__title"><?php print __('Something went wrong.', 'community-portal')?></h3>
+		<p><?php print __('Please try again later.', 'community-portal')?></p>
 	</div>
 </div>

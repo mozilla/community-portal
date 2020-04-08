@@ -110,7 +110,7 @@
     <div class="campaigns">
         <div class="campaigns__hero">
             <div class="campaigns__hero-container">
-                <h1 class="campaigns__title"><?php print __("Campaigns"); ?></h1>
+                <h1 class="campaigns__title"><?php print __("Campaigns", 'community-portal'); ?></h1>
                 <p class="campaigns__hero-copy">
                     <?php print __("Campaigns are how we come together to solve big problems. Take a look at our active campaigns and join in!", 'community-portal'); ?>
                 </p>
@@ -146,7 +146,7 @@
             <?php endif; ?>
             <?php if($incoming_campaign): ?>
                 <div class="campaigns__incoming-campaign-container">
-                    <h2 class="campaigns__active-campaign-title"><?php print __("Campaign Incoming!"); ?></h2>
+                    <h2 class="campaigns__active-campaign-title"><?php print __("Campaign Incoming!", 'community-portal'); ?></h2>
                     <p class="campaigns__incoming-campaign-copy"><?php print __('An extra cool Mozilla campaign is coming soon.  Keep an eye out for when it launches.', 'community-portal'); ?></p>
                     <div class="campaigns__active-campaign">
                     <div class="campaigns__active-campaign-hero-container">
@@ -190,8 +190,8 @@
 		<div class="campaigns__container">
             <?php if(sizeof($campaigns) > 0): ?>
             <div class="campaigns__past-campaigns">
-                <h2 class="campaigns__active-campaign-title"><?php print __("Past Campaigns"); ?></h2>
-                <p class="campaigns__incoming-campaign-copy"><?php print __('Mozilla communities do great work together. These campaigns are over now but feel free to check out what everyone accomplished.'); ?></p>
+                <h2 class="campaigns__active-campaign-title"><?php print __("Past Campaigns", 'community-portal'); ?></h2>
+                <p class="campaigns__incoming-campaign-copy"><?php print __('Mozilla communities do great work together. These campaigns are over now but feel free to check out what everyone accomplished.', 'community-portal'); ?></p>
             </div>
             <div class="campaigns__past-campaigns-container">
             <?php foreach($campaigns AS $campaign): ?>
