@@ -64,7 +64,7 @@ if(!empty($_REQUEST['success'])){
 				<div class="wide wide--md-third">
 					<label class="event-creator__label" for="language"><?php print __('Language') ?></label>
 					<select class="event-creator__dropdown" name="language" id="language">
-						<option value="0" disabled selected>Language</option>
+						<option value="0" disabled selected><?php print __('Language', 'community-portal')?></option>
 						<?php foreach($languages as $index=>$language): ?>
 							<option value="<?php echo $index ?>" <?php echo ($event_language && $event_language === $index ? 'selected' : '')?>> <?php echo $language; ?></option>
 						<?php endforeach ?>
@@ -92,7 +92,7 @@ if(!empty($_REQUEST['success'])){
 				<div class="event-creator__three-up">
 					<div class="half">
 						<label class="event-form-details event-creator__label" for="event-description"><?php print __('Event description *', 'commuity-portal'); ?></label>
-						<textarea name="content" id="event-description" placeholder="Add in the details of your event’s agenda here. If this is a multi-day event, you can add in the details of each day’s schedule and start/end time." rows="10" id="event-description" class="event-creator__input event-creator__textarea" style="width:100%" required maxlength="3000"><?php echo __($EM_Event->post_content) ?></textarea>
+						<textarea name="content" id="event-description" placeholder="<?php  print __('Add in the details of your event’s agenda here. If this is a multi-day event, you can add in the details of each day’s schedule and start/end time.', 'community-portal') ?>" rows="10" id="event-description" class="event-creator__input event-creator__textarea" style="width:100%" required maxlength="3000"><?php echo __($EM_Event->post_content) ?></textarea>
 					</div>
 					<div class="half">
 						<label class="event-form-details event-creator__label" for="event-goal"><?php print __('Event goal(s)', 'commuity-portal'); ?></label>
@@ -138,7 +138,7 @@ if(!empty($_REQUEST['success'])){
             <?php if(sizeof($initiatives) > 0): ?>
             <div class="event-creator__three-up">
 				<div class="wide">
-					<label class="event-creator__label" for="event-projected-attendees">Expected # of attendees</label>
+					<label class="event-creator__label" for="event-projected-attendees"><?php print __('Expected # of attendees', 'community-portal') ?></label>
 					<input class="event-creator__input" type="text" id="event-projected-attendees" name="projected-attendees" value="<?php echo ($event_projected_attendees ? $event_projected_attendees : '') ?>">
 				</div>
 				<div class="wide--double">
@@ -146,7 +146,7 @@ if(!empty($_REQUEST['success'])){
 					<select name="initiative_id" id="initiative" class="event-creator__dropdown">
 					<option value=""><?php print __('No', 'community-portal');?></option>
 					<?php foreach($initiatives AS $initiative): ?>
-					<option value="<?php print $initiative->ID; ?>"<?php if($event_initiative && $event_initiative == $initiative->ID): ?> selected<?php  endif; ?>><?php print $initiative->post_title; ?> (<?php if($initiative->post_type === 'campaign'): ?>Campaign<?php else: ?>Activity<?php endif; ?>)</option>
+					<option value="<?php print $initiative->ID; ?>"<?php if($event_initiative && $event_initiative == $initiative->ID): ?> selected<?php  endif; ?>><?php print $initiative->post_title; ?> (<?php if($initiative->post_type === 'campaign'): print __('Campaign', 'community-portal'); else: print __('Activity', 'community-portal'); endif; ?>)</option>
 					<?php endforeach; ?>
 					</select>
 				</div>
@@ -168,15 +168,15 @@ if(!empty($_REQUEST['success'])){
     <div class="event-wrap event-creator">
         <div class="event-creator__container">
             <p>
-                <?php echo __('The Mozilla Project welcomes contributions from everyone who shares our goals and wants to contribute in a healthy and constructive manner within our communities. By creating an event on this platform you are agreeing to respect and adhere to') ?> 
-                <a class="event-creator__link" href="https://www.mozilla.org/about/governance/policies/participation/"><?php echo __('Mozilla’s Community Participation Guidelines (“CPG”)') ?></a> 
-                <?php echo __('in order to help us create a safe and positive community experience for all. Events that do not share our goals, or violate the CPG in any way, will be removed from the platform and potentially subject to further consequences.') ?>
+                <?php echo __('The Mozilla Project welcomes contributions from everyone who shares our goals and wants to contribute in a healthy and constructive manner within our communities. By creating an event on this platform you are agreeing to respect and adhere to', 'community-portal') ?> 
+                <a class="event-creator__link" href="https://www.mozilla.org/about/governance/policies/participation/"><?php echo __('Mozilla’s Community Participation Guidelines (“CPG”)', 'community-portal') ?></a> 
+                <?php echo __('in order to help us create a safe and positive community experience for all. Events that do not share our goals, or violate the CPG in any way, will be removed from the platform and potentially subject to further consequences.', 'community-portal') ?>
             </p>
         </div>
         <div class="event-creator__container cpg">
             <input class="checkbox--hidden" type="checkbox" id="cpg" required <?php if ($event_id) { echo 'checked'; }?>>
             <label class="cpg__label event-creator__cpg" for="cpg">
-                <?php echo __('I agree to respect and adhere to Mozilla’s Community Participation Guidelines *') ?>
+                <?php echo __('I agree to respect and adhere to Mozilla’s Community Participation Guidelines *', 'community-portal') ?>
             </label>
         </div>
     </div>
@@ -187,7 +187,7 @@ if(!empty($_REQUEST['success'])){
             if(intval(get_current_user_id()) === intval($EM_Event->event_owner) || mozilla_is_site_admin()): 
         ?>
         <a class="btn btn--light btn--submit event-creator__cancel em-event-delete" href="<?php echo add_query_arg(array('action'=>'event_delete', 'event_id' => $event_id, '_wpnonce' => wp_create_nonce('event_delete_'.$event_id)), get_site_url(null, 'events/edit-event/')) ?>">
-            <?php echo __('Cancel Event') ?>
+            <?php echo __('Cancel Event', 'community-portal') ?>
         </a>
         <?php 
             endif;

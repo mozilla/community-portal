@@ -24,7 +24,7 @@
                     $c = get_post($initiative);
                 ?>
                 <div class="col-lg-12 col-md-6 col-sm-12">
-                    <p class="events-single__label"><?php print __('Part of'); ?></p>
+                    <p class="events-single__label"><?php print __('Part of', 'community-portal'); ?></p>
                     <a href="<?php if($c->post_type === 'campaign'): ?>/campaigns/<?php else: ?>/activities/<?php endif; ?><?php print $c->post_name; ?>" class="events-single__externam-link events-single__externam-link--icon">
                     <?php if($c->post_type === 'campaign'): ?>
                     <svg width="27" height="28" viewBox="0 0 27 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -47,7 +47,7 @@
                     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M3 9V15C3 15.3978 3.15804 15.7794 3.43934 16.0607C3.72064 16.342 4.10218 16.5 4.5 16.5H13.5C13.8978 16.5 14.2794 16.342 14.5607 16.0607C14.842 15.7794 15 15.3978 15 15V9M12 4.5L9 1.5M9 1.5L6 4.5M9 1.5V11.25" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    <?php echo __('Share') ?>
+                    <?php echo __('Share', 'community-portal') ?>
                 </button>
             </div>
         </div>
@@ -57,7 +57,7 @@
 	<div class="card events-single__language">
 		<div class="row">
 			<div class="col-lg-12 col-md-6 col-sm-12">
-                <p class="events-single__label"><?php echo __('Preferred Language') ?></p>
+                <p class="events-single__label"><?php echo __('Preferred Language', 'community-portal') ?></p>
                 <p>
                 <a href="/events/?language=<?php print $event_meta[0]->language; ?>" class="events-single__langauge-link"><?php echo $language ?></a>
                 </p>

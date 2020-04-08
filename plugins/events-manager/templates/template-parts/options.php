@@ -3,7 +3,7 @@
         <?php echo $field_label ?>
     </label>
     <select class="select" name="<?php echo $field_name ?>" id="<?php echo $field_name ?>" data-filter="<?php echo $field_name?>">
-        <option value="all">All</option>
+        <option value="all"><?php print __('All', 'community-portal') ?></option>
         <?php foreach($options as $key  =>  $option): ?>
             <?php if($field_name === 'Initiative'): ?>
 				<option value="<?php print $key; ?>" <?php if(isset($_GET['initiative']) && strlen($_GET['initiative']) > 0 && intval($_GET['initiative']) == $key): ?> selected<?php endif; ?>><?php print $option; ?></option>

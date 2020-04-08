@@ -47,7 +47,7 @@
     }
 ?>
 <div class="col-md-12 events__filter">
-    <p class="events__filter__title">Filter By:</p>
+    <p class="events__filter__title"><?php print __('Filter By:', 'community-portal') ?></p>
     <form action="" class="events__filter__form">
         <?php
             $field_name = "Country";
@@ -113,6 +113,6 @@
 </div>
 <div class="col-md-12">
     <button class="events__filter__toggle btn btn--large btn--light">
-        <?php echo __('Hide Filters') ?>
+        <?php echo __('Hide Filters', 'community-portal') ?>
     </button>
 </div>

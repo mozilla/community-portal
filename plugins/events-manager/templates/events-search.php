@@ -18,7 +18,7 @@
 				<path d="M9.16667 15.8333C12.8486 15.8333 15.8333 12.8486 15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 				<path d="M17.5 17.5L13.875 13.875" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 			</svg>
-			<input type="text" name="em_search" class="events__search-input" placeholder="<?php print __("Search events"); ?>" value="<?php echo esc_attr($args['search']); ?>" />
+			<input type="text" name="em_search" class="events__search-input" placeholder="<?php print __("Search events", "community-portal"); ?>" value="<?php echo esc_attr($args['search']); ?>" />
 			</div>
 			<input type="submit" class="events__search-cta" value="<?php print __("Search", "community-portal"); ?>" />
 		</form>

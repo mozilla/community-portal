@@ -11,7 +11,7 @@ $reschedule_warnings = !empty($EM_Event->event_id) && $EM_Event->is_recurring() 
 	<?php 
 	do_action('em_events_admin_bookings_header', $EM_Event);
 	//get tickets here and if there are none, create a blank ticket
-  $EM_Tickets = $EM_Event->get_tickets();
+	$EM_Tickets = $EM_Event->get_tickets();
 	if( count($EM_Tickets->tickets) == 0 ){
     $EM_Tickets->tickets[] = new EM_Ticket();
     $EM_Tickets->tickets[0]->ticket_spaces = 1000;
@@ -34,13 +34,13 @@ $reschedule_warnings = !empty($EM_Event->event_id) && $EM_Event->is_recurring() 
 		if( $reschedule_warnings ){ 
 			?>
 			<div class="recurrence-reschedule-warning">
-			    <p><?php __( 'Modifications to event tickets will cause all bookings to individual recurrences of this event to be deleted.', 'commuity-portal'); ?></p>
-	    		<p>			
-			    	<a href="<?php echo esc_url( add_query_arg(array('scope'=>'all', 'recurrence_id'=>$EM_Event->event_id), em_get_events_admin_url()) ); ?>">
-						  <strong><?php __('You can edit individual recurrences and disassociate them with this recurring event.', 'commuity-portal'); ?></strong>
-					  </a>
-          </p>
-	    	</div>
+				<p><?php __( 'Modifications to event tickets will cause all bookings to individual recurrences of this event to be deleted.', 'commuity-portal'); ?></p>
+				<p>			
+					<a href="<?php echo esc_url( add_query_arg(array('scope'=>'all', 'recurrence_id'=>$EM_Event->event_id), em_get_events_admin_url()) ); ?>">
+						<strong><?php __('You can edit individual recurrences and disassociate them with this recurring event.', 'commuity-portal'); ?></strong>
+					</a>
+				</p>
+			</div>
 			<?php 
 		}
 		?>
@@ -146,14 +146,14 @@ $reschedule_warnings = !empty($EM_Event->event_id) && $EM_Event->is_recurring() 
 		</div>
 		<?php if( $reschedule_warnings ): //If this event is a recurring template, we need to warn the user that editing tickets will delete previous bookings ?>
 		<div class="recurrence-reschedule-buttons">
-		    <a href="<?php echo esc_url(add_query_arg('recreate_tickets', null)); ?>" class="button-secondary em-button em-reschedule-cancel<?php if( empty($_REQUEST['recreate_tickets']) ) echo ' reschedule-hidden'; ?>" data-target=".em-tickets-form">
-		    	<?php __('Cancel Ticket Recreation', 'commuity-portal'); ?>
-		    </a>
-		    <a href="<?php echo esc_url(add_query_arg('recreate_tickets', '1')); ?>" class="em-reschedule-trigger em-button button-secondary<?php if( !empty($_REQUEST['recreate_tickets']) ) echo ' reschedule-hidden'; ?>" data-target=".em-tickets-form">
-		    	<?php __('Modify Recurring Event Tickets ', 'commuity-portal'); ?>
-		    </a>
-	    	<input type="hidden" name="event_recreate_tickets" class="em-reschedule-value" value="<?php echo empty($_REQUEST['recreate_tickets']) ? 0:1 ?>" />
-    	</div>
+		<a href="<?php echo esc_url(add_query_arg('recreate_tickets', null)); ?>" class="button-secondary em-button em-reschedule-cancel<?php if( empty($_REQUEST['recreate_tickets']) ) echo ' reschedule-hidden'; ?>" data-target=".em-tickets-form">
+				<?php __('Cancel Ticket Recreation', 'commuity-portal'); ?>
+			</a>
+			<a href="<?php echo esc_url(add_query_arg('recreate_tickets', '1')); ?>" class="em-reschedule-trigger em-button button-secondary<?php if( !empty($_REQUEST['recreate_tickets']) ) echo ' reschedule-hidden'; ?>" data-target=".em-tickets-form">
+				<?php __('Modify Recurring Event Tickets ', 'commuity-portal'); ?>
+			</a>
+			<input type="hidden" name="event_recreate_tickets" class="em-reschedule-value" value="<?php echo empty($_REQUEST['recreate_tickets']) ? 0:1 ?>" />
+		</div>
 		<?php endif; ?>
 	</div>
 	<div id="em-booking-options" class="em-booking-options">
