@@ -175,7 +175,7 @@ function mozilla_update_member() {
 
                 if(!filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL)) {
                     $error = true;
-                    $_POST['email_error_message'] = 'Invalid email address';
+                    $_POST['email_error_message'] = __('Invalid email address', "community-portal");
                 }
 
 
@@ -189,7 +189,7 @@ function mozilla_update_member() {
 
                 if(sizeof($query->get_results()) !== 0) {
                     $error = true;
-                    $_POST['email_error_message'] = 'This email is already in use';
+                    $_POST['email_error_message'] = __('This email is already in use', "community-portal");
                 }
 
                 $query = new WP_User_Query(Array(
@@ -203,7 +203,7 @@ function mozilla_update_member() {
                 // Validate email
 
                 if(sizeof($query->get_results()) !== 0) {
-                    $_POST['username_error_message'] = 'This username is already in use';
+                    $_POST['username_error_message'] = __('This username is already in use', "community-portal");
                     $error = true;
                 }
             }

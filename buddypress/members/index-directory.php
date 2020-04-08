@@ -786,7 +786,7 @@
             <div class="members__filter-container members__filter-container--hidden">
                 <span><?php print __("Search criteria:", "community-portal"); ?></span>
                 <div class="members__select-container">
-                    <label class="members__label">Location </label>
+                    <label class="members__label"><?php print __("Location", "community-portal"); ?></label>
                     <select class="members__location-select">
                         <option value=""><?php print __('Select', "community-portal"); ?></option>
                         <?php foreach($used_country_list AS $code   =>  $country): ?>
@@ -796,7 +796,7 @@
                 </div>
                 <?php if(sizeof($used_languages) > 0): ?>
                 <div class="members__select-container">
-                    <label class="members__label">Language </label>
+                    <label class="members__label"><?php print __("Language", "community-portal"); ?></label>
                     <select class="members__language-select">
                         <option value=""><?php print __('Select', "community-portal"); ?></option>
                         <?php foreach($used_languages AS $code =>   $language): ?>
@@ -808,7 +808,7 @@
                 </div>
                 <?php endif; ?>
                 <div class="members__select-container">
-                    <label class="members__label">Tag </label>
+                    <label class="members__label"><?php print __("Tag", "community-portal"); ?></label>
                     <select class="members__tag-select">
                         <option value=""><?php print __('Select', "community-portal"); ?></option>
                         <?php foreach($tags AS $tag): ?>
@@ -818,11 +818,11 @@
                 </div>
             </div>
             <div class="members__show-filters-container">
-                <a href="#" class="members__show-filter"><?php print __("Show Filters"); ?></a>
+                <a href="#" class="members__show-filter"><?php print __("Show Filters", "community-portal"); ?></a>
             </div>
             <div class="members__people-container">
             <?php if(sizeof($members) > 0): ?>
-            <?php if(isset($_GET['u']) && strlen($_GET['u']) > 0): ?><div class="members__results-for"><?php print __(sprintf("Results for \"%s\"", $search_user)); ?></div><?php endif; ?>
+            <?php if(isset($_GET['u']) && strlen($_GET['u']) > 0): ?><div class="members__results-for"><?php print __(sprintf("Results for \"%s\"", $search_user), "community-portal"); ?></div><?php endif; ?>
             <?php foreach($members AS $member): ?>
             <?php 
                 $info = $member->info;
