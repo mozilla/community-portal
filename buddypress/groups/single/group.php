@@ -782,20 +782,20 @@
     <div class="content">
         <div class="group">
             <div class="group__container">
-                <h1 class="group__title"><?php print __(str_replace('\\', '', stripslashes($group->name)), "community-portal"); ?></h1>
+                <h1 class="group__title"><?php print str_replace('\\', '', stripslashes($group->name)); ?></h1>
                 <div class="group__details">
                     <?php if($verified): ?>
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <ellipse cx="8" cy="7.97569" rx="8" ry="7.97569" fill="#0060DF"/>
                             <path d="M8 5.5L8.7725 7.065L10.5 7.3175L9.25 8.535L9.545 10.255L8 9.4425L6.455 10.255L6.75 8.535L5.5 7.3175L7.2275 7.065L8 5.5Z" fill="white" stroke="white" stroke-width="2" stroke-linecap="round"/>
                         </svg>
-                        <a href="https://discourse.mozilla.org/t/frequently-asked-questions-portal-edition-faq/43224" class="group__status">Verified</a>&nbsp;|
+                        <a href="https://discourse.mozilla.org/t/frequently-asked-questions-portal-edition-faq/43224" class="group__status"><?php print __("Verified", "community-portal"); ?></a>&nbsp;|
                     <?php else: ?>
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M15.5 7.97569C15.5 12.103 12.1436 15.4514 8 15.4514C3.85643 15.4514 0.5 12.103 0.5 7.97569C0.5 3.84842 3.85643 0.5 8 0.5C12.1436 0.5 15.5 3.84842 15.5 7.97569Z" stroke="#B1B1BC"/>
                             <path d="M8 5.5L8.7725 7.065L10.5 7.3175L9.25 8.535L9.545 10.255L8 9.4425L6.455 10.255L6.75 8.535L5.5 7.3175L7.2275 7.065L8 5.5Z" fill="#B1B1BC" stroke="#B1B1BC" stroke-width="2" stroke-linecap="round"/>
                         </svg>
-                        <a href="https://discourse.mozilla.org/t/frequently-asked-questions-portal-edition-faq/43224" class="group__status">Unverified</a>&nbsp;|
+                        <a href="https://discourse.mozilla.org/t/frequently-asked-questions-portal-edition-faq/43224" class="group__status"><?php print __("Unverified", "community-portal"); ?></a>&nbsp;|
                     <?php endif; ?>
                     <span class="group__location">
                     <?php 
@@ -919,7 +919,7 @@
 							<div class="members__filter-container members__filter-container--hidden">
 								<span><?php print __("Search criteria:", "community-portal"); ?></span>
 								<div class="members__select-container">
-									<label class="members__label">Location </label>
+									<label class="members__label"><?php print __("Location", "community-portal"); ?></label>
 									<select class="members__location-select">
 										<option value=""><?php print __('Select', "community-portal"); ?></option>
 										<?php foreach($used_country_list AS $code   =>  $country): ?>
@@ -929,7 +929,7 @@
 								</div>
 								<?php if(sizeof($used_languages) > 0): ?>
 								<div class="members__select-container">
-									<label class="members__label">Language </label>
+									<label class="members__label"><?php print __("Language", "community-portal"); ?></label>
 									<select class="members__language-select">
 										<option value=""><?php print __('Select', "community-portal"); ?></option>
 										<?php foreach($used_languages AS $code =>   $language): ?>
@@ -941,7 +941,7 @@
 								</div>
 								<?php endif; ?>
 								<div class="members__select-container">
-									<label class="members__label">Tag </label>
+									<label class="members__label"><?php print __("Tag", "community-portal"); ?></label>
 									<select class="members__tag-select">
 										<option value=""><?php print __('Select', "community-portal"); ?></option>
 										<?php foreach($tags AS $tag): ?>
@@ -951,12 +951,12 @@
 								</div>
 							</div>
 							<div class="members__show-filters-container">
-								<a href="#" class="members__show-filter"><?php print __("Show Filters"); ?></a>
+								<a href="#" class="members__show-filter"><?php print __("Show Filters", "community-portal"); ?></a>
 							</div>
 						
                         <div class="group__members">
 						<?php if(sizeof($filtered_members) > 0): ?>
-							<?php if(isset($_GET['u']) && strlen($_GET['u']) > 0): ?><div class="members__results-for"><?php print __(sprintf("Results for \"%s\"", $search_user)). " ({$count})"; ?></div>
+							<?php if(isset($_GET['u']) && strlen($_GET['u']) > 0): ?><div class="members__results-for"><?php print __(sprintf("Results for \"%s\"", $search_user), "community-portal"). " ({$count})"; ?></div>
 							<?php endif; ?>			
                             <?php foreach($filtered_members AS $member): ?>
                             <?php
@@ -1257,7 +1257,7 @@
                                                 </clipPath>
                                                 </defs>
                                             </svg>
-                                            <a href="<?php print mozilla_verify_url($group_meta['group_other'], false); ?>" class="group__social-link"><?php print __("Other"); ?></a>
+                                            <a href="<?php print mozilla_verify_url($group_meta['group_other'], false); ?>" class="group__social-link"><?php print __("Other", "community-portal"); ?></a>
                                         </div>
                                     <?php endif; ?>
                                 </div>
@@ -1362,7 +1362,7 @@
                     <div class="group__right-column">
                         <div class="group__card">
                             <div class="group__card-content group__card-content--small">
-                                <span><?php print __('Activity'); ?></span>
+                                <span><?php print __('Activity', "community-portal"); ?></span>
                                 <?php 
                                     $args = Array(
                                         'group'     => $group->id,

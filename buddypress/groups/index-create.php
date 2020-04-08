@@ -62,7 +62,7 @@
                     <section class="create-group__details<?php if($step == 1): ?> create-group__details--hidden<?php endif; ?>">
                         <div class="create-group__input-row">
                             <div class="create-group__input-container create-group__input-container--60">
-                                <label class="create-group__label" for="group-name"><?php print __("What is your group's name? *"); ?></label>
+                                <label class="create-group__label" for="group-name"><?php print __("What is your group's name? *", "community-portal"); ?></label>
                                 <input type="text" name="group_name" id="group-name" class="create-group__input<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_name']) || (isset($form['group_name']) && empty(trim($form['group_name'])) )): ?> create-group__input--error<?php endif; ?>" value="<?php print isset($form['group_name']) ? $form['group_name'] : ''; ?>" required />
                                 <div class="form__error-container<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_name']) || (isset($form['group_name']) && empty(trim($form['group_name'])) )): ?> form__error-container--visible<?php endif; ?>">
                                     <div class="form__error"><?php print __("This field is required", "community-portal"); ?></div>
@@ -105,7 +105,7 @@
                             </div>
                             <div class="create-group__input-container create-group__input-container--60 create-group__input-container--vertical-spacing">
                                 <label class="create-group__label" for="group-city"><?php print __("City", "community-portal"); ?></label>
-                                <input type="text" name="group_city" id="group-city" class="create-group__input" placeholder="<?php print __("City"); ?>" value="<?php print isset($form['group_city']) ? $form['group_city'] : ''; ?>" maxlength="180" />
+                                <input type="text" name="group_city" id="group-city" class="create-group__input" placeholder="<?php print __("City", "community-portal"); ?>" value="<?php print isset($form['group_city']) ? $form['group_city'] : ''; ?>" maxlength="180" />
                             </div>
                         </div>
                         <div class="create-group__input-row">
@@ -145,7 +145,7 @@
 									?>
 									<div class="create-group__tag-container">
 										<?php foreach($tags AS $tag): ?>
-											<input class="create-group__checkbox" type="checkbox" id="<?php echo $tag->slug ?>" data-value="<?php print __($tag->slug); ?>">
+											<input class="create-group__checkbox" type="checkbox" id="<?php echo $tag->slug ?>" data-value="<?php $tag->slug; ?>">
 											<label class="create-group__tag<?php if(in_array($tag->slug, $form_tags)): ?> create-group__tag--active<?php endif; ?>" for="<?php echo $tag->slug ?>"><?php echo $tag->name ?></label>
 										<?php endforeach; ?>
 									</div>
@@ -223,7 +223,7 @@
                         <div class="create-group__section-title">
                             <?php print __("Secondary Group Contact", "community-portal"); ?>
                             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <title>Secondary group contact</title>
+                                <title><?php print __("Secondary group contact", "community-portal"); ?></title>
                                 <path d="M9 16.5C13.1421 16.5 16.5 13.1421 16.5 9C16.5 4.85786 13.1421 1.5 9 1.5C4.85786 1.5 1.5 4.85786 1.5 9C1.5 13.1421 4.85786 16.5 9 16.5Z" stroke="#CDCDD4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M9 6V9" stroke="#CDCDD4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <circle cx="9" cy="12" r="0.75" fill="#CDCDD4"/>
