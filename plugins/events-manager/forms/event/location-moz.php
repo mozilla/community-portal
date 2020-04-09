@@ -30,7 +30,7 @@ endif;
 		?>
 		<div class="event-creator__three-up">
 			<div class="wide <?php echo ($event) ? esc_attr("wide--md-third") : null ?>">
-				<label class="event-creator__label" for="location-type"><?php echo __('Is this event online or on location? *') ?></label>
+				<label class="event-creator__label" for="location-type"><?php echo __('Is this event online or on location? *', 'community-portal') ?></label>
 				<select class="event-creator__dropdown" name="location-type" id="location-type" <?php echo ($event) ? esc_attr('disabled') : null ?> required>
 					<option value="online" <?php if ($location_type === 'online'): echo esc_attr('selected'); endif; ?> default ><?php echo __('Online', "community-portal") ?></option>
 					<option value="address" <?php if ($location_type === 'address'): echo 'selected'; endif; ?>><?php echo __('Physical Location', "community-portal") ?></option>
