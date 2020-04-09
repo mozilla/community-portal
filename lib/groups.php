@@ -194,7 +194,7 @@ function mozilla_edit_group() {
                 if(isset($_POST['group_name'])) {
                     $error = mozilla_search_groups($_POST['group_name'], $group_id);
                     if($error) {
-                        $_POST['group_name_error'] = 'This group name is already taken';
+                        $_POST['group_name_error'] = __('This group name is already taken', "community-portal");
                     }
                 }
 
@@ -338,9 +338,9 @@ function mozilla_join_group() {
                         $discourse = mozilla_discourse_api('groups/users', $discourse_api_data, 'patch');
                 
     
-                        print json_encode(Array('status'   =>  'success', 'msg'  =>  'Joined Group'));
+                        print json_encode(Array('status'   =>  'success', 'msg'  =>  __('Joined Group', "community-portal")));
                     } else {
-                        print json_encode(Array('status'   =>  'error', 'msg'   =>  'Could not join group'));
+                        print json_encode(Array('status'   =>  'error', 'msg'   =>  __('Could not join group', "community-portal")));
                     }
                 }
                 

@@ -252,12 +252,12 @@
         <div class="groups__container">
             <div class="groups__nav">
                 <ul class="groups__menu">
-                    <li class="menu-item"><a class="groups__menu-link<?php if(!isset($_GET['mygroups']) || (isset($_GET['mygroups']) && $_GET['mygroups'] == 'false')): ?> group__menu-link--active<?php endif; ?>" href="#" data-nav=""><?php print __("Discover Groups"); ?></a></li>
-                    <?php if($logged_in): ?><li class="menu-item"><a class="groups__menu-link<?php if(isset($_GET['mygroups']) && $_GET['mygroups'] == 'true'): ?> group__menu-link--active<?php endif; ?>" href="#" data-nav="mygroups"><?php print __("Groups I'm In"); ?></a></li><?php endif; ?>
+                    <li class="menu-item"><a class="groups__menu-link<?php if(!isset($_GET['mygroups']) || (isset($_GET['mygroups']) && $_GET['mygroups'] == 'false')): ?> group__menu-link--active<?php endif; ?>" href="#" data-nav=""><?php print __("Discover Groups", "community-portal"); ?></a></li>
+                    <?php if($logged_in): ?><li class="menu-item"><a class="groups__menu-link<?php if(isset($_GET['mygroups']) && $_GET['mygroups'] == 'true'): ?> group__menu-link--active<?php endif; ?>" href="#" data-nav="mygroups"><?php print __("Groups I'm In", "community-portal"); ?></a></li><?php endif; ?>
                 </ul>
             </div>
             <div class="groups__nav groups__nav--mobile">
-                Showing: 
+                <?php print __("Showing", "community-portal"); ?>
                 <select class="groups__nav-select">
                     <option value="all"><?php print __("Discover Groups", "community-portal"); ?></option>
                     <?php if($logged_in): ?><option value="mygroups"<?php if(isset($_GET['mygroups']) && $_GET['mygroups'] == 'true'): ?>selected<?php endif; ?>><?php print __("Groups I'm in", "community-portal"); ?></option><?php endif; ?>
@@ -266,7 +266,7 @@
                 <div class="groups__filter-container<?php if(!isset($_GET['location']) && !isset($_GET['mygroups'])): ?> groups__filter-container--hidden<?php endif; ?>">
                 <span><?php print __("Filter by:", "community-portal"); ?></span>
                 <div class="groups__select-container">
-                    <label class="groups__label">Location </label>
+                    <label class="groups__label"><?php print __("Location", "community-portal"); ?></label>
                     <select class="groups__location-select">
                         <option value=""><?php print __('All', "community-portal"); ?></option>
                         <?php foreach($used_country_list AS $code   =>  $country): ?>
@@ -276,7 +276,7 @@
                 </div>
                 <?php if(sizeof($used_language_list) > 0): ?>
                 <div class="groups__select-container">
-                    <label class="groups__label">Language </label>
+                    <label class="groups__label"><?php print __("Language", "community-portal"); ?></label>
                     <select class="groups__language-select">
                         <option value=""><?php print __('All', "community-portal"); ?></option>
                         <?php foreach($used_language_list AS $code   =>  $language): ?>
@@ -288,7 +288,7 @@
                 </div>
                 <?php endif; ?>
                 <div class="groups__select-container">
-                    <label class="groups__label">Tag </label>
+                    <label class="groups__label"><?php print __("Tag", "community-portal"); ?></label>
                     <select class="groups__tag-select">
                         <option value=""><?php print __('All', "community-portal"); ?></option>
                         <?php foreach($tags AS $tag): ?>
@@ -298,7 +298,7 @@
                 </div>
             </div>
             <div class="groups__show-filters-container">
-                <a href="#" class="groups__show-filter"><?php if(isset($_GET['location']) || isset($_GET['mygroups'])): ?><?php print __("Hide Filters", "community-portal"); ?><?php else: ?><?php print __("Show Filters"); ?><?php endif; ?></a>
+                <a href="#" class="groups__show-filter"><?php if(isset($_GET['location']) || isset($_GET['mygroups'])): ?><?php print __("Hide Filters", "community-portal"); ?><?php else: ?><?php print __("Show Filters", "community-portal"); ?><?php endif; ?></a>
             </div>
             <div class="groups__groups">
                 <?php do_action('bp_before_groups_loop'); ?>

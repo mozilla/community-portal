@@ -61,7 +61,7 @@
 
         <div class="create-group__container">
             <ol class="create-group__menu">
-                <li class="create-group__menu-item create-group__menu-item--disabled"><a href="#" class="create-group__menu-link"><?php print __("Basic Information"); ?></a></li>
+                <li class="create-group__menu-item create-group__menu-item--disabled"><a href="#" class="create-group__menu-link"><?php print __("Basic Information", "community-portal"); ?></a></li>
             </ol>
             <div class="create-group__menu create-group__menu--mobile">
                 <div class="create-group__select-container">
@@ -111,7 +111,7 @@
                             <select id="group-country" class="create-group__select" name="group_country">
                                 <option value="0"><?php print __("Country", "community-portal"); ?></option>
                                 <?php foreach($countries AS $code => $country): ?>
-                                <option value="<?php print $code; ?>"<?php if(isset($form['group_country']) && $form['group_country'] === $code): ?> selected<?php endif; ?>><?php print __($country); ?></option>
+                                <option value="<?php print $code; ?>"<?php if(isset($form['group_country']) && $form['group_country'] === $code): ?> selected<?php endif; ?>><?php print $country; ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -142,7 +142,7 @@
 										<span><?php print __('min dimensions 703px by 400px', "community-portal"); ?></span>
 									</button>
 								</div>
-								<button type="button" class="dz-remove<?php if(!isset($form['image_url']) || strlen($form['image_url']) === 0): ?> dz-remove--hide<?php endif; ?>" data-dz-remove="" >Remove file</button>
+								<button type="button" class="dz-remove<?php if(!isset($form['image_url']) || strlen($form['image_url']) === 0): ?> dz-remove--hide<?php endif; ?>" data-dz-remove="" ><?php print __("Remove file", "community-portal"); ?></button>
 							</div>
 						</div>
                         <input type="hidden" name="image_url" id="image-url" value="<?php print (isset($form['image_url']) && strlen($form['image_url']) > 0) ? $form['image_url'] : '' ?>" />
@@ -158,7 +158,7 @@
 							?>
 							<div class="create-group__tag-container">
 								<?php foreach($tags AS $tag): ?>
-									<input class="create-group__checkbox" type="checkbox" id="<?php echo $tag->slug ?>" data-value="<?php print __($tag->slug); ?>">
+									<input class="create-group__checkbox" type="checkbox" id="<?php echo $tag->slug ?>" data-value="<?php print $tag->slug; ?>">
 									<label class="create-group__tag<?php if(in_array($tag->slug, $form_tags)): ?> create-group__tag--active<?php endif; ?>" for="<?php echo $tag->slug ?>"><?php echo $tag->name ?></label>
 								<?php endforeach; ?>
 							</div>
