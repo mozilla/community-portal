@@ -113,7 +113,7 @@
                         <div class="activity__card">
                             <div class="activity__card-content">
                                 <?php if(is_array($tags) && sizeof($tags) > 0): ?>
-                                <span><?php print __("Tags"); ?></span>
+                                <span><?php print __("Tags", 'community-portal'); ?></span>
                                 <div class="activity__tags">
                                 <?php foreach($tags AS $tag): ?>
                                     <span class="activity__tag"><?php print $tag->name; ?></span>
@@ -121,7 +121,7 @@
                                 </div>
                                 <?php endif; ?>
                                 <?php if($time_commitment): ?>
-                                <span><?php print __("Time Commitment"); ?></span>
+                                <span><?php print __("Time Commitment", 'community-portal'); ?></span>
                                 <div class="activity__time-commitment">
                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M8 14.6654C11.6819 14.6654 14.6667 11.6806 14.6667 7.9987C14.6667 4.3168 11.6819 1.33203 8 1.33203C4.3181 1.33203 1.33333 4.3168 1.33333 7.9987C1.33333 11.6806 4.3181 14.6654 8 14.6654Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
