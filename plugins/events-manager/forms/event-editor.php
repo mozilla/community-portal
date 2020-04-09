@@ -92,7 +92,7 @@ if(!empty($_REQUEST['success'])){
 				<div class="event-creator__three-up">
 					<div class="half">
 						<label class="event-form-details event-creator__label" for="event-description"><?php print __('Event description *', 'commuity-portal'); ?></label>
-						<textarea name="content" id="event-description" placeholder="<?php print __('Add in the details of your event’s agenda here. If this is a multi-day event, you can add in the details of each day’s schedule and start/end time.', 'community-portal') ?>" rows="10" id="event-description" class="event-creator__input event-creator__textarea" style="width:100%" required maxlength="3000"><?php $EM_Event->post_content ?></textarea>
+						<textarea name="content" id="event-description" placeholder="<?php print __('Add in the details of your event’s agenda here. If this is a multi-day event, you can add in the details of each day’s schedule and start/end time.', 'community-portal') ?>" rows="10" id="event-description" class="event-creator__input event-creator__textarea" style="width:100%" required maxlength="3000"><?php print $EM_Event->post_content ?></textarea>
 					</div>
 					<div class="half">
 						<label class="event-form-details event-creator__label" for="event-goal"><?php print __('Event goal(s)', 'commuity-portal'); ?></label>
