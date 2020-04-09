@@ -20,10 +20,10 @@ $subscribed = get_user_meta($user->ID, 'newsletter', true);
 			<?php if(isset($subscribed) && intval($subscribed) !== 1): ?>	
 				<p class="profile__error-message">
 					<?php 
-						echo __("Notice: We had a problem registering you for our newsletter. Please try signing up again later. To try again ");
+						echo __("Notice: We had a problem registering you for our newsletter. Please try signing up again later. To try again ", 'community-portal');
 					?>
 						<a class="newsletter__link" href="/newsletter">
-							<?php echo __('Click here') ?>
+							<?php echo __('Click here', "community-portal") ?>
 						</a> 
 				</p>
 			<?php endif;?>
@@ -106,7 +106,7 @@ $subscribed = get_user_meta($user->ID, 'newsletter', true);
 										<span><?php print __('minimum dimensions 175px by 175px', "community-portal"); ?></span>
 									</button>
 								</div>
-								<button class="dz-remove<?php if(!isset($community_fields['image_url']) || strlen($community_fields['image_url']) === 0): ?> dz-remove--hide<?php endif; ?>" type="button" data-dz-remove="" >Remove file</button>
+								<button class="dz-remove<?php if(!isset($community_fields['image_url']) || strlen($community_fields['image_url']) === 0): ?> dz-remove--hide<?php endif; ?>" type="button" data-dz-remove="" ><?php print __("Remove file", "community-portal"); ?></button>
 							</div>
                     </div>
                     <input type="hidden" name="image_url" id="image-url" value="<?php if($form && isset($form['image_url'])): ?><?php $form['image_url']; ?><?php else: ?><?php if(is_array($community_fields) && isset($community_fields['image_url'])): ?><?php print $community_fields['image_url']; ?><?php endif; ?><?php endif; ?>" />
@@ -127,7 +127,7 @@ $subscribed = get_user_meta($user->ID, 'newsletter', true);
                     <label class="profile__label" for="username"><?php print __("Username (required)", "community-portal"); ?></label>
                     <input type="text" name="username" id="username" class="profile__input<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['username']) || (isset($form['username']) && empty(trim($form['username'])) || isset($form['username_error_message']) )): ?> profile__input--error<?php endif; ?>" placeholder="<?php print __("Username", "community-portal"); ?>" value="<?php print isset($form['username']) ? $form['username'] : $user->user_nicename; ?>"  required/>
                     <div class="form__error-container<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['username']) || (isset($form['username']) && empty(trim($form['username'])) || isset($form['username_error_message']))): ?> form__error-container--visible<?php endif; ?>">
-                        <div class="form__error"><?php if(isset($form['username_error_message'])): ?><?php print __($form['username_error_message'], "community-portal"); ?><?php else: ?><?php print __("This field is required", "community-portal"); ?><?php endif; ?></div>
+                        <div class="form__error"><?php if(isset($form['username_error_message'])): ?><?php print $form['username_error_message']; ?><?php else: ?><?php print __("This field is required", "community-portal"); ?><?php endif; ?></div>
                     </div>
                     <span class="profile__input-desc"><?php print __('Usernames are public', "community-portal"); ?></span>
                 </div>
@@ -163,7 +163,7 @@ $subscribed = get_user_meta($user->ID, 'newsletter', true);
             <div class="profile__form-field">
                 <div class="profile__input-container">
                     <label class="profile__label" for="last-name"><?php print __("Last Name (required)", "community-portal"); ?></label>
-                    <input type="text" name="last_name" id="first-name" class="profile__input<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['last_name']) || (isset($form['last_name']) && empty(trim($form['last_name'])) )): ?> profile__input--error<?php endif; ?>" placeholder="<?php print __("Last Name"); ?>" value="<?php print isset($form['last_name']) ? $form['last_name'] : $meta['last_name'][0]; ?>" required />
+                    <input type="text" name="last_name" id="first-name" class="profile__input<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['last_name']) || (isset($form['last_name']) && empty(trim($form['last_name'])) )): ?> profile__input--error<?php endif; ?>" placeholder="<?php print __("Last Name", "community-portal"); ?>" value="<?php print isset($form['last_name']) ? $form['last_name'] : $meta['last_name'][0]; ?>" required />
                     <div class="form__error-container<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['last_name']) || (isset($form['last_name']) && empty(trim($form['last_name'])) )): ?> form__error-container--visible<?php endif; ?>">
                         <div class="form__error"><?php print __("This field is required", "community-portal"); ?></div>
                     </div>
@@ -219,7 +219,7 @@ $subscribed = get_user_meta($user->ID, 'newsletter', true);
                 <div class="profile__select-container profile__select-container--inline profile__select-container--half">
                     <label class="profile__label" for="country"><?php print __("Country (optional)", "community-portal"); ?></label>
                     <select id="country" name="country" class="profile__select">
-                        <option value="0"><?php print __('Country'); ?></option>
+                        <option value="0"><?php print __('Country', "community-portal"); ?></option>
                         <?php foreach($countries AS $key    =>  $value): ?>
                         <option value="<?php print $key; ?>"<?php if($form && isset($form['country']) && $form['country'] == $key): ?> selected<?php else: ?><?php if(isset($community_fields['country']) && $community_fields['country'] == $key): ?> selected<?php endif; ?><?php endif; ?>><?php print $value; ?></option>
                         <?php endforeach; ?>
@@ -243,9 +243,9 @@ $subscribed = get_user_meta($user->ID, 'newsletter', true);
             <div class="profile__form-field">
                 <div class="profile__input-container">
                     <label class="profile__label" for="email"><?php print __("Email contact (required)", "community-portal"); ?></label>
-                    <input type="email" name="email" id="email" class="profile__input<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['email']) || (isset($form['email']) && empty(trim($form['email'])) || isset($form['email_error_message']))): ?> profile__input--error<?php endif; ?>" placeholder="<?php print __("Email"); ?>" value="<?php print isset($form['email']) ? $form['email'] : $user->user_email; ?>" required/>
+                    <input type="email" name="email" id="email" class="profile__input<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['email']) || (isset($form['email']) && empty(trim($form['email'])) || isset($form['email_error_message']))): ?> profile__input--error<?php endif; ?>" placeholder="<?php print __("Email", "community-portal"); ?>" value="<?php print isset($form['email']) ? $form['email'] : $user->user_email; ?>" required/>
                     <div class="form__error-container<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['email']) || (isset($form['email']) && empty(trim($form['email'])) || isset($form['email_error_message']))): ?> form__error-container--visible<?php endif; ?>">
-                        <div class="form__error"><?php if(isset($form['email_error_message'])): ?><?php print __($form['email_error_message'], "community-portal"); ?><?php else: ?><?php print __("This field is required", "community-portal"); ?><?php endif; ?></div>
+                        <div class="form__error"><?php if(isset($form['email_error_message'])): ?><?php print $form['email_error_message']; ?><?php else: ?><?php print __("This field is required", "community-portal"); ?><?php endif; ?></div>
                     </div>
                 </div>
                 <div class="profile__select-container">

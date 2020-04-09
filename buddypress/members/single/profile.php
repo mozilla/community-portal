@@ -144,7 +144,7 @@
                         <path d="M11.667 2.08594C12.2406 2.2328 12.749 2.5664 13.1121 3.03414C13.4752 3.50188 13.6722 4.07716 13.6722 4.66927C13.6722 5.26138 13.4752 5.83666 13.1121 6.3044C12.749 6.77214 12.2406 7.10574 11.667 7.2526" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
 
-                    <?php print groups_get_total_member_count($gid);  ?> Members
+                    <?php print groups_get_total_member_count($gid);  ?> <?php print __("Members", "community-portal"); ?>
                 </div>
             </a>
             <?php $group_count++; ?>
@@ -247,7 +247,7 @@
                             <path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                         <?php if($location->location_country === 'OE'): ?>
-                          <?php print __("Online Event"); ?>
+                          <?php print __("Online Event", "community-portal"); ?>
                         <?php elseif($location->location_town && $location->location_country): ?>
                             <?php print "{$location->location_town}, {$event_countries[$location->location_country]}"; ?>
                         <?php elseif($location->location_town && !$location->location_country): ?>
