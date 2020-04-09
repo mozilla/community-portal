@@ -198,7 +198,7 @@
 											<path d="M16.3333 14.0002V12.6669C16.3328 12.0761 16.1362 11.5021 15.7742 11.0351C15.4122 10.5682 14.9053 10.2346 14.3333 10.0869" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 											<path d="M11.6667 2.08691C12.2404 2.23378 12.7488 2.56738 13.1118 3.03512C13.4749 3.50286 13.672 4.07813 13.672 4.67025C13.672 5.26236 13.4749 5.83763 13.1118 6.30537C12.7488 6.77311 12.2404 7.10671 11.6667 7.25358" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 										</svg>
-										<?php print "{$member_count}&nbsp;".__("Members"); ?>
+										<?php print "{$member_count}&nbsp;".__("Members", "community-portal"); ?>
 								</div>
 								<div class="groups__card-info">
 									<div class="groups__card-tags">
@@ -210,7 +210,7 @@
 											<li class="groups__tag"><?php print $value; ?></li>
 											<?php $tag_counter++; ?>
 											<?php if($tag_counter === 2 && sizeof($meta['group_tags']) > 2): ?>
-												<li class="groups__tag">+ <?php print sizeof($meta['group_tags']) - 2; ?> <?php print __(' more tags'); ?></li>
+												<li class="groups__tag">+ <?php print sizeof($meta['group_tags']) - 2; ?> <?php print __(' more tags', 'community-portal'); ?></li>
 												<?php break; ?>
 											<?php endif; ?>
 										<?php endforeach; ?>
@@ -240,7 +240,7 @@
 						?>
 						<p>
 							<span class="large-number homepage__events__count__span"><?php echo $groups_total ?></span>
-							<?php echo __('More Groups.')?>
+							<?php echo __('More Groups.', 'community-portal')?>
 							<a href="/groups/" class="homepage__events__count__link"><?php echo $fieldValues->featured_groups_secondary_cta_text ?></a>
 						</p>
 					</div>
@@ -294,7 +294,7 @@
 						?>
 						<p>
 							<span class="large-number homepage__events__count__span"><?php echo $eventsTotal ?></span>
-							<?php echo __('More Events.')?>
+							<?php echo __('More Events.', 'community-portal')?>
 							<?php if (isset($fieldValues->featured_events_secondary_cta_text) && strlen($fieldValues->featured_events_secondary_cta_text) > 0):?>
 								<a href="/events" class="homepage__events__count__link"><?php echo $fieldValues->featured_events_secondary_cta_text ?></a>
 							<?php endif; ?>
