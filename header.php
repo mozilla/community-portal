@@ -45,7 +45,7 @@
                     global $bp;
                     $group = $bp->groups->current_group;
                     $group_meta = groups_get_groupmeta($group->id, 'meta');
-                    $og_title = isset($group->name) && strlen($group->name) > 0 ? "{$group->name} - Mozilla Community Portal" : "Groups - Mozilla Community Portal";
+                    $og_title = isset($group->name) && strlen($group->name) > 0 ? "{$group->name} - ".__("Mozilla Community Portal", "community-portal") : __("Groups - Mozilla Community Portal", 'community-portal');
                     $title = $og_title;
                     $og_desc = isset($group->description) && strlen($group->description) > 0 ? strip_tags($group->description) : get_bloginfo('description');
                     $og_image = isset($group_meta['group_image_url']) && strlen($group_meta['group_image_url']) > 0 ? $group_meta['group_image_url'] : get_stylesheet_directory_uri(). "/images/group.png";
@@ -55,7 +55,7 @@
                     global $post;
                     $event = em_get_event($post->ID, 'post_id'); 
 
-                    $og_title = isset($event->event_name) && strlen($event->event_name) > 0 ? "{$event->event_name} - Mozilla Community Portal" :  "Events - Mozilla Community Portal"; 
+                    $og_title = isset($event->event_name) && strlen($event->event_name) > 0 ? "{$event->event_name} - ".__("Mozilla Community Portal", 'community-portal') :  __("Events - Mozilla Community Portal", 'community-portal'); 
                     $title = $og_title;
                     $og_desc = isset($event->post_content) && strlen($event->post_content) ? strip_tags($event->post_content) : strip_tags(get_bloginfo('description'));
 
@@ -71,7 +71,7 @@
                     $user_id = bp_displayed_user_id();
                     $du = get_user_by('ID', $user_id);
                     $meta = get_user_meta($user_id);
-                    $og_title = $du ? "{$du->user_nicename} - Mozilla Community Portal" : "People - Mozilla Community Portal";
+                    $og_title = $du ? "{$du->user_nicename} - ".__("Mozilla Community Portal", 'community-portal') : __("People - Mozilla Community Portal", 'community-portal');
                     $og_image = get_stylesheet_directory_uri()."/images/group.png";
                     $title = $og_title;
                     $og_desc =  strip_tags(get_bloginfo('description'));
@@ -79,7 +79,7 @@
                     break;
                 case 'activities':
                     global $post;
-                    $title = (trim($post->post_type) == 'activity') ? "{$post->post_title} - Mozilla Community Portal" : 'Activities - Mozilla Community Portal';
+                    $title = (trim($post->post_type) == 'activity') ? "{$post->post_title} - ".__("Mozilla Community Portal", 'community-portal') : __('Activities - Mozilla Community Portal', 'community-portal');
                     $og_title = $title;
                     $og_image = get_the_post_thumbnail_url();
                     $og_desc = strip_tags(substr($post->post_content, 0, 155));
@@ -87,7 +87,7 @@
                     break;
                 case 'campaigns':
                     global $post;
-                    $title = (trim($post->post_type) == 'campaign') ? "{$post->post_title} - Mozilla Community Portal" : 'Campaigns - Mozilla Community Portal';
+                    $title = (trim($post->post_type) == 'campaign') ? "{$post->post_title} - ".__("Mozilla Community Portal", 'community-portal') : __('Campaigns - Mozilla Community Portal', 'community-portal');
                     $og_title = $title;
                     $og_image = get_the_post_thumbnail_url();
                     $og_desc = strip_tags(substr($post->post_content, 0, 155));
@@ -153,9 +153,9 @@
                                 <div class="nav__avatar<?php if(!$avatar): ?> nav__avatar--empty<?php endif; ?>" <?php if($avatar): ?>style="background-image: url('<?php print $avatar; ?>')"<?php endif; ?> data-user="<?php print $user->user_nicename; ?>"></div>
                                 <?php print $user->user_nicename; ?>
                             </a>
-                            <a href="/wp-login.php?action=logout" class="nav__logout-link"><?php print __('Log Out'); ?></a>
+                            <a href="/wp-login.php?action=logout" class="nav__logout-link"><?php print __('Log Out', 'community-portal'); ?></a>
                         <?php else: ?>
-                            <a href="/wp-login.php?action=login" class="nav__login-link"><?php print __("Log In / Sign Up"); ?></a>
+                            <a href="/wp-login.php?action=login" class="nav__login-link"><?php print __("Log In / Sign Up", 'community-portal'); ?></a>
                         <?php endif; ?>
                     </div>
                     
@@ -239,9 +239,9 @@
                                 </div>
                                 <?php print $user->user_nicename; ?>
                             </a>
-                            <a href="/wp-login.php?action=logout" class="nav__logout-link"><?php print __('Log Out'); ?></a>
+                            <a href="/wp-login.php?action=logout" class="nav__logout-link"><?php print __('Log Out', 'community-portal'); ?></a>
                         <?php else: ?>
-                            <a href="/wp-login.php?action=login" class="nav__login-link nav__login-link--mobile"><?php print __("Log In / Sign Up"); ?></a>
+                            <a href="/wp-login.php?action=login" class="nav__login-link nav__login-link--mobile"><?php print __("Log In / Sign Up", 'community-portal'); ?></a>
                         <?php endif; ?>
                         
                         </div>
@@ -251,13 +251,13 @@
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M9 5C9 7.20914 7.20914 9 5 9C2.79086 9 1 7.20914 1 5C1 2.79086 2.79086 1 5 1C7.20914 1 9 2.79086 9 5ZM8.00021 9.00021C7.16451 9.62799 6.1257 10 5 10C2.23858 10 0 7.76142 0 5C0 2.23858 2.23858 0 5 0C7.76142 0 10 2.23858 10 5C10 6.27532 9.52253 7.43912 8.73661 8.32239L11.7071 11.2929L11 12L8.00021 9.00021Z" fill="#737373"/>
                             </svg>
                             <form method="GET" action="/">
-                                <input type="text" class="nav__search" placeholder="Seach" name="s" value="<?php if(isset($_GET['s']) && strlen($_GET['s']) > 0): ?><?php print $original_query; ?><?php endif; ?>" />
+                                <input type="text" class="nav__search" placeholder="<?php print __('Seach', 'community-portal'); ?>" name="s" value="<?php if(isset($_GET['s']) && strlen($_GET['s']) > 0): ?><?php print $original_query; ?><?php endif; ?>" />
                             </form>
                         </div>
                         
                         <ul class="menu--mobile">
                         <?php foreach($items AS $item):?>
-                            <li class="menu-item"><a href="<?php print $item->url; ?>" class="menu-item__link"><?php print __($item->post_title); ?></a></li>
+                            <li class="menu-item"><a href="<?php print $item->url; ?>" class="menu-item__link"><?php print $item->post_title; ?></a></li>
                         <?php endforeach; ?>
                         </ul>
                     </div>
