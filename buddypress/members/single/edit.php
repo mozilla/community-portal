@@ -20,7 +20,7 @@ $subscribed = get_user_meta($user->ID, 'newsletter', true);
 			<?php if(isset($subscribed) && intval($subscribed) !== 1): ?>	
 				<p class="profile__error-message">
 					<?php 
-						echo __("Notice: We had a problem registering you for our newsletter. Please try signing up again later. To try again ");
+						echo __("Notice: We had a problem registering you for our newsletter. Please try signing up again later. To try again ", 'community-portal');
 					?>
 						<a class="newsletter__link" href="/newsletter">
 							<?php echo __('Click here', "community-portal") ?>
