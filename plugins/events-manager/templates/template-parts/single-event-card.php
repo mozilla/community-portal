@@ -19,8 +19,6 @@
     $site_url = get_site_url();
     $url = $site_url.'/events/'.$event->slug;  
 
-
-
 ?> 
 <div class="col-lg-4 col-md-6 events__column">
     <div class="event-card">
@@ -61,7 +59,7 @@
                     <p class="text--light text--small">
                     <?php
                         if ($location->country === 'OE') {
-                            echo __('Online Event');
+                            echo __('Online Event', 'community-portal');
                         } else {
                             if ($location->address) {
                                 echo $location->address.' - '; 
@@ -104,7 +102,7 @@
                         <path d="M14.6666 7H11.9999L9.99992 13L5.99992 1L3.99992 7H1.33325" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                     <?php endif; ?>
-                    <?php print sprintf(__('Part of ')."%s %s", $initiative->post_title, ($initiative->post_type === 'campaign') ? __('Campaign') : __('Activity')); ?>
+                    <?php print sprintf(__('Part of ', 'community-portal')."%s %s", $initiative->post_title, ($initiative->post_type === 'campaign') ? __('Campaign', 'community-portal') : __('Activity', 'community-portal')); ?>
                 </div>
                 <?php endif; ?>
             </div>

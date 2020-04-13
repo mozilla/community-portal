@@ -127,12 +127,12 @@
             </li>
         </ul>
         <form class="events__nav--mobile" action="">
-            <label class="events__nav__label--mobile" for="eventsView"><?php echo __('Showing:') ?></label>
+            <label class="events__nav__label--mobile" for="eventsView"><?php echo __('Showing:', 'community-portal') ?></label>
             <select class="events__nav__options--mobile" name="eventsView" id="eventsView">
-                <option <?php if ($view === 'future' || $view === '') echo esc_attr('selected') ?> value="future"><?php echo __('Upcoming Events') ?></option>
-                <?php if($logged_in): ?><option <?php if ($view === 'attending') echo esc_attr('selected') ?> value="attending"><?php echo __('Events I\'m Attending') ?></option><?php endif; ?>
-                <?php if($logged_in): ?><option <?php if ($view === 'organized') echo esc_attr('selected') ?> value="organized">Events I've Organized</option><?php endif; ?>
-                <option <?php if ($view === 'past') echo esc_attr('selected') ?> value="past"><?php echo __('Past Events') ?></option>
+                <option <?php if ($view === 'future' || $view === '') echo esc_attr('selected') ?> value="future"><?php echo __('Upcoming Events', 'community-portal') ?></option>
+                <?php if($logged_in): ?><option <?php if ($view === 'attending') echo esc_attr('selected') ?> value="attending"><?php echo __('Events I\'m Attending', 'community-portal') ?></option><?php endif; ?>
+                <?php if($logged_in): ?><option <?php if ($view === 'organized') echo esc_attr('selected') ?> value="organized"><?php print __('Events I\'ve Organized', 'community-portal') ?></option><?php endif; ?>
+                <option <?php if ($view === 'past') echo esc_attr('selected') ?> value="past"><?php echo __('Past Events', 'community-portal') ?></option>
             </select>
             <svg class="events__nav__icon" width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M1.5 3.5L7 9L12.5 3.5" fill="white"/>
@@ -144,7 +144,7 @@
     <?php if(count($events)): ?>
     <?php if(isset($original_search)): ?>
         <div class="col-sm-12 events__search-terms">
-            <p><?php echo __('Results for "'.$original_search.'"')?></p>
+            <p><?php echo __('Results for "'.$original_search.'"', 'community-portal')?></p>
         </div>
     <?php endif; ?>
     <div class="row events__cards">

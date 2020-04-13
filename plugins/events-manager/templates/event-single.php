@@ -157,7 +157,7 @@
                 </div>
             </div>
 
-            <h2 class="title--secondary"><?php echo __("Location") ?></h2>
+            <h2 class="title--secondary"><?php echo __("Location", "community-portal") ?></h2>
             <div class="card events-single__location">
                 <div class="row">
                     <div class="card__address col-md-5 col-sm-12">
@@ -234,12 +234,12 @@
 				</div>
             </div>
             <div class="events-single__description">
-                <h2 class="title--secondary"><?php echo __('Description') ?></h2>
+                <h2 class="title--secondary"><?php echo __('Description', 'community-portal') ?></h2>
                 <p><?php echo wpautop($EM_Event->post_content); ?></p>
             </div>
 			<?php if ($goal): ?>
 				<div class="events-single__description">
-					<h2 class="title--secondary"><?php echo __('Goals') ?></h2>
+					<h2 class="title--secondary"><?php echo __('Goals', 'community-portal') ?></h2>
 					<p><?php echo wpautop($goal); ?></p>
 				</div>
 			<?php endif; ?>
@@ -256,15 +256,15 @@
             <?php if (is_array($activeBookings) && count($activeBookings) > 0): ?>
 			<div class="events-single__title--with-parenthetical">
 				<h2 class="title--secondary">
-					<?php echo __('Attendees') ?> 
+					<?php echo __('Attendees', 'community-portal') ?> 
 				</h2>
 				<p class="events-single__parenthetical">
 				(
 					<span>
-						<?php print __('Actual: ') . sizeof($activeBookings); ?> 
+						<?php print __('Actual: ', 'community-portal') . sizeof($activeBookings); ?> 
 					</span>
 					<?php if ($projected_attendees): ?>
-						<span class="expected-attendees"><?php print __('Expecting: ') . $projected_attendees ?></span>
+						<span class="expected-attendees"><?php print __('Expecting: ', 'community-portal') . $projected_attendees ?></span>
 					<?php endif; ?>
 				)
 				</p>
@@ -319,7 +319,7 @@
                     ?>
                         <?php if ($count === 8): ?>
                             <button id="open-attendees-lightbox" class="btn btn--submit btn--light">
-                                <?php echo __('View all attendees'); ?>
+                                <?php echo __('View all attendees', 'community-portal'); ?>
                             </button>
                         <?php endif; ?>
                     <?php
@@ -334,7 +334,7 @@
 
     <?php if(count($allRelatedEvents) > 0): ?>
         <div class="events-single__related col-sm-12">
-            <h2 class="title--secondary"><?php echo __('Related Events') ?></h2>
+            <h2 class="title--secondary"><?php echo __('Related Events', 'community-portal') ?></h2>
             <div class="row">
                 <?php
                     foreach($allRelatedEvents as $event) {
