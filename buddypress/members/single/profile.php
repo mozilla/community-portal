@@ -22,7 +22,7 @@
                         <path d="M8.25 3H3C2.60218 3 2.22064 3.15804 1.93934 3.43934C1.65804 3.72064 1.5 4.10218 1.5 4.5V15C1.5 15.3978 1.65804 15.7794 1.93934 16.0607C2.22064 16.342 2.60218 16.5 3 16.5H13.5C13.8978 16.5 14.2794 16.342 14.5607 16.0607C14.842 15.7794 15 15.3978 15 15V9.75" stroke="#0060DF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M13.875 1.87419C14.1734 1.57582 14.578 1.4082 15 1.4082C15.422 1.4082 15.8266 1.57582 16.125 1.87419C16.4234 2.17256 16.591 2.57724 16.591 2.99919C16.591 3.42115 16.4234 3.82582 16.125 4.12419L9 11.2492L6 11.9992L6.75 8.99919L13.875 1.87419Z" stroke="#0060DF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    <?php print __('Edit', "community-portal"); ?>
+                    <?php _e('Edit', 'community-portal'); ?>
                     </a>
                 </div>
                 <?php endif; ?>
@@ -57,7 +57,7 @@
             <?php endif; ?>
             <div class="profile__card-contact-container">
                 <?php if(($info['location']->display && $info['location']->value) || ($info['email']->value && $info['email']->display) || ($info['phone']->value && $info['phone']->display)): ?>
-                <span class="profile__contact-title"><?php print __('Contact Information', "community-portal"); ?></span>
+                <span class="profile__contact-title"><?php _e('Contact Information', 'community-portal'); ?></span>
                 <?php endif; ?>
                 <?php if($info['location']->display): ?>
                 <?php if($info['location']->value): ?>
@@ -74,7 +74,7 @@
                             </clipPath>
                         </defs>
                     </svg>
-                    <?php print __('Location', "community-portal"); ?>
+                    <?php _e('Location', 'community-portal'); ?>
                     <div class="profile__details">
                         <span class="profile__city-country">
                             <?php print $info['location']->value; ?>
@@ -90,7 +90,7 @@
                         <path d="M9.33366 9.33398H22.667C23.5837 9.33398 24.3337 10.084 24.3337 11.0007V21.0006C24.3337 21.9173 23.5837 22.6673 22.667 22.6673H9.33366C8.41699 22.6673 7.66699 21.9173 7.66699 21.0006V11.0007C7.66699 10.084 8.41699 9.33398 9.33366 9.33398Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M24.3337 11L16.0003 16.8333L7.66699 11" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    <?php print __('Email', "community-portal"); ?>
+                    <?php _e('Email', 'community-portal'); ?>
                     <div class="profile__details">
                         <span class="profile__email">
                             <?php print $info['email']->value; ?>
@@ -105,7 +105,7 @@
                         <path d="M24.3332 20.0994V22.5994C24.3341 22.8315 24.2866 23.0612 24.1936 23.2739C24.1006 23.4865 23.9643 23.6774 23.7933 23.8343C23.6222 23.9912 23.4203 24.1107 23.2005 24.185C22.9806 24.2594 22.7477 24.287 22.5165 24.2661C19.9522 23.9875 17.489 23.1112 15.3249 21.7078C13.3114 20.4283 11.6043 18.7212 10.3249 16.7078C8.91651 14.5338 8.04007 12.0586 7.76653 9.48276C7.7457 9.25232 7.77309 9.02006 7.84695 8.80078C7.9208 8.5815 8.03951 8.38 8.1955 8.20911C8.3515 8.03822 8.54137 7.90169 8.75302 7.8082C8.96468 7.71471 9.19348 7.66631 9.42486 7.6661H11.9249C12.3293 7.66212 12.7214 7.80533 13.028 8.06904C13.3346 8.33275 13.5349 8.69897 13.5915 9.09943C13.697 9.89949 13.8927 10.685 14.1749 11.4411C14.287 11.7394 14.3112 12.0635 14.2448 12.3752C14.1783 12.6868 14.0239 12.9729 13.7999 13.1994L12.7415 14.2578C13.9278 16.3441 15.6552 18.0715 17.7415 19.2578L18.7999 18.1994C19.0264 17.9754 19.3125 17.821 19.6241 17.7545C19.9358 17.688 20.2599 17.7123 20.5582 17.8244C21.3143 18.1066 22.0998 18.3022 22.8999 18.4078C23.3047 18.4649 23.6744 18.6688 23.9386 18.9807C24.2029 19.2926 24.3433 19.6907 24.3332 20.0994Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                     <div class="profile__details">
-                        <?php print __('Phone', "community-portal"); ?>
+                        <?php _e('Phone', 'community-portal'); ?>
                         <span class="profile__phone">
                             <?php $info['phone']->value; ?>
                         </span>
@@ -118,7 +118,7 @@
         <?php if($info['groups']->display): ?>
         <?php $groups = groups_get_user_groups($info['id']); ?>
         <?php if($groups['total'] > 0): ?>
-        <h2 class="profile__heading"><?php print __("Groups I'm In", "community-portal"); ?></h2>
+        <h2 class="profile__heading"><?php _e('Groups I\'m In', 'community-portal'); ?></h2>
         <?php $group_count = 0; ?>
         <div class="profile__card">
             <?php foreach($groups['groups'] AS $gid): ?>
@@ -144,7 +144,7 @@
                         <path d="M11.667 2.08594C12.2406 2.2328 12.749 2.5664 13.1121 3.03414C13.4752 3.50188 13.6722 4.07716 13.6722 4.66927C13.6722 5.26138 13.4752 5.83666 13.1121 6.3044C12.749 6.77214 12.2406 7.10574 11.667 7.2526" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
 
-                    <?php print groups_get_total_member_count($gid);  ?> <?php print __("Members", "community-portal"); ?>
+                    <?php print groups_get_total_member_count($gid);  ?> <?php _e('Members', 'community-portal'); ?>
                 </div>
             </a>
             <?php $group_count++; ?>
@@ -164,7 +164,7 @@
             $events_attended_count = 0;
         ?>
         <?php if(sizeof($events->bookings) > 0): ?>
-        <h2 class="profile__heading"><?php print __("Recent Events", "community-portal"); ?></h2>
+        <h2 class="profile__heading"><?php _e('Recent Events', 'community-portal'); ?></h2>
         <div class="profile__card">
             <?php foreach($events->bookings AS $event_booking): ?>
             <?php
@@ -189,7 +189,7 @@
                             <path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                         <?php if($location->location_country === 'OE'): ?>
-                          <?php print __("Online Event", "community-portal"); ?>
+                          <?php _e('Online Event', 'community-portal'); ?>
                         <?php elseif($location->location_town && $location->location_country): ?>
                             <?php print "{$location->location_town}, {$event_countries[$location->location_country]}"; ?>
                         <?php elseif($location->location_town && !$location->location_country): ?>
@@ -223,7 +223,7 @@
 
         ?>
         <?php if(sizeof($events_organized) > 0): ?>
-        <h2 class="profile__heading"><?php print __("Organized Events", "community-portal"); ?></h2>
+        <h2 class="profile__heading"><?php _e('Organized Events', 'community-portal'); ?></h2>
         <div class="profile__card">
             <?php foreach($events_organized AS $event): ?>
             <?php
@@ -247,7 +247,7 @@
                             <path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                         <?php if($location->location_country === 'OE'): ?>
-                          <?php print __("Online Event", "community-portal"); ?>
+                          <?php _e("Online Event", 'community-portal'); ?>
                         <?php elseif($location->location_town && $location->location_country): ?>
                             <?php print "{$location->location_town}, {$event_countries[$location->location_country]}"; ?>
                         <?php elseif($location->location_town && !$location->location_country): ?>
@@ -284,7 +284,7 @@
             }
         ?>
         <?php if(sizeof($campaign_objects) > 0): ?>
-        <h2 class="profile__heading"><?php print __("Campaigns Participated In", "community-portal"); ?></h2>
+        <h2 class="profile__heading"><?php _e('Campaigns Participated In', 'community-portal'); ?></h2>
         <div class="profile__card">
         <?php foreach($campaign_objects AS $campaign): ?>
         <?php if($campaign): ?>
@@ -337,7 +337,7 @@
             ($info['matrix']->display && $info['matrix']->value)
         ): ?>
         <div class="profile__social-card profile__card--right">
-            <?php print __("Social Handles", "community-portal"); ?>
+            <?php _e('Social Handles', 'community-portal'); ?>
             <div class="profile__social-container">
                 <?php if($info['telegram']->value && $info['telegram']->display): ?>
                 <a href="<?php print mozilla_verify_url($info['telegram']->value, true) ? mozilla_verify_url($info['telegram']->value, true) : "https://t.me/{$info['telegram']->value}"; ?>" class="profile__social-link">
@@ -346,7 +346,7 @@
                         <path d="M24.3337 7.66602L15.167 16.8327" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M24.3337 7.66602L18.5003 24.3327L15.167 16.8327L7.66699 13.4993L24.3337 7.66602Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    <?php print __('Telegram', "community-portal"); ?>
+                    <?php _e('Telegram', 'community-portal'); ?>
                 </a>
                 <?php endif; ?>
                 <?php if($info['facebook']->value && $info['facebook']->display): ?>
@@ -355,7 +355,7 @@
                         <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M26 16C26 10.4771 21.5229 6 16 6C10.4771 6 6 10.4771 6 16C6 20.9913 9.65686 25.1283 14.4375 25.8785V18.8906H11.8984V16H14.4375V13.7969C14.4375 11.2906 15.9304 9.90625 18.2146 9.90625C19.3087 9.90625 20.4531 10.1016 20.4531 10.1016V12.5625H19.1921C17.9499 12.5625 17.5625 13.3333 17.5625 14.1242V16H20.3359L19.8926 18.8906H17.5625V25.8785C22.3431 25.1283 26 20.9913 26 16Z" fill="black"/>
                     </svg>
-                    <?php print __('Facebook', "community-portal"); ?>
+                    <?php _e('Facebook', 'community-portal'); ?>
                 </a>
                 <?php endif; ?>
                 <?php if($info['twitter']->value && $info['twitter']->display): ?>
@@ -364,7 +364,7 @@
                         <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
                         <path d="M12.3766 23.9366C19.7469 23.9366 23.7781 17.8303 23.7781 12.535C23.7781 12.3616 23.7781 12.1889 23.7664 12.017C24.5506 11.4498 25.2276 10.7474 25.7656 9.94281C25.0343 10.2669 24.2585 10.4794 23.4641 10.5733C24.3006 10.0725 24.9267 9.28482 25.2258 8.35688C24.4392 8.82364 23.5786 9.15259 22.6812 9.32953C22.0771 8.6871 21.278 8.26169 20.4077 8.11915C19.5374 7.97661 18.6444 8.12487 17.8668 8.541C17.0893 8.95713 16.4706 9.61792 16.1064 10.4211C15.7422 11.2243 15.6529 12.1252 15.8523 12.9842C14.2592 12.9044 12.7006 12.4903 11.2778 11.7691C9.85506 11.0478 8.59987 10.0353 7.59375 8.7975C7.08132 9.67966 6.92438 10.724 7.15487 11.7178C7.38536 12.7116 7.98596 13.5802 8.83437 14.1467C8.19667 14.1278 7.57287 13.9558 7.01562 13.6452C7.01562 13.6616 7.01562 13.6788 7.01562 13.6959C7.01588 14.6211 7.33614 15.5177 7.9221 16.2337C8.50805 16.9496 9.32362 17.4409 10.2305 17.6241C9.64052 17.785 9.02155 17.8085 8.42109 17.6928C8.67716 18.489 9.17568 19.1853 9.84693 19.6843C10.5182 20.1832 11.3286 20.4599 12.1648 20.4756C10.7459 21.5908 8.99302 22.1962 7.18828 22.1944C6.86946 22.1938 6.55094 22.1745 6.23438 22.1366C8.0669 23.3126 10.1992 23.9363 12.3766 23.9334" fill="black"/>
                     </svg>
-                    <?php print __('Twitter', "community-portal"); ?>
+                    <?php _e('Twitter', 'community-portal'); ?>
                 </a>
                 <?php endif; ?>
                 <?php if($info['linkedin']->value && $info['linkedin']->display): ?>
@@ -384,7 +384,7 @@
                         </defs>
                     </svg>
 
-                    <?php print __('Linkedin', "community-portal"); ?>
+                    <?php _e('Linkedin', 'community-portal'); ?>
                 </a>
                 <?php endif; ?>
                 <?php if($info['discourse']->value && $info['discourse']->display): ?>
@@ -393,7 +393,7 @@
                         <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
                         <path d="M23.5 15.5834C23.5029 16.6832 23.2459 17.7683 22.75 18.75C22.162 19.9265 21.2581 20.916 20.1395 21.6078C19.021 22.2995 17.7319 22.6662 16.4167 22.6667C15.3168 22.6696 14.2318 22.4126 13.25 21.9167L8.5 23.5L10.0833 18.75C9.58744 17.7683 9.33047 16.6832 9.33333 15.5834C9.33384 14.2682 9.70051 12.9791 10.3923 11.8605C11.084 10.7419 12.0735 9.838 13.25 9.25002C14.2318 8.75413 15.3168 8.49716 16.4167 8.50002H16.8333C18.5703 8.59585 20.2109 9.32899 21.4409 10.5591C22.671 11.7892 23.4042 13.4297 23.5 15.1667V15.5834Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    <?php print __('Discourse', "community-portal"); ?>
+                    <?php _e('Discourse', 'community-portal'); ?>
                 </a>
                 <?php endif; ?>
                 <?php if($info['github']->value && $info['github']->display): ?>
@@ -409,7 +409,7 @@
                         </clipPath>
                         </defs>
                     </svg>
-                    <?php print __('Github', "community-portal"); ?>
+                    <?php _e('Github', 'community-portal'); ?>
                 </a>
                 <?php endif; ?>
 				<?php if($info['matrix']->value && $info['matrix']->display): ?>
@@ -424,7 +424,7 @@
 						<line x1="7" y1="9" x2="7" y2="23" stroke="black" stroke-width="2"/>
 						<line x1="25" y1="9" x2="25" y2="23" stroke="black" stroke-width="2"/>
 					</svg>
-                    <?php print __('Matrix', "community-portal"); ?>
+                    <?php _e('Matrix', 'community-portal'); ?>
                 </a>
                 <?php endif; ?>
             </div>
@@ -432,7 +432,7 @@
         <?php endif; ?>
         <?php if($info['languages']->value && $info['languages']->display): ?>
         <div class="profile__languages-card profile__card--right">
-            <?php print __('Languages spoken', "community-portal"); ?>
+            <?php _e('Languages spoken', 'community-portal'); ?>
             <div class="profile__languages-container">
             <?php 
                 $languages_spoken = sizeof($info['languages']->value); 
@@ -452,7 +452,7 @@
         <?php endif; ?>
         <?php if($info['tags']->value && $info['tags']->display): ?>
         <div class="profile__tags-card profile__card--right">
-            <?php print __('Tags', "community-portal"); ?>
+            <?php _e('Tags', 'community-portal'); ?>
             <div class="profile__tags-container">
             <?php $tags = array_filter(explode(',', $info['tags']->value)); ?>
             <?php foreach($tags AS $tag): ?>
