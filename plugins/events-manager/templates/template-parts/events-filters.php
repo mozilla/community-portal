@@ -112,7 +112,8 @@
     </form>
 </div>
 <div class="col-md-12">
-    <button class="events__filter__toggle btn btn--large btn--light">
-        <?php echo __('Hide Filters', 'community-portal') ?>
+    <button class="events__filter__toggle btn btn--large btn--light events__filter__toggle--hide">
+		<span class="hide"><?php echo __('Hide Filters', 'community-portal') ?></span>
+        <span class="show"><?php echo __('Show Filters', 'community-portal') ?></span>
     </button>
 </div>

@@ -115,7 +115,17 @@ div.time-picker ul li {
         @extend .label;
 
         display: block;
-        padding-bottom: 8px;
+		padding-bottom: 8px;
+		.online,
+		.in-person {
+			display: none;
+		}
+		&--in-person .in-person {
+			display: block;
+		}
+		&--online .online {
+			display: block;
+		}
     }
 
     &__fieldset {

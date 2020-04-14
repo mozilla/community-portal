@@ -40,13 +40,16 @@ jQuery(function() {
         const $eventsNav = jQuery(toggleTarget);
         if ($eventsNavToggle && $eventsNav) {
             $eventsNavToggle.on("click", function(e) {
-                e.preventDefault();
-                $eventsNav.slideToggle();
-                if (/show/gi.test($eventsNavToggle[0].innerText)) {
-                    $eventsNavToggle[0].innerText = "Hide Filters";
-                } else if (/hide/gi.test($eventsNavToggle[0].innerText)) {
-                    $eventsNavToggle[0].innerText = "Show Filters";
-                }
+				e.preventDefault();
+				const $this = jQuery(this);
+				if ($this.hasClass('events__filter__toggle--hide')) {
+					$this.removeClass('events__filter__toggle--hide');
+					$this.addClass('events__filter__toggle--show');
+				} else {
+					$this.removeClass('events__filter__toggle--show');
+					$this.addClass('events__filter__toggle--hide');
+				}
+				$eventsNav.slideToggle();
             });
         }
     }
@@ -86,13 +89,17 @@ jQuery(function() {
             $this = jQuery(this);
             if ($this.val() === "online") {
                 toggleVisibility($locationAddress, "Online", false);
-                $locationNameLabel.text("Online Meeting Link");
-                $countryLabel.text("Where will this event be held?");
+				$locationNameLabel.removeClass("event-creator__label--in-person");
+				$locationNameLabel.addClass("event-creator__label--online");
+				$countryLabel.removeClass("event-creator__label--in-person");
+				$countryLabel.addClass("event-creator__label--online");
                 return;
             }
-            toggleVisibility($locationAddress, "", true);
-            $locationNameLabel.text("Location Name");
-            $countryLabel.text("Country");
+			toggleVisibility($locationAddress, "", true);
+			$locationNameLabel.addClass("event-creator__label--in-person");
+			$locationNameLabel.removeClass("event-creator__label--online");
+			$countryLabel.addClass("event-creator__label--in-person");
+			$countryLabel.removeClass("event-creator__label--online");
         });
     }
 

@@ -3,9 +3,9 @@ global $EM_Event;
 $required = apply_filters('em_required_html','<i>*</i>');
 $event = $_REQUEST['event_id'];
 if ($event):
-  $event = em_get_event($event); 
-  $event_meta = get_post_meta($event->post_id, 'event-meta');
-  $location_type = $event_meta[0]->location_type;
+	$event = em_get_event($event); 
+	$event_meta = get_post_meta($event->post_id, 'event-meta');
+	$location_type = $event_meta[0]->location_type;
 endif;
 ?>
 <div id="em-location-data" class="em-location-data">
@@ -38,7 +38,10 @@ endif;
 				<input id="location-type-placeholder" type="hidden" name="location-type" value=<?php echo (isset($location_type) && strlen($location_type) >0 ? esc_attr($location_type) : null) ?>>
 			</div>
 			<div class="wide--double">
-        		<label class="event-creator__label" for="location-name" id="location-name-label"><?php _e ( 'Online Meeting Link *', 'commuity-portal')?></label>
+				<label class="event-creator__label event-creator__label--online" for="location-name" id="location-name-label">
+					<span class="online"><?php _e ('Online Meeting Link *', 'commuity-portal')?></span>
+					<span class="in-person"><?php _e( 'Location Name *', 'commuity-portal')?></span>	
+				</label>
 				<input id='location-id' name='location_id' type='hidden' value='<?php echo esc_attr($EM_Location->location_id); ?>' size='15'  />
 				<input class="event-creator__input" id="location-name" type="type" name="location_name" required value="<?php echo esc_attr($EM_Location->location_name, ENT_QUOTES); ?>" required />	
 			</div>
@@ -51,7 +54,10 @@ endif;
 		</div>
 		<div class="event-creator__three-up">
 			<div class="wide">
-				<label id="location-country-label" class="event-creator__label" for="location-country"><?php _e( 'Where will this event be held? *', 'commuity-portal')?></label>
+				<label id="location-country-label" class="event-creator__label event-creator__label--online " for="location-country">
+					<span class="online"><?php _e( 'Where will this event be held? *', 'commuity-portal')?></span>
+					<span class="in-person"><?php _e( 'Country', 'commuity-portal')?></span>
+				</label>
 				<select class="event-creator__dropdown" id="location-country" name="location_country" <?php if ($event) : echo esc_attr("disabled"); endif; ?> required>
 					<option value="0" <?php echo ( $EM_Location->location_country == '' && $EM_Location->location_id == '') ? 'selected="selected"':''; ?>><?php _e('Select','commuity-portal'); ?></option>
 					<optgroup label="<?php echo __('Online', 'community-portal') ?>">
