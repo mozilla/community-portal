@@ -151,7 +151,7 @@ function mozilla_init_admin_scripts() {
 	}
     if(strtolower($screen->id) === 'toplevel_page_events-export-panel') {
 		wp_enqueue_script('jquery-ui-datepicker');
-		wp_enqueue_style('jquery-ui-css', 'http://mdmozdev.wpengine.com.test/wp-content/plugins/events-manager/includes/css/jquery-ui.min.css');
+		wp_enqueue_style('jquery-ui-css', '/wp-content/plugins/events-manager/includes/css/jquery-ui.min.css');
 		wp_enqueue_script('date', get_stylesheet_directory_uri()."/js/date.js", array('jquery'));
 	}
 }
