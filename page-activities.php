@@ -24,9 +24,9 @@
     <div class="activities">
         <div class="activities__hero">
             <div class="activities__hero-container">
-                <h1 class="activities__title"><?php print __("Activities", "community-portal"); ?></h1>
+                <h1 class="activities__title"><?php _e('Activities', 'community-portal'); ?></h1>
                 <p class="activities__hero-copy">
-                    <?php print __("Activities are “evergreen” because they’re always important, relevant to Mozilla’s mission and need your participation now!", "community-portal"); ?>
+                    <?php _e('Activities are “evergreen” because they’re always important, relevant to Mozilla’s mission and need your participation now!', 'community-portal'); ?>
                 </p>
             </div>
         </div>
