@@ -26,8 +26,8 @@
     ?>
     
     <?php  if(is_object($EM_Booking)): ?>
-    <a class="em-bookings-cancel events-single__cancel btn btn--submit btn--dark" href="<?php echo esc_attr(add_query_arg(array('cancel' => true), $_SERVER['REQUEST_URI']))?>" onclick="if( !confirm('<?php print __("Are you sure you dont want to attend this event?", "community-portal"); ?>') ){ return false; }">
-        <?php echo __('Will Not Attend', 'community-portal') ?>
+    <a class="em-bookings-cancel events-single__cancel btn btn--submit btn--dark" href="<?php echo esc_attr(add_query_arg(array('cancel' => true), $_SERVER['REQUEST_URI']))?>" onclick="if( !confirm('<?php _e('Are you sure you dont want to attend this event?', 'community-portal'); ?>') ){ return false; }">
+        <?php _e('Will Not Attend', 'community-portal') ?>
     </a>
     <?php else: ?>
     <form 
@@ -50,7 +50,7 @@
                 }
             }
         ?>
-        <input type="submit" class="btn btn--dark btn--submit <?php if(is_admin()) echo 'button-primary '; ?>em-booking-submit" id="em-booking-submit" value="<?php echo __('Attend', 'community-portal'); ?>" />
+        <input type="submit" class="btn btn--dark btn--submit <?php if(is_admin()) echo 'button-primary '; ?>em-booking-submit" id="em-booking-submit" value="<?php _e('Attend', 'community-portal'); ?>" />
     </form>	
     <?php endif; ?>
 </div>
