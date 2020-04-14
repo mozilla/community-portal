@@ -130,7 +130,7 @@
         <?php wp_head(); ?>
         <?php  if($google_analytics_id && strlen($google_analytics_id) > 0):  ?>
         <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=<?php print $google_analytics_id; ?>"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=<?php print $google_analytics_id; ?>" integrity="sha384-h8kpoPCrMb/EhMOGaXlW3BZBHoF+EnuiXNd+B89eF4a5z7dANw8WMSqIvpBu7Y+C" crossorigin="anonymous"></script>
         <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
