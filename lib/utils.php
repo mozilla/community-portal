@@ -627,5 +627,23 @@ function mozilla_hide_menu_emails($items, $args) {
     return $items;
 }
 
+function mozilla_update_style_attributes($html, $handle) {
+    if($handle === 'mapbox-css') {
+        return str_replace("media='all'", "media='all' integrity='sha384-vL3ZAw2ReQIdxrwUqRWv0tBphVsMAJRrOLGU/rYaA1hnRjv8oBvlEywnbosRbPXG' crossorigin='anonymous'", $html);
+    }
+
+    return $html;
+}
+
+function mozilla_update_script_attributes($html, $handle) {
+
+    if($handle === 'mapbox') {
+        return str_replace("type='text/javascript'", "type='text/javascript' integrity='sha384-Xl0CAgGkuwxYbsGqIVjAkd+dCJwYigLOy0OMNVQPJxTrRRuHJYBd1ePj727mUry5' crossorigin='anonymous'", $html);
+    }
+
+    return $html;
+
+}
+
 
 ?>
