@@ -59,7 +59,7 @@
                     <p class="text--light text--small">
                     <?php
                         if ($location->country === 'OE') {
-                            echo __('Online Event', 'community-portal');
+                            _e('Online Event', 'community-portal');
                         } else {
                             if ($location->address) {
                                 echo $location->address.' - '; 

@@ -2,7 +2,12 @@
 
 
 function mozilla_update_events_copy($string) {
-    $string = 'Please <a href="/wp-login.php?action=login">log in</a> to create or join events';
+
+    $please_string = __('Please', 'community-portal');
+    $login_string = __('log in', 'community-portal');
+    $create_string = __('to create or join events', 'community-portal');
+
+    $string = "{$please_string} <a href=\"/wp-login.php?action=login\">{$login_string}</a> {$create_string}";
     return $string;
 }; 
 

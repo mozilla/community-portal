@@ -93,7 +93,7 @@
                 class="events__nav__link <?php if ($view === 'future' | $view === "") echo esc_attr("events__nav__link--active") ?>" 
                 href="<?php echo add_query_arg(array('view' => 'future', 'country' => $country, 'tag' => $tag), get_site_url('', 'events')) ?>"
                 >
-                    <?php echo __('Upcoming Events', "community-portal"); ?>
+                    <?php _e('Upcoming Events', 'community-portal'); ?>
                 </a>
             </li>
             <?php 
@@ -105,7 +105,7 @@
                 class="events__nav__link <?php if ($view === 'attending') echo esc_attr("events__nav__link--active") ?>" 
                 href="<?php echo add_query_arg(array('view' => 'attending', 'country' => $country, 'tag' => $tag), get_site_url('', 'events'), get_site_url('','events')) ?>"
                 >
-                    <?php echo __('Events I\'m attending', "community-portal") ?>
+                    <?php _e('Events I\'m attending', 'community-portal') ?>
                 </a>
             </li>
             <li class="events__nav__item">
@@ -113,7 +113,7 @@
                 class="events__nav__link <?php if ($view === 'organized') echo esc_attr("events__nav__link--active") ?>" 
                 href="<?php echo add_query_arg(array('view' => 'organized', 'country' => $country, 'tag' => $tag), get_site_url('', 'events'), get_site_url('','events')) ?>"
                 >
-                    <?php echo __('My Events', "community-portal"); ?>
+                    <?php _e('My Events', 'community-portal'); ?>
                 </a>
             </li>
             <?php endif; ?>
@@ -122,17 +122,17 @@
                 class="events__nav__link <?php if ($view === 'past') echo esc_attr("events__nav__link--active") ?>" 
                 href="<?php echo add_query_arg(array('view' => 'past', 'country' => $country, 'tag' => $tag), get_site_url('', 'events'), get_site_url('','events'))?>"
                 >
-                    <?php print __('Past events', "community-portal"); ?>
+                    <?php _e('Past events', 'community-portal'); ?>
                 </a>
             </li>
         </ul>
         <form class="events__nav--mobile" action="">
-            <label class="events__nav__label--mobile" for="eventsView"><?php echo __('Showing:', 'community-portal') ?></label>
+            <label class="events__nav__label--mobile" for="eventsView"><?php _e('Showing:', 'community-portal') ?></label>
             <select class="events__nav__options--mobile" name="eventsView" id="eventsView">
-                <option <?php if ($view === 'future' || $view === '') echo esc_attr('selected') ?> value="future"><?php echo __('Upcoming Events', 'community-portal') ?></option>
-                <?php if($logged_in): ?><option <?php if ($view === 'attending') echo esc_attr('selected') ?> value="attending"><?php echo __('Events I\'m Attending', 'community-portal') ?></option><?php endif; ?>
-                <?php if($logged_in): ?><option <?php if ($view === 'organized') echo esc_attr('selected') ?> value="organized"><?php print __('Events I\'ve Organized', 'community-portal') ?></option><?php endif; ?>
-                <option <?php if ($view === 'past') echo esc_attr('selected') ?> value="past"><?php echo __('Past Events', 'community-portal') ?></option>
+                <option <?php if ($view === 'future' || $view === '') echo esc_attr('selected') ?> value="future"><?php _e('Upcoming Events', 'community-portal') ?></option>
+                <?php if($logged_in): ?><option <?php if ($view === 'attending') echo esc_attr('selected') ?> value="attending"><?php _e('Events I\'m Attending', 'community-portal') ?></option><?php endif; ?>
+                <?php if($logged_in): ?><option <?php if ($view === 'organized') echo esc_attr('selected') ?> value="organized"><?php _e('Events I\'ve Organized', 'community-portal') ?></option><?php endif; ?>
+                <option <?php if ($view === 'past') echo esc_attr('selected') ?> value="past"><?php _e('Past Events', 'community-portal') ?></option>
             </select>
             <svg class="events__nav__icon" width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M1.5 3.5L7 9L12.5 3.5" fill="white"/>
@@ -144,7 +144,7 @@
     <?php if(count($events)): ?>
     <?php if(isset($original_search)): ?>
         <div class="col-sm-12 events__search-terms">
-            <p><?php echo __('Results for "'.$original_search.'"', 'community-portal')?></p>
+            <p><?php _e('Results for ', 'community-portal').$original_search; ?></p>
         </div>
     <?php endif; ?>
     <div class="row events__cards">
@@ -212,7 +212,7 @@
     </div>
     <?php else: ?>
         <div class="events__zero-state col-sm-12">
-            <p><?php echo ($original_search ? __('No results found. Please try another search term.', "community-portal") : __('There are currently no events.', "community-portal")) ?></p>
+            <p><?php echo ($original_search ? __('No results found. Please try another search term.', 'community-portal') : __('There are currently no events.', 'community-portal')) ?></p>
         </div>
     <?php endif; ?>
     </div>
