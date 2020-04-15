@@ -75,7 +75,10 @@ div.time-picker ul li {
         background-image: url("./images/chevron-down.svg");
         background-repeat: no-repeat;
         background-position: calc(100% - 12px) center;
-        width: 100%;
+		width: 100%;
+		&.event-creator__input--error {
+			border: 1px solid $error;
+		}
     }
 
     &__chevron {
@@ -88,21 +91,20 @@ div.time-picker ul li {
         background-color: $color-gray-20 !important;
         line-height: remCalc(20);
 
-        &.event-creator__error {
+        &.event-creator__input--error {
             border: 1px solid $error;
-		}
-		
-		&.event-creator__error ~ .event-creator__error-field {
-			display: block;
 		}
 
         &.event-creator__textarea {
             height: 215px;
 
-            &.event-creator__error {
+            &.event-creator__input--error {
                 border: 1px solid $error;
             }
-        }
+		}
+		&--error {
+			border: 1px solid $error;
+		}
     }
 
     &__textarea {
@@ -318,10 +320,13 @@ div.time-picker ul li {
 			flex-wrap: nowrap;
 		}
 		
-		div:nth-child(n + 2) {
-			margin-top: 24px;
+		div {
+			margin-bottom: 24px;
+			&:last-child {
+				margin-bottom: 0;
+			}
 			@include tablet-and-up {
-				margin-top: auto;
+				margin-bottom: 0;
 			}
 		}
 
@@ -330,11 +335,16 @@ div.time-picker ul li {
             width: 100%;
         }
 
-        div:nth-child(n + 2) {
-            @include tablet-and-up {
-                margin-left: 32px;
-            }
-        }
+		.thin, 
+		.wide,
+		.wide--double,
+		.half {
+			&:nth-child(n + 2) {
+				@include tablet-and-up {
+					margin-left: 32px;
+				}
+			}
+		}
 
         select {
             @extend .select;
@@ -360,11 +370,6 @@ div.time-picker ul li {
 				}
 			}
 		}
-
-        .wide,
-        .wide--double {
-            margin-top: auto;
-        }
 
         .wide {
             position: relative;
@@ -449,15 +454,9 @@ div.time-picker ul li {
             padding: 10px 0 10px 8px;
         }
 
-        .event-creator__error {
-            @extend .error;
-
-            color: $error;
-
-            &-text {
-                color: $error;
-            }
-        }
+        div.form__error-container {
+			margin-left: 0;
+		}
     }
 
     &__hidden {
@@ -499,8 +498,12 @@ div.time-picker ul li {
     }
 
     &__cpg {
-        display: flex;
-    }
+		display: flex;
+	}
+	.cpg .form__error-container {
+		margin-top: 8px;
+		margin-left: 40px;
+	}
 
     &__cpg .event-creator__custom-check {
         align-items: center;

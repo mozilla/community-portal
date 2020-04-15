@@ -15,7 +15,7 @@ endif;
 				<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path d="M23.64 6.36L17.64 0.36C17.16 -0.12 16.44 -0.12 15.96 0.36L0.36 15.96C0.12 16.2 0 16.44 0 16.8V22.8C0 23.52 0.48 24 1.2 24H7.2C7.56 24 7.8 23.88 8.04 23.64L23.64 8.04C24.12 7.56 24.12 6.84 23.64 6.36ZM6.72 21.6H2.4V17.28L16.8 2.88L21.12 7.2L6.72 21.6Z" fill="#0060DF"/>
 				</svg>
-				<span class="edit-text"><?php echo __('Edit location details', 'community-portal') ?></span>
+				<span class="edit-text"><?php _e('Edit location details', 'community-portal') ?></span>
 			</a>
 		</button>
 	</div>
@@ -30,11 +30,14 @@ endif;
 		?>
 		<div class="event-creator__three-up">
 			<div class="wide <?php echo ($event) ? esc_attr("wide--md-third") : null ?>">
-				<label class="event-creator__label" for="location-type"><?php echo __('Is this event online or on location? *', 'community-portal') ?></label>
+				<label class="event-creator__label" for="location-type"><?php _e('Is this event online or on location? *', 'community-portal') ?></label>
 				<select class="event-creator__dropdown" name="location-type" id="location-type" <?php echo ($event) ? esc_attr('disabled') : null ?> required>
-					<option value="online" <?php if ($location_type === 'online'): echo esc_attr('selected'); endif; ?> default ><?php echo __('Online', "community-portal") ?></option>
-					<option value="address" <?php if ($location_type === 'address'): echo 'selected'; endif; ?>><?php echo __('Physical Location', "community-portal") ?></option>
+					<option value="online" <?php if ($location_type === 'online'): echo esc_attr('selected'); endif; ?> default ><?php _e('Online', 'community-portal') ?></option>
+					<option value="address" <?php if ($location_type === 'address'): echo 'selected'; endif; ?>><?php _e('Physical Location', 'community-portal') ?></option>
 				</select>
+				<div class="form__error-container">
+					<div class="form__error"><?php _e('This field is required', 'community-portal'); ?></div>
+				</div>
 				<input id="location-type-placeholder" type="hidden" name="location-type" value=<?php echo (isset($location_type) && strlen($location_type) >0 ? esc_attr($location_type) : null) ?>>
 			</div>
 			<div class="wide--double">
@@ -44,12 +47,18 @@ endif;
 				</label>
 				<input id='location-id' name='location_id' type='hidden' value='<?php echo esc_attr($EM_Location->location_id); ?>' size='15'  />
 				<input class="event-creator__input" id="location-name" type="type" name="location_name" required value="<?php echo esc_attr($EM_Location->location_name, ENT_QUOTES); ?>" required />	
+				<div class="form__error-container">
+					<div class="form__error"><?php _e('This field is required', 'community-portal'); ?></div>
+				</div>
 			</div>
 		</div>
 		<div class="event-creator__three-up <?php if ($location_type === 'online' || !$event_id): echo esc_attr('event-creator__hidden') ; endif; ?>">
 			<div class="em-location-data-address wide--full">
-				<label class="event-creator__label" for="location-address"><?php print __( 'Address *', 'commuity-portal')?></label>
+				<label class="event-creator__label" for="location-address"><?php _e( 'Address *', 'commuity-portal')?></label>
 				<input class="event-creator__input" id="location-address" type="text" name="location_address" required value="<?php echo $EM_Location->location_address ? esc_attr($EM_Location->location_address) : "Online" ; ?>" required/>
+				<div class="form__error-container">
+					<div class="form__error"><?php _e('This field is required', 'community-portal'); ?></div>
+				</div>
 			</div>
 		</div>
 		<div class="event-creator__three-up">
@@ -60,10 +69,10 @@ endif;
 				</label>
 				<select class="event-creator__dropdown" id="location-country" name="location_country" <?php if ($event) : echo esc_attr("disabled"); endif; ?> required>
 					<option value="0" <?php echo ( $EM_Location->location_country == '' && $EM_Location->location_id == '') ? 'selected="selected"':''; ?>><?php _e('Select','commuity-portal'); ?></option>
-					<optgroup label="<?php echo __('Online', 'community-portal') ?>">
+					<optgroup label="<?php _e('Online', 'community-portal') ?>">
 						<option value="OE" <?php echo ( $EM_Location->location_country == 'OE') ? 'selected="selected"':''; ?>><?php _e('Online Event *','commuity-portal'); ?></option>
 					</optgroup>
-					<optgroup label="<?php echo __('On Location', 'community-portal') ?>">
+					<optgroup label="<?php _e('On Location', 'community-portal') ?>">
 						<?php foreach(em_get_countries() as $country_key => $country_name): 
 							if ($country_key === 'OE'):
 								continue;
@@ -73,13 +82,19 @@ endif;
 						<?php endforeach; ?>
 					</optgroup>
 				</select>
+				<div class="form__error-container">
+					<div class="form__error"><?php _e('This field is required', 'community-portal'); ?></div>
+				</div>
 			</div>
 			<div class="wide--double">
-				<label class="event-creator__label event-creator__label--online" for="location-town">
-					<span class="in-person"><?php print __( 'City *', 'commuity-portal')?></span>
-					<span class="online"><?php print __( 'URL *', 'commuity-portal')?></span>
+				<label class="event-creator__label event-creator__label--in-person" for="location-town">
+					<span class="in-person"><?php _e( 'City *', 'commuity-portal')?></span>
+					<span class="online"><?php _e( 'URL *', 'commuity-portal')?></span>
 				</label>
 				<input class="event-creator__input" id="location-town" type="text" name="location_town" data-string="<?php _e('Online Event', 'community-portal') ?>" value="<?php echo esc_attr($EM_Location->location_town); ?>"  maxlength="180" required/>
+				<div class="form__error-container">
+					<div class="form__error"><?php _e('This field is required', 'community-portal'); ?></div>
+				</div>
 			</div>
 		</div>
 	</div>

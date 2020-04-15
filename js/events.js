@@ -132,45 +132,24 @@ jQuery(function() {
             });
         }
 	}
-	
-	function handleFocusClear($this) {
-		const input_id = $this.attr("id");
-		const $label = jQuery(`label[for=${input_id}]`);
-		$this.removeClass("event-creator__error");
-		$label.removeClass("event-creator__error-text");
-		const $parent = $label.parent();
-		toggleError($parent);
-	}
 
     function clearErrors(input) {
         input.on("focus", function() {
 			const $this = jQuery(this);
-			if ($this.hasClass('event-creator__error')){
-				handleFocusClear($this);
-			}
-		});
-		input.on("blur", function() {
-			const $this = jQuery(this);
-			if ($this.hasClass('event-creator__error')){
-				handleFocusClear($this);
+			if ($this.hasClass('event-creator__input--error')){
+				toggleError($this, false);
 			}
 		});
     }
 
-    function toggleError(parent, errMsg = 'This field is required') {
-        const $errorPresent = parent.find("> .event-creator__error-field");
-        if (!$errorPresent.length > 0) {
-            
-            const $errorText = jQuery(
-                '<p class="event-creator__error-field"> '+ errMsg +' </p>'
-            );
-            parent.append($errorText);
-            return;
-        }
-        $errorPresent.each(function() {
-            $this = jQuery(this);
-            $this.remove();
-        });
+    function toggleError(input, error = true) {
+		if (error) {
+			input.addClass('event-creator__input--error');
+			input.next('.form__error-container').addClass('form__error-container--visible');
+			return;
+		}
+		input.removeClass('event-creator__input--error');
+		input.next('.form__error-container').removeClass('form__error-container--visible');
     }
 
     function checkInputs(inputs) {
@@ -188,11 +167,7 @@ jQuery(function() {
                 var pattern = new RegExp( /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi,'i');
             
                 if(!pattern.test($this.val())) {
-                    const $label = jQuery(`label[for=${input_id}]`);
-                    const $parent = $label.parent();
-
-                    toggleError($parent, 'Invalid URL provided');
-                    $this.addClass("event-creator__error");
+                    toggleError($this);
                     $allClear = false;
                 }
             } 
@@ -207,11 +182,7 @@ jQuery(function() {
                     $this.focus();
                     $first = false;
                 }
-
-                const $label = jQuery(`label[for=${input_id}]`);
-                const $parent = $label.parent();
-                toggleError($parent);
-                $this.addClass("event-creator__error");
+                toggleError($this);
                 $allClear = false;
             }
 
@@ -219,8 +190,8 @@ jQuery(function() {
 
         var $communityGuideLines = jQuery('#cpg');
         if($communityGuideLines.length > 0 && !$communityGuideLines.is(':checked')) {
-            var $parent = $communityGuideLines.parent();
-            toggleError($parent, 'Please agree to the community guidelines');
+			$communityGuideLines.addClass('event-creator__input--error');
+			$communityGuideLines.siblings('.form__error-container').eq('0').addClass('form__error-container--visible');
             $allClear = false;
         }
 
@@ -230,9 +201,9 @@ jQuery(function() {
     function validateCpg(allClear) {
         const $cpgCheck = jQuery("#cpg");
         if ($cpgCheck.length && !$cpgCheck.prop("checked")) {
-            const $label = jQuery("label[for=cpg]");
             $cpgCheck.one("change", function() {
-                $label.removeClass("event-creator__error-text");
+				$cpgCheck.removeClass("event-creator__input--error");
+				$cpgCheck.siblings('.form__error-container').eq('0').removeClass('form__error-container--visible');
             });
             allClear = false;
         }
@@ -294,11 +265,13 @@ jQuery(function() {
 
     function handleAutocomplete(container, location, country, typeValue) {
         jQuery("#location-name").on("autocompleteselect", function(e) {
-            const $errors = container.find(".event-creator__error-field");
-            $errors.each(function() {
-                const $this = jQuery(this);
-                toggleError($this.parent());
-            });
+			const $errors = container.find(".event-creator__input--error");
+			if ($errors.length > 0) {
+				$errors.each(function() {
+					const $this = jQuery(this);
+					toggleError($this);
+				});	
+			}
             clearPrePopErrors(container, "event-creator__error");
             clearPrePopErrors(container, "event-creator__error-text");
             toggleLocationContainer(container, location, country, typeValue);
