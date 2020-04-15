@@ -788,7 +788,7 @@
                 <div class="members__select-container">
                     <label class="members__label"><?php _e('Location', 'community-portal'); ?></label>
                     <select class="members__location-select">
-                        <option value=""><?php _e('Select', "community-portal"); ?></option>
+                        <option value=""><?php _e('Select', 'community-portal'); ?></option>
                         <?php foreach($used_country_list AS $code   =>  $country): ?>
                         <option value="<?php print $code; ?>"<?php if(isset($_GET['location']) && strlen($_GET['location']) > 0 && $_GET['location'] == $code): ?> selected<?php endif; ?>><?php print $country; ?></option>
                         <?php endforeach; ?>
