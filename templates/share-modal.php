@@ -13,7 +13,9 @@
         <ul class="share-link-container">
             <li class="share-link">
                 <a href="#" id="copy-share-link" class="btn btn--light btn--share share-link__copy">
-                    <?php echo __('Copy share link', "community-portal") ?>
+                    <span class="share-link__initial"><?php _e('Copy share link', 'community-portal') ?></span>
+                    <span class="share-link__completed"><?php _e('Link copied', 'community-portal') ?></span>
+                    
                 </a>
             </li>
             <li class="share-link">
