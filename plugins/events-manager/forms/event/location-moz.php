@@ -75,8 +75,11 @@ endif;
 				</select>
 			</div>
 			<div class="wide--double">
-				<label class="event-creator__label" for="location-town"><?php print __( 'City *', 'commuity-portal')?></label>
-				<input class="event-creator__input" id="location-town" type="text" name="location_town" value="<?php echo esc_attr($EM_Location->location_town); ?>"  maxlength="180" required/>
+				<label class="event-creator__label event-creator__label--online" for="location-town">
+					<span class="in-person"><?php print __( 'City *', 'commuity-portal')?></span>
+					<span class="online"><?php print __( 'URL *', 'commuity-portal')?></span>
+				</label>
+				<input class="event-creator__input" id="location-town" type="text" name="location_town" data-string="<?php _e('Online Event', 'community-portal') ?>" value="<?php echo esc_attr($EM_Location->location_town); ?>"  maxlength="180" required/>
 			</div>
 		</div>
 	</div>

@@ -1,5 +1,15 @@
 jQuery(function() {
 
+	function toggleStrings($label, className, online) {
+		if (online) {
+			$label.removeClass(`${className}--in-person`);
+			$label.addClass(`${className}--online`);
+			return;
+		} 
+		$label.addClass(`${className}--in-person`);
+		$label.removeClass(`${className}--online`);
+	}
+
     function getFilter(option) {
         const filter = option.dataset.filter;
         return filter;
@@ -89,27 +99,24 @@ jQuery(function() {
             $this = jQuery(this);
             if ($this.val() === "online") {
                 toggleVisibility($locationAddress, "Online", false);
-				$locationNameLabel.removeClass("event-creator__label--in-person");
-				$locationNameLabel.addClass("event-creator__label--online");
-				$countryLabel.removeClass("event-creator__label--in-person");
-				$countryLabel.addClass("event-creator__label--online");
+				toggleStrings($locationNameLabel, 'event-creator__label', true);
+				toggleStrings($countryLabel, 'event-creator__label', true);
                 return;
             }
 			toggleVisibility($locationAddress, "", true);
-			$locationNameLabel.addClass("event-creator__label--in-person");
-			$locationNameLabel.removeClass("event-creator__label--online");
-			$countryLabel.addClass("event-creator__label--in-person");
-			$countryLabel.removeClass("event-creator__label--online");
+			toggleStrings($locationNameLabel, 'event-creator__label', false);
+			toggleStrings($countryLabel, 'event-creator__label', false);
         });
     }
 
     function handleCityForOnline($country, $city) {
         if ($country.val() === 'OE') {
-            $city.val('Online Event');
-            $city.prev().text("URL *");
+			const onlineString = $city.data('string');
+			$city.val(onlineString);
+			toggleStrings($city.prev(), 'event-creator__label', true);
         } else if ($city.val() === 'Online Event') {
             $city.val('');
-            $city.prev().text("City *");
+			toggleStrings($city.prev(), 'event-creator__label', false);
         }
 
     }
@@ -120,7 +127,7 @@ jQuery(function() {
 
         if ($locationCountry.length > 0) {
             $locationCountry.on('change', function(e) {
-                const $this = jQuery(this);
+				const $this = jQuery(this);
                 handleCityForOnline($this, $locationCity);
             });
         }
