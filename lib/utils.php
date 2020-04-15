@@ -614,6 +614,18 @@ function mozilla_export_users() {
     die();
 }
 
+function mozilla_hide_menu_emails($items, $args) {
+
+    foreach($items AS $index => $item) {
+        if(stripos($item->url, 'mailto:') !== false && !is_user_logged_in()) {
+            unset($items[$index]);
+        }
+
+        $index++;
+    }
+
+    return $items;
+}
 
 
 ?>
