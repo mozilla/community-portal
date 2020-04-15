@@ -1,4 +1,5 @@
 jQuery(function(){
+
     jQuery('.create-group__input, .create-group__textarea, .create-group__select').on('change keyup input', function(e){
         var $this = jQuery(this);
 
@@ -94,11 +95,11 @@ jQuery(function(){
             var $errorMsg = $ele.next('.form__error-container');
 
             if($ele.val() == "" || $ele.val() == "0" || ($ele.is(':checkbox') && $ele.prop("checked") === false)) {
-                error = true;
+				error = true;
                 if($ele.is(':checkbox')) {
-                    var checkboxes = $ele.siblings('.create-group__check');
+					var checkboxes = $ele.siblings('.cpg__label');
                     if(checkboxes.length === 1) {
-                        jQuery(checkboxes[0]).addClass('create-group__check--error');
+                        jQuery(checkboxes[0]).addClass('create-group__checkbox--error');
                     }
                 } else {
                     $ele.addClass("create-group__input--error");
@@ -108,28 +109,33 @@ jQuery(function(){
         });
 
         if(!jQuery('#group-admin-id').val()) {
-            jQuery('#group-admin-id').prev('.form__error-container').addClass('form__error-container--visible');
+			jQuery('#group-admin-id')
+				.prev('.form__error-container')
+				.addClass('form__error-container--visible');
 
-            if(jQuery('#group-admin').length > 0) {
-                var errMsg = jQuery('#group-admin').val().length <= 0 ? 'This field is required' : 'Invalid user';
-    
-                jQuery('#group-admin').addClass('create-group__input--error');
-                jQuery('#group-admin-id').prev('.form__error-container').first('.form__error').text(errMsg);
+            if(jQuery('#group-admin').length > 0) {    
+				jQuery('#group-admin').addClass('create-group__input--error');
+				if (jQuery('#group-admin').val()) {
+					jQuery('#group-admin-id')
+						.prev('.form__error-container')
+						.addClass('form__error-container--secondary');
+				}
                 error = true;
-            } else {
-                error = false;
             }
             
         } else {
-            jQuery('#group-admin-id').prev('.form__error-container').removeClass('form__error-container--visible');
-            jQuery('#group-admin-id').prev('.form__error-container').first('.form__error').text('This field is required');
+			jQuery('#group-admin-id')
+				.prev('.form__error-container')
+				.removeClass('form__error-container--visible')
+				.removeClass('form__error-container--secondary');
             jQuery('#group-admin-id').removeClass('create-group__input--error');
             jQuery('#group-admin').removeClass('create-group__input--error');
-            error = false;
-        }
-
+		}
+		
         if(error || jQuery('.create-group__input--error').length > 0) {
-            jQuery('#create-group-form').find('.create-group__input--error:first').focus();
+			jQuery('#create-group-form')
+				.find('.create-group__input--error:first')
+				.focus();
             return false;
         } else {
             
@@ -161,7 +167,6 @@ jQuery(function(){
                     var memberCount = parseInt(jQuery('.group__member-count').text());
                     
                     memberCount++;
-                    $this.text('Leave Group');
                     jQuery('.group__member-count').text(memberCount);
                     $this.addClass('group__leave-cta');
                     $this.removeClass('group__join-cta');
@@ -200,8 +205,6 @@ jQuery(function(){
                     var memberCount = parseInt(jQuery('.group__member-count').text());
                     
                     memberCount--;
-                    $this.text('Join Group');
-                    
                     jQuery('.group__member-count').text(memberCount);
 
                     $this.addClass('group__join-cta');
@@ -234,12 +237,12 @@ jQuery(function(){
             // Show error
             if (resp !== true) {
                 $this.addClass("create-group__input--error");
-                $errorContainer.addClass("form__error-container--visible");
-                $errorContainer.children(".form__error").text("This group name is already taken");
+				$errorContainer.addClass("form__error-container--visible").addClass("form__error-container--secondary");
+
             } else {
                 $this.removeClass("create-group__input--error");
-                $errorContainer.removeClass("form__error-container--visible");
-                $errorContainer.children(".form__error").text("This field is required");
+				$errorContainer.removeClass("form__error-container--visible").removeClass("form__error-container--secondary");
+				
             }
         });
     });
@@ -283,20 +286,22 @@ jQuery(function(){
 
     });
 
-    jQuery('.groups__show-filter').click(function(e) {
-        e.preventDefault();
+    jQuery('.groups__toggle-filter').click(function(e) {
+		e.preventDefault();
+		const $this = jQuery(this);
         jQuery('.groups__filter-container').slideToggle({
                 start: function() {
                     jQuery('.groups__filter-container').css('display','flex');
-                    jQuery('.groups__filter-container').css('flex-direction','column');
-
-                    if(jQuery('.groups__show-filter').text() == 'Hide Filters') {
-                        jQuery('.groups__show-filter').text('Show Filters');
-                    } else {
-                        jQuery('.groups__show-filter').text('Hide Filters');
-                    }
+					jQuery('.groups__filter-container').css('flex-direction','column');
+					if ($this.hasClass('groups__toggle-filter--show')) {
+						$this.removeClass('groups__toggle-filter--show');
+						$this.addClass('groups__toggle-filter--hide');
+					} else {
+						$this.removeClass('groups__toggle-filter--hide');
+						$this.addClass('groups__toggle-filter--show');
+					}
                 }
-          });
+		});
 
         return false;
     });
@@ -409,7 +414,13 @@ jQuery(function(){
         jQuery('#agree').removeAttr('required');
         jQuery('#create-group-form').submit();
 
-    });
+	});
+	
+	jQuery('#agree').on('change', function() {
+		const $this = jQuery(this);
+		const label = $this.next('.cpg__label');
+		label.removeClass('create-group__checkbox--error');
+	});
 
     jQuery('#group-show-debug-info').click(function(e){
         e.preventDefault();

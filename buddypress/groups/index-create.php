@@ -65,7 +65,10 @@
                                 <label class="create-group__label" for="group-name"><?php print __("What is your group's name? *", "community-portal"); ?></label>
                                 <input type="text" name="group_name" id="group-name" class="create-group__input<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_name']) || (isset($form['group_name']) && empty(trim($form['group_name'])) )): ?> create-group__input--error<?php endif; ?>" value="<?php print isset($form['group_name']) ? $form['group_name'] : ''; ?>" required />
                                 <div class="form__error-container<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_name']) || (isset($form['group_name']) && empty(trim($form['group_name'])) )): ?> form__error-container--visible<?php endif; ?>">
-                                    <div class="form__error"><?php print __("This field is required", "community-portal"); ?></div>
+                                    <p class="form__error">
+										<span class="form__error__required"><?php print __("This field is required", "community-portal"); ?></span>
+										<span class="form__error__secondary"><?php print __("This group name is already taken", "community-portal"); ?></span>
+									</p>
                                 </div>
                             </div>
                             <div class="create-group__input-container create-group__input-container--40">
@@ -235,8 +238,11 @@
                                 <label for="group-admin" class="create-group__label"><?php print __("Username *", "community-portal"); ?></label>
                                 <input type="text" name="group_admin" id="group-admin" class="create-group__input" value="<?php print isset($form['group_admin']) ? $form['group_admin'] : ''; ?>" placeholder="Username" required/>
                                 <div class="form__error-container<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_admin_id']) || (isset($form['group_admin_id']) && empty(trim($form['group_admin_id'])) )): ?> form__error-container--visible<?php endif; ?>">
-                                    <div class="form__error"><?php print __("This field is required", "community-portal"); ?></div>
-                                </div>
+									<p class="form__error"> 
+										<span class="form__error__required"><?php _e("This field is required", "community-portal"); ?></span>
+										<span class="form__error__secondary"><?php _e("Invalid user", "community-portal"); ?></span>
+									</p>
+								</div>
                                 <input type="hidden" name="group_admin_id" id="group-admin-id" value="<?php print isset($form['group_admin_id']) ? $form['group_admin_id'] : ''; ?>" required/>
                             </div>
                         </div>
@@ -261,7 +267,7 @@
 								<?php print __("I agree to respect and adhere to", "community-portal"); ?>
 								<a class="create-group__checkbox-container__link" href="https://www.mozilla.org/en-US/about/governance/policies/participation/"><?php print __("Mozilla’s Community Participation Guidelines *", "community-portal") ?></a>
                                 <div class="form__error-container form__error-container--checkbox">
-                                    <div class="form__error"><?php print __("This field is required", "community-portal"); ?></div>
+                                    <p class="form__error"><?php _e('Please agree to the Community Participation Guidelines', 'community-portal'); ?></p>
                                 </div>
                             </label>
                         </div>

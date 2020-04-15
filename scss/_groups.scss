@@ -306,9 +306,9 @@
         @include tablet-and-up {
             display: none;
         }
-    }
+	}
 
-    &__show-filter {
+    &__toggle-filter {
         border: 1px solid $color-blue-50;
         border-radius: 28px;
         box-sizing: border-box;
@@ -316,7 +316,17 @@
         display: inline-block;
         min-width: 272px;
         padding: 10px 15px;
-        text-decoration: none;
+		text-decoration: none;
+		.filters__show, 
+		.filters__hide {
+			display: none;
+		}
+		&--show .filters__show {
+			display: block;
+		}
+		&--hide .filters__hide {
+			display: block;
+		}
     }
 
     

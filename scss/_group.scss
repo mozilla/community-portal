@@ -473,15 +473,33 @@
 
         &:focus,
         &:hover {
-            background-color: $color-white;
-            color: $color-blue-50;
+			background-color: $color-white;
+			.leave, 
+			.join {
+				color: $color-blue-50;
+			}
         }
 
 
         @include tablet-and-up {
             margin-bottom: 0;
         }
-    }
+	}
+
+	.join,
+	.leave {
+		line-height: 1;
+		color: #fff;
+		display: none;
+	}
+
+	&__join-cta .join {
+		display: block;
+	}
+
+	&__leave-cta .leave {
+		display: block;
+	}
 
 
 

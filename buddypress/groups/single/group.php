@@ -950,8 +950,12 @@
 									</select>  
 								</div>
 							</div>
-							<div class="members__show-filters-container">
-								<a href="#" class="members__show-filter"><?php print __("Show Filters", "community-portal"); ?></a>
+							<div class="groups__show-filters-container">
+								<a href="#" class="groups__toggle-filter groups__toggle-filter--show">
+									<span class="filters__show"><?php _e("Show Filters", "community-portal"); ?></span>
+									<span class="filters__hide"><?php _e("Hide Filters", "community-portal"); ?></span>
+									
+								</a>
 							</div>
 						
                         <div class="group__members">
@@ -1147,10 +1151,16 @@
                                 <div class="group__card-cta-container<?php if($is_admin): ?> group__card-cta-container--end<?php endif; ?>">
                                 <?php if(!$is_admin): ?>
                                     <?php if($is_member): ?>
-                                        <a href="#" class="group__leave-cta" data-group="<?php print $group->id; ?>"><?php print __('Leave Group', "community-portal"); ?></a>
+                                        <a href="#" class="group__leave-cta" data-group="<?php print $group->id; ?>">
+											<span class="join"><?php _e('Join Group', 'community-portal'); ?></span>
+											<span class="leave"><?php _e('Leave Group', 'community-portal'); ?></span>
+										</a>
                                     <?php else: ?>
                                         <?php if($invite_status === 'members' || $invite_status === ""): ?>
-                                            <a href="#" class="group__join-cta" data-group="<?php print $group->id; ?>"><?php print __('Join Group', "community-portal"); ?></a>
+                                            <a href="#" class="group__join-cta" data-group="<?php print $group->id; ?>">
+											<span class="join"><?php _e('Join Group', 'community-portal'); ?></span>
+											<span class="leave"><?php _e('Leave Group', 'community-portal'); ?></span>
+											</a>
                                         <?php endif; ?>
                                     <?php endif; ?>
                                 <?php endif; ?>
