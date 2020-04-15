@@ -247,7 +247,7 @@
                             <path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                         <?php if($location->location_country === 'OE'): ?>
-                          <?php _e("Online Event", 'community-portal'); ?>
+                          <?php _e('Online Event', 'community-portal'); ?>
                         <?php elseif($location->location_town && $location->location_country): ?>
                             <?php print "{$location->location_town}, {$event_countries[$location->location_country]}"; ?>
                         <?php elseif($location->location_town && !$location->location_country): ?>
