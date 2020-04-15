@@ -1344,7 +1344,7 @@
                                     <?php endforeach; ?>
                                         <tr>
                                             <td colspan="4" class="group__table-cell group__table-cell--topic">
-                                                <a href="<?php print $discourse_group['discourse_category_url']; ?>" class="group__view-updates-link">
+                                                <a href="<?php print "{$options['discourse_url']}/c/community-portal/{$discourse_group['discourse_category_id']}"; ?>" class="group__view-updates-link">
                                                     <?php print __('View more topics', "community-portal"); ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M2.33301 8.66732L5.99967 5.00065L2.33301 1.33398" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                                     </svg>
