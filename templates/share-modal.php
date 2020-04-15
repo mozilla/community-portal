@@ -9,7 +9,7 @@
         </svg>
     </button>
     <div class="share-lightbox">
-        <p class="title--secondary"><?php echo __('Share', 'community-portal') ?></p> 
+        <p class="title--secondary"><?php _e('Share', 'community-portal') ?></p> 
         <ul class="share-link-container">
             <li class="share-link">
                 <a href="#" id="copy-share-link" class="btn btn--light btn--share share-link__copy">
@@ -33,7 +33,7 @@
             </li>
             <li class="share-link">
                 <a href="<?php echo esc_attr('https://telegram.me/share/url?url='.$url) ?>" class="btn btn--light btn--share share-link__telegram" >
-                    <?php echo __('Share to Telegram', 'community-portal') ?>
+                    <?php _e('Share to Telegram', 'community-portal') ?>
                 </a>
             </li>
         </ul>
