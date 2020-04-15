@@ -36,7 +36,7 @@ endif;
 					<option value="address" <?php if ($location_type === 'address'): echo 'selected'; endif; ?>><?php _e('Physical Location', 'community-portal') ?></option>
 				</select>
 				<div class="form__error-container">
-					<div class="form__error"><?php _e('This field is required', 'community-portal'); ?></div>
+					<p class="form__error"><?php _e('This field is required', 'community-portal'); ?></p>
 				</div>
 				<input id="location-type-placeholder" type="hidden" name="location-type" value=<?php echo (isset($location_type) && strlen($location_type) >0 ? esc_attr($location_type) : null) ?>>
 			</div>
@@ -48,7 +48,10 @@ endif;
 				<input id='location-id' name='location_id' type='hidden' value='<?php echo esc_attr($EM_Location->location_id); ?>' size='15'  />
 				<input class="event-creator__input" id="location-name" type="type" name="location_name" required value="<?php echo esc_attr($EM_Location->location_name, ENT_QUOTES); ?>" required />	
 				<div class="form__error-container">
-					<div class="form__error"><?php _e('This field is required', 'community-portal'); ?></div>
+					<p class="form__error">
+						<span class="in-person"><?php _e('This field is required', 'community-portal'); ?></span>
+						<span class="online"><?php _e('This field requires a valid url', 'community-portal'); ?></span>
+					</p>
 				</div>
 			</div>
 		</div>
@@ -57,7 +60,7 @@ endif;
 				<label class="event-creator__label" for="location-address"><?php _e( 'Address *', 'commuity-portal')?></label>
 				<input class="event-creator__input" id="location-address" type="text" name="location_address" required value="<?php echo $EM_Location->location_address ? esc_attr($EM_Location->location_address) : "Online" ; ?>" required/>
 				<div class="form__error-container">
-					<div class="form__error"><?php _e('This field is required', 'community-portal'); ?></div>
+					<p class="form__error"><?php _e('This field is required', 'community-portal'); ?></p>
 				</div>
 			</div>
 		</div>
@@ -83,7 +86,7 @@ endif;
 					</optgroup>
 				</select>
 				<div class="form__error-container">
-					<div class="form__error"><?php _e('This field is required', 'community-portal'); ?></div>
+					<p class="form__error"><?php _e('This field is required', 'community-portal'); ?></p>
 				</div>
 			</div>
 			<div class="wide--double">
@@ -93,7 +96,9 @@ endif;
 				</label>
 				<input class="event-creator__input" id="location-town" type="text" name="location_town" data-string="<?php _e('Online Event', 'community-portal') ?>" value="<?php echo esc_attr($EM_Location->location_town); ?>"  maxlength="180" required/>
 				<div class="form__error-container">
-					<div class="form__error"><?php _e('This field is required', 'community-portal'); ?></div>
+					<p class="form__error">
+						<?php _e('This field is required', 'community-portal'); ?>
+					</p>
 				</div>
 			</div>
 		</div>

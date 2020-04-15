@@ -14,7 +14,7 @@ $admin_recurring = is_admin() && $EM_Event->is_recurring();
             <label for="start-date" class="em-event-text event-creator__label"><?php _e( 'Start date *', 'commuity-portal'); ?></label>				
             <input id="start-date" class="em-date-start em-date-input-loc event-creator__input" type="text" autocomplete="off" <?php if ( ! is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ):  echo 'required'; endif ?> />
             <div class="form__error-container">
-				<div class="form__error"><?php _e('This field is required', 'community-portal'); ?></div>
+				<p class="form__error"><?php _e('This field is required', 'community-portal'); ?></p>
 			</div>
             <input class="em-date-input" type="hidden" name="event_start_date" value="<?php echo esc_attr($EM_Event->start()->getDate()); ?>" />
         </div>
@@ -22,7 +22,7 @@ $admin_recurring = is_admin() && $EM_Event->is_recurring();
             <label for="end-date" class="em-event-text event-creator__label"><?php _e('End Date *','commuity-portal'); ?></label>
             <input id="end-date" class="em-date-end em-date-input-loc event-creator__input" autocomplete="off" type="text" <?php if ( ! is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ): echo _('required'); endif ?> />
 			<div class="form__error-container">
-				<div class="form__error"><?php _e('This field is required', 'community-portal'); ?></div>
+				<p class="form__error"><?php _e('This field is required', 'community-portal'); ?></p>
 			</div>
 			<input class="em-date-input" type="hidden" name="event_end_date" value="<?php echo $EM_Event->end()->getDate(); ?>" />
         </div>
@@ -32,14 +32,14 @@ $admin_recurring = is_admin() && $EM_Event->is_recurring();
             <label for="start-time" class="em-event-text event-creator__label"><?php _e('Start time *','commuity-portal'); ?></label>
 			<input id="start-time" class="em-time-input em-time-start event-creator__dropdown" type="text" size="8" maxlength="8" name="event_start_time" value="<?php echo $EM_Event->start()->i18n($hours_format); ?>" <?php if ( ! is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ): echo esc_attr('required'); endif ?> />
 			<div class="form__error-container">
-				<div class="form__error"><?php _e('This field is required', 'community-portal'); ?></div>
+				<p class="form__error"><?php _e('This field is required', 'community-portal'); ?></p>
 			</div>
         </div>
         <div class="wide wide--md-third">
             <label for="end-time" class="em-event-text event-creator__label"><?php _e('End time *','commuity-portal'); ?></label>
 			<input id="end-time" class="em-time-input em-time-end event-creator__dropdown" type="text" size="8" maxlength="8" name="event_end_time" value="<?php echo $EM_Event->end()->i18n($hours_format); ?>" <?php if ( ! is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ): echo esc_attr('required'); endif ?> />
 			<div class="form__error-container">
-				<div class="form__error"><?php _e('This field is required', 'community-portal'); ?></div>
+				<p class="form__error"><?php _e('This field is required', 'community-portal'); ?></p>
 			</div>
         </div>
         <?php if( get_option('dbem_timezone_enabled') ): ?>
@@ -49,7 +49,7 @@ $admin_recurring = is_admin() && $EM_Event->is_recurring();
             <?php echo wp_timezone_choice( $EM_Event->get_timezone()->getName(), get_user_locale() ); ?>
 			</select>
 			<div class="form__error-container">
-				<div class="form__error"><?php _e('This field is required', 'community-portal'); ?></div>
+				<p class="form__error"><?php _e('This field is required', 'community-portal'); ?></p>
 			</div>
         </div>
         <?php endif; ?>

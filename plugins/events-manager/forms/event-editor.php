@@ -61,7 +61,7 @@ if(!empty($_REQUEST['success'])){
 					<label class="event-form-name event-creator__label" for="event-name"><?php _e( 'Event Name *', 'commuity-portal'); ?></label>
 					<input class="event-creator__input event-creator__input" type="text" name="event_name" id="event-name" required value="<?php echo esc_attr($EM_Event->event_name,ENT_QUOTES); ?>" />
 					<div class="form__error-container">
-						<div class="form__error"><?php _e('This field is required', 'community-portal'); ?></div>
+						<p class="form__error"><?php _e('This field is required', 'community-portal'); ?></p>
 					</div>
 				</div>
 				<div class="wide wide--md-third">
@@ -97,7 +97,7 @@ if(!empty($_REQUEST['success'])){
 						<label class="event-form-details event-creator__label" for="event-description"><?php _e('Event description *', 'commuity-portal'); ?></label>
 						<textarea name="content" id="event-description" placeholder="<?php _e('Add in the details of your event’s agenda here. If this is a multi-day event, you can add in the details of each day’s schedule and start/end time.', 'community-portal') ?>" rows="10" id="event-description" class="event-creator__input event-creator__textarea" style="width:100%" required maxlength="3000"><?php print $EM_Event->post_content ?></textarea>
 						<div class="form__error-container">
-							<div class="form__error"><?php _e('This field is required', 'community-portal'); ?></div>
+							<p class="form__error"><?php _e('This field is required', 'community-portal'); ?></p>
 						</div>
 					</div>
 					<div class="half">
@@ -185,7 +185,7 @@ if(!empty($_REQUEST['success'])){
                 <?php _e('I agree to respect and adhere to Mozilla’s Community Participation Guidelines *', 'community-portal') ?>
 			</label>
 			<div class="form__error-container">
-				<div class="form__error"><?php _e('Please agree to the community guidelines', 'community-portal'); ?></div>
+				<p class="form__error"><?php _e('Please agree to the community guidelines', 'community-portal'); ?></p>
 			</div>
         </div>
     </div>

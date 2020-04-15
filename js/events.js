@@ -134,11 +134,11 @@ jQuery(function() {
 	}
 
     function clearErrors(input) {
-        input.on("focus", function() {
+        input.on("focus blur", function() {
 			const $this = jQuery(this);
 			if ($this.hasClass('event-creator__input--error')){
 				toggleError($this, false);
-			}
+			} 
 		});
     }
 
@@ -163,16 +163,18 @@ jQuery(function() {
             $allClear = validateCpg($allClear);
             const input_id = $this.attr("id");
 
-            if(input_id == 'location-name' && jQuery('#location-type').val() == 'online') {
-                var pattern = new RegExp( /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi,'i');
-            
-                if(!pattern.test($this.val())) {
-                    toggleError($this);
-                    $allClear = false;
-                }
-            } 
-
-            if (!$this.val() || $this.val() === "00:00" || $this.val() === "0") {
+            if(input_id == 'location-name') {
+				if (jQuery('#location-type').val() === 'online') {
+					var pattern = new RegExp( /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi,'i');
+					if(!pattern.test($this.val())) {
+						toggleStrings($this.next('.form__error-container'), 'form__error', true);
+						$this.addClass('event-creator__input--error');
+						$allClear = false;
+					} 
+				} else if (!$this.val()) {
+					toggleStrings($this.next('.form__error-container'), 'form__error', false);
+				}
+			} else if (!$this.val() || $this.val() === "00:00" || $this.val() === "0") {
                 if ($first) {
                     jQuery("html, body").animate({
                             scrollTop: $this.parent().offset().top
@@ -184,8 +186,9 @@ jQuery(function() {
                 }
                 toggleError($this);
                 $allClear = false;
-            }
-
+            } else {
+				toggleError($this, false);
+			}
         });
 
         var $communityGuideLines = jQuery('#cpg');
@@ -340,9 +343,19 @@ jQuery(function() {
         e.preventDefault();
         jQuery('.events-single__debug-info').toggleClass('events-single__debug-info--hidden');
         return false;
-
-
-    });
+	});
+	
+	jQuery("#location-name").on('focus', function() {
+		const $this = jQuery(this);
+		const $errorContainer = $this.next('.form__error-container');
+		if ($errorContainer.hasClass("form__error--online")) {
+			$errorContainer.removeClass("form__error--online");
+			return
+		} 
+		if ($errorContainer.hasClass("form__error--in-person")) {
+			$errorContainer.removeClass('form__error--in-person');
+		}
+	});
 
     init();
 });

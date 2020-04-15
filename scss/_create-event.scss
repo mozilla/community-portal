@@ -456,6 +456,7 @@ div.time-picker ul li {
 
         div.form__error-container {
 			margin-left: 0;
+			margin-bottom: 0;
 		}
     }
 
@@ -584,7 +585,27 @@ div.time-picker ul li {
     &__link:visited {
 		color: $color-blue-50;
 		text-decoration: none;
-    }
+	}
+	.form__error {
+		margin-bottom: 0;
+		.online,
+		.in-person {
+			display: none;
+		}
+		&--online,
+		&--in-person {
+			display: block; 
+			.form__error {
+				display: block;
+			}
+		}
+		&--online .online {
+			display: block;
+		}
+		&--in-person .in-person {
+			display: block;
+		}
+	}
 }
 
 #event-form p.event-creator__error__label {
