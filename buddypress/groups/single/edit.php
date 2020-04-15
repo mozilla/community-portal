@@ -213,7 +213,7 @@
                 </div>
                 <div class="create-group__input-row">
                     <div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--50">
-						<label class="create-group__label" for="group-telegram"><?php _e('Telegram', "community-portal"); ?></label>
+						<label class="create-group__label" for="group-telegram"><?php _e('Telegram', 'community-portal'); ?></label>
 						<input type="text" placeholder="https://" name="group_telegram" id="group-telegram" class="create-group__input create-group__input--inline"  value="<?php print isset($form['group_telegram']) ? $form['group_telegram'] : ''; ?>"/>
                     </div>
 					<div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--50">
