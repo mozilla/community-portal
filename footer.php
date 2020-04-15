@@ -26,14 +26,14 @@
                         print  $gdpr_post[0]->post_content;
                     ?>
                     <div class="gdpr__cta-container">
-                        <a href="#" class="gdpr__cta"><?php print __("Accept", 'community-portal'); ?></a>
+                        <a href="#" class="gdpr__cta"><?php _e('Accept', 'community-portal'); ?></a>
                     </div>
                 </div>
             </div>
             <?php endif; ?>
             <div class="footer__container">
                 <div class="footer__logo-container">
-                    <img src="<?php print get_stylesheet_directory_uri(); ?>/images/footer-logo.png"  class="footer__logo" alt="><?php print __('Mozilla Logo', 'community-portal'); ?>" />
+                    <img src="<?php print get_stylesheet_directory_uri(); ?>/images/footer-logo.png"  class="footer__logo" alt="><?php _e('Mozilla Logo', 'community-portal'); ?>" />
                 </div>
                 <div class="footer__menu-container">
                     <?php 
@@ -51,7 +51,7 @@
                     ?>
 
                     <div class="footer__mozilla-container">
-                        <span class="footer__menu-title"><?php print __('Mozilla', 'community-portal'); ?></span>
+                        <span class="footer__menu-title"><?php _e('Mozilla', 'community-portal'); ?></span>
                     <?php 
                         
                         wp_nav_menu(array(
@@ -63,8 +63,8 @@
                 </div>
                 <div class="footer__menu-bottom-container">
                     <p class="footer__copy">
-                        <?php print __("Portions of this content are copyright 1998-2019 by individual mozilla.org contributors. Content available under a ", 'community-portal'); ?>
-                        <a href="#" class="footer__link"><?php print __(' Creative Commons license.', 'community-portal'); ?></a>
+                        <?php _e('Portions of this content are copyright 1998-2019 by individual mozilla.org contributors. Content available under a ', 'community-portal'); ?>
+                        <a href="#" class="footer__link"><?php _e(' Creative Commons license.', 'community-portal'); ?></a>
                     </p>
                     <div class="footer__menu-legal-container">
                         <?php 

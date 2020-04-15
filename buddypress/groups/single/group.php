@@ -789,13 +789,13 @@
                             <ellipse cx="8" cy="7.97569" rx="8" ry="7.97569" fill="#0060DF"/>
                             <path d="M8 5.5L8.7725 7.065L10.5 7.3175L9.25 8.535L9.545 10.255L8 9.4425L6.455 10.255L6.75 8.535L5.5 7.3175L7.2275 7.065L8 5.5Z" fill="white" stroke="white" stroke-width="2" stroke-linecap="round"/>
                         </svg>
-                        <a href="https://discourse.mozilla.org/t/frequently-asked-questions-portal-edition-faq/43224" class="group__status"><?php print __("Verified", "community-portal"); ?></a>&nbsp;|
+                        <a href="https://discourse.mozilla.org/t/frequently-asked-questions-portal-edition-faq/43224" class="group__status"><?php _e('Verified', 'community-portal'); ?></a>&nbsp;|
                     <?php else: ?>
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M15.5 7.97569C15.5 12.103 12.1436 15.4514 8 15.4514C3.85643 15.4514 0.5 12.103 0.5 7.97569C0.5 3.84842 3.85643 0.5 8 0.5C12.1436 0.5 15.5 3.84842 15.5 7.97569Z" stroke="#B1B1BC"/>
                             <path d="M8 5.5L8.7725 7.065L10.5 7.3175L9.25 8.535L9.545 10.255L8 9.4425L6.455 10.255L6.75 8.535L5.5 7.3175L7.2275 7.065L8 5.5Z" fill="#B1B1BC" stroke="#B1B1BC" stroke-width="2" stroke-linecap="round"/>
                         </svg>
-                        <a href="https://discourse.mozilla.org/t/frequently-asked-questions-portal-edition-faq/43224" class="group__status"><?php print __("Unverified", "community-portal"); ?></a>&nbsp;|
+                        <a href="https://discourse.mozilla.org/t/frequently-asked-questions-portal-edition-faq/43224" class="group__status"><?php _e('Unverified', 'community-portal'); ?></a>&nbsp;|
                     <?php endif; ?>
                     <span class="group__location">
                     <?php 
@@ -825,32 +825,33 @@
                     </span>
                     <span class="group__created">
                     <?php
-                        $created = date("F d, Y", strtotime($group->date_created));
-                        print "<span> Created {$created}";
+						$created = date("F d, Y", strtotime($group->date_created));
+						$created_word = __('Created', 'community-portal');
+                        print "<span> {$created_word} {$created}";
                     ?>
                     </span>
                 </div>
                 <div class="group__nav">
                     <ul class="group__menu">
-                        <li class="menu-item"><a class="group__menu-link<?php if(bp_is_group_home() && !$is_events && !$is_people): ?> group__menu-link--active<?php endif; ?>" href="/groups/<?php print $group->slug; ?>"><?php print __("About us", "community-portal"); ?></a></li>
-                        <li class="menu-item"><a class="group__menu-link<?php if($is_events): ?> group__menu-link--active<?php endif; ?>" href="/groups/<?php print $group->slug; ?>?view=events"><?php print __("Our Events", "community-portal"); ?></a></li>
-                        <li class="menu-item"><a class="group__menu-link<?php if($is_people): ?> group__menu-link--active<?php endif; ?>" href="/groups/<?php print $group->slug; ?>/?view=people"><?php print __("Our Members", "community-portal"); ?></a></li>
+                        <li class="menu-item"><a class="group__menu-link<?php if(bp_is_group_home() && !$is_events && !$is_people): ?> group__menu-link--active<?php endif; ?>" href="/groups/<?php print $group->slug; ?>"><?php _e('About us', 'community-portal'); ?></a></li>
+                        <li class="menu-item"><a class="group__menu-link<?php if($is_events): ?> group__menu-link--active<?php endif; ?>" href="/groups/<?php print $group->slug; ?>?view=events"><?php _e('Our Events', 'community-portal'); ?></a></li>
+                        <li class="menu-item"><a class="group__menu-link<?php if($is_people): ?> group__menu-link--active<?php endif; ?>" href="/groups/<?php print $group->slug; ?>/?view=people"><?php _e('Our Members', 'community-portal'); ?></a></li>
                     </ul>
                 </div>
                 <div class="group__nav group__nav--mobile">
-                    <label class="group__nav-select-label"><?php print __('Showing', "community-portal"); ?></label>
+                    <label class="group__nav-select-label"><?php _e('Showing', 'community-portal'); ?></label>
                     <div class="select-container">
                         <select class="group__nav-select">
-                            <option value="/groups/<?php print $group->slug; ?>"<?php if(bp_is_group_home() && !$is_events && !$is_people): ?> selected<?php endif; ?>><?php print __("About us", "community-portal"); ?></option>
-                            <option value="/groups/<?php print $group->slug; ?>?view=events"<?php if($is_events): ?> selected<?php endif; ?>><?php print __("Our Events", "community-portal"); ?></option>
-                            <option value="/groups/<?php print $group->slug; ?>?view=people"<?php if($is_people): ?> selected<?php endif; ?>><?php print __("Our Members", "community-portal"); ?></option>
+                            <option value="/groups/<?php print $group->slug; ?>"<?php if(bp_is_group_home() && !$is_events && !$is_people): ?> selected<?php endif; ?>><?php _e('About us', 'community-portal'); ?></option>
+                            <option value="/groups/<?php print $group->slug; ?>?view=events"<?php if($is_events): ?> selected<?php endif; ?>><?php _e('Our Events', 'community-portal'); ?></option>
+                            <option value="/groups/<?php print $group->slug; ?>?view=people"<?php if($is_people): ?> selected<?php endif; ?>><?php _e('Our Members', 'community-portal'); ?></option>
                         </select>
                     </div>
                 </div>
                 <section class="group__info">
                     <?php if($is_people): ?>
                     <div class="group__members-container">
-                        <h2 class="group__card-title"><?php print __("Group Contacts", "community-portal")." ({$admin_count})"; ?></h2>
+                        <h2 class="group__card-title"><?php _e('Group Contacts','community-portal')." ({$admin_count})"; ?></h2>
                         <div class="group__members">
                             <?php foreach($admins AS $admin): ?>
                             <?php 
@@ -898,7 +899,7 @@
                         </div>
 
 				
-                        <h2 class="group__card-title"><?php print __("People", "community-portal"); ?><?php echo " ({$members['count']})" ?></h2>
+                        <h2 class="group__card-title"><?php _e('People', 'community-portal'); ?><?php echo " ({$members['count']})" ?></h2>
 						<?php if ($members['count'] > 0): ?>
 						<div class="members__search-container">
 								<form method="GET" action="<?php echo $_SERVER['REQUEST_URI'] ?>" class="members__form" id="members-search-form">
@@ -911,17 +912,17 @@
 									<input type="hidden" value="<?php if(isset($_GET['tag']) && strlen($_GET['tag']) > 0): print htmlspecialchars(trim($_GET['tag']), ENT_QUOTES, 'utf-8'); endif; ?>" name="tag" id="user-tag" />
 									<input type="hidden" value="<?php if(isset($_GET['location']) && strlen($_GET['location']) > 0): print htmlspecialchars(trim($_GET['location']), ENT_QUOTES, 'utf-8'); endif; ?>" name="location" id="user-location" />
 									<input type="hidden" value="<?php if(isset($_GET['language']) && strlen($_GET['language']) > 0): print htmlspecialchars(trim($_GET['language']), ENT_QUOTES, 'utf-8'); endif; ?>" name="language" id="user-language" />
-									<input type="text" name="u" id="members-search" class="members__search-input" placeholder="<?php print __("Search people", "community-portal"); ?>" value="<?php if($search_user): ?><?php print $search_user; ?><?php endif; ?>" />
+									<input type="text" name="u" id="members-search" class="members__search-input" placeholder="<?php _e('Search people', 'community-portal'); ?>" value="<?php if($search_user): ?><?php print $search_user; ?><?php endif; ?>" />
 									</div>
-									<input type="submit" class="members__search-cta" value="<?php print __("Search", "community-portal"); ?>" />
+									<input type="submit" class="members__search-cta" value="<?php _e('Search', 'community-portal'); ?>" />
 								</form>
 							</div>
 							<div class="members__filter-container members__filter-container--hidden">
-								<span><?php print __("Search criteria:", "community-portal"); ?></span>
+								<span><?php _e('Search criteria:', 'community-portal'); ?></span>
 								<div class="members__select-container">
-									<label class="members__label"><?php print __("Location", "community-portal"); ?></label>
+									<label class="members__label"><?php _e('Location', 'community-portal'); ?></label>
 									<select class="members__location-select">
-										<option value=""><?php print __('Select', "community-portal"); ?></option>
+										<option value=""><?php _e('Select', 'community-portal'); ?></option>
 										<?php foreach($used_country_list AS $code   =>  $country): ?>
 										<option value="<?php print $code; ?>"<?php if(isset($_GET['location']) && strlen($_GET['location']) > 0 && $_GET['location'] == $code): ?> selected<?php endif; ?>><?php print $country; ?></option>
 										<?php endforeach; ?>
@@ -929,9 +930,9 @@
 								</div>
 								<?php if(sizeof($used_languages) > 0): ?>
 								<div class="members__select-container">
-									<label class="members__label"><?php print __("Language", "community-portal"); ?></label>
+									<label class="members__label"><?php _e('Language', 'community-portal'); ?></label>
 									<select class="members__language-select">
-										<option value=""><?php print __('Select', "community-portal"); ?></option>
+										<option value=""><?php _e('Select', 'community-portal'); ?></option>
 										<?php foreach($used_languages AS $code =>   $language): ?>
 										<?php if(strlen($code) > 1): ?>
 										<option value="<?php print $code; ?>" <?php if(isset($_GET['language']) && strtolower(trim($_GET['language'])) == strtolower($code)): ?> selected<?php endif; ?>><?php print $language; ?></option>
@@ -941,9 +942,9 @@
 								</div>
 								<?php endif; ?>
 								<div class="members__select-container">
-									<label class="members__label"><?php print __("Tag", "community-portal"); ?></label>
+									<label class="members__label"><?php _e('Tag', 'community-portal'); ?></label>
 									<select class="members__tag-select">
-										<option value=""><?php print __('Select', "community-portal"); ?></option>
+										<option value=""><?php _e('Select', 'community-portal'); ?></option>
 										<?php foreach($tags AS $tag): ?>
 										<option value="<?php print $tag->slug; ?>" <?php if(isset($_GET['tag']) && strtolower(trim($_GET['tag'])) == strtolower($tag->slug)): ?> selected<?php endif; ?>><?php print $tag->name; ?></option>
 										<?php endforeach; ?>
@@ -960,7 +961,7 @@
 						
                         <div class="group__members">
 						<?php if(sizeof($filtered_members) > 0): ?>
-							<?php if(isset($_GET['u']) && strlen($_GET['u']) > 0): ?><div class="members__results-for"><?php print __(sprintf("Results for \"%s\"", $search_user), "community-portal"). " ({$count})"; ?></div>
+							<?php if(isset($_GET['u']) && strlen($_GET['u']) > 0): ?><div class="members__results-for"><?php  _e(sprintf('Results for \"%s\"', $search_user), 'community-portal'). " ({$count})"; ?></div>
 							<?php endif; ?>			
                             <?php foreach($filtered_members AS $member): ?>
                             <?php
@@ -1004,11 +1005,11 @@
                             </a>
                             <?php endforeach; ?>
 							<?php else: ?>
-								<h2 class="members__title--no-members-found"><?php print __('No members found', "community-portal"); ?></h2>
+								<h2 class="members__title--no-members-found"><?php _e('No members found', 'community-portal'); ?></h2>
 							<?php endif; ?>
                         </div>  
 						<?php else: ?>
-							<p><?php print __('This group currently has no members', "community-portal"); ?></p>
+							<p><?php _e('This group currently has no members', 'community-portal'); ?></p>
 						<?php endif; ?>
                     </div>
                     <?php elseif($is_events === true): ?>
@@ -1077,7 +1078,7 @@
                                                 <p class="text--light text--small">
                                                     <?php
                                                         if($location->country === 'OE') {
-                                                            echo __('Online Event', "community-portal");
+                                                            _e('Online Event', 'community-portal');
                                                         } else {
                                                             if ($location->address) {
                                                                 echo $location->address.' - '; 
@@ -1168,11 +1169,11 @@
                                     <svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M1 9V15C1 15.3978 1.15804 15.7794 1.43934 16.0607C1.72064 16.342 2.10218 16.5 2.5 16.5H11.5C11.8978 16.5 12.2794 16.342 12.5607 16.0607C12.842 15.7794 13 15.3978 13 15V9M10 4.5L7 1.5M7 1.5L4 4.5M7 1.5V11.25" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
-                                    <?php print __('Share Group', "community-portal"); ?>
+                                    <?php _e('Share Group', 'community-portal'); ?>
                                 </a>
                                 </div>
                                 <hr class="group__keyline" />
-                                <h2 class="group__card-title"><?php print __("About Us", "community-portal"); ?></h2>
+                                <h2 class="group__card-title"><?php _e('About Us', 'community-portal'); ?></h2>
                                 <?php print wpautop(substr(trim($group->description), 0, 3000)); ?>
                                 <?php if((isset($group_meta['group_telegram']) && strlen($group_meta['group_telegram']) > 0 ) 
                                 || (isset($group_meta['group_facebook']) && strlen(trim($group_meta['group_facebook'])) > 0 ) 
@@ -1182,7 +1183,7 @@
                                 || (isset($group_meta['group_matrix']) && strlen(trim($group_meta['group_matrix'])) > 0 )  
                                 || (isset($group_meta['group_other']) && strlen($group_meta['group_other']) > 0)): ?>
                                 <div class="group__community-links">
-                                    <span class="no-line"><?php print __("Community Links", "community-portal"); ?></span>
+                                    <span class="no-line"><?php _e('Community Links', 'community-portal'); ?></span>
                                     <?php if(isset($group_meta['group_telegram']) && strlen($group_meta['group_telegram']) > 0): ?>
                                         <div class="group__community-link-container">
                                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1190,7 +1191,7 @@
                                                 <path d="M24.3332 7.66699L15.1665 16.8337" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                                 <path d="M24.3332 7.66699L18.4998 24.3337L15.1665 16.8337L7.6665 13.5003L24.3332 7.66699Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                             </svg>
-                                            <a href="<?php print (mozilla_verify_url($group_meta['group_telegram'], false) ? mozilla_verify_url($group_meta['group_telegram'], false) : 'https://t.me/'.$group_meta['group_telegram']) ?>" class="group__social-link"><?php print __("Telegram", "community-portal"); ?></a>
+                                            <a href="<?php print (mozilla_verify_url($group_meta['group_telegram'], false) ? mozilla_verify_url($group_meta['group_telegram'], false) : 'https://t.me/'.$group_meta['group_telegram']) ?>" class="group__social-link"><?php _e('Telegram', 'community-portal'); ?></a>
                                         </div>
 									<?php endif; ?>
                                     <?php if(isset($group_meta['group_facebook']) && strlen(trim($group_meta['group_facebook'])) > 0): ?>
@@ -1199,7 +1200,7 @@
                                                 <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
                                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M26 16C26 10.4771 21.5229 6 16 6C10.4771 6 6 10.4771 6 16C6 20.9913 9.65686 25.1283 14.4375 25.8785V18.8906H11.8984V16H14.4375V13.7969C14.4375 11.2906 15.9304 9.90625 18.2146 9.90625C19.3087 9.90625 20.4531 10.1016 20.4531 10.1016V12.5625H19.1921C17.9499 12.5625 17.5625 13.3333 17.5625 14.1242V16H20.3359L19.8926 18.8906H17.5625V25.8785C22.3431 25.1283 26 20.9913 26 16Z" fill="black"/>
                                             </svg>
-                                            <a href="<?php echo (mozilla_verify_url($group_meta['group_facebook'], true) ? mozilla_verify_url($group_meta['group_facebook'], true): 'https://www.facebook.com/'. $group_meta['group_facebook']); ?>" class="group__social-link"><?php print __("Facebook", "community-portal"); ?></a>
+                                            <a href="<?php echo (mozilla_verify_url($group_meta['group_facebook'], true) ? mozilla_verify_url($group_meta['group_facebook'], true): 'https://www.facebook.com/'. $group_meta['group_facebook']); ?>" class="group__social-link"><?php _e('Facebook', 'community-portal'); ?></a>
                                         </div>
                                     <?php endif; ?>
                                     <?php if(isset($group_meta['group_discourse']) && strlen(trim($group_meta['group_discourse'])) > 0): ?>
@@ -1208,7 +1209,7 @@
                                                 <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
                                                 <path d="M23.5 15.5834C23.5029 16.6832 23.2459 17.7683 22.75 18.75C22.162 19.9265 21.2581 20.916 20.1395 21.6078C19.021 22.2995 17.7319 22.6662 16.4167 22.6667C15.3168 22.6696 14.2318 22.4126 13.25 21.9167L8.5 23.5L10.0833 18.75C9.58744 17.7683 9.33047 16.6832 9.33333 15.5834C9.33384 14.2682 9.70051 12.9791 10.3923 11.8605C11.084 10.7419 12.0735 9.838 13.25 9.25002C14.2318 8.75413 15.3168 8.49716 16.4167 8.50002H16.8333C18.5703 8.59585 20.2109 9.32899 21.4409 10.5591C22.671 11.7892 23.4042 13.4297 23.5 15.1667V15.5834Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 											</svg>
-                                            <a href="<?php echo (mozilla_verify_url($group_meta['group_discourse'], true) ? mozilla_verify_url($group_meta['group_discourse'], true) : 'https://discourse.mozilla.org/u/'. $group_meta['group_discourse'] .'/summary') ?>" class="group__social-link"><?php print __("Discourse", "community-portal"); ?></a>
+                                            <a href="<?php echo (mozilla_verify_url($group_meta['group_discourse'], true) ? mozilla_verify_url($group_meta['group_discourse'], true) : 'https://discourse.mozilla.org/u/'. $group_meta['group_discourse'] .'/summary') ?>" class="group__social-link"><?php _e('Discourse', 'community-portal'); ?></a>
                                         </div>
                                     <?php endif; ?>
                                     <?php if(isset($group_meta['group_github']) && strlen(trim($group_meta['group_github'])) > 0): ?>
@@ -1224,7 +1225,7 @@
                                                 </clipPath>
                                                 </defs>
                                             </svg>
-                                            <a href="<?php print (mozilla_verify_url($group_meta['group_github'], true) ? mozilla_verify_url($group_meta['group_github'], true) : 'https://www.github.com/'.$group_meta['group_github']); ?>" class="group__social-link"><?php print __("Github", "community-portal"); ?></a>
+                                            <a href="<?php print (mozilla_verify_url($group_meta['group_github'], true) ? mozilla_verify_url($group_meta['group_github'], true) : 'https://www.github.com/'.$group_meta['group_github']); ?>" class="group__social-link"><?php _e('Github', 'community-portal'); ?></a>
                                         </div>
                                     <?php endif; ?>
                                     <?php if(isset($group_meta['group_twitter']) && strlen(trim($group_meta['group_twitter'])) > 0): ?>
@@ -1233,7 +1234,7 @@
                                                 <circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
                                                 <path d="M12.3766 23.9366C19.7469 23.9366 23.7781 17.8303 23.7781 12.535C23.7781 12.3616 23.7781 12.1889 23.7664 12.017C24.5506 11.4498 25.2276 10.7474 25.7656 9.94281C25.0343 10.2669 24.2585 10.4794 23.4641 10.5733C24.3006 10.0725 24.9267 9.28482 25.2258 8.35688C24.4392 8.82364 23.5786 9.15259 22.6812 9.32953C22.0771 8.6871 21.278 8.26169 20.4077 8.11915C19.5374 7.97661 18.6444 8.12487 17.8668 8.541C17.0893 8.95713 16.4706 9.61792 16.1064 10.4211C15.7422 11.2243 15.6529 12.1252 15.8523 12.9842C14.2592 12.9044 12.7006 12.4903 11.2778 11.7691C9.85506 11.0478 8.59987 10.0353 7.59375 8.7975C7.08132 9.67966 6.92438 10.724 7.15487 11.7178C7.38536 12.7116 7.98596 13.5802 8.83437 14.1467C8.19667 14.1278 7.57287 13.9558 7.01562 13.6452C7.01562 13.6616 7.01562 13.6788 7.01562 13.6959C7.01588 14.6211 7.33614 15.5177 7.9221 16.2337C8.50805 16.9496 9.32362 17.4409 10.2305 17.6241C9.64052 17.785 9.02155 17.8085 8.42109 17.6928C8.67716 18.489 9.17568 19.1853 9.84693 19.6843C10.5182 20.1832 11.3286 20.4599 12.1648 20.4756C10.7459 21.5908 8.99302 22.1962 7.18828 22.1944C6.86946 22.1938 6.55094 22.1745 6.23438 22.1366C8.0669 23.3126 10.1992 23.9363 12.3766 23.9334" fill="black"/>
                                             </svg>
-                                            <a href="<?php print (mozilla_verify_url($group_meta['group_twitter'], true) ? mozilla_verify_url($group_meta['group_twitter'], true) : 'https://www.twitter.com/'.$group_meta['group_twitter']) ?>" class="group__social-link"><?php print __("Twitter", "community-portal"); ?></a>
+                                            <a href="<?php print (mozilla_verify_url($group_meta['group_twitter'], true) ? mozilla_verify_url($group_meta['group_twitter'], true) : 'https://www.twitter.com/'.$group_meta['group_twitter']) ?>" class="group__social-link"><?php _e('Twitter', 'community-portal'); ?></a>
                                         </div>
                                     <?php endif; ?>
 									<?php if(isset($group_meta['group_matrix']) && strlen(trim($group_meta['group_matrix'])) > 0): ?>
@@ -1248,7 +1249,7 @@
 												<line x1="7" y1="9" x2="7" y2="23" stroke="black" stroke-width="2"/>
 												<line x1="25" y1="9" x2="25" y2="23" stroke="black" stroke-width="2"/>
 											</svg>
-                                            <a href="<?php print (mozilla_verify_url($group_meta['group_matrix'], true) ? mozilla_verify_url($group_meta['group_matrix'], true) : 'https://chat.mozilla.org/#/room/#'.$group_meta['group_matrix']) ?>" class="group__social-link"><?php print __("Matrix", "community-portal"); ?></a>
+                                            <a href="<?php print (mozilla_verify_url($group_meta['group_matrix'], true) ? mozilla_verify_url($group_meta['group_matrix'], true) : 'https://chat.mozilla.org/#/room/#'.$group_meta['group_matrix']) ?>" class="group__social-link"><?php _e('Matrix', 'community-portal'); ?></a>
                                         </div>
                                     <?php endif; ?>
                                     <?php if(isset($group_meta['group_other']) && strlen($group_meta['group_other']) > 0 && mozilla_verify_url($group_meta['group_other'], false)): ?>
@@ -1267,7 +1268,7 @@
                                                 </clipPath>
                                                 </defs>
                                             </svg>
-                                            <a href="<?php print mozilla_verify_url($group_meta['group_other'], false); ?>" class="group__social-link"><?php print __("Other", "community-portal"); ?></a>
+                                            <a href="<?php print mozilla_verify_url($group_meta['group_other'], false); ?>" class="group__social-link"><?php _e('Other', 'community-portal'); ?></a>
                                         </div>
                                     <?php endif; ?>
                                 </div>
@@ -1275,10 +1276,10 @@
                             </div>
                         </div>
                         <?php if((isset($group_meta['group_meeting_details'])  && $group_meta['group_meeting_details']) || (isset($group_meta['group_address']) && $group_meta['group_address'])): ?>
-                        <h2 class="group__card-title"><?php print __('Meetings', "community-portal"); ?></h2>
+                        <h2 class="group__card-title"><?php _e('Meetings', 'community-portal'); ?></h2>
                         <div class="group__card">
                             <div class="group__card-content">
-                                <span class="no-line"><?php print __('Meeting Details', "community-portal"); ?></span>
+                                <span class="no-line"><?php _e('Meeting Details', 'community-portal'); ?></span>
                                 <?php if(isset($group_meta['group_meeting_details'])): ?>
                                 <p class="group__card-copy">
                                     <?php print $group_meta['group_meeting_details']; ?>
@@ -1288,7 +1289,7 @@
                                 <hr />
                                 <?php endif; ?>
                                 <?php if(isset($group_meta['group_address']) && $group_meta['group_address']): ?>
-                                <span class="no-line"><?php print __('Location', "community-portal"); ?></span>
+                                <span class="no-line"><?php _e('Location', 'community-portal'); ?></span>
                                 <?php if(isset($group_meta['group_address_type']) && strtolower($group_meta['group_address_type']) == 'url'): ?>
                                     <div>
                                         <a class="group__meeting-location-link" href="<?php print $group_meta['group_address']; ?>" target="_blank"><?php print $group_meta['group_address']; ?></a>
@@ -1317,16 +1318,16 @@
                             }
                         ?>
                         <?php if(sizeof($topics) > 0): ?>
-                        <h2 class="group__card-title"><?php print __('Discussions', "community-portal"); ?></h2>
+                        <h2 class="group__card-title"><?php _e('Discussions', 'community-portal'); ?></h2>
                         <div class="group__card group__card--table">
                             <div class="group__card-content">
                                 <table class="group__announcements">
                                     <thead>
                                         <tr>
-                                            <th class="group__table-header group__table-header--topic"><?php print __('Topic', "community-portal"); ?></th>
-                                            <th class="group__table-header"><?php print __('Replies', "community-portal"); ?></th>
-                                            <th class="group__table-header"><?php print __('Views', "community-portal"); ?></th>
-                                            <th class="group__table-header group__table-header--activity"><?php print __('Activity', "community-portal"); ?></th>
+                                            <th class="group__table-header group__table-header--topic"><?php _e('Topic', 'community-portal'); ?></th>
+                                            <th class="group__table-header"><?php _e('Replies', 'community-portal'); ?></th>
+                                            <th class="group__table-header"><?php _e('Views', 'community-portal'); ?></th>
+                                            <th class="group__table-header group__table-header--activity"><?php _e('Activity', 'community-portal'); ?></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1355,7 +1356,7 @@
                                         <tr>
                                             <td colspan="4" class="group__table-cell group__table-cell--topic">
                                                 <a href="<?php print $discourse_group['discourse_category_url']; ?>" class="group__view-updates-link">
-                                                    <?php print __('View more topics', "community-portal"); ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <?php _e('View more topics', 'community-portal'); ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M2.33301 8.66732L5.99967 5.00065L2.33301 1.33398" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                                     </svg>
                                                 </a>
@@ -1372,7 +1373,7 @@
                     <div class="group__right-column">
                         <div class="group__card">
                             <div class="group__card-content group__card-content--small">
-                                <span><?php print __('Activity', "community-portal"); ?></span>
+                                <span><?php _e('Activity', 'community-portal'); ?></span>
                                 <?php 
                                     $args = Array(
                                         'group'     => $group->id,
@@ -1388,7 +1389,7 @@
                                 </div>
                                 <div class="group__member-count-container">
                                     <a href="/groups/<?php print $group->slug?>?view=people" class="group__member-count"><?php print $member_count; ?></a>
-                                    Members
+                                    <?php _e('Members', 'community-portal'); ?>
                                 </div>
                             </div>
                         </div>
@@ -1410,7 +1411,7 @@
                         <?php if($event): ?>
                         <div class="group__card">
                             <div class="group__card-content group__card-content--small">
-                                <span><?php print __('Related Events', "community-portal"); ?></span>
+                                <span><?php _e('Related Events', 'community-portal'); ?></span>
                                 <a class="group__event" href="/events/<?php print $event->event_slug; ?>"> 
                                     <div class="group__event-date">
                                         <?php print $event_date; ?>
@@ -1426,7 +1427,7 @@
                                                 <path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                             </svg>
                                             <?php if($location->location_country === 'OE'): ?>
-											<?php print __("Online Event", "community-portal"); ?>
+											<?php _e('Online Event', 'community-portal'); ?>
                                             <?php elseif($location->location_town && $location->location_country): ?>
                                                 <?php print "{$location->location_town}, {$countries[$location->location_country]}"; ?>
                                             <?php elseif($location->location_town && !$location->location_country): ?>
@@ -1438,14 +1439,14 @@
                                     </div>
                                 </a>
                                 <a href="/groups/<?php print $group->slug; ?>/?view=events" class="group__events-link">
-                                    <?php print __('View more events', "community-portal"); ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    <?php _e('View more events', 'community-portal'); ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                                 </a>
                             </div>
                         </div>
                         <?php endif; ?>
                         <div class="group__card">
                             <div class="group__card-content group__card-content--small">
-                                <span><?php print __('Group Contacts', "community-portal"); ?></span> 
+                                <span><?php _e('Group Contacts', 'community-portal'); ?></span> 
                                 <div class="group__admins">
                                     <?php foreach($admins AS $admin): ?>
                                     <?php
@@ -1487,7 +1488,7 @@
                         <?php if(strlen($group_meta['group_language']) > 0 && array_key_exists(strtolower($group_meta['group_language']), $languages)): ?>
                         <div class="group__card">
                             <div class="group__card-content group__card-content--small">
-                                <span><?php print __('Preferred Language', "community-portal"); ?></span>
+                                <span><?php _e('Preferred Language', 'community-portal'); ?></span>
                                 <div class="group__tags">
                                     <div class="group__language">
                                         <a href="/groups/?language=<?php print strtolower($group_meta['group_language']); ?>" class="group__language-link"><?php print $languages[strtolower($group_meta['group_language'])]; ?></a>
@@ -1499,7 +1500,7 @@
                         <?php if(sizeof(array_unique($group_meta['group_tags'])) > 0): ?>
                         <div class="group__card">
                             <div class="group__card-content group__card-content--small">
-                                <span><?php print __('Tags', "community-portal"); ?></span>
+                                <span><?php _e('Tags', 'community-portal'); ?></span>
                                 <div class="group__tags">
                                     <?php foreach(array_unique($group_meta['group_tags']) AS $tag): ?>
                                     <a href="/groups/?tag=<?php print $tag; ?>" class="group__tag"><?php print $tag; ?></a>
@@ -1513,13 +1514,13 @@
                 </section>
                 <?php if(isset($options['report_email']) && is_user_logged_in()): ?>
                 <div class="group__report-container">
-                    <a href="mailto:<?php print $options['report_email']; ?>?subject=<?php print sprintf('%s %s', __('Reporting Group', 'community-portal'), $group->name); ?>&body=<?php print __(sprintf('Please provide a reason you are reporting this group    %s', "https://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}"), 'community-portal'); ?>" class="group__report-group-link">
+                    <a href="mailto:<?php print $options['report_email']; ?>?subject=<?php print sprintf('%s %s', __('Reporting Group', 'community-portal'), $group->name); ?>&body=<?php _e(sprintf('Please provide a reason you are reporting this group    %s', "https://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}"), 'community-portal'); ?>" class="group__report-group-link">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M12 8V12" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <circle cx="12" cy="16" r="0.5" fill="#CDCDD4" stroke="#0060DF"/>
                         </svg>
-                        <?php print __("Report Group", 'community-portal'); ?>
+                        <?php _e('Report Group', 'community-portal'); ?>
                     </a>
                 </div>
                 <?php endif; ?>

@@ -1,5 +1,5 @@
 <div class="event-creator__container">
-    <label class="event-creator__label" for="event-image"><?php print __("Event Image", "community-portal"); ?></label>
+    <label class="event-creator__label" for="event-image"><?php _e('Event Image', 'community-portal'); ?></label>
 
     <?php
         if ($_REQUEST['event_id']) {
@@ -29,7 +29,7 @@
 					<div class="form__error form__error--image"></div>
 				</div>
 				<button id="dropzone-trigger" type="button" class="dropzone__image-instructions event-creator__image-instructions">
-					<?php print __("Click or drag a .PNG or .JPG above. Min dimensions 703px by 400px", "community-portal"); ?>
+					<?php _e('Click or drag a .PNG or .JPG above. Min dimensions 703px by 400px', 'community-portal'); ?>
 				</button>
 			</div>
 		</div>

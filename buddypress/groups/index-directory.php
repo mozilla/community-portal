@@ -219,12 +219,12 @@
     <div class="groups">
         <div class="groups__hero">
             <div class="groups__hero-container">
-                <h1 class="groups__title"><?php print __("Groups", "community-portal"); ?></h1>
+                <h1 class="groups__title"><?php _e('Groups', 'community-portal'); ?></h1>
                 <p class="groups__hero-copy">
-                    <?php print __("Meet up with people who share your passion and join the movement for an open internet.", "community-portal"); ?>
+                    <?php _e('Meet up with people who share your passion and join the movement for an open internet.', 'community-portal'); ?>
                 </p>
                 <p class="groups__hero-copy">
-                    <?php print __("Look for groups in your area, or", "community-portal"); ?> <a href="/groups/create/step/group-details/" class="groups__hero-link"><?php print __('create your own.', "community-portal"); ?></a>
+                    <?php _e('Look for groups in your area, or', 'community-portal'); ?> <a href="/groups/create/step/group-details/" class="groups__hero-link"><?php _e('create your own.', 'community-portal'); ?></a>
                     <svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M2.33337 8.66634L6.00004 4.99967L2.33337 1.33301" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
@@ -241,9 +241,9 @@
                             <path d="M17.5 17.5L13.875 13.875" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
 
-                        <input type="text" name="q" id="groups-search" class="groups__search-input" placeholder="<?php print __("Search groups", "community-portal"); ?>" value="<?php if(isset($original_query)): ?><?php print $original_query; ?><?php endif; ?>" />
+                        <input type="text" name="q" id="groups-search" class="groups__search-input" placeholder="<?php _e('Search groups', 'community-portal'); ?>" value="<?php if(isset($original_query)): ?><?php print $original_query; ?><?php endif; ?>" />
                         </div>
-                        <input type="button" class="groups__search-cta" value="<?php print __("Search", "community-portal"); ?>" />
+                        <input type="button" class="groups__search-cta" value="<?php _e('Search', 'community-portal'); ?>" />
                     </form>
                 </div>
             </div>
@@ -252,23 +252,23 @@
         <div class="groups__container">
             <div class="groups__nav">
                 <ul class="groups__menu">
-                    <li class="menu-item"><a class="groups__menu-link<?php if(!isset($_GET['mygroups']) || (isset($_GET['mygroups']) && $_GET['mygroups'] == 'false')): ?> group__menu-link--active<?php endif; ?>" href="#" data-nav=""><?php print __("Discover Groups", "community-portal"); ?></a></li>
-                    <?php if($logged_in): ?><li class="menu-item"><a class="groups__menu-link<?php if(isset($_GET['mygroups']) && $_GET['mygroups'] == 'true'): ?> group__menu-link--active<?php endif; ?>" href="#" data-nav="mygroups"><?php print __("Groups I'm In", "community-portal"); ?></a></li><?php endif; ?>
+                    <li class="menu-item"><a class="groups__menu-link<?php if(!isset($_GET['mygroups']) || (isset($_GET['mygroups']) && $_GET['mygroups'] == 'false')): ?> group__menu-link--active<?php endif; ?>" href="#" data-nav=""><?php _e('Discover Groups', 'community-portal'); ?></a></li>
+                    <?php if($logged_in): ?><li class="menu-item"><a class="groups__menu-link<?php if(isset($_GET['mygroups']) && $_GET['mygroups'] == 'true'): ?> group__menu-link--active<?php endif; ?>" href="#" data-nav="mygroups"><?php _e('Groups I\'m In', 'community-portal'); ?></a></li><?php endif; ?>
                 </ul>
             </div>
             <div class="groups__nav groups__nav--mobile">
-                <?php print __("Showing", "community-portal"); ?>
+                <?php _e('Showing', 'community-portal'); ?>
                 <select class="groups__nav-select">
-                    <option value="all"><?php print __("Discover Groups", "community-portal"); ?></option>
-                    <?php if($logged_in): ?><option value="mygroups"<?php if(isset($_GET['mygroups']) && $_GET['mygroups'] == 'true'): ?>selected<?php endif; ?>><?php print __("Groups I'm in", "community-portal"); ?></option><?php endif; ?>
+                    <option value="all"><?php _e('Discover Groups', 'community-portal'); ?></option>
+                    <?php if($logged_in): ?><option value="mygroups"<?php if(isset($_GET['mygroups']) && $_GET['mygroups'] == 'true'): ?>selected<?php endif; ?>><?php _e('Groups I\'m in', 'community-portal'); ?></option><?php endif; ?>
                 </select>            
             </div>
                 <div class="groups__filter-container<?php if(!isset($_GET['location']) && !isset($_GET['mygroups'])): ?> groups__filter-container--hidden<?php endif; ?>">
-                <span><?php print __("Filter by:", "community-portal"); ?></span>
+                <span><?php _e('Filter by:', 'community-portal'); ?></span>
                 <div class="groups__select-container">
-                    <label class="groups__label"><?php print __("Location", "community-portal"); ?></label>
+                    <label class="groups__label"><?php _e('Location', 'community-portal'); ?></label>
                     <select class="groups__location-select">
-                        <option value=""><?php print __('All', "community-portal"); ?></option>
+                        <option value=""><?php _e('All', 'community-portal'); ?></option>
                         <?php foreach($used_country_list AS $code   =>  $country): ?>
                         <option value="<?php print $code; ?>"<?php if(isset($_GET['location']) && strlen($_GET['location']) > 0 && $_GET['location'] == $code): ?> selected<?php endif; ?>><?php print $country; ?></option>
                         <?php endforeach; ?>
@@ -276,9 +276,9 @@
                 </div>
                 <?php if(sizeof($used_language_list) > 0): ?>
                 <div class="groups__select-container">
-                    <label class="groups__label"><?php print __("Language", "community-portal"); ?></label>
+                    <label class="groups__label"><?php _e('Language', 'community-portal'); ?></label>
                     <select class="groups__language-select">
-                        <option value=""><?php print __('All', "community-portal"); ?></option>
+                        <option value=""><?php _e('All', "community-portal"); ?></option>
                         <?php foreach($used_language_list AS $code   =>  $language): ?>
                         <?php if(strlen($code) > 1): ?>
                         <option value="<?php print $code; ?>"<?php if(isset($_GET['language']) && strlen($_GET['language']) > 0 && $_GET['language'] == $code): ?> selected<?php endif; ?>><?php print $language; ?></option>
@@ -288,9 +288,9 @@
                 </div>
                 <?php endif; ?>
                 <div class="groups__select-container">
-                    <label class="groups__label"><?php print __("Tag", "community-portal"); ?></label>
+                    <label class="groups__label"><?php _e('Tag', 'community-portal'); ?></label>
                     <select class="groups__tag-select">
-                        <option value=""><?php print __('All', "community-portal"); ?></option>
+                        <option value=""><?php _e('All', 'community-portal'); ?></option>
                         <?php foreach($tags AS $tag): ?>
                         <option value="<?php print $tag->slug; ?>" <?php if(isset($_GET['tag']) && strtolower(trim($_GET['tag'])) == strtolower($tag->slug)): ?> selected<?php endif; ?>><?php print $tag->name; ?></option>
                         <?php endforeach; ?>
@@ -306,11 +306,11 @@
             <div class="groups__groups">
                 <?php do_action('bp_before_groups_loop'); ?>
                 <?php if(sizeof($groups) === 0): ?>
-                    <div class="groups__no-results"><?php print __('No results found.  Please try another search term.', "community-portal"); ?></div>
+                    <div class="groups__no-results"><?php _e('No results found.  Please try another search term.', 'community-portal'); ?></div>
                 <?php else: ?>
                 <?php if($original_query): ?>
                 <div class="groups__results-query">
-                <?php print __("Results for ", "community-portal")."\"{$original_query}\""; ?>
+                <?php print __('Results for ', 'community-portal')."\"{$original_query}\""; ?>
                 </div>
                 <?php endif; ?>
                 <?php foreach($groups AS $group): ?>
@@ -368,7 +368,7 @@
                                         <path d="M16.3333 14.0002V12.6669C16.3328 12.0761 16.1362 11.5021 15.7742 11.0351C15.4122 10.5682 14.9053 10.2346 14.3333 10.0869" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                         <path d="M11.6667 2.08691C12.2404 2.23378 12.7488 2.56738 13.1118 3.03512C13.4749 3.50286 13.672 4.07813 13.672 4.67025C13.672 5.26236 13.4749 5.83763 13.1118 6.30537C12.7488 6.77311 12.2404 7.10671 11.6667 7.25358" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
-                                    <?php print "{$member_count}&nbsp;".__("Members", "community-portal"); ?>
+                                    <?php print "{$member_count}&nbsp;".__('Members', 'community-portal'); ?>
 								</div>
 							</div>
                             <div class="groups__card-info">
@@ -382,7 +382,7 @@
                                         <li class="groups__tag"><?php print $value; ?></li>
                                         <?php $tag_counter++; ?>
                                         <?php if($tag_counter === 2 && sizeof($meta['group_tags']) > 2): ?>
-                                        <li class="groups__tag">+ <?php print sizeof($meta['group_tags']) - 2; ?> <?php print __(' more tags', "community-portal"); ?></li>
+                                        <li class="groups__tag">+ <?php print sizeof($meta['group_tags']) - 2; ?> <?php _e(' more tags', 'community-portal'         ); ?></li>
                                         <?php break; ?>
                                         <?php endif; ?>
                                     <?php endforeach; ?>

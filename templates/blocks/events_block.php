@@ -53,7 +53,7 @@
                     <div class="campaign__event-container">
                         <h3 class="campaign__event-title"><?php print $event['event']->post_title; ?></h3>
                         <div class="campaign__event-time">
-                            <?php print date('F j, Y ∙ G:i', $event_time).__(" UTC", 'community-portal'); ?>
+                            <?php print date('F j, Y ∙ G:i', $event_time).__(' UTC', 'community-portal'); ?>
                         </div>
                         <?php if (strlen($location->address) > 0 || strlen($location->town) > 0 || strlen($location->country) > 0): ?>
                         <div class="campaign__event-location">
@@ -62,7 +62,7 @@
                                 <path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                             <?php  if($location->country === 'OE'): ?>
-                            <?php print __('Online Event', 'community-portal'); ?>
+                            <?php _e('Online Event', 'community-portal'); ?>
                             <?php else: ?>
                                 <?php if ($location->address): ?>
                                 <?php print $location->address.' - '; ?>

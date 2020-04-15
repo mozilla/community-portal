@@ -97,7 +97,7 @@
 <div class="content events__container events-single">
     <div class="row">
         <div class="col-sm-12">
-            <h1 class="title"><?php echo __($EM_Event->event_name) ?></h1>
+            <h1 class="title"><?php $EM_Event->event_name; ?></h1>
         </div>
     </div>
     <div class="row events-single__two-up">
@@ -142,7 +142,7 @@
                             ?>
                         </h2>
                         <p card="card__time">
-                            <?php echo __(substr($EM_Event->event_start_time, 0, 5)); 
+                            <?php substr($EM_Event->event_start_time, 0, 5); 
                                 if ($EM_Event->event_end_time !== null) {
                                     echo ' to '.substr($EM_Event->event_end_time, 0, 5).' '.$EM_Event->event_timezone;
                                 }
@@ -157,7 +157,7 @@
                 </div>
             </div>
 
-            <h2 class="title--secondary"><?php echo __("Location", "community-portal") ?></h2>
+            <h2 class="title--secondary"><?php _e('Location', 'community-portal') ?></h2>
             <div class="card events-single__location">
                 <div class="row">
                     <div class="card__address col-md-5 col-sm-12">
@@ -166,15 +166,15 @@
                         <p><?php echo $location->location_name; ?></p>
                         <p><?php echo $location->location_address; ?></p>
                         <?php if ($location->location_country === 'OE'): ?>
-                            <p><?php echo __('Online Event', "community-portal") ?></p>
+                            <p><?php _e('Online Event', 'community-portal') ?></p>
                         <?php else: ?>
-                            <p><?php echo __($location->location_town.', '.$allCountries[$EM_Event->location->location_country]) ?></p>
+                            <p><?php $location->location_town.', '.$allCountries[$EM_Event->location->location_country] ?></p>
                         <?php endif; ?>
-                        <p><a href="/events/?country=<?php print $allCountries[$EM_Event->location->location_country]; ?>"><?php print __('View more events in ',  "community-portal"); ?><?php print $allCountries[$EM_Event->location->location_country]; ?></a></p>
+                        <p><a href="/events/?country=<?php print $allCountries[$EM_Event->location->location_country]; ?>"><?php _e('View more events in ',  'community-portal'); ?><?php print $allCountries[$EM_Event->location->location_country]; ?></a></p>
                     <?php else: ?>
-                        <p><?php echo __("This is an online-only event", "community-portal") ?></p>
+                        <p><?php _e('This is an online-only event', 'community-portal') ?></p>
                         <?php if(filter_var($EM_Event->location->name, FILTER_VALIDATE_URL)): ?>
-                        <a href="<?php echo esc_attr($EM_Event->location->name) ?>"><?php echo __('Meeting link', "community-portal") ?>
+                        <a href="<?php echo esc_attr($EM_Event->location->name) ?>"><?php _e('Meeting link', 'community-portal') ?>
                             <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1.33325 8.66732L4.99992 5.00065L1.33325 1.33398" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
@@ -234,12 +234,12 @@
 				</div>
             </div>
             <div class="events-single__description">
-                <h2 class="title--secondary"><?php echo __('Description', 'community-portal') ?></h2>
+                <h2 class="title--secondary"><?php _e('Description', 'community-portal') ?></h2>
                 <p><?php echo wpautop($EM_Event->post_content); ?></p>
             </div>
 			<?php if ($goal): ?>
 				<div class="events-single__description">
-					<h2 class="title--secondary"><?php echo __('Goals', 'community-portal') ?></h2>
+					<h2 class="title--secondary"><?php _e('Goals', 'community-portal') ?></h2>
 					<p><?php echo wpautop($goal); ?></p>
 				</div>
 			<?php endif; ?>
@@ -256,15 +256,15 @@
             <?php if (is_array($activeBookings) && count($activeBookings) > 0): ?>
 			<div class="events-single__title--with-parenthetical">
 				<h2 class="title--secondary">
-					<?php echo __('Attendees', 'community-portal') ?> 
+					<?php _e('Attendees', 'community-portal') ?> 
 				</h2>
 				<p class="events-single__parenthetical">
 				(
 					<span>
-						<?php print __('Actual: ', 'community-portal') . sizeof($activeBookings); ?> 
+						<?php _e('Actual: ', 'community-portal') . sizeof($activeBookings); ?> 
 					</span>
 					<?php if ($projected_attendees): ?>
-						<span class="expected-attendees"><?php print __('Expecting: ', 'community-portal') . $projected_attendees ?></span>
+						<span class="expected-attendees"><?php _e('Expecting: ', 'community-portal') . $projected_attendees ?></span>
 					<?php endif; ?>
 				)
 				</p>
@@ -319,7 +319,7 @@
                     ?>
                         <?php if ($count === 8): ?>
                             <button id="open-attendees-lightbox" class="btn btn--submit btn--light">
-                                <?php echo __('View all attendees', 'community-portal'); ?>
+                                <?php _e('View all attendees', 'community-portal'); ?>
                             </button>
                         <?php endif; ?>
                     <?php
@@ -334,7 +334,7 @@
 
     <?php if(count($allRelatedEvents) > 0): ?>
         <div class="events-single__related col-sm-12">
-            <h2 class="title--secondary"><?php echo __('Related Events', 'community-portal') ?></h2>
+            <h2 class="title--secondary"><?php _e('Related Events', 'community-portal') ?></h2>
             <div class="row">
                 <?php
                     foreach($allRelatedEvents as $event) {
@@ -357,7 +357,7 @@
             </button>
 
             <div class="row events-single__all-attendees">
-                <p class="title--secondary col-sm-12"><?php echo $count.__(' Attendees', "community-portal") ?></p>
+                <p class="title--secondary col-sm-12"><?php echo $count.__(' Attendees', 'community-portal') ?></p>
                 <?php foreach($EM_Event->bookings as $booking): ?>    
                     <?php if($booking->booking_status !== '3'): ?>
                         <?php
@@ -418,7 +418,7 @@
             <path d="M12 8V12" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             <circle cx="12" cy="16" r="0.5" fill="#CDCDD4" stroke="#0060DF"/>
         </svg>
-        <?php print __("Report Event", 'community-portal'); ?>
+        <?php _e('Report Event', 'community-portal'); ?>
     </a>                                           
 </div>
 
