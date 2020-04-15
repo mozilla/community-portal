@@ -632,6 +632,11 @@ function mozilla_update_style_attributes($html, $handle) {
         return str_replace("media='all'", "media='all' integrity='sha384-vL3ZAw2ReQIdxrwUqRWv0tBphVsMAJRrOLGU/rYaA1hnRjv8oBvlEywnbosRbPXG' crossorigin='anonymous'", $html);
     }
 
+    if($handle === 'style') {
+        $lastmodified = filemtime(get_template_directory().'/style.css');
+        return "<link rel='stylesheet' id='style-css'  href='http://dev.mozilla.org/wp-content/themes/community-portal/style.css?ver={$lastmodified}' type='text/css' media='all' />";
+    }
+
     return $html;
 }
 
