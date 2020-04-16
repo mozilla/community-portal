@@ -76,8 +76,8 @@
                         <input type="text" name="group_name" id="group-name" class="create-group__input<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_name']) || (isset($form['group_name']) && empty(trim($form['group_name'])) )): ?> create-group__input--error<?php endif; ?>" value="<?php print isset($form['group_name']) ? $form['group_name'] : ''; ?>" required />
                         <div class="form__error-container<?php if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($form['group_name']) || (isset($form['group_name']) && empty(trim($form['group_name'])) )): ?> form__error-container--visible<?php endif; ?>">
                             <p class="form__error">
-								<span class="form__error__required"><?php print __("This field is required", "community-portal"); ?></span>
-								<span class="form__error__secondary"><?php print __("This group name is already taken", "community-portal"); ?></span>
+								<span class="form__error__required"><?php _e('This field is required', 'community-portal'); ?></span>
+								<span class="form__error__secondary"><?php print _e('This group name is already taken', 'community-portal'); ?></span>
 							</p>
                         </div>
                     </div>

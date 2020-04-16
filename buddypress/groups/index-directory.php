@@ -299,8 +299,8 @@
             </div>
 			<div class="groups__show-filters-container">
 				<a href="#" class="groups__toggle-filter <?php  echo (isset($_GET['location']) || isset($_GET['mygroups']) ? "groups__toggle-filter--hide" : "groups__toggle-filter--hide") ?>">
-					<span class="filters__show"><?php _e("Show Filters", "community-portal"); ?></span>
-					<span class="filters__hide"><?php _e("Hide Filters", "community-portal"); ?></span>
+					<span class="filters__show"><?php _e('Show Filters', 'community-portal'); ?></span>
+					<span class="filters__hide"><?php _e('Hide Filters', 'community-portal'); ?></span>
 				</a>
 			</div>
             <div class="groups__groups">
