@@ -655,7 +655,7 @@ $subscribed = get_user_meta($user->ID, 'newsletter', true);
 					<a class="create-group__checkbox-container__link" href="https://www.mozilla.org/en-US/about/governance/policies/participation/"><?php _e('Mozilla\'s Community Participation Guidelines*', 'community-portal'); ?></a>
                 </p>
                 <div class="form__error-container form__error-container--checkbox">
-                    <p class="form__error"><?php _e('This field is required', 'community-portal'); ?></p>
+                    <p class="form__error"><?php _e('Please agree to the Community Participation Guidenlines', 'community-portal'); ?></p>
 				</div>
             </label>
         </section>
