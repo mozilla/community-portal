@@ -13,7 +13,7 @@
 <div class="events__header events__header--edit">
     <div class="row middle-md event-creator__container">
         <div class="col-md-6 events__header__text">
-        <h1 class="title"><?php echo ($event_id ? __('Edit Event', 'community-portal') : __('Create Event', 'community-portal')) ?></h1>
+        <h1 class="title"><?php ($event_id ? _e('Edit Event', 'community-portal') : _e('Create Event', 'community-portal')) ?></h1>
         </div>
     </div>
 </div>

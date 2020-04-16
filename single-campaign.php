@@ -61,7 +61,7 @@
                     <hr class="campaign__keyline" />
                     <div class="campaign__share-container">
                         <div class="campaign__tag-container">
-                            <?php print __('Tags', 'community-portal'); ?>
+                            <?php _e('Tags', 'community-portal'); ?>
                             <?php if(is_array($tags) && sizeof($tags) > 0): ?>
                                 <span class="campaign__tag"><?php print $tags[0]->name; ?></span>
                             <?php endif; ?>
@@ -70,7 +70,7 @@
                             <svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1 9V15C1 15.3978 1.15804 15.7794 1.43934 16.0607C1.72064 16.342 2.10218 16.5 2.5 16.5H11.5C11.8978 16.5 12.2794 16.342 12.5607 16.0607C12.842 15.7794 13 15.3978 13 15V9M10 4.5L7 1.5M7 1.5L4 4.5M7 1.5V11.25" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
-                            <?php print __('Share Campaign', 'community-portal'); ?>
+                            <?php _e('Share Campaign', 'community-portal'); ?>
 
                         </a>
 						
