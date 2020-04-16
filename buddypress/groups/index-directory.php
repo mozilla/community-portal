@@ -278,7 +278,7 @@
                 <div class="groups__select-container">
                     <label class="groups__label"><?php _e('Language', 'community-portal'); ?></label>
                     <select class="groups__language-select">
-                        <option value=""><?php _e('All', "community-portal"); ?></option>
+                        <option value=""><?php _e('All', 'community-portal'); ?></option>
                         <?php foreach($used_language_list AS $code   =>  $language): ?>
                         <?php if(strlen($code) > 1): ?>
                         <option value="<?php print $code; ?>"<?php if(isset($_GET['language']) && strlen($_GET['language']) > 0 && $_GET['language'] == $code): ?> selected<?php endif; ?>><?php print $language; ?></option>
