@@ -816,10 +816,13 @@
                         <?php endforeach; ?>
                     </select>  
                 </div>
-            </div>
-            <div class="members__show-filters-container">
-                <a href="#" class="members__show-filter"><?php _e('Show Filters', 'community-portal'); ?></a>
-            </div>
+			</div>
+			<div class="members__show-filters-container">
+				<a href="#" class="members__toggle-filter members__toggle-filter--show">
+					<span class="filters__show"><?php _e('Show Filters', 'community-portal'); ?></span>
+					<span class="filters__hide"><?php _e('Hide Filters', 'community-portal'); ?></span>
+				</a>
+			</div>
             <div class="members__people-container">
             <?php if(sizeof($members) > 0): ?>
             <?php if(isset($_GET['u']) && strlen($_GET['u']) > 0): ?><div class="members__results-for"><?php _e(sprintf('Results for \"%s\"', $search_user), 'community-portal'); ?></div><?php endif; ?>

@@ -200,8 +200,10 @@ jQuery(function(){
                 $ele.addClass("profile__input--error");
                 $errorMsg.addClass('form__error-container--visible');
 			}
-			if($ele.attr('name') == 'email' && $ele.val()) {
-                validateEmail($ele);
+			if($ele.attr('name') == 'email') {
+				if ($errorMsg.hasClass('form__error-container--visible')) {
+					error = true;
+				}
             }
         });
 
@@ -418,7 +420,6 @@ jQuery(function(){
 		const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		if (re.test(value.toLowerCase()) === false) {
 			handleMultipleErrorStates($this, false, true);
-			return;
 		} 
 		const get = {};
         get.u = value;
@@ -429,9 +430,9 @@ jQuery(function(){
             method: 'GET',
             success: function(data) {
                 const response = jQuery.parseJSON(data.trim());
-                console.log(response);
                 if(response == false) {
 					handleMultipleErrorStates($this, true);
+					return;
                 } else {
 					clearMultipleErrorStates($this);
                 }
@@ -529,19 +530,21 @@ jQuery(function(){
         
     });
     
-    jQuery('.members__show-filter').click(function(e) {
+    jQuery('.members__toggle-filter').click(function(e) {
+		const $this = jQuery(this);
 
         e.preventDefault();
         jQuery('.members__filter-container').slideToggle({
             start: function() {
-                jQuery('.members__filter-container').css('display','flex');
-                jQuery('.members__filter-container').css('flex-direction','column');
-
-                if(jQuery('.members__show-filter').text() == 'Hide Filters') {
-                    jQuery('.members__show-filter').text('Show Filters');
-                } else {
-                    jQuery('.members__show-filter').text('Hide Filters');
-                }
+				jQuery('.members__filter-container').css('display','flex');
+				jQuery('.members__filter-container').css('flex-direction','column');
+				if ($this.hasClass('members__toggle-filter--show')) {
+					$this.removeClass('members__toggle-filter--show');
+					$this.addClass('members__toggle-filter--hide');
+				} else {
+					$this.removeClass('members__toggle-filter--hide');
+					$this.addClass('members__toggle-filter--show');
+				}
             }
         });
 
