@@ -292,7 +292,38 @@
 			.cpg {
 				margin-top: 32px;
 			}
-        }
+		}
+		.form__error {
+			font-size: remCalc(12);
+			line-height: 1;
+		}
+		.form__error__secondary,
+		.form__error__tertiary {
+			display: none;
+		}
+		.form__error-container--secondary,
+		.form__error-container--tertiary {
+			.form__error__required {
+				display: none;
+			}
+		}
+		.form__error-container--secondary {
+			.form__error__secondary {
+				display: block;
+			}
+			.form__error__tertiary {
+				display: none	;
+			}
+		}
+		.form__error-container--tertiary {
+			.form__error__secondary {
+				display: none;
+			}
+			.form__error__tertiary {
+				display: block;
+			}
+		}
+
     }
 
     &__form-primary {
@@ -1399,5 +1430,4 @@
         margin: 0;
         margin-bottom: 24px;
     }
-
 }
