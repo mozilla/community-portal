@@ -917,7 +917,7 @@
 									<input type="submit" class="members__search-cta" value="<?php _e('Search', 'community-portal'); ?>" />
 								</form>
 							</div>
-							<div class="members__filter-container members__filter-container--hidden">
+							<div class="groups__filter-container groups__filter-container--hidden">
 								<span><?php _e('Search criteria:', 'community-portal'); ?></span>
 								<div class="members__select-container">
 									<label class="members__label"><?php _e('Location', 'community-portal'); ?></label>
