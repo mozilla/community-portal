@@ -19,7 +19,7 @@ if(isset($_REQUEST['event_id'])) {
 ?>
 
 <?php if(is_object($EM_Event) && !$EM_Event->can_manage('edit_events','edit_others_events') ){ ?>
-	<div class="event-creator event-wrap"><h2><?php __('Unauthorized Access','commuity-portal'); ?></h2><p><?php echo sprintf(__('You do not have the rights to manage this %s.','commuity-portal'),__('Event','commuity-portal')); ?></p></div>
+	<div class="event-creator event-wrap"><h2><?php _e('Unauthorized Access','commuity-portal'); ?></h2><p><?php echo sprintf(__('You do not have the rights to manage this %s.','commuity-portal'),__('Event','commuity-portal')); ?></p></div>
 <?php
     return false;
 } elseif (!is_object($EM_Event) ){
@@ -41,14 +41,14 @@ if(!empty($_REQUEST['success'])){
     <div class="event-wrap event-creator">
 		<?php do_action('em_front_event_form_header', $EM_Event); ?>
 		<?php if(get_option('dbem_events_anonymous_submissions') && !is_user_logged_in()): ?>
-			<h3 class="event-form-submitter"><?php __( 'Your Details', 'commuity-portal'); ?></h3>
+			<h3 class="event-form-submitter"><?php _e( 'Your Details', 'commuity-portal'); ?></h3>
 			<div class="inside event-form-submitter">
 				<div class="event-creator__container">
-                <label class="event-creator__label"><?php __('Name', 'commuity-portal'); ?></label>
-				<input class="event-creator__input" type="text" name="event_owner_name" id="event-owner-name" value="<?php echo esc_attr($EM_Event->event_owner_name); ?>" />
+                <label class="event-creator__label"><?php _e('Name', 'commuity-portal'); ?></label>
+                <input class="event-creator__input"type="text" name="event_owner_name" id="event-owner-name" value="<?php echo esc_attr($EM_Event->event_owner_name); ?>" />
             </div>
             <div class="event-creator__container">
-                <label class="event-creator__label"><?php __('Email', 'commuity-portal'); ?></label>
+                <label class="event-creator__label"><?php _e('Email', 'commuity-portal'); ?></label>
                 <input type="text" name="event_owner_email" id="event-owner-email" value="<?php echo esc_attr($EM_Event->event_owner_email); ?>" />
             </div>
 				<?php do_action('em_front_event_form_guest'); ?>
@@ -58,14 +58,14 @@ if(!empty($_REQUEST['success'])){
 		<div class="inside event-form-name event">
 			<div class="event-creator__three-up">
 				<div class="wide--double">
-					<label class="event-form-name event-creator__label" for="event-name"><?php _e( 'Event Name *', 'commuity-portal'); ?></label>
+					<label class="event-form-name event-creator__label" for="event-name"><?php _e('Event Name *', 'commuity-portal'); ?></label>
 					<input class="event-creator__input event-creator__input" type="text" name="event_name" id="event-name" required value="<?php echo esc_attr($EM_Event->event_name,ENT_QUOTES); ?>" />
 					<div class="form__error-container">
 						<p class="form__error"><?php _e('This field is required', 'community-portal'); ?></p>
 					</div>
 				</div>
 				<div class="wide wide--md-third">
-					<label class="event-creator__label" for="language"><?php _e('Language') ?></label>
+					<label class="event-creator__label" for="language"><?php _e('Language', 'community-portal'); ?></label>
 					<select class="event-creator__dropdown" name="language" id="language">
 						<option value="0" disabled selected><?php _e('Language', 'community-portal')?></option>
 						<?php foreach($languages as $index=>$language): ?>

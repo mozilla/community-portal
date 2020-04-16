@@ -57,8 +57,8 @@ endif;
 		</div>
 		<div class="event-creator__three-up <?php if ($location_type === 'online' || !$event_id): echo esc_attr('event-creator__hidden') ; endif; ?>">
 			<div class="em-location-data-address wide--full">
-				<label class="event-creator__label" for="location-address"><?php _e( 'Address *', 'commuity-portal')?></label>
-				<input class="event-creator__input" id="location-address" type="text" name="location_address" required value="<?php echo $EM_Location->location_address ? esc_attr($EM_Location->location_address) : "Online" ; ?>" required/>
+				<label class="event-creator__label" for="location-address"><?php _e('Address *', 'commuity-portal')?></label>
+				<input class="event-creator__input" id="location-address" type="text" name="location_address" required value="<?php $EM_Location->location_address ? print esc_attr($EM_Location->location_address) : _e('Online', 'community-portal'); ; ?>" required/> 
 				<div class="form__error-container">
 					<p class="form__error"><?php _e('This field is required', 'community-portal'); ?></p>
 				</div>
@@ -67,15 +67,15 @@ endif;
 		<div class="event-creator__three-up">
 			<div class="wide">
 				<label id="location-country-label" class="event-creator__label event-creator__label--online " for="location-country">
-					<span class="online"><?php _e( 'Where will this event be held? *', 'commuity-portal')?></span>
-					<span class="in-person"><?php _e( 'Country', 'commuity-portal')?></span>
+					<span class="online"><?php _e('Where will this event be held? *', 'commuity-portal')?></span>
+					<span class="in-person"><?php _e('Country', 'commuity-portal')?></span>
 				</label>
 				<select class="event-creator__dropdown" id="location-country" name="location_country" <?php if ($event) : echo esc_attr("disabled"); endif; ?> required>
 					<option value="0" <?php echo ( $EM_Location->location_country == '' && $EM_Location->location_id == '') ? 'selected="selected"':''; ?>><?php _e('Select','commuity-portal'); ?></option>
 					<optgroup label="<?php _e('Online', 'community-portal') ?>">
 						<option value="OE" <?php echo ( $EM_Location->location_country == 'OE') ? 'selected="selected"':''; ?>><?php _e('Online Event *','commuity-portal'); ?></option>
 					</optgroup>
-					<optgroup label="<?php _e('On Location', 'community-portal') ?>">
+					<optgroup label="<?php _e('On Location', 'community-portal'); ?>">
 						<?php foreach(em_get_countries() as $country_key => $country_name): 
 							if ($country_key === 'OE'):
 								continue;

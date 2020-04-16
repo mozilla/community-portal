@@ -194,7 +194,7 @@ function mozilla_edit_group() {
                 if(isset($_POST['group_name'])) {
                     $error = mozilla_search_groups($_POST['group_name'], $group_id);
                     if($error) {
-                        $_POST['group_name_error'] = __('This group name is already taken', "community-portal");
+                        $_POST['group_name_error'] = __('This group name is already taken', 'community-portal');
                     }
                 }
 
@@ -338,9 +338,9 @@ function mozilla_join_group() {
                         $discourse = mozilla_discourse_api('groups/users', $discourse_api_data, 'patch');
                 
     
-                        print json_encode(Array('status'   =>  'success', 'msg'  =>  __('Joined Group', "community-portal")));
+                        print json_encode(Array('status'   =>  'success', 'msg'  =>  __('Joined Group', 'community-portal')));
                     } else {
-                        print json_encode(Array('status'   =>  'error', 'msg'   =>  __('Could not join group', "community-portal")));
+                        print json_encode(Array('status'   =>  'error', 'msg'   =>  __('Could not join group', 'community-portal')));
                     }
                 }
                 
@@ -469,7 +469,7 @@ function mozilla_save_group($group_id) {
 }
 
 function mozilla_group_metabox() {
-    add_meta_box('mozilla-group-metabox', __( 'Export Events' ), 'mozilla_group_markup_metabox', get_current_screen()->id, 'side', 'core');
+    add_meta_box('mozilla-group-metabox', __('Export Events', 'community-portal'), 'mozilla_group_markup_metabox', get_current_screen()->id, 'side', 'core');
 }
 
 function mozilla_group_markup_metabox($post) {

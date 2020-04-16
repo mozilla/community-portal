@@ -1,9 +1,9 @@
 <?php
 
     $visibility_options = Array(
-        PrivacySettings::REGISTERED_USERS   =>  __('Registered Users', "community-portal"),
-        PrivacySettings::PUBLIC_USERS   =>  __('Public (Everyone)', "community-portal"),
-        PrivacySettings::PRIVATE_USERS   =>  __('Private (Only Me)', "community-portal"),
+        PrivacySettings::REGISTERED_USERS   =>  __('Registered Users', 'community-portal'),
+        PrivacySettings::PUBLIC_USERS   =>  __('Public (Everyone)', 'community-portal'),
+        PrivacySettings::PRIVATE_USERS   =>  __('Private (Only Me)', 'community-portal'),
     );
 
     $theme_directory = get_template_directory();

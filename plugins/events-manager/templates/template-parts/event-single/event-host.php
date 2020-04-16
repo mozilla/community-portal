@@ -18,8 +18,8 @@
 	}
 ?>
     <div class="row">
-        <div class="<?php if (is_array($admins) && count($admins) < 2): echo __('col-lg-12 col-md-6'); else: echo __('events-single__hosts--multiple'); endif; ?> col-sm-12 events-single__hosts">
-				<p class="events-single__label"><?php echo __('Hosted by', 'community-portal') ?></p>
+        <div class="<?php if (is_array($admins) && count($admins) < 2): echo 'col-lg-12 col-md-6'; else: echo 'events-single__hosts--multiple'; endif; ?> col-sm-12 events-single__hosts">
+				<p class="events-single__label"><?php _e('Hosted by', 'community-portal') ?></p>
 				<?php if (isset($group)): ?>
 					<a class="events-single__host" href="<?php echo get_site_url(null, 'groups/'.bp_get_group_slug($group)) ?>">
 						<?php echo bp_get_group_name($group) ?>

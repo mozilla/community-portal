@@ -761,9 +761,9 @@
     <div class="members">
         <div class="members__hero">
             <div class="members__hero-container">
-                <h1 class="members__title"><?php print __("People", "community-portal"); ?></h1>
+                <h1 class="members__title"><?php _e('People', 'community-portal'); ?></h1>
                 <p class="members__hero-copy">
-                    <?php print __("Ready to make it official? Set up a profile to attend events, join groups and manage your subscription settings. ", "community-portal"); ?>
+                    <?php _e('Ready to make it official? Set up a profile to attend events, join groups and manage your subscription settings. ', 'community-portal'); ?>
                 </p>
                 <div class="members__search-container">
                     <form method="GET" action="/people/" class="members__form" id="members-search-form">
@@ -775,20 +775,20 @@
                         <input type="hidden" value="<?php if(isset($_GET['tag']) && strlen($_GET['tag']) > 0): print trim($get_tag); endif; ?>" name="tag" id="user-tag" />
                         <input type="hidden" value="<?php if(isset($_GET['location']) && strlen($_GET['location']) > 0): print trim($location); endif; ?>" name="location" id="user-location" />
                         <input type="hidden" value="<?php if(isset($_GET['language']) && strlen($_GET['language']) > 0): print trim($get_language); endif; ?>" name="language" id="user-language" />
-                        <input type="text" name="u" id="members-search" class="members__search-input" placeholder="<?php print __("Search people", "community-portal"); ?>" value="<?php if($search_user): ?><?php print $search_user; ?><?php endif; ?>" />
+                        <input type="text" name="u" id="members-search" class="members__search-input" placeholder="<?php _e('Search people', 'community-portal'); ?>" value="<?php if($search_user): ?><?php print $search_user; ?><?php endif; ?>" />
                         </div>
-                        <input type="submit" class="members__search-cta" value="<?php print __("Search", "community-portal"); ?>" />
+                        <input type="submit" class="members__search-cta" value="<?php _e('Search', 'community-portal'); ?>" />
                     </form>
                 </div>
             </div>
         </div>
         <div class="members__container">
             <div class="members__filter-container members__filter-container--hidden">
-                <span><?php print __("Search criteria:", "community-portal"); ?></span>
+                <span><?php _e('Search criteria:', 'community-portal'); ?></span>
                 <div class="members__select-container">
-                    <label class="members__label"><?php print __("Location", "community-portal"); ?></label>
+                    <label class="members__label"><?php _e('Location', 'community-portal'); ?></label>
                     <select class="members__location-select">
-                        <option value=""><?php print __('Select', "community-portal"); ?></option>
+                        <option value=""><?php _e('Select', 'community-portal'); ?></option>
                         <?php foreach($used_country_list AS $code   =>  $country): ?>
                         <option value="<?php print $code; ?>"<?php if(isset($_GET['location']) && strlen($_GET['location']) > 0 && $_GET['location'] == $code): ?> selected<?php endif; ?>><?php print $country; ?></option>
                         <?php endforeach; ?>
@@ -796,9 +796,9 @@
                 </div>
                 <?php if(sizeof($used_languages) > 0): ?>
                 <div class="members__select-container">
-                    <label class="members__label"><?php print __("Language", "community-portal"); ?></label>
+                    <label class="members__label"><?php _e('Language', 'community-portal'); ?></label>
                     <select class="members__language-select">
-                        <option value=""><?php print __('Select', "community-portal"); ?></option>
+                        <option value=""><?php _e('Select', 'community-portal'); ?></option>
                         <?php foreach($used_languages AS $code =>   $language): ?>
                         <?php if(strlen($code) > 1): ?>
                         <option value="<?php print $code; ?>" <?php if(isset($_GET['language']) && strtolower(trim($_GET['language'])) == strtolower($code)): ?> selected<?php endif; ?>><?php print $language; ?></option>
@@ -808,9 +808,9 @@
                 </div>
                 <?php endif; ?>
                 <div class="members__select-container">
-                    <label class="members__label"><?php print __("Tag", "community-portal"); ?></label>
+                    <label class="members__label"><?php _e('Tag', 'community-portal'); ?></label>
                     <select class="members__tag-select">
-                        <option value=""><?php print __('Select', "community-portal"); ?></option>
+                        <option value=""><?php _e('Select', 'community-portal'); ?></option>
                         <?php foreach($tags AS $tag): ?>
                         <option value="<?php print $tag->slug; ?>" <?php if(isset($_GET['tag']) && strtolower(trim($_GET['tag'])) == strtolower($tag->slug)): ?> selected<?php endif; ?>><?php print $tag->name; ?></option>
                         <?php endforeach; ?>
@@ -818,11 +818,11 @@
                 </div>
             </div>
             <div class="members__show-filters-container">
-                <a href="#" class="members__show-filter"><?php print __("Show Filters", "community-portal"); ?></a>
+                <a href="#" class="members__show-filter"><?php _e('Show Filters', 'community-portal'); ?></a>
             </div>
             <div class="members__people-container">
             <?php if(sizeof($members) > 0): ?>
-            <?php if(isset($_GET['u']) && strlen($_GET['u']) > 0): ?><div class="members__results-for"><?php print __(sprintf("Results for \"%s\"", $search_user), "community-portal"); ?></div><?php endif; ?>
+            <?php if(isset($_GET['u']) && strlen($_GET['u']) > 0): ?><div class="members__results-for"><?php _e(sprintf('Results for \"%s\"', $search_user), 'community-portal'); ?></div><?php endif; ?>
             <?php foreach($members AS $member): ?>
             <?php 
                 $info = $member->info;
@@ -864,7 +864,7 @@
             <?php endforeach; ?>
             </div>
             <?php else: ?>
-                <h2 class="members__title--no-members-found"><?php print __('No members found', "community-portal"); ?></h2>
+                <h2 class="members__title--no-members-found"><?php _e('No members found', 'community-portal'); ?></h2>
             <?php endif; ?>
             <?php 
                 $range = ($page > 3) ? 3 : 5;
