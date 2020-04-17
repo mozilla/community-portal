@@ -11,8 +11,6 @@
  */
 
 ?>
-
-		
 		<footer class="footer">
 			<?php
 			if ( ! isset( $_COOKIE['gdpr'] ) ) {
@@ -59,7 +57,6 @@
 							)
 						);
 						?>
-					
 					<?php
 						wp_nav_menu(
 							array(
