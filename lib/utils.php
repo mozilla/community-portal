@@ -144,7 +144,7 @@ function mozilla_init_scripts() {
 	$google_analytics_id = get_option( 'google_analytics_id' );
 	if ( $google_analytics_id ) {
 		$url = esc_url( "https://www.googletagmanager.com/gtag/js?id={$google_analytics_id}" );
-		wp_enqueue_script( 'google-analytics', $url, array() );
+		wp_enqueue_script( 'google-analytics', $url, array(), null );
 		$script = '
 		<script>
 		window.dataLayer = window.dataLayer || [];
@@ -189,6 +189,10 @@ function mozilla_theme_settings() {
 
 			if ( isset( $_POST['google_analytics_id'] ) ) {
 				update_option( 'google_analytics_id', sanitize_text_field( $_POST['google_analytics_id'] ) );
+			}
+
+			if ( isset( $_POST['google_analytics_sri'] ) ) {
+				update_option( 'google_analytics_sri', sanitize_text_field( $_POST['google_analytics_sri'] ) );
 			}
 
 			if ( isset( $_POST['default_open_graph_title'] ) ) {
@@ -648,9 +652,13 @@ function mozilla_hide_menu_emails( $items, $args ) {
 
 function mozilla_update_script_attributes( $html, $handle ) {
 	if ( 'google-analytics' === $handle ) {
-		$needle = "type='text/javascript'";
-		$pos = strpos($html, $needle);
-		return substr_replace($html, "type='text/javascript' async integrity='sha384-clGB0iqaWjRBxnlwSb0/9P5Md3zjTLjgyWW1T506x3Y7sp9wIQPm3ZfJ6r+URXJd' crossorigin='anonymous'", $pos, strlen( $needle) );
+		$google_analytics_sri = esc_attr( get_option( 'google_analytics_sri' ) );
+
+		if( $google_analytics_sri ) {
+			$needle = "type='text/javascript'";
+			$pos = strpos($html, $needle);
+			return substr_replace($html, "type='text/javascript' async integrity='{$google_analytics_sri}' crossorigin='anonymous'", $pos, strlen( $needle) );
+		}
 	}
 
 	return $html;
