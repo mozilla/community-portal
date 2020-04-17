@@ -63,7 +63,7 @@ class EM_Ticket extends EM_Object{
 	 * @return null
 	 */
 	function __construct( $ticket_data = false ){
-		$this->ticket_name = __('Standard Ticket', "community-portal");
+		$this->ticket_name = __('Standard Ticket', 'community-portal');
 		$ticket = array();
 		if( $ticket_data !== false ){
 			//Load ticket data
@@ -190,22 +190,22 @@ class EM_Ticket extends EM_Object{
 				}
 				$sql = "UPDATE $table SET ".implode(', ', $set_array)." WHERE ticket_id={$this->ticket_id}";
 				$result = $wpdb->query($sql);
-				$this->feedback_message = __('Changes saved', "community-portal");
+				$this->feedback_message = __('Changes saved', 'community-portal');
 			}else{
 				if( isset($data['ticket_id']) && empty($data['ticket_id']) ) unset($data['ticket_id']);
 				$result = $wpdb->insert($table, $data, $this->get_types($data));
 			    $this->ticket_id = $wpdb->insert_id;
-				$this->feedback_message = __('Ticket created', "community-portal"); 
+				$this->feedback_message = __('Ticket created', 'community-portal'); 
 			}
 			if( $result === false ){
-				$this->feedback_message = __('There was a problem saving the ticket.', "community-portal");
-				$this->errors[] = __('There was a problem saving the ticket.', "community-portal");
+				$this->feedback_message = __('There was a problem saving the ticket.', 'community-portal');
+				$this->errors[] = __('There was a problem saving the ticket.', 'community-portal');
 			}
 			$this->compat_keys();
 			return apply_filters('em_ticket_save', ( count($this->errors) == 0 ), $this);
 		}else{
-			$this->feedback_message = __('There was a problem saving the ticket.', "community-portal");
-			$this->errors[] = __('There was a problem saving the ticket.', "community-portal");
+			$this->feedback_message = __('There was a problem saving the ticket.', 'community-portal');
+			$this->errors[] = __('There was a problem saving the ticket.', 'community-portal');
 			return apply_filters('em_ticket_save', false, $this);
 		}
 		return true;
@@ -296,10 +296,10 @@ class EM_Ticket extends EM_Object{
 			}
 		}
 		if( !empty($this->ticket_price) && !is_numeric($this->ticket_price) ){
-			$this->add_error(esc_html__('Please enter a valid ticket price e.g. 10.50 (no currency signs)', "community-portal"));
+			$this->add_error(esc_html__('Please enter a valid ticket price e.g. 10.50 (no currency signs)', 'community-portal'));
 		}
 		if( !empty($this->ticket_min) && !empty($this->ticket_max) && $this->ticket_max < $this->ticket_min ) {
-			$error = esc_html__('Ticket %s has a higher minimum spaces requirement than the maximum spaces allowed.', "community-portal");
+			$error = esc_html__('Ticket %s has a higher minimum spaces requirement than the maximum spaces allowed.', 'community-portal');
 			$this->add_error( sprintf($error, '<em>'. esc_html($this->ticket_name) .'</em>'));
 		}
 		if ( count($missing_fields) > 0){
@@ -530,7 +530,7 @@ class EM_Ticket extends EM_Object{
 				$sql = $wpdb->prepare("DELETE FROM ". EM_TICKETS_TABLE . " WHERE ticket_id=%d", $this->ticket_id);
 				$result = $wpdb->query( $sql );
 			}else{
-				$this->feedback_message = __('You cannot delete a ticket that has a booking on it.', "community-portal");
+				$this->feedback_message = __('You cannot delete a ticket that has a booking on it.', 'community-portal');
 				$this->add_error($this->feedback_message);
 				return false;
 			}

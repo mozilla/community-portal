@@ -47,29 +47,29 @@
     }
 ?>
 <div class="col-md-12 events__filter">
-    <p class="events__filter__title"><?php print __('Filter By:', 'community-portal') ?></p>
+    <p class="events__filter__title"><?php _e('Filter By:', 'community-portal') ?></p>
     <form action="" class="events__filter__form">
         <?php
             $field_name = "Country";
-            $field_label = __("Location", 'community-portal');
+            $field_label = __('Location', 'community-portal');
             $options = $ddm_countries;
             include(locate_template('plugins/events-manager/templates/template-parts/options.php', false, false));    
 
             if(sizeof($used_languages) > 0) {
                 $field_name = "Language";
-                $field_label = __("Language", 'community-portal');
+                $field_label = __('Language', 'community-portal');
                 $options = $used_languages;
                 include(locate_template('plugins/events-manager/templates/template-parts/options.php', false, false));    
             }
 			
             $field_name =  "Tag";
-            $field_label = __("Tag", 'community-portal');
+            $field_label = __('Tag', 'community-portal');
             $options = $categories;
             include(locate_template('plugins/events-manager/templates/template-parts/options.php', false, false));   
             
             
             $field_name = "Initiative";
-            $field_label = __("Campaign or Activity", 'community-portal');
+            $field_label = __('Campaign or Activity', 'community-portal');
             $args = Array(
                 'post_type' =>  'campaign',
                 'per_page'  =>  -1
@@ -113,6 +113,6 @@
 </div>
 <div class="col-md-12">
     <button class="events__filter__toggle btn btn--large btn--light">
-        <?php echo __('Hide Filters', 'community-portal') ?>
+        <?php _e('Hide Filters', 'community-portal'); ?>
     </button>
 </div>

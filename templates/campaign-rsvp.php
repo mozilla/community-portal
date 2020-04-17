@@ -6,63 +6,63 @@
 		</svg>
 	</button>
 	<div class="campaign-rsvp__initial">
-		<h2 class="campaign-rsvp__title title"><?php print __('Get Involved', 'community-portal')?></h2>
+		<h2 class="campaign-rsvp__title title"><?php _e('Get Involved', 'community-portal')?></h2>
 		<div>
-			<h3 class="campaign-rsvp__subtitle"><?php print __('Sign Up', 'community-portal') ?></h3>
+			<h3 class="campaign-rsvp__subtitle"><?php _e('Sign Up', 'community-portal') ?></h3>
 			<p>
-				<?php print __('Create a Community Portal account to connect with the community and participate in a number of exciting campaigns.', 'community-portal')?>
+				<?php _e('Create a Community Portal account to connect with the community and participate in a number of exciting campaigns.', 'community-portal')?>
 			</p>
 			<div class="campaign-rsvp__section--center">
-				<a class="btn btn--dark btn--submit" href="/wp-login.php?action=login"><?php print __('Sign Up', 'community-portal') ?></a>
+				<a class="btn btn--dark btn--submit" href="/wp-login.php?action=login"><?php _e('Sign Up', 'community-portal') ?></a>
 				<p class="campaign-rsvp__login">
-					<?php print __('Already a member?', 'community-portal') ?>
-					<a href="/wp-login.php?action=login" class="campaign-rsvp__link"><?php print __('Log In', 'community-portal') ?></a>
+					<?php _e('Already a member?', 'community-portal') ?>
+					<a href="/wp-login.php?action=login" class="campaign-rsvp__link"><?php _e('Log In', 'community-portal') ?></a>
 				</p>
 			</div>
 		</div>
 		<div class="campaign-rsvp__form">
-			<h3 class="campaign-rsvp__subtitle"><?php print __('Get involved without a user account', 'community-portal') ?></h3>
-			<p><?php print __('Fill out the form below to join this campaign without creating a user account', 'community-portal') ?></p>
+			<h3 class="campaign-rsvp__subtitle"><?php _e('Get involved without a user account', 'community-portal') ?></h3>
+			<p><?php _e('Fill out the form below to join this campaign without creating a user account', 'community-portal') ?></p>
 			<form id="campaign-rsvp-form" method="post" novalidate data-list="<?php print $mailchimp->id; ?>" data-campaign="<?php print $post->ID;?>">
 				<div class="row campaign-rsvp__section">
 					<div class="col-lg-6 campaign-rsvp__row campaign-rsvp__row--double">
-						<label class="campaign-rsvp__label" for="first-name"><?php print __('First Name', 'community-portal') ?></label>
+						<label class="campaign-rsvp__label" for="first-name"><?php _e('First Name', 'community-portal') ?></label>
 						<input id="rsvp-first-name" class="campaign-rsvp__input" type="text" id="first-name" name="first-name">
-						<p class="form__error-container"><?php print __('This field is required', 'community-portal')?></p>
+						<p class="form__error-container"><?php _e('This field is required', 'community-portal')?></p>
 					</div>
 					<div class="col-lg-6 campaign-rsvp__row campaign-rsvp__row--double">
-						<label class="campaign-rsvp__label" for="last-name"><?php print __('Last Name', 'community-portal') ?></label>
+						<label class="campaign-rsvp__label" for="last-name"><?php _e('Last Name', 'community-portal') ?></label>
 						<input id="rsvp-last-name" class="campaign-rsvp__input" type="text" id="last-name" name="last-name">
-						<p class="form__error-container"><?php print __('This field is required', 'community-portal')?></p>
+						<p class="form__error-container"><?php _e('This field is required', 'community-portal')?></p>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-sm-12 campaign-rsvp__row">
-						<label class="campaign-rsvp__label" for="email"><?php print __('Email') ?></label>
+						<label class="campaign-rsvp__label" for="email"><?php _e('Email', 'community-portal') ?></label>
 						<input id="rsvp-email" class="campaign-rsvp__input" type="email" name="email">
-						<p class="form__error-container"><?php print __('Invalid email', 'community-portal')?></p>
+						<p class="form__error-container"><?php _e('Invalid email', 'community-portal')?></p>
 					</div>
 					<div class="col-sm-12 cpg">
 						<input class="checkbox--hidden" type="checkbox" name="privacy-policy" id="privacy-policy">
 						<label class="cpg__label" for="privacy-policy">
-							<?php print __('I\'m okay with Mozilla handling my info as explained in this', 'community-portal')?> 
-							<a href="https://www.mozilla.org/en-US/privacy/"><?php print __('Privacy Policy', 'community-portal')?></a>
+							<?php _e('I\'m okay with Mozilla handling my info as explained in this', 'community-portal')?> 
+							<a href="https://www.mozilla.org/en-US/privacy/"><?php _e('Privacy Policy', 'community-portal')?></a>
 						</label>
-						<p class="form__error-container"><?php print __('You must agree to the privacy policy', 'community-portal')?></p>
+						<p class="form__error-container"><?php _e('You must agree to the privacy policy', 'community-portal')?></p>
 					</div>
 					<div class="col-sm-12 campaign-rsvp__section--center">
-						<input class="btn btn--light btn--submit" type="submit" value="<?php print __('Get Involved', 'community-portal') ?>">
+						<input class="btn btn--light btn--submit" type="submit" value="<?php _e('Get Involved', 'community-portal') ?>">
 					</div>
 				</div>
 			</form>
 		</div>
 	</div>
 	<div class="campaign-rsvp__success">
-		<h3 class="campaign-rsvp__title"><?php print __('Thank you for getting involved!', 'community-portal')?></h3>
-		<p><?php print __('An email has been sent with more details', 'community-portal')?></p>
+		<h3 class="campaign-rsvp__title"><?php  _e('Thank you for getting involved!', 'community-portal')?></h3>
+		<p><?php _e('An email has been sent with more details', 'community-portal')?></p>
 	</div>
 	<div class="campaign-rsvp__failure">
-		<h3 class="campaign-rsvp__title"><?php print __('Something went wrong.', 'community-portal')?></h3>
-		<p><?php print __('Please try again later.', 'community-portal')?></p>
+		<h3 class="campaign-rsvp__title"><?php _e('Something went wrong.', 'community-portal')?></h3>
+		<p><?php _e('Please try again later.', 'community-portal')?></p>
 	</div>
 </div>

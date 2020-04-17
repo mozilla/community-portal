@@ -75,6 +75,9 @@ add_action('add_meta_boxes', 'mozilla_campaign_metabox');
 add_action('wp_ajax_download_activity_events', 'mozilla_download_activity_events');
 add_action('add_meta_boxes', 'mozilla_activity_metabox');
 
+add_action('after_setup_theme', 'mozilla_theme_setup');
+
+
 // Auth0 Actions
 add_action('auth0_user_login', 'mozilla_post_user_creation', 10, 6);
 
@@ -109,6 +112,14 @@ add_filter('bp_groups_list_table_get_columns', 'mozilla_add_group_columns');
 add_filter('bp_groups_admin_get_group_custom_column', 'mozilla_group_addional_column_info', 10, 3);
 add_filter('wp_nav_menu_objects', 'mozilla_hide_menu_emails', 10, 2);
 add_filter('script_loader_tag', 'mozilla_update_script_attributes', 10, 2 );
+
+function mozilla_theme_setup() {
+    load_theme_textdomain('community-portal', get_template_directory() . '/languages');
+
+
+    
+}
+
 
 // Include theme style.css file not in admin page
 if(!is_admin()) {

@@ -10,8 +10,8 @@
  * @author  Playground Inc.
  */
 
-$user             = wp_get_current_user()->data;
-$meta             = get_user_meta( $user->ID );
+$user = wp_get_current_user()->data;
+$meta = get_user_meta( $user->ID );
 
 $community_fields = isset( $meta['community-meta-fields'][0] ) ? unserialize( $meta['community-meta-fields'][0] ) : array();
 
