@@ -15,9 +15,6 @@ $meta = get_user_meta( $user->ID );
 
 $community_fields = isset( $meta['community-meta-fields'][0] ) ? unserialize( $meta['community-meta-fields'][0] ) : array();
 
-
-
-
 if ( isset( $community_fields['image_url'] ) ) {
 	$avatar = $community_fields['image_url'];
 } else {
@@ -31,9 +28,12 @@ if ( $avatar && ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) 
 $section   = mozilla_determine_site_section();
 $theme_url = get_template_directory_uri();
 
-if ( ! empty( $_GET['s'] ) ) {
+if ( ! empty( $_GET['s'] ) && isset( $_GET['site_search'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['site_search'] ) ), 'site_search_nonce' ) ) {
 	$search_text    = sanitize_text_field( wp_unslash( $_GET['s'] ) );
 	$original_query = htmlspecialchars( $search_text, ENT_QUOTES, 'UTF-8' );
+
+} else {
+	$search_text = sanitize_text_field( wp_unslash( $_GET['s'] ) );
 }
 
 if (
@@ -44,6 +44,8 @@ if (
 	$search_text    = sanitize_text_field( wp_unslash( $_GET['s'] ) );
 	$original_query = htmlspecialchars( $search_text, ENT_QUOTES, 'UTF-8' );
 	$original_query = preg_replace( '/^\"|\"$|^\'|\'$/', '', $original_query );
+} else {
+	$search_text = sanitize_text_field( wp_unslash( $_GET['s'] ) );
 }
 
 	$protocol = ! empty( wp_get_server_protocol() ) && 0 === stripos( wp_get_server_protocol(), 'https' ) ? 'https://' : 'http://';
@@ -183,7 +185,8 @@ if (
 							<path fill-rule="evenodd" clip-rule="evenodd" d="M9 5C9 7.20914 7.20914 9 5 9C2.79086 9 1 7.20914 1 5C1 2.79086 2.79086 1 5 1C7.20914 1 9 2.79086 9 5ZM8.00021 9.00021C7.16451 9.62799 6.1257 10 5 10C2.23858 10 0 7.76142 0 5C0 2.23858 2.23858 0 5 0C7.76142 0 10 2.23858 10 5C10 6.27532 9.52253 7.43912 8.73661 8.32239L11.7071 11.2929L11 12L8.00021 9.00021Z" fill="#737373" />
 						</svg>
 						<form method="GET" action="/">
-							<input type="text" class="nav__search" placeholder="<?php esc_attr_e( 'Seach', 'community-portal' ); ?>" name="s" value="<?php esc_attr( $search_text ); ?>" />
+							<?php wp_nonce_field( 'site_search', 'site_search_nonce' ); ?>
+							<input type="text" class="nav__search" placeholder="<?php esc_attr_e( 'Seach', 'community-portal' ); ?>" name="s" value="<?php echo esc_attr( $search_text ); ?>" />
 						</form>
 					</div>
 				</div>
