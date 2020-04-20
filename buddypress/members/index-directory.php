@@ -40,11 +40,9 @@ if ( isset( $_GET['u'] ) ) {
 	}
 }
 
-$location     = isset( $_GET['people_search_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['people_search_nonce'] ) ) ) && isset( $_GET['location'] ) ? htmlspecialchars( sanitize_text_field( wp_unslash( $_GET['location'] ) ), ENT_QUOTES, 'UTF-8' ) : '';
-$get_language = isset( $_GET['people_search_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['people_search_nonce'] ) ) ) && isset( $_GET['language'] ) ? htmlspecialchars( sanitize_text_field( wp_unslash( $_GET['language'] ) ), ENT_QUOTES, 'UTF-8' ) : '';
-$get_tag      = isset( $_GET['people_search_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['people_search_nonce'] ) ) ) && isset( $_GET['tag'] ) ? htmlspecialchars( sanitize_text_field( wp_unslash( $_GET['tag'] ) ), ENT_QUOTES, 'UTF-8' ) : '';
-
-
+$location     = isset( $_GET['location'] ) ? htmlspecialchars( sanitize_text_field( wp_unslash( $_GET['location'] ) ), ENT_QUOTES, 'UTF-8' ) : '';
+$get_language = isset( $_GET['language'] ) ? htmlspecialchars( sanitize_text_field( wp_unslash( $_GET['language'] ) ), ENT_QUOTES, 'UTF-8' ) : '';
+$get_tag      = isset( $_GET['tag'] ) ? htmlspecialchars( sanitize_text_field( wp_unslash( $_GET['tag'] ) ), ENT_QUOTES, 'UTF-8' ) : '';
 
 if (
 	isset( $search_user ) &&
@@ -71,6 +69,8 @@ if ( $search_user && strpos( $search_user, ' ' ) !== false ) {
 $country_code  = strlen( trim( $location ) ) > 0 ? strtoupper( $location ) : false;
 $get_tag       = strlen( trim( $get_tag ) ) > 0 ? strtolower( $get_tag ) : false;
 $language_code = strlen( trim( $get_language ) ) > 0 ? strtolower( $get_language ) : false;
+
+
 
 $wp_user_query = new WP_User_Query(
 	array(
@@ -647,8 +647,10 @@ foreach ( $members as $index => $member ) {
 		continue;
 	}
 
+
 	// Just Country!
 	if ( $country_code && false === $get_tag && false === $search_user && false === $language_code ) {
+
 		if ( $info['location']->display &&
 			array_key_exists( $country_code, $countries ) &&
 			strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) ) {
@@ -744,7 +746,6 @@ $total_pages = ceil( count( $filtered_members ) / $members_per_page );
 				</p>
 				<div class="members__search-container">
 					<form method="GET" action="/people/" class="members__form" id="members-search-form">
-						<?php wp_nonce_field( 'peopl_search', 'people_search_nonce' ); ?>
 						<div class="members__input-container">
 						<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M9.16667 15.8333C12.8486 15.8333 15.8333 12.8486 15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
