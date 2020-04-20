@@ -1,8 +1,16 @@
-<?php 
-    global $bp;
-    $group = $bp->groups->current_group;
-    $user = wp_get_current_user();
-    $meta = get_user_meta($user->ID);
+<?php
+/**
+ * Index
+ *
+ * Main footer file for the theme.
+ *
+ * @package WordPress
+ * @subpackage community-portal
+ * @version 1.0.0
+ * @author  Playground Inc.
+ * @license https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv3
+ * @since  1.0.0
+ */
 
     // Improved site routing
     if($group) {
@@ -24,12 +32,16 @@
     }
     
     get_header(); 
+
 ?>
-    <div class="content">
-    <?php if ( have_posts() ) : ?>
-        <?php while ( have_posts() ) : the_post(); ?>
-          <?php the_content() ?>
-        <?php endwhile; ?>
-      <?php endif; ?>
-    </div>
+	<div class="content">
+	<?php if ( have_posts() ) : ?>
+		<?php
+		while ( have_posts() ) :
+			the_post();
+			?>
+			<?php the_content(); ?>
+		<?php endwhile; ?>
+	<?php endif; ?>
+	</div>
 <?php get_footer(); ?>
