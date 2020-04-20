@@ -871,16 +871,16 @@ else :
 					<?php endforeach; ?>
 				</select>
 			</div>
-			<?php 
-				if ( $form && isset( $form['profile_languages_visibility'] ) ) {
-					$language_visibility = $form['profile_languages_visibility'];
-				} else {
-					if ( isset( $community_fields['profile_languages_visibility'] ) ) {
-						$language_visibility = $community_fields['profile_languages_visibility'];
-					}
+			<?php
+			if ( $form && isset( $form['profile_languages_visibility'] ) ) {
+				$language_visibility = $form['profile_languages_visibility'];
+			} else {
+				if ( isset( $community_fields['profile_languages_visibility'] ) ) {
+					$language_visibility = $community_fields['profile_languages_visibility'];
 				}
+			}
 			?>
-			<input type="hidden" name="profile_languages_visibility" value="<?php echo esc_attr($language_visibility); ?>" />
+			<input type="hidden" name="profile_languages_visibility" value="<?php echo esc_attr( $language_visibility ); ?>" />
 			<hr class="profile__keyline" />
 			<div class="profile__form-field">
 				<div>
