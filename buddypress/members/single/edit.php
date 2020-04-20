@@ -876,7 +876,7 @@ else :
 						?>
 						<div class="profile__tag-container">
 							<?php foreach ( $tags as $loop_tag ) : ?>
-								<input class="profile__checkbox" type="checkbox" id="<?php echo esc_attr( $loop_tag->slug ); ?>" data-value="<?php echo esc_attr( $tag->slug ); ?>">
+								<input class="profile__checkbox" type="checkbox" id="<?php echo esc_attr( $loop_tag->slug ); ?>" data-value="<?php echo esc_attr( $loop_tag->slug ); ?>">
 								<label class="profile__tag
 								<?php
 								if ( in_array( $loop_tag->slug, $form_tags, true ) ) :
