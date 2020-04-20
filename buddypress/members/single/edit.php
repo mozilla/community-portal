@@ -1059,7 +1059,15 @@ else :
 		<?php if ( ! isset( $meta['agree'][0] ) || 'I Agree' !== $meta['agree'][0] ) : ?>
 			<?php if ( 1 === count( $guidelines ) ) : ?> 
 		<section class="profile__form-container cpg">
-				<?php echo esc_html( apply_filters( 'the_content', $guidelines[0]->post_content ) ); ?>
+				<?php
+				echo wp_kses(
+					apply_filters( 'the_content', $guidelines[0]->post_content ),
+					array(
+						'p' => array(),
+						'a' => array( 'href' => array() ),
+					)
+				);
+				?>
 			<input class="checkbox--hidden" type="checkbox" name="agree" id="agree" value="I Agree" required />
 			<label class="create-group__checkbox-container cpg__label" for="agree">
 				<p class="create-group__checkbox-container__copy">
