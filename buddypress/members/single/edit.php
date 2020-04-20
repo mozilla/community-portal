@@ -487,18 +487,18 @@ else :
 			<div class="profile__form-field">
 				<div class="profile__input-container">
 					<label class="profile__label" for="discourse"><?php esc_html_e( 'Mozilla Discourse username (optional)', 'community-portal' ); ?></label>
-					<input type="text" name="discourse" id="discourse" class="profile__input" value="
 					<?php
-					if ( $form && isset( $form['discourse'] ) ) :
-						?>
-						<?php echo esc_attr( $form['discourse'] ); ?>
-						<?php
-else :
-	?>
-						<?php
-						if ( is_array( $community_fields ) && isset( $community_fields['discourse'] ) ) :
-							?>
-							<?php echo esc_attr( $community_fields['discourse'] ); ?><?php endif; ?><?php endif; ?>"/>
+					if ( $form && isset( $form['discourse'] ) ) {
+						$discourse_value = $form['discourse'];
+					} else {
+						if ( is_array( $community_fields ) && isset( $community_fields['discourse'] ) ) {
+							$discourse_value = $community_fields['discourse'];
+						} else {
+							$discourse_value = '';
+						}
+					}
+					?>
+					<input type="text" name="discourse" id="discourse" class="profile__input" value="<?php esc_attr( $discourse_value ); ?>"/>
 				</div>
 				<div class="profile__select-container">
 					<label class="profile__label" for="profile-discourse-visibility"><?php esc_html_e( 'Can be viewed by', 'community-portal' ); ?></label>
@@ -517,18 +517,18 @@ else :
 			<div class="profile__form-field">
 				<div class="profile__input-container">
 					<label class="profile__label" for="facebook"><?php esc_html_e( 'Facebook username (optional)', 'community-portal' ); ?></label>
-					<input type="text" name="facebook" id="facebook" class="profile__input" value="
 					<?php
-					if ( $form && isset( $form['facebook'] ) ) :
-						?>
-						<?php echo esc_attr( $form['facebook'] ); ?>
-						<?php
-else :
-	?>
-						<?php
-						if ( is_array( $community_fields ) && isset( $community_fields['facebook'] ) ) :
-							?>
-							<?php echo esc_attr( $community_fields['facebook'] ); ?><?php endif; ?><?php endif; ?>"/>
+					if ( $form && isset( $form['facebook'] ) ) {
+						$facebook_value = $form['facebook'];
+					} else {
+						if ( is_array( $community_fields ) && isset( $community_fields['facebook'] ) ) {
+							$facebook_value = $community_fields['facebook'];
+						} else {
+							$facebook_value = '';
+						}
+					}
+					?>
+					<input type="text" name="facebook" id="facebook" class="profile__input" value="<?php echo esc_attr( $facebook_value ); ?>"/>
 				</div>
 				<div class="profile__select-container">
 					<label class="profile__label" for="profile-facebook-visibility"><?php esc_html_e( 'Can be viewed by', 'community-portal' ); ?></label>
@@ -547,18 +547,18 @@ else :
 			<div class="profile__form-field">
 				<div class="profile__input-container">
 					<label class="profile__label" for="twitter"><?php esc_html_e( 'Twitter username (optional)', 'community-portal' ); ?></label>
-					<input type="text" name="twitter" id="twitter" class="profile__input" value="
 					<?php
-					if ( $form && isset( $form['facebook'] ) ) :
-						?>
-						<?php echo esc_attr( $form['twitter'] ); ?>
-						<?php
-else :
-	?>
-						<?php
-						if ( is_array( $community_fields ) && isset( $community_fields['twitter'] ) ) :
-							?>
-							<?php echo esc_attr( $community_fields['twitter'] ); ?><?php endif; ?><?php endif; ?>"/>
+					if ( $form && isset( $form['twitter'] ) ) {
+						$twitter_value = $form['twitter'];
+					} else {
+						if ( is_array( $community_fields ) && isset( $community_fields['twitter'] ) ) {
+							$twitter_value = $community_fields['twitter'];
+						} else {
+							$twitter_value = '';
+						}
+					}
+					?>
+					<input type="text" name="twitter" id="twitter" class="profile__input" value="<?php echo esc_attr( $twitter_value ); ?>"/>
 				</div>
 				<div class="profile__select-container">
 					<label class="profile__label" for="profile-twitter-visibility"><?php esc_html_e( 'Can be viewed by', 'community-portal' ); ?></label>
@@ -577,18 +577,18 @@ else :
 			<div class="profile__form-field">
 				<div class="profile__input-container">
 					<label class="profile__label" for="linkedin"><?php esc_html_e( 'LinkedIn username (optional)', 'community-portal' ); ?></label>
-					<input type="text" name="linkedin" id="linkedin" class="profile__input" value="
 					<?php
-					if ( $form && isset( $form['linkedin'] ) ) :
-						?>
-						<?php echo esc_attr( $form['linkedin'] ); ?>
-						<?php
-else :
-	?>
-						<?php
-						if ( is_array( $community_fields ) && isset( $community_fields['linkedin'] ) ) :
-							?>
-							<?php echo esc_attr( $community_fields['linkedin'] ); ?><?php endif; ?><?php endif; ?>"/>
+					if ( $form && isset( $form['linkedin'] ) ) {
+						$linkedin_value = $form['linkedin'];
+					} else {
+						if ( is_array( $community_fields ) && isset( $community_fields['linkedin'] ) ) {
+							$linkedin_value = $community_fields['linkedin'];
+						} else {
+							$linkedin_value = '';
+						}
+					}
+					?>
+					<input type="text" name="linkedin" id="linkedin" class="profile__input" value="<?php echo esc_attr( $linkedin_value ); ?>"/>
 				</div>
 				<div class="profile__select-container">
 					<label class="profile__label" for="profile-linkedin-visibility"><?php esc_html_e( 'Can be viewed by', 'community-portal' ); ?></label>
@@ -607,18 +607,18 @@ else :
 			<div class="profile__form-field">
 				<div class="profile__input-container">
 					<label class="profile__label" for="github"><?php esc_html_e( 'Github username (optional)', 'community-portal' ); ?></label>
-					<input type="text" name="github" id="github" class="profile__input" value="
 					<?php
-					if ( $form && isset( $form['github'] ) ) :
-						?>
-						<?php echo esc_attr( $form['github'] ); ?>
-						<?php
-else :
-	?>
-						<?php
-						if ( is_array( $community_fields ) && isset( $community_fields['github'] ) ) :
-							?>
-							<?php echo esc_attr( $community_fields['github'] ); ?><?php endif; ?><?php endif; ?>"/>
+					if ( $form && isset( $form['github'] ) ) {
+						$github_value = $form['github'];
+					} else {
+						if ( is_array( $community_fields ) && isset( $community_fields['github'] ) ) {
+							$github_value = $community_fields['github'];
+						} else {
+							$github_value = '';
+						}
+					}
+					?>
+					<input type="text" name="github" id="github" class="profile__input" value="<?php echo esc_attr( $github_value ); ?>"/>
 				</div>
 				<div class="profile__select-container">
 					<label class="profile__label" for="profile-github-visibility"><?php esc_html_e( 'Can be viewed by', 'community-portal' ); ?></label>
@@ -637,18 +637,18 @@ else :
 			<div class="profile__form-field">
 				<div class="profile__input-container">
 					<label class="profile__label" for="telegram"><?php esc_html_e( 'Telegram username (optional)', 'community-portal' ); ?></label>
-					<input type="text" name="telegram" id="telegram" class="profile__input" value="
 					<?php
-					if ( $form && isset( $form['telegram'] ) ) :
-						?>
-						<?php echo esc_attr( $form['telegram'] ); ?>
-						<?php
-else :
-	?>
-						<?php
-						if ( is_array( $community_fields ) && isset( $community_fields['telegram'] ) ) :
-							?>
-							<?php echo esc_attr( $community_fields['telegram'] ); ?><?php endif; ?><?php endif; ?>"/>
+					if ( $form && isset( $form['telegram'] ) ) {
+						$telegram_value = $form['telegram'];
+					} else {
+						if ( is_array( $community_fields ) && isset( $community_fields['telegram'] ) ) {
+							$telegram_value = $community_fields['telegram'];
+						} else {
+							$telegram_value = '';
+						}
+					}
+					?>
+					<input type="text" name="telegram" id="telegram" class="profile__input" value="<?php echo esc_attr( $telegram_value ); ?>"/>
 				</div>
 				<div class="profile__select-container">
 					<label class="profile__label" for="profile-telegram-visibility"><?php esc_html_e( 'Can be viewed by', 'community-portal' ); ?></label>
