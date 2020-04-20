@@ -76,7 +76,15 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 			</div>
 			<?php if ( $info['bio']->display ) : ?>
 			<div class="profile__bio-container">
-				<?php echo esc_html( wpautop( substr( trim( $info['bio']->value ), 0, 3000 ) ) ); ?>
+				<?php
+				echo wp_kses(
+					wpautop( substr( trim( $info['bio']->value ), 0, 3000 ) ),
+					array(
+						'p'  => array(),
+						'br' => array(),
+					)
+				);
+				?>
 			</div>
 			<?php endif; ?>
 			<div class="profile__card-contact-container">
