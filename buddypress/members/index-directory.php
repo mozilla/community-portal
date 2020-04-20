@@ -818,7 +818,12 @@ $total_pages = ceil( count( $filtered_members ) / $members_per_page );
 				<?php
 				if ( isset( $_GET['u'] ) && strlen( $search_user ) > 0 ) :
 					?>
-					<div class="members__results-for"><?php esc_html_e( 'Results for ', 'community-portal' ); echo sprintf("\"%s\"", $search_user ); ?></div><?php endif; ?>
+					<div class="members__results-for">
+					<?php
+					esc_html_e( 'Results for ', 'community-portal' );
+					echo sprintf( '"%s"', esc_html( sanitize_user( $search_user ) ) );
+					?>
+					</div><?php endif; ?>
 				<?php foreach ( $members as $member ) : ?>
 					<?php
 					$info = $member->info;
