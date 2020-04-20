@@ -161,6 +161,11 @@ function mozilla_update_member() {
 				'agree',
 			);
 
+			// print "<pre>";
+			// print_r($_POST);
+			// print "</pre>";
+			// die();
+
 			$additional_fields = array(
 				'image_url',
 				'profile_image_url_visibility',

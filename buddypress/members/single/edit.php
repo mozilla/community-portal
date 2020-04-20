@@ -743,7 +743,7 @@ else :
 					</div>
 					<div class="profile__select-container profile__select-container--hide-mobile profile__select-container--flex">
 						<label class="profile__label profile__label--full profile__label--max" for="profile-languages-visibility"><?php esc_html_e( 'Can be viewed by', 'community-portal' ); ?></label>
-						<select id="profile-languages-visibility" name="profile_languages_visibility" class="profile__select profile__select--flex">
+						<select id="profile-languages-visibility" class="profile__select profile__select--flex">
 							<?php foreach ( $visibility_options as $key   => $value ) : ?>
 							<option value="<?php echo esc_attr( $key ); ?>"
 													<?php
@@ -871,7 +871,16 @@ else :
 					<?php endforeach; ?>
 				</select>
 			</div>
-			<input type="hidden" name="profile_languages_visibility" value="" />
+			<?php 
+				if ( $form && isset( $form['profile_languages_visibility'] ) ) {
+					$language_visibility = $form['profile_languages_visibility'];
+				} else {
+					if ( isset( $community_fields['profile_languages_visibility'] ) ) {
+						$language_visibility = $community_fields['profile_languages_visibility'];
+					}
+				}
+			?>
+			<input type="hidden" name="profile_languages_visibility" value="<?php echo esc_attr($language_visibility); ?>" />
 			<hr class="profile__keyline" />
 			<div class="profile__form-field">
 				<div>
