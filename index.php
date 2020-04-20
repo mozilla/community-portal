@@ -25,7 +25,9 @@
         if( bp_is_user() ) {
             if( !empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] ) {
                 mozilla_update_member();
-                wp_safe_redirect("/people/{$user->user_nicename}");
+                $current_user = wp_get_current_user()->data;
+                
+                wp_safe_redirect("/people/{$current_user->user_nicename}");
                 exit();
             }
         }
