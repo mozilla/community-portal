@@ -38,6 +38,8 @@ if ( isset( $_GET['u'] ) ) {
 	} else {
 		$search_user = false;
 	}
+} else {
+	$search_user = false;
 }
 
 $location     = isset( $_GET['location'] ) ? htmlspecialchars( sanitize_text_field( wp_unslash( $_GET['location'] ) ), ENT_QUOTES, 'UTF-8' ) : '';
