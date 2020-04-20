@@ -111,7 +111,7 @@ add_filter('query_vars', 'mozilla_add_query_vars_filter');
 add_filter('bp_groups_list_table_get_columns', 'mozilla_add_group_columns');
 add_filter('bp_groups_admin_get_group_custom_column', 'mozilla_group_addional_column_info', 10, 3);
 add_filter('wp_nav_menu_objects', 'mozilla_hide_menu_emails', 10, 2);
-
+add_filter('script_loader_tag', 'mozilla_update_script_attributes', 10, 2 );
 
 function mozilla_theme_setup() {
     load_theme_textdomain('community-portal', get_template_directory() . '/languages');

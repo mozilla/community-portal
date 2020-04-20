@@ -101,6 +101,14 @@
             </tr>
             <tr>
                 <th scope="row">
+                    <label for="google-analytics-id">Google Analytics SRI Hash</label>
+                </th>
+                <td>
+                    <input type="text" id="google-analytics-sri" name="google_analytics_sri" class="regular-text" value="<?php print $options['google_analytics_sri']; ?>" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
                     <label for="error-404-copy">Discourse API Key</label>
                 </th>
                 <td>
