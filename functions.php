@@ -84,7 +84,6 @@ add_action('auth0_user_login', 'mozilla_post_user_creation', 10, 6);
 // Buddypress Actions
 add_action('bp_before_create_group_page', 'mozilla_create_group', 10, 1);
 add_action('bp_before_edit_group_page', 'mozilla_edit_group', 10, 1);
-add_action('bp_before_edit_member_page', 'mozilla_update_member', 10, 1);
 
 add_action('groups_join_group', 'mozilla_add_members_discourse', 10, 2);
 add_action('groups_remove_member', 'mozilla_remove_members_discourse', 10, 2);
