@@ -428,13 +428,13 @@ function mozilla_get_user_info( $me, $user, $logged_in ) {
 	// Bio!
 	$object          = new stdClass();
 	$object->value   = isset( $community_fields['bio'] ) && strlen( $community_fields['bio'] ) > 0 ? $community_fields['bio'] : false;
-	$object->display = mozilla_display_field( 'bio', isset( $community_fields['bio_visibility'] ) ? $community_fields['bio_visibility'] : false, $is_me, $logged_in );
+	$object->display = mozilla_display_field( 'bio', isset( $community_fields['profile_bio_visibility'] ) ? $community_fields['profile_bio_visibility'] : false, $is_me, $logged_in );
 	$data['bio']     = $object;
 
 	// Pronoun Visibility!
 	$object          = new stdClass();
 	$object->value   = isset( $community_fields['pronoun'] ) && strlen( $community_fields['pronoun'] ) > 0 ? $community_fields['pronoun'] : false;
-	$object->display = mozilla_display_field( 'pronoun', isset( $community_fields['pronoun_visibility'] ) ? $community_fields['pronoun_visibility'] : false, $is_me, $logged_in );
+	$object->display = mozilla_display_field( 'pronoun', isset( $community_fields['profile_pronoun_visibility'] ) ? $community_fields['profile_pronoun_visibility'] : false, $is_me, $logged_in );
 	$data['pronoun'] = $object;
 
 	// Phone!
