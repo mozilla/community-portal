@@ -32,10 +32,6 @@ $subscribed = get_user_meta($user->ID, 'newsletter', true);
             </div>
         </section>
     </div>
-<?php elseif($complete === true && $edit === true): ?>
-    <script type="text/javascript">
-        window.location = "/people/<?php print ($updated_username) ? $updated_username : $user->user_nicename;?>";
-    </script>
 <?php else: ?>
     <div class="profile__hero">
         <div class="profile__hero-container">
