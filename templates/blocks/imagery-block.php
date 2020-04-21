@@ -29,9 +29,9 @@ if ( 'grey' === $block['background_color'] ) :
 				wpautop( substr( trim( $block['copy'] ), 0, 3000 ) ),
 				array(
 					'p'  => array(),
-          'br' => array(),
-          'ul' => array(),
-          'li' => array()
+					'br' => array(),
+					'ul' => array(),
+					'li' => array(),
 				)
 			);
 
