@@ -433,7 +433,7 @@ else :
 										<path d="M16.3333 14.0002V12.6669C16.3328 12.0761 16.1362 11.5021 15.7742 11.0351C15.4122 10.5682 14.9053 10.2346 14.3333 10.0869" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 										<path d="M11.6667 2.08691C12.2404 2.23378 12.7488 2.56738 13.1118 3.03512C13.4749 3.50286 13.672 4.07813 13.672 4.67025C13.672 5.26236 13.4749 5.83763 13.1118 6.30537C12.7488 6.77311 12.2404 7.10671 11.6667 7.25358" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 									</svg>
-									<?php echo esc_html( "{$member_count}&nbsp;" ) . esc_html_e( 'Members', 'community-portal' ); ?>
+									<?php echo esc_html( "{$member_count}&nbsp;" ) . esc_html__( 'Members', 'community-portal' ); ?>
 								</div>
 							</div>
 							<div class="groups__card-info">
