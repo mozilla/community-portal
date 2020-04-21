@@ -74,7 +74,7 @@
 					<div class="campaign__event-container">
 						<h3 class="campaign__event-title"><?php print esc_html( $event['event']->post_title ); ?></h3>
 						<div class="campaign__event-time">
-							<?php print esc_html( gmdate( 'F j, Y ∙ G:i', $event_time ) ) . esc_html__( ' UTC', 'community-portal' ); ?>
+							<?php print esc_html( gmdate( 'F j, Y @ G:i', $event_time ) ) . esc_html__( ' UTC', 'community-portal' ); ?>
 						</div>
 						<?php if ( strlen( $location->address ) > 0 || strlen( $location->town ) > 0 || strlen( $location->country ) > 0 ) : ?>
 						<div class="campaign__event-location">
@@ -122,7 +122,14 @@
 								<path d="M14.6666 7H11.9999L9.99992 13L5.99992 1L3.99992 7H1.33325" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 							</svg>
 							<?php endif; ?>
-							<?php print esc_html_( 'Part of ', 'community-portal' ) . ' ' . esc_html( $initiative->post_title ) . ( 'campaign' === $initiative->post_type ) ? esc_html__( 'Campaign', 'community-portal' ) : esc_html__( 'Activity', 'community-portal' ); ?>
+							<?php
+							print esc_html__( 'Part of ', 'community-portal' ) . ' ' . esc_html( $initiative->post_title ) . ' ';
+							if ( 'campaign' === $initiative->post_type ) {
+								print esc_html__( 'Campaign', 'community-portal' );
+							} else {
+								print esc_html__( 'Activity', 'community-portal' );
+							}
+							?>
 						</div>
 						<?php endif; ?>
 						<ul class="events__tags">
