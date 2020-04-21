@@ -147,7 +147,15 @@
 					</div>
 				</div>
 				<div class="campaigns__active-campaign-description">
-					<?php echo wp_kses( wpautop( substr( trim( $current_campaign_card_description ), 0, 3000 ) ), array( 'p' => array(), 'br' => array(), ) );?>
+					<?php
+					echo wp_kses(
+						wpautop( substr( trim( $current_campaign_card_description ), 0, 3000 ) ),
+						array(
+							'p'  => array(),
+							'br' => array(),
+						)
+					);
+					?>
 				</div>
 				<?php if ( is_array( $current_campaign_tags ) && count( $current_campaign_tags ) > 0 ) : ?>
 				<div class="campaigns__active-campaign-tags">
@@ -242,7 +250,14 @@
 						</div>
 					</div>
 					<div class="campaigns__active-campaign-description campaigns__active-campaign-description--card">
-						<?php echo wp_kses( wpautop( substr( trim( $campaign_card_description ), 0, 3000 ) ), array( 'p' => array(), 'br' => array(), ) );
+						<?php
+						echo wp_kses(
+							wpautop( substr( trim( $campaign_card_description ), 0, 3000 ) ),
+							array(
+								'p'  => array(),
+								'br' => array(),
+							)
+						);
 						?>
 					</div>
 				</div>

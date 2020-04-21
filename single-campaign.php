@@ -87,7 +87,15 @@ if ( $logged_in && is_array( $members_participating ) && in_array( $user->ID, $m
 			</div>
 			<div class="campaign__intro">
 				<div class="campaign__intro-card">
-					<?php echo wp_kses( wpautop( substr( trim( $post->post_content ), 0, 3000 ) ), array( 'p' => array(), 'br' => array(), ) ); ?>
+					<?php
+					echo wp_kses(
+						wpautop( substr( trim( $post->post_content ), 0, 3000 ) ),
+						array(
+							'p'  => array(),
+							'br' => array(),
+						)
+					);
+					?>
 					<hr class="campaign__keyline" />
 					<div class="campaign__share-container">
 						<div class="campaign__tag-container">
