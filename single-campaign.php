@@ -101,31 +101,31 @@ else :
 						$theme_dir = get_template_directory();
 						switch ( $block['acf_fc_layout'] ) {
 							case 'text_1up_block':
-								include "{$theme_dir}/templates/blocks/text_1up_block.php";
+								include "{$theme_dir}/templates/blocks/text-1up-block.php";
 								break;
 							case 'text_2up_block':
-								include "{$theme_dir}/templates/blocks/text_2up_block.php";
+								include "{$theme_dir}/templates/blocks/text-2up-block.php";
 								break;
 							case 'text_3up_block':
-								include "{$theme_dir}/templates/blocks/text_3up_block.php";
+								include "{$theme_dir}/templates/blocks/text-3up-block.php";
 								break;
 							case 'text_image':
-								include "{$theme_dir}/templates/blocks/text_image_block.php";
+								include "{$theme_dir}/templates/blocks/text-image-block.php";
 								break;
 							case 'text_card':
-								include "{$theme_dir}/templates/blocks/text_card_block.php";
+								include "{$theme_dir}/templates/blocks/text-card-block.php";
 								break;
 							case 'events_block':
 								include "{$theme_dir}/templates/blocks/events-block.php";
 								break;
 							case 'video_block':
-								include "{$theme_dir}/templates/blocks/video_block.php";
+								include "{$theme_dir}/templates/blocks/video-block.php";
 								break;
 							case 'imagery_block':
 								include "{$theme_dir}/templates/blocks/imagery-block.php";
 								break;
 							case 'outro_cta_block':
-								include "{$theme_dir}/templates/blocks/outro_cta_block.php";
+								include "{$theme_dir}/templates/blocks/outro-cta-block.php";
 								break;
 						}
 						?>
