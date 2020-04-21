@@ -100,7 +100,7 @@
                             include "{$theme_dir}/templates/blocks/text_card_block.php";
                             break;
                         case 'events_block':
-                            include "{$theme_dir}/templates/blocks/events_block.php";
+                            include "{$theme_dir}/templates/blocks/events-block.php";
                             break;
                         case 'video_block':
                             include "{$theme_dir}/templates/blocks/video_block.php";
