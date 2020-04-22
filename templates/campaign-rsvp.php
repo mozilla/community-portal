@@ -4,10 +4,10 @@
  *
  * Form to RSVP to campaigns when not logged in
  *
- * @package WordPress
+ * @package    WordPress
  * @subpackage community-portal
- * @version 1.0.0
- * @author  Playground Inc.
+ * @version    1.0.0
+ * @author     Playground Inc.
  */
 
 ?>
@@ -42,19 +42,19 @@
 					<div class="col-lg-6 campaign-rsvp__row campaign-rsvp__row--double">
 						<label class="campaign-rsvp__label" for="first-name"><?php esc_html_e( 'First Name', 'community-portal' ); ?></label>
 						<input id="rsvp-first-name" class="campaign-rsvp__input" type="text" id="first-name" name="first-name">
-						<p class="form_esc_html_error-container"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></p>
+						<p class="form__error-container"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></p>
 					</div>
 					<div class="col-lg-6 campaign-rsvp__row campaign-rsvp__row--double">
 						<label class="campaign-rsvp__label" for="last-name"><?php esc_html_e( 'Last Name', 'community-portal' ); ?></label>
 						<input id="rsvp-last-name" class="campaign-rsvp__input" type="text" id="last-name" name="last-name">
-						<p class="form_esc_html_error-container"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></p>
+						<p class="form__error-container"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></p>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-sm-12 campaign-rsvp__row">
 						<label class="campaign-rsvp__label" for="email"><?php esc_html_e( 'Email', 'community-portal' ); ?></label>
 						<input id="rsvp-email" class="campaign-rsvp__input" type="email" name="email">
-						<p class="form_esc_html_error-container"><?php esc_html_e( 'Invalid email', 'community-portal' ); ?></p>
+						<p class="form__error-container"><?php esc_html_e( 'Invalid email', 'community-portal' ); ?></p>
 					</div>
 					<div class="col-sm-12 cpg">
 						<input class="checkbox--hidden" type="checkbox" name="privacy-policy" id="privacy-policy">
@@ -62,7 +62,7 @@
 							<?php esc_html_e( 'I\'m okay with Mozilla handling my info as explained in this', 'community-portal' ); ?> 
 							<a href="https://www.mozilla.org/en-US/privacy/"><?php esc_html_e( 'Privacy Policy', 'community-portal' ); ?></a>
 						</label>
-						<p class="form_esc_html_error-container"><?php esc_html_e( 'You must agree to the privacy policy', 'community-portal' ); ?></p>
+						<p class="form__error-container"><?php esc_html_e( 'You must agree to the privacy policy', 'community-portal' ); ?></p>
 					</div>
 					<div class="col-sm-12 campaign-rsvp__section--center">
 						<input class="btn btn--light btn--submit" type="submit" value="<?php esc_html_e( 'Get Involved', 'community-portal' ); ?>">
