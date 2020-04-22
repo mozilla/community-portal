@@ -68,7 +68,7 @@
                 </div>
             </div>
             <?php do_action('bp_before_create_group_content_template'); ?>
-            <?php print wp_nonce_field('protect_content', 'my_nonce_field'); ?>
+            <?php wp_nonce_field('protect_content', 'my_nonce_field'); ?>
             <section class="create-group__details">
                 <div class="create-group__input-row">
                     <div class="create-group__input-container create-group__input-container--60">
