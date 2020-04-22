@@ -763,8 +763,8 @@
 		<div class="group">
 			<div class="group__container">
 				<h1 class="group__title"><?php echo esc_html( str_replace( '\\', '', wp_unslash( $group->name ) ) ); ?></h1>
-				<?php wp_nonce_field('join_group_nonce', 'join_group_nonce_field'); ?>
-				<?php wp_nonce_field('leave_group_nonce', 'leave_group_nonce_field'); ?>
+				<?php wp_nonce_field( 'join_group_nonce', 'join_group_nonce_field' ); ?>
+				<?php wp_nonce_field( 'leave_group_nonce', 'leave_group_nonce_field' ); ?>
 				<div class="group__details">
 					<?php if ( $verified ) : ?>
 						<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -912,7 +912,11 @@
 							</a>
 							<?php endforeach; ?>
 						</div>
-									<h2 class="group__card-title"><?php esc_html_e( 'People', 'community-portal' ); ?><?php if( $members['count'] > 0 ): ?><?php echo esc_html( " ({$members['count']})" ); ?><?php endif; ?></h2>
+									<h2 class="group__card-title"><?php esc_html_e( 'People', 'community-portal' ); ?>
+																					<?php
+																					if ( $members['count'] > 0 ) :
+																						?>
+																						<?php echo esc_html( " ({$members['count']})" ); ?><?php endif; ?></h2>
 						<?php if ( $members['count'] > 0 ) : ?>
 						<div class="members__search-container">
 								<form method="GET" action="<?php echo ! empty( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : ''; ?>" class="members__form" id="members-search-form">
@@ -1122,9 +1126,9 @@
 										>
 											<?php
 
-												$month     = gmdate('M', strtotime($event->start_date ) );
-												$date      = gmdate('d', strtotime($event->start_date ) );
-												$year_part = gmdate('Y',  strtotime($event->start_date ) );
+												$month     = gmdate( 'M', strtotime( $event->start_date ) );
+												$date      = gmdate( 'd', strtotime( $event->start_date ) );
+												$year_part = gmdate( 'Y', strtotime( $event->start_date ) );
 
 												$event_time = strtotime( $event->start_date );
 											?>
@@ -1132,7 +1136,7 @@
 										</div>
 										<div class="event-card__description">
 											<h3 class="event-card__description__title title--event-card"><?php echo esc_html( $event->event_name ); ?></h2>
-											<p><?php echo esc_html( $month. ' ' . $date . ', ' . $year_part . ' @ ' . substr( $event->event_start_time, 0, 5 ) . ' - ' . substr( $event->event_end_time, 0, 5 ) . ' ' . $event->event_timezone ); ?></p>
+											<p><?php echo esc_html( $month . ' ' . $date . ', ' . $year_part . ' @ ' . substr( $event->event_start_time, 0, 5 ) . ' - ' . substr( $event->event_end_time, 0, 5 ) . ' ' . $event->event_timezone ); ?></p>
 											<div class="event-card__location">
 												<svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 													<path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
