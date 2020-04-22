@@ -31,10 +31,23 @@ if ( 'grey' === $block['background_color'] ) :
 					print wp_kses(
 						wpautop( substr( trim( $block['column_1_copy'] ), 0, 3000 ) ),
 						array(
-							'p'  => array(),
+							'p'  => array(
+								'class' => array(),
+							),
 							'br' => array(),
-							'ul' => array(),
-							'li' => array(),
+							'ul' => array(
+								'class' => array(),
+							),
+							'ol' => array(
+								'class' => array(),
+							),
+							'li' => array(
+								'class' => array(),
+							),
+							'a'  => array(
+								'href'  => array(),
+								'class' => array(),
+							),
 						)
 					);
 					?>
@@ -56,11 +69,23 @@ else :
 					print wp_kses(
 						wpautop( substr( trim( $block['column_2_copy'] ), 0, 3000 ) ),
 						array(
-							'p'  => array(),
+							'p'  => array(
+								'class' => array(),
+							),
 							'br' => array(),
-							'ul' => array(),
-							'li' => array(),
-							'ol' => array(),
+							'ul' => array(
+								'class' => array(),
+							),
+							'ol' => array(
+								'class' => array(),
+							),
+							'li' => array(
+								'class' => array(),
+							),
+							'a'  => array(
+								'href'  => array(),
+								'class' => array(),
+							),
 						)
 					);
 					?>

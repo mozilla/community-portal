@@ -28,10 +28,23 @@ if ( 'grey' === $block['background_color'] ) :
 			print wp_kses(
 				wpautop( substr( trim( $block['copy'] ), 0, 3000 ) ),
 				array(
-					'p'  => array(),
+					'p'  => array(
+						'class' => array(),
+					),
 					'br' => array(),
-					'ul' => array(),
-					'li' => array(),
+					'ul' => array(
+						'class' => array(),
+					),
+					'ol' => array(
+						'class' => array(),
+					),
+					'li' => array(
+						'class' => array(),
+					),
+					'a'  => array(
+						'href'  => array(),
+						'class' => array(),
+					),
 				)
 			);
 
@@ -40,7 +53,7 @@ if ( 'grey' === $block['background_color'] ) :
 			<div class="campaign__imagery-images-container">
 				<?php foreach ( $block['images'] as $image ) : ?>
 			<div class="campaign__imagery-image-container">
-				<div style="background-image: url('<?php print esc_attr( $image['image']['url'] ); ?>'); background-color: 
+				<div style="background-image: url('<?php print esc_url_raw( $image['image']['url'] ); ?>'); background-color: 
 					<?php
 					if ( isset( $image['background_color'] ) && strlen( $image['background_color'] ) > 0 ) :
 						?>

@@ -66,7 +66,7 @@
 					<?php
 					if ( isset( $event_meta[0]->image_url ) && strlen( $event_meta[0]->image_url ) > 0 ) :
 						?>
-						style="background-image: url('<?php print esc_attr( $event_meta[0]->image_url ); ?>')"<?php endif; ?>>
+						style="background-image: url('<?php print esc_url_raw( $event_meta[0]->image_url ); ?>')"<?php endif; ?>>
 						<div class="campaign__event-date">
 							<?php print esc_html( $event_month ) . ' ' . esc_html( $event_day ); ?>
 						</div>

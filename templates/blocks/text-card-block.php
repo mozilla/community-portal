@@ -24,10 +24,23 @@
 				print wp_kses(
 					wpautop( substr( trim( $block['copy'] ), 0, 3000 ) ),
 					array(
-						'p'  => array(),
+						'p'  => array(
+							'class' => array(),
+						),
 						'br' => array(),
-						'ul' => array(),
-						'li' => array(),
+						'ul' => array(
+							'class' => array(),
+						),
+						'ol' => array(
+							'class' => array(),
+						),
+						'li' => array(
+							'class' => array(),
+						),
+						'a'  => array(
+							'href'  => array(),
+							'class' => array(),
+						),
 					)
 				);
 				?>

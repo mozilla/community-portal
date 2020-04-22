@@ -1,4 +1,15 @@
 <?php
+/**
+ * Single Campaign
+ *
+ * Page for single campaign views
+ *
+ * @package WordPress
+ * @subpackage community-portal
+ * @version 1.0.0
+ * @author  Playground Inc.
+ */
+
 	get_header();
 	global $post;
 
@@ -25,7 +36,7 @@
 	$members_participating = get_post_meta( $post->ID, 'members-participating', true );
 	$sub                   = true;
 
-if ( $logged_in && is_array( $members_participating ) && in_array( $user->ID, $members_participating ) ) {
+if ( $logged_in && is_array( $members_participating ) && in_array( $user->ID, $members_participating, true ) ) {
 	$sub = false;
 }
 
@@ -34,38 +45,41 @@ if ( $logged_in && is_array( $members_participating ) && in_array( $user->ID, $m
 		<div class="campaign">
 			<div class="campaign__hero">
 				<div class="campaign__hero-container">
-					<div class="campaign__hero-image" style="background-image: url(<?php print $campaign_image; ?>);">
+					<div class="campaign__hero-image" style="background-image: url(<?php print esc_attr( $campaign_image ); ?>);">
 					</div>
 					<div class="campaign__hero-content-container">
-						<span class="campaign__status"><?php print $campaign_status; ?></span>
-						<h1 class="campaign__hero-title"><?php print $post->post_title; ?></h1>
+						<span class="campaign__status"><?php print esc_html( $campaign_status ); ?></span>
+						<h1 class="campaign__hero-title"><?php print esc_html( $post->post_title ); ?></h1>
 						<div class="campaign__date-container">
-							<?php print $campaign_start_date; ?>
+							<?php print esc_html( $campaign_start_date ); ?>
 							<?php if ( $campaign_end_date ) : ?>
-							- <?php print $campaign_end_date; ?>
+							- <?php print esc_html( $campaign_end_date ); ?>
 							<?php endif; ?>
 						</div>
 						<?php if ( ( $campaign_hero_cta && $mailchimp && isset( $mailchimp->id ) ) || is_preview() ) : ?>
 							<?php if ( $logged_in ) : ?>
-								<a href="<?php print ( $campaign_hero_cta_link ) ? $campaign_hero_cta_link : '#'; ?>" class="campaign__hero-cta
-													 <?php
-														if ( $mailchimp && isset( $mailchimp->id ) && $sub === true ) :
-															?>
-									 campaign__hero-cta--sub
-															<?php
-else :
-	?>
-									 campaign__hero-cta--unsub<?php endif; ?>"
+								<a href="<?php print ( $campaign_hero_cta_link ) ? esc_attr( $campaign_hero_cta_link ) : '#'; ?>" class="campaign__hero-cta
+									<?php
+									if ( $mailchimp && isset( $mailchimp->id ) && true === $sub ) :
+										?>
+										campaign__hero-cta--sub
+										<?php
+										else :
+											?>
+										campaign__hero-cta--unsub
+									<?php endif; ?>"
 									<?php
 									if ( $mailchimp && isset( $mailchimp->id ) ) :
 										?>
-	
 										<?php
 										if ( $mailchimp ) :
 											?>
-	 data-list="<?php print $mailchimp->id; ?>"<?php endif; ?><?php endif; ?> data-unsub-copy="<?php print $campaign_hero_unsub_cta; ?>" data-sub-copy="<?php print $campaign_hero_cta; ?>" data-campaign="<?php print $post->ID; ?>"><?php print $sub ? $campaign_hero_cta : $campaign_hero_unsub_cta; ?></a>
-							<?php else : ?>
-								<a href="<?php print ( $campaign_hero_cta_link ) ? $campaign_hero_cta_link : '#'; ?>" class="campaign__hero-cta campaign__hero-cta--no-account" data-list="<?php print $mailchimp->id; ?>" data-campaign="<?php print $post->ID; ?>"><?php print $campaign_hero_cta; ?></a>
+											data-list="<?php print esc_attr( $mailchimp->id ); ?>"<?php endif; ?><?php endif; ?> data-unsub-copy="<?php print esc_attr( $campaign_hero_unsub_cta ); ?>" data-sub-copy="<?php print esc_attr( $campaign_hero_cta ); ?>" data-campaign="<?php print esc_attr( $post->ID ); ?>"><?php print $sub ? esc_attr( $campaign_hero_cta ) : esc_attr( $campaign_hero_unsub_cta ); ?>
+										</a>
+										<?php else : ?>
+											<a href="<?php print ( $campaign_hero_cta_link ) ? esc_attr( $campaign_hero_cta_link ) : '#'; ?>" class="campaign__hero-cta campaign__hero-cta--no-account" data-list="<?php print esc_attr( $mailchimp->id ); ?>" data-campaign="<?php print esc_attr( $post->ID ); ?>">
+												<?php print esc_html( $campaign_hero_cta ); ?>
+											</a>
 							<?php endif; ?>
 						<?php endif; ?>
 					</div>
@@ -73,23 +87,45 @@ else :
 			</div>
 			<div class="campaign__intro">
 				<div class="campaign__intro-card">
-					<?php print $post->post_content; ?>
+					<?php
+					echo wp_kses(
+						wpautop( substr( trim( $post->post_content ), 0, 3000 ) ),
+						array(
+							'p'  => array(
+								'class' => array(),
+							),
+							'br' => array(),
+							'ul' => array(
+								'class' => array(),
+							),
+							'ol' => array(
+								'class' => array(),
+							),
+							'li' => array(
+								'class' => array(),
+							),
+							'a'  => array(
+								'href'  => array(),
+								'class' => array(),
+							),
+						)
+					);
+					?>
 					<hr class="campaign__keyline" />
 					<div class="campaign__share-container">
 						<div class="campaign__tag-container">
-							<?php _e( 'Tags', 'community-portal' ); ?>
-							<?php if ( is_array( $tags ) && sizeof( $tags ) > 0 ) : ?>
-								<span class="campaign__tag"><?php print $tags[0]->name; ?></span>
+							<?php esc_html_e( 'Tags', 'community-portal' ); ?>
+							<?php if ( is_array( $tags ) && count( $tags ) > 0 ) : ?>
+								<span class="campaign__tag"><?php print esc_html( $tags[0]->name ); ?></span>
 							<?php endif; ?>
 						</div>
 						<a href="#" class="campaign__share-cta">
 							<svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M1 9V15C1 15.3978 1.15804 15.7794 1.43934 16.0607C1.72064 16.342 2.10218 16.5 2.5 16.5H11.5C11.8978 16.5 12.2794 16.342 12.5607 16.0607C12.842 15.7794 13 15.3978 13 15V9M10 4.5L7 1.5M7 1.5L4 4.5M7 1.5V11.25" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 							</svg>
-							<?php _e( 'Share Campaign', 'community-portal' ); ?>
+							<?php esc_html_e( 'Share Campaign', 'community-portal' ); ?>
 
 						</a>
-						
 					</div>
 
 				</div>
@@ -142,7 +178,6 @@ else :
 			<?php include locate_template( 'templates/campaign-rsvp.php', false, false ); ?>
 		</div>
 	<?php endif; ?>
-	
 
 <?php
 	get_footer();
