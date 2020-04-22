@@ -74,7 +74,10 @@ if ( $logged_in && is_array( $members_participating ) && in_array( $user->ID, $m
 										<?php
 										if ( $mailchimp ) :
 											?>
-											data-list="<?php print esc_attr( $mailchimp->id ); ?>"<?php endif; ?><?php endif; ?> data-unsub-copy="<?php print esc_attr( $campaign_hero_unsub_cta ); ?>" data-sub-copy="<?php print esc_attr( $campaign_hero_cta ); ?>" data-campaign="<?php print esc_attr( $post->ID ); ?>"><?php print $sub ? esc_attr( $campaign_hero_cta ) : esc_attr( $campaign_hero_unsub_cta ); ?>
+											data-list="<?php print esc_attr( $mailchimp->id ); ?>"<?php endif; ?><?php endif; ?> data-unsub-copy="<?php print esc_attr( $campaign_hero_unsub_cta ); ?>" data-sub-copy="<?php print esc_attr( $campaign_hero_cta ); ?>" data-campaign="<?php print esc_attr( $post->ID ); ?>"
+											data-nonce="<?php print wp_create_nonce('mailing-list') ?>"
+											><?php print $sub ? esc_attr( $campaign_hero_cta ) : esc_attr( $campaign_hero_unsub_cta );
+										?> 
 										</a>
 										<?php else : ?>
 											<a href="<?php print ( $campaign_hero_cta_link ) ? esc_attr( $campaign_hero_cta_link ) : '#'; ?>" class="campaign__hero-cta campaign__hero-cta--no-account" data-list="<?php print esc_attr( $mailchimp->id ); ?>" data-campaign="<?php print esc_attr( $post->ID ); ?>">

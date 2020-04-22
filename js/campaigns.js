@@ -74,18 +74,20 @@ jQuery(function() {
         e.preventDefault();
         
         const campaign = $this.data('campaign');
-        const list = $this.data('list');
+		const list = $this.data('list');
+		const nonce = $this.data('nonce');
         
         const data = {
-            'campaign': campaign,
-            'list': list
+            campaign,
+			list,
+			_ajax_nonce: nonce,
         };
-        
         jQuery.ajax({
             url, 
             data,
             method: 'POST',
             success: function(resp) {
+				console.log(resp);
                 const response = jQuery.parseJSON(resp);
 
                 if (response.status === 'OK') {  
@@ -106,11 +108,13 @@ jQuery(function() {
 
         var $this = jQuery(this);
         var campaign = $this.data('campaign');
-        var list = $this.data('list');
+		var list = $this.data('list');
+		const nonce = $this.data('nonce');
 
         var post = {
-            'campaign': campaign,
-            'list': list
+            campaign,
+			list,
+			nonce,
         };
 
         var url =  '/wp-admin/admin-ajax.php?action=mailchimp_subscribe';
@@ -120,6 +124,7 @@ jQuery(function() {
             data: post,
             method: 'POST',
             success: function(response) {
+				console.log(response);
                 response = jQuery.parseJSON(response);
                 if(response.status == 'OK') {
                     $this.removeClass('campaign__hero-cta--sub');
