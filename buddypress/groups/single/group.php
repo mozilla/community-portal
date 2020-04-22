@@ -763,6 +763,8 @@
 		<div class="group">
 			<div class="group__container">
 				<h1 class="group__title"><?php echo esc_html( str_replace( '\\', '', wp_unslash( $group->name ) ) ); ?></h1>
+				<?php wp_nonce_field('join_group_nonce', 'join_group_nonce_field'); ?>
+				<?php wp_nonce_field('leave_group_nonce', 'leave_group_nonce_field'); ?>
 				<div class="group__details">
 					<?php if ( $verified ) : ?>
 						<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
