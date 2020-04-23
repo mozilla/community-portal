@@ -174,104 +174,133 @@ function mozilla_remove_admin_login_header() {
 	remove_action( 'wp_head', '_admin_bar_bump_cb' );
 }
 
+/**
+ * Theme settings
+ */
 function mozilla_theme_settings() {
 	$theme_dir = get_template_directory();
 
-	if ( current_user_can( 'manage_options' ) && $_SERVER['REQUEST_METHOD'] === 'POST' ) {
-		if ( isset( $_POST['admin_nonce_field'] ) && wp_verify_nonce( $_REQUEST['admin_nonce_field'], 'protect_content' ) ) {
-			if ( isset( $_POST['github_link'] ) ) {
-				update_option( 'github_link', sanitize_text_field( $_POST['github_link'] ) );
-			}
+	if ( current_user_can( 'manage_options' ) && ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] ) {
+		if ( isset( $_POST['admin_nonce_field'] ) ) {
+			$nonce = trim( sanitize_text_field( wp_unslash( $_POST['admin_nonce_field'] ) ) );
 
-			if ( isset( $_POST['community_discourse'] ) ) {
-				update_option( 'community_discourse', sanitize_text_field( $_POST['community_discourse'] ) );
-			}
+			if ( wp_verify_nonce( $nonce, 'admin_nonce' ) ) {
 
-			if ( isset( $_POST['google_analytics_id'] ) ) {
-				update_option( 'google_analytics_id', sanitize_text_field( $_POST['google_analytics_id'] ) );
-			}
+				if ( isset( $_POST['github_link'] ) ) {
+					$github_link = sanitize_text_field( wp_unslash( $_POST['github_link'] ) );
+					update_option( 'github_link', $github_link );
+				}
 
-			if ( isset( $_POST['google_analytics_sri'] ) ) {
-				update_option( 'google_analytics_sri', sanitize_text_field( $_POST['google_analytics_sri'] ) );
-			}
+				if ( isset( $_POST['community_discourse'] ) ) {
+					$community_discourse = sanitize_text_field( wp_unslash( $_POST['community_discourse'] ) );
+					update_option( 'community_discourse', $community_discourse );
+				}
 
-			if ( isset( $_POST['default_open_graph_title'] ) ) {
-				update_option( 'default_open_graph_title', sanitize_text_field( $_POST['default_open_graph_title'] ) );
-			}
+				if ( isset( $_POST['google_analytics_id'] ) ) {
+					$google_analytics_id = sanitize_text_field( wp_unslash( $_POST['google_analytics_id'] ) );
+					update_option( 'google_analytics_id', $google_analytics_id );
+				}
 
-			if ( isset( $_POST['default_open_graph_desc'] ) ) {
-				update_option( 'default_open_graph_desc', sanitize_text_field( $_POST['default_open_graph_desc'] ) );
-			}
+				if ( isset( $_POST['google_analytics_sri'] ) ) {
+					$google_analytics_sri = sanitize_text_field( wp_unslash( $_POST['google_analytics_sri'] ) );
+					update_option( 'google_analytics_sri', $google_analytics_sri );
+				}
 
-			if ( isset( $_POST['image_max_filesize'] ) ) {
-				update_option( 'image_max_filesize', sanitize_text_field( intval( $_POST['image_max_filesize'] ) ) );
-			}
+				if ( isset( $_POST['default_open_graph_title'] ) ) {
+					$default_open_graph_title = sanitize_text_field( wp_unslash( $_POST['default_open_graph_title'] ) );
+					update_option( 'default_open_graph_title', $default_open_graph_title );
+				}
 
-			if ( isset( $_POST['error_404_title'] ) ) {
-				update_option( 'error_404_title', sanitize_text_field( $_POST['error_404_title'] ) );
-			}
+				if ( isset( $_POST['default_open_graph_desc'] ) ) {
+					$default_open_graph_desc = sanitize_text_field( wp_unslash( $_POST['default_open_graph_desc'] ) );
+					update_option( 'default_open_graph_desc', $default_open_graph_desc );
+				}
 
-			if ( isset( $_POST['error_404_copy'] ) ) {
-				update_option( 'error_404_copy', sanitize_text_field( $_POST['error_404_copy'] ) );
-			}
+				if ( isset( $_POST['image_max_filesize'] ) ) {
+					$image_max_filesize = sanitize_text_field( wp_unslash( $_POST['image_max_filesize'] ) );
+					update_option( 'image_max_filesize', intval( $image_max_filesize ) );
+				}
 
-			if ( isset( $_POST['discourse_api_key'] ) ) {
-				update_option( 'discourse_api_key', sanitize_text_field( $_POST['discourse_api_key'] ) );
-			}
+				if ( isset( $_POST['error_404_title'] ) ) {
+					$error_404_title = sanitize_text_field( wp_unslash( $_POST['error_404_title'] ) );
+					update_option( 'error_404_title', $error_404_title );
+				}
 
-			if ( isset( $_POST['discourse_api_url'] ) ) {
-				update_option( 'discourse_api_url', sanitize_text_field( $_POST['discourse_api_url'] ) );
-			}
+				if ( isset( $_POST['error_404_copy'] ) ) {
+					$error_404_copy = sanitize_text_field( wp_unslash( $_POST['error_404_copy'] ) );
+					update_option( 'error_404_copy', $error_404_copy );
+				}
 
-			if ( isset( $_POST['discourse_url'] ) ) {
-				update_option( 'discourse_url', sanitize_text_field( $_POST['discourse_url'] ) );
-			}
+				if ( isset( $_POST['discourse_api_key'] ) ) {
+					$discourse_api_key = sanitize_text_field( wp_unslash( $_POST['discourse_api_key'] ) );
+					update_option( 'discourse_api_key', $discourse_api_key );
+				}
 
-			if ( isset( $_POST['mapbox'] ) ) {
-				update_option( 'mapbox', sanitize_text_field( $_POST['mapbox'] ) );
-			}
+				if ( isset( $_POST['discourse_api_url'] ) ) {
+					$discourse_api_url = sanitize_text_field( wp_unslash( $_POST['discourse_api_url'] ) );
+					update_option( 'discourse_api_url', $discourse_api_url );
+				}
 
-			if ( isset( $_POST['report_email'] ) ) {
-				update_option( 'report_email', sanitize_text_field( $_POST['report_email'] ) );
-			}
+				if ( isset( $_POST['discourse_url'] ) ) {
+					$discourse_url = sanitize_text_field( wp_unslash( $_POST['discourse_url'] ) );
+					update_option( 'discourse_url', $discourse_url );
+				}
 
-			if ( isset( $_POST['mailchimp'] ) ) {
-				update_option( 'mailchimp', sanitize_text_field( $_POST['mailchimp'] ) );
-			}
+				if ( isset( $_POST['mapbox'] ) ) {
+					$mapbox = sanitize_text_field( wp_unslash( $_POST['mapbox'] ) );
+					update_option( 'mapbox', $mapbox );
+				}
 
-			if ( isset( $_POST['company'] ) ) {
-				update_option( 'company', sanitize_text_field( $_POST['company'] ) );
-			}
+				if ( isset( $_POST['report_email'] ) ) {
+					$report_email = sanitize_email( wp_unslash( $_POST['report_email'] ) );
+					update_option( 'report_email', $report_email );
+				}
 
-			if ( isset( $_POST['address'] ) ) {
-				update_option( 'address', sanitize_text_field( $_POST['address'] ) );
-			}
+				if ( isset( $_POST['mailchimp'] ) ) {
+					$mailchimp = sanitize_text_field( wp_unslash( $_POST['mailchimp'] ) );
+					update_option( 'mailchimp', $mailchimp );
+				}
 
-			if ( isset( $_POST['city'] ) ) {
-				update_option( 'city', sanitize_text_field( $_POST['city'] ) );
-			}
+				if ( isset( $_POST['company'] ) ) {
+					$company = sanitize_text_field( wp_unslash( $_POST['company'] ) );
+					update_option( 'company', $company );
+				}
 
-			if ( isset( $_POST['state'] ) ) {
-				update_option( 'state', sanitize_text_field( $_POST['state'] ) );
-			}
+				if ( isset( $_POST['address'] ) ) {
+					$address = sanitize_text_field( wp_unslash( $_POST['address'] ) );
+					update_option( 'address', $address );
+				}
 
-			if ( isset( $_POST['zip'] ) ) {
-				update_option( 'zip', sanitize_text_field( $_POST['zip'] ) );
-			}
+				if ( isset( $_POST['city'] ) ) {
+					$city = sanitize_text_field( wp_unslash( $_POST['city'] ) );
+					update_option( 'city', $city );
+				}
 
-			if ( isset( $_POST['country'] ) ) {
-				update_option( 'country', sanitize_text_field( $_POST['country'] ) );
-			}
+				if ( isset( $_POST['state'] ) ) {
+					$state = sanitize_text_field( wp_unslash( $_POST['state'] ) );
+					update_option( 'state', $state );
+				}
 
-			if ( isset( $_POST['phone'] ) ) {
-				update_option( 'phone', sanitize_text_field( $_POST['phone'] ) );
+				if ( isset( $_POST['zip'] ) ) {
+					$zip = sanitize_text_field( wp_unslash( $_POST['zip'] ) );
+					update_option( 'zip', $zip );
+				}
+
+				if ( isset( $_POST['country'] ) ) {
+					$country = sanitize_text_field( wp_unslash( $_POST['country'] ) );
+					update_option( 'country', $country );
+				}
+
+				if ( isset( $_POST['phone'] ) ) {
+					$phone = sanitize_text_field( wp_unslash( $_POST['phone'] ) );
+					update_option( 'phone', $phone );
+				}
 			}
 		}
 	}
 
 	$options = wp_load_alloptions();
 	include "{$theme_dir}/templates/settings.php";
-
 }
 
 function mozilla_export_events_control() {
