@@ -614,7 +614,7 @@ function mozilla_group_addional_column_info( $retval = '', $column_name, $item )
  */
 function mozilla_save_post( $post_id, $post, $update ) {
 
-	// @TODO: Add nonce check
+	// @TODO: Add nonce check.
 	if ( 'event' === $post->post_type && $update ) {
 
 		$user              = wp_get_current_user();
@@ -751,7 +751,7 @@ function mozilla_post_status_transition( $new_status, $old_status, $post ) {
 
 function mozilla_export_users() {
 
-	// Only admins
+	// Only admins.
 	if ( ! is_admin() && in_array( 'administrator', wp_get_current_user()->roles ) === false ) {
 		return;
 	}
@@ -765,7 +765,7 @@ function mozilla_export_users() {
 	header( 'Content-Type: text/csv' );
 	header( 'Content-Disposition: attachment; filename=users.csv;' );
 
-	// CSV Column Titles
+	// CSV Column Titles.
 	print "first name, last name, email,date registered, languages, country\n ";
 	foreach ( $users as $user ) {
 		$meta             = get_user_meta( $user->ID );
@@ -782,18 +782,23 @@ function mozilla_export_users() {
 			}
 		}
 
-		// Remove ending comma
+		// Remove ending comma.
 		$language_string = rtrim( $language_string, ',' );
 
 		$country = isset( $community_fields['country'] ) && strlen( $community_fields['country'] ) > 0 ? $countries[ $community_fields['country'] ] : '';
 		$date    = date( 'd/m/Y', strtotime( $user->data->user_registered ) );
 
-		// Print out CSV row
+		// Print out CSV row.
 		print "{$first_name},{$last_name},{$user->data->user_email},{$date},\"{$language_string}\",{$country}\n";
 	}
 	die();
 }
 
+/**
+ * Hide the emails in menus
+ * @param array $items items of the menu.
+ * @param array $args arguments.
+ */
 function mozilla_hide_menu_emails( $items, $args ) {
 
 	foreach ( $items as $index => $item ) {
@@ -807,6 +812,11 @@ function mozilla_hide_menu_emails( $items, $args ) {
 	return $items;
 }
 
+/**
+ * Updates the inline google analytics code and adds SRI
+ * @param string $html The code.
+ * @param string $handle The name of the code.
+ */
 function mozilla_update_script_attributes( $html, $handle ) {
 	if ( 'google-analytics' === $handle ) {
 		$google_analytics_sri = esc_attr( get_option( 'google_analytics_sri' ) );
