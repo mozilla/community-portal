@@ -273,7 +273,7 @@ function mozilla_theme_settings() {
 				}
 
 				if ( isset( $_POST['community_discourse'] ) ) {
-					$community_discourse = sanitize_text_field( wp_unslash( $_POST['github_link'] ) );
+					$community_discourse = sanitize_text_field( wp_unslash( $_POST['community_discourse'] ) );
 					update_option( 'community_discourse', $community_discourse );
 				}
 
