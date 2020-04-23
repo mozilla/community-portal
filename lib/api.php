@@ -39,6 +39,7 @@ function mozilla_get_discourse_info( $id, $type = 'group' ) {
 		}
 		return $discourse_info;
 	} else {
+	
 		if ( $id ) {
 			$group_meta = groups_get_groupmeta( $id, 'meta' );
 			if ( isset( $group_meta['discourse_category_id'] ) ) {
@@ -46,7 +47,6 @@ function mozilla_get_discourse_info( $id, $type = 'group' ) {
 				$data['category_id']                     = $group_meta['discourse_category_id'];
 				$discourse_category                      = mozilla_discourse_api( 'categories', $data, 'get' );
 				$discourse_info['discourse_category_id'] = $group_meta['discourse_category_id'];
-
 				if ( $discourse_category && ! isset( $discourse_category->status ) ) {
 					$discourse_info['discourse_category_name']        = $discourse_category->name;
 					$discourse_info['discourse_category_description'] = $discourse_category->description;
@@ -222,6 +222,9 @@ function mozilla_discourse_api( $type, $data, $request = 'get' ) {
 			$json_data = wp_json_encode( $api_data );
 			curl_setopt( $curl, CURLOPT_POSTFIELDS, $json_data );
 		}
+
+		$curl_result = curl_exec($curl);
+        $discourse = json_decode($curl_result);
 	}
 
 	return $discourse;
