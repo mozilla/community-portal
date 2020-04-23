@@ -80,14 +80,13 @@ jQuery(function() {
         const data = {
             campaign,
 			list,
-			_ajax_nonce: nonce,
+			nonce,
         };
         jQuery.ajax({
             url, 
             data,
             method: 'POST',
             success: function(resp) {
-				console.log(resp);
                 const response = jQuery.parseJSON(resp);
 
                 if (response.status === 'OK') {  
@@ -124,7 +123,7 @@ jQuery(function() {
             data: post,
             method: 'POST',
             success: function(response) {
-				console.log(response);
+
                 response = jQuery.parseJSON(response);
                 if(response.status == 'OK') {
                     $this.removeClass('campaign__hero-cta--sub');
@@ -142,13 +141,15 @@ jQuery(function() {
 		const $this = jQuery(form);
         const campaign = $this.data('campaign');
 		const list = $this.data('list');
+		const nonce = jQuery('#_wpnonce').val();
 
         const post = {
             campaign,
 			list,
 			first_name,
 			last_name,
-			email
+			email,
+			nonce,
 		};
 		jQuery.ajax({
             url: url,

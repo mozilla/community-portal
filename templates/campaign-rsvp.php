@@ -68,6 +68,7 @@
 						<input class="btn btn--light btn--submit" type="submit" value="<?php esc_html_e( 'Get Involved', 'community-portal' ); ?>">
 					</div>
 				</div>
+				<?php wp_nonce_field('mailing-list'); ?>
 			</form>
 		</div>
 	</div>

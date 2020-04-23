@@ -13,7 +13,8 @@ function mozilla_campaign_metabox() {
 }
 
 function mozilla_show_campaign_metabox( $post ) {
-	print "<div><a href=\"/wp-admin/admin-ajax.php?action=download_campaign_events&campaign={$post->ID}\">Export events related to this campaign</a></div>";
+  $nonce = wp_create_nonce('campaign-events');
+	print "<div><a href=\"/wp-admin/admin-ajax.php?action=download_campaign_events&campaign={$post->ID}&nonce={$nonce}\">Export events related to this campaign</a></div>";
 }
 
 function mozilla_activity_metabox() {
