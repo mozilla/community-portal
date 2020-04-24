@@ -12,14 +12,9 @@
 
 $theme_directory = get_template_directory();
 
-abstract class PrivacySettings {
-	const REGISTERED_USERS = 0;
-	const PUBLIC_USERS     = 1;
-	const PRIVATE_USERS    = 2;
-}
-
 // Include countries.
 require "{$theme_directory}/countries.php";
+require "{$theme_directory}/class-privacysettings.php";
 
 // Require.
 require_once "{$theme_directory}/lib/api.php";
