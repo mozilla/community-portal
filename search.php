@@ -140,14 +140,14 @@ else :
 								<path d="M9.16667 15.8333C12.8486 15.8333 15.8333 12.8486 15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 								<path d="M17.5 17.5L13.875 13.875" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 							</svg>
-                            <?php 
-                            	if ( isset( $original_query ) && strlen( $original_query ) > 0 ) {
-                                    $display_query = $original_query;
-                                } else {
-                                    $display_query = '';
-                                }
-                            ?>
-							<input type="text" name="s" id="search" class="groups__search-input" placeholder="<?php esc_attr_e( 'Search', 'community-portal' ); ?>" value="<?php echo esc_attr($display_query ); ?>" />
+							<?php
+							if ( isset( $original_query ) && strlen( $original_query ) > 0 ) {
+								$display_query = $original_query;
+							} else {
+								$display_query = '';
+							}
+							?>
+							<input type="text" name="s" id="search" class="groups__search-input" placeholder="<?php esc_attr_e( 'Search', 'community-portal' ); ?>" value="<?php echo esc_attr( $display_query ); ?>" />
 						</div>
 						<input type="button" class="groups__search-cta" value="<?php esc_attr_e( 'Search', 'community-portal' ); ?>" />
 					</form>
