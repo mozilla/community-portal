@@ -12,9 +12,10 @@
         '10' => 'Oct',
         '11' => 'Nov',
         '12' => 'Dec',
-    );
+	);
+	
 
-    $categories = (!is_null($event)) ? $event->get_categories() : false;
+	$categories = (!is_null($event)) ? $event->get_categories() : false;
     $location = em_get_location($event->location_id);
     $site_url = get_site_url();
     $url = $site_url.'/events/'.$event->slug;  

@@ -25,16 +25,18 @@ if ( isset( $categories ) && is_array( $categories ) ) {
 		$categories
 	);
 }
-if ( 'all' !== $tag && ! $categories && '' !== $tag ) {
+
+if ( 'all' !== $event_tag && ! $categories && '' !== $event_tag ) {
+
 	return;
-} elseif ( 'all' !== $tag && 'all' !== $country && '' !== $tag && '' !== $country ) {
-	if ( ! in_array( $tag, $all_tags, true ) || $country !== $all_countries[ $location->country ] ) {
+} elseif ( 'all' !== $event_tag && 'all' !== $country && '' !== $event_tag && '' !== $country ) {
+	if ( ! in_array( $event_tag, $all_tags, true ) || $country !== $all_countries[ $location->country ] ) {
 		return;
 	} else {
 		include locate_template( 'plugins/events-manager/templates/template-parts/single-event-card.php', false, false );
 	}
-} elseif ( 'all' !== $tag && '' !== $tag ) {
-	if ( ! in_array( $tag, $all_tags, true ) ) {
+} elseif ( 'all' !== $event_tag && '' !== $event_tag ) {
+	if ( ! in_array( $event_tag, $all_tags, true ) ) {
 		include locate_template( 'plugins/events-manager/templates/template-parts/single-event-card.php', false, false );
 	} else {
 		include locate_template( 'plugins/events-manager/templates/template-parts/single-event-card.php', false, false );
