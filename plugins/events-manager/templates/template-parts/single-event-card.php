@@ -1,4 +1,18 @@
 <?php
+/**
+ * Single Event Cards
+ *
+ * Template for single cards for events on events page for theme
+ *
+ * @package WordPress
+ * @subpackage community-portal
+ * @version 1.0.0
+ * @author  Playground Inc.
+ */
+
+?>
+
+<?php
 	$months = array(
 		'01' => 'Jan',
 		'02' => 'Feb',
@@ -20,36 +34,36 @@
 	$site_url   = get_site_url();
 	$url        = $site_url . '/events/' . $event->slug;
 
-	?> 
+	?>
 <div class="col-lg-4 col-md-6 events__column">
 	<div class="event-card">
-		<a class="events__link" href="<?php echo $url; ?>">
+		<a class="events__link" href="<?php echo esc_url_raw( $url ); ?>">
 			<div class="event-card__image"
 			<?php
 				$card_event_meta = get_post_meta( $event->post_id, 'event-meta' );
 				$img_url         = $card_event_meta[0]->image_url;
 
-			if ( ( ! empty( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] != 'off' ) || $_SERVER['SERVER_PORT'] == 443 ) {
+			if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'off' !== $_SERVER['HTTPS'] ) || 443 === $_SERVER['SERVER_PORT'] ) {
 				$img_url = preg_replace( '/^http:/i', 'https:', $img_url );
 			} else {
 				$img_url = $img_url;
 			}
 			?>
 
-			<?php if ( $img_url && $img_url !== '' ) : ?>
-				style="background-image: url(<?php echo $img_url; ?>)"
+			<?php if ( $img_url && '' !== $img_url ) : ?>
+				style="background-image: url(<?php echo esc_url_raw( $img_url ); ?>)"
 			<?php endif; ?>
 			>
 				<?php
-					$month = substr( $event->start_date, 5, 2 );
-					$date  = substr( $event->start_date, 8, 2 );
-					$year  = substr( $event->start_date, 0, 4 );
+					$month      = substr( $event->start_date, 5, 2 );
+					$date       = substr( $event->start_date, 8, 2 );
+					$event_year = substr( $event->start_date, 0, 4 );
 				?>
-				<p class="event-card__image__date"><span><?php echo substr( $months[ $month ], 0, 3 ); ?> </span><span><?php echo $date; ?></span></p>
+				<p class="event-card__image__date"><span><?php echo esc_html( substr( $months[ $month ], 0, 3 ) ); ?> </span><span><?php echo esc_html( $date ); ?></span></p>
 			</div>
 			<div class="event-card__description">
-				<h3 class="event-card__description__title title--event-card"><?php echo $event->event_name; ?></h2>
-				<p><?php echo $months[ $month ] . ' ' . $date . ', ' . $year . ' @ ' . substr( $event->event_start_time, 0, 5 ) . ' - ' . substr( $event->event_end_time, 0, 5 ) . ' ' . $event->event_timezone; ?></p>
+				<h3 class="event-card__description__title title--event-card"><?php echo esc_html( $event->event_name ); ?></h2>
+				<p><?php echo esc_html( $months[ $month ] ) . esc_html( ' ' ) . esc_html( $date ) . esc_html( ', ' ) . esc_html( $event_year ) . esc_html( ' @ ' ) . esc_html( substr( $event->event_start_time, 0, 5 ) ) . esc_html( ' - ' ) . esc_html( substr( $event->event_end_time, 0, 5 ) ) . esc_html( ' ' ) . esc_html( $event->event_timezone ); ?></p>
 
 				<?php if ( strlen( $location->address ) > 0 || strlen( $location->town ) > 0 || strlen( $location->country ) > 0 ) : ?>
 				<div class="event-card__location">
@@ -59,11 +73,11 @@
 					</svg>
 					<p class="text--light text--small">
 					<?php
-					if ( $location->country === 'OE' ) {
-						_e( 'Online Event', 'community-portal' );
+					if ( 'OE' === $location->country ) {
+						esc_html_e( 'Online Event', 'community-portal' );
 					} else {
 						if ( $location->address ) {
-							echo $location->address . ' - ';
+							echo esc_html( $location->address ) . esc_html( ' - ' );
 						}
 
 						if ( $location->town ) {
@@ -71,16 +85,16 @@
 								$city = substr( $location->town, 0, 180 );
 							}
 
-							echo $city;
+							echo esc_html( $city );
 							if ( $location->country ) {
 								if ( $city ) {
-									print ', ';
+									print esc_html( ', ' );
 								}
 
-								echo $allCountries[ $location->country ];
+								echo esc_html( $all_countries[ $location->country ] );
 							}
 						} else {
-							echo $allCountries[ $location->country ];
+							echo esc_html( $all_countries[ $location->country ] );
 						}
 					}
 					?>
@@ -92,7 +106,7 @@
 					$initiative = get_post( intval( $card_event_meta[0]->initiative ) );
 					?>
 				<div class="events__campaign">
-					<?php if ( $initiative->post_type === 'campaign' ) : ?>
+					<?php if ( 'campaign' === $initiative->post_type ) : ?>
 					<svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M10.233 4.89288L6.46173 5.83569C6.46173 5.83569 2.87906 6.58994 2.31337 7.15562C1.86082 7.60817 2.06196 8.03558 2.21909 8.19271C2.59621 8.56984 3.94757 9.92119 4.57611 10.5497" stroke="#737373" stroke-width="2"/>
 						<path d="M14.0041 8.66376L13.0613 12.435C13.0613 12.435 12.307 16.0177 11.7414 16.5834C11.2888 17.0359 10.8614 16.8348 10.7043 16.6776C10.3271 16.3005 8.97578 14.9492 8.34724 14.3206" stroke="#737373" stroke-width="2"/>
@@ -104,14 +118,21 @@
 						<path d="M14.6666 7H11.9999L9.99992 13L5.99992 1L3.99992 7H1.33325" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 					</svg>
 					<?php endif; ?>
-					<?php print sprintf( __( 'Part of ', 'community-portal' ) . '%s %s', $initiative->post_title, ( $initiative->post_type === 'campaign' ) ? __( 'Campaign', 'community-portal' ) : __( 'Activity', 'community-portal' ) ); ?>
+					<?php
+					print esc_html__( 'Part of ', 'community-portal' ) . esc_html( '  ' ) . esc_html( $initiative->post_title );
+					if ( 'campaign' === $initiative->post_type ) {
+						esc_html__( 'Campaign', 'community-portal' );
+					} else {
+						esc_html__( 'Activity', 'community-portal' );
+					}
+					?>
 				</div>
 				<?php endif; ?>
 			</div>
 			<ul class="events__tags">
-			<?php if ( $categories !== false && is_array( $categories->terms ) ) : ?>
+			<?php if ( false !== $categories && is_array( $categories->terms ) ) : ?>
 				<?php foreach ( $categories->terms as $category ) : ?>
-					<li class="tag"><?php echo __( $category->name ); ?></li>
+					<li class="tag"><?php echo esc_html( $category->name ); ?></li>
 					<?php break; ?>
 				<?php endforeach; ?>
 			<?php endif; ?>
