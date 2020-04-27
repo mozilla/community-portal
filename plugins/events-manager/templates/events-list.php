@@ -71,7 +71,7 @@ if ( 'all' !== $event_tag ) {
 	$initiative_input = $valid_nonce && isset( $_GET['initiative'] ) ? sanitize_text_field( wp_unslash( $_GET['initiative'] ) ) : null;
 	$language_input   = $valid_nonce && isset( $_GET['language'] ) ? sanitize_text_field( wp_unslash( $_GET['language'] ) ) : null;
 	$event_initiative = isset( $initiative_input ) && strlen( $initiative_input ) > 0 && strtolower( $initiative_input ) !== 'all' ? $initiative_input : false;
-	$event_language         = isset( $language_input ) && strlen( $language_input ) > 0 && strtolower( $language_input ) !== 'all' ? $language_input : false;
+	$event_language   = isset( $language_input ) && strlen( $language_input ) > 0 && strtolower( $language_input ) !== 'all' ? $language_input : false;
 if ( $event_initiative || $event_language ) {
 	foreach ( $all_events as $e ) {
 		$event_meta = get_post_meta( $e->post_id, 'event-meta' );
