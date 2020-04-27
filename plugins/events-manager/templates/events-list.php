@@ -71,14 +71,14 @@ if ( 'all' !== $event_tag ) {
 	$initiative_input = $valid_nonce && isset( $_GET['initiative'] ) ? sanitize_text_field( wp_unslash( $_GET['initiative'] ) ) : null;
 	$language_input   = $valid_nonce && isset( $_GET['language'] ) ? sanitize_text_field( wp_unslash( $_GET['language'] ) ) : null;
 	$event_initiative = isset( $initiative_input ) && strlen( $initiative_input ) > 0 && strtolower( $initiative_input ) !== 'all' ? $initiative_input : false;
-	$language         = isset( $language_input ) && strlen( $language_input ) > 0 && strtolower( $language_input ) !== 'all' ? $language_input : false;
-if ( $event_initiative || $language ) {
+	$event_language         = isset( $language_input ) && strlen( $language_input ) > 0 && strtolower( $language_input ) !== 'all' ? $language_input : false;
+if ( $event_initiative || $event_language ) {
 	foreach ( $all_events as $e ) {
 		$event_meta = get_post_meta( $e->post_id, 'event-meta' );
-		if ( $event_initiative && $language ) {
+		if ( $event_initiative && $event_language ) {
 			if (
 				( isset( $event_meta[0]->initiative ) && intval( $event_meta[0]->initiative ) === intval( $event_initiative ) ) &&
-				( isset( $event_meta[0]->language ) && strtolower( $event_meta[0]->language ) === strtolower( $language ) )
+				( isset( $event_meta[0]->language ) && strtolower( $event_meta[0]->language ) === strtolower( $event_language ) )
 			) {
 				$events[] = $e;
 			}
@@ -87,7 +87,7 @@ if ( $event_initiative || $language ) {
 				$events[] = $e;
 			}
 		} else {
-			if ( isset( $event_meta[0]->language ) && strtolower( $event_meta[0]->language ) === strtolower( $language ) ) {
+			if ( isset( $event_meta[0]->language ) && strtolower( $event_meta[0]->language ) === strtolower( $event_language ) ) {
 				$events[] = $e;
 			}
 		}
@@ -316,9 +316,9 @@ if ( $event_initiative || $language ) {
 					&initiative=<?php print esc_attr( htmlspecialchars( $initiative_input, ENT_QUOTES, 'UTF-8' ) ); ?>
 					<?php endif; ?>
 				<?php
-				if ( $language && 'all' !== $language ) :
+				if ( $event_language && 'all' !== $event_language ) :
 					?>
-					&language=<?php print esc_attr( htmlspecialchars( $language, ENT_QUOTES, 'UTF-8' ) ); ?><?php endif; ?>
+					&language=<?php print esc_attr( htmlspecialchars( $event_language, ENT_QUOTES, 'UTF-8' ) ); ?><?php endif; ?>
 				<?php
 				if ( strlen( $view ) > 0 ) :
 					?>
@@ -342,9 +342,9 @@ if ( $event_initiative || $language ) {
 						?>
 						&initiative=<?php print esc_attr( htmlspecialchars( $initiative, ENT_QUOTES, 'UTF-8' ) ); ?><?php endif; ?>
 					<?php
-					if ( $language && 'all' !== $language ) :
+					if ( $event_language && 'all' !== $event_language ) :
 						?>
-						&language=<?php print esc_attr( htmlspecialchars( $language, ENT_QUOTES, 'UTF-8' ) ); ?><?php endif; ?>
+						&language=<?php print esc_attr( htmlspecialchars( $event_language, ENT_QUOTES, 'UTF-8' ) ); ?><?php endif; ?>
 					<?php
 					if ( strlen( $view ) > 0 ) :
 						?>
@@ -368,9 +368,9 @@ if ( $event_initiative || $language ) {
 						?>
 						&initiative=<?php print esc_attr( htmlspecialchars( $initiative, ENT_QUOTES, 'UTF-8' ) ); ?><?php endif; ?>
 					<?php
-					if ( $language && 'all' !== $language ) :
+					if ( $event_language && 'all' !== $event_language ) :
 						?>
-						&language=<?php print esc_attr( htmlspecialchars( $language, ENT_QUOTES, 'UTF-8' ) ); ?><?php endif; ?>
+						&language=<?php print esc_attr( htmlspecialchars( $event_language, ENT_QUOTES, 'UTF-8' ) ); ?><?php endif; ?>
 					<?php
 					if ( strlen( $view ) > 0 ) :
 						?>
@@ -404,9 +404,9 @@ if ( $event_initiative || $language ) {
 						?>
 						&initiative=<?php print esc_attr( htmlspecialchars( $initiative, ENT_QUOTES, 'UTF-8' ) ); ?><?php endif; ?>
 					<?php
-					if ( $language && 'all' !== $language ) :
+					if ( $event_language && 'all' !== $event_language ) :
 						?>
-						&language=<?php print esc_attr( htmlspecialchars( $language, ENT_QUOTES, 'UTF-8' ) ); ?><?php endif; ?>
+						&language=<?php print esc_attr( htmlspecialchars( $event_language, ENT_QUOTES, 'UTF-8' ) ); ?><?php endif; ?>
 					<?php
 					if ( strlen( $view ) > 0 ) :
 						?>

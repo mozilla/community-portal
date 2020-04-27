@@ -14,28 +14,26 @@
 
 <?php
 	global $wpdb;
-	$nonce = sanitize_key( $_GET['nonce']);
 	$theme_directory = get_template_directory();
 	require "{$theme_directory}/languages.php";
 
 	$countries      = em_get_countries();
-	$em_countries   = $wpdb->get_results( 'SELECT DISTINCT location_country FROM ' . EM_LOCATIONS_TABLE . " WHERE location_country IS NOT NULL AND location_country != '' AND location_status=1 ORDER BY location_country ASC", ARRAY_N );
 	$ddm_countries  = array();
 	$used_languages = array();
 
-foreach ( $em_countries as $em_country ) {
-	$ddm_countries[ $em_country[0] ] = $countries[ $em_country[0] ];
-}
-
-	asort( $ddm_countries );
-
 foreach ( $all_events as $e ) {
+	$location     = em_get_location( $e->location_id );
+	$country_code = $location->location_country;
+	if ( ! in_array( $country_code, $ddm_countries, true ) ) {
+		$ddm_countries[ $country_code ] = $countries[ $country_code ];
+	}
 	$e_meta = get_post_meta( $e->post_id, 'event-meta' );
 
 	if ( isset( $e_meta[0]->language ) && isset( $languages[ $e_meta[0]->language ] ) ) {
 		$used_languages[ $e_meta[0]->language ] = $languages[ $e_meta[0]->language ];
 	}
 }
+	asort( $ddm_countries );
 
 	asort( $used_languages );
 	$used_languages = array_unique( $used_languages );
@@ -124,8 +122,8 @@ if ( count( $categories ) > 0 ) {
 			require locate_template( 'plugins/events-manager/templates/template-parts/options.php', false, false );
 
 			?>
-			<?php 
-				wp_nonce_field('events-filter', 'events-filter-nonce');
+			<?php
+				wp_nonce_field( 'events-filter', 'events-filter-nonce' );
 			?>
 	</form>
 </div>

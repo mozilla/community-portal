@@ -22,13 +22,13 @@
 			<?php if ( 'Initiative' === $field_name ) : ?>
 				<option value="<?php print esc_attr( $key ); ?>" 
 					<?php
-					if ( isset( $_GET['initiative'] ) && strlen( $_GET['initiative'] ) > 0 && intval( $_GET['initiative'] ) === $key ) :
+					if ( isset( $event_initiative ) && strlen( $event_initiative ) > 0 && intval( $event_initiative ) === $key ) :
 						?>
 					selected<?php endif; ?>><?php print esc_html( $option ); ?></option>
 			<?php elseif ( 'Language' === $field_name ) : ?>
 				<option value="<?php print esc_attr( $key ); ?>" 
 					<?php
-					if ( isset( $_GET['language'] ) && strlen( $_GET['language'] ) > 0 && strtolower( $_GET['language'] ) === strtolower( $key ) ) :
+					if ( isset( $event_language ) && strlen( $event_language ) > 0 && strtolower( $event_language ) === strtolower( $key ) ) :
 						?>
 						selected<?php endif; ?>><?php print esc_html( $option ); ?></option>
 			<?php else : ?>
