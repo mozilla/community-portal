@@ -27,7 +27,6 @@ jQuery(function() {
     function applyFilters() {
 		const $filters = jQuery(".events__filter__option");
 		const nonceValue = jQuery('#events-filter-nonce').val();
-		console.log(nonceValue);
         if ($filters) {
             $filters.each((i, filter) => {
                 jQuery(filter).on("change", function(e) {
