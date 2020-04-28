@@ -39,7 +39,7 @@ if ( get_option( 'dbem_css_rsvp' ) ) {
 
 		?>
 		<script type="text/javascript">
-			window.history.replaceState("","", "<?php echo esc_attr( $updated_url ); ?>")
+			window.history.replaceState("","", "<?php echo esc_html( $updated_url ); ?>")
 		</script>
 		<?php
 		$em_booking = $em_event->get_bookings()->has_booking();
@@ -50,12 +50,15 @@ if ( get_option( 'dbem_css_rsvp' ) ) {
 	<a class="em-bookings-cancel events-single__cancel btn btn--submit btn--dark" href="<?php echo esc_attr( add_query_arg( array( 'cancel' => true ), esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ) ); ?>" onclick="if( !confirm('<?php esc_html_e( 'Are you sure you dont want to attend this event?', 'community-portal' ); ?>') ){ return false; }">
 		<?php esc_html_e( 'Will Not Attend', 'community-portal' ); ?>
 	</a>
-	<?php else : ?>
+	<?php else : 
+		$attend_url = remove_query_arg( 'cancel', apply_filters( 'em_booking_form_action_url', '' ) );
+		var_dump(esc_attr( $attend_url));
+	?>
 	<form 
 		class="em-booking-form" 
 		name='booking-form' 
 		method='post' 
-		action='<?php echo esc_attr( remove_query_arg( 'cancel', apply_filters( 'em_booking_form_action_url', '' ) ) ); ?>'
+		action='<?php echo esc_attr( $attend_url ); ?>'
 	>
 		<input type='hidden' name='action' value='booking_add'/>
 		<input type='hidden' name='event_id' value='<?php echo esc_attr( $em_event->get_bookings()->event_id ); ?>'/>
