@@ -200,7 +200,6 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 									'class'   => array(),
 									'onClick' => array(),
 								),
-								'script' => array(),
 								'form'  => array(
 									'name'   => array(),
 									'action' => array(),

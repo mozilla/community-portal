@@ -38,7 +38,9 @@ if ( get_option( 'dbem_css_rsvp' ) ) {
 		}
 
 		?>
-	
+		<script type="text/javascript">
+			window.history.replaceState("","", "<?php echo esc_attr( $updated_url ); ?>")
+		</script>
 		<?php
 		$em_booking = $em_event->get_bookings()->has_booking();
 	}
@@ -53,7 +55,6 @@ if ( get_option( 'dbem_css_rsvp' ) ) {
 		class="em-booking-form" 
 		name='booking-form' 
 		method='post' 
-		id="event-rsvp"
 		action='<?php echo esc_attr( remove_query_arg( 'cancel', apply_filters( 'em_booking_form_action_url', '' ) ) ); ?>'
 	>
 		<input type='hidden' name='event_id' value='<?php echo esc_attr( $em_event->get_bookings()->event_id ); ?>'/>
