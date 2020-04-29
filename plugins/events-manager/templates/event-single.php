@@ -113,7 +113,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 <div class="content events__container events-single">
 	<div class="row">
 		<div class="col-sm-12">
-			<h1 class="title"><?php $em_event->event_name; ?></h1>
+			<h1 class="title"><?php echo esc_html( $em_event->event_name ); ?></h1>
 		</div>
 	</div>
 	<div class="row events-single__two-up">
@@ -206,12 +206,14 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 									'action' => array(),
 									'class'  => array(),
 									'method' => array(),
+									'id' => array(),
 								),
 								'input' => array(
 									'type'  => array(),
 									'name'  => array(),
 									'class' => array(),
 									'value' => array(),
+									'id' => array(),
 								),
 							)
 						);

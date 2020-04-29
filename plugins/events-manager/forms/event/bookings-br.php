@@ -111,10 +111,14 @@ $reschedule_warnings = ! empty( $em_event->event_id ) && $em_event->is_recurring
 					$em_ticket->event_id = $em_event->event_id;
 					array_unshift( $em_tickets->tickets, $em_ticket ); // prepend template ticket for JS.
 					$col_count = 0;
+					
 				foreach ( $em_tickets->tickets as $em_ticket ) {
+
 					?>
 						<tbody id="em-ticket-<?php echo esc_attr( $col_count ); ?>" 
+
 							<?php
+
 							if ( 0 === $col_count ) {
 								echo 'style="display:none;"';}
 							?>
@@ -256,7 +260,10 @@ $reschedule_warnings = ! empty( $em_event->event_id ) && $em_event->is_recurring
 							</tr>
 							<tr class="em-tickets-row-form" style="display:none;">
 								<td colspan="<?php echo esc_attr( apply_filters( 'em_event_edit_ticket_td_colspan', 7 ) ); ?>">
-								<?php include em_locate_template( 'forms/event/bookings-ticket-form.php' ); ?>
+									
+										<?php 
+											include em_locate_template( 'forms/event/bookings-ticket-form.php' ); 
+										?>
 									<div class="em-ticket-form-actions">
 									<button type="button" class="ticket-actions-edited"><?php esc_html_e( 'Close Ticket Editor', 'commuity-portal' ); ?></button>
 									</div>
@@ -265,6 +272,7 @@ $reschedule_warnings = ! empty( $em_event->event_id ) && $em_event->is_recurring
 						</tbody>
 						<?php
 						$col_count++;
+						
 				}
 					array_shift( $em_tickets->tickets );
 				?>
@@ -295,6 +303,7 @@ $reschedule_warnings = ! empty( $em_event->event_id ) && $em_event->is_recurring
 		</div>
 		<?php endif; ?>
 	</div>
+
 	<div id="em-booking-options" class="em-booking-options">
 	<?php if ( ! get_option( 'dbem_bookings_tickets_single' ) || count( $em_ticket->get_event()->get_tickets()->tickets ) > 1 ) : ?>
 	<h4><?php esc_html_e( 'Event Options', 'commuity-portal' ); ?></h4>

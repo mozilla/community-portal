@@ -342,7 +342,39 @@ jQuery(function() {
         const $this = jQuery(this);
             $locationTypeInput.val($this.val());
         });
-    }
+	}
+	
+	function iterateThroughForm(form) {
+		const inputs = form.find('input[type=hidden]');
+		const data = {};
+		inputs.each(function() {
+			const $input = jQuery(this);
+			data[`${$input.prop('name')}`] = $input.val();
+		});	
+		return data;
+	}
+
+	function rsvpAjaxCall(form) {
+        const url =  '/wp-admin/admin-ajax.php?action=add_event_booking';
+		const data = iterateThroughForm(form);
+		console.log(data);
+		jQuery.ajax({ 
+			url,
+			data,
+			method: 'POST',
+		}).then((resp) => {
+			console.log(resp);
+		})
+	} 
+
+	function event_rsvp() {
+		const $rsvp_form = jQuery('#event-rsvp');
+		$rsvp_form.on('submit', function(e) {
+			e.preventDefault();
+			const $this = jQuery(this);
+			rsvpAjaxCall($this);
+		});
+	}
 
     function init() {
         toggleMobileEventsNav(".events__nav__toggle", ".events__nav");
@@ -354,7 +386,8 @@ jQuery(function() {
         handleSubmit();
         editLocation();
         trackLocationType();
-        handleOnlineEvent();
+		handleOnlineEvent();
+		event_rsvp();
     }
 
 
@@ -364,7 +397,8 @@ jQuery(function() {
         return false;
 
 
-    });
+	});
+	
 
     init();
 });

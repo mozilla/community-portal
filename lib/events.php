@@ -3,7 +3,7 @@
 
 function mozilla_update_events_copy($string) {
 
-    $please_string = __('Please', 'community-portal');
+	$please_string = __('Please', 'community-portal');
     $login_string = __('log in', 'community-portal');
     $create_string = __('to create or join events', 'community-portal');
 
@@ -251,5 +251,48 @@ function mozilla_add_user_discourse() {
 
 }
 
+function mozilla_create_booking() {
+	if ($_SERVER['REQUEST_METHOD'] === 'POST' && wp_verify_nonce(sanitize_key($_POST['_wpnonce']), 'add_event_booking')) {
+		if( !empty($_POST['event_id']) ){
+			ob_start();
+			$em_event = em_get_event( absint($_POST['event_id']) );
+			$em_booking = em_get_booking(array(
+				'person_id'=>get_current_user_id(), 
+				'booking_spaces'=>1, 
+				'event_id'=> $_POST['event_id'],
+				'booking_status' => 1)
+			);
+	
+			if ( empty($em_event->bookings) ) {
+				$em_event->bookings = array();
+			}
+			array_push($em_event->bookings, $em_booking);
+			print_r($array
+				// 'status' => $em_bookings->tickets[$em_ticket->ticket_id],
+			);
+			die();
+				// array_push( $em_event->bookings, $em_booking );
+				
+				// return apply_filters('em_bookings_add', true, $em_booking);
+
+				
+				// add_user_to_blog(get_current_blog_id(), get_current_user_id(), get_option('default_role'));
+				// die();
+			
+			// $post_validation = $em_booking->validate();
+			// do_action('em_booking_add', $em_event, $em_booking, $post_validation);
+			// if( $post_validation ){
+			// 	$registration = em_booking_add_registration($em_booking);
+				$em_event->get_bookings()->add($em_booking);
+			// 	// $em_event->save();
+			// 	wp_send_json_success(array(
+			// 	'status' => $em_event,
+			// 	));
+			// 	die();
+			// }
+			ob_clean();
+		}
+	}
+}
 
 ?>
