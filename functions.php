@@ -64,8 +64,6 @@ add_action('wp_ajax_nopriv_export_events', 'mozilla_event_export');
 add_action('wp_ajax_export_events', 'mozilla_event_export');
 add_action('wp_ajax_update_event_discourse', 'mozilla_update_event_discourse_data');
 add_action('wp_ajax_add_user_to_discourse_group', 'mozilla_add_user_discourse');
-add_action('wp_ajax_add_event_booking', 'mozilla_create_booking');
-add_action('wp_ajax_nopriv_add_event_booking', 'mozilla_create_booking');
 
 add_action('wp_ajax_download_group_events', 'mozilla_download_group_events');
 

@@ -159,6 +159,7 @@ jQuery(function(){
 
                 if(response.status == 'success') {
                     var memberCount = parseInt(jQuery('.group__member-count').text());
+                    
                     memberCount++;
                     $this.text('Leave Group');
                     jQuery('.group__member-count').text(memberCount);
