@@ -34,7 +34,7 @@ if ( isset( $_REQUEST['event_id'] ) && isset( $_REQUEST['nonce'] ) && wp_verify_
 	</div>
 </div>
 <div class="content event-creator__container-main">
-<?php if ( isset( $event_id ) ) : ?>
+<?php if ( isset( $user ) ) : ?>
 	<?php if ( have_posts() ) : ?>
 		<?php
 		while ( have_posts() ) :
