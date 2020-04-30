@@ -52,8 +52,8 @@
 		'group_id' => $group->id,
 	);
 
-	$tags       = get_tags( array( 'hide_empty' => false ) );
-	$group_members    = groups_get_group_members( $args );
+	$tags          = get_tags( array( 'hide_empty' => false ) );
+	$group_members = groups_get_group_members( $args );
 
 	$is_admin   = groups_is_user_admin( $group_user->ID, $group->id );
 	$group_user = wp_get_current_user()->data;
@@ -116,20 +116,21 @@
 		)
 	);
 
-	$members           = $wp_user_query->get_results();
-	$real_members      = array();
-	foreach($group_members AS $gp) {
+	$members      = $wp_user_query->get_results();
+	$real_members = array();
+	foreach ( $group_members as $gp ) {
 		$user_lookup = $gp[0];
-		foreach($members AS $m) {
-			if($user_lookup->ID === $m->ID)
-			$real_members[] = $m;
+		foreach ( $members as $mb ) {
+			if ( $user_lookup->ID === $mb->ID ) {
+				$real_members[] = $mb;
+			}
 		}
 	}
-	
+
 	$filtered_members  = array();
 	$used_country_list = array();
 	$used_languages    = array();
-	
+
 
 	// Time to filter stuff!
 	foreach ( $real_members as $index => $member ) {
@@ -732,7 +733,7 @@
 
 		// Just search!
 		if ( $search_user && false === $country_code && false === $get_tag && false === $language_code ) {
-			print "WE SHOULD BE HERE";
+			print 'WE SHOULD BE HERE';
 			// Username!
 			if ( stripos( $member->data->user_nicename, $search_user ) !== false ) {
 				$filtered_members[] = $member;
@@ -976,7 +977,7 @@
 							</div>
 							<div class="members__filter-container members__filter-container--hidden">
 								<span><?php esc_html_e( 'Search criteria:', 'community-portal' ); ?></span>
-								<?php if(count($used_country_list) > 0 ): ?>
+								<?php if ( count( $used_country_list ) > 0 ) : ?>
 								<div class="members__select-container">
 									<label class="members__label"><?php esc_html_e( 'Location', 'community-portal' ); ?></label>
 									<select class="members__location-select">
@@ -1454,7 +1455,6 @@
 							</div>
 						</div>
 						<?php endif; ?>
-
 						<?php endif; ?>
 					</div>
 					<div class="group__right-column">
@@ -1471,7 +1471,7 @@
 									$event_count = count( $events );
 									?>
 								<div class="group__member-count-container">
-									<span class="group__event-count"><?php esc_html_e( $event_count ); ?></span>
+									<span class="group__event-count"><?php echo esc_html( $event_count ); ?></span>
 									<?php esc_html_e( 'Events this month' ); ?>
 								</div>
 								<div class="group__member-count-container">
