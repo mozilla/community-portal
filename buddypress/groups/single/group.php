@@ -1457,7 +1457,7 @@
 									$event_count = count( $events );
 									?>
 								<div class="group__member-count-container">
-									<span class="group__event-count"><?php esc_html( $event_count ); ?></span>
+									<span class="group__event-count"><?php esc_html_e( $event_count ); ?></span>
 									<?php esc_html_e( 'Events this month' ); ?>
 								</div>
 								<div class="group__member-count-container">
