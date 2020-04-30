@@ -452,8 +452,9 @@ function mozilla_save_post( $post_id, $post, $update ) {
 
 	if ( $post->post_type === 'event' && $update ) {
 		$user              = wp_get_current_user();
-		$event_update_meta = get_post_meta( $post->ID, 'event-meta' );
+		$event_update_meta = get_post_meta( $post_id, 'event-meta' );
 		$event             = new stdClass();
+		
 
 		if ( isset( $event_update_meta[0]->discourse_group_id ) ) {
 			$event->discourse_group_id = $event_update_meta[0]->discourse_group_id;
@@ -476,37 +477,37 @@ function mozilla_save_post( $post_id, $post, $update ) {
 			if ( isset( $_POST['image_url'] ) ) {
 				$event->image_url = esc_url_raw( wp_unslash( $_POST['image_url'] ) );
 			} else {
-				$event->image_url = '';
+				$event->image_url = $event_update_meta[0]->image_url;
 			}
 
 			if ( isset( $_POST['location-type'] ) ) {
 				$event->location_type = sanitize_text_field( wp_unslash( $_POST['location-type'] ) );
 			} else {
-				$event->location_type = '';
+				$event->location_type = $event_update_meta[0]->location_type;
 			}
 
 			if ( isset( $_POST['event_external_link'] ) ) {
 				$event->external_url = esc_url_raw( wp_unslash( $_POST['event_external_link'] ) );
 			} else {
-				$event->external_url = '';
+				$event->external_url = $event_update_meta[0]->external_url;
 			}
 
 			if ( isset( $_POST['language'] ) ) {
 				$event->language = sanitize_text_field( wp_unslash( $_POST['language'] ) );
 			} else {
-				$event->language = '';
+				$event->language = $event_update_meta[0]->language;
 			}
 
 			if ( isset( $_POST['goal'] ) ) {
 				$event->goal = sanitize_textarea_field( wp_unslash( $_POST['goal'] ) );
 			} else {
-				$event->goal = '';
+				$event->goal = $event_update_meta[0]->goal;
 			}
 
 			if ( isset( $_POST['projected-attendees'] ) ) {
 				$event->projected_attendees = intval( sanitize_text_field( wp_unslash( $_POST['projected-attendees'] ) ) );
-			} else {
-				$event->projected_attendees = '';
+			}else {
+				$event->projected_attendees = $event_update_meta[0]->projected_attendees;
 			}
 
 			if ( isset( $_POST['initiative_id'] ) ) {
@@ -518,7 +519,11 @@ function mozilla_save_post( $post_id, $post, $update ) {
 						$event->initiative = $initiative_id;
 					}
 				}
+			} else {
+				$event->initiative = $event_update_meta[0]->initiative;
 			}
+		} else {
+			$event = $event_update_meta[0];
 		}
 
 		$discourse_api_data = array();
@@ -536,7 +541,6 @@ function mozilla_save_post( $post_id, $post, $update ) {
 		if ( $discourse_group ) {
 			$event->discourse_log = $discourse_group;
 		}
-
 		update_post_meta( $post->ID, 'event-meta', $event );
 
 	}
