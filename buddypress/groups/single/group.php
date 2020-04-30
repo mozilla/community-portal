@@ -1354,7 +1354,7 @@
 						<div class="group__card">
 							<div class="group__card-content">
 								<span class="no-line"><?php esc_html_e( 'Meeting Details', 'community-portal' ); ?></span>
-								<?php if ( isset( $group_meta['group_meeting_details'] ) ) : ?>
+								<?php if ( isset( $group_meta['group_meeting_details'] ) && strlen( $group_meta['group_meeting_details'] ) > 0 ) : ?>
 								<p class="group__card-copy">
 									<?php echo esc_html( $group_meta['group_meeting_details'] ); ?>
 								</p>
