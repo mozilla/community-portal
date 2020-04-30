@@ -321,21 +321,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 				<div class="events-single__description">
 					<h2 class="title--secondary"><?php esc_html_e( 'Goals', 'community-portal' ); ?></h2>
 					<p>
-					<?php
-					echo wp_kses(
-						wpautop( substr( trim( $em_event->post_content ), 0, 3000 ) ),
-						array(
-							'p'  => array(),
-							'br' => array(),
-							'a'  => array(
-								'href' => array(),
-							),
-							'ol' => array(),
-							'ul' => array(),
-							'li' => array(),
-						)
-					);
-					?>
+						<?php echo esc_html( $goal ); ?>
 					</p>
 				</div>
 			<?php endif; ?>

@@ -276,6 +276,8 @@ if ( $em_event->is_recurring() ) {
 		?>
 		<input type="hidden" name="event_rsvp" value="<?php echo esc_attr( $event_rsvp ); ?>" />
 		<input type="hidden" name="_wpnonce" id="my_nonce_field" value="<?php echo esc_attr( wp_create_nonce( 'wpnonce_event_save' ) ); ?>" />
+		<?php wp_nonce_field( 'event_update', 'event_update_field' ); ?>
+		<?php wp_nonce_field( 'event_create', 'event_create_field' ); ?>
 		<input type="hidden" name="action" value="event_save" />
 		<?php if ( ! empty( $_REQUEST['redirect_to'] ) ) : ?>
 			<input type="hidden" name="redirect_to" value="

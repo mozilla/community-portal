@@ -451,7 +451,6 @@ function mozilla_group_addional_column_info( $retval = '', $column_name, $item )
 function mozilla_save_post( $post_id, $post, $update ) {
 
 	if ( $post->post_type === 'event' && $update ) {
-
 		$user              = wp_get_current_user();
 		$event_update_meta = get_post_meta( $post->ID, 'event-meta' );
 		$event             = new stdClass();
@@ -472,18 +471,53 @@ function mozilla_save_post( $post_id, $post, $update ) {
 			$event->discourse_group_users = $event_update_meta[0]->discourse_group_users;
 		}
 
-		$event->image_url           = esc_url_raw( $_POST['image_url'] );
-		$event->location_type       = sanitize_text_field( $_POST['location-type'] );
-		$event->external_url        = esc_url_raw( $_POST['event_external_link'] );
-		$event->language            = $_POST['language'] ? sanitize_text_field( $_POST['language'] ) : '';
-		$event->goal                = $_POST['goal'] ? sanitize_text_field( $_POST['goal'] ) : '';
-		$event->projected_attendees = $_POST['projected-attendees'] ? intval( $_POST['projected-attendees'] ) : '';
+		if ( isset( $_POST['event_update_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['event_update_field'] ) ), 'event_update' ) ) {
 
-		if ( isset( $_POST['initiative_id'] ) && strlen( $_POST['initiative_id'] ) > 0 ) {
-			$initiative_id = intval( $_POST['initiative_id'] );
-			$initiative    = get_post( $initiative_id );
-			if ( $initiative && ( $initiative->post_type === 'campaign' || $initiative->post_type === 'activity' ) ) {
-				$event->initiative = $initiative_id;
+			if ( isset( $_POST['image_url'] ) ) {
+				$event->image_url = esc_url_raw( wp_unslash( $_POST['image_url'] ) );
+			} else {
+				$event->image_url = '';
+			}
+
+			if ( isset( $_POST['location-type'] ) ) {
+				$event->location_type = sanitize_text_field( wp_unslash( $_POST['location-type'] ) );
+			} else {
+				$event->location_type = '';
+			}
+
+			if ( isset( $_POST['event_external_link'] ) ) {
+				$event->external_url = esc_url_raw( wp_unslash( $_POST['event_external_link'] ) );
+			} else {
+				$event->external_url = '';
+			}
+
+			if ( isset( $_POST['language'] ) ) {
+				$event->language = sanitize_text_field( wp_unslash( $_POST['language'] ) );
+			} else {
+				$event->language = '';
+			}
+
+			if ( isset( $_POST['goal'] ) ) {
+				$event->goal = sanitize_textarea_field( wp_unslash( $_POST['goal'] ) );
+			} else {
+				$event->goal = '';
+			}
+
+			if ( isset( $_POST['projected-attendees'] ) ) {
+				$event->projected_attendees = intval( sanitize_text_field( wp_unslash( $_POST['projected-attendees'] ) ) );
+			} else {
+				$event->projected_attendees = '';
+			}
+
+			if ( isset( $_POST['initiative_id'] ) ) {
+				$initiative_id = intval( sanitize_text_field( wp_unslash( $_POST['initiative_id'] ) ) );
+
+				if ( $initiative_id ) {
+					$initiative = get_post( $initiative_id );
+					if ( $initiative && ( 'campaign' === $initiative->post_type || 'activity' === $initiative->post_type ) ) {
+						$event->initiative = $initiative_id;
+					}
+				}
 			}
 		}
 
@@ -553,20 +587,56 @@ function mozilla_post_status_transition( $new_status, $old_status, $post ) {
 
 		if ( $post->post_type === 'event' && $old_status !== 'publish' ) {
 
-			$user                       = wp_get_current_user();
-			$event                      = new stdClass();
-			$event->image_url           = esc_url_raw( $_POST['image_url'] );
-			$event->location_type       = sanitize_text_field( $_POST['location-type'] );
-			$event->external_url        = esc_url_raw( $_POST['event_external_link'] );
-			$event->language            = $_POST['language'] ? sanitize_text_field( $_POST['language'] ) : '';
-			$event->goal                = $_POST['goal'] ? sanitize_text_field( $_POST['goal'] ) : '';
-			$event->projected_attendees = $_POST['projected-attendees'] ? intval( $_POST['projected-attendees'] ) : '';
+			$user  = wp_get_current_user();
+			$event = new stdClass();
 
-			if ( isset( $_POST['initiative_id'] ) && strlen( $_POST['initiative_id'] ) > 0 ) {
-				$initiative_id = intval( $_POST['initiative_id'] );
-				$initiative    = get_post( $initiative_id );
-				if ( $initiative && ( $initiative->post_type === 'campaign' || $initiative->post_type === 'activity' ) ) {
-					$event->initiative = $initiative_id;
+			if ( isset( $_POST['event_create_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['event_create_field'] ) ), 'event_create' ) ) {
+
+				if ( isset( $_POST['image_url'] ) ) {
+					$event->image_url = esc_url_raw( wp_unslash( $_POST['image_url'] ) );
+				} else {
+					$event->image_url = '';
+				}
+
+				if ( isset( $_POST['location-type'] ) ) {
+					$event->location_type = sanitize_text_field( wp_unslash( $_POST['location-type'] ) );
+				} else {
+					$event->location_type = '';
+				}
+
+				if ( isset( $_POST['event_external_link'] ) ) {
+					$event->external_url = esc_url_raw( wp_unslash( $_POST['event_external_link'] ) );
+				} else {
+					$event->external_url = '';
+				}
+
+				if ( isset( $_POST['language'] ) ) {
+					$event->language = sanitize_text_field( wp_unslash( $_POST['language'] ) );
+				} else {
+					$event->language = '';
+				}
+
+				if ( isset( $_POST['goal'] ) ) {
+					$event->goal = sanitize_textarea_field( wp_unslash( $_POST['goal'] ) );
+				} else {
+					$event->goal = '';
+				}
+
+				if ( isset( $_POST['projected-attendees'] ) ) {
+					$event->projected_attendees = intval( sanitize_text_field( wp_unslash( $_POST['projected-attendees'] ) ) );
+				} else {
+					$event->projected_attendees = '';
+				}
+
+				if ( isset( $_POST['initiative_id'] ) ) {
+					$initiative_id = intval( sanitize_text_field( wp_unslash( $_POST['initiative_id'] ) ) );
+
+					if ( $initiative_id ) {
+						$initiative = get_post( $initiative_id );
+						if ( $initiative && ( 'campaign' === $initiative->post_type || 'activity' === $initiative->post_type ) ) {
+							$event->initiative = $initiative_id;
+						}
+					}
 				}
 			}
 
@@ -654,10 +724,10 @@ function mozilla_update_script_attributes( $html, $handle ) {
 	if ( 'google-analytics' === $handle ) {
 		$google_analytics_sri = esc_attr( get_option( 'google_analytics_sri' ) );
 
-		if( $google_analytics_sri ) {
+		if ( $google_analytics_sri ) {
 			$needle = "type='text/javascript'";
-			$pos = strpos($html, $needle);
-			return substr_replace($html, "type='text/javascript' async integrity='{$google_analytics_sri}' crossorigin='anonymous'", $pos, strlen( $needle) );
+			$pos    = strpos( $html, $needle );
+			return substr_replace( $html, "type='text/javascript' async integrity='{$google_analytics_sri}' crossorigin='anonymous'", $pos, strlen( $needle ) );
 		}
 	}
 
