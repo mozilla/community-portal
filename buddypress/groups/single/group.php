@@ -53,7 +53,8 @@
 	);
 
 	$tags       = get_tags( array( 'hide_empty' => false ) );
-	$members    = groups_get_group_members( $args );
+	$group_members    = groups_get_group_members( $args );
+
 	$is_admin   = groups_is_user_admin( $group_user->ID, $group->id );
 	$group_user = wp_get_current_user()->data;
 	switch ( $group->status ) {
@@ -116,12 +117,22 @@
 	);
 
 	$members           = $wp_user_query->get_results();
+	$real_members      = array();
+	foreach($group_members AS $gp) {
+		$user_lookup = $gp[0];
+		foreach($members AS $m) {
+			if($user_lookup->ID === $m->ID)
+			$real_members[] = $m;
+		}
+	}
+	
 	$filtered_members  = array();
 	$used_country_list = array();
 	$used_languages    = array();
+	
 
 	// Time to filter stuff!
-	foreach ( $members as $index => $member ) {
+	foreach ( $real_members as $index => $member ) {
 
 		$info           = mozilla_get_user_info( $live_user, $member, $logged_in );
 		$member->info   = $info;
@@ -721,6 +732,7 @@
 
 		// Just search!
 		if ( $search_user && false === $country_code && false === $get_tag && false === $language_code ) {
+			print "WE SHOULD BE HERE";
 			// Username!
 			if ( stripos( $member->data->user_nicename, $search_user ) !== false ) {
 				$filtered_members[] = $member;
@@ -917,7 +929,7 @@
 																					if ( $members['count'] > 0 ) :
 																						?>
 																						<?php echo esc_html( " ({$members['count']})" ); ?><?php endif; ?></h2>
-						<?php if ( $members['count'] > 0 ) : ?>
+						<?php if ( $group_members['count'] > 0 ) : ?>
 						<div class="members__search-container">
 								<form method="GET" action="<?php echo ! empty( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : ''; ?>" class="members__form" id="members-search-form">
 									<div class="members__input-container">
@@ -941,7 +953,7 @@
 										$location = '';
 									}
 									?>
-									<input type="hidden" value="<?php echo esc_attr( $location_code ); ?>" name="location" id="user-location" />
+									<input type="hidden" value="<?php echo esc_attr( $location ); ?>" name="location" id="user-location" />
 									<?php
 									if ( isset( $_GET['language'] ) && strlen( $get_language ) > 0 ) {
 										$get_language = trim( $get_language );
@@ -964,6 +976,7 @@
 							</div>
 							<div class="members__filter-container members__filter-container--hidden">
 								<span><?php esc_html_e( 'Search criteria:', 'community-portal' ); ?></span>
+								<?php if(count($used_country_list) > 0 ): ?>
 								<div class="members__select-container">
 									<label class="members__label"><?php esc_html_e( 'Location', 'community-portal' ); ?></label>
 									<select class="members__location-select">
@@ -977,6 +990,7 @@
 										<?php endforeach; ?>
 									</select>
 								</div>
+								<?php endif; ?>
 								<?php if ( count( $used_languages ) > 0 ) : ?>
 								<div class="members__select-container">
 									<label class="members__label"><?php esc_html_e( 'Language', 'community-portal' ); ?></label>
