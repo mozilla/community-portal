@@ -195,6 +195,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 									'id'    => array(),
 									'class' => array(),
 								),
+								'script' => array(),
 								'a'     => array(
 									'href'    => array(),
 									'class'   => array(),
@@ -211,6 +212,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 									'name'  => array(),
 									'class' => array(),
 									'value' => array(),
+									'id' => array(),
 								),
 							)
 						);

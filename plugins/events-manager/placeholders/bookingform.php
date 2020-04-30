@@ -59,7 +59,7 @@ if ( get_option( 'dbem_css_rsvp' ) ) {
 	>
 		<input type='hidden' name='action' value='booking_add'/>
 		<input type='hidden' name='event_id' value='<?php echo esc_attr( $em_event->get_bookings()->event_id ); ?>'/>
-		<input type='hidden' name='_wpnonce' value='<?php echo esc_attr( wp_create_nonce( 'booking_add' ) ); ?>'/>
+		<?php wp_nonce_field( 'booking_add' ) ; ?>
 		<?php
 			$count = 0;
 		foreach ( $em_tickets as $ticket ) {
