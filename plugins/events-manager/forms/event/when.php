@@ -66,7 +66,7 @@ $admin_recurring = is_admin() && $em_event->is_recurring();
 				echo esc_attr( 'required' ); endif
 			?>
 			>
-			<?php echo esc_html( wp_timezone_choice( $em_event->get_timezone()->getName(), get_user_locale() ) ); ?>
+			<?php echo wp_kses(wp_timezone_choice( $em_event->get_timezone()->getName(), get_user_locale() ), array('option'=>array('value'=>array(), 'selected'=>array()), 'optgroup'=>array('label'=>array()))); ?>
 			</select>
 		</div>
 		<?php endif; ?>

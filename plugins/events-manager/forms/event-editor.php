@@ -101,7 +101,7 @@ if ( $em_event->is_recurring() ) {
 			<div class="inside event-form-where">
 				<?php
 				if ( ! is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) :
-					em_locate_template( 'forms/event/location-moz.php', true );
+						em_locate_template( 'forms/event/location-moz.php', true );
 					else :
 						em_locate_template( 'forms/event/location.php', true );
 					endif
@@ -119,11 +119,7 @@ if ( $em_event->is_recurring() ) {
 					</div>
 					<div class="half">
 						<label class="event-form-details event-creator__label" for="event-goal"><?php esc_html_e( 'Event goal(s)', 'commuity-portal' ); ?></label>
-						<textarea name="goal" id="event-goal" rows="10" id="event-goal" class="event-creator__input event-creator__textarea" style="width:100%" maxlength="3000">
-							<?php
-								print esc_html( $event_goal );
-							?>
-						</textarea>
+						<textarea name="goal" id="event-goal" rows="10" id="event-goal" class="event-creator__input event-creator__textarea" style="width:100%" maxlength="3000"><?php print esc_html( $event_goal ); ?></textarea>
 					</div>
 				</div>
 			<?php
@@ -165,13 +161,14 @@ if ( $em_event->is_recurring() ) {
 			<div class="event-creator__three-up">
 				<div class="wide">
 					<label class="event-creator__label" for="event-projected-attendees"><?php esc_html_e( 'Expected # of attendees', 'community-portal' ); ?></label>
-					<input class="event-creator__input" type="text" id="event-projected-attendees" name="projected-attendees" value="
 					<?php
 					if ( $event_projected_attendees ) {
-						echo esc_html( $event_projected_attendees );
+						$projected_attendees_value = $event_projected_attendees;
+					} else {
+						$projected_attendees_value = '';
 					}
 					?>
-					">
+					<input class="event-creator__input" type="text" id="event-projected-attendees" name="projected-attendees" value="<?php echo esc_attr( $projected_attendees_value ); ?>">
 				</div>
 				<div class="wide--double">
 					<label class="event-form-details event-creator__label" for="initiative"><?php esc_html_e( 'Is this event part of an activity or campaign?', 'community-portal' ); ?></label>
@@ -202,21 +199,19 @@ if ( $em_event->is_recurring() ) {
 		?>
 			<div class="event-creator__container">
 				<label class="event-creator__label" for="event-creator-link"><?php esc_html_e( 'External link URL', 'commuity-portal' ); ?></label>
-				<input type="text" class="event-creator__input" name="event_external_link" id="event-creator-link" value="
 				<?php
 				if ( isset( $external_url ) && '' !== $external_url ) {
-					esc_attr( $external_url );
+					$url_value = esc_url_raw( $external_url );
+				} else {
+					$url_value = '';
 				}
 				?>
-				" />
+				<input type="text" class="event-creator__input" name="event_external_link" id="event-creator-link" value="<?php echo esc_url_raw( $url_value ); ?>" />
 			</div>
 			<?php em_locate_template( 'forms/event/group.php', true ); ?>
 		</div>
 	</div>
 	<?php endif; ?>
-	<div class="event-creator__hidden">
-		<?php em_locate_template( 'forms/event/bookings.php', true ); ?>
-	</div>
 	<?php if ( ! $event_id ) : ?>
 	<div class="event-wrap event-creator">
 		<div class="event-creator__container">
@@ -272,13 +267,14 @@ if ( $em_event->is_recurring() ) {
 		value="<?php echo esc_attr( $value_string ); ?>"
 		/>
 		<input type="hidden" name="event_id" value="<?php echo esc_attr( $em_event->event_id ); ?>" />
-		<input type="hidden" name="event_rsvp" value=
 		<?php
 		if ( ! $event_id ) {
-			echo esc_attr( '1' );
+			$event_rsvp = '1';
+		} else {
+			$event_rsvp = '';
 		}
 		?>
-		/>
+		<input type="hidden" name="event_rsvp" value="<?php echo esc_attr( $event_rsvp ); ?>" />
 		<input type="hidden" name="_wpnonce" id="my_nonce_field" value="<?php echo esc_attr( wp_create_nonce( 'wpnonce_event_save' ) ); ?>" />
 		<input type="hidden" name="action" value="event_save" />
 		<?php if ( ! empty( $_REQUEST['redirect_to'] ) ) : ?>
