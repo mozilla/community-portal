@@ -1374,7 +1374,7 @@
 									<?php echo esc_html( $group_meta['group_meeting_details'] ); ?>
 								</p>
 								<?php endif; ?>
-								<?php if ( isset( $group_meta['group_meeting_details'] ) && strlen( trim( $group_meta['group_meeting_details'] ) ) > 0 && isset( $group_meta['group_address'] ) && strlen( trim(  $group_meta['group_address'] ) > 0 ) ) : ?>
+								<?php if ( isset( $group_meta['group_meeting_details'] ) && strlen( trim( $group_meta['group_meeting_details'] ) ) > 0 && isset( $group_meta['group_address'] ) && strlen( trim( $group_meta['group_address'] ) > 0 ) ) : ?>
 								<hr />
 								<?php endif; ?>
 								<?php if ( isset( $group_meta['group_address'] ) && $group_meta['group_address'] ) : ?>
@@ -1602,13 +1602,19 @@
 								<span><?php esc_html_e( 'Tags', 'community-portal' ); ?></span>
 								<div class="group__tags">
 									<?php foreach ( array_unique( $group_meta['group_tags'] ) as $tag_loop ) : ?>
-									<?php 
-										$system_tag = array_values( array_filter($tags, function($e) use (&$tag_loop) {
-												return $e->slug === $tag_loop;
-										}));
+										<?php
+										$system_tag = array_values(
+											array_filter(
+												$tags,
+												function( $e ) use ( &$tag_loop ) {
+													return $e->slug === $tag_loop;
+												}
+											)
+										);
 
-									
-									?>		
+
+										?>
+											
 									<a href="/groups/?tag=<?php echo esc_attr( $tag_loop ); ?>" class="group__tag"><?php echo esc_html( $system_tag[0]->name ); ?></a>
 									<?php endforeach; ?>
 								</div>
