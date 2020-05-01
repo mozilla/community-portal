@@ -63,7 +63,7 @@
                 </div>
                 <div class="footer__menu-bottom-container">
                     <p class="footer__copy">
-                        <?php print __("Portions of this content are copyright 1998-2019 by individual mozilla.org contributors. Content available under a "); ?>
+                        <?php print __("Portions of this content are copyright 1998-2020 by individual mozilla.org contributors. Content available under a "); ?>
                         <a href="#" class="footer__link"><?php print __(' Creative Commons license.'); ?></a>
                     </p>
                     <div class="footer__menu-legal-container">
