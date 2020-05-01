@@ -1602,7 +1602,14 @@
 								<span><?php esc_html_e( 'Tags', 'community-portal' ); ?></span>
 								<div class="group__tags">
 									<?php foreach ( array_unique( $group_meta['group_tags'] ) as $tag_loop ) : ?>
-									<a href="/groups/?tag=<?php echo esc_attr( $tag_loop ); ?>" class="group__tag"><?php echo esc_html( $tag_loop ); ?></a>
+									<?php 
+										$system_tag = array_values( array_filter($tags, function($e) use (&$tag_loop) {
+												return $e->slug === $tag_loop;
+										}));
+
+									
+									?>		
+									<a href="/groups/?tag=<?php echo esc_attr( $tag_loop ); ?>" class="group__tag"><?php echo esc_html( $system_tag[0]->name ); ?></a>
 									<?php endforeach; ?>
 								</div>
 							</div>
