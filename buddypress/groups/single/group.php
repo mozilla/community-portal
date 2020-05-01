@@ -1374,7 +1374,7 @@
 									<?php echo esc_html( $group_meta['group_meeting_details'] ); ?>
 								</p>
 								<?php endif; ?>
-								<?php if ( isset( $group_meta['group_meeting_details'] ) && strlen( trim( $group_meta['group_meeting_details'] ) ) > 0 && isset( $group_meta['group_address'] ) && strlen( trim( $group_meta['group_address'] ) > 0 ) ) : ?>
+								<?php if ( isset( $group_meta['group_meeting_details'] ) && strlen( trim( $group_meta['group_meeting_details'] ) ) > 0 && isset( $group_meta['group_address'] ) && strlen( trim( $group_meta['group_address'] ) ) > 0 ) : ?>
 								<hr />
 								<?php endif; ?>
 								<?php if ( isset( $group_meta['group_address'] ) && $group_meta['group_address'] ) : ?>
