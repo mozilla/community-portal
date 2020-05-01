@@ -235,11 +235,11 @@ $form_tags = isset( $form['tags'] ) ? array_unique( array_filter( $form['tags'],
 								if ( isset( $form['group_address_type'] ) && 'Address' === $form['group_address_type'] ) :
 									?>
 									selected<?php endif; ?>><?php esc_html_e( 'Address', 'community-portal' ); ?></option>
-								<option value="URL"; ?>"
+								<option value="URL"; ?>
 								<?php
 								if ( isset( $form['group_address_type'] ) && 'URL' === $form['group_address_type'] ) :
 									?>
-									selected<?php endif; ?>><?php esc_html_e( 'URL', 'community-portal' ); ?></option>
+									selected<?php endif; ?><?php esc_html_e( 'URL', 'community-portal' ); ?></option>
 							</select>
 						</div>
 					</div>
