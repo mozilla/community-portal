@@ -191,28 +191,28 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 						echo wp_kses(
 							wpautop( substr( trim( $em_event->output( '#_BOOKINGFORM' ) ), 0, 3000 ) ),
 							array(
-								'div'   => array(
+								'div'    => array(
 									'id'    => array(),
 									'class' => array(),
 								),
 								'script' => array(),
-								'a'     => array(
+								'a'      => array(
 									'href'    => array(),
 									'class'   => array(),
 									'onClick' => array(),
 								),
-								'form'  => array(
+								'form'   => array(
 									'name'   => array(),
 									'action' => array(),
 									'class'  => array(),
 									'method' => array(),
 								),
-								'input' => array(
+								'input'  => array(
 									'type'  => array(),
 									'name'  => array(),
 									'class' => array(),
 									'value' => array(),
-									'id' => array(),
+									'id'    => array(),
 								),
 							)
 						);

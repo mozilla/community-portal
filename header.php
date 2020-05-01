@@ -292,9 +292,11 @@ if (
 							</form>
 						</div>
 						<ul class="menu--mobile">
+            <?php if (isset($items) && is_array($items) && count($items) > 0):?>
 						<?php foreach ( $items as $item ) : ?>
 							<li class="menu-item"><a href="<?php echo esc_attr( $item->url ); ?>" class="menu-item__link"><?php echo esc_html( $item->post_title ); ?></a></li>
 						<?php endforeach; ?>
+            <?php endif; ?>
 						</ul>
 					</div>
 				</div>

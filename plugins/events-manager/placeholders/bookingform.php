@@ -2,7 +2,7 @@
 /**
  * Booking form
  *
- * Update to booking for events
+ * RSVP form for booking spaces to events
  *
  * @package WordPress
  * @subpackage community-portal
@@ -13,8 +13,9 @@
 ?>
 
 <?php
-	$em_event   = $GLOBALS['EM_Event'];
-	$em_tickets = $em_event->get_bookings()->get_tickets();
+	$em_event = $GLOBALS['EM_Event'];
+	// count tickets and available tickets.
+	$em_tickets = $em_event->get_bookings()->get_tickets()
 ?>
 
 <div id="em-booking" class="em-booking 
@@ -24,48 +25,46 @@ if ( get_option( 'dbem_css_rsvp' ) ) {
 ?>
 ">
 	<?php
-		$cancel = isset( $_REQUEST['cancel'] ) ? sanitize_key( $_REQUEST['cancel'] ) : false;
+		$cancel = isset( $_REQUEST['cancel'] ) ? sanitize_key( $_REQUEST['cancel'] ) : null;
 		// We are firstly checking if the user has already booked a ticket at this event, if so offer a link to view their bookings.
 		$em_booking = $em_event->get_bookings()->has_booking();
 
-	if ( false !== $em_booking && null !== $cancel ) {
+	if ( false !== $em_booking && null !== $cancel && isset( $_SERVER['REQUEST_URI'] ) ) {
 
 		$em_booking->cancel();
 		$em_booking->delete();
 
-		if ( isset( $_SERVER['REQUEST_URI'] ) ) {
-			$updated_url = remove_query_arg( 'cancel', esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
-		}
+		$updated_url = remove_query_arg( 'cancel', esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
 
 		?>
 		<script type="text/javascript">
-			window.history.replaceState("","", "<?php echo esc_attr( $updated_url ); ?>")
+			window.history.replaceState("","", "<?php echo esc_url_raw( $updated_url ); ?>")
 		</script>
 		<?php
 		$em_booking = $em_event->get_bookings()->has_booking();
 	}
 	?>
 
-	<?php if ( is_object( $em_booking ) && isset( $_SERVER['REQUEST_URI'] ) ) : ?>
-	<a class="em-bookings-cancel events-single__cancel btn btn--submit btn--dark" href="<?php echo esc_attr( add_query_arg( array( 'cancel' => true ), esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ) ); ?>" onclick="if( !confirm('<?php esc_html_e( 'Are you sure you dont want to attend this event?', 'community-portal' ); ?>') ){ return false; }">
-		<?php esc_html_e( 'Will Not Attend', 'community-portal' ); ?>
+	<?php if ( is_object( $em_booking ) ) : ?>
+	<a class="em-bookings-cancel events-single__cancel btn btn--submit btn--dark" href="<?php echo esc_attr( add_query_arg( array( 'cancel' => true ), esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ) ); ?>" onclick="if( !confirm('<?php print esc_attr__( 'Are you sure you dont want to attend this event?', 'community-portal' ); ?>') ){ return false; }">
+		<?php esc_html_e( 'Will Not Attend' ); ?>
 	</a>
 	<?php else : ?>
 	<form 
 		class="em-booking-form" 
 		name='booking-form' 
 		method='post' 
-		action='<?php echo esc_attr( remove_query_arg( 'cancel', apply_filters( 'em_booking_form_action_url', '' ) ) ); ?>'
+		action='<?php echo esc_url_raw( remove_query_arg( 'cancel', apply_filters( 'em_booking_form_action_url', '' ) ) ); ?>'
 	>
 		<input type='hidden' name='action' value='booking_add'/>
 		<input type='hidden' name='event_id' value='<?php echo esc_attr( $em_event->get_bookings()->event_id ); ?>'/>
-		<?php wp_nonce_field( 'booking_add' ) ; ?>
+		<?php wp_nonce_field( 'booking_add' ); ?>
 		<?php
 			$count = 0;
 		foreach ( $em_tickets as $ticket ) {
 			if ( $count < 1 ) {
 				?>
-		<input type="hidden" name="<?php echo esc_html( 'em_tickets[' ) . esc_html( $ticket->ticket_id ) . esc_html( '][spaces]' ); ?>" value="1">
+		<input type="hidden" name="<?php echo esc_attr( 'em_tickets[' . $ticket->ticket_id . '][spaces]' ); ?>" value="1">
 				<?php
 				$count++;
 			}
@@ -74,9 +73,9 @@ if ( get_option( 'dbem_css_rsvp' ) ) {
 		<input type="submit" class="btn btn--dark btn--submit 
 		<?php
 		if ( is_admin() ) {
-			echo esc_attr( 'button-primary ' );}
+			echo 'button-primary ';}
 		?>
-		em-booking-submit" id="em-booking-submit" value="<?php esc_html_e( 'Attend', 'community-portal' ); ?>" />
+		em-booking-submit" id="em-booking-submit" value="<?php echo esc_attr( 'Attend' ); ?>" />
 	</form>	
 	<?php endif; ?>
 </div>

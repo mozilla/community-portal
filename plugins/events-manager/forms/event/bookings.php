@@ -8,17 +8,10 @@
  * @author  Playground Inc.
  */
 
-
-
-
-global $EM_Event, $EM_Ticket, $post, $allowedposttags, $col_count;
-$em_event = $EM_Event;
-$em_ticket = $EM_Ticket;
+$em_event  = $GLOBALS['EM_Event'];
+$em_ticket = $GLOBALS['EM_Ticket'];
+global $post, $allowedposttags, $col_count;
 $reschedule_warnings = ! empty( $em_event->event_id ) && $em_event->is_recurring() && $em_event->event_rsvp;
-
-
-
-
 
 ?>
 <div id="event-rsvp-box">
