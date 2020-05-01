@@ -1368,13 +1368,13 @@
 						<h2 class="group__card-title"><?php esc_html_e( 'Meetings', 'community-portal' ); ?></h2>
 						<div class="group__card">
 							<div class="group__card-content">
+								<?php if ( isset( $group_meta['group_meeting_details'] ) && strlen( trim( $group_meta['group_meeting_details'] ) ) > 0 ) : ?>
 								<span class="no-line"><?php esc_html_e( 'Meeting Details', 'community-portal' ); ?></span>
-								<?php if ( isset( $group_meta['group_meeting_details'] ) && strlen( $group_meta['group_meeting_details'] ) > 0 ) : ?>
 								<p class="group__card-copy">
 									<?php echo esc_html( $group_meta['group_meeting_details'] ); ?>
 								</p>
 								<?php endif; ?>
-								<?php if ( isset( $group_meta['group_meeting_details'] ) && isset( $group_meta['group_address'] ) ) : ?>
+								<?php if ( isset( $group_meta['group_meeting_details'] ) && strlen( trim( $group_meta['group_meeting_details'] ) ) > 0 && isset( $group_meta['group_address'] ) && strlen( trim(  $group_meta['group_address'] ) > 0 ) ) : ?>
 								<hr />
 								<?php endif; ?>
 								<?php if ( isset( $group_meta['group_address'] ) && $group_meta['group_address'] ) : ?>
