@@ -25,7 +25,7 @@ if ( get_option( 'dbem_css_rsvp' ) ) {
 ?>
 ">
 	<?php
-		$cancel = isset( $_REQUEST['cancel'] ) ? sanitize_key( $_REQUEST['cancel'] ) : null;
+	$cancel = isset( $_REQUEST['cancel'] ) && isset( $_REQUEST['cancel_nonce'] ) && wp_verify_nonce( sanitize_key( $_REQUEST['cancel_nonce'] ), 'cancel_booking' ) ? sanitize_key( $_REQUEST['cancel'] ) : null;
 		// We are firstly checking if the user has already booked a ticket at this event, if so offer a link to view their bookings.
 		$em_booking = $em_event->get_bookings()->has_booking();
 
@@ -34,7 +34,7 @@ if ( get_option( 'dbem_css_rsvp' ) ) {
 		$em_booking->cancel();
 		$em_booking->delete();
 
-		$updated_url = remove_query_arg( 'cancel', esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
+		$updated_url = remove_query_arg( array( 'cancel', 'cancel_nonce' ), esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
 
 		?>
 		<script type="text/javascript">
@@ -46,7 +46,19 @@ if ( get_option( 'dbem_css_rsvp' ) ) {
 	?>
 
 	<?php if ( is_object( $em_booking ) ) : ?>
-	<a class="em-bookings-cancel events-single__cancel btn btn--submit btn--dark" href="<?php echo esc_attr( add_query_arg( array( 'cancel' => true ), esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ) ); ?>" onclick="if( !confirm('<?php print esc_attr__( 'Are you sure you dont want to attend this event?', 'community-portal' ); ?>') ){ return false; }">
+	<a class="em-bookings-cancel events-single__cancel btn btn--submit btn--dark" href="
+		<?php
+		echo esc_attr(
+			add_query_arg(
+				array(
+					'cancel'       => true,
+					'cancel_nonce' => wp_create_nonce( 'cancel_booking' ),
+				),
+				esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) )
+			)
+		);
+		?>
+																						" onclick="if( !confirm('<?php print esc_attr__( 'Are you sure you dont want to attend this event?', 'community-portal' ); ?>') ){ return false; }">
 		<?php esc_html_e( 'Will Not Attend' ); ?>
 	</a>
 	<?php else : ?>
