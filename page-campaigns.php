@@ -151,8 +151,19 @@
 					echo wp_kses(
 						wpautop( substr( trim( $current_campaign_card_description ), 0, 3000 ) ),
 						array(
-							'p'  => array(),
+							'p'  => array(
+								'class' => array(),
+							),
 							'br' => array(),
+							'ul' => array(
+								'class' => array(),
+							),
+							'ol' => array(
+								'class' => array(),
+							),
+							'li' => array(
+								'class' => array(),
+							),
 						)
 					);
 					?>
@@ -254,8 +265,19 @@
 						echo wp_kses(
 							wpautop( substr( trim( $campaign_card_description ), 0, 3000 ) ),
 							array(
-								'p'  => array(),
+								'p'  => array(
+									'class' => array(),
+								),
 								'br' => array(),
+								'ul' => array(
+									'class' => array(),
+								),
+								'ol' => array(
+									'class' => array(),
+								),
+								'li' => array(
+									'class' => array(),
+								),
 							)
 						);
 						?>
