@@ -205,7 +205,7 @@
 			if ( ( ! $current_campaign && $incoming_campaign ) || ( $current_campaign && $incoming_campaign ) || ( ! $current_campaign && ! $incoming_campaign ) ) :
 				?>
 			<div class="newsletter <?php echo ( ! $current_campaign && ! $incoming_campaign ? 'newsletter__solo' : '' ); ?>">
-				<?php include get_template_directory() . '/templates/campaigns_newsletter.php'; ?>
+				<?php include get_template_directory() . '/templates/campaigns-newsletter.php'; ?>
 			</div>
 				<?php
 				endif;
@@ -342,7 +342,7 @@
 if ( ( $current_campaign && ! $incoming_campaign ) && ( isset( $subscribed ) && intval( $subscribed ) !== 1 ) ) {
 	?>
 	<div class="newsletter newsletter--hero">
-	<?php include get_template_directory() . '/templates/campaigns_newsletter.php'; ?>
+	<?php include get_template_directory() . '/templates/campaigns-newsletter.php'; ?>
 	</div>
 	<?php
 }

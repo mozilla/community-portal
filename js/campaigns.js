@@ -74,13 +74,14 @@ jQuery(function() {
         e.preventDefault();
         
         const campaign = $this.data('campaign');
-        const list = $this.data('list');
+		const list = $this.data('list');
+		const nonce = $this.data('nonce');
         
         const data = {
-            'campaign': campaign,
-            'list': list
+            campaign,
+			list,
+			nonce,
         };
-        
         jQuery.ajax({
             url, 
             data,
@@ -106,11 +107,13 @@ jQuery(function() {
 
         var $this = jQuery(this);
         var campaign = $this.data('campaign');
-        var list = $this.data('list');
+		var list = $this.data('list');
+		const nonce = $this.data('nonce');
 
         var post = {
-            'campaign': campaign,
-            'list': list
+            campaign,
+			list,
+			nonce,
         };
 
         var url =  '/wp-admin/admin-ajax.php?action=mailchimp_subscribe';
@@ -120,6 +123,7 @@ jQuery(function() {
             data: post,
             method: 'POST',
             success: function(response) {
+
                 response = jQuery.parseJSON(response);
                 if(response.status == 'OK') {
                     $this.removeClass('campaign__hero-cta--sub');
@@ -137,13 +141,15 @@ jQuery(function() {
 		const $this = jQuery(form);
         const campaign = $this.data('campaign');
 		const list = $this.data('list');
+		const nonce = jQuery('#_wpnonce').val();
 
         const post = {
             campaign,
 			list,
 			first_name,
 			last_name,
-			email
+			email,
+			nonce,
 		};
 		jQuery.ajax({
             url: url,
