@@ -144,7 +144,6 @@ function mozilla_update_member() {
 	if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] ) {
 		if ( is_user_logged_in() && ! empty( $_REQUEST['my_nonce_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['my_nonce_field'] ) ), 'protect_content' ) ) {
 			$user = wp_get_current_user()->data;
-			$edit = false;
 
 			// Get current meta to compare to!
 			$meta = get_user_meta( $user->ID );
@@ -160,11 +159,6 @@ function mozilla_update_member() {
 				'email_visibility',
 				'agree',
 			);
-
-			// print "<pre>";
-			// print_r($_POST);
-			// print "</pre>";
-			// die();
 
 			$additional_fields = array(
 				'image_url',
@@ -273,7 +267,6 @@ function mozilla_update_member() {
 
 			// Create the user and save meta data!
 			if ( false === $error ) {
-
 				$_POST['complete'] = true;
 
 				// Update regular WordPress user data!
@@ -317,9 +310,9 @@ function mozilla_update_member() {
 								if ( 'image_url' === $field ) {
 
 									// Make sure the image is hosted with us!
-									if ( ! empty( $_SERVER['HTTP_HOST'] ) ) {
+									if ( ! empty( $_SERVER['SERVER_NAME'] ) ) {
 										$url         = trim( esc_url_raw( wp_unslash( $_POST[ $field ] ) ) );
-										$host_domain = esc_url_raw( wp_unslash( $_SERVER['HTTP_HOST'] ) );
+										$host_domain = esc_url_raw( wp_unslash( $_SERVER['SERVER_NAME'] ) );
 										if ( false !== stripos( $url, $host_domain ) ) {
 											$current_additional_field = $url;
 										} else {
@@ -350,7 +343,10 @@ function mozilla_update_member() {
 						$additional_meta[ $field ] = $current_additional_field;
 					}
 				}
+
 				update_user_meta( $user->ID, 'community-meta-fields', $additional_meta );
+				wp_safe_redirect( "/people/{$user->user_nicename}" );
+				exit();
 			}
 		}
 	}
