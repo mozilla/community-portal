@@ -15,7 +15,7 @@
 <?php
 	$nonce        = isset( $_REQUEST['nonce'] ) ? sanitize_key( $_REQUEST['nonce'] ) : false;
 	$valid_nonce  = wp_verify_nonce( $nonce, 'events-filter' );
-	$current_page = isset( $_REQUEST['pno'] ) && $valid_nonce ? intval( sanitize_key( $_REQUEST['pno'] ) ) : 1;
+	$current_page = isset( $_REQUEST['pno'] ) ? intval( sanitize_key( $_REQUEST['pno'] ) ) : 1;
 	$args         = apply_filters( 'em_content_events_args', $args );
 if (
 	isset( $args['search'] ) &&
