@@ -8,12 +8,13 @@
  * @author  Playground Inc.
  */
 
-$em_event  = $GLOBALS['EM_Event'];
-$em_ticket = $GLOBALS['EM_Ticket'];
-global $post, $allowedposttags, $col_count;
-$reschedule_warnings = ! empty( $em_event->event_id ) && $em_event->is_recurring() && $em_event->event_rsvp;
+global $EM_Event, $post, $allowedposttags, $EM_Ticket, $col_count;
 
+$em_event = $EM_Event;
+$em_ticket = $EM_Ticket;
+$reschedule_warnings = ! empty( $em_event->event_id ) && $em_event->is_recurring() && $em_event->event_rsvp;
 ?>
+
 <div id="event-rsvp-box">
 	<input id="event-rsvp" name='event_rsvp' value='1' type='checkbox' <?php echo ( $em_event->event_rsvp ) ? 'checked="checked"' : ''; ?> />
 	&nbsp;&nbsp;

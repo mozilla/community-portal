@@ -21,10 +21,18 @@ if ( $user->ID && ( ! isset( $meta['agree'][0] ) || 'I Agree' !== $meta['agree']
 	exit();
 }
 
-	get_header();
+
+if(!empty($_GET['success']) && '1' === $_GET['success']) {
+	wp_safe_redirect('/events');
+	exit();
+}
+
 if ( isset( $_REQUEST['event_id'] ) && isset( $_REQUEST['nonce'] ) && wp_verify_nonce( 'edit-event' ) ) {
 	$event_id = sanitize_key( $_REQUEST['event_id'] );
 }
+
+
+get_header();
 ?>
 <div class="events__header events__header--edit">
 	<div class="row middle-md event-creator__container">

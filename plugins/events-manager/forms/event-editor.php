@@ -14,14 +14,15 @@
 
 <?php
 
-$em_event   = $GLOBALS['EM_Event'];
-$em_notices = $GLOBALS['EM_Notices'];
-$em_ticket  = $GLOBALS['EM_Ticket'];
+
+global $EM_Event, $EM_Notices, $bp, $EM_Ticket;
+$em_event   = $EM_Event;
+$em_notices = $EM_Notices;
+$em_ticket  = $EM_Ticket;
 global $bp;
 
 $theme_directory = get_template_directory();
 require "{$theme_directory}/languages.php";
-
 
 mozilla_match_categories();
 if ( isset( $_REQUEST['nonce'] ) && wp_verify_nonce( sanitize_key( $_REQUEST['nonce'] ), 'edit-event' ) && isset( $_REQUEST['event_id'] ) ) {
@@ -41,6 +42,7 @@ if ( isset( $_REQUEST['nonce'] ) && wp_verify_nonce( sanitize_key( $_REQUEST['no
 	return false;
 } elseif ( ! is_object( $em_event ) ) {
 	$em_event = new EM_Event();
+	
 }
 
 $required = apply_filters( 'em_required_html', '<i>*</i>' );
@@ -212,6 +214,9 @@ if ( $em_event->is_recurring() ) {
 		</div>
 	</div>
 	<?php endif; ?>
+	<div class="event-creator__hidden">
+        <?php em_locate_template('forms/event/bookings.php', true); ?>
+    </div>
 	<?php if ( ! $event_id ) : ?>
 	<div class="event-wrap event-creator">
 		<div class="event-creator__container">
