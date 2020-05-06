@@ -10,8 +10,8 @@
 
 global $EM_Event, $post, $allowedposttags, $EM_Ticket, $col_count;
 
-$em_event = $EM_Event;
-$em_ticket = $EM_Ticket;
+$em_event            = $EM_Event;
+$em_ticket           = $EM_Ticket;
 $reschedule_warnings = ! empty( $em_event->event_id ) && $em_event->is_recurring() && $em_event->event_rsvp;
 ?>
 
