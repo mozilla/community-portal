@@ -65,21 +65,6 @@ if ( $em_event->is_recurring() ) {
 <?php wp_nonce_field( 'protect_content', 'my_nonce_field' ); ?>
 	<div class="event-wrap event-creator">
 		<?php do_action( 'em_front_event_form_header', $em_event ); ?>
-		<?php if ( get_option( 'dbem_events_anonymous_submissions' ) && ! is_user_logged_in() ) : ?>
-			<h3 class="event-form-submitter"><?php esc_html_e( 'Your Details', 'commuity-portal' ); ?></h3>
-			<div class="inside event-form-submitter">
-				<div class="event-creator__container">
-				<label class="event-creator__label"><?php esc_html_e( 'Name', 'commuity-portal' ); ?></label>
-				<input class="event-creator__input"type="text" name="event_owner_name" id="event-owner-name" value="<?php echo esc_attr( $em_event->event_owner_name ); ?>" />
-			</div>
-			<div class="event-creator__container">
-				<label class="event-creator__label"><?php esc_html_e( 'Email', 'commuity-portal' ); ?></label>
-				<input type="text" name="event_owner_email" id="event-owner-email" value="<?php echo esc_attr( $em_event->event_owner_email ); ?>" />
-			</div>
-				<?php do_action( 'em_front_event_form_guest' ); ?>
-				<?php do_action( 'em_font_event_form_guest' ); // deprecated. ?>
-			</div>
-		<?php endif; ?>
 		<div class="inside event-form-name event">
 			<div class="event-creator__three-up">
 				<div class="wide--double">
