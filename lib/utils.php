@@ -695,6 +695,26 @@ function mozilla_save_post( $post_id, $post, $update ) {
 	}
 }
 
+function mozilla_acf_save_post($post_id) {
+
+  $post_type = get_post_type($post_id);
+
+  // First check that we are dealing with campaigns
+  if ($post_type === 'campaign') {
+    
+    $prev_published = get_post_meta($post_id, 'prev_published', true);
+    $mailchimp_integration = get_field('mailchimp_integration', $post_id);
+
+    if (empty($prev_published) && $mailchimp_integration) {
+      $post = get_post($post_id);
+      update_post_meta( $post_id, 'prev_published', true);
+
+      mozilla_create_mailchimp_list( $post );
+    } 
+  }
+  
+}
+
 /**
  * When changing status for a post
  *
@@ -705,9 +725,6 @@ function mozilla_save_post( $post_id, $post, $update ) {
 function mozilla_post_status_transition( $new_status, $old_status, $post ) {
 
 	if ( 'publish' === $new_status ) {
-		if ( 'campaign' === $post->post_type ) {
-			mozilla_create_mailchimp_list( $post );
-		}
 
 		if ( 'event' === $post->post_type && 'publish' !== $old_status ) {
 

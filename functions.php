@@ -33,11 +33,10 @@ add_action('admin_menu', 'mozilla_add_menu_item');
 add_action('bp_group_admin_edit_after', 'mozilla_save_group');
 add_action('save_post', 'mozilla_save_post', 10, 3);
 
+add_action('acf/save_post', 'mozilla_acf_save_post', 10, 3);
+
 add_action('transition_post_status', 'mozilla_post_status_transition', 10, 3);
-
-
 add_action('bp_groups_admin_meta_boxes', 'mozilla_group_metabox');
-
 
 // Ajax Calls
 add_action('wp_ajax_nopriv_upload_group_image', 'mozilla_upload_image');
@@ -123,6 +122,12 @@ if(!is_admin()) {
     wp_enqueue_style('style', get_stylesheet_uri());
 }
 
+function pg_sanitize_boolean( $input ){
+
+    //returns true if checkbox is checked
+    return ( isset( $input ) ? true : false );
+  }
+
 function mozilla_init() {
     register_nav_menu('mozilla-theme-menu', __('Mozilla Custom Theme Menu'));
     register_taxonomy_for_object_type('category', 'page'); 
@@ -197,9 +202,20 @@ function mozilla_init() {
         'supports'           => array('title', 'editor', 'thumbnail', 'excerpt'),
         'taxonomies'         => Array('post_tag')
     );
+    
 
     register_post_type('campaign', $args);
     add_theme_support('post-thumbnails', array( 'post', 'activity', 'campaign', 'static-page')); 
+
+    register_post_meta('campaign', 'prev_published', array(
+      'show_in_rest' => true,
+      'type' => 'boolean',
+      'single' => true,
+      'sanitize_callback' => 'pg_sanitize_boolean',
+      'auth_callback' => function() {
+        return current_user_can('edit_posts');
+      })
+    );
 }
 
 
