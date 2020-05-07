@@ -10,6 +10,8 @@
  * @author  Playground Inc.
  */
 
+ $title = trim($block['title']);
+
 ?>
 <div class="campaign__1up-text-block
 <?php
@@ -21,25 +23,14 @@ if ( 'grey' === $block['background_color'] ) :
 	if ( $block['keyline'] ) :
 		?>
 		campaign__block-container--keyline<?php endif; ?>">
-		<h2 class="campaign__heading-2"><?php print esc_html( $block['title'] ); ?></h2>
+    <?php if (!empty($title)) : ?>
+		<h2 class="campaign__heading-2"><?php echo wp_kses( $title, wp_kses_allowed_html( 'post' ) ); ?></h2>
+    <?php endif; ?>
 		<div class="campaign__block-content">
 			<?php
 			print wp_kses(
 				wpautop( substr( trim( $block['copy'] ), 0, 3000 ) ),
-				array(
-					'p'  => array(
-						'class' => array(),
-					),
-					'br' => array(),
-					'ul' => array(
-						'class' => array(),
-					),
-					'li' => array(),
-					'a'  => array(
-						'href'  => array(),
-						'class' => array(),
-					),
-				)
+				wp_kses_allowed_html( 'post' )
 			);
 			?>
 		</div>
