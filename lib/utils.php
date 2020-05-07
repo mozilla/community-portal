@@ -105,7 +105,7 @@ function mozilla_upload_image() {
 function mozilla_determine_site_section() {
 	$path_items = array_filter( explode( '/', $_SERVER['REQUEST_URI'] ) );
 
-	if ( sizeof( $path_items ) > 0 ) {
+	if ( count( $path_items ) > 0 ) {
 		$section = array_shift( array_values( $path_items ) );
 		return $section;
 	}
@@ -299,7 +299,7 @@ function mozilla_menu_class( $classes, $item, $args ) {
 	$path_items = array_filter( explode( '/', $_SERVER['REQUEST_URI'] ) );
 	$menu_url   = strtolower( str_replace( '/', '', $item->url ) );
 
-	if ( sizeof( $path_items ) > 0 ) {
+	if ( count( $path_items ) > 0 ) {
 
 		if ( strtolower( $path_items[1] ) === $menu_url ) {
 			$item->current = true;
@@ -418,12 +418,12 @@ function mozilla_group_addional_column_info( $retval = '', $column_name, $item )
 			);
 
 			$events = EM_Events::get( $args );
-			return sizeof( $events );
+			return count( $events );
 
 			break;
 		case 'admins':
 			$admins = groups_get_group_admins( $item['id'] );
-			return sizeof( $admins );
+			return count( $admins );
 			break;
 
 		case 'verified_date':
@@ -590,11 +590,10 @@ function mozilla_post_status_transition( $new_status, $old_status, $post ) {
 		}
 
 		if ( $post->post_type === 'event' && $old_status !== 'publish' ) {
-
 			$user  = wp_get_current_user();
 			$event = new stdClass();
 
-			if ( isset( $_POST['event_create_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['event_create_field'] ) ), 'event_create' ) ) {
+			if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['event_create_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['event_create_field'] ) ), 'event_create' ) ) {
 
 				if ( isset( $_POST['image_url'] ) ) {
 					$event->image_url = esc_url_raw( wp_unslash( $_POST['image_url'] ) );
@@ -690,7 +689,7 @@ function mozilla_export_users() {
 
 		$first_name     = isset( $meta['first_name'][0] ) ? $meta['first_name'][0] : '';
 		$last_name      = isset( $meta['last_name'][0] ) ? $meta['last_name'][0] : '';
-		$user_languages = isset( $community_fields['languages'] ) && sizeof( $community_fields['languages'] ) > 0 ? $community_fields['languages'] : array();
+		$user_languages = isset( $community_fields['languages'] ) && count( $community_fields['languages'] ) > 0 ? $community_fields['languages'] : array();
 
 		$language_string = '';
 		foreach ( $user_languages as $language_code ) {
