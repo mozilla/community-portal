@@ -25,8 +25,6 @@
 
 	$campaign_content = get_field( 'campaign_content' );
 
-	$mailchimp_info = get_post_meta( $post->ID, 'mailchimp-list-id', true );
-
 	$tags = get_the_terms( $post, 'post_tag' );
 
 	$mailchimp = get_post_meta( $post->ID, 'mailchimp-list-id', true );
@@ -92,38 +90,17 @@ if ( $logged_in && is_array( $members_participating ) && in_array( $user->ID, $m
 			</div>
 			<div class="campaign__intro">
 				<div class="campaign__intro-card">
-					<?php
-					echo wp_kses(
-						wpautop( substr( trim( $post->post_content ), 0, 3000 ) ),
-						array(
-							'p'  => array(
-								'class' => array(),
-							),
-							'br' => array(),
-							'ul' => array(
-								'class' => array(),
-							),
-							'ol' => array(
-								'class' => array(),
-							),
-							'li' => array(
-								'class' => array(),
-							),
-							'a'  => array(
-								'href'  => array(),
-								'class' => array(),
-							),
-						)
-					);
-					?>
+					<?php echo wp_kses( $post->post_content, wp_kses_allowed_html( 'post' ) ); ?>
+			<?php if ( ! empty( $post->post_content ) ) : ?>
 					<hr class="campaign__keyline" />
+			<?php endif; ?>
 					<div class="campaign__share-container">
+			<?php if ( is_array( $tags ) && ! empty( $tags ) ) : ?>
 						<div class="campaign__tag-container">
-							<?php esc_html_e( 'Tags', 'community-portal' ); ?>
-							<?php if ( is_array( $tags ) && count( $tags ) > 0 ) : ?>
-								<span class="campaign__tag"><?php print esc_html( $tags[0]->name ); ?></span>
-							<?php endif; ?>
+							<span><?php esc_html_e( 'Tags', 'community-portal' ); ?></span>
+							<span class="campaign__tag"><?php print esc_html( $tags[0]->name ); ?></span>
 						</div>
+			<?php endif; ?>
 						<a href="#" class="campaign__share-cta">
 							<svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M1 9V15C1 15.3978 1.15804 15.7794 1.43934 16.0607C1.72064 16.342 2.10218 16.5 2.5 16.5H11.5C11.8978 16.5 12.2794 16.342 12.5607 16.0607C12.842 15.7794 13 15.3978 13 15V9M10 4.5L7 1.5M7 1.5L4 4.5M7 1.5V11.25" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
