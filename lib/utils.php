@@ -697,13 +697,18 @@ function mozilla_save_post( $post_id, $post, $update ) {
 
 function mozilla_acf_save_post($post_id) {
 
+  // Check to see if we are autosaving.
+  if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
+      return;
+
   $post_type = get_post_type($post_id);
 
-  // First check that we are dealing with campaigns
+  // First check that we are dealing with campaigns.
   if ($post_type === 'campaign') {
     
     $prev_published = get_post_meta($post_id, 'prev_published', true);
     $mailchimp_integration = get_field('mailchimp_integration', $post_id);
+
 
     if (empty($prev_published) && $mailchimp_integration) {
       $post = get_post($post_id);
@@ -723,6 +728,12 @@ function mozilla_acf_save_post($post_id) {
  * @param object $post post.
  */
 function mozilla_post_status_transition( $new_status, $old_status, $post ) {
+
+  // Support for campaigns already published. 
+  // Set the required meta here if the old status is publish.
+  if ( 'campaign' === $post->post_type && 'publish' === $old_status) {
+    update_post_meta( $post->ID, 'prev_published', true);
+  }
 
 	if ( 'publish' === $new_status ) {
 
