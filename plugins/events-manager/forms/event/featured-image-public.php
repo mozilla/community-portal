@@ -32,7 +32,7 @@
 		?>
 		event-creator__image-upload--done<?php endif; ?>"  style="
 		<?php
-		if ( isset( $img_url ) ) {
+		if ( isset( $img_url ) && strlen( $img_url ) > 0 ) {
 			print esc_attr( "background-image: url('{$img_url}')" );
 		} else {
 			print esc_attr( "background-size: '75px 75px'" ); }
