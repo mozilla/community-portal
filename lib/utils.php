@@ -93,7 +93,7 @@ function mozilla_upload_image() {
 					$max_files_size_allowed = isset( $options['image_max_filesize'] ) && intval( $options['image_max_filesize'] ) > 0 ? intval( $options['image_max_filesize'] ) : 500;
 
 					if ( $file_size_kb <= $max_files_size_allowed ) {
-            
+
 						if ( isset( $image[2] ) && in_array( $image[2], array( IMAGETYPE_JPEG, IMAGETYPE_PNG ), true ) ) {
 							if ( ! empty( $_FILES['file']['name'] ) ) {
 								$file_name = sanitize_text_field( wp_unslash( $_FILES['file']['name'] ) );
@@ -620,7 +620,6 @@ function mozilla_save_post( $post_id, $post, $update ) {
 		$user              = wp_get_current_user();
 		$event_update_meta = get_post_meta( $post_id, 'event-meta' );
 		$event             = new stdClass();
-		
 
 		if ( isset( $event_update_meta[0]->discourse_group_id ) ) {
 			$event->discourse_group_id = $event_update_meta[0]->discourse_group_id;
@@ -672,7 +671,7 @@ function mozilla_save_post( $post_id, $post, $update ) {
 
 			if ( isset( $_POST['projected-attendees'] ) ) {
 				$event->projected_attendees = intval( sanitize_text_field( wp_unslash( $_POST['projected-attendees'] ) ) );
-			}else {
+			} else {
 				$event->projected_attendees = $event_update_meta[0]->projected_attendees;
 			}
 
@@ -728,7 +727,7 @@ function mozilla_post_status_transition( $new_status, $old_status, $post ) {
 
 		if ( 'event' === $post->post_type && 'publish' !== $old_status ) {
 
-			if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['event_create_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['event_create_field'] ) ), 'event_create' ) ) {
+			if ( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['event_create_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['event_create_field'] ) ), 'event_create' ) ) {
 
 				if ( isset( $_POST['image_url'] ) ) {
 					$event->image_url = esc_url_raw( wp_unslash( $_POST['image_url'] ) );
@@ -781,9 +780,9 @@ function mozilla_post_status_transition( $new_status, $old_status, $post ) {
 			$discourse_api_data                = array();
 			$discourse_api_data['name']        = $post->post_name;
 			$discourse_api_data['description'] = $post->post_content;
-			$auth0Ids                          = array();
-			$auth0Ids[]                        = mozilla_get_user_auth0( $user->ID );
-			$discourse_api_data['users']       = $auth0Ids;
+			$auth0_ids                         = array();
+			$auth0_ids[]                       = mozilla_get_user_auth0( $user->ID );
+			$discourse_api_data['users']       = $auth0_ids;
 			$discourse_group                   = mozilla_discourse_api( 'groups', $discourse_api_data, 'post' );
 
 			if ( $discourse_group ) {
@@ -800,10 +799,13 @@ function mozilla_post_status_transition( $new_status, $old_status, $post ) {
 	}
 }
 
+/**
+ * Exports users for events
+ */
 function mozilla_export_users() {
 
 	// Only admins.
-	if ( ! is_admin() && in_array( 'administrator', wp_get_current_user()->roles ) === false ) {
+	if ( ! is_admin() && in_array( 'administrator', wp_get_current_user()->roles, true ) === false ) {
 		return;
 	}
 
@@ -837,7 +839,7 @@ function mozilla_export_users() {
 		$language_string = rtrim( $language_string, ',' );
 
 		$country = isset( $community_fields['country'] ) && strlen( $community_fields['country'] ) > 0 ? $countries[ $community_fields['country'] ] : '';
-		$date    = date( 'd/m/Y', strtotime( $user->data->user_registered ) );
+		$date    = gmdate( 'd/m/Y', strtotime( $user->data->user_registered ) );
 
 		// Print out CSV row.
 		print "{$first_name},{$last_name},{$user->data->user_email},{$date},\"{$language_string}\",{$country}\n";
@@ -847,6 +849,7 @@ function mozilla_export_users() {
 
 /**
  * Hide the emails in menus
+ *
  * @param array $items items of the menu.
  * @param array $args arguments.
  */
@@ -865,6 +868,7 @@ function mozilla_hide_menu_emails( $items, $args ) {
 
 /**
  * Updates the inline google analytics code and adds SRI
+ *
  * @param string $html The code.
  * @param string $handle The name of the code.
  */
