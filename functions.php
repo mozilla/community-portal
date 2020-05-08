@@ -122,12 +122,6 @@ if ( ! is_admin() ) {
 	wp_enqueue_style( 'style', get_stylesheet_uri() );
 }
 
-function pg_sanitize_boolean( $input ) {
-
-	// returns true if checkbox is checked.
-	return ( isset( $input ) ? true : false );
-}
-
 function mozilla_init() {
 	register_nav_menu( 'mozilla-theme-menu', __( 'Mozilla Custom Theme Menu' ) );
 	register_taxonomy_for_object_type( 'category', 'page' );
@@ -203,20 +197,6 @@ function mozilla_init() {
 
 	register_post_type( 'campaign', $args );
 	add_theme_support( 'post-thumbnails', array( 'post', 'activity', 'campaign', 'static-page' ) );
-
-	register_post_meta(
-		'campaign',
-		'prev_published',
-		array(
-			'show_in_rest'      => true,
-			'type'              => 'boolean',
-			'single'            => true,
-			'sanitize_callback' => 'pg_sanitize_boolean',
-			'auth_callback'     => function() {
-				return current_user_can( 'edit_posts' );
-			},
-		)
-	);
 }
 
 
