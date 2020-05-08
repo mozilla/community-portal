@@ -1,6 +1,6 @@
 <h1>Mozilla Theme Settings</h1>
 <form method="POST" action="/wp-admin/admin.php?page=theme-panel">
-    <?php print wp_nonce_field('protect_content', 'admin_nonce_field'); ?>
+    <?php print wp_nonce_field('admin_nonce', 'admin_nonce_field'); ?>
     <table class="form-table" role="presentation">
         <tbody>
             <tr>
