@@ -10,8 +10,6 @@
  * @author  Playground Inc.
  */
 
- $title = $block['title'];
-
 ?>
 <div class="campaign__3up-text-block
 <?php
@@ -19,8 +17,8 @@ if ( 'grey' === $block['background_color'] ) :
 	?>
 	campaign__3up-text-block--grey<?php endif; ?>">
 	<div class="campaign__block-container<?php echo $block['keyline'] ? ' campaign__block-container--keyline' : '' ; ?>">
-    <?php if (!empty($title)) : ?>
-		<h2 class="campaign__heading-2 campaign__heading-2--center"><?php print esc_html( $title ); ?></h2>
+    <?php if (!empty($block['title'])) : ?>
+		<h2 class="campaign__heading-2 campaign__heading-2--center"><?php print esc_html( $block['title'] ); ?></h2>
     <?php endif; ?>
 		<div class="campaign__block-content">
 			<div class="campaign__columns-container campaign__columns-container--three">
