@@ -10,14 +10,14 @@
  */
 
 global $col_count, $EM_Ticket, $EM_Event;
-$col_count                = absint( $col_count ); // now we know it's a number.
+$col_count = absint( $col_count ); // now we know it's a number.
 
-// Can't rename globals but need to follow PHPCS Wordpress standards, so reassign to lower case variable.
+// Can't rename globals but need to follow PHPCS WordPress standards, so reassign to lower case variable.
 $em_ticket = $EM_Ticket;
 
 // If it's a new event create a ticket with the current new event.
-if( is_null( $em_ticket ) ) {
-	$em_ticket = new EM_Ticket();
+if ( is_null( $em_ticket ) ) {
+	$em_ticket           = new EM_Ticket();
 	$em_ticket->event_id = $em_event->event_id;
 }
 

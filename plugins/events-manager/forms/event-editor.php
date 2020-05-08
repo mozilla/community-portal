@@ -42,7 +42,7 @@ if ( isset( $_REQUEST['nonce'] ) && wp_verify_nonce( sanitize_key( $_REQUEST['no
 	return false;
 } elseif ( ! is_object( $em_event ) ) {
 	$em_event = new EM_Event();
-	
+
 }
 
 $required = apply_filters( 'em_required_html', '<i>*</i>' );
@@ -200,8 +200,8 @@ if ( $em_event->is_recurring() ) {
 	</div>
 	<?php endif; ?>
 	<div class="event-creator__hidden">
-        <?php em_locate_template('forms/event/bookings.php', true); ?>
-    </div>
+		<?php em_locate_template( 'forms/event/bookings.php', true ); ?>
+	</div>
 	<?php if ( ! $event_id ) : ?>
 	<div class="event-wrap event-creator">
 		<div class="event-creator__container">
