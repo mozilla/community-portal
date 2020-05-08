@@ -21,9 +21,9 @@ if ( 'grey' === $block['background_color'] ) :
 	if ( $block['keyline'] ) :
 		?>
 		campaign__block-container--keyline<?php endif; ?>">
-    <?php if (!empty($block['title'])) : ?>
+	<?php if ( ! empty( $block['title'] ) ) : ?>
 		<h2 class="campaign__heading-2"><?php echo wp_kses( $block['title'], wp_kses_allowed_html( 'post' ) ); ?></h2>
-    <?php endif; ?>
+	<?php endif; ?>
 		<div class="campaign__block-content">
 			<?php
 			print wp_kses(

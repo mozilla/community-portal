@@ -10,17 +10,17 @@
  * @author  Playground Inc.
  */
 
-  $all_countries = em_get_countries();
+$all_countries = em_get_countries();
 
 ?>
 <div class="campaign__events-block">
-	<div class="campaign__block-container<?php echo $block['keyline'] ? ' campaign__block-container--keyline' : '' ; ?>">
-		<?php if (!empty($block['title'])) : ?>
+	<div class="campaign__block-container<?php echo $block['keyline'] ? ' campaign__block-container--keyline' : ''; ?>">
+		<?php if ( ! empty( $block['title'] ) ) : ?>
 		<h2 class="campaign__heading-2"><?php print esc_html( $block['title'] ); ?></h2>
-    <?php endif; ?>
+	<?php endif; ?>
 		<div class="campaign__block-content ">
 
-			<?php if ( !empty( $block['events'] ) ) : ?>
+			<?php if ( ! empty( $block['events'] ) ) : ?>
 				<?php
 				if ( ! $block['events'] || ( is_array( $block['events'] ) && count( $block['events'] ) < 4 ) ) {
 					$args           = array( 'scope' => 'future' );
