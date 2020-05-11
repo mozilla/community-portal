@@ -195,8 +195,8 @@
 							<?php if ( strlen( $additional_information_copy_right ) > 0 ) : ?>
 								<div class="activity__markup">
 									<?php
-									wp_kses(
-										$ $additional_information_copy_right,
+									echo wp_kses(
+										$additional_information_copy_right,
 										array(
 											'p'   => array(),
 											'div' => array(),
