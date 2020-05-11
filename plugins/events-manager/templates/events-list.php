@@ -263,7 +263,12 @@ if ( $event_initiative || $event_language ) {
 	<?php if ( count( $events ) ) : ?>
 		<?php if ( isset( $original_search ) ) : ?>
 		<div class="col-sm-12 events__search-terms">
-			<p><?php esc_html_e( 'Results for ', 'community-portal' ) . $original_search; ?></p>
+			<p>
+			<?php
+			esc_html_e( 'Results for ', 'community-portal' );
+			echo esc_html( $original_search );
+			?>
+			</p>
 		</div>
 	<?php endif; ?>
 	<div class="row events__cards">
