@@ -734,7 +734,6 @@ function mozilla_acf_save_post( $post_id ) {
  */
 function mozilla_post_status_transition( $new_status, $old_status, $post ) {
 
-
 	// Support for campaigns already published.
 	// Set the required meta here if the old status is publish.
 	// If the post is new set a default value of false for prev_publish.
@@ -743,7 +742,7 @@ function mozilla_post_status_transition( $new_status, $old_status, $post ) {
 			update_post_meta( $post->ID, 'prev_published', false );
 		}
 
-		if ( 'publish' === $old_status && ! metadata_exists('post', $post->ID, 'prev_published')) {
+		if ( 'publish' === $old_status && ! metadata_exists( 'post', $post->ID, 'prev_published' ) ) {
 			update_post_meta( $post->ID, 'prev_published', true );
 		}
 	}
