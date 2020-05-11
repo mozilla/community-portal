@@ -9,14 +9,14 @@
  * @version 1.0.0
  * @author  Playground Inc.
  */
+
 ?>
 <?php
 
 if ( ! empty( $_SERVER['REQUEST_URI'] ) && ! empty( $_SERVER['HTTP_HOST'] ) ) {
 	$request_uri = esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) );
-	$http_host   = esc_url_raw( wp_unslash( $_SERVER['HTTP_HOST'] ) );
 
-	$url = isset( $_SERVER['HTTPS'] ) && 'on' === $_SERVER['HTTPS'] ? 'https' : 'http' . "://{$http_host}{$request_uri}";
+	$url = isset( $_SERVER['HTTPS'] ) && 'on' === $_SERVER['HTTPS'] ? 'https' : 'http' . "://{$request_uri}";
 }
 
 ?>
