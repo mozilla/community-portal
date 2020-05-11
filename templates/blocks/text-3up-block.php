@@ -43,7 +43,7 @@ if ( 'grey' === $block['background_color'] ) :
 			<?php endif; ?>
 			<?php if ( ! empty( $col_cta ) ) : ?>
 				<?php if ( ! empty( $col_link ) ) : ?>
-			<a href="<?php print esc_attr( $col_link ); ?>" class="campaign__cta"><?php print esc_html( $col_cta ); ?></a>
+			<a href="<?php print esc_url_raw( $col_link ); ?>" class="campaign__cta"><?php print esc_html( $col_cta ); ?></a>
 			<?php else : ?>
 			<a href="#" class="campaign__cta"><?php print esc_html( $col_cta ); ?></a>
 			<?php endif; ?>

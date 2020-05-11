@@ -53,7 +53,7 @@ if ( 'grey' === $block['background_color'] ) :
 			<?php
 			if ( $block['cta_link'] ) :
 				?>
-				<?php print esc_attr( $block['cta_link'] ); ?>
+				<?php print esc_url_raw( $block['cta_link'] ); ?>
 				<?php
 else :
 	?>

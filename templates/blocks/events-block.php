@@ -60,7 +60,7 @@ $all_countries = em_get_countries();
 					$location   = em_get_location( $em_event->location_id );
 					$categories = ( ! is_null( $em_event ) ) ? $em_event->get_categories() : false;
 					?>
-				<a href="<?php print esc_attr( $event['event']->guid ); ?>" class="campaign__event">
+				<a href="<?php print esc_url_raw( $event['event']->guid ); ?>" class="campaign__event">
 					<div class="campaign__event-image" 
 					<?php
 					if ( isset( $event_meta[0]->image_url ) && strlen( $event_meta[0]->image_url ) > 0 ) :

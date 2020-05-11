@@ -22,7 +22,7 @@ if ( 'grey' === $block['background_color'] ) :
 	<?php endif; ?>
 	<?php if ( ! empty( $block['cta_link'] ) && ! empty( $block['cta'] ) ) : ?>
 	<div class="campaign__block-content campaign__block-content--center">
-		<a href="<?php print esc_attr( $block['cta_link'] ); ?>" class="campaign__outro-cta"><?php print esc_html( $block['cta'] ); ?></a>
+		<a href="<?php print esc_url_raw( $block['cta_link'] ); ?>" class="campaign__outro-cta"><?php print esc_html( $block['cta'] ); ?></a>
 	</div>
 	<?php endif; ?>
 	</div>
