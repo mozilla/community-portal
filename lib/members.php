@@ -13,6 +13,9 @@
 ?>
 <?php
 
+$theme_directory = get_template_directory();
+include "{$theme_directory}/class-privacysettings.php";
+
 /**
  * Get auth0
  *
