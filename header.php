@@ -74,10 +74,11 @@ if (
 					global $post;
 					$event = em_get_event( $post->ID, 'post_id' );
 
+
 					$og_title    = isset( $event->event_name ) && strlen( $event->event_name ) > 0 ? "{$event->event_name} - " . __( 'Mozilla Community Portal', 'community-portal' ) : __( 'Events - Mozilla Community Portal', 'community-portal' );
 					$theme_title = $og_title;
 					$og_desc     = isset( $event->post_content ) && strlen( $event->post_content ) ? wp_strip_all_tags( $event->post_content ) : wp_strip_all_tags( get_bloginfo( 'description' ) );
-
+					
 					if ( isset( $event->event_attributes ) ) {
 						$event_meta = unserialize( $event->event_attributes['event-meta'] );
 						$og_image   = isset( $event_meta->image_url ) && strlen( $event_meta->image_url ) > 0 ? $event_meta->image_url : get_stylesheet_directory_uri() . '/images/event.jpg';
@@ -143,9 +144,8 @@ if (
 		<meta name="twitter:card" content="summary_large_image">
 
 		<!--  Non-Essential, But Recommended -->
-
 		<meta property="og:site_name" content="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
-		<title><?php esc_html( $theme_title ); ?></title>
+		<title><?php echo esc_html( $theme_title ); ?></title>
 
 
 		<link rel="profile" href="http://gmpg.org/xfn/11">
