@@ -331,8 +331,9 @@ function mozilla_add_email_to_list( $id, $email, $name = false ) {
 	$options = wp_load_alloptions();
 
 	if ( isset( $options['mailchimp'] ) ) {
-		$apikey = trim( $options['mailchimp'] );
-		$dc     = substr( $apikey, -3 );
+    $apikey = trim( $options['mailchimp'] );
+    $split_api_key = explode("-", $apikey);
+    $dc     = isset($split_api_key[1]) ? $split_api_key[1] : false;
 		if ( $dc ) {
 			$curl        = curl_init();
 			$api_url     = "https://{$dc}.api.mailchimp.com/3.0/lists/{$id}/members";
