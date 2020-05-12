@@ -10,18 +10,17 @@
  * @author  Playground Inc.
  */
 
-	$all_countries = em_get_countries();
+$all_countries = em_get_countries();
+
 ?>
 <div class="campaign__events-block">
-	<div class="campaign__block-container
-	<?php
-	if ( $block['keyline'] ) :
-		?>
-		campaign__block-container--keyline<?php endif; ?>">
+	<div class="campaign__block-container<?php echo $block['keyline'] ? ' campaign__block-container--keyline' : ''; ?>">
+		<?php if ( ! empty( $block['title'] ) ) : ?>
 		<h2 class="campaign__heading-2"><?php print esc_html( $block['title'] ); ?></h2>
+	<?php endif; ?>
 		<div class="campaign__block-content ">
 
-			<?php if ( isset( $block['events'] ) ) : ?>
+			<?php if ( ! empty( $block['events'] ) ) : ?>
 				<?php
 				if ( ! $block['events'] || ( is_array( $block['events'] ) && count( $block['events'] ) < 4 ) ) {
 					$args           = array( 'scope' => 'future' );
@@ -61,7 +60,7 @@
 					$location   = em_get_location( $em_event->location_id );
 					$categories = ( ! is_null( $em_event ) ) ? $em_event->get_categories() : false;
 					?>
-				<a href="<?php print esc_attr( $event['event']->guid ); ?>" class="campaign__event">
+				<a href="<?php print esc_url_raw( $event['event']->guid ); ?>" class="campaign__event">
 					<div class="campaign__event-image" 
 					<?php
 					if ( isset( $event_meta[0]->image_url ) && strlen( $event_meta[0]->image_url ) > 0 ) :

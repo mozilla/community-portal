@@ -21,25 +21,14 @@ if ( 'grey' === $block['background_color'] ) :
 	if ( $block['keyline'] ) :
 		?>
 		campaign__block-container--keyline<?php endif; ?>">
-		<h2 class="campaign__heading-2"><?php print esc_html( $block['title'] ); ?></h2>
+	<?php if ( ! empty( $block['title'] ) ) : ?>
+		<h2 class="campaign__heading-2"><?php echo wp_kses( $block['title'], wp_kses_allowed_html( 'post' ) ); ?></h2>
+	<?php endif; ?>
 		<div class="campaign__block-content">
 			<?php
 			print wp_kses(
 				wpautop( substr( trim( $block['copy'] ), 0, 3000 ) ),
-				array(
-					'p'  => array(
-						'class' => array(),
-					),
-					'br' => array(),
-					'ul' => array(
-						'class' => array(),
-					),
-					'li' => array(),
-					'a'  => array(
-						'href'  => array(),
-						'class' => array(),
-					),
-				)
+				wp_kses_allowed_html( 'post' )
 			);
 			?>
 		</div>
@@ -48,7 +37,7 @@ if ( 'grey' === $block['background_color'] ) :
 			<?php
 			if ( $block['cta_link'] ) :
 				?>
-					<?php print esc_attr( $block['cta_link'] ); ?>
+					<?php print esc_url_raw( $block['cta_link'] ); ?>
 				<?php
 else :
 	?>
