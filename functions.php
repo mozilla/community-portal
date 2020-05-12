@@ -1,13 +1,16 @@
 <?php
-// Mozilla theme functions file
+/**
+ * Functions
+ *
+ * Theme functions file
+ *
+ * @package WordPress
+ * @subpackage community-portal
+ * @version 1.0.0
+ * @author  Playground Inc.
+ */
+
 $theme_directory = get_template_directory();
-
-abstract class PrivacySettings {
-    const REGISTERED_USERS = 0;
-    const PUBLIC_USERS = 1; 
-    const PRIVATE_USERS = 2;
-}
-
 // Include countries
 include("{$theme_directory}/countries.php");
 
@@ -110,97 +113,99 @@ add_filter('bp_groups_admin_get_group_custom_column', 'mozilla_group_addional_co
 add_filter('wp_nav_menu_objects', 'mozilla_hide_menu_emails', 10, 2);
 add_filter('script_loader_tag', 'mozilla_update_script_attributes', 10, 2 );
 
+/**
+ * Theme setup function
+ */
 function mozilla_theme_setup() {
-    load_theme_textdomain('community-portal', get_template_directory() . '/languages');
-
-
-    
+	load_theme_textdomain( 'community-portal', get_template_directory() . '/languages' );
 }
 
 
-// Include theme style.css file not in admin page
-if(!is_admin()) {
-    wp_enqueue_style('style', get_stylesheet_uri());
+// Include theme style.css file not in admin page.
+if ( ! is_admin() ) {
+	wp_enqueue_style( 'style', get_stylesheet_uri(), array(), filemtime( get_template_directory() . '/style.css' ), false );
 }
 
+/**
+ * Initialize theme
+ */
 function mozilla_init() {
-    register_nav_menu('mozilla-theme-menu', __('Mozilla Custom Theme Menu'));
-    register_taxonomy_for_object_type('category', 'page'); 
+	register_nav_menu( 'mozilla-theme-menu', __( 'Mozilla Custom Theme Menu' ) );
+	register_taxonomy_for_object_type( 'category', 'page' );
 
-    $user = wp_get_current_user()->data;
-    // Not logged in
-    if(!isset($user->ID)) {
-        if(isset($_GET['redirect_to'])) {
-            setcookie("mozilla-redirect", $_GET['redirect_to'], 0, "/");
-        }
+	$user = wp_get_current_user()->data;
+	// Not logged in.
+	if ( ! isset( $user->ID ) ) {
+		if ( isset( $_GET['redirect_to'] ) ) {
+			$redirect_to = esc_url_raw( wp_unslash( $_GET['redirect_to'] ) );
+			setcookie( 'mozilla-redirect', $redirect_to, 0, '/' );
+		}
 
-        if(stripos($_SERVER['REQUEST_URI'], "/groups/create/step/group-details/") !== false) {
-            setcookie("mozilla-redirect", "/groups/create/step/group-details/", 0, "/");
-            wp_redirect('/wp-login.php?action=login');
-            die();
-        }
+		if ( ! empty( $_SERVER['REQUEST_URI'] ) && false !== stripos( esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ), '/groups/create/step/group-details/' ) ) {
+			setcookie( 'mozilla-redirect', '/groups/create/step/group-details/', 0, '/' );
+			wp_safe_redirect( '/wp-login.php?action=login' );
+			exit();
+		}
+	}
 
-    }
+	// Static Page.
+	$labels = array(
+		'name'          => __( 'Static Pages' ),
+		'singular_name' => __( 'Static Page' ),
+	);
 
-    // Static Page
-    $labels = Array(
-        'name'              =>  __('Static Pages'),
-        'singular_name'     =>  __('Static Page')
-    );
+	$args = array(
+		'labels'       => $labels,
+		'public'       => true,
+		'show_in_menu' => true,
+		'show_in_rest' => true,
+		'menu_icon'    => 'dashicons-format-aside',
+		'rewrite'      => array( 'slug' => 'p' ),
+		'supports'     => array( 'title', 'editor', 'thumbnail', 'excerpt' ),
+		'taxonomies'   => array( 'post_tag' ),
+	);
 
-    $args = Array(
-        'labels'             => $labels,
-        'public'             => true,
-        'show_in_menu'       => true,
-        'show_in_rest'       => true,
-        'menu_icon'          => 'dashicons-format-aside',
-        'rewrite'            =>  Array('slug'    =>  'p'),
-        'supports'           => array('title', 'editor', 'thumbnail', 'excerpt'),
-        'taxonomies'         => array('post_tag')
-    );
+	register_post_type( 'static-page', $args );
 
-    register_post_type('static-page', $args);
+	// Create Activities.
+	$labels = array(
+		'name'          => __( 'Activities' ),
+		'singular_name' => __( 'Activity' ),
+	);
 
-    
-    // Create Activities
-    $labels = Array(
-        'name'              =>  __('Activities'),
-        'singular_name'     =>  __('Activity')
-    );
+	$args = array(
+		'labels'       => $labels,
+		'public'       => true,
+		'show_in_menu' => true,
+		'show_in_rest' => true,
+		'menu_icon'    => 'dashicons-chart-line',
+		'rewrite'      => array( 'slug' => 'activities' ),
+		'supports'     => array( 'title', 'editor', 'thumbnail', 'excerpt' ),
+		'taxonomies'   => array( 'post_tag' ),
+	);
 
-    $args = Array(
-        'labels'             => $labels,
-        'public'             => true,
-        'show_in_menu'       => true,
-        'show_in_rest'       => true,
-        'menu_icon'          => 'dashicons-chart-line',
-        'rewrite'            => Array('slug'    =>  'activities'),
-        'supports'           => Array('title', 'editor', 'thumbnail', 'excerpt'),
-        'taxonomies'         => Array('post_tag')
-    );
+	register_post_type( 'activity', $args );
 
-    register_post_type('activity', $args);
+	// Create Campaigns.
+	$labels = array(
+		'name'          => __( 'Campaigns' ),
+		'singular_name' => __( 'Campaign' ),
+	);
 
-    // Create Campaigns
-    $labels = Array(
-        'name'              =>  __('Campaigns'),
-        'singular_name'     =>  __('Campaign')
-    );
+	$args = array(
+		'labels'       => $labels,
+		'public'       => true,
+		'show_in_menu' => true,
+		'show_in_rest' => true,
+		'menu_icon'    => 'dashicons-admin-site-alt3',
+		'rewrite'      => array( 'slug' => 'campaigns' ),
+		'supports'     => array( 'title', 'editor', 'thumbnail', 'excerpt' ),
+		'taxonomies'   => array( 'post_tag' ),
+	);
 
-    $args = Array(
-        'labels'             => $labels,
-        'public'             => true,
-        'show_in_menu'       => true,
-        'show_in_rest'       => true,
-        'menu_icon'          => 'dashicons-admin-site-alt3',
-        'rewrite'            =>  Array('slug'    =>  'campaigns'),
-        'supports'           => array('title', 'editor', 'thumbnail', 'excerpt'),
-        'taxonomies'         => Array('post_tag')
-    );
-
-    register_post_type('campaign', $args);
-    add_theme_support('post-thumbnails', array( 'post', 'activity', 'campaign', 'static-page')); 
+	register_post_type( 'campaign', $args );
+	add_theme_support( 'post-thumbnails', array( 'post', 'activity', 'campaign', 'static-page' ) );
 }
 
 
-?>
+
