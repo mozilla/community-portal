@@ -12,14 +12,14 @@
 
 	$args = array(
 		'post_type' => 'campaign',
-		'post_per_page'  => -1,
+		'posts_per_page'  => -1,
 	);
 
 	$campaigns = new WP_Query( $args );
 
 	$args = array(
 		'post_type' => 'activity',
-		'post_per_page'  => -1,
+		'posts_per_page'  => -1,
 	);
 
 	$activities = new WP_Query( $args );
