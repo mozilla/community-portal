@@ -115,7 +115,7 @@ if ( $EM_Event->is_recurring() ) {
 			<?php
 					$args = array(
 						'post_type' => 'campaign',
-						'per_page'  => -1,
+						'posts_per_page'  => -1,
 					);
 
 					$campaigns   = new WP_Query( $args );
@@ -140,7 +140,7 @@ if ( $EM_Event->is_recurring() ) {
 
 					$args = array(
 						'post_type' => 'activity',
-						'per_page'  => -1,
+						'posts_per_page'  => -1,
 					);
 
 					$activities  = new WP_Query( $args );
@@ -238,20 +238,17 @@ else :
 			endif;
 		endif;
 		?>
-		<input id="event-creator__submit-btn" type='submit' class='button-primary btn btn--dark btn--submit' 
-		value='
-		<?php
+        <?php
 		if ( ! isset( $event_id ) ) :
-			esc_attr_e( 'Create Event', 'commuity-portal' );
+			$update_label = __( 'Create Event', 'commuity-portal' );
 		else :
-			esc_attr_e( 'Update Event', 'commuity-portal' );
+			$update_label = __( 'Update Event', 'commuity-portal' );
 		endif;
 		?>
-		' 
-		/>
+		<input id="event-creator__submit-btn" type='submit' class='button-primary btn btn--dark btn--submit' value='<?php echo esc_attr( $update_label ); ?>' />
 		<input type="hidden" name="event_id" value="<?php echo esc_attr( $EM_Event->event_id ); ?>" />
 		<input type="hidden" name="event_rsvp" value=<?php ( $event_id ) ? null : esc_attr( '1' ); ?> />
-		<input type="hidden" name="_wpnonce" id="my_nonce_field" value="<?php echo esc_attr( wp_create_nonce( 'wpnonce_event_save' ) ); ?>" />
+		<input type="hidden" name="_wpnonce" id="my_nonce_field_2" value="<?php echo esc_attr( wp_create_nonce( 'wpnonce_event_save' ) ); ?>" />
 		<input type="hidden" name="action" value="event_save" />
 		<?php if ( ! empty( $_REQUEST['redirect_to'] ) ) : ?>
 			<input type="hidden" name="redirect_to" value="<?php echo ( $event_id ? esc_attr( get_site_url() . '/events/' . $EM_Event->event_slug ) : esc_attr( get_site_url() . '/events/' ) ); ?>" />
