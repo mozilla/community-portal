@@ -267,8 +267,12 @@ function mozilla_create_mailchimp_list( $campaign ) {
 
 	if ( $create_audience && isset( $options['mailchimp'] ) ) {
 		$api_key = trim( $options['mailchimp'] );
-		$dc      = substr( $api_key, -3 );
-		if ( $dc ) {
+
+		if (!empty($api_key)) {
+			$dc = end(explode('-', $api_key));
+		}
+
+		if ( !empty($dc) ) {
 			$mailchimp_check = get_post_meta( $campaign->ID, 'mailchimp-list-id', true );
 
 			if ( empty( $mailchimp_check ) ) {
