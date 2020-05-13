@@ -246,6 +246,7 @@ else :
 		endif;
 		?>
 		<input id="event-creator__submit-btn" type='submit' class='button-primary btn btn--dark btn--submit' value='<?php echo esc_attr( $update_label ); ?>' />
+        <?php wp_nonce_field( 'event_update', 'event_update_field' ); ?>
 		<input type="hidden" name="event_id" value="<?php echo esc_attr( $EM_Event->event_id ); ?>" />
 		<input type="hidden" name="event_rsvp" value=<?php ( $event_id ) ? null : esc_attr( '1' ); ?> />
 		<input type="hidden" name="_wpnonce" id="my_nonce_field_2" value="<?php echo esc_attr( wp_create_nonce( 'wpnonce_event_save' ) ); ?>" />
