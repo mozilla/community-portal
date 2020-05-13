@@ -1,9 +1,25 @@
 <?php
+/**
+ * API
+ *
+ * API functions
+ *
+ * @package WordPress
+ * @subpackage community-portal
+ * @version 1.0.0
+ * @author  Playground Inc.
+ */
 
+/**
+ * Get Discourse Information
+ *
+ * @param integer $id post id.
+ * @param string  $type group / category.
+ */
 function mozilla_get_discourse_info( $id, $type = 'group' ) {
 	$discourse_info = array();
 
-	if ( $type === 'event' ) {
+	if ( 'event' === $type ) {
 		if ( $id ) {
 			$event_meta = get_post_meta( $id, 'event-meta' );
 
@@ -23,6 +39,7 @@ function mozilla_get_discourse_info( $id, $type = 'group' ) {
 		}
 		return $discourse_info;
 	} else {
+	
 		if ( $id ) {
 			$group_meta = groups_get_groupmeta( $id, 'meta' );
 			if ( isset( $group_meta['discourse_category_id'] ) ) {
@@ -30,7 +47,6 @@ function mozilla_get_discourse_info( $id, $type = 'group' ) {
 				$data['category_id']                     = $group_meta['discourse_category_id'];
 				$discourse_category                      = mozilla_discourse_api( 'categories', $data, 'get' );
 				$discourse_info['discourse_category_id'] = $group_meta['discourse_category_id'];
-
 				if ( $discourse_category && ! isset( $discourse_category->status ) ) {
 					$discourse_info['discourse_category_name']        = $discourse_category->name;
 					$discourse_info['discourse_category_description'] = $discourse_category->description;
@@ -57,17 +73,24 @@ function mozilla_get_discourse_info( $id, $type = 'group' ) {
 	return false;
 }
 
-
+/**
+ * Makes a Discourse API call
+ *
+ * @param string $type category or group.
+ * @param array  $data data to use in the API call.
+ * @param string $request type of call to make (post, get, patch, delete).
+ */
 function mozilla_discourse_api( $type, $data, $request = 'get' ) {
 	$discourse = false;
 
 	$options = wp_load_alloptions();
 	if ( isset( $options['discourse_api_key'] ) && strlen( $options['discourse_api_key'] ) > 0 && isset( $options['discourse_api_url'] ) && strlen( $options['discourse_api_url'] ) > 0 ) {
 
-		// Get the API URL without the trailing slash
+		// Get the API URL without the trailing slash.
 		$api_url = rtrim( $options['discourse_api_url'], '/' );
 		$api_key = trim( $options['discourse_api_key'] );
-		$curl    = curl_init();
+
+		$curl = curl_init();
 
 		curl_setopt(
 			$curl,
@@ -195,18 +218,23 @@ function mozilla_discourse_api( $type, $data, $request = 'get' ) {
 				break;
 		}
 
-		if ( ! empty( $api_data ) || $request !== 'get' ) {
-			$json_data = json_encode( $api_data );
+		if ( ! empty( $api_data ) || 'get' !== $request ) {
+			$json_data = wp_json_encode( $api_data );
 			curl_setopt( $curl, CURLOPT_POSTFIELDS, $json_data );
 		}
 
-		$curl_result = curl_exec( $curl );
-		$discourse   = json_decode( $curl_result );
+		$curl_result = curl_exec($curl);
+        $discourse = json_decode($curl_result);
 	}
 
 	return $discourse;
 }
 
+/**
+ * Gets discourse category topics
+ *
+ * @param string $url URL to get topics.
+ */
 function mozilla_discourse_get_category_topics( $url ) {
 	$curl = curl_init();
 	curl_setopt( $curl, CURLOPT_SSL_VERIFYPEER, false );
@@ -227,19 +255,19 @@ function mozilla_discourse_get_category_topics( $url ) {
 	return $topics;
 }
 
-
+/**
+ * Create mailchimp mailing list
+ *
+ * @param object $campaign campaign object.
+ */
 function mozilla_create_mailchimp_list( $campaign ) {
 	$options = wp_load_alloptions();
 
 	$create_audience = get_field( 'mailchimp_integration', $campaign->ID );
 
 	if ( $create_audience && isset( $options['mailchimp'] ) ) {
-    $apikey     = trim( $options['mailchimp'] );
-    
-    if (!empty($apikey)) {
-      $dc = end(explode('-', $apikey));
-    }
-
+		$api_key = trim( $options['mailchimp'] );
+		$dc      = substr( $api_key, -3 );
 		if ( $dc ) {
 			$mailchimp_check = get_post_meta( $campaign->ID, 'mailchimp-list-id', true );
 
@@ -248,18 +276,15 @@ function mozilla_create_mailchimp_list( $campaign ) {
 				$curl    = curl_init();
 				$api_url = "https://{$dc}.api.mailchimp.com/3.0/lists";
 
-				$auth_string = "user:{$apikey}";
-				$auth        = base64_encode( $auth_string );
-
 				curl_setopt( $curl, CURLOPT_URL, $api_url );
 				curl_setopt( $curl, CURLOPT_HTTPHEADER, array( 'Content-Type: application/json' ) );
-				curl_setopt( $curl, CURLOPT_USERPWD, 'user:' . $apikey );
+				curl_setopt( $curl, CURLOPT_USERPWD, 'user:' . $api_key );
 				curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
 				curl_setopt( $curl, CURLOPT_POST, true );
 
 				$campaign_list_name = "{$campaign->post_title} - Mozilla";
 
-				$data         = array();
+				$data         = array();
 				$data['name'] = $campaign_list_name;
 
 				$data['contact'] = array(
@@ -282,7 +307,7 @@ function mozilla_create_mailchimp_list( $campaign ) {
 				$data['permission_reminder'] = "You are participating in the Mozilla {$campaign->post_title} campaign";
 				$data['email_type_option']   = true;
 
-				$json = json_encode( $data );
+				$json = wp_json_encode( $data );
 				curl_setopt( $curl, CURLOPT_POSTFIELDS, $json );
 				$result = curl_exec( $curl );
 				curl_close( $curl );
@@ -292,26 +317,29 @@ function mozilla_create_mailchimp_list( $campaign ) {
 			}
 		}
 	}
-
 	return false;
 }
 
+/**
+ * Remove email from mailing list
+ *
+ * @param integer $id ID of mailing list.
+ * @param string  $email The email to remove.
+ */
 function mozilla_remove_email_from_list( $id, $email ) {
-	$options        = wp_load_alloptions();
-	$subscriberHash = md5( strtolower( $email ) );
+	$options         = wp_load_alloptions();
+	$subscriber_hash = md5( strtolower( $email ) );
 
 	if ( isset( $options['mailchimp'] ) ) {
-		$apikey = trim( $options['mailchimp'] );
-		$dc     = substr( $apikey, -3 );
+		$api_key = trim( $options['mailchimp'] );
+		$dc      = substr( $api_key, -3 );
 		if ( $dc ) {
-			$curl        = curl_init();
-			$api_url     = "https://{$dc}.api.mailchimp.com/3.0/lists/{$id}/members/{$subscriberHash}";
-			$auth_string = "user:{$apikey}";
-			$auth        = base64_encode( $auth_string );
+			$curl    = curl_init();
+			$api_url = "https://{$dc}.api.mailchimp.com/3.0/lists/{$id}/members/{$subscriber_hash}";
 
 			curl_setopt( $curl, CURLOPT_URL, $api_url );
 			curl_setopt( $curl, CURLOPT_HTTPHEADER, array( 'Content-Type: application/json' ) );
-			curl_setopt( $curl, CURLOPT_USERPWD, 'user:' . $apikey );
+			curl_setopt( $curl, CURLOPT_USERPWD, 'user:' . $api_key );
 			curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
 			curl_setopt( $curl, CURLOPT_CUSTOMREQUEST, 'DELETE' );
 
@@ -326,6 +354,13 @@ function mozilla_remove_email_from_list( $id, $email ) {
 	return false;
 }
 
+/**
+ * Add email to mailchimp mailing list
+ *
+ * @param integer $id ID of mailing list.
+ * @param string  $email email to add.
+ * @param string  $name name.
+ */
 function mozilla_add_email_to_list( $id, $email, $name = false ) {
 
 	$options = wp_load_alloptions();
@@ -353,7 +388,8 @@ function mozilla_add_email_to_list( $id, $email, $name = false ) {
 				$data['merge_fields'] = $name;
 			}
 
-			$json = json_encode( $data );
+			$json = wp_json_encode( $data );
+
 			curl_setopt( $curl, CURLOPT_POSTFIELDS, $json );
 			$result = curl_exec( $curl );
 			curl_close( $curl );
