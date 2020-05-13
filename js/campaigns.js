@@ -65,75 +65,80 @@ jQuery(function() {
 		});
 	}
 	
-	jQuery(document).one('click', '.campaign__hero-cta--unsub', function(e) {
+	jQuery(document).on('click', '.campaign__hero-cta--unsub', function(e) {
 		var url =  '/wp-admin/admin-ajax.php?action=mailchimp_unsubscribe';
 		
-        $this = jQuery(this);
+		$this = jQuery(this);
 
-        e.stopImmediatePropagation();
-        e.preventDefault();
+		e.stopImmediatePropagation();
+		e.preventDefault();
         
-        const campaign = $this.data('campaign');
+		const campaign = $this.data('campaign');
 		const list = $this.data('list');
 		const nonce = $this.data('nonce');
-        
-        const data = {
-            campaign,
+		const data = {
+			campaign,
 			list,
 			nonce,
-        };
-        jQuery.ajax({
-            url, 
-            data,
-            method: 'POST',
-            success: function(resp) {
-                const response = jQuery.parseJSON(resp);
+		};
 
-                if (response.status === 'OK') {  
-                    $this.addClass('campaign__hero-cta--sub');
-                    $this.removeClass('campaign__hero-cta--unsub');
-                    $this.text($this.data('sub-copy'));
-                } 
-            }
-        });
+		jQuery.ajax({
+				url, 
+				data,
+				method: 'POST',
+				success: function(resp) {
+					const response = jQuery.parseJSON(resp);
 
-        return false;
-    });
+					if (response.status === 'OK') {  
+						$this.addClass('campaign__hero-cta--sub');
+						$this.removeClass('campaign__hero-cta--unsub');
+						$this.text($this.data('sub-copy'));
+					} else {
+						// TODO: Handle error here
+					}
+				},
 
-    jQuery(document).one('click', '.campaign__hero-cta--sub', function(e) {
+		});
 
-        e.stopImmediatePropagation();
-        e.preventDefault();
+		return false;
+	});
 
-        var $this = jQuery(this);
-        var campaign = $this.data('campaign');
-		var list = $this.data('list');
-		const nonce = $this.data('nonce');
+    jQuery(document).on('click', '.campaign__hero-cta--sub', function(e) {
+			console.log('clicked');
 
-        var post = {
-            campaign,
-			list,
-			nonce,
-        };
+			e.stopImmediatePropagation();
+			e.preventDefault();
 
-        var url =  '/wp-admin/admin-ajax.php?action=mailchimp_subscribe';
+			var $this = jQuery(this);
+			var campaign = $this.data('campaign');
+			var list = $this.data('list');
+			const nonce = $this.data('nonce');
 
-        jQuery.ajax({
-            url: url,
-            data: post,
-            method: 'POST',
-            success: function(response) {
+			var post = {
+				campaign,
+				list,
+				nonce,
+			};
 
-                response = jQuery.parseJSON(response);
-                if(response.status == 'OK') {
-                    $this.removeClass('campaign__hero-cta--sub');
-                    $this.addClass('campaign__hero-cta--unsub');
-					$this.text($this.data('unsub-copy'));
-                } 
-			},
-        });
+			var url =  '/wp-admin/admin-ajax.php?action=mailchimp_subscribe';
 
-        return false;
+			jQuery.ajax({
+				url: url,
+				data: post,
+				method: 'POST',
+				success: function(response) {
+					const res = jQuery.parseJSON(response);
+					if(res.status == 'OK') {
+						$this.removeClass('campaign__hero-cta--sub');
+						$this.addClass('campaign__hero-cta--unsub');
+						$this.text($this.data('unsub-copy'));
+					} else {
+						// TODO: Handle error here
+					}
+				},
+			});
+
+			return false;
 	});
 
 	const submitForm = function(form, first_name, last_name, email) {
