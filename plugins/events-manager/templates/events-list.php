@@ -31,8 +31,8 @@ if (
 }
 	$view = htmlspecialchars( get_query_var( 'view', $default = '' ), ENT_QUOTES, 'UTF-8' );
 if ( $valid_nonce ) {
-	$country   = htmlspecialchars( urldecode( get_query_var( 'country', $default = 'all' ) ), ENT_QUOTES, 'UTF-8' );
-	$event_tag = htmlspecialchars( get_query_var( 'tag', $default = 'all' ), ENT_QUOTES, 'UTF-8' );
+	$country   = urldecode( htmlspecialchars( urldecode( get_query_var( 'country', $default = 'all' ) ), ENT_QUOTES, 'UTF-8' ) );
+	$event_tag = urldecode( htmlspecialchars( get_query_var( 'tag', $default = 'all' ), ENT_QUOTES, 'UTF-8' ) );
 } else {
 	$country   = 'all';
 	$event_tag = 'all';

@@ -31,8 +31,14 @@
 					if ( isset( $event_language ) && strlen( $event_language ) > 0 && strtolower( $event_language ) === strtolower( $key ) ) :
 						?>
 						selected<?php endif; ?>><?php print esc_html( $option ); ?></option>
+			<?php elseif ( 'Tag' === $field_name ) : ?>
+				<option value="<?php print esc_attr( $option ); ?>" 
+					<?php
+					if ( isset( $event_tag ) && strlen( $event_tag ) > 0 && strtolower( $event_tag ) === strtolower( $option ) ) :
+						?>
+						selected<?php endif; ?>><?php print esc_html( $option ); ?></option>
 			<?php else : ?>
-				<?php if ( $option === $country || $option === $tag ) : ?>
+				<?php if ( $option === $country ) : ?>
 				<option value="<?php echo esc_attr( $option ); ?>" selected><?php echo esc_html( $option ); ?></option>
 			<?php else : ?>
 				<option value="<?php echo esc_attr( $option ); ?>"><?php echo esc_html( $option ); ?></option>

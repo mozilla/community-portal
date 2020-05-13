@@ -20,8 +20,9 @@
 	$countries      = em_get_countries();
 	$ddm_countries  = array();
 	$used_languages = array();
+	$filter_events  = EM_Events::get();
 
-foreach ( $all_events as $e ) {
+foreach ( $filter_events as $e ) {
 	$location     = em_get_location( $e->location_id );
 	$country_code = $location->location_country;
 	if ( ! in_array( $country_code, $ddm_countries, true ) ) {
@@ -37,7 +38,6 @@ foreach ( $all_events as $e ) {
 
 	asort( $used_languages );
 	$used_languages = array_unique( $used_languages );
-
 
 	$categories = EM_Categories::get();
 if ( count( $categories ) > 0 ) {
@@ -84,8 +84,8 @@ if ( count( $categories ) > 0 ) {
 			$field_name  = 'Initiative';
 			$field_label = __( 'Campaign or Activity', 'community-portal' );
 			$args        = array(
-				'post_type' => 'campaign',
-				'per_page'  => -1,
+				'post_type'      => 'campaign',
+				'posts_per_page' => -1,
 			);
 
 			$campaigns   = new WP_Query( $args );
@@ -109,8 +109,8 @@ if ( count( $categories ) > 0 ) {
 			}
 
 			$args = array(
-				'post_type' => 'activity',
-				'per_page'  => -1,
+				'post_type'      => 'activity',
+				'posts_per_page' => -1,
 			);
 
 			$activities = new WP_Query( $args );
