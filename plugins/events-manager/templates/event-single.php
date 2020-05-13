@@ -32,11 +32,11 @@
 	$all_countries = em_get_countries();
 	$img_url       = $event_meta[0]->image_url;
 
-if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'off' !== $_SERVER['HTTPS'] ) || 443 === $_SERVER['SERVER_PORT'] ) {
-	$img_url = preg_replace( '/^http:/i', 'https:', $img_url );
-} else {
-	$avatar_url = $img_url;
-}
+	if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'off' !== $_SERVER['HTTPS'] ) || 443 === $_SERVER['SERVER_PORT'] ) {
+		$img_url = preg_replace( '/^http:/i', 'https:', $img_url );
+	} else {
+		$avatar_url = $img_url;
+	}
 
 	$location_type = $event_meta[0]->location_type;
 	$external_url  = $event_meta[0]->external_url;
@@ -109,6 +109,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 
 
 	?>
+	
 
 <div class="content events__container events-single">
 	<div class="row">
@@ -220,12 +221,13 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 					?>
 				</div>
 			</div>
-
+			
 			<h2 class="title--secondary"><?php esc_html_e( 'Location', 'community-portal' ); ?></h2>
 			<div class="card events-single__location">
 				<div class="row">
 					<div class="card__address col-md-5 col-sm-12">
 					<?php $location = $em_event->location; ?>
+					
 					<?php if ( isset( $location_type ) && strlen( $location_type ) > 0 && 'online' !== $location_type && 'OE' !== $location->location_country ) : ?>
 						<p><?php echo esc_html( $location->location_name ); ?></p>
 						<p><?php echo esc_html( $location->location_address ); ?></p>
@@ -247,19 +249,20 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 					<?php endif; ?>
 					</div>
 					<?php if ( false !== $map_box_access_token ) : ?>
+					
 						<?php
 						$full_location = rawurlencode( $location->location_address . ' ' . $location->location_town );
 						$request       = wp_remote_get( 'https://api.mapbox.com/geocoding/v5/mapbox.places/' . $full_location . '.json?types=address&access_token=' . $map_box_access_token );
-
+						$mapbox_error = false;
 						if ( is_wp_error( $request ) ) {
-							return false;
+							$mapbox_error = true;
+						} else {
+							$body        = wp_remote_retrieve_body( $request );
+							$data        = json_decode( $body );
+							$coordinates = $data->features[0]->geometry->coordinates;
 						}
-
-						$body        = wp_remote_retrieve_body( $request );
-						$data        = json_decode( $body );
-						$coordinates = $data->features[0]->geometry->coordinates;
 						?>
-						<?php if ( isset( $location_type ) && strlen( $location_type ) && 'online' !== $location_type && 'OE' !== $location->location_country ) : ?>
+						<?php if ( false === $mapbox_error && isset( $location_type ) && strlen( $location_type ) && 'online' !== $location_type && 'OE' !== $location->location_country ) : ?>
 						<div id='map' class="card__map col-md-7 col-sm-12" style='height: 110px;'></div>
 						<script type="text/javascript">
 							const geojson =  {
@@ -297,8 +300,10 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 					<?php endif; ?>
 				</div>
 			</div>
+			
 			<div class="events-single__description">
 				<h2 class="title--secondary"><?php esc_html_e( 'Description', 'community-portal' ); ?></h2>
+				
 				<p>
 				<?php
 					echo wp_kses(
