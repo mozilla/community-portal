@@ -727,7 +727,7 @@ function mozilla_post_status_transition( $new_status, $old_status, $post ) {
 
 		if ( 'event' === $post->post_type && 'publish' !== $old_status ) {
 
-			if ( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['event_create_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['event_create_field'] ) ), 'event_create' ) ) {
+			if ( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['event_update_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['event_update_field'] ) ), 'event_update' ) ) {
 
 				if ( isset( $_POST['image_url'] ) ) {
 					$event->image_url = esc_url_raw( wp_unslash( $_POST['image_url'] ) );
