@@ -60,9 +60,12 @@ switch ( strtolower( trim( $view ) ) ) {
 if ( 'all' !== $country ) {
 	$args['country'] = $country;
 }
-
 if ( 'all' !== $event_tag ) {
 	$args['category'] = $event_tag;
+}
+
+if ( isset( $args['tag'] ) ) {
+	unset( $args['tag'] );
 }
 
 	$args['limit']    = '0';

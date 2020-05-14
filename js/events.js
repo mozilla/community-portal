@@ -1,7 +1,7 @@
 jQuery(function() {
 
     function getFilter(option) {
-        const filter = option.dataset.filter;
+		const filter = option.dataset.filter;
         return filter;
     }
 
@@ -36,6 +36,9 @@ jQuery(function() {
 					const params = getParams(url);
 					if (!params.has('nonce')) {
 						setUrlParams(url, 'nonce', nonceValue);
+					}
+					if (params.has('pno')) {
+						setUrlParams(url, 'pno', '1');
 					}
 					url = setUrlParams(url, filterTitle.toLowerCase(), value);
 					relocate(url);
