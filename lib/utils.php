@@ -782,7 +782,11 @@ function mozilla_post_status_transition( $new_status, $old_status, $post ) {
 			$discourse_api_data['description'] = $post->post_content;
 			$auth0_ids                         = array();
 			$user                              = wp_get_current_user();
-			$auth0_ids[]                       = mozilla_get_user_auth0( $user->ID );
+			$current_user_auth_id 			   = mozilla_get_user_auth0( $user->ID );
+
+			if( false !== $current_user_auth_id )
+				$auth0_ids[] = $current_user_auth_id;
+			
 			$discourse_api_data['users']       = $auth0_ids;
 			$discourse_group                   = mozilla_discourse_api( 'groups', $discourse_api_data, 'post' );
 
