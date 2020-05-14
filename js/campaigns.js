@@ -104,7 +104,6 @@ jQuery(function() {
 	});
 
     jQuery(document).on('click', '.campaign__hero-cta--sub', function(e) {
-			console.log('clicked');
 
 			e.stopImmediatePropagation();
 			e.preventDefault();
