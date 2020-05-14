@@ -1059,7 +1059,7 @@ else :
 			?>
 				<section class="profile__form-container">
 					<div class="profile__newsletter">
-					<?php include get_template_directory() . '/templates/newsletter_form.php'; ?>
+					<?php include get_template_directory() . '/templates/newsletter-form.php'; ?>
 					</div>
 				</section>
 			<?php

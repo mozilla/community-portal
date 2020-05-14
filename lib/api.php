@@ -39,7 +39,7 @@ function mozilla_get_discourse_info( $id, $type = 'group' ) {
 		}
 		return $discourse_info;
 	} else {
-	
+
 		if ( $id ) {
 			$group_meta = groups_get_groupmeta( $id, 'meta' );
 			if ( isset( $group_meta['discourse_category_id'] ) ) {
@@ -223,8 +223,8 @@ function mozilla_discourse_api( $type, $data, $request = 'get' ) {
 			curl_setopt( $curl, CURLOPT_POSTFIELDS, $json_data );
 		}
 
-		$curl_result = curl_exec($curl);
-        $discourse = json_decode($curl_result);
+		$curl_result = curl_exec( $curl );
+		$discourse   = json_decode( $curl_result );
 	}
 
 	return $discourse;
@@ -267,8 +267,12 @@ function mozilla_create_mailchimp_list( $campaign ) {
 
 	if ( $create_audience && isset( $options['mailchimp'] ) ) {
 		$api_key = trim( $options['mailchimp'] );
-		$dc      = substr( $api_key, -3 );
-		if ( $dc ) {
+
+		if ( ! empty( $api_key ) ) {
+			$dc = end( explode( '-', $api_key ) );
+		}
+
+		if ( ! empty( $dc ) ) {
 			$mailchimp_check = get_post_meta( $campaign->ID, 'mailchimp-list-id', true );
 
 			if ( empty( $mailchimp_check ) ) {
@@ -317,7 +321,6 @@ function mozilla_create_mailchimp_list( $campaign ) {
 			}
 		}
 	}
-
 	return false;
 }
 
@@ -333,8 +336,11 @@ function mozilla_remove_email_from_list( $id, $email ) {
 
 	if ( isset( $options['mailchimp'] ) ) {
 		$api_key = trim( $options['mailchimp'] );
-		$dc      = substr( $api_key, -3 );
-		if ( $dc ) {
+
+		if ( ! empty( $api_key ) ) {
+			$dc = end( explode( '-', $api_key ) );
+		}
+		if ( ! empty( $dc ) ) {
 			$curl    = curl_init();
 			$api_url = "https://{$dc}.api.mailchimp.com/3.0/lists/{$id}/members/{$subscriber_hash}";
 
@@ -368,8 +374,12 @@ function mozilla_add_email_to_list( $id, $email, $name = false ) {
 
 	if ( isset( $options['mailchimp'] ) ) {
 		$api_key = trim( $options['mailchimp'] );
-		$dc      = substr( $api_key, -3 );
-		if ( $dc ) {
+
+		if ( ! empty( $api_key ) ) {
+			$dc = end( explode( '-', $api_key ) );
+		}
+
+		if ( ! empty( $dc ) ) {
 			$curl    = curl_init();
 			$api_url = "https://{$dc}.api.mailchimp.com/3.0/lists/{$id}/members";
 
@@ -387,6 +397,7 @@ function mozilla_add_email_to_list( $id, $email, $name = false ) {
 			}
 
 			$json = wp_json_encode( $data );
+
 			curl_setopt( $curl, CURLOPT_POSTFIELDS, $json );
 			$result = curl_exec( $curl );
 			curl_close( $curl );
