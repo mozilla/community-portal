@@ -20,7 +20,7 @@
  **/
 function mozilla_get_user_auth0( $id ) {
 	$meta = get_user_meta( $id );
-	return ( isset( $meta['wp_auth0_id'][0] ) ) ? $meta['wp_auth0_id'][0] : false;
+	return ( isset( $meta['wp_auth0_id'][0] ) ) ? $meta['wp_auth0_id'][0] : array();
 }
 
 /**
