@@ -21,7 +21,7 @@ if ( isset( $_REQUEST['event_id'] ) ) {
 	$external_url              = $event_meta[0]->external_url;
 	$event_initiative          = isset( $event_meta[0]->initiative ) && strlen( $event_meta[0]->initiative ) > 0 ? intval( $event_meta[0]->initiative ) : false;
 	$event_language            = isset( $event_meta[0]->language ) && strlen( $event_meta[0]->language ) > 0 ? $event_meta[0]->language : false;
-	$event_projected_attendees = isset( $event_meta[0]->projected_attendees ) ? trim( $event_meta[0]->projected_attendees ) : false;
+	$event_projected_attendees = isset( $event_meta[0]->projected_attendees ) ? trim( $event_meta[0]->projected_attendees ) : '';
 	$event_goal                = isset( $event_meta[0]->goal ) && strlen( $event_meta[0]->goal ) > 0 ? $event_meta[0]->goal : false;
 }
 ?>
@@ -147,12 +147,7 @@ if ( $EM_Event->is_recurring() ) {
 			<div class="event-creator__three-up">
 				<div class="wide">
 					<label class="event-creator__label" for="event-projected-attendees"><?php echo esc_html_e( 'Expected # of attendees', 'community-portal' ); ?></label>
-					<input class="event-creator__input" type="text" id="event-projected-attendees" name="projected-attendees" value="
-					<?php
-					if ( $event_projected_attendees ) {
-						echo esc_attr( $event_projected_attendees ); }
-					?>
-					">
+					<input class="event-creator__input" type="text" id="event-projected-attendees" name="projected-attendees" value="<?php echo esc_attr( $event_projected_attendees ); ?>">
 				</div>
 				<div class="wide--double">
 					<label class="event-form-details event-creator__label" for="initiative"><?php esc_html_e( 'Is this event part of an activity or campaign?', 'community-portal' ); ?></label>
