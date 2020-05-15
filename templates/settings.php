@@ -1,6 +1,6 @@
 <h1>Mozilla Theme Settings</h1>
 <form method="POST" action="/wp-admin/admin.php?page=theme-panel">
-    <?php print wp_nonce_field('protect_content', 'admin_nonce_field'); ?>
+    <?php print wp_nonce_field('admin_nonce', 'admin_nonce_field'); ?>
     <table class="form-table" role="presentation">
         <tbody>
             <tr>
@@ -97,6 +97,14 @@
                 </th>
                 <td>
                     <input type="text" id="google-analytics-id" name="google_analytics_id" class="regular-text" value="<?php print $options['google_analytics_id']; ?>" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    <label for="google-analytics-id">Google Analytics SRI Hash</label>
+                </th>
+                <td>
+                    <input type="text" id="google-analytics-sri" name="google_analytics_sri" class="regular-text" value="<?php print $options['google_analytics_sri']; ?>" />
                 </td>
             </tr>
             <tr>

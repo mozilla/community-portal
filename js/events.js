@@ -11,7 +11,7 @@ jQuery(function() {
 	}
 
     function getFilter(option) {
-        const filter = option.dataset.filter;
+		const filter = option.dataset.filter;
         return filter;
     }
 
@@ -21,25 +21,37 @@ jQuery(function() {
     }
 
     function getParams(url) {
-        const params = new URLSearchParams(url.search.slice(1));
+		const params = new URLSearchParams(url.search);
         return params;
     }
 
-    function setUrlParams(url, params, key, value) {
-        url.searchParams.set(key.toLowerCase(), value);
-        window.location.href = url;
-    }
+    function setUrlParams(url, key, value) {
+		url.searchParams.set(key.toLowerCase(), value);
+		return url;
+	}
+	
+	function relocate(url) {
+		window.location.href = url;
+	} 
 
     function applyFilters() {
-        const $filters = jQuery(".events__filter__option");
+		const $filters = jQuery(".events__filter__option");
+		const nonceValue = jQuery('#events-filter-nonce').val();
         if ($filters) {
             $filters.each((i, filter) => {
                 jQuery(filter).on("change", function(e) {
-                    const value = encodeURI(e.target.value);
-                    const filterTitle = getFilter(e.target);
-                    const url = getUrl();
-                    const params = getParams(url);
-                    setUrlParams(url, params, filterTitle.toLowerCase(), value);
+					let value = encodeURI(e.target.value);
+					const filterTitle = getFilter(e.target);
+					let url = getUrl();
+					const params = getParams(url);
+					if (!params.has('nonce')) {
+						setUrlParams(url, 'nonce', nonceValue);
+					}
+					if (params.has('pno')) {
+						setUrlParams(url, 'pno', '1');
+					}
+					url = setUrlParams(url, filterTitle.toLowerCase(), value);
+					relocate(url);
                 });
             });
         }
