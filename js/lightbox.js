@@ -72,7 +72,7 @@ jQuery(function() {
             e.preventDefault();
             
             copyToClipboard();
-            $copyTrigger.text("Link Copied");
+            $copyTrigger.addClass('share-link__copy--complete')
         });
     }
 
