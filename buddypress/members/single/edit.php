@@ -31,8 +31,8 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 			</p>
 			<?php if ( isset( $subscribed ) && intval( $subscribed ) !== 1 ) : ?>	
 				<p class="profile__error-message">
-					<?php 
-						esc_html_e('Notice: We had a problem registering you for our newsletter. Please try signing up again later. To try again ', 'community-portal');
+					<?php
+						esc_html_e( 'Notice: We had a problem registering you for our newsletter. Please try signing up again later. To try again ', 'community-portal' );
 					?>
 						<a class="newsletter__link" href="/newsletter">
 							<?php esc_html_e( 'Click here', 'community-portal' ); ?>
@@ -185,11 +185,11 @@ else :
 						?>
 						form__error-container--visible<?php endif; ?>">
 						<p class="form__error">
-							<?php if(isset($form['username_error_message'])): ?>
-								<span><?php print $form['username_error_message']; ?></span>
-							<?php else: ?>
-								<span class="form__error__required"><?php _e('This field is required', 'community-portal'); ?></span>
-								<span class="form__error__secondary"><?php _e('This username is already taken', 'community-portal'); ?></span>
+							<?php if ( isset( $form['username_error_message'] ) ) : ?>
+								<span><?php print esc_html( $form['username_error_message'] ); ?></span>
+							<?php else : ?>
+								<span class="form__error__required"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></span>
+								<span class="form__error__secondary"><?php esc_html_e( 'This username is already taken', 'community-portal' ); ?></span>
 							<?php endif; ?>
 						</p>
 					<span class="profile__input-desc"><?php esc_html_e( 'Usernames are public', 'community-portal' ); ?></span>
@@ -213,8 +213,8 @@ else :
 						profile__input--error<?php endif; ?>" placeholder="<?php esc_attr_e( 'First Name', 'community-portal' ); ?>" value="<?php echo isset( $form['first_name'] ) ? esc_attr( wp_unslash( $form['first_name'] ) ) : esc_attr( wp_unslash( $meta['first_name'][0] ) ); ?>" required />
 					<div class="form__error-container
 					<?php
-						if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] && ! isset( $form['first_name'] ) || ( isset( $form['first_name'] ) && empty( trim( $form['first_name'] ) ) ) ) :
-					?>
+					if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] && ! isset( $form['first_name'] ) || ( isset( $form['first_name'] ) && empty( trim( $form['first_name'] ) ) ) ) :
+						?>
 						form__error-container--visible<?php endif; ?>">
 						<div class="form__error"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></div>
 					</div>
@@ -408,12 +408,12 @@ else :
 						?>
 						form__error-container--visible<?php endif; ?>">
 						<p class="form__error">
-							<?php if(isset($form['email_error_message'])): ?>
-								<span><?php print $form['email_error_message']; ?></span>
-							<?php else: ?>
-								<span class="form__error__required"><?php _e('This field is required', 'community-portal'); ?></span>
-								<span class="form__error__secondary"><?php _e('An account with this email already exists', 'community-portal'); ?></span>
-								<span class="form__error__tertiary"><?php _e('Invalid email address', 'community-portal'); ?></span>
+							<?php if ( isset( $form['email_error_message'] ) ) : ?>
+								<span><?php print esc_html( $form['email_error_message'] ); ?></span>
+							<?php else : ?>
+								<span class="form__error__required"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></span>
+								<span class="form__error__secondary"><?php esc_html_e( 'An account with this email already exists', 'community-portal' ); ?></span>
+								<span class="form__error__tertiary"><?php esc_html_e( 'Invalid email address', 'community-portal' ); ?></span>
 							<?php endif; ?>
 						</p>
 					</div>
@@ -675,7 +675,7 @@ else :
 					?>
 					<input placeholder="username:domain" type="text" name="matrix" id="matrix" class="profile__input" value="<?php echo esc_attr( $matrix_input ); ?>"/>
 					<div class="form__error-container form__error-container--checkbox">
-						<p class="form__error"><?php esc_html_e('Please format as username:domain', 'community-portal'); ?></p>
+						<p class="form__error"><?php esc_html_e( 'Please format as username:domain', 'community-portal' ); ?></p>
 					</div>
 				</div>
 				<div class="profile__select-container">

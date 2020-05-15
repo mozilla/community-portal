@@ -812,8 +812,8 @@ $total_pages = ceil( count( $filtered_members ) / $members_per_page );
 				</div>
 			<div class="members__show-filters-container">
 				<a href="#" class="members__toggle-filter members__toggle-filter--show">
-					<span class="filters__show"><?php _e('Show Filters', 'community-portal'); ?></span>
-					<span class="filters__hide"><?php _e('Hide Filters', 'community-portal'); ?></span>
+					<span class="filters__show"><?php esc_html_e( 'Show Filters', 'community-portal' ); ?></span>
+					<span class="filters__hide"><?php esc_html_e( 'Hide Filters', 'community-portal' ); ?></span>
 				</a>
 			</div>
 			<div class="members__people-container">

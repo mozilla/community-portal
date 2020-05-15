@@ -1025,8 +1025,8 @@
 							</div>
 							<div class="groups__show-filters-container">
 								<a href="#" class="groups__toggle-filter groups__toggle-filter--show">
-									<span class="filters__show"><?php _e('Show Filters', 'community-portal'); ?></span>
-									<span class="filters__hide"><?php _e('Hide Filters', 'community-portal'); ?></span>
+									<span class="filters__show"><?php esc_html_e( 'Show Filters', 'community-portal' ); ?></span>
+									<span class="filters__hide"><?php esc_html_e( 'Hide Filters', 'community-portal' ); ?></span>
 								</a>
 							</div>
 						<div class="group__members">
@@ -1240,15 +1240,15 @@
 									group__card-cta-container--end<?php endif; ?>">
 								<?php if ( ! $is_admin ) : ?>
 									<?php if ( $is_member ) : ?>
-										<a href="#" class="group__leave-cta" data-group="<?php print $group->id; ?>">
-											<span class="join"><?php _e('Join Group', 'community-portal'); ?></span>
-											<span class="leave"><?php _e('Leave Group', 'community-portal'); ?></span>
+										<a href="#" class="group__leave-cta" data-group="<?php print esc_attr( $group->id ); ?>">
+											<span class="join"><?php esc_html_e( 'Join Group', 'community-portal' ); ?></span>
+											<span class="leave"><?php esc_html_e( 'Leave Group', 'community-portal' ); ?></span>
 										</a>
 									<?php else : ?>
 										<?php if ( 'members' === $invite_status || '' === $invite_status ) : ?>
-											<a href="#" class="group__join-cta" data-group="<?php print $group->id; ?>">
-												<span class="join"><?php _e('Join Group', 'community-portal'); ?></span>
-												<span class="leave"><?php _e('Leave Group', 'community-portal'); ?></span>
+											<a href="#" class="group__join-cta" data-group="<?php print esc_attr( $group->id ); ?>">
+												<span class="join"><?php esc_html_e( 'Join Group', 'community-portal' ); ?></span>
+												<span class="leave"><?php esc_html_e( 'Leave Group', 'community-portal' ); ?></span>
 											</a>
 										<?php endif; ?>
 									<?php endif; ?>
@@ -1623,7 +1623,6 @@
 
 
 										?>
-											
 									<a href="/groups/?tag=<?php echo esc_attr( $tag_loop ); ?>" class="group__tag"><?php echo esc_html( $system_tag[0]->name ); ?></a>
 									<?php endforeach; ?>
 								</div>

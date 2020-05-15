@@ -359,9 +359,9 @@
 				</div>
 			</div>
 			<div class="groups__show-filters-container">
-				<a href="#" class="groups__toggle-filter <?php  echo (isset($_GET['location']) || isset($_GET['mygroups']) ? "groups__toggle-filter--hide" : "groups__toggle-filter--show") ?>">
-					<span class="filters__show"><?php _e('Show Filters', 'community-portal'); ?></span>
-					<span class="filters__hide"><?php _e('Hide Filters', 'community-portal'); ?></span>
+				<a href="#" class="groups__toggle-filter <?php echo ( isset( $_GET['location'] ) || isset( $_GET['mygroups'] ) ? 'groups__toggle-filter--hide' : 'groups__toggle-filter--show' ); ?>">
+					<span class="filters__show"><?php esc_html_e( 'Show Filters', 'community-portal' ); ?></span>
+					<span class="filters__hide"><?php esc_html_e( 'Hide Filters', 'community-portal' ); ?></span>
 				</a>
 			</div>
 			<div class="groups__groups">
@@ -439,13 +439,18 @@
 									<?php if ( isset( $meta['group_tags'] ) && is_array( $meta['group_tags'] ) ) : ?>
 									<ul class="groups__card-tags__container">
 										<?php foreach ( array_unique( $meta['group_tags'] ) as $key => $value ) : ?>
-										<?php
+											<?php
 
-											$system_tag = array_values( array_filter($tags, function($e) use (&$value) {
-												return $e->slug === $value;
-											}));
-										
-										?>
+											$system_tag = array_values(
+												array_filter(
+													$tags,
+													function( $e ) use ( &$value ) {
+														return $e->slug === $value;
+													}
+												)
+											);
+
+											?>
 										<li class="groups__tag"><?php echo esc_html( $system_tag[0]->name ); ?></li>
 											<?php $tag_counter++; ?>
 											<?php if ( 2 === $tag_counter && count( $meta['group_tags'] ) > 2 ) : ?>
