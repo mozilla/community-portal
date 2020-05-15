@@ -670,7 +670,7 @@ function mozilla_save_post( $post_id, $post, $update ) {
 			}
 
 			if ( isset( $_POST['projected-attendees'] ) ) {
-				$event->projected_attendees = intval( sanitize_text_field( wp_unslash( $_POST['projected-attendees'] ) ) );
+				$event->projected_attendees = sanitize_text_field( wp_unslash( $_POST['projected-attendees'] ) );
 			} else {
 				$event->projected_attendees = $event_update_meta[0]->projected_attendees;
 			}
