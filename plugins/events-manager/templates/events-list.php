@@ -57,12 +57,16 @@ switch ( strtolower( trim( $view ) ) ) {
 		break;
 }
 
-if ( 'all' !== $country ) {
+if ( 'all' !== strtolower( $country ) ) {
 	$args['country'] = $country;
 }
 
 if ( 'all' !== $event_tag ) {
 	$args['category'] = $event_tag;
+}
+
+if ( isset( $args['tag'] ) ) {
+	unset( $args['tag'] );
 }
 
 	$args['limit']    = '0';
