@@ -726,8 +726,8 @@ function mozilla_post_status_transition( $new_status, $old_status, $post ) {
 		}
 
 		if ( 'event' === $post->post_type && 'publish' !== $old_status ) {
-
-			if ( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['event_create_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['event_create_field'] ) ), 'event_create' ) ) {
+			$event = new stdClass();
+			if ( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['event_update_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['event_update_field'] ) ), 'event_update' ) ) {
 
 				if ( isset( $_POST['image_url'] ) ) {
 					$event->image_url = esc_url_raw( wp_unslash( $_POST['image_url'] ) );
@@ -781,7 +781,12 @@ function mozilla_post_status_transition( $new_status, $old_status, $post ) {
 			$discourse_api_data['name']        = $post->post_name;
 			$discourse_api_data['description'] = $post->post_content;
 			$auth0_ids                         = array();
-			$auth0_ids[]                       = mozilla_get_user_auth0( $user->ID );
+			$user                              = wp_get_current_user();
+			$current_user_auth_id 			   = mozilla_get_user_auth0( $user->ID );
+
+			if( false !== $current_user_auth_id )
+				$auth0_ids[] = $current_user_auth_id;
+			
 			$discourse_api_data['users']       = $auth0_ids;
 			$discourse_group                   = mozilla_discourse_api( 'groups', $discourse_api_data, 'post' );
 
