@@ -150,8 +150,11 @@ jQuery(function(){
         e.preventDefault();
         var $this = jQuery(this);
         var group = $this.data('group');
+        var nonce = jQuery('#join_group_nonce_field').val();
+
         var post = { 
-            'group': group
+            'group': group,
+            'join_group_nonce_field': nonce
         };
 
         var url =  '/wp-admin/admin-ajax.php?action=join_group';
@@ -188,8 +191,11 @@ jQuery(function(){
         e.preventDefault();
         var $this = jQuery(this);
         var group = $this.data('group');
+        var nonce = jQuery('#leave_group_nonce_field').val();
+        
         var post = { 
-            'group': group
+            'group': group,
+            'leave_group_nonce_field': nonce
         };
 
         var url = '/wp-admin/admin-ajax.php?action=leave_group';

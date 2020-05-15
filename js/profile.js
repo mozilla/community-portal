@@ -268,6 +268,7 @@ jQuery(function(){
         var value = parseInt($this.val());
 
         jQuery('#profile-languages-visibility').val(value);
+        jQuery('input[name="profile_languages_visibility"]').val(value);
         jQuery('#profile-tags-visibility').val(value);
     });
 
