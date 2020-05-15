@@ -210,10 +210,11 @@ else :
 			?>
 			>
 			<label class="cpg__label event-creator__cpg" for="cpg">
-				<div class="form__error-container">
-					<p class="form__error"><?php esc_html_e( 'Please agree to the community guidelines', 'community-portal' ); ?></p>
-				</div>
+				<?php esc_html_e('I agree to respect and adhere to Mozilla’s Community Participation Guidelines *', 'community-portal') ?>
 			</label>
+			<div class="form__error-container">
+				<p class="form__error"><?php esc_html_e( 'Please agree to the community guidelines', 'community-portal' ); ?></p>
+			</div>
 		</div>
 	</div>
 	<?php endif; ?>
