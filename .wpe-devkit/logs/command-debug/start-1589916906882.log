@@ -1,7 +1,0 @@
-Command Execution Log for: start
-Command Execution Log for: start
-Tue May 19 19:35:06 UTC 2020: Status Message: Updating files if needed
-Tue May 19 19:35:06 UTC 2020: Status Message: Checking for Docker
-Tue May 19 19:35:06 UTC 2020: docker version --format {{.Server.Version}}: 
-Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
-
