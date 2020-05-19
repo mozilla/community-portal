@@ -62,16 +62,16 @@ jQuery(function() {
         }
     }
 
-    function toggleVisibility(selector, value, hidden) {
-        jQuery(selector).val(value);
+    function toggleVisibility($selector, value, hidden) {
+        $selector.val(value);
         if (hidden) {
-            selector
+            $selector
                 .parent()
                 .parent()
                 .removeClass("event-creator__hidden");
             return;
         }
-        selector
+        $selector
             .parent()
             .parent()
             .addClass("event-creator__hidden");
@@ -99,10 +99,8 @@ jQuery(function() {
     function handleCityForOnline($country, $city) {
         if ($country.val() === 'OE') {
             $city.val('Online Event');
-            $city.prev().text("URL *");
         } else if ($city.val() === 'Online Event') {
             $city.val('');
-            $city.prev().text("City *");
         }
 
     }
@@ -263,9 +261,15 @@ jQuery(function() {
     }
 
     function toggleLocationContainer(container, location, country, typeValue) {
+		const $locationAddress = jQuery("#location-address");
         container.toggleClass("event-creator__location-edit");
         toggleInputAbility(location, typeValue);
-        toggleInputAbility(country);
+		toggleInputAbility(country);
+		if (country.val() === "online") {
+			toggleVisibility($locationAddress, "Online", false);
+			return;
+		}
+		toggleVisibility($locationAddress, "", true);
     }
 
     function clearPrePopErrors(container, selector) {
