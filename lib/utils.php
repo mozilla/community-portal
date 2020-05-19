@@ -94,6 +94,7 @@ function mozilla_upload_image() {
 					$max_files_size_allowed = isset( $options['image_max_filesize'] ) && intval( $options['image_max_filesize'] ) > 0 ? intval( $options['image_max_filesize'] ) : 500;
 
 					if ( $file_size_kb <= $max_files_size_allowed ) {
+
 						if ( isset( $image[2] ) && in_array( $image[2], array( IMAGETYPE_JPEG, IMAGETYPE_PNG ), true ) ) {
 							if ( ! empty( $_FILES['file']['name'] ) ) {
 								$file_name = sanitize_text_field( wp_unslash( $_FILES['file']['name'] ) );
@@ -615,11 +616,10 @@ function mozilla_group_addional_column_info( $retval = '', $column_name, $item )
  */
 function mozilla_save_post( $post_id, $post, $update ) {
 
-	// @TODO: Add nonce check.
 	if ( 'event' === $post->post_type && $update ) {
 
 		$user              = wp_get_current_user();
-		$event_update_meta = get_post_meta( $post->ID, 'event-meta' );
+		$event_update_meta = get_post_meta( $post_id, 'event-meta' );
 		$event             = new stdClass();
 
 		if ( isset( $event_update_meta[0]->discourse_group_id ) ) {
@@ -638,40 +638,58 @@ function mozilla_save_post( $post_id, $post, $update ) {
 			$event->discourse_group_users = $event_update_meta[0]->discourse_group_users;
 		}
 
-		if ( ! empty( $_POST['image_url'] ) ) {
-			$event_image_url = esc_url_raw( wp_unslash( $_POST['image_url'] ) );
-		} else {
-			$event_image_url = '';
-		}
+		if ( isset( $_POST['event_update_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['event_update_field'] ) ), 'event_update' ) ) {
 
-		if ( ! empty( $_POST['location-type'] ) ) {
-			$event_location_type = sanitize_text_field( wp_unslash( $_POST['location-type'] ) );
-		} else {
-			$event_location_type = '';
-		}
-
-		if ( ! empty( $_POST['event_external_link'] ) ) {
-			$event_external_link = esc_url_raw( wp_unslash( $_POST['event_external_link'] ) );
-		} else {
-			$event_external_link = '';
-		}
-
-		$event->image_url           = $event_image_url;
-		$event->location_type       = $event_location_type;
-		$event->external_url        = $event_external_link;
-		$event->language            = isset( $_POST['language'] ) ? sanitize_text_field( wp_unslash( $_POST['language'] ) ) : '';
-		$event->goal                = isset( $_POST['goal'] ) ? sanitize_text_field( wp_unslash( $_POST['goal'] ) ) : '';
-		$event->projected_attendees = isset( $_POST['projected-attendees'] ) ? intval( sanitize_text_field( wp_unslash( $_POST['projected-attendees'] ) ) ) : '';
-
-		if ( isset( $_POST['initiative_id'] ) ) {
-			$initiative_id = intval( sanitize_text_field( wp_unslash( $_POST['initiative_id'] ) ) );
-
-			if ( $initiative_id > 0 ) {
-				$initiative = get_post( $initiative_id );
-				if ( $initiative && ( 'campaign' === $initiative->post_type || 'activity' === $initiative->post_type ) ) {
-					$event->initiative = $initiative_id;
-				}
+			if ( isset( $_POST['image_url'] ) ) {
+				$event->image_url = esc_url_raw( wp_unslash( $_POST['image_url'] ) );
+			} else {
+				$event->image_url = $event_update_meta[0]->image_url;
 			}
+
+			if ( isset( $_POST['location-type'] ) ) {
+				$event->location_type = sanitize_text_field( wp_unslash( $_POST['location-type'] ) );
+			} else {
+				$event->location_type = $event_update_meta[0]->location_type;
+			}
+
+			if ( isset( $_POST['event_external_link'] ) ) {
+				$event->external_url = esc_url_raw( wp_unslash( $_POST['event_external_link'] ) );
+			} else {
+				$event->external_url = $event_update_meta[0]->external_url;
+			}
+
+			if ( isset( $_POST['language'] ) ) {
+				$event->language = sanitize_text_field( wp_unslash( $_POST['language'] ) );
+			} else {
+				$event->language = $event_update_meta[0]->language;
+			}
+
+			if ( isset( $_POST['goal'] ) ) {
+				$event->goal = sanitize_textarea_field( wp_unslash( $_POST['goal'] ) );
+			} else {
+				$event->goal = $event_update_meta[0]->goal;
+			}
+
+			if ( isset( $_POST['projected-attendees'] ) ) {
+				$event->projected_attendees = sanitize_text_field( wp_unslash( $_POST['projected-attendees'] ) );
+			} else {
+				$event->projected_attendees = $event_update_meta[0]->projected_attendees;
+			}
+
+			if ( isset( $_POST['initiative_id'] ) ) {
+				$initiative_id = intval( sanitize_text_field( wp_unslash( $_POST['initiative_id'] ) ) );
+
+				if ( $initiative_id ) {
+					$initiative = get_post( $initiative_id );
+					if ( $initiative && ( 'campaign' === $initiative->post_type || 'activity' === $initiative->post_type ) ) {
+						$event->initiative = $initiative_id;
+					}
+				}
+			} else {
+				$event->initiative = $event_update_meta[0]->initiative;
+			}
+		} else {
+			$event = $event_update_meta[0];
 		}
 
 		$discourse_api_data = array();
@@ -689,7 +707,6 @@ function mozilla_save_post( $post_id, $post, $update ) {
 		if ( $discourse_group ) {
 			$event->discourse_log = $discourse_group;
 		}
-
 		update_post_meta( $post->ID, 'event-meta', $event );
 
 	}
@@ -750,30 +767,68 @@ function mozilla_post_status_transition( $new_status, $old_status, $post ) {
 	if ( 'publish' === $new_status ) {
 
 		if ( 'event' === $post->post_type && 'publish' !== $old_status ) {
+			$event = new stdClass();
+			if ( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['event_update_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['event_update_field'] ) ), 'event_update' ) ) {
 
-			$user                       = wp_get_current_user();
-			$event                      = new stdClass();
-			$event->image_url           = esc_url_raw( $_POST['image_url'] );
-			$event->location_type       = sanitize_text_field( $_POST['location-type'] );
-			$event->external_url        = esc_url_raw( $_POST['event_external_link'] );
-			$event->language            = $_POST['language'] ? sanitize_text_field( $_POST['language'] ) : '';
-			$event->goal                = $_POST['goal'] ? sanitize_text_field( $_POST['goal'] ) : '';
-			$event->projected_attendees = $_POST['projected-attendees'] ? intval( $_POST['projected-attendees'] ) : '';
+				if ( isset( $_POST['image_url'] ) ) {
+					$event->image_url = esc_url_raw( wp_unslash( $_POST['image_url'] ) );
+				} else {
+					$event->image_url = '';
+				}
 
-			if ( isset( $_POST['initiative_id'] ) && strlen( $_POST['initiative_id'] ) > 0 ) {
-				$initiative_id = intval( $_POST['initiative_id'] );
-				$initiative    = get_post( $initiative_id );
-				if ( $initiative && ( $initiative->post_type === 'campaign' || $initiative->post_type === 'activity' ) ) {
-					$event->initiative = $initiative_id;
+				if ( isset( $_POST['location-type'] ) ) {
+					$event->location_type = sanitize_text_field( wp_unslash( $_POST['location-type'] ) );
+				} else {
+					$event->location_type = '';
+				}
+
+				if ( isset( $_POST['event_external_link'] ) ) {
+					$event->external_url = esc_url_raw( wp_unslash( $_POST['event_external_link'] ) );
+				} else {
+					$event->external_url = '';
+				}
+
+				if ( isset( $_POST['language'] ) ) {
+					$event->language = sanitize_text_field( wp_unslash( $_POST['language'] ) );
+				} else {
+					$event->language = '';
+				}
+
+				if ( isset( $_POST['goal'] ) ) {
+					$event->goal = sanitize_textarea_field( wp_unslash( $_POST['goal'] ) );
+				} else {
+					$event->goal = '';
+				}
+
+				if ( isset( $_POST['projected-attendees'] ) ) {
+					$event->projected_attendees = intval( sanitize_text_field( wp_unslash( $_POST['projected-attendees'] ) ) );
+				} else {
+					$event->projected_attendees = '';
+				}
+
+				if ( isset( $_POST['initiative_id'] ) ) {
+					$initiative_id = intval( sanitize_text_field( wp_unslash( $_POST['initiative_id'] ) ) );
+
+					if ( $initiative_id ) {
+						$initiative = get_post( $initiative_id );
+						if ( $initiative && ( 'campaign' === $initiative->post_type || 'activity' === $initiative->post_type ) ) {
+							$event->initiative = $initiative_id;
+						}
+					}
 				}
 			}
 
 			$discourse_api_data                = array();
 			$discourse_api_data['name']        = $post->post_name;
 			$discourse_api_data['description'] = $post->post_content;
-			$auth0Ids                          = array();
-			$auth0Ids[]                        = mozilla_get_user_auth0( $user->ID );
-			$discourse_api_data['users']       = $auth0Ids;
+			$auth0_ids                         = array();
+			$user                              = wp_get_current_user();
+			$current_user_auth_id 			   = mozilla_get_user_auth0( $user->ID );
+
+			if( false !== $current_user_auth_id )
+				$auth0_ids[] = $current_user_auth_id;
+			
+			$discourse_api_data['users']       = $auth0_ids;
 			$discourse_group                   = mozilla_discourse_api( 'groups', $discourse_api_data, 'post' );
 
 			if ( $discourse_group ) {
@@ -790,10 +845,13 @@ function mozilla_post_status_transition( $new_status, $old_status, $post ) {
 	}
 }
 
+/**
+ * Exports users for events
+ */
 function mozilla_export_users() {
 
 	// Only admins.
-	if ( ! is_admin() && in_array( 'administrator', wp_get_current_user()->roles ) === false ) {
+	if ( ! is_admin() && in_array( 'administrator', wp_get_current_user()->roles, true ) === false ) {
 		return;
 	}
 
@@ -814,7 +872,7 @@ function mozilla_export_users() {
 
 		$first_name     = isset( $meta['first_name'][0] ) ? $meta['first_name'][0] : '';
 		$last_name      = isset( $meta['last_name'][0] ) ? $meta['last_name'][0] : '';
-		$user_languages = isset( $community_fields['languages'] ) && sizeof( $community_fields['languages'] ) > 0 ? $community_fields['languages'] : array();
+		$user_languages = isset( $community_fields['languages'] ) && count( $community_fields['languages'] ) > 0 ? $community_fields['languages'] : array();
 
 		$language_string = '';
 		foreach ( $user_languages as $language_code ) {
@@ -827,7 +885,7 @@ function mozilla_export_users() {
 		$language_string = rtrim( $language_string, ',' );
 
 		$country = isset( $community_fields['country'] ) && strlen( $community_fields['country'] ) > 0 ? $countries[ $community_fields['country'] ] : '';
-		$date    = date( 'd/m/Y', strtotime( $user->data->user_registered ) );
+		$date    = gmdate( 'd/m/Y', strtotime( $user->data->user_registered ) );
 
 		// Print out CSV row.
 		print "{$first_name},{$last_name},{$user->data->user_email},{$date},\"{$language_string}\",{$country}\n";
