@@ -8,7 +8,10 @@
  * @author  Playground Inc.
  */
 
-	$em_event = $GLOBALS['EM_Event'];
+	
+
+	global $EM_Event;
+
 if ( ! function_exists( 'bp_is_active' ) || ! bp_is_active( 'groups' ) ) {
 	return false;
 }
@@ -30,7 +33,7 @@ foreach ( $user_groups['groups'] as $group_id ) {
 			<?php foreach ( $active_groups as $bp_group ) : ?>
 			<option value="<?php echo esc_attr( $bp_group->id ); ?>" 
 				<?php
-				if ( $bp_group->id === $em_event->group_id ) {
+				if ( intval( $bp_group->id ) === intval( $EM_Event->group_id ) ) {
 					echo esc_attr( 'selected' ); }
 				?>
 			><?php echo esc_html( $bp_group->name ); ?>
