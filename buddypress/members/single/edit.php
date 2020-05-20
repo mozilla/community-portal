@@ -313,18 +313,16 @@ else :
 			<div class="profile__form-field">
 				<div class="profile__input-container">
 					<label class="profile__label" for="bio"><?php esc_html_e( 'Bio (optional)', 'community-portal' ); ?></label>
-					<textarea name="bio" id="bio" class="profile__textarea" maxlength="3000">
 					<?php
-					if ( $form && isset( $form['bio'] ) ) :
-						?>
-						<?php $form['bio']; ?>
-						<?php
-else :
-	?>
-						<?php
-						if ( is_array( $community_fields ) && isset( $community_fields['bio'] ) ) :
-							?>
-							<?php echo esc_textarea( $community_fields['bio'] ); ?><?php endif; ?><?php endif; ?></textarea>
+					if ( $form && isset( $form['bio'] ) ) {
+						$bio = $form['bio'];
+					} else {
+						if ( is_array( $community_fields ) && isset( $community_fields['bio'] ) ) {
+							$bio = $community_fields['bio'];
+						}
+					}
+					?>
+					<textarea name="bio" id="bio" class="profile__textarea" maxlength="3000"><?php echo esc_textarea( $bio ); ?></textarea>
 				</div>
 				<div class="profile__select-container">
 					<label class="profile__label" for=""><?php esc_html_e( 'Can be viewed by', 'community-portal' ); ?></label>
