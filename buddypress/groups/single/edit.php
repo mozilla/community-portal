@@ -57,6 +57,7 @@ if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHO
 }
 
 $form_tags = isset( $form['tags'] ) ? array_unique( array_filter( $form['tags'], 'strlen' ) ) : array();
+
 ?>
 <div class="content">
 	<div class="create-group">
@@ -296,7 +297,7 @@ $form_tags = isset( $form['tags'] ) ? array_unique( array_filter( $form['tags'],
 				</div>
 			</section>
 			<section class="create-group__cta-container">
-				<input type="submit" class="create-group__cta" value="<?php esc_attr_e( 'Continue', 'community-portal' ); ?>" />
+				<input type="submit" class="create-group__cta" value="<?php $edit_group ? esc_attr_e( 'Save', 'community-portal' ) : esc_attr_e( 'Continue', 'community-portal' ); ?>" />
 			</section>
 		</form>
 	</div>

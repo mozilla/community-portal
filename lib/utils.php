@@ -31,8 +31,9 @@ function mozilla_campaign_metabox() {
  * @param object $post post object.
  */
 function mozilla_show_campaign_metabox( $post ) {
+	$nonce = wp_create_nonce( 'campaign-events' );
 	echo wp_kses(
-		"<div><a href=\"/wp-admin/admin-ajax.php?action=download_campaign_events&campaign={$post->ID}\">Export events related to this campaign</a></div>",
+		"<div><a href=\"/wp-admin/admin-ajax.php?action=download_campaign_events&campaign={$post->ID}&nonce={$nonce}\">Export events related to this campaign</a></div>",
 		array(
 			'a'   => array( 'href' => array() ),
 			'div' => array(),
@@ -712,6 +713,36 @@ function mozilla_save_post( $post_id, $post, $update ) {
 }
 
 /**
+ * Check ACF Field for Mailchimp when saving campaigns
+ *
+ * @param integer $post_id post ID.
+ */
+function mozilla_acf_save_post( $post_id ) {
+
+	// Check to see if we are autosaving.
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		return;
+	}
+
+	$post_type = get_post_type( $post_id );
+
+	// First check that we are dealing with campaigns.
+	if ( 'campaign' === $post_type ) {
+
+		$prev_published        = get_post_meta( $post_id, 'prev_published', true );
+		$mailchimp_integration = get_field( 'mailchimp_integration', $post_id );
+
+		if ( empty( $prev_published ) && $mailchimp_integration ) {
+			$post = get_post( $post_id );
+			update_post_meta( $post_id, 'prev_published', true );
+
+			mozilla_create_mailchimp_list( $post );
+		}
+	}
+
+}
+
+/**
  * When changing status for a post
  *
  * @param string $new_status the new status.
@@ -720,10 +751,20 @@ function mozilla_save_post( $post_id, $post, $update ) {
  */
 function mozilla_post_status_transition( $new_status, $old_status, $post ) {
 
-	if ( 'publish' === $new_status ) {
-		if ( 'campaign' === $post->post_type ) {
-			mozilla_create_mailchimp_list( $post );
+	// Support for campaigns already published.
+	// Set the required meta here if the old status is publish.
+	// If the post is new set a default value of false for prev_publish.
+	if ( 'campaign' === $post->post_type ) {
+		if ( 'new' === $old_status ) {
+			update_post_meta( $post->ID, 'prev_published', false );
 		}
+
+		if ( 'publish' === $old_status && ! metadata_exists( 'post', $post->ID, 'prev_published' ) ) {
+			update_post_meta( $post->ID, 'prev_published', true );
+		}
+	}
+
+	if ( 'publish' === $new_status ) {
 
 		if ( 'event' === $post->post_type && 'publish' !== $old_status ) {
 			$event = new stdClass();
