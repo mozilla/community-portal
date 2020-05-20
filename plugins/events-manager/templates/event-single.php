@@ -326,7 +326,7 @@
 				<div class="events-single__description">
 					<h2 class="title--secondary"><?php esc_html_e( 'Goals', 'community-portal' ); ?></h2>
 					<p>
-						<?php echo esc_html( $goal ); ?>
+						<?php echo wp_kses( wpautop( $goal ), wp_kses_allowed_html( 'post' ) ); ?>
 					</p>
 				</div>
 			<?php endif; ?>
