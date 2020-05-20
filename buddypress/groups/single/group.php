@@ -733,7 +733,6 @@
 
 		// Just search!
 		if ( $search_user && false === $country_code && false === $get_tag && false === $language_code ) {
-			print 'WE SHOULD BE HERE';
 			// Username!
 			if ( stripos( $member->data->user_nicename, $search_user ) !== false ) {
 				$filtered_members[] = $member;
