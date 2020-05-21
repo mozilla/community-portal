@@ -118,8 +118,8 @@
 
 	$members      = $wp_user_query->get_results();
 	$real_members = array();
-	foreach ( $group_members as $gp ) {
-		$user_lookup = $gp[0];
+	foreach ( $group_members['members'] as $gp ) {
+		$user_lookup = $gp;
 		foreach ( $members as $mb ) {
 			if ( $user_lookup->ID === $mb->ID ) {
 				$real_members[] = $mb;
@@ -796,7 +796,9 @@
 					if ( isset( $group_meta['group_city'] ) && strlen( $group_meta['group_city'] ) > 0 ) {
 						if ( isset( $group_meta['group_country'] ) && strlen( $group_meta['group_country'] ) > 1 ) {
 							$location_code = $group_meta['group_country'];
-							echo '<a href="/groups/?location=' . esc_attr( $location_code ) . '" class="group__status">';
+							?>
+							<a href="<?php echo 'groups/?location=' . esc_attr( $location_code ); ?> class="group__status">
+							<?php
 						}
 
 						if ( strlen( $group_meta['group_city'] ) > 180 ) {
@@ -814,7 +816,9 @@
 						if ( isset( $group_meta['group_country'] ) && strlen( $group_meta['group_country'] ) > 1 ) {
 							$country       = $countries[ $group_meta['group_country'] ];
 							$location_code = $group_meta['group_country'];
-							echo '<a href=\"/groups/?location=' . esc_attr( $location_code ) . '" class="group__status">' . esc_html( $country ) . '</a> | ';
+							?>
+							<a href=<?php echo '/groups/?location=' . esc_attr( $location_code ); ?> class="group__status"><?php echo esc_html( $country ); ?></a> |
+							<?php
 						}
 					}
 					?>
@@ -930,7 +934,7 @@
 																						?>
 																						<?php echo esc_html( " ({$members['count']})" ); ?><?php endif; ?></h2>
 						<?php if ( $group_members['count'] > 0 ) : ?>
-						<div class="members__search-container">
+						<div class="group members__search-container">
 								<form method="GET" action="<?php echo ! empty( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : ''; ?>" class="members__form" id="members-search-form">
 									<div class="members__input-container">
 									<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1613,7 +1617,6 @@
 
 
 										?>
-											
 									<a href="/groups/?tag=<?php echo esc_attr( $tag_loop ); ?>" class="group__tag"><?php echo esc_html( $system_tag[0]->name ); ?></a>
 									<?php endforeach; ?>
 								</div>
