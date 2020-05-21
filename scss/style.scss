@@ -5,6 +5,7 @@
 **/
 
 @import "normalize/normalize";
+@import "vendor/mapbox";
 
 /* open-sans-regular - latin */
 @font-face {
@@ -129,8 +130,6 @@
 @import "dropzone";
 @import "newsletter";
 @import "campaign-rsvp";
-
-@import "vendor/mapbox";
 
 * {
     box-sizing: border-box;
