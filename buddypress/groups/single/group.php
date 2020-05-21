@@ -797,7 +797,7 @@
 						if ( isset( $group_meta['group_country'] ) && strlen( $group_meta['group_country'] ) > 1 ) {
 							$location_code = $group_meta['group_country'];
 							?>
-							<a href="<?php echo 'groups/?location=' . esc_attr( $location_code ); ?> class="group__status">
+							<a href="<?php echo '/groups/?location=' . esc_attr( $location_code ); ?>" class="group__status">
 							<?php
 						}
 
@@ -817,7 +817,7 @@
 							$country       = $countries[ $group_meta['group_country'] ];
 							$location_code = $group_meta['group_country'];
 							?>
-							<a href=<?php echo '/groups/?location=' . esc_attr( $location_code ); ?> class="group__status"><?php echo esc_html( $country ); ?></a> |
+							<a href="<?php echo '/groups/?location=' . esc_attr( $location_code ); ?>" class="group__status"><?php echo esc_html( $country ); ?></a> |
 							<?php
 						}
 					}
