@@ -1617,7 +1617,9 @@
 
 
 										?>
+										<?php if ( ! empty( $system_tag[0]->name ) ) : ?>
 									<a href="/groups/?tag=<?php echo esc_attr( $tag_loop ); ?>" class="group__tag"><?php echo esc_html( $system_tag[0]->name ); ?></a>
+									<?php endif; ?>
 									<?php endforeach; ?>
 								</div>
 							</div>
