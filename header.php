@@ -56,6 +56,7 @@ if (
 	<head>
 		<meta charset="<?php bloginfo( 'charset' ); ?>">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Security-Policy" content="style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;">
 		<link rel="icon" href="<?php echo esc_attr( "{$theme_url}/images/favicon.ico" ); ?>" />
 		<?php if ( $section ) : ?>
 			<?php
