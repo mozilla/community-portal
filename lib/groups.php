@@ -130,6 +130,12 @@ function mozilla_create_group() {
 											$group_type  = trim( sanitize_text_field( wp_unslash( $_POST['group_type'] ) ) );
 											$host_domain = esc_url_raw( wp_unslash( $_SERVER['SERVER_NAME'] ) );
 
+											$url_scheme = wp_parse_url( $host_domain );
+
+											if ( 'http' === $url_scheme['scheme'] && ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== sanitize_text_field( wp_unslash( $_SERVER['HTTPS'] ) ) ) || ! empty( $_SERVER['SERVER_PORT'] ) && 443 === sanitize_key( wp_unslash( $_SERVER['SERVER_PORT'] ) ) ) {
+												$host_domain = str_replace( 'http', 'https', $host_domain );
+											}
+
 											if ( false !== stripos( $group_image, $host_domain ) ) {
 												// Required information but needs to be stored in meta data because buddypress does not support these fields.
 												$meta['group_image_url'] = $group_image;
@@ -297,7 +303,22 @@ function mozilla_edit_group() {
 							}
 
 							// Update group meta data!
-							$meta['group_image_url']       = isset( $_POST['image_url'] ) ? sanitize_text_field( wp_unslash( $_POST['image_url'] ) ) : '';
+							if ( ! empty( $_SERVER['SERVER_NAME'] ) ) {
+								$host_domain = esc_url_raw( wp_unslash( $_SERVER['SERVER_NAME'] ) );
+
+								$url_scheme = wp_parse_url( $host_domain );
+
+								if ( 'http' === $url_scheme['scheme'] && ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== sanitize_text_field( wp_unslash( $_SERVER['HTTPS'] ) ) ) || ! empty( $_SERVER['SERVER_PORT'] ) && 443 === sanitize_key( wp_unslash( $_SERVER['SERVER_PORT'] ) ) ) {
+									$host_domain = str_replace( 'http', 'https', $host_domain );
+								}
+
+								if ( ! empty( $_POST['image_url'] ) ) {
+									if ( false !== stripos( esc_url_raw( wp_unslash( $_POST['image_url'] ) ), $host_domain ) ) {
+										$meta['group_image_url'] = isset( $_POST['image_url'] ) ? esc_url_raw( wp_unslash( $_POST['image_url'] ) ) : '';
+									}
+								}
+							}
+
 							$meta['group_address_type']    = isset( $_POST['group_address_type'] ) ? sanitize_text_field( wp_unslash( $_POST['group_address_type'] ) ) : 'Address';
 							$meta['group_address']         = isset( $_POST['group_address'] ) ? sanitize_text_field( wp_unslash( $_POST['group_address'] ) ) : '';
 							$meta['group_meeting_details'] = isset( $_POST['group_meeting_details'] ) ? sanitize_text_field( wp_unslash( $_POST['group_meeting_details'] ) ) : '';
@@ -783,6 +804,5 @@ function mozilla_download_group_events() {
 
 	die();
 }
-
 
 
