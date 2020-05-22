@@ -198,11 +198,8 @@ function mozilla_init_scripts() {
 	// Vendor scripts.
 	wp_enqueue_script( 'dropzonejs', get_stylesheet_directory_uri() . '/js/vendor/dropzone.min.js', array( 'jquery' ), filemtime( get_template_directory() . '/js/vendor/dropzone.min.js' ), false );
 	wp_enqueue_script( 'autcomplete', get_stylesheet_directory_uri() . '/js/vendor/autocomplete.js', array( 'jquery' ), filemtime( get_template_directory() . '/js/vendor/autocomplete.js' ), false );
-	wp_enqueue_script( 'identicon', get_stylesheet_directory_uri() . '/js/vendor/identicon.js', array(), filemtime( get_template_directory() . '/js/vendor/identicon.js' ), false );
-	wp_register_script( 'mapbox', 'https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js', array(), '1.4.1', false );
-	wp_enqueue_script( 'mapbox' );
-	wp_register_style( 'mapbox-css', 'https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css', array(), '1.4.1', false );
-	wp_enqueue_style( 'mapbox-css' );
+  wp_enqueue_script( 'identicon', get_stylesheet_directory_uri() . '/js/vendor/identicon.js', array(), filemtime( get_template_directory() . '/js/vendor/identicon.js' ), false );
+	wp_enqueue_script( 'mapbox', get_stylesheet_directory_uri() . '/js/vendor/mapbox.js', array(), filemtime( get_template_directory() . '/js/vendor/mapbox.js' ), false );
 
 	// Custom scripts.
 	wp_enqueue_script( 'groups', get_stylesheet_directory_uri() . '/js/groups.js', array( 'jquery' ), filemtime( get_template_directory() . '/js/groups.js' ), false );
