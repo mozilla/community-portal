@@ -216,6 +216,12 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 								),
 							)
 						);
+					} else {
+						?>
+						<div>
+							<button class="btn btn--dark btn--submit event__no-account"><?php esc_html_e('Attend', 'community-portal') ?></button>
+						</div>
+						<?php 
 					}
 					?>
 				</div>
@@ -511,6 +517,15 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 	<div id="events-share-lightbox" class="lightbox">
 		<?php require locate_template( 'templates/share-modal.php', false, false ); ?>
 	</div>
+	<?php 
+		if ( !is_user_logged_in()  ):
+	?>
+		<div id="event-rsvp-lightbox" class="lightbox">
+			<?php include locate_template( 'templates/event-rsvp.php', false, false ); ?>
+		</div>
+	<?php 
+		endif;
+	?>
 </div>
 <?php if ( isset( $options['report_email'] ) && is_user_logged_in() && isset( $_SERVER['HTTP_HOST'] ) ) : ?>
 <div class="events-single__report-container">
