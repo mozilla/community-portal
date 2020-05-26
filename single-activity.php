@@ -283,7 +283,7 @@
 									</div>
 								</a>   
 								<?php endforeach; ?>
-								<a href="/events/?initiative=<?php echo esc_attr( $post->ID ) . '&nonce=' . wp_create_nonce( 'events-filter' ); ?>" class="activity__events-link">
+								<a href="/events/?initiative=<?php echo esc_attr( $post->ID ) . '&nonce=' . sanitize_key( wp_create_nonce( 'events-filter' ) ); ?>" class="activity__events-link">
 									<?php esc_html_e( 'View more events', 'community-portal' ); ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
 								</a>
 							</div>
