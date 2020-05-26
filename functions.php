@@ -96,6 +96,7 @@ add_action( 'groups_remove_member', 'mozilla_remove_members_discourse', 10, 2 );
 // Remove Actions.
 remove_action( 'init', 'bp_nouveau_get_container_classes' );
 remove_action( 'em_event_save', 'bp_em_group_event_save', 1, 2 );
+remove_action( 'media_buttons', 'media_buttons' );
 
 // Filters.
 add_filter( 'nav_menu_link_attributes', 'mozilla_add_menu_attrs', 10, 3 );
