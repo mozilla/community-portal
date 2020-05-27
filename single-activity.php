@@ -265,7 +265,7 @@
 									<div class="activity__event-info">
 										<div class="activity__event-title"><?php echo esc_html( $event->event_name ); ?></div>
 										<div class="activity__event-time">
-											<?php echo esc_html( gmdate( 'M d, Y' ) . " ∙ {$event->start_time}" ); ?>
+											<?php echo esc_html( gmdate( 'M d, Y', $event_time ) . " ∙ {$event->start_time}" ); ?>
 										</div>
 										<div class="activity__event-location">
 											<svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
