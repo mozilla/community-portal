@@ -349,7 +349,8 @@ jQuery(function() {
         const $this = jQuery(this);
             $locationTypeInput.val($this.val());
         });
-    }
+	}
+
 
     function init() {
         toggleMobileEventsNav(".events__nav__toggle", ".events__nav");
@@ -369,9 +370,13 @@ jQuery(function() {
         e.preventDefault();
         jQuery('.events-single__debug-info').toggleClass('events-single__debug-info--hidden');
         return false;
-
-
-    });
+	});
+	
+	jQuery('#event-cancel').on('click', function(e) {
+		const $this = jQuery(this);
+		const confirmation = $this.data('confirmation');
+		return confirm(confirmation);
+	});
 
     init();
 });
