@@ -43,6 +43,7 @@ jQuery(function() {
 				jQuery('#dropzone-photo-uploader').addClass("dropzone__image-upload--complete");
 				jQuery('.form__error--image').parent().removeClass('form__error-container--visible');
 				jQuery('.dz-remove').removeClass('dz-remove--hide');
+				jQuery('.dz-remove').css('display', 'block');
 				jQuery('.dropzone__image-instructions').addClass('dropzone__image-instructions--hidden');
 				if (jQuery('#image-delete')) {
 					jQuery('#image-delete').removeClass('hidden');
