@@ -112,6 +112,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 else :
 	?>
 							<?php
+
 							if ( is_array( $community_fields ) && isset( $community_fields['image_url'] ) && strlen( $community_fields['image_url'] ) > 0 ) :
 								?>
 	style="background: url('<?php echo esc_url_raw( $avatar_url ); ?>'); background-size: cover;"<?php endif; ?><?php endif; ?>>
@@ -122,7 +123,7 @@ else :
 									</div>
 									<button id="dropzone-trigger" type="button" class="dropzone__image-instructions profile__image-instructions 
 									<?php
-									if ( isset( $community_fields['image_url'] ) || strlen( $community_fields['image_url'] ) !== 0 ) :
+									if ( isset( $community_fields['image_url'] ) && strlen( $community_fields['image_url'] ) !== 0 ) :
 										?>
 										dropzone__image-instructions--hidden <?php endif; ?>">
 										<?php esc_html_e( 'Click or drag a photo above', 'community-portal' ); ?>
@@ -131,7 +132,7 @@ else :
 								</div>
 								<button class="dz-remove
 								<?php
-								if ( ! isset( $community_fields['image_url'] ) || strlen( $community_fields['image_url'] ) === 0 ) :
+								if ( ! isset( $community_fields['image_url'] ) || isset( $community_fields['image_url'] ) && 0 === strlen( $community_fields['image_url'] ) ) :
 									?>
 									dz-remove--hide<?php endif; ?>" type="button" data-dz-remove="" ><?php esc_html_e( 'Remove file', 'community-portal' ); ?></button>
 							</div>
@@ -312,18 +313,16 @@ else :
 			<div class="profile__form-field">
 				<div class="profile__input-container">
 					<label class="profile__label" for="bio"><?php esc_html_e( 'Bio (optional)', 'community-portal' ); ?></label>
-					<textarea name="bio" id="bio" class="profile__textarea" maxlength="3000">
 					<?php
-					if ( $form && isset( $form['bio'] ) ) :
-						?>
-						<?php $form['bio']; ?>
-						<?php
-else :
-	?>
-						<?php
-						if ( is_array( $community_fields ) && isset( $community_fields['bio'] ) ) :
-							?>
-							<?php echo esc_textarea( $community_fields['bio'] ); ?><?php endif; ?><?php endif; ?></textarea>
+					if ( $form && isset( $form['bio'] ) ) {
+						$bio = $form['bio'];
+					} else {
+						if ( is_array( $community_fields ) && isset( $community_fields['bio'] ) ) {
+							$bio = $community_fields['bio'];
+						}
+					}
+					?>
+					<textarea name="bio" id="bio" class="profile__textarea" maxlength="3000"><?php echo esc_textarea( $bio ); ?></textarea>
 				</div>
 				<div class="profile__select-container">
 					<label class="profile__label" for=""><?php esc_html_e( 'Can be viewed by', 'community-portal' ); ?></label>

@@ -117,6 +117,13 @@ jQuery(function() {
 			"a"
 		)
 
+		toggleLightbox(
+			"#event-rsvp-lightbox",
+			".event__no-account",
+			"#close-rsvp-lightbox",
+			"a"
+		)
+
 
         toggleLightbox('#activity-share-lightbox', '.activity__cta--share', "#close-share-lightbox", 'a');
         toggleLightbox('#campaign-share-lightbox', '.campaign__share-cta', "#close-share-lightbox", 'a');

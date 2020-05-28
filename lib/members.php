@@ -14,7 +14,7 @@
 <?php
 
 $theme_directory = get_template_directory();
-include "{$theme_directory}/class-privacysettings.php";
+require "{$theme_directory}/class-privacysettings.php";
 
 /**
  * Get auth0
@@ -316,6 +316,12 @@ function mozilla_update_member() {
 									if ( ! empty( $_SERVER['SERVER_NAME'] ) ) {
 										$url         = trim( esc_url_raw( wp_unslash( $_POST[ $field ] ) ) );
 										$host_domain = esc_url_raw( wp_unslash( $_SERVER['SERVER_NAME'] ) );
+										$url_scheme  = wp_parse_url( $host_domain );
+
+										if ( 'http' === $url_scheme['scheme'] && ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== sanitize_text_field( wp_unslash( $_SERVER['HTTPS'] ) ) ) || 443 === sanitize_key( wp_unslash( $_SERVER['SERVER_PORT'] ) ) ) {
+											$host_domain = str_replace( 'http', 'https', $host_domain );
+										}
+
 										if ( false !== stripos( $url, $host_domain ) ) {
 											$current_additional_field = $url;
 										} else {

@@ -218,7 +218,6 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 					$event      = em_get_event( $event_booking->event_id );
 					$event_time = strtotime( $event->start_date );
 					$event_date = gmdate( 'M d', $event_time );
-
 					$location = em_get_location( $event->location_id );
 					?>
 			<a class="profile__event" href="/events/<?php echo esc_attr( $event->slug ); ?>">
@@ -228,7 +227,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 				<div class="profile__event-info">
 					<div class="profile__event-title"><?php echo esc_html( $event->event_name ); ?></div>
 					<div class="profile__event-time">
-						<?php echo esc_html( gmdate( 'M d, Y' ) . " ∙ {$event->start_time}" ); ?>
+						<?php echo esc_html( gmdate( 'M d, Y', $event_time ) . " ∙ {$event->start_time}" ); ?>
 					</div>
 					<div class="profile__event-location">
 						<svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">

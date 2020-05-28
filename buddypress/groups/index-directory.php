@@ -450,9 +450,11 @@
 												)
 											);
 
-											?>
+										?>
+										<?php if( ! empty( $system_tag[0]->name ) ): ?>
 										<li class="groups__tag"><?php echo esc_html( $system_tag[0]->name ); ?></li>
 											<?php $tag_counter++; ?>
+										<?php endif; ?>
 											<?php if ( 2 === $tag_counter && count( $meta['group_tags'] ) > 2 ) : ?>
 										<li class="groups__tag">+ <?php echo esc_html( count( $meta['group_tags'] ) - 2 ); ?> <?php esc_html_e( ' more tags', 'community-portal' ); ?></li>
 												<?php break; ?>
