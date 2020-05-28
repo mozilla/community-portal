@@ -186,7 +186,7 @@ if (
 						</svg>
 						<form method="GET" action="/">
 							<?php wp_nonce_field( 'site_search', 'site_search_nonce' ); ?>
-							<input type="text" class="nav__search" placeholder="<?php esc_attr_e( 'Seach', 'community-portal' ); ?>" name="s" value="<?php echo esc_attr( $search_text ); ?>" />
+							<input type="text" class="nav__search" placeholder="<?php esc_attr_e( 'Search', 'community-portal' ); ?>" name="s" value="<?php echo esc_attr( $search_text ); ?>" />
 						</form>
 					</div>
 				</div>
