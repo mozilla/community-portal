@@ -65,12 +65,23 @@
 										echo wp_kses(
 											wpautop( $post->post_content ),
 											array(
-												'p'      => array(),
+												'h2'     => array( 'class' => array() ),
+												'h3'     => array( 'class' => array() ),
+												'h4'     => array( 'class' => array() ),
+												'p'      => array( 'class' => array() ),
 												'br'     => array(),
-												'div'    => array(),
-												'img'    => array( 'href', 'class', 'alt' ),
-												'figure' => array(),
-												'figcaption' => array(),
+												'div'    => array( 'class' => array() ),
+												'img'    => array(
+													'href' => array(),
+													'class' => array(),
+													'alt'  => array(),
+												),
+												'a'      => array(
+													'class' => array(),
+													'href' => array(),
+												),
+												'figure' => array( 'class' => array() ),
+												'figcaption' => array( 'class' => array() ),
 											)
 										);
 										?>
@@ -101,8 +112,9 @@
 								echo wp_kses(
 									$activity_flow_copy,
 									array(
-										'p' => array(),
-										'a' => array( 'href' => array() ),
+										'p'   => array(),
+										'a'   => array( 'href' => array() ),
+										'div' => array( 'class' => array() ),
 									)
 								);
 								?>
@@ -127,6 +139,7 @@
 															'href' => array(),
 															'class' => array(),
 														),
+														'div' => array( 'class' => array() ),
 													)
 												);
 												?>
@@ -150,7 +163,7 @@
 									$additional_information_copy_left,
 									array(
 										'p'   => array(),
-										'div' => array(),
+										'div' => array( 'class' => array() ),
 										'a'   => array(
 											'href'  => array(),
 											'class' => array(),
@@ -198,8 +211,8 @@
 									echo wp_kses(
 										$additional_information_copy_right,
 										array(
-											'p'   => array(),
-											'div' => array(),
+											'p'   => array( 'class' => array() ),
+											'div' => array( 'class' => array() ),
 											'a'   => array(
 												'href'  => array(),
 												'class' => array(),
@@ -252,7 +265,7 @@
 									<div class="activity__event-info">
 										<div class="activity__event-title"><?php echo esc_html( $event->event_name ); ?></div>
 										<div class="activity__event-time">
-											<?php echo esc_html( gmdate( 'M d, Y' ) . " ∙ {$event->start_time}" ); ?>
+											<?php echo esc_html( gmdate( 'M d, Y', $event_time ) . " ∙ {$event->start_time}" ); ?>
 										</div>
 										<div class="activity__event-location">
 											<svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -272,7 +285,7 @@
 									</div>
 								</a>   
 								<?php endforeach; ?>
-								<a href="/events/?initiative=<?php echo esc_attr( $post->ID ); ?>" class="activity__events-link">
+								<a href="/events/?initiative=<?php echo esc_attr( $post->ID ) . '&nonce=' . esc_attr( wp_create_nonce( 'events-filter' ) ); ?>" class="activity__events-link">
 									<?php esc_html_e( 'View more events', 'community-portal' ); ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
 								</a>
 							</div>
