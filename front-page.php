@@ -100,7 +100,7 @@
 								$current_campaign = $c;
 							}
 						} elseif ( $start && $end ) {
-							if ( $today >= $start && $today < $end ) {
+							if ( $today >= $start && $today <= $end ) {
 								$current_campaign = $c;
 							}
 						}
