@@ -1,34 +1,53 @@
-<?php 
-    $location = em_get_location($event->location_id);
-    $categories = get_the_terms($event->post_id, EM_TAXONOMY_CATEGORY);
-    $allCountries = em_get_countries();
-    
-    if (isset($categories) && is_array($categories)) {
-        $allTags = array_map(function($n) {
-        return $n->name;
-        }, $categories);
-    }
-    if ($tag !== 'all' && !$categories && $tag !== '') {
-        return;
-    } else if ($tag !== 'all' && $country !== 'all' && $tag !== '' && $country !== '') {
-        if (!in_array($tag, $allTags) || $country !== $allCountries[$location->country]) {
-          return;
-        } else {
-            include(locate_template('plugins/events-manager/templates/template-parts/single-event-card.php', false, false));
-        }
-    } else if ($tag !== 'all' && $tag !== '') {
-        if (!in_array($tag, $allTags)) {
-            include(locate_template('plugins/events-manager/templates/template-parts/single-event-card.php', false, false));
-        } else {
-            include(locate_template('plugins/events-manager/templates/template-parts/single-event-card.php', false, false));
-        } 
-    } else if ($country !== 'all' && $country !== '') {
-        if ($country !== $allCountries[$location->country]) {
-            return;
-        } else {
-            include(locate_template('plugins/events-manager/templates/template-parts/single-event-card.php', false, false));
-        }
-    } else {
-        include(locate_template('plugins/events-manager/templates/template-parts/single-event-card.php', false, false));    
-    }
+<?php
+/**
+ * Event Cards
+ *
+ * Cards for events page for theme
+ *
+ * @package WordPress
+ * @subpackage community-portal
+ * @version 1.0.0
+ * @author  Playground Inc.
+ */
+
 ?>
+
+<?php
+	$location      = em_get_location( $event->location_id );
+	$categories    = get_the_terms( $event->post_id, EM_TAXONOMY_CATEGORY );
+	$all_countries = em_get_countries();
+
+if ( isset( $categories ) && is_array( $categories ) ) {
+	$all_tags = array_map(
+		function( $n ) {
+			return $n->name;
+		},
+		$categories
+	);
+}
+
+if ( 'all' !== $event_tag && ! $categories && '' !== $event_tag ) {
+
+	return;
+} elseif ( 'all' !== $event_tag && 'all' !== strtolower( $country ) && '' !== $event_tag && '' !== $country ) {
+	if ( ! in_array( $event_tag, $all_tags, true ) || $country !== $all_countries[ $location->country ] ) {
+		return;
+	} else {
+		include locate_template( 'plugins/events-manager/templates/template-parts/single-event-card.php', false, false );
+	}
+} elseif ( 'all' !== $event_tag && '' !== $event_tag ) {
+	if ( ! in_array( $event_tag, $all_tags, true ) ) {
+		include locate_template( 'plugins/events-manager/templates/template-parts/single-event-card.php', false, false );
+	} else {
+		include locate_template( 'plugins/events-manager/templates/template-parts/single-event-card.php', false, false );
+	}
+} elseif ( 'all' !== strtolower( $country ) && '' !== $country ) {
+	if ( $country !== $all_countries[ $location->country ] ) {
+		return;
+	} else {
+		include locate_template( 'plugins/events-manager/templates/template-parts/single-event-card.php', false, false );
+	}
+} else {
+	include locate_template( 'plugins/events-manager/templates/template-parts/single-event-card.php', false, false );
+}
+
