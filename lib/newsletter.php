@@ -18,7 +18,7 @@ function mozilla_newsletter_subscribe() {
 		$user = wp_get_current_user();
 		if ( isset( $user ) ) {
 			if ( isset( $_POST['subscribed'] ) && isset( $_POST['newsletter_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['newsletter_nonce'] ) ), 'newsletter_nonce' ) ) {
-				$subscribed = intval( sanitize_text_field( wp_unslash( $_POST['subscribed'] ) ) );
+				$subscribed = intval( sanitize_key( wp_unslash( $_POST['subscribed'] ) ) );
 				update_user_meta( $user->ID, 'newsletter', $subscribed );
 			}
 			wp_send_json_success(
