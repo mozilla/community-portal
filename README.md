@@ -22,3 +22,43 @@ To live update the styles run ```npm run watch```
 
 ### Activate
 To activate the theme through the Wordpress admin panel.
+
+### Wordpress
+The following pages need to be created along with their corresponding slugs
+
+Title: Activate
+URL slug: activate
+
+Title: Community Portal (This page should be set to the front page)
+
+Title: Events
+URL slug: events
+
+Title: Categories
+URL slug: categories
+Parent Page: Events
+
+Title: Edit
+URL slug: edit-event
+Parent Page: Events
+
+Title: Locations
+URL slug: locations
+Parent Page: Events
+
+Title: My Bookings
+URL slug: my-bookings
+Parent Page: Events
+
+Title: Tags
+URL slug: tags
+Parent Page: Events
+
+TItle: Groups
+URL slug: groups
+
+Title: Members
+URL slug: people
+
+Title: Register
+URL slug: register

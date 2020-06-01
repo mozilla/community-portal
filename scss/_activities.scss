@@ -8,10 +8,11 @@
         flex-direction: row;
         flex-wrap: wrap;
         position: relative;
-        z-index: 50;
+		z-index: 50;
+		top: -150px;
 
         @include tablet-and-up {
-            margin-top: -28px;
+            top: -60px;
         }
     }
 
