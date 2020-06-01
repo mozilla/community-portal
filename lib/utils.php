@@ -198,7 +198,7 @@ function mozilla_init_scripts() {
 	// Vendor scripts.
 	wp_enqueue_script( 'dropzonejs', get_stylesheet_directory_uri() . '/js/vendor/dropzone.min.js', array( 'jquery' ), filemtime( get_template_directory() . '/js/vendor/dropzone.min.js' ), false );
 	wp_enqueue_script( 'autcomplete', get_stylesheet_directory_uri() . '/js/vendor/autocomplete.js', array( 'jquery' ), filemtime( get_template_directory() . '/js/vendor/autocomplete.js' ), false );
-  wp_enqueue_script( 'identicon', get_stylesheet_directory_uri() . '/js/vendor/identicon.js', array(), filemtime( get_template_directory() . '/js/vendor/identicon.js' ), false );
+	wp_enqueue_script( 'identicon', get_stylesheet_directory_uri() . '/js/vendor/identicon.js', array(), filemtime( get_template_directory() . '/js/vendor/identicon.js' ), false );
 	wp_enqueue_script( 'mapbox', get_stylesheet_directory_uri() . '/js/vendor/mapbox.js', array(), filemtime( get_template_directory() . '/js/vendor/mapbox.js' ), false );
 
 	// Custom scripts.
@@ -820,13 +820,14 @@ function mozilla_post_status_transition( $new_status, $old_status, $post ) {
 			$discourse_api_data['description'] = $post->post_content;
 			$auth0_ids                         = array();
 			$user                              = wp_get_current_user();
-			$current_user_auth_id 			   = mozilla_get_user_auth0( $user->ID );
+			$current_user_auth_id              = mozilla_get_user_auth0( $user->ID );
 
-			if( false !== $current_user_auth_id )
+			if ( false !== $current_user_auth_id ) {
 				$auth0_ids[] = $current_user_auth_id;
-			
-			$discourse_api_data['users']       = $auth0_ids;
-			$discourse_group                   = mozilla_discourse_api( 'groups', $discourse_api_data, 'post' );
+			}
+
+			$discourse_api_data['users'] = $auth0_ids;
+			$discourse_group             = mozilla_discourse_api( 'groups', $discourse_api_data, 'post' );
 
 			if ( $discourse_group ) {
 				if ( isset( $discourse_group->id ) ) {
