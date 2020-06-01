@@ -25,6 +25,7 @@ jQuery(function() {
 			method: "POST",
 			data: {
 				subscribed: '1',
+				newsletter_nonce: jQuery('#newsletter_nonce_field').val()
 			},
 			success: function(resp) {
 				newsletterThanks()
@@ -46,6 +47,7 @@ jQuery(function() {
 			method: "POST",
 			data: {
 				subscribed: '2',
+				newsletter_subscribe: jQuery('#newsletter_nonce_field').val()
 			},
 			success: function(resp) {
 				newsletterFailure()

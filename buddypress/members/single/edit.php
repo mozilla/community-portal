@@ -64,6 +64,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 		</div>
 	</div>
 	<form class="profile__form" id="complete-profile-form" method="post" novalidate>
+		<?php wp_nonce_field( 'newsletter_nonce', 'newsletter_nonce_field' ); ?>
 		<?php wp_nonce_field( 'protect_content', 'my_nonce_field' ); ?>
 		<section class="profile__form-container profile__form-container--first">
 			<div class="profile__form-primary">
