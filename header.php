@@ -78,7 +78,7 @@ if (
 					$og_title    = isset( $event->event_name ) && strlen( $event->event_name ) > 0 ? "{$event->event_name} - " . __( 'Mozilla Community Portal', 'community-portal' ) : __( 'Events - Mozilla Community Portal', 'community-portal' );
 					$theme_title = $og_title;
 					$og_desc     = isset( $event->post_content ) && strlen( $event->post_content ) ? wp_strip_all_tags( $event->post_content ) : wp_strip_all_tags( get_bloginfo( 'description' ) );
-					
+
 					if ( isset( $event->event_attributes ) ) {
 						$event_meta = unserialize( $event->event_attributes['event-meta'] );
 						$og_image   = isset( $event_meta->image_url ) && strlen( $event_meta->image_url ) > 0 ? $event_meta->image_url : get_stylesheet_directory_uri() . '/images/event.jpg';
@@ -292,11 +292,11 @@ if (
 							</form>
 						</div>
 						<ul class="menu--mobile">
-            <?php if (isset($items) && is_array($items) && count($items) > 0):?>
+			<?php if ( isset( $items ) && is_array( $items ) && count( $items ) > 0 ) : ?>
 						<?php foreach ( $items as $item ) : ?>
 							<li class="menu-item"><a href="<?php echo esc_attr( $item->url ); ?>" class="menu-item__link"><?php echo esc_html( $item->post_title ); ?></a></li>
 						<?php endforeach; ?>
-            <?php endif; ?>
+			<?php endif; ?>
 						</ul>
 					</div>
 				</div>

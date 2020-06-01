@@ -146,7 +146,7 @@
 						<a href="/campaigns/<?php print esc_attr( $current_campaign->post_name ); ?>" class="campaign__hero-cta"><?php esc_html_e( 'Get Involved', 'community-portal' ); ?></a>
 					</div>
 				</div>
-        <?php if (!empty($current_campaign_card_description)) : ?>
+				<?php if ( ! empty( $current_campaign_card_description ) ) : ?>
 				<div class="campaigns__active-campaign-description">
 					<?php
 					echo wp_kses(
@@ -169,7 +169,7 @@
 					);
 					?>
 				</div>
-        <?php endif; ?>
+		<?php endif; ?>
 				<?php if ( is_array( $current_campaign_tags ) && count( $current_campaign_tags ) > 0 ) : ?>
 				<div class="campaigns__active-campaign-tags">
 					<span class="campaigns__active-campaign-tag"><?php print esc_html( $current_campaign_tags[0]->name ); ?></span>
@@ -262,7 +262,7 @@
 							</div>
 						</div>
 					</div>
-          <?php if (!empty($campaign_card_description)) : ?>
+					<?php if ( ! empty( $campaign_card_description ) ) : ?>
 					<div class="campaigns__active-campaign-description campaigns__active-campaign-description--card">
 						<?php
 						echo wp_kses(
@@ -285,7 +285,7 @@
 						);
 						?>
 					</div>
-          <?php endif; ?>
+		<?php endif; ?>
 				</div>
 					<?php if ( is_array( $campaign_tags ) && count( $campaign_tags ) > 0 ) : ?>
 				<div class="campaigns__active-campaign-tags campaigns__active-campaign-tags--card">
