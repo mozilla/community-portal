@@ -37,6 +37,7 @@
 		</div>
 		<div class="col-lg-6 newsletter__signup">
 			<form id="newsletter_form" name="newsletter__form" action="https://www.mozilla.org/en-US/newsletter/" method="post" class="newsletter__form" novalidate>
+				<?php wp_nonce_field( 'newsletter_nonce', 'newsletter_nonce_field' ); ?>
 				<input type="hidden" id="fmt" name="fmt" value="H">
 				<input type="hidden" id="newsletters" name="newsletters" value="about-mozilla">
 				<div id="newsletter_email" class="newsletter__fields">

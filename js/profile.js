@@ -6,7 +6,8 @@ jQuery(function(){
 			url,
 			method: "POST",
 			data: {
-				subscribed: 1,
+                subscribed: 1,
+                newsletter_subscribe: jQuery('#newsletter_nonce_field').val()
 			},
 			success: function(resp) {
 				jQuery('#complete-profile-form').submit();
@@ -55,7 +56,8 @@ jQuery(function(){
 			url,
 			method: "POST",
 			data: {
-				subscribed: 2,
+                subscribed: 2,
+                newsletter_subscribe: jQuery('#newsletter_nonce_field').val()
 			},
 			success: function(resp) {
 				jQuery('#complete-profile-form').submit();
