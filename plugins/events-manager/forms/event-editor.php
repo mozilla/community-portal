@@ -214,7 +214,7 @@ else :
 		if ( isset( $event_id ) ) :
 			if ( intval( get_current_user_id() ) === intval( $EM_Event->event_owner ) || mozilla_is_site_admin() ) :
 				?>
-		<a id="event-cancel" class="btn btn--light btn--submit event-creator__cancel em-event-delete" data-confirmation="<?php esc_attr_e('This action will permanently delete this event. Would you like to continue?', 'community-portal')?>" href="
+		<a id="event-cancel" class="btn btn--light btn--submit event-creator__cancel em-event-delete" data-confirmation="<?php esc_attr_e( 'This action will permanently delete this event. Would you like to continue?', 'community-portal' ); ?>" href="
 				<?php
 				echo esc_url_raw(
 					add_query_arg(
