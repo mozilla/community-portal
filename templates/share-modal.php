@@ -15,9 +15,9 @@
 
 if ( ! empty( $_SERVER['REQUEST_URI'] ) && ! empty( $_SERVER['HTTP_HOST'] ) ) {
 	$request_uri = esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) );
-	$http_host = esc_url_raw( wp_unslash( $_SERVER['HTTP_HOST'] ) );
+	$http_host   = esc_url_raw( wp_unslash( $_SERVER['HTTP_HOST'] ) );
 
-	$url =  "{$http_host}{$request_uri}";
+	$url = "{$http_host}{$request_uri}";
 }
 
 ?>
