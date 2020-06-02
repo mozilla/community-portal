@@ -861,7 +861,6 @@ function mozilla_export_users() {
 
 	header( 'Content-Type: text/csv' );
 	header( 'Content-Disposition: attachment; filename=users.csv;' );
-
 	// CSV Column Titles.
 	print "first name, last name, email,date registered, languages, country\n ";
 	foreach ( $users as $user ) {
@@ -886,7 +885,14 @@ function mozilla_export_users() {
 		$date    = gmdate( 'd/m/Y', strtotime( $user->data->user_registered ) );
 
 		// Print out CSV row.
-		print "{$first_name},{$last_name},{$user->data->user_email},{$date},\"{$language_string}\",{$country}\n";
+		$first_name      = esc_html( sanitize_text_field( $first_name ) );
+		$last_name       = esc_html( sanitize_text_field( $last_name ) );
+		$email           = esc_html( sanitize_text_field( $user->data->user_email ) );
+		$date            = esc_html( sanitize_text_field( $date ) );
+		$language_string = esc_html( sanitize_text_field( $language_string ) );
+		$country         = esc_html( sanitize_text_field( $country ) );
+
+		print "{$first_name},{$last_name},{$email},{$date},\"{$language_string}\",{$country}\n";
 	}
 	die();
 }
