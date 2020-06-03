@@ -60,11 +60,12 @@ $all_countries = em_get_countries();
 					$location   = em_get_location( $em_event->location_id );
 					$categories = ( ! is_null( $em_event ) ) ? $em_event->get_categories() : false;
 					?>
+					<?php if ( ! empty( $event['event'] ) ) : ?>
 				<a href="<?php print esc_url_raw( $event['event']->guid ); ?>" class="campaign__event">
 					<div class="campaign__event-image" 
-					<?php
-					if ( isset( $event_meta[0]->image_url ) && strlen( $event_meta[0]->image_url ) > 0 ) :
-						?>
+						<?php
+						if ( isset( $event_meta[0]->image_url ) && strlen( $event_meta[0]->image_url ) > 0 ) :
+							?>
 						style="background-image: url('<?php print esc_url_raw( $event_meta[0]->image_url ); ?>')"<?php endif; ?>>
 						<div class="campaign__event-date">
 							<?php print esc_html( $event_month ) . ' ' . esc_html( $event_day ); ?>
@@ -141,6 +142,7 @@ $all_countries = em_get_countries();
 						</ul>
 					</div>
 				</a>
+				<?php endif; ?>
 			<?php endforeach; ?>
 			</div>
 			<?php endif; ?>

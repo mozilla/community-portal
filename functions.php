@@ -26,6 +26,8 @@ require_once "{$theme_directory}/lib/newsletter.php";
 require_once "{$theme_directory}/lib/campaigns.php";
 require_once "{$theme_directory}/lib/activities.php";
 
+require $theme_directory . '/inc/gutenberg-customize.php';
+
 // Native WordPress Actions.
 add_action( 'init', 'mozilla_init' );
 add_action( 'admin_init', 'mozilla_redirect_admin' );
@@ -116,6 +118,7 @@ add_filter( 'bp_groups_list_table_get_columns', 'mozilla_add_group_columns' );
 add_filter( 'bp_groups_admin_get_group_custom_column', 'mozilla_group_addional_column_info', 10, 3 );
 add_filter( 'wp_nav_menu_objects', 'mozilla_hide_menu_emails', 10, 2 );
 add_filter( 'script_loader_tag', 'mozilla_update_script_attributes', 10, 2 );
+add_filter( 'allowed_block_types', 'mozilla_allowed_block_types' );
 
 /**
  * Theme setup function

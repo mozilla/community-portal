@@ -89,9 +89,9 @@
 				$c = $field_values->featured_campaign;
 				if ( $c ) {
 
-					$start = strtotime( get_field( 'campaign_start_date', $c->ID ) );
-					$end   = strtotime( get_field( 'campaign_end_date', $c->ID ) );
-					$today = time();
+					$start = strtotime( get_field( 'campaign_start_date', $c->ID ) . '00:00:00' );
+					$end   = strtotime( get_field( 'campaign_end_date', $c->ID ) . '23:59:59' );
+					$today = strtotime( 'tomorrow - 1 second' );
 
 					$campain_status = get_field( 'campaign_status', $c->ID );
 					if ( 'closed' !== strtolower( $campain_status ) ) {
@@ -100,7 +100,9 @@
 								$current_campaign = $c;
 							}
 						} elseif ( $start && $end ) {
+
 							if ( $today >= $start && $today <= $end ) {
+
 								$current_campaign = $c;
 							}
 						}

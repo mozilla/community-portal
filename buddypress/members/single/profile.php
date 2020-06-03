@@ -218,7 +218,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 					$event      = em_get_event( $event_booking->event_id );
 					$event_time = strtotime( $event->start_date );
 					$event_date = gmdate( 'M d', $event_time );
-					$location = em_get_location( $event->location_id );
+					$location   = em_get_location( $event->location_id );
 					?>
 			<a class="profile__event" href="/events/<?php echo esc_attr( $event->slug ); ?>">
 				<div class="profile__event-date">
