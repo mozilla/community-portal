@@ -73,6 +73,9 @@ if ( $EM_Event->is_recurring() ) {
 				<div class="wide--double">
 					<label class="event-form-name event-creator__label" for="event-name"><?php esc_html_e( 'Event Name *', 'commuity-portal' ); ?></label>
 					<input class="event-creator__input event-creator__input" type="text" name="event_name" id="event-name" required value="<?php echo esc_attr( $EM_Event->event_name ); ?>" />
+					<div class="form__error-container">
+						<p class="form__error"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></p>
+					</div>
 				</div>
 				<div class="wide wide--md-third">
 					<label class="event-creator__label" for="language"><?php esc_html_e( 'Language' ); ?></label>
@@ -102,6 +105,9 @@ if ( $EM_Event->is_recurring() ) {
 					<div class="half">
 						<label class="event-form-details event-creator__label" for="event-description"><?php esc_html_e( 'Event description *', 'commuity-portal' ); ?></label>
 						<textarea name="content" id="event-description" placeholder="<?php esc_html_e( 'Add in the details of your event’s agenda here. If this is a multi-day event, you can add in the details of each day’s schedule and start/end time.' ); ?>" rows="10" id="event-description" class="event-creator__input event-creator__textarea" style="width:100%" required maxlength="3000"><?php echo esc_html( $EM_Event->post_content ); ?></textarea>
+						<div class="form__error-container">
+							<p class="form__error"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></p>
+						</div>
 					</div>
 					<div class="half">
 						<label class="event-form-details event-creator__label" for="event-goal"><?php esc_html_e( 'Event goal(s)', 'commuity-portal' ); ?></label>
@@ -204,8 +210,11 @@ else :
 			?>
 			>
 			<label class="cpg__label event-creator__cpg" for="cpg">
-				<?php esc_html_e( 'I agree to respect and adhere to Mozilla’s Community Participation Guidelines *' ); ?>
+				<?php esc_html_e('I agree to respect and adhere to Mozilla’s Community Participation Guidelines *', 'community-portal') ?>
 			</label>
+			<div class="form__error-container">
+				<p class="form__error"><?php esc_html_e( 'Please agree to the community guidelines', 'community-portal' ); ?></p>
+			</div>
 		</div>
 	</div>
 	<?php endif; ?>
