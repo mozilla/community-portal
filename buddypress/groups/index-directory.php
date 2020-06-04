@@ -449,8 +449,8 @@
 													}
 												)
 											);
-										?>
-										<?php if( ! empty( $system_tag[0]->name ) ): ?>
+											?>
+											<?php if ( ! empty( $system_tag[0]->name ) ) : ?>
 										<li class="groups__tag"><?php echo esc_html( $system_tag[0]->name ); ?></li>
 												<?php $tag_counter++; ?>
 										<?php endif; ?>
