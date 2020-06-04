@@ -31,7 +31,7 @@ function mozilla_download_activity_events() {
 
 		foreach ( $events as $event ) {
 			$event_meta = get_post_meta( $event->post_id, 'event-meta' );
-			if ( isset( $event_meta[0]->initiative ) && intval( $event_meta[0]->initiative ) === $activity->ID ) {
+			if ( isset( $event_meta[0]->initiative ) && intval( $event_meta[0]->initiative ) === intval( $activity->ID ) ) {
 				$event->meta      = $event_meta[0];
 				$related_events[] = $event;
 			}
@@ -78,7 +78,7 @@ function mozilla_download_activity_events() {
 			if ( $location_object->country ) {
 				$address = $address . ' ' . $countries[ $location_object->country ];
 			}
-
+			
 			$location     = 'OE' === $location->country ? 'Online' : $address;
 			$group_object = new BP_Groups_Group( $related_event->group_id );
 			$group        = ( $group_object->id ) ? $group_object->name : 'N/A';
