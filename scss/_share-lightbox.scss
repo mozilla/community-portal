@@ -43,7 +43,20 @@
 
     &__telegram::before {
         content: url('./images/telegram.svg');
-    }
+	}
+	
+	&__completed {
+		display: none;
+	}
+
+	&__copy--complete {
+		.share-link__initial {
+			display: none;
+		}
+		.share-link__completed {
+			display: block;
+		}
+	}
 
     .btn {
         border: 2px solid #000;

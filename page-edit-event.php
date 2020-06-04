@@ -22,8 +22,8 @@ if ( $user->ID && ( ! isset( $meta['agree'][0] ) || 'I Agree' !== $meta['agree']
 }
 
 
-if(!empty($_GET['success']) && '1' === $_GET['success']) {
-	wp_safe_redirect('/events');
+if ( ! empty( $_GET['success'] ) && '1' === $_GET['success'] ) {
+	wp_safe_redirect( '/events' );
 	exit();
 }
 

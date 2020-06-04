@@ -1,5 +1,15 @@
 jQuery(function() {
 
+	function toggleStrings($label, className, online) {
+		if (online) {
+			$label.removeClass(`${className}--in-person`);
+			$label.addClass(`${className}--online`);
+			return;
+		} 
+		$label.addClass(`${className}--in-person`);
+		$label.removeClass(`${className}--online`);
+	}
+
     function getFilter(option) {
 		const filter = option.dataset.filter;
         return filter;
@@ -52,13 +62,16 @@ jQuery(function() {
         const $eventsNav = jQuery(toggleTarget);
         if ($eventsNavToggle && $eventsNav) {
             $eventsNavToggle.on("click", function(e) {
-                e.preventDefault();
-                $eventsNav.slideToggle();
-                if (/show/gi.test($eventsNavToggle[0].innerText)) {
-                    $eventsNavToggle[0].innerText = "Hide Filters";
-                } else if (/hide/gi.test($eventsNavToggle[0].innerText)) {
-                    $eventsNavToggle[0].innerText = "Show Filters";
-                }
+				e.preventDefault();
+				const $this = jQuery(this);
+				if ($this.hasClass('events__filter__toggle--hide')) {
+					$this.removeClass('events__filter__toggle--hide');
+					$this.addClass('events__filter__toggle--show');
+				} else {
+					$this.removeClass('events__filter__toggle--show');
+					$this.addClass('events__filter__toggle--hide');
+				}
+				$eventsNav.slideToggle();
             });
         }
     }
@@ -98,13 +111,13 @@ jQuery(function() {
             $this = jQuery(this);
             if ($this.val() === "online") {
                 toggleVisibility($locationAddress, "Online", false);
-                $locationNameLabel.text("Online Meeting Link");
-                $countryLabel.text("Where will this event be held?");
+				toggleStrings($locationNameLabel, 'event-creator__label', true);
+				toggleStrings($countryLabel, 'event-creator__label', true);
                 return;
             }
-            toggleVisibility($locationAddress, "", true);
-            $locationNameLabel.text("Location Name");
-            $countryLabel.text("Country");
+			toggleVisibility($locationAddress, "", true);
+			toggleStrings($locationNameLabel, 'event-creator__label', false);
+			toggleStrings($countryLabel, 'event-creator__label', false);
         });
     }
 
@@ -123,50 +136,29 @@ jQuery(function() {
 
         if ($locationCountry.length > 0) {
             $locationCountry.on('change', function(e) {
-                const $this = jQuery(this);
+				const $this = jQuery(this);
                 handleCityForOnline($this, $locationCity);
             });
         }
 	}
-	
-	function handleFocusClear($this) {
-		const input_id = $this.attr("id");
-		const $label = jQuery(`label[for=${input_id}]`);
-		$this.removeClass("event-creator__error");
-		$label.removeClass("event-creator__error-text");
-		const $parent = $label.parent();
-		toggleError($parent);
-	}
 
     function clearErrors(input) {
-        input.on("focus", function() {
+        input.on("focus blur", function() {
 			const $this = jQuery(this);
-			if ($this.hasClass('event-creator__error')){
-				handleFocusClear($this);
-			}
-		});
-		input.on("blur", function() {
-			const $this = jQuery(this);
-			if ($this.hasClass('event-creator__error')){
-				handleFocusClear($this);
-			}
+			if ($this.hasClass('event-creator__input--error')){
+				toggleError($this, false);
+			} 
 		});
     }
 
-    function toggleError(parent, errMsg = 'This field is required') {
-        const $errorPresent = parent.find("> .event-creator__error-field");
-        if (!$errorPresent.length > 0) {
-            
-            const $errorText = jQuery(
-                '<p class="event-creator__error-field"> '+ errMsg +' </p>'
-            );
-            parent.append($errorText);
-            return;
-        }
-        $errorPresent.each(function() {
-            $this = jQuery(this);
-            $this.remove();
-        });
+    function toggleError(input, error = true) {
+		if (error) {
+			input.addClass('event-creator__input--error');
+			input.next('.form__error-container').addClass('form__error-container--visible');
+			return;
+		}
+		input.removeClass('event-creator__input--error');
+		input.next('.form__error-container').removeClass('form__error-container--visible');
     }
 
     function checkInputs(inputs) {
@@ -180,20 +172,18 @@ jQuery(function() {
             $allClear = validateCpg($allClear);
             const input_id = $this.attr("id");
 
-            if(input_id == 'location-name' && jQuery('#location-type').val() == 'online') {
-                var pattern = new RegExp( /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi,'i');
-            
-                if(!pattern.test($this.val())) {
-                    const $label = jQuery(`label[for=${input_id}]`);
-                    const $parent = $label.parent();
-
-                    toggleError($parent, 'Invalid URL provided');
-                    $this.addClass("event-creator__error");
-                    $allClear = false;
-                }
-            } 
-
-            if (!$this.val() || $this.val() === "00:00" || $this.val() === "0") {
+            if(input_id == 'location-name') {
+				if (jQuery('#location-type').val() === 'online') {
+					var pattern = new RegExp( /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi,'i');
+					if(!pattern.test($this.val())) {
+						toggleStrings($this.next('.form__error-container'), 'form__error', true);
+						$this.addClass('event-creator__input--error');
+						$allClear = false;
+					} 
+				} else if (!$this.val()) {
+					toggleStrings($this.next('.form__error-container'), 'form__error', false);
+				}
+			} else if (!$this.val() || $this.val() === "00:00" || $this.val() === "0") {
                 if ($first) {
                     jQuery("html, body").animate({
                             scrollTop: $this.parent().offset().top
@@ -203,20 +193,17 @@ jQuery(function() {
                     $this.focus();
                     $first = false;
                 }
-
-                const $label = jQuery(`label[for=${input_id}]`);
-                const $parent = $label.parent();
-                toggleError($parent);
-                $this.addClass("event-creator__error");
+                toggleError($this);
                 $allClear = false;
-            }
-
+            } else {
+				toggleError($this, false);
+			}
         });
 
         var $communityGuideLines = jQuery('#cpg');
         if($communityGuideLines.length > 0 && !$communityGuideLines.is(':checked')) {
-            var $parent = $communityGuideLines.parent();
-            toggleError($parent, 'Please agree to the community guidelines');
+			$communityGuideLines.addClass('event-creator__input--error');
+			$communityGuideLines.siblings('.form__error-container').eq('0').addClass('form__error-container--visible');
             $allClear = false;
         }
 
@@ -226,9 +213,9 @@ jQuery(function() {
     function validateCpg(allClear) {
         const $cpgCheck = jQuery("#cpg");
         if ($cpgCheck.length && !$cpgCheck.prop("checked")) {
-            const $label = jQuery("label[for=cpg]");
             $cpgCheck.one("change", function() {
-                $label.removeClass("event-creator__error-text");
+				$cpgCheck.removeClass("event-creator__input--error");
+				$cpgCheck.siblings('.form__error-container').eq('0').removeClass('form__error-container--visible');
             });
             allClear = false;
         }
@@ -296,11 +283,13 @@ jQuery(function() {
 
     function handleAutocomplete(container, location, country, typeValue) {
         jQuery("#location-name").on("autocompleteselect", function(e) {
-            const $errors = container.find(".event-creator__error-field");
-            $errors.each(function() {
-                const $this = jQuery(this);
-                toggleError($this.parent());
-            });
+			const $errors = container.find(".event-creator__input--error");
+			if ($errors.length > 0) {
+				$errors.each(function() {
+					const $this = jQuery(this);
+					toggleError($this);
+				});	
+			}
             clearPrePopErrors(container, "event-creator__error");
             clearPrePopErrors(container, "event-creator__error-text");
             toggleLocationContainer(container, location, country, typeValue);
@@ -372,6 +361,18 @@ jQuery(function() {
         return false;
 	});
 	
+	jQuery("#location-name").on('focus', function() {
+		const $this = jQuery(this);
+		const $errorContainer = $this.next('.form__error-container');
+		if ($errorContainer.hasClass("form__error--online")) {
+			$errorContainer.removeClass("form__error--online");
+			return
+		} 
+		if ($errorContainer.hasClass("form__error--in-person")) {
+			$errorContainer.removeClass('form__error--in-person');
+		}
+	});
+
 	jQuery('#event-cancel').on('click', function(e) {
 		const $this = jQuery(this);
 		const confirmation = $this.data('confirmation');

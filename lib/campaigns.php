@@ -220,7 +220,7 @@ function mozilla_download_campaign_events() {
 
 		foreach ( $events as $event ) {
 			$event_meta = get_post_meta( $event->post_id, 'event-meta' );
-			if ( isset( $event_meta[0]->initiative ) && intval( $event_meta[0]->initiative ) === $campaign->ID ) {
+			if ( isset( $event_meta[0]->initiative ) && intval( $event_meta[0]->initiative ) === intval( $campaign->ID ) ) {
 				$event->meta      = $event_meta[0];
 				$related_events[] = $event;
 			}

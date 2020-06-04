@@ -8,8 +8,6 @@
  * @author  Playground Inc.
  */
 
-	
-
 	global $EM_Event;
 
 if ( ! function_exists( 'bp_is_active' ) || ! bp_is_active( 'groups' ) ) {

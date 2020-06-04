@@ -128,7 +128,8 @@ if ( count( $categories ) > 0 ) {
 	</form>
 </div>
 <div class="col-md-12">
-	<button class="events__filter__toggle btn btn--large btn--light">
-		<?php esc_html_e( 'Hide Filters', 'community-portal' ); ?>
+	<button class="events__filter__toggle btn btn--large btn--light events__filter__toggle--hide">
+		<span class="hide"><?php esc_html_e( 'Hide Filters', 'community-portal' ); ?></span>
+		<span class="show"><?php esc_html_e( 'Show Filters', 'community-portal' ); ?></span>
 	</button>
 </div>
