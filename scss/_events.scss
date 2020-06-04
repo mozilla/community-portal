@@ -307,7 +307,17 @@
             display: block;
             @include tablet-and-up {
                 display: none;
-            }
+			}
+			.hide, 
+			.show {
+				display: none;
+			}
+			&--hide .hide {
+				display: block;
+			}
+			&--show .show {
+				display: block;
+			}
         }
         
         @include tablet-and-up {

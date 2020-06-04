@@ -6,7 +6,8 @@ jQuery(function(){
 			url,
 			method: "POST",
 			data: {
-				subscribed: 1,
+                subscribed: 1,
+                newsletter_nonce: jQuery('#newsletter_nonce_field').val()
 			},
 			success: function(resp) {
 				jQuery('#complete-profile-form').submit();
@@ -55,7 +56,8 @@ jQuery(function(){
 			url,
 			method: "POST",
 			data: {
-				subscribed: 2,
+                subscribed: 2,
+                newsletter_nonce: jQuery('#newsletter_nonce_field').val()
 			},
 			success: function(resp) {
 				jQuery('#complete-profile-form').submit();
@@ -199,19 +201,11 @@ jQuery(function(){
                 error = true;           
                 $ele.addClass("profile__input--error");
                 $errorMsg.addClass('form__error-container--visible');
-            }
-
-            // Validate email
-            if($ele.attr('name') == 'email' && $ele.val()) {
-                var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                if(re.test(String($ele.val()).toLowerCase()) === false) {
-                    error = true;
-                    $ele.addClass("profile__input--error");
-                    $errorMsg.addClass('form__error-container--visible');
-                    $ele.next('.form__error-container').children('.form__error').text('Invalid Email');
-                } else {
-                    $ele.next('.form__error-container').children('.form__error').text('This field is required');
-                }
+			}
+			if($ele.attr('name') == 'email') {
+				if ($errorMsg.hasClass('form__error-container--visible')) {
+					error = true;
+				}
             }
         });
 
@@ -278,7 +272,6 @@ jQuery(function(){
         jQuery('#profile-languages-visibility').val(value);
         jQuery('input[name="profile_languages_visibility"]').val(value);
         jQuery('#profile-tags-visibility').val(value);
-       
     });
 
 
@@ -354,16 +347,53 @@ jQuery(function(){
 		jQuery('#tags').val(current.replace(',' + tag, ''));
 		$label.toggleClass('profile__tag--active');
 		return false;
-    });
+	});
 
+	function clearMultipleErrorStates(input) {
+		const $this = jQuery(input);
+		var $errorContainer = $this.next('.form__error-container');
+		$this.removeClass('profile__input--error');
+		$errorContainer
+			.removeClass('form__error-container--visible')
+			.removeClass('form__error-container--secondary')
+			.removeClass('form__error-container--tertiary');
+	}
+	
+	function handleMultipleErrorStates(input, secondary = false, tertiary = false) {
+		const $this = jQuery(input);
+		var $errorContainer = $this.next('.form__error-container');
+		$errorContainer
+			.removeClass('form__error-container--secondary')
+			.removeClass('form__error-container--tertiary');
+		if (tertiary) {
+			$this.addClass('profile__input--error');
+			$errorContainer
+				.addClass('form__error-container--visible')
+				.addClass('form__error-container--tertiary');
+			return;
+		}
+		if (secondary) {
+			$this.addClass('profile__input--error');
+			$errorContainer
+				.addClass('form__error-container--visible')
+				.addClass('form__error-container--secondary');
+			return;
+		}
+		$this.addClass('profile__input--error');
+		$errorContainer.addClass('form__error-container--visible')
+	}
 
-    jQuery('#username').on('change keyup', function(e) {
-        var $this = jQuery(this);
-        var value = $this.val();
-        var get = { };
+	function checkUserName(input) {
+		const $this = jQuery(input);
+		clearMultipleErrorStates($this);
+		const value = $this.val();
+		if (!value) {
+			handleMultipleErrorStates($this);
+			return;
+		}
+        const get = {};
         get.u = value;
 
-        var $errorContainer = $this.next('.form__error-container');
         jQuery.ajax({
             url: '/wp-admin/admin-ajax.php?action=check_user',
             data: get,
@@ -373,51 +403,71 @@ jQuery(function(){
 
                 // User name is no good
                 if(response == false) {
-                    $this.addClass('profile__input--error');
-                    $errorContainer.addClass('form__error-container--visible');
-                    $errorContainer.children('.form__error').text('This username is already taken');
+					handleMultipleErrorStates($this, true);
                 } else {
-                    $this.removeClass('profile__input--error');
-                    $errorContainer.removeClass('form__error-container--visible');
-                    $errorContainer.children('.form__error').text('This field is required');
+                    clearMultipleErrorStates($this);
                 }
             }
         })
-    });
+	}
 
-
-    jQuery('#email').on('change keyup', function(e) {
-        var $this = jQuery(this);
-        var value = $this.val();
-        var get = { };
+	function validateEmail(input) {
+		const $this = jQuery(input);
+		clearMultipleErrorStates($this);
+		const value = $this.val();
+		if (!value) {
+			handleMultipleErrorStates($this);
+			return;
+		}
+		// Validate email
+		const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		if (re.test(value.toLowerCase()) === false) {
+			handleMultipleErrorStates($this, false, true);
+		} 
+		const get = {};
         get.u = value;
 
-        var $errorContainer = $this.next('.form__error-container');
         jQuery.ajax({
             url: '/wp-admin/admin-ajax.php?action=validate_email',
             data: get,
             method: 'GET',
             success: function(data) {
-                var response = jQuery.parseJSON(data.trim());
-                
+                const response = jQuery.parseJSON(data.trim());
                 if(response == false) {
-                    $this.addClass('profile__input--error');
-                    $errorContainer.addClass('form__error-container--visible');
-                    $errorContainer.children('.form__error').text('This email is already in use');
+					handleMultipleErrorStates($this, true);
+					return;
                 } else {
-                    $this.removeClass('profile__input--error');
-                    $errorContainer.removeClass('form__error-container--visible');
-                    $errorContainer.children('.form__error').text('This field is required');
+					clearMultipleErrorStates($this);
                 }
             }
         });
+	}
+	let timeout = null;
 
-        
+    jQuery('#username').on('change keyup', function(e) {
+		clearTimeout(timeout);
+		const $this = jQuery(this);
+		// Make a new timeout set to go off in 1000ms (1 second)
+		timeout = setTimeout(function () {
+			checkUserName($this)
+		}, 1000);
+    });
+
+
+    jQuery('#email').on('change keyup', function(e) {
+		clearTimeout(timeout);
+		const $this = jQuery(this);
+		// Make a new timeout set to go off in 1000ms (1 second)
+		timeout = setTimeout(function () {
+			validateEmail($this)
+		}, 1000);
     });
 
     jQuery('.profile__input, .profile__textarea, .profile__select').on('change keyup', function(e){
         var $this = jQuery(this);
-        
+		if ($this.attr('id') === 'username' || $this.attr('id') === 'email') {
+			return;
+		}
         if($this.prop('required') ) {
             if($this.val() != '' || $this.val() == '0') {
                 $this.removeClass('profile__input--error');
@@ -469,9 +519,9 @@ jQuery(function(){
 
     jQuery('.members__language-select').change(function(e){
         var language = jQuery(this).val();
-         jQuery('input[name="language"]').val(language);
+		jQuery('input[name="language"]').val(language);
 
-         jQuery('#members-search-form').submit();
+		jQuery('#members-search-form').submit();
         
     });
 
@@ -483,19 +533,21 @@ jQuery(function(){
         
     });
     
-    jQuery('.members__show-filter').click(function(e) {
+    jQuery('.members__toggle-filter').click(function(e) {
+		const $this = jQuery(this);
 
         e.preventDefault();
         jQuery('.members__filter-container').slideToggle({
             start: function() {
-                jQuery('.members__filter-container').css('display','flex');
-                jQuery('.members__filter-container').css('flex-direction','column');
-
-                if(jQuery('.members__show-filter').text() == 'Hide Filters') {
-                    jQuery('.members__show-filter').text('Show Filters');
-                } else {
-                    jQuery('.members__show-filter').text('Hide Filters');
-                }
+				jQuery('.members__filter-container').css('display','flex');
+				jQuery('.members__filter-container').css('flex-direction','column');
+				if ($this.hasClass('members__toggle-filter--show')) {
+					$this.removeClass('members__toggle-filter--show');
+					$this.addClass('members__toggle-filter--hide');
+				} else {
+					$this.removeClass('members__toggle-filter--hide');
+					$this.addClass('members__toggle-filter--show');
+				}
             }
         });
 

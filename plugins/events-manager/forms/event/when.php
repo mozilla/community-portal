@@ -25,6 +25,9 @@ $admin_recurring = is_admin() && $em_event->is_recurring();
 				echo esc_attr( 'required' ); endif
 			?>
 			/>
+			<div class="form__error-container">
+				<p class="form__error"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></p>
+			</div>
 			<input class="em-date-input" type="hidden" name="event_start_date" value="<?php echo esc_attr( $em_event->start()->getDate() ); ?>" />
 		</div>
 		<div class="wide wide--md-half">
@@ -35,6 +38,9 @@ $admin_recurring = is_admin() && $em_event->is_recurring();
 				echo esc_attr( 'required' ); endif
 			?>
 			/>
+			<div class="form__error-container">
+				<p class="form__error"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></p>
+			</div>
 			<input class="em-date-input" type="hidden" name="event_end_date" value="<?php echo esc_attr( $em_event->end()->getDate() ); ?>" />
 		</div>
 	</div>
@@ -47,6 +53,9 @@ $admin_recurring = is_admin() && $em_event->is_recurring();
 				echo esc_attr( 'required' ); endif
 			?>
 			/>
+			<div class="form__error-container">
+				<p class="form__error"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></p>
+			</div>
 		</div>
 		<div class="wide wide--md-third">
 			<label for="end-time" class="em-event-text event-creator__label"><?php esc_html_e( 'End time *', 'commuity-portal' ); ?></label>
@@ -56,6 +65,9 @@ $admin_recurring = is_admin() && $em_event->is_recurring();
 			echo esc_attr( 'required' ); endif
 		?>
 		/>
+		<div class="form__error-container">
+			<p class="form__error"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></p>
+		</div>
 		</div>
 		<?php if ( get_option( 'dbem_timezone_enabled' ) ) : ?>
 		<div class="thin wide--md-third">
@@ -79,6 +91,9 @@ $admin_recurring = is_admin() && $em_event->is_recurring();
 			);
 			?>
 			</select>
+			<div class="form__error-container">
+				<p class="form__error"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></p>
+			</div>
 		</div>
 		<?php endif; ?>
 	</div>

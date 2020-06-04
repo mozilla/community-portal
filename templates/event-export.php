@@ -11,15 +11,15 @@
  */
 
 	$args = array(
-		'post_type' => 'campaign',
-		'posts_per_page'  => -1,
+		'post_type'      => 'campaign',
+		'posts_per_page' => -1,
 	);
 
 	$campaigns = new WP_Query( $args );
 
 	$args = array(
-		'post_type' => 'activity',
-		'posts_per_page'  => -1,
+		'post_type'      => 'activity',
+		'posts_per_page' => -1,
 	);
 
 	$activities = new WP_Query( $args );

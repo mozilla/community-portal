@@ -198,7 +198,7 @@ function mozilla_init_scripts() {
 	// Vendor scripts.
 	wp_enqueue_script( 'dropzonejs', get_stylesheet_directory_uri() . '/js/vendor/dropzone.min.js', array( 'jquery' ), filemtime( get_template_directory() . '/js/vendor/dropzone.min.js' ), false );
 	wp_enqueue_script( 'autcomplete', get_stylesheet_directory_uri() . '/js/vendor/autocomplete.js', array( 'jquery' ), filemtime( get_template_directory() . '/js/vendor/autocomplete.js' ), false );
-  wp_enqueue_script( 'identicon', get_stylesheet_directory_uri() . '/js/vendor/identicon.js', array(), filemtime( get_template_directory() . '/js/vendor/identicon.js' ), false );
+	wp_enqueue_script( 'identicon', get_stylesheet_directory_uri() . '/js/vendor/identicon.js', array(), filemtime( get_template_directory() . '/js/vendor/identicon.js' ), false );
 	wp_enqueue_script( 'mapbox', get_stylesheet_directory_uri() . '/js/vendor/mapbox.js', array(), filemtime( get_template_directory() . '/js/vendor/mapbox.js' ), false );
 
 	// Custom scripts.
@@ -820,13 +820,14 @@ function mozilla_post_status_transition( $new_status, $old_status, $post ) {
 			$discourse_api_data['description'] = $post->post_content;
 			$auth0_ids                         = array();
 			$user                              = wp_get_current_user();
-			$current_user_auth_id 			   = mozilla_get_user_auth0( $user->ID );
+			$current_user_auth_id              = mozilla_get_user_auth0( $user->ID );
 
-			if( false !== $current_user_auth_id )
+			if ( false !== $current_user_auth_id ) {
 				$auth0_ids[] = $current_user_auth_id;
-			
-			$discourse_api_data['users']       = $auth0_ids;
-			$discourse_group                   = mozilla_discourse_api( 'groups', $discourse_api_data, 'post' );
+			}
+
+			$discourse_api_data['users'] = $auth0_ids;
+			$discourse_group             = mozilla_discourse_api( 'groups', $discourse_api_data, 'post' );
 
 			if ( $discourse_group ) {
 				if ( isset( $discourse_group->id ) ) {
@@ -860,7 +861,6 @@ function mozilla_export_users() {
 
 	header( 'Content-Type: text/csv' );
 	header( 'Content-Disposition: attachment; filename=users.csv;' );
-
 	// CSV Column Titles.
 	print "first name, last name, email,date registered, languages, country\n ";
 	foreach ( $users as $user ) {
@@ -885,7 +885,14 @@ function mozilla_export_users() {
 		$date    = gmdate( 'd/m/Y', strtotime( $user->data->user_registered ) );
 
 		// Print out CSV row.
-		print "{$first_name},{$last_name},{$user->data->user_email},{$date},\"{$language_string}\",{$country}\n";
+		$first_name      = esc_html( sanitize_text_field( $first_name ) );
+		$last_name       = esc_html( sanitize_text_field( $last_name ) );
+		$email           = esc_html( sanitize_text_field( $user->data->user_email ) );
+		$date            = esc_html( sanitize_text_field( $date ) );
+		$language_string = esc_html( sanitize_text_field( $language_string ) );
+		$country         = esc_html( sanitize_text_field( $country ) );
+
+		print "{$first_name},{$last_name},{$email},{$date},\"{$language_string}\",{$country}\n";
 	}
 	die();
 }

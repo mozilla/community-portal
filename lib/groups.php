@@ -728,7 +728,8 @@ function mozilla_download_group_events() {
 		$related_events = array();
 
 		foreach ( $events as $event ) {
-			if ( strlen( $event->group_id ) > 0 && $event->group_id === $group->id ) {
+
+			if ( strlen( $event->group_id ) > 0 && intval( $event->group_id ) === intval( $group->id ) ) {
 				$related_events[] = $event;
 			}
 		}
@@ -759,22 +760,35 @@ function mozilla_download_group_events() {
 			}
 
 			// Remove last comma.
-			$tags = rtrim( $tags, ', ' );
+			$tags    = rtrim( $tags, ', ' );
+			$address = '';
 
-			$address = $location_object->address;
-			if ( $location_object->city ) {
-				$address = $address . ' ' . $location_object->city;
+			if ( 'OE' === strtoupper( $location_object->country ) ) {
+				$address = $location_object->location_name;
+			} else {
+
+				if ( $location_object->location_name ) {
+					$address = $location_object->location_name;
+				}
+
+				if ( $location_object->address ) {
+					$address = $address . ', ' . $location_object->address;
+				}
+
+				if ( $location_object->city ) {
+					$address = $address . ', ' . $location_object->city;
+				}
+
+				if ( $location_object->town ) {
+					$address = $address . ', ' . $location_object->town;
+				}
+
+				if ( $location_object->country ) {
+					$address = $address . ', ' . $countries[ $location_object->country ];
+				}
 			}
 
-			if ( $location_object->town ) {
-				$address = $address . ' ' . $location_object->town;
-			}
-
-			if ( $location_object->country ) {
-				$address = $address . ' ' . $countries[ $location_object->country ];
-			}
-
-			$location     = 'OE' === $location->country ? 'Online' : $address;
+			$location     = $address;
 			$group_object = new BP_Groups_Group( $related_event->group_id );
 			$group        = ( $group_object->id ) ? $group_object->name : 'N/A';
 
@@ -799,6 +813,7 @@ function mozilla_download_group_events() {
 			fputcsv( $out, $row );
 
 		}
+
 		fclose( $out );
 	}
 

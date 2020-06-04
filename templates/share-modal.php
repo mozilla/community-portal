@@ -15,9 +15,9 @@
 
 if ( ! empty( $_SERVER['REQUEST_URI'] ) && ! empty( $_SERVER['HTTP_HOST'] ) ) {
 	$request_uri = esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) );
-	$http_host = esc_url_raw( wp_unslash( $_SERVER['HTTP_HOST'] ) );
+	$http_host   = esc_url_raw( wp_unslash( $_SERVER['HTTP_HOST'] ) );
 
-	$url =  "{$http_host}{$request_uri}";
+	$url = "{$http_host}{$request_uri}";
 }
 
 ?>
@@ -33,7 +33,8 @@ if ( ! empty( $_SERVER['REQUEST_URI'] ) && ! empty( $_SERVER['HTTP_HOST'] ) ) {
 		<ul class="share-link-container">
 			<li class="share-link">
 				<a href="#" id="copy-share-link" class="btn btn--light btn--share share-link__copy">
-					<?php esc_html_e( 'Copy share link', 'community-portal' ); ?>
+					<span class="share-link__initial"><?php esc_html_e( 'Copy share link', 'community-portal' ); ?></span>
+					<span class="share-link__completed"><?php esc_html_e( 'Link copied', 'community-portal' ); ?></span>
 				</a>
 			</li>
 			<li class="share-link">
