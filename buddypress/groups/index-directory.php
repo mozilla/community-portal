@@ -359,15 +359,10 @@
 				</div>
 			</div>
 			<div class="groups__show-filters-container">
-				<a href="#" class="groups__show-filter">
-				<?php
-				if ( isset( $_GET['location'] ) || isset( $_GET['mygroups'] ) ) :
-					?>
-					<?php esc_html_e( 'Hide Filters', 'community-portal' ); ?>
-					<?php
-else :
-	?>
-					<?php esc_html_e( 'Show Filters', 'community-portal' ); ?><?php endif; ?></a>
+				<a href="#" class="groups__toggle-filter <?php echo ( isset( $_GET['location'] ) || isset( $_GET['mygroups'] ) ? 'groups__toggle-filter--hide' : 'groups__toggle-filter--show' ); ?>">
+					<span class="filters__show"><?php esc_html_e( 'Show Filters', 'community-portal' ); ?></span>
+					<span class="filters__hide"><?php esc_html_e( 'Hide Filters', 'community-portal' ); ?></span>
+				</a>
 			</div>
 			<div class="groups__groups">
 				<?php do_action( 'bp_before_groups_loop' ); ?>
@@ -454,9 +449,8 @@ else :
 													}
 												)
 											);
-
-											?>
-											<?php if ( ! empty( $system_tag[0]->name ) ) : ?>
+										?>
+										<?php if( ! empty( $system_tag[0]->name ) ): ?>
 										<li class="groups__tag"><?php echo esc_html( $system_tag[0]->name ); ?></li>
 												<?php $tag_counter++; ?>
 										<?php endif; ?>

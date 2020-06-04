@@ -978,7 +978,7 @@
 								<input type="submit" class="members__search-cta" value="<?php echo esc_attr_e( 'Search', 'community-portal' ); ?>" />
 								</form>
 							</div>
-							<div class="members__filter-container members__filter-container--hidden">
+							<div class="groups__filter-container groups__filter-container--hidden">
 								<span><?php esc_html_e( 'Search criteria:', 'community-portal' ); ?></span>
 								<?php if ( count( $used_country_list ) > 0 ) : ?>
 								<div class="members__select-container">
@@ -1026,8 +1026,11 @@
 									</select>  
 								</div>
 							</div>
-							<div class="members__show-filters-container">
-								<a href="#" class="members__show-filter"><?php esc_html_e( 'Show Filters', 'community-portal' ); ?></a>
+							<div class="groups__show-filters-container">
+								<a href="#" class="groups__toggle-filter groups__toggle-filter--show">
+									<span class="filters__show"><?php esc_html_e( 'Show Filters', 'community-portal' ); ?></span>
+									<span class="filters__hide"><?php esc_html_e( 'Hide Filters', 'community-portal' ); ?></span>
+								</a>
 							</div>
 						<div class="group__members">
 							<?php if ( count( $filtered_members ) > 0 ) : ?>
@@ -1240,10 +1243,16 @@
 									group__card-cta-container--end<?php endif; ?>">
 								<?php if ( ! $is_admin ) : ?>
 									<?php if ( $is_member ) : ?>
-										<a href="#" class="group__leave-cta" data-group="<?php echo esc_attr( $group->id ); ?>"><?php esc_html_e( 'Leave Group', 'community-portal' ); ?></a>
+										<a href="#" class="group__leave-cta" data-group="<?php print esc_attr( $group->id ); ?>">
+											<span class="join"><?php esc_html_e( 'Join Group', 'community-portal' ); ?></span>
+											<span class="leave"><?php esc_html_e( 'Leave Group', 'community-portal' ); ?></span>
+										</a>
 									<?php else : ?>
 										<?php if ( 'members' === $invite_status || '' === $invite_status ) : ?>
-											<a href="#" class="group__join-cta" data-group="<?php echo esc_attr( $group->id ); ?>"><?php esc_html_e( 'Join Group', 'community-portal' ); ?></a>
+											<a href="#" class="group__join-cta" data-group="<?php print esc_attr( $group->id ); ?>">
+												<span class="join"><?php esc_html_e( 'Join Group', 'community-portal' ); ?></span>
+												<span class="leave"><?php esc_html_e( 'Leave Group', 'community-portal' ); ?></span>
+											</a>
 										<?php endif; ?>
 									<?php endif; ?>
 								<?php endif; ?>

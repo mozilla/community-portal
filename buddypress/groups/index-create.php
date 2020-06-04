@@ -117,7 +117,10 @@ $form_tags = isset( $form['tags'] ) ? array_filter( explode( ',', $form['tags'] 
 								if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] && ! isset( $form['group_name'] ) || ( isset( $form['group_name'] ) && empty( trim( $form['group_name'] ) ) ) ) :
 									?>
 									form__error-container--visible<?php endif; ?>">
-									<div class="form__error"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></div>
+									<p class="form__error">
+										<span class="form__error__required"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></span>
+										<span class="form__error__secondary"><?php esc_html_e( 'This group name is already taken', 'community-portal' ); ?></span>
+									</p>
 								</div>
 							</div>
 							<div class="create-group__input-container create-group__input-container--40">
@@ -342,7 +345,10 @@ $form_tags = isset( $form['tags'] ) ? array_filter( explode( ',', $form['tags'] 
 								if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] && ! isset( $form['group_admin_id'] ) || ( isset( $form['group_admin_id'] ) && empty( trim( $form['group_admin_id'] ) ) ) ) :
 									?>
 									form__error-container--visible<?php endif; ?>">
-									<div class="form__error"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></div>
+									<p class="form__error"> 
+										<span class="form__error__required"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></span>
+										<span class="form__error__secondary"><?php esc_html_e( 'Invalid user', 'community-portal' ); ?></span>
+									</p>
 								</div>
 								<input type="hidden" name="group_admin_id" id="group-admin-id" value="<?php echo isset( $form['group_admin_id'] ) ? esc_attr( sanitize_textarea_field( wp_unslash( $form['group_admin_id'] ) ) ) : ''; ?>" required/>
 							</div>
@@ -385,7 +391,7 @@ $form_tags = isset( $form['tags'] ) ? array_filter( explode( ',', $form['tags'] 
 								<?php esc_html_e( 'I agree to respect and adhere to', 'community-portal' ); ?>
 								<a class="create-group__checkbox-container__link" href="https://www.mozilla.org/en-US/about/governance/policies/participation/"><?php esc_html_e( 'Mozilla’s Community Participation Guidelines *', 'community-portal' ); ?></a>
 								<div class="form__error-container form__error-container--checkbox">
-									<div class="form__error"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></div>
+									<p class="form__error"><?php esc_html_e( 'Please agree to the Community Participation Guidelines', 'community-portal' ); ?></p>
 								</div>
 							</label>
 						</div>

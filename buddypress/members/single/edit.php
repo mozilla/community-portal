@@ -120,7 +120,7 @@ else :
 							<div class="dz-message" data-dz-message="">
 								<div class="profile__image-instructions">
 									<div class="form__error-container">
-										<div class="form__error form__error--image"></div>
+										<p class="form__error form__error--image"></p>
 									</div>
 									<button id="dropzone-trigger" type="button" class="dropzone__image-instructions profile__image-instructions 
 									<?php
@@ -186,17 +186,16 @@ else :
 					if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] && ! isset( $form['username'] ) || ( isset( $form['username'] ) && empty( trim( $form['username'] ) ) || isset( $form['username_error_message'] ) ) ) :
 						?>
 						form__error-container--visible<?php endif; ?>">
-						<div class="form__error">
-						<?php
-						if ( isset( $form['username_error_message'] ) ) :
-							?>
-							<?php echo esc_html( $form['username_error_message'] ); ?>
-							<?php
-else :
-	?>
-							<?php esc_html_e( 'This field is required', 'community-portal' ); ?><?php endif; ?></div>
-					</div>
+						<p class="form__error">
+							<?php if ( isset( $form['username_error_message'] ) ) : ?>
+								<span><?php print esc_html( $form['username_error_message'] ); ?></span>
+							<?php else : ?>
+								<span class="form__error__required"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></span>
+								<span class="form__error__secondary"><?php esc_html_e( 'This username is already taken', 'community-portal' ); ?></span>
+							<?php endif; ?>
+						</p>
 					<span class="profile__input-desc"><?php esc_html_e( 'Usernames are public', 'community-portal' ); ?></span>
+				</div>
 				</div>
 				<div class="profile__select-container">
 					<label class="profile__label" for=""><?php esc_html_e( 'Can be viewed by', 'community-portal' ); ?></label>
@@ -408,15 +407,15 @@ else :
 					if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] && ! isset( $form['email'] ) || ( isset( $form['email'] ) && empty( trim( $form['email'] ) ) || isset( $form['email_error_message'] ) ) ) :
 						?>
 						form__error-container--visible<?php endif; ?>">
-						<div class="form__error">
-						<?php
-						if ( isset( $form['email_error_message'] ) ) :
-							?>
-							<?php echo esc_html( $form['email_error_message'] ); ?>
-							<?php
-else :
-	?>
-							<?php esc_html_e( 'This field is required', 'community-portal' ); ?><?php endif; ?></div>
+						<p class="form__error">
+							<?php if ( isset( $form['email_error_message'] ) ) : ?>
+								<span><?php print esc_html( $form['email_error_message'] ); ?></span>
+							<?php else : ?>
+								<span class="form__error__required"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></span>
+								<span class="form__error__secondary"><?php esc_html_e( 'An account with this email already exists', 'community-portal' ); ?></span>
+								<span class="form__error__tertiary"><?php esc_html_e( 'Invalid email address', 'community-portal' ); ?></span>
+							<?php endif; ?>
+						</p>
 					</div>
 				</div>
 				<div class="profile__select-container">
@@ -676,7 +675,7 @@ else :
 					?>
 					<input placeholder="username:domain" type="text" name="matrix" id="matrix" class="profile__input" value="<?php echo esc_attr( $matrix_input ); ?>"/>
 					<div class="form__error-container form__error-container--checkbox">
-						<div class="form__error"><?php esc_html_e( 'Please format as username:domain', 'community-portal' ); ?></div>
+						<p class="form__error"><?php esc_html_e( 'Please format as username:domain', 'community-portal' ); ?></p>
 					</div>
 				</div>
 				<div class="profile__select-container">
@@ -1084,7 +1083,7 @@ else :
 					<a class="create-group__checkbox-container__link" href="https://www.mozilla.org/en-US/about/governance/policies/participation/"><?php esc_html_e( 'Mozilla\'s Community Participation Guidelines*', 'community-portal' ); ?></a>
 				</p>
 				<div class="form__error-container form__error-container--checkbox">
-					<div class="form__error"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></div>
+					<p class="form__error"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></p>
 				</div>
 			</label>
 		</section>

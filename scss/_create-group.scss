@@ -425,6 +425,9 @@
 		position: absolute;	
 		&:focus + label {	
 			outline: 1px solid $color-blue-50;	
+		}
+		&--error .form__error-container {
+			display: block;
 		}	
 	}
 
@@ -775,5 +778,17 @@
         &--hide {
             display: none;
         }
-    }
+	}
+	.form__error__secondary {
+		display: none;
+	}
+	.form__error-container--secondary {
+		.form__error__secondary {
+			display: block;
+		}
+		.form__error__required {
+			display: none;
+		}
+	}
+
 }
