@@ -199,7 +199,7 @@
 						</div>
 					</div>
 					<div class="campaigns__active-campaign-description">
-						<?php print esc_html( $incoming_campaignn_card_description ); ?>
+						<?php echo wp_kses( $incoming_campaignn_card_description,  wp_kses_allowed_html( 'post' ) ); ?>
 					</div>
 					<?php if ( is_array( $incoming_campaign_tags ) && count( $incoming_campaign_tags ) > 0 ) : ?>
 					<div class="campaigns__active-campaign-tags">
