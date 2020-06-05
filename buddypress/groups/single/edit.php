@@ -15,6 +15,7 @@ $group_id     = bp_get_current_group_id();
 $group        = $bp->groups->current_group;
 $group_meta   = groups_get_groupmeta( $group_id, 'meta' );
 $group_admins = groups_get_group_admins( $group_id );
+$current_translation = mozilla_get_current_translation();
 
 if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] ) {
 	$request_post = true;
@@ -66,7 +67,7 @@ $form_tags = isset( $form['tags'] ) ? array_unique( array_filter( $form['tags'],
 				<h1 class="create-group__title"><?php esc_html_e( 'Edit Group', 'community-portal' ); ?></h1>
 			</div>
 		</div>
-		<form action="/groups/<?php echo esc_attr( $group->slug ); ?>/admin/edit-details/" method="post" id="create-group-form" class="standard-form create-group__form" enctype="multipart/form-data" novalidate>
+		<form action="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>/admin/edit-details/" method="post" id="create-group-form" class="standard-form create-group__form" enctype="multipart/form-data" novalidate>
 		<div class="create-group__container">
 			<ol class="create-group__menu">
 				<li class="create-group__menu-item create-group__menu-item--disabled"><a href="#" class="create-group__menu-link"><?php esc_html_e( 'Basic Information', 'community-portal' ); ?></a></li>

@@ -15,9 +15,14 @@ do_action( 'bp_before_create_group_page' );
 
 $user = wp_get_current_user();
 $meta = get_user_meta( $user->ID );
+$current_translation = mozilla_get_current_translation();
 
 if ( ! isset( $meta['agree'][0] ) || 'I Agree' !== $meta['agree'][0] ) {
-	wp_safe_redirect( "/people/{$user->user_nicename}/profile/edit/group/1/" );
+	if( $current_translation ) {
+		wp_safe_redirect( "/{$current_translation}/people/{$user->user_nicename}/profile/edit/group/1/" );
+	} else {
+		wp_safe_redirect( "/people/{$user->user_nicename}/profile/edit/group/1/" );
+	}
 	exit();
 }
 
@@ -29,7 +34,11 @@ if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHO
 if ( 3 === $step ) {
 	if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['group_slug'] ) && isset( $_REQUEST['group_create_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['group_create_field'] ) ), 'group_create' ) ) {
 		$slug = sanitize_text_field( wp_unslash( $_POST['group_slug'] ) );
-		wp_safe_redirect( "/groups/{$slug}" );
+		if( $current_translation ) {
+			wp_safe_redirect( "/{$current_translation}/groups/{$slug}" );
+		} else {
+			wp_safe_redirect( "/groups/{$slug}" );
+		}
 		exit();
 	}
 }
@@ -46,8 +55,8 @@ if ( isset( $_SESSION['form'] ) ) {
 }
 
 $form_tags = isset( $form['tags'] ) ? array_filter( explode( ',', $form['tags'] ), 'strlen' ) : array();
-?>
 
+?>
 <div class="content">
 	<div class="create-group">
 		<?php if ( 3 !== $step ) : ?>
