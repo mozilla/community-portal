@@ -937,4 +937,10 @@ function mozilla_update_script_attributes( $html, $handle ) {
 
 }
 
-
+/**
+ * Gets the current language of the site
+ * 
+ */
+function mozilla_get_current_lang() {
+	return 'en' === ICL_LANGUAGE_CODE ? false : ICL_LANGUAGE_CODE;
+}
