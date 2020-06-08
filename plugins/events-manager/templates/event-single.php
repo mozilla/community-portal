@@ -14,7 +14,9 @@
 
 <?php
 	$em_event    = $GLOBALS['EM_Event'];
-	$em_tags     = $GLOBALS['EM_Tags'];
+	if (isset($GLOBALS['EM_Tags'])) {
+		$em_tags     = $GLOBALS['EM_Tags'];
+	}
 	$logged_in   = mozilla_is_logged_in();
 	$active_user = wp_get_current_user()->data;
 
@@ -77,7 +79,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 			$related_events = EM_Events::get( array( 'category' => $category->term_id ) );
 			if ( count( $related_events ) > 0 ) {
 				foreach ( $related_events as $single_event ) {
-					if ( $all_related_events[0]->event_id === $single_event->event_id ) {
+					if ( $related_events[0]->event_id === $single_event->event_id ) {
 						continue;
 					}
 					if ( $single_event->event_id === $em_event->event_id ) {
@@ -170,7 +172,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 					<div class="card__date">
 						<h2 class="title--secondary">
 							<?php
-							if ( $end_day ) {
+							if ( isset($end_day) ) {
 								echo esc_html( $months[ $start_month ] ) . esc_html( ' ' ) . esc_html( $start_day ) . esc_html( ' - ' ) . esc_html( $months[ $end_month ] ) . esc_html( ' ' ) . esc_html( $end_day ) . esc_html( ', ' ) . esc_html( $end_year );
 							} else {
 								echo esc_html( $months[ $start_month ] ) . esc_html( ' ' ) . esc_html( $start_day ) . esc_html( ', ' ) . esc_html( $start_year );
@@ -438,6 +440,8 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 			<div class="row">
 				<?php
 				foreach ( $all_related_events as $event ) {
+					$current_translation = mozilla_get_current_translation();
+					var_dump($current_translation);
 					$url = $site_url . '/events/' . $event->slug;
 					include locate_template( 'plugins/events-manager/templates/template-parts/single-event-card.php', false, false );
 				}

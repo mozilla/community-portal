@@ -170,7 +170,8 @@ function mozilla_determine_site_section() {
 		$path_items = array_filter( explode( '/', esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ) );
 
 		if ( count( $path_items ) > 0 ) {
-			$section = array_shift( array_values( $path_items ) );
+      $values = array_values( $path_items );
+			$section = array_shift( $values );
 			return $section;
 		}
 	}
@@ -224,10 +225,11 @@ function mozilla_init_scripts() {
 		function gtag(){dataLayer.push(arguments);}
 		gtag("js", new Date());
 		gtag("config", "' . esc_attr( $google_analytics_id ) . '");
-		</script>';
+    </script>';
+  
+    wp_add_inline_script( 'google-analytics', $script, 'after' );
+    
 	}
-
-	wp_add_inline_script( 'google-analytics', $script, 'after' );
 }
 
 /**

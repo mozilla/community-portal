@@ -26,7 +26,7 @@ if (
 	$args['search']  = preg_replace( '/^\"|\"$|^\'|\'$/', '', $args['search'] );
 	$original_search = $args['search'];
 	$args['search']  = addslashes( $args['search'] );
-} else {
+} elseif (isset($args['search'])) {
 	$original_search = $args['search'];
 }
 	$view = htmlspecialchars( get_query_var( 'view', $default = '' ), ENT_QUOTES, 'UTF-8' );

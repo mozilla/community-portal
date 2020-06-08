@@ -80,14 +80,14 @@
 							echo esc_html( $location->address ) . esc_html( ' - ' );
 						}
 
-						if ( $location->town ) {
+						if ( isset( $location->town ) && strlen($location->town) > 0) {
 							if ( strlen( $location->town ) > 180 ) {
 								$city = substr( $location->town, 0, 180 );
+								echo esc_html( $city );
 							}
 
-							echo esc_html( $city );
 							if ( $location->country ) {
-								if ( $city ) {
+								if ( isset($city) ) {
 									print esc_html( ', ' );
 								}
 
