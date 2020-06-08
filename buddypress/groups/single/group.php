@@ -1507,12 +1507,20 @@
 
 
 							$location = em_get_location( $event->location_id );
+
+							if( $current_translation ) {
+								$event_link = "/{$current_translation}/events/{$event->event_slug}";
+							} else {
+								$event_link = "/events/{$event->event_slug}";
+							}
+
 							?>
 						<?php if ( $event ) : ?>
 						<div class="group__card">
 							<div class="group__card-content group__card-content--small">
 								<span><?php esc_html_e( 'Related Events', 'community-portal' ); ?></span>
-								<a class="group__event" href="/events/<?php echo esc_attr( $event->event_slug ); ?>"> 
+
+								<a class="group__event wtf" href="<?php echo esc_url_raw( $event_link ); ?>"> 
 									<div class="group__event-date">
 										<?php echo esc_html( $event_date ); ?>
 									</div>
