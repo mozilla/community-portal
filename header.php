@@ -12,7 +12,7 @@
 
 $user = wp_get_current_user()->data;
 $meta = get_user_meta( $user->ID );
-
+$current_translation = mozilla_get_current_translation();
 $community_fields = isset( $meta['community-meta-fields'][0] ) ? unserialize( $meta['community-meta-fields'][0] ) : array();
 
 if ( isset( $community_fields['image_url'] ) ) {
@@ -158,12 +158,12 @@ if (
 		<nav class="nav">
 			<div class="nav__header">
 				<div class="nav__container">
-					<a href="/">
+					<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/">
 						<img src="<?php echo esc_attr( get_stylesheet_directory_uri() . '/images/logo.svg' ); ?>" />
 					</a>
 					<div class="nav__login">
 						<?php if ( is_user_logged_in() ) : ?>
-							<a href="/people/<?php echo esc_attr( $user->user_nicename ); ?>" class="nav__avatar-link">
+							<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/people/<?php echo esc_attr( $user->user_nicename ); ?>" class="nav__avatar-link">
 								<div class="nav__avatar
 								<?php
 								if ( ! $avatar ) :
@@ -207,7 +207,7 @@ if (
 		</nav>
 		<nav class="nav nav--mobile">
 			<div class="nav__container">
-				<a href="/">
+				<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/">
 					<svg width="193" height="40" viewBox="0 0 193 40" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<rect y="23.9711" width="56.5229" height="16.0289" fill="white"/>
 						<path fill-rule="evenodd" clip-rule="evenodd" d="M21.0859 31.0916C20.0511 31.0916 19.4083 31.8533 19.4083 33.1747C19.4083 34.3872 19.9727 35.32 21.0702 35.32C22.1206 35.32 22.8104 34.4805 22.8104 33.1435C22.8104 31.7289 22.0422 31.0916 21.0859 31.0916Z" fill="black"/>
@@ -239,7 +239,7 @@ if (
 					<input id="nav-trigger" type="checkbox" class="nav__trigger" />
 					<div class="nav__avatar-container">
 					<?php if ( is_user_logged_in() ) : ?>
-						<a href="/people/<?php echo esc_attr( $user->user_nicename ); ?>" class="nav__avatar-link">
+						<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/people/<?php echo esc_attr( $user->user_nicename ); ?>" class="nav__avatar-link">
 							<div class="nav__avatar
 							<?php
 							if ( ! $avatar ) :
@@ -265,7 +265,7 @@ if (
 					<div class="nav__menu-container">
 						<div class="nav__user-container">
 						<?php if ( is_user_logged_in() ) : ?>
-							<a href="/people/<?php echo esc_attr( $user->user_nicename ); ?>" class="nav__avatar-link">
+							<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/people/<?php echo esc_attr( $user->user_nicename ); ?>" class="nav__avatar-link">
 								<div class="nav__avatar
 								<?php
 								if ( ! $avatar ) :

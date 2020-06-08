@@ -13,7 +13,7 @@
 ?>
 <?php
 $theme_directory = get_template_directory();
-
+$current_translation = mozilla_get_current_translation();
 require "{$theme_directory}/countries.php";
 require "{$theme_directory}/languages.php";
 $subscribed = get_user_meta( $user->ID, 'newsletter', true );
@@ -34,13 +34,13 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 					<?php
 						esc_html_e( 'Notice: We had a problem registering you for our newsletter. Please try signing up again later. To try again ', 'community-portal' );
 					?>
-						<a class="newsletter__link" href="/newsletter">
+						<a class="newsletter__link" href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/newsletter">
 							<?php esc_html_e( 'Click here', 'community-portal' ); ?>
 						</a> 
 				</p>
 			<?php endif; ?>
 			<div class="profile__button-container">
-				<a href="/people/<?php echo $updated_username ? esc_attr( $updated_username ) : esc_attr( $user->user_nicename ); ?>/profile/edit/group/1/" class="profile__button"><?php esc_html_e( 'Complete your profile', 'community-portal' ); ?></a><a href="" class="profile__button profile__button--secondary"><?php esc_html_e( 'Go back to browsing', 'community-portal' ); ?></a>
+				<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/people/<?php echo $updated_username ? esc_attr( $updated_username ) : esc_attr( $user->user_nicename ); ?>/profile/edit/group/1/" class="profile__button"><?php esc_html_e( 'Complete your profile', 'community-portal' ); ?></a><a href="" class="profile__button profile__button--secondary"><?php esc_html_e( 'Go back to browsing', 'community-portal' ); ?></a>
 			</div>
 		</section>
 	</div>

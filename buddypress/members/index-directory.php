@@ -11,8 +11,9 @@
  */
 
 get_header();
-$logged_in = mozilla_is_logged_in();
-$live_user = wp_get_current_user()->data;
+$logged_in           = mozilla_is_logged_in();
+$live_user           = wp_get_current_user()->data;
+$current_translation = mozilla_get_current_translation();
 
 $template_dir = get_template_directory();
 require "{$template_dir}/languages.php";
@@ -747,7 +748,11 @@ $total_pages = ceil( count( $filtered_members ) / $members_per_page );
 					<?php esc_html_e( 'Ready to make it official? Set up a profile to attend events, join groups and manage your subscription settings. ', 'community-portal' ); ?>
 				</p>
 				<div class="members__search-container">
-					<form method="GET" action="/people/" class="members__form" id="members-search-form">
+					<form method="GET" action="
+					<?php
+					if ( $current_translation ) :
+						?>
+						<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/people/" class="members__form" id="members-search-form">
 						<div class="members__input-container">
 						<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M9.16667 15.8333C12.8486 15.8333 15.8333 12.8486 15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -838,7 +843,11 @@ $total_pages = ceil( count( $filtered_members ) / $members_per_page );
 					}
 
 					?>
-			<a href="/people/<?php echo esc_attr( $member->data->user_nicename ); ?>" class="members__member-card">
+			<a href="
+					<?php
+					if ( $current_translation ) :
+						?>
+						<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/people/<?php echo esc_attr( $member->data->user_nicename ); ?>" class="members__member-card">
 				<div class="members__avatar
 					<?php
 					if ( false === $info['profile_image']->display || false === $info['profile_image']->value ) :
@@ -920,7 +929,11 @@ $total_pages = ceil( count( $filtered_members ) / $members_per_page );
 			<div class="members__pagination">
 				<div class="members__pagination-container">
 					<?php if ( $total_pages > 1 ) : ?>
-					<a href="/people/?page=<?php echo esc_attr( $previous_page ); ?>
+					<a href="
+						<?php
+						if ( $current_translation ) :
+							?>
+							<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/people/?page=<?php echo esc_attr( $previous_page ); ?>
 													<?php
 													if ( $search_user ) :
 														?>
@@ -944,7 +957,11 @@ $total_pages = ceil( count( $filtered_members ) / $members_per_page );
 						<?php
 						if ( $current_page_min > 1 ) :
 							?>
-							<a href="/people/?page=1
+							<a href="
+							<?php
+							if ( $current_translation ) :
+								?>
+								<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/people/?page=1
 							<?php
 							if ( $search_user ) :
 								?>
@@ -962,7 +979,11 @@ $total_pages = ceil( count( $filtered_members ) / $members_per_page );
 								?>
 	&language=<?php echo esc_attr( $get_language ); ?><?php endif; ?>" class="members__pagination-link members__pagination-link--first"><?php print '1'; ?></a>&hellip; <?php endif; ?>
 						<?php for ( $x = $current_page_min - 1; $x < $current_page_max; $x++ ) : ?>
-					<a href="/people/?page=<?php echo esc_attr( $x + 1 ); ?>
+					<a href="
+							<?php
+							if ( $current_translation ) :
+								?>
+								<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/people/?page=<?php echo esc_attr( $x + 1 ); ?>
 													<?php
 													if ( $search_user ) :
 														?>
@@ -991,7 +1012,11 @@ $total_pages = ceil( count( $filtered_members ) / $members_per_page );
 						<?php
 						if ( $total_pages > $range && $current_page < $total_pages - 1 ) :
 							?>
-							&hellip; <a href="/people/?page=<?php echo esc_attr( $total_pages ); ?>
+							&hellip; <a href="
+							<?php
+							if ( $current_translation ) :
+								?>
+								<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/people/?page=<?php echo esc_attr( $total_pages ); ?>
 							<?php
 							if ( $search_user ) :
 								?>
@@ -1012,7 +1037,11 @@ $total_pages = ceil( count( $filtered_members ) / $members_per_page );
 							if ( $current_page === $total_pages ) :
 								?>
 	members__pagination-link--active<?php endif; ?>"><?php echo esc_attr( $total_pages ); ?></a><?php endif; ?>
-					<a href="/people/?page=<?php echo esc_attr( $next_page ); ?>
+					<a href="
+						<?php
+						if ( $current_translation ) :
+							?>
+							<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/people/?page=<?php echo esc_attr( $next_page ); ?>
 													<?php
 													if ( $search_user ) :
 														?>

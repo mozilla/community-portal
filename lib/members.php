@@ -122,10 +122,15 @@ function mozilla_get_users() {
  **/
 function mozilla_post_user_creation( $user_id, $userinfo, $is_new, $id_token, $access_token, $refresh_token ) {
 	$meta = get_user_meta( $user_id );
+	$current_translation = mozilla_get_current_translation();
 
 	if ( $is_new || ! isset( $meta['agree'][0] ) || ( isset( $meta['agree'][0] ) && 'I Agree' !== $meta['agree'][0] ) ) {
 		$user = get_user_by( 'ID', $user_id );
-		wp_safe_redirect( "/people/{$user->data->user_nicename}/profile/edit/group/1/" );
+		if( $current_translation ) {
+			wp_safe_redirect( "/{$current_translation}/people/{$user->data->user_nicename}/profile/edit/group/1/" );
+		} else {
+			wp_safe_redirect( "/people/{$user->data->user_nicename}/profile/edit/group/1/" );
+		}
 		exit();
 	}
 
@@ -352,9 +357,14 @@ function mozilla_update_member() {
 						$additional_meta[ $field ] = $current_additional_field;
 					}
 				}
-
 				update_user_meta( $user->ID, 'community-meta-fields', $additional_meta );
-				wp_safe_redirect( "/people/{$user->user_nicename}" );
+				$current_translation = mozilla_get_current_translation();
+
+				if( $current_translation ) {
+					wp_safe_redirect( "/{$current_translation}/people/{$user->user_nicename}" );
+				} else {
+					wp_safe_redirect( "/people/{$user->user_nicename}" );
+				}
 				exit();
 			}
 		}
