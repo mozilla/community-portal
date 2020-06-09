@@ -18,7 +18,7 @@
 			<div class="col-md-6 events__header__text">
 				<h1 class="events__title"><?php the_title(); ?></h1>
 				<p class="events__text"><?php esc_html_e( 'Ready to join the movement? Check out what\'s happening soon in your area. ', 'community-portal' ); ?></p>
-				<p class="events__text"><?php esc_html_e( 'Explore community events near you, ', 'community-portal' ); ?><a href="<?php echo esc_url_raw( add_query_arg( array( 'action' => 'edit' ), get_site_url( '', 'events/edit-event' ) ) ); ?>"><?php esc_html_e( 'organize your own!', 'community-portal' ); ?></a></p>
+				<p class="events__text"><?php esc_html_e( 'Explore community events near you, ', 'community-portal' ); ?><a href="<?php echo esc_url_raw( add_query_arg( array( 'action' => 'edit' ), get_home_url( '', 'events/edit-event' ) ) ); ?>"><?php esc_html_e( 'organize your own!', 'community-portal' ); ?></a></p>
 			</div>
 		</div>
 	</div>

@@ -169,11 +169,10 @@ function mozilla_determine_site_section() {
 	if ( ! empty( $_SERVER['REQUEST_URI'] ) ) {
 		$path_items = array_filter( explode( '/', esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ) );
 
-		if ( count( $path_items ) > 0 ) {
-      $values = array_values( $path_items );
-			$section = array_shift( $values );
-			return $section;
-		}
+		$values = array_values( $path_items );
+		$section = array_shift( $values );
+
+		return $section;
 	}
 
 	return false;
@@ -435,7 +434,9 @@ function mozilla_menu_class( $classes, $item, $args ) {
 		$menu_url   = strtolower( str_replace( '/', '', $item->url ) );
 
 		if ( count( $path_items ) > 0 ) {
-			if ( strtolower( $path_items[1] ) === $menu_url ) {
+			$current_translation = mozilla_get_current_translation();
+			$key = $current_translation ? 2 : 1;
+			if ( strtolower( $path_items[ $key ] ) === $menu_url ) {
 				$item->current = true;
 				$classes[]     = 'menu-item--active';
 			}
@@ -939,4 +940,10 @@ function mozilla_update_script_attributes( $html, $handle ) {
 
 }
 
-
+/**
+ * Gets the current language of the site
+ * 
+ */
+function mozilla_get_current_translation() {
+	return 'en' === ICL_LANGUAGE_CODE ? false : ICL_LANGUAGE_CODE;
+}

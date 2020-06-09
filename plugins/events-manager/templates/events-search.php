@@ -22,7 +22,7 @@
 		<?php
 			$args['search']     = preg_replace( '/^\"|\"$|^\'|\'$/', '', $args['search'] );
 			$query_view         = isset( $_GET['view'] ) && strlen( sanitize_title_for_query( wp_unslash( $_GET['view'] ) ) ) > 0 ? sanitize_text_field( wp_unslash( $_GET['view'] ) ) : '';
-			$args['search_url'] = '/events/?view=' . $query_view;
+			$args['search_url'] = get_home_url() . 'events/?view=' . $query_view;
 			$query_page         = isset( $_GET['pno'] ) && strlen( sanitize_title_for_query( wp_unslash( $_GET['pno'] ) ) ) > 0 ? sanitize_text_field( wp_unslash( $_GET['pno'] ) ) : false;
 			$query_country      = isset( $_GET['country'] ) && strlen( sanitize_text_field( wp_unslash( $_GET['country'] ) ) ) > 0 ? urldecode( sanitize_text_field( wp_unslash( $_GET['country'] ) ) ) : false;
 			$query_language     = isset( $_GET['language'] ) && strlen( sanitize_title_for_query( wp_unslash( $_GET['language'] ) ) ) > 0 ? sanitize_text_field( wp_unslash( $_GET['language'] ) ) : false;

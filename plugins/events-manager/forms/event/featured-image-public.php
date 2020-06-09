@@ -18,7 +18,7 @@
 		$event      = em_get_event( sanitize_key( $_REQUEST['event_id'] ) );
 		$event_meta = get_post_meta( $event->post_id, 'event-meta' );
 
-		$img_url = $event_meta[0]->image_url;
+		$img_url = isset( $event_meta[0]->image_url ) && strlen( $event_meta[0]->image_url ) > 0 ? $event_meta[0]->image_url : null;
 
 		if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'off' !== $_SERVER['HTTPS'] ) || 443 === $_SERVER['SERVER_PORT'] ) {
 			$img_url = preg_replace( '/^http:/i', 'https:', $img_url );

@@ -419,7 +419,7 @@ function mozilla_get_user_info( $me, $user, $logged_in ) {
 	} else {
 		if ( isset( $community_fields['city'] ) && strlen( $community_fields['city'] ) > 0 ) {
 			$object->value = $community_fields['city'];
-		} elseif ( isset( $community_fields['country'] ) && strlen( $community_fields['country'] ) > 0 ) {
+		} elseif ( isset( $community_fields['country'] ) && strlen( $community_fields['country'] ) > 0  && isset($countries[ $community_fields['country'] ])) {
 			$object->value = $countries[ $community_fields['country'] ];
 		} else {
 			$object->value = false;

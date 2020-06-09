@@ -31,7 +31,7 @@
 
 	$categories = ( ! is_null( $event ) ) ? $event->get_categories() : false;
 	$location   = em_get_location( $event->location_id );
-	$site_url   = get_site_url();
+	$site_url   = get_home_url();
 	$url        = $site_url . '/events/' . $event->slug;
 
 	?>
@@ -57,9 +57,12 @@
 				<?php
 					$month      = substr( $event->start_date, 5, 2 );
 					$date       = substr( $event->start_date, 8, 2 );
-					$event_year = substr( $event->start_date, 0, 4 );
+					$event_year = substr( $event->start_date, 0, 4 ); 
+					if (isset($months[$month]) && strlen($months[$month]) > 0):
 				?>
-				<p class="event-card__image__date"><span><?php echo esc_html( substr( $months[ $month ], 0, 3 ) ); ?> </span><span><?php echo esc_html( $date ); ?></span></p>
+					<p class="event-card__image__date"><span><?php  echo esc_html( substr( $months[ $month ], 0, 3 ) ); ?> </span><span><?php echo esc_html( $date ); ?></span>
+					</p>
+				<?php endif; ?>
 			</div>
 			<div class="event-card__description">
 				<h3 class="event-card__description__title title--event-card"><?php echo esc_html( $event->event_name ); ?></h2>

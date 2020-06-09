@@ -13,12 +13,11 @@ global $EM_Event, $EM_Notices, $bp, $EM_Ticket;
 $theme_directory = get_template_directory();
 require "{$theme_directory}/languages.php";
 
-
 mozilla_match_categories();
 if ( isset( $_REQUEST['event_id'] ) ) {
 	$event_id                  = sanitize_text_field( wp_unslash( $_REQUEST['event_id'] ) );
 	$event_meta                = get_post_meta( $EM_Event->post_id, 'event-meta' );
-	$external_url              = $event_meta[0]->external_url;
+	$external_url              = isset( $event_meta[0]->external_url ) && strlen( $event_meta[0]->external_url ) > 0 ? $event_meta[0]->external_url : false;
 	$event_initiative          = isset( $event_meta[0]->initiative ) && strlen( $event_meta[0]->initiative ) > 0 ? intval( $event_meta[0]->initiative ) : false;
 	$event_language            = isset( $event_meta[0]->language ) && strlen( $event_meta[0]->language ) > 0 ? $event_meta[0]->language : false;
 	$event_projected_attendees = isset( $event_meta[0]->projected_attendees ) ? trim( $event_meta[0]->projected_attendees ) : null;
@@ -260,9 +259,9 @@ else :
 			<input type="hidden" name="redirect_to" value="
 			<?php
 			if ( $event_id ) {
-				echo esc_attr( get_site_url() . '/events/' . $EM_Event->event_slug );
+				echo esc_attr( get_home_url(null, 'events/' . $EM_Event->event_slug ));
 			} else {
-				esc_attr( get_site_url() . '/events/' );
+				esc_attr( get_home_url(null, 'events' ));
 			}
 			?>
 			" />
