@@ -99,7 +99,7 @@
 		$e          = strtotime( get_field( 'campaign_end_date', $c->ID ) );
 		$now        = time();
 
-		if ( strtolower( $ind_s ) === 'closed' ) {
+		if ( strtolower( $ind_status ) === 'closed' ) {
 			$past_campaigns[] = $c;
 			continue;
 		}
@@ -114,7 +114,6 @@
 
 	$campaigns   = array_slice( $past_campaigns, $offset, $campaigns_per_page );
 	$total_pages = ceil( $campaign_count / $campaigns_per_page );
-
 	?>
 <div>
 	<div class="campaigns">
@@ -143,7 +142,7 @@
 											?>
 								- <?php print esc_html( $current_campaign_end_date ); ?><?php endif; ?>
 						</div>
-						<a href="/campaigns/<?php print esc_attr( $current_campaign->post_name ); ?>" class="campaign__hero-cta"><?php esc_html_e( 'Get Involved', 'community-portal' ); ?></a>
+						<a href="<?php print esc_attr( get_home_url(null, '/campaigns/' . $current_campaign->post_name ) ); ?>" class="campaign__hero-cta"><?php esc_html_e( 'Get Involved', 'community-portal' ); ?></a>
 					</div>
 				</div>
 				<?php if ( ! empty( $current_campaign_card_description ) ) : ?>
@@ -195,7 +194,7 @@
 												?>
 									- <?php print esc_html( $incoming_campaign_end_date ); ?><?php endif; ?>
 							</div>
-							<a href="/campaigns/<?php print esc_attr( $incoming_campaign->post_name ); ?>" class="campaign__hero-cta campaign__hero-cta--secondary"><?php esc_html_e( 'Get Involved', 'community-portal' ); ?></a>
+							<a href="<?php print esc_attr(get_home_url(null, '/campaigns/' . $incoming_campaign->post_name ) ); ?>" class="campaign__hero-cta campaign__hero-cta--secondary"><?php esc_html_e( 'Get Involved', 'community-portal' ); ?></a>
 						</div>
 					</div>
 					<div class="campaigns__active-campaign-description">
@@ -215,7 +214,7 @@
 		?>
 		<?php
 		if ( isset( $subscribed ) && intval( $subscribed ) !== 1 ) :
-			if ( ( ! $current_campaign && $incoming_campaign ) || ( $current_campaign && $incoming_campaign ) || ( ! $current_campaign && ! $incoming_campaign ) ) :
+			if ( ( ! $current_campaign && $incoming_campaign ) || ( ! $current_campaign && ! $incoming_campaign ) ) :
 				?>
 			<div class="newsletter <?php echo ( ! $current_campaign && ! $incoming_campaign ? 'newsletter__solo' : '' ); ?>">
 				<?php include get_template_directory() . '/templates/campaigns-newsletter.php'; ?>
@@ -246,7 +245,7 @@
 					$campaign_tags             = get_the_terms( $campaign, 'post_tag' );
 
 					?>
-			<a class="campaigns__campaign" href="/campaigns/<?php print esc_html( $campaign->post_name ); ?>">
+			<a class="campaigns__campaign" href="<?php print esc_html( get_home_url(null, '/campaigns/' . $campaign->post_name ) ); ?>">
 				<div class="campaigns__active-campaign-hero-container campaigns__active-campaign-hero-container--card">
 					<div class="campaigns__past-campaign-hero">
 						<div class="campaign__hero-image campaign__hero-image--card" style="background-image: url(<?php print esc_html( $campaign_image ); ?>);">
@@ -324,7 +323,7 @@
 			<div class="campaigns__pagination">
 				<div class="campaigns__pagination-container">
 					<?php if ( $total_pages > 1 ) : ?>
-					<a href="/campaigns/?a=<?php print esc_attr( $previous_page ); ?>" class="campaigns__pagination-link">
+					<a href="<?php print esc_attr(add_query_arg(array('a' => $previous_page), get_home_url(null, 'campaigns') ) ) ?>" class="campaigns__pagination-link">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 							<path d="M17 23L6 12L17 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>
@@ -332,9 +331,9 @@
 						<?php
 						if ( $page_min > 1 ) :
 							?>
-							<a href="/campaigns/?a=1" class="campaigns__pagination-link campaigns__pagination-link--first"><?php print '1'; ?></a>&hellip; <?php endif; ?>
+							<a href="<?php print esc_attr(add_query_arg(array('a' => '1'), get_home_url(null, 'campaigns') ) ) ?>" class="campaigns__pagination-link campaigns__pagination-link--first"><?php print '1'; ?></a>&hellip; <?php endif; ?>
 						<?php for ( $x = $page_min - 1; $x < $page_max; $x++ ) : ?>
-					<a href="/campaigns/?a=<?php print esc_attr( $x + 1 ); ?>" class="campaigns__pagination-link
+					<a href="<?php print esc_attr(add_query_arg(array('a' =>  $x + 1), get_home_url(null, 'campaigns') ) ) ?>" class="campaigns__pagination-link
 							<?php
 							if ( $p === $x + 1 ) :
 								?>
@@ -347,12 +346,8 @@
 						<?php
 						if ( $total_pages > $range && $p < $total_pages - 1 ) :
 							?>
-							&hellip; <a href="/campaigns/?p=<?php print esc_attr( $total_pages ); ?>" class="campaigns__pagination-link
-							<?php
-							if ( $total_pages === $p ) :
-								?>
-							campaigns__pagination-link--active<?php endif; ?>"><?php print esc_html( $total_pages ); ?></a><?php endif; ?>
-					<a href="/campaigns/?a=<?php print esc_attr( $next_page ); ?>" class="campaigns__pagination-link">
+							&hellip; <a href="<?php print esc_attr(add_query_arg(array('p' => $total_pages), get_home_url(null, 'campaigns') ) ) ?>"  class="campaigns__pagination-link <?php if ( $total_pages === $p ) : ?> campaigns__pagination-link--active<?php endif; ?>"><?php print esc_html( $total_pages ); ?></a><?php endif; ?>
+					<a href="<?php print esc_attr(add_query_arg(array('a' => $next_page), get_home_url(null, 'campaigns') ) ) ?>" class="campaigns__pagination-link">
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 						<path d="M7 23L18 12L7 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 					</svg>
@@ -365,7 +360,7 @@
 	</div>
 </div>
 <?php
-if ( ( $current_campaign && ! $incoming_campaign ) && ( isset( $subscribed ) && intval( $subscribed ) !== 1 ) ) {
+if ( ( $current_campaign && $incoming_campaign ) || ( $current_campaign && !$incoming_campaign ) && ( isset( $subscribed ) && intval( $subscribed ) !== 1 ) ) {
 	?>
 	<div class="newsletter newsletter--hero">
 	<?php include get_template_directory() . '/templates/campaigns-newsletter.php'; ?>
