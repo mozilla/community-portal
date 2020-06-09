@@ -441,7 +441,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 				<?php
 				foreach ( $all_related_events as $event ) {
 					$current_translation = mozilla_get_current_translation();
-					$url = get_home_url() . '/events/' . $event->slug;
+					$url = get_home_url(null, '/events/' . $event->slug);
 					include locate_template( 'plugins/events-manager/templates/template-parts/single-event-card.php', false, false );
 				}
 				?>
