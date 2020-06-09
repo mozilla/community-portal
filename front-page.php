@@ -148,7 +148,7 @@
 															?>
 												- <?php echo esc_html( $current_campaign_end_date ); ?><?php endif; ?>
 										</div>
-										<a href="/campaigns/<?php echo esc_attr( $current_campaign->post_name ); ?>" class="campaign__hero-cta"><?php echo esc_html_e( 'Get Involved', 'community-portal' ); ?></a>
+										<a href="<?php echo esc_attr( get_home_url( null, 'campaigns/'. $current_campaign->post_name ) ); ?>" class="campaign__hero-cta"><?php echo esc_html_e( 'Get Involved', 'community-portal' ); ?></a>
 									</div>
 								</div>
 							<?php if ( ! empty( $current_campaign_card_description ) ) : ?>
@@ -176,7 +176,7 @@
 						<h2 class="subheader homepage__groups__subheader"><?php echo esc_html( $field_values->featured_groups_title ); ?></h2>
 					</div>
 					<div class="col-md-6 col-sm-12 homepage__groups__cta">
-						<a href="/events" class="btn btn--small btn--dark"><?php echo esc_html( $field_values->featured_groups_cta_text ); ?></a>
+						<a href="<?php echo esc_attr( get_home_url( null, 'groups')); ?>" class="btn btn--small btn--dark"><?php echo esc_html( $field_values->featured_groups_cta_text ); ?></a>
 					</div>
 				</div>
 				<div class="row homepage__groups__grid">
@@ -188,7 +188,7 @@
 						?>
 						<?php if ( $group->id ) : ?>
 					<div class="col-lg-4 col-md-6 groups__column">
-						<a href="/groups/<?php echo esc_attr( $group->slug ); ?>/" class="groups__card groups__card--homepage">
+						<a href="<?php echo esc_attr( get_home_url( null, 'groups/' . $group->slug ) ); ?>/" class="groups__card groups__card--homepage">
 							<?php
 							if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty( $_SERVER['SERVER_PORT'] ) && 443 === $_SERVER['SERVER_PORT'] ) {
 								$meta['group_image_url'] = preg_replace( '/^http:/i', 'https:', $meta['group_image_url'] );
@@ -268,7 +268,7 @@
 						<p>
 							<span class="large-number homepage__events__count__span"><?php echo esc_html( $groups_total ); ?></span>
 							<?php esc_html_e( 'More Groups.', 'community-portal' ); ?>
-							<a href="/groups/" class="homepage__events__count__link"><?php esc_html( $field_values->featured_groups_secondary_cta_text ); ?></a>
+							<a href="<?php echo esc_attr( get_home_url( null, 'groups' ) ); ?>" class="homepage__events__count__link"><?php esc_html( $field_values->featured_groups_secondary_cta_text ); ?></a>
 						</p>
 					</div>
 				</div>
@@ -285,7 +285,7 @@
 					</div>
 					<div class="col-md-6 col-sm-12 homepage__events__cta">
 						<?php if ( isset( $field_values->featured_events_cta_text ) && strlen( $field_values->featured_events_cta_text ) > 0 ) : ?>
-							<a href="/events" class="btn btn--small btn--dark"><?php echo esc_html( $field_values->featured_events_cta_text ); ?></a>
+							<a href="<?php echo esc_attr( get_home_url( null, 'events' ) ); ?>" class="btn btn--small btn--dark"><?php echo esc_html( $field_values->featured_events_cta_text ); ?></a>
 						<?php endif; ?>
 					</div>
 				</div>
@@ -328,7 +328,7 @@
 							<span class="large-number homepage__events__count__span"><?php echo esc_html( $events_total ); ?></span>
 							<?php esc_html_e( 'More Events.', 'community-portal' ); ?>
 							<?php if ( isset( $field_values->featured_events_secondary_cta_text ) && strlen( $field_values->featured_events_secondary_cta_text ) > 0 ) : ?>
-								<a href="/events" class="homepage__events__count__link"><?php echo esc_html( $field_values->featured_events_secondary_cta_text ); ?></a>
+								<a href="<?php echo esc_attr( get_home_url( null, 'events' ) ); ?>" class="homepage__events__count__link"><?php echo esc_html( $field_values->featured_events_secondary_cta_text ); ?></a>
 							<?php endif; ?>
 						</p>
 					</div>
@@ -346,7 +346,7 @@
 					</div>
 					<div class="col-md-6 col-sm-12 homepage__events__cta">
 						<?php if ( isset( $field_values->featured_activities_cta_text ) && strlen( $field_values->featured_activities_cta_text ) > 0 ) : ?>
-							<a href="/activities" class="btn btn--small btn--dark"><?php echo esc_html( $field_values->featured_activities_cta_text ); ?></a>
+							<a href="<?php echo esc_attr( get_home_url( null, 'activities' ) ); ?>" class="btn btn--small btn--dark"><?php echo esc_html( $field_values->featured_activities_cta_text ); ?></a>
 						<?php endif; ?>
 					</div>
 				</div>
@@ -365,7 +365,7 @@
 							?>
 							<div class="col-lg-4 col-md-6 activities__column">
 								<div class="activities__card">
-									<a href="/activities/<?php echo esc_attr( $activity->post_name ); ?>" class="activities__link">
+									<a href="<?php echo esc_attr( get_home_url( 'activities/' . $activity->post_name ) ); ?>" class="activities__link">
 										<?php
 										$background_image = strlen( $activity_image ) > 0 ? $activity_image : get_stylesheet_directory_uri() . '/images/activity.png';
 
