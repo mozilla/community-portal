@@ -52,7 +52,7 @@ $total_pages = ceil( $activity_count / $activities_per_page );
 				?>
 				<div class="col-lg-4 col-md-6 activities__column">
 					<div class="activities__card">
-						<a href="/activities/<?php echo esc_attr( $activity->post_name ); ?>" class="activities__link">
+						<a href="<?php echo esc_attr(get_home_url(null, '/activities/' . $activity->post_name )); ?>" class="activities__link">
 							<div class="activities__activity-image" style="background-image: url('<?php echo strlen( $activity_image ) > 0 ? esc_url_raw( $activity_image ) : esc_url_raw( get_stylesheet_directory_uri() . '/images/activity.png' ); ?>');">
 							</div>
 							<div class="activities__card-content">
@@ -115,7 +115,7 @@ $total_pages = ceil( $activity_count / $activities_per_page );
 				<div class="activities__pagination">
 					<div class="activities__pagination-container">
 						<?php if ( $total_pages > 1 ) : ?>
-						<a href="/activities/?a=<?php echo esc_attr( $previous_page ); ?>" class="activities__pagination-link">
+						<a href="<?php echo esc_attr( add_query_arg(array('a' => $previous_page), get_home_url( 'activities' ) ) ); ?>" class="activities__pagination-link">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 								<path d="M17 23L6 12L17 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 							</svg>

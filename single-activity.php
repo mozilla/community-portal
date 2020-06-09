@@ -232,8 +232,7 @@
 						$related_events = array();
 
 						foreach ( $events as $e ) {
-							$event_meta = get_post_meta( $e->post_id, 'event-meta' );
-
+							$event_meta = get_post_meta( $e->post_id, 'event-meta' );	
 							if ( isset( $event_meta[0]->initiative ) && intval( $event_meta[0]->initiative ) === $post->ID ) {
 								$related_events[] = $e;
 							}
@@ -258,7 +257,7 @@
 									<?php
 									if ( false === next( $related_events ) ) :
 										?>
-									activity__event--last<?php endif; ?>" href="/events/<?php echo esc_attr( $event->event_slug ); ?>"> 
+									activity__event--last<?php endif; ?>" href="<?php echo esc_attr(get_home_url(null, '/events/' . $event->event_slug ) ); ?>"> 
 									<div class="activity__event-date">
 										<?php echo esc_html( $event_date ); ?>
 									</div>
@@ -285,7 +284,7 @@
 									</div>
 								</a>   
 								<?php endforeach; ?>
-								<a href="/events/?initiative=<?php echo esc_attr( $post->ID ) . '&nonce=' . esc_attr( wp_create_nonce( 'events-filter' ) ); ?>" class="activity__events-link">
+								<a href="<?php echo esc_attr( add_query_arg( array( 'initiative' => $post->ID), get_home_url( null, '/events/') ) ); ?>" class="activity__events-link">
 									<?php esc_html_e( 'View more events', 'community-portal' ); ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
 								</a>
 							</div>
