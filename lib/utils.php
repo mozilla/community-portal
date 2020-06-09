@@ -169,10 +169,16 @@ function mozilla_determine_site_section() {
 	if ( ! empty( $_SERVER['REQUEST_URI'] ) ) {
 		$path_items = array_filter( explode( '/', esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ) );
 
-		$values = array_values( $path_items );
-		$section = array_shift( $values );
+		if ( count( $path_items ) > 0 ) {
+			if( mozilla_get_current_translation() ) {
+				$section = $path_items[2];
+			} else {
+        $values = array_values( $path_items );
+        $section = array_shift( $values );
+			}
 
-		return $section;
+			return $section;
+		}
 	}
 
 	return false;
