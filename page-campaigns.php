@@ -231,8 +231,8 @@
 			</div>
 			<div class="campaigns__past-campaigns-container">
 				<?php foreach ( $campaigns as $campaign ) : ?>
-					<?php
 
+					<?php
 					$campaign_image = get_the_post_thumbnail_url( $campaign->ID );
 
 					$campaign_status        = get_field( 'campaign_status', $campaign->ID );
@@ -301,7 +301,7 @@
 				}
 
 				$previous_page = ( $p > 1 ) ? $p - 1 : 1;
-				$next_page     = ( $p <= $total_pages ) ? $p + 1 : $total_pages;
+				$next_page     = ( $p < $total_pages ) ? $p + 1 : $total_pages;
 
 				if ( $total_pages > 1 ) {
 					$range_min = ( 0 === $range % 2 ) ? ( $range / 2 ) - 1 : ( $range - 1 ) / 2;
