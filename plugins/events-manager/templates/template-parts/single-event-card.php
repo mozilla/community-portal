@@ -31,8 +31,7 @@
 
 	$categories = ( ! is_null( $event ) ) ? $event->get_categories() : false;
 	$location   = em_get_location( $event->location_id );
-	$site_url   = get_home_url();
-	$url        = $site_url . '/events/' . $event->slug;
+	$url        = get_home_url(null, '/events/' . $event->slug);
 
 	?>
 <div class="col-lg-4 col-md-6 events__column">
