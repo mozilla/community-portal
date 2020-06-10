@@ -576,6 +576,7 @@ function mozilla_delete_user() {
 	if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] ) {
 		if ( is_user_logged_in() ) {
 			$user = wp_get_current_user()->data;
+			$current_translation = mozilla_get_current_translation();
 
 			if ( $user ) {
 				$rand            = substr( md5( time() ), 0, 8 );
@@ -620,6 +621,7 @@ function mozilla_delete_user() {
 
 				echo wp_json_encode(
 					array(
+						'translation'	=>	$current_translation,
 						'status' => 'success',
 						'msg'    => 'Account Deleted',
 					)
@@ -627,6 +629,7 @@ function mozilla_delete_user() {
 			} else {
 				echo wp_json_encode(
 					array(
+						'translation'	=>	$current_translation,
 						'status' => 'error',
 						'msg'    => 'No user',
 					)
@@ -635,6 +638,7 @@ function mozilla_delete_user() {
 		} else {
 			echo wp_json_encode(
 				array(
+					'translation'	=>	$current_translation,
 					'status' => 'error',
 					'msg'    => 'Invalid Request',
 				)
