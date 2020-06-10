@@ -10,6 +10,8 @@
 
 ?>
 
+<?php $current_translation = mozilla_get_current_translation(); ?>
+
 <div class="event-creator__container">
 	<label class="event-creator__label" for="event-image"><?php esc_html_e( 'Event Image', 'community-portal' ); ?></label>
 
@@ -57,6 +59,7 @@
 		</div>
 	</div>
 </div>
+<input type="hidden" id="string-translation" value="<?php echo esc_attr( $current_translation ? $current_translation : 'en' ); ?>" />
 <input type="hidden" name="image_url" id="image-url" value="
 <?php
 if ( $img_url ) {

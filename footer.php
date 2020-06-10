@@ -10,6 +10,7 @@
  * @author  Playground Inc.
  */
 
+
 ?>
 		<footer class="footer">
 			<?php

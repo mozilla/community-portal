@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2020-06-04 12:54-0400\n"
-"PO-Revision-Date: 2020-06-04 16:27-0400\n"
+"PO-Revision-Date: 2020-06-10 14:20-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -409,7 +409,7 @@ msgstr ""
 #: buddypress/groups/single/group.php:840
 #: buddypress/groups/single/group.php:861
 msgid "About us"
-msgstr ""
+msgstr "About Us Spanish"
 
 #: buddypress/groups/single/group.php:845
 #: buddypress/groups/single/group.php:866
@@ -1603,7 +1603,7 @@ msgstr ""
 
 #: plugins/events-manager/templates/template-parts/event-single/event-sidebar.php:41
 msgid "Part of"
-msgstr ""
+msgstr "Part of Spanish"
 
 #: plugins/events-manager/templates/template-parts/event-single/event-sidebar.php:72
 #: templates/share-modal.php:32
