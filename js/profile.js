@@ -485,10 +485,11 @@ jQuery(function(){
     jQuery('#profile-delete-account').click(function(e) {
         e.preventDefault();
         jQuery('.profile__delete-account-error').addClass('profile__delete-account-error--hidden');
+        var language = (jQuery('#string-translation').length > 0 ) ? jQuery('#string-translation').val() : 'en';
 
         if(confirm("Delete your profile?")) {
             jQuery.ajax({
-                url: '/wp-admin/admin-ajax.php?action=delete_user',
+                url: '/wp-admin/admin-ajax.php?action=delete_user&lang=' + language,
                 method: 'POST',
                 success: function(data) {
                     var response = jQuery.parseJSON(data);
