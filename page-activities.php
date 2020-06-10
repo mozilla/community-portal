@@ -57,6 +57,7 @@ $total_pages = ceil( $activity_count / $activities_per_page );
 							</div>
 							<div class="activities__card-content">
 								<h2 class="activities__activity-title"><?php print esc_html( str_replace( '\\', '', stripslashes( $activity->post_title ) ) ); ?></h2>
+								<?php if (isset($activitiy_desc) && strlen($activitiy_desc) > 0): ?>
 								<div class="activities__copy-container">
 									<p class="activities__copy">
 										<?php
@@ -64,22 +65,26 @@ $total_pages = ceil( $activity_count / $activities_per_page );
 										?>
 									</p>
 								</div>
+								<?php endif; ?>
 								<?php
 									$tags = get_the_tags( $activity->ID );
-								?>
-								<div class="activities__tag-container">
-									<?php if ( is_array( $tags ) && count( $tags ) > 0 ) : ?>
-									<span class="activities__tag"><?php echo esc_html( $tags[0]->name ); ?></span>
-									<?php endif; ?>
-									<?php if ( $time_commitment ) : ?>
-									<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path d="M7.99992 14.6654C11.6818 14.6654 14.6666 11.6806 14.6666 7.9987C14.6666 4.3168 11.6818 1.33203 7.99992 1.33203C4.31802 1.33203 1.33325 4.3168 1.33325 7.9987C1.33325 11.6806 4.31802 14.6654 7.99992 14.6654Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-										<path d="M8 4V8L10.6667 9.33333" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-									</svg>
-									<span class="activities__time-commitment"><?php echo esc_html( $time_commitment ); ?></span>
-									<?php endif; ?>
+									if ( ( is_array( $tags ) && count( $tags ) > 0 ) || $time_commitment ) :
 
-								</div>
+								?>
+									<div class="activities__tag-container">
+										<?php if ( is_array( $tags ) && count( $tags ) > 0 ) : ?>
+										<span class="activities__tag"><?php echo esc_html( $tags[0]->name ); ?></span>
+										<?php endif; ?>
+										<?php if ( $time_commitment ) : ?>
+										<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M7.99992 14.6654C11.6818 14.6654 14.6666 11.6806 14.6666 7.9987C14.6666 4.3168 11.6818 1.33203 7.99992 1.33203C4.31802 1.33203 1.33325 4.3168 1.33325 7.9987C1.33325 11.6806 4.31802 14.6654 7.99992 14.6654Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+											<path d="M8 4V8L10.6667 9.33333" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+										</svg>
+										<span class="activities__time-commitment"><?php echo esc_html( $time_commitment ); ?></span>
+										<?php endif; ?>
+
+									</div>
+								<?php endif; ?>
 							</div>
 						</a>
 					</div>

@@ -108,7 +108,7 @@
 						}
 					}
 				}
-				if ( $current_campaign ) :
+				if ( isset( $current_campaign ) ) :
 					$current_campaign_image = get_the_post_thumbnail_url( $current_campaign->ID );
 
 					$current_campaign_status        = get_field( 'campaign_status', $current_campaign->ID );
@@ -225,12 +225,13 @@
 											<path d="M16.3333 14.0002V12.6669C16.3328 12.0761 16.1362 11.5021 15.7742 11.0351C15.4122 10.5682 14.9053 10.2346 14.3333 10.0869" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 											<path d="M11.6667 2.08691C12.2404 2.23378 12.7488 2.56738 13.1118 3.03512C13.4749 3.50286 13.672 4.07813 13.672 4.67025C13.672 5.26236 13.4749 5.83763 13.1118 6.30537C12.7488 6.77311 12.2404 7.10671 11.6667 7.25358" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 										</svg>
-										<?php echo esc_html( "{$member_count}&nbsp;" ) . esc_html_e( 'Members', 'community-portal' ); ?>
+										<?php echo esc_html( "{$member_count}&nbsp;" ) . esc_html( 'Members', 'community-portal' ); ?>
 								</div>
 								<div class="groups__card-info">
 									<div class="groups__card-tags">
 										<?php
 												$tag_counter = 0;
+												if (isset($meta) && isset($meta['group_tags'])):
 										?>
 										<ul class="groups__card-tags__container">
 										<?php foreach ( $meta['group_tags'] as $key => $value ) : ?>
@@ -242,6 +243,7 @@
 											<?php endif; ?>
 										<?php endforeach; ?>
 										</ul>
+										<?php endif; ?>	
 									</div>
 								</div>
 							</div>
@@ -301,7 +303,8 @@
 										'scope'   => 'all',
 									)
 								);
-								$event = array_shift( array_values( $event ) );
+								$values = array_values($event);
+								$event = array_shift( $values );
 
 								include locate_template( 'plugins/events-manager/templates/template-parts/single-event-card.php', false, false );
 							}
@@ -362,10 +365,11 @@
 							$activity_image  = wp_get_attachment_url( get_post_thumbnail_id( $activity->ID ) );
 							$activitiy_desc  = get_field( 'card_description', $activity->ID );
 							$time_commitment = get_field( 'time_commitment', $activity->ID );
+
 							?>
 							<div class="col-lg-4 col-md-6 activities__column">
 								<div class="activities__card">
-									<a href="<?php echo esc_attr( get_home_url( 'activities/' . $activity->post_name ) ); ?>" class="activities__link">
+									<a href="<?php echo esc_attr( get_home_url( null, 'activities/' . $activity->post_name ) ); ?>" class="activities__link">
 										<?php
 										$background_image = strlen( $activity_image ) > 0 ? $activity_image : get_stylesheet_directory_uri() . '/images/activity.png';
 
@@ -375,14 +379,17 @@
 										<div class="activities__card-content">
 											<h2 class="activities__activity-title"><?php echo esc_html( $activity->post_title ); ?></h2>
 											<div class="activities__copy-container">
+												<?php if (isset($activitiy_desc) && strlen($activitiy_desc) > 0 ): ?>
 												<p class="activities__copy">
 												<?php
 													echo esc_html( $activitiy_desc );
 												?>
 												</p>
+												<?php endif; ?>
 											</div>
 											<?php
 											$tags = get_the_tags( $activity->ID );
+											if ( $time_commitment || (is_array($tags) && count($tags) > 0)) :
 											?>
 											<div class="activities__tag-container">
 											<?php if ( is_array( $tags ) && count( $tags ) > 0 ) : ?>
@@ -396,6 +403,7 @@
 												<span class="activities__time-commitment"><?php echo esc_html( $time_commitment ); ?></span>
 											<?php endif; ?>
 											</div>
+											<?php endif; ?>
 										</div>
 									</a>
 								</div>
