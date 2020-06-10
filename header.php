@@ -12,6 +12,7 @@
 
 $user = wp_get_current_user()->data;
 $meta = get_user_meta( $user->ID );
+$current_translation = mozilla_get_current_translation();
 
 $community_fields = isset( $meta['community-meta-fields'][0] ) ? unserialize( $meta['community-meta-fields'][0] ) : array();
 
@@ -193,6 +194,18 @@ if (
 			</div>
 			<div class="nav__menu">
 				<div class="nav__container">
+					<?php if( $current_translation ): ?>
+					<?php
+						wp_nav_menu(
+							array(
+								'theme_location' => 'mozilla-theme-menu',
+								'menu_id'        => 'Mozilla Main Menu - '.$current_translation,
+								'menu_class'     => 'menu',
+							)
+						);
+						?>
+
+					<?php else: ?>
 					<?php
 						wp_nav_menu(
 							array(
@@ -202,6 +215,7 @@ if (
 							)
 						);
 						?>
+					<?php endif; ?>
 				</div>
 			</div>
 		</nav>
@@ -260,12 +274,16 @@ if (
 					</label>
 
 					<?php
-						$items = wp_get_nav_menu_items( 'Mozilla Main Menu' );
+						if( $current_translation ) {
+							$items = wp_get_nav_menu_items( 'Mozilla Main Menu - '.$current_translation );
+						} else {
+							$items = wp_get_nav_menu_items( 'Mozilla Main Menu' );
+						}
 					?>
 					<div class="nav__menu-container">
 						<div class="nav__user-container">
 						<?php if ( is_user_logged_in() ) : ?>
-							<a href="/people/<?php echo esc_attr( $user->user_nicename ); ?>" class="nav__avatar-link">
+								<a href="<?php if( $current_translation ): ?><?php echo '/'.esc_attr( $current_translation ); ?><?php endif; ?>/people/<?php echo esc_attr( $user->user_nicename ); ?>" class="nav__avatar-link">
 								<div class="nav__avatar
 								<?php
 								if ( ! $avatar ) :
