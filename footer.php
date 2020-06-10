@@ -52,25 +52,25 @@
 					<img src="<?php echo esc_attr( get_stylesheet_directory_uri() ); ?>/images/footer-logo.png"  class="footer__logo" alt="><?php echo esc_attr_e( 'Mozilla Logo', 'community-portal' ); ?>" />
 				</div>
 				<div class="footer__menu-container">
-					<?php if( $current_translation ): ?>
+					<?php if ( $current_translation ) : ?>
 						<?php
 						wp_nav_menu(
 							array(
-								'menu'       => 'Footer Primary - '.$current_translation,
+								'menu'       => 'Footer Primary - ' . $current_translation,
 								'menu_class' => 'footer-menu footer-menu--primary',
 							)
 						);
 						?>
-					<?php
+						<?php
 						wp_nav_menu(
 							array(
-								'menu'       => 'Mozilla Main Menu - '.$current_translation,
+								'menu'       => 'Mozilla Main Menu - ' . $current_translation,
 								'menu_class' => 'footer-nav-menu',
 							)
 						);
 						?>
-					<?php else: ?>
-					<?php
+					<?php else : ?>
+						<?php
 						wp_nav_menu(
 							array(
 								'menu'       => 'Footer Primary',
@@ -78,7 +78,7 @@
 							)
 						);
 						?>
-					<?php
+						<?php
 						wp_nav_menu(
 							array(
 								'menu'       => 'Mozilla Main Menu',
@@ -89,25 +89,25 @@
 					<?php endif; ?>
 					<div class="footer__mozilla-container">
 						<span class="footer__menu-title"><?php echo esc_html_e( 'Mozilla', 'community-portal' ); ?></span>
-						<?php if( $current_translation ): ?>
-						<?php
-						wp_nav_menu(
-							array(
-								'menu'       => 'Mozilla - '.$current_translation,
-								'menu_class' => 'footer-mozilla-menu',
-							)
-						);
-						?>
-						<?php else: ?>
-					<?php
+						<?php if ( $current_translation ) : ?>
+							<?php
+							wp_nav_menu(
+								array(
+									'menu'       => 'Mozilla - ' . $current_translation,
+									'menu_class' => 'footer-mozilla-menu',
+								)
+							);
+							?>
+						<?php else : ?>
+							<?php
 
-						wp_nav_menu(
-							array(
-								'menu'       => 'Mozilla',
-								'menu_class' => 'footer-mozilla-menu',
-							)
-						);
-						?>
+							wp_nav_menu(
+								array(
+									'menu'       => 'Mozilla',
+									'menu_class' => 'footer-mozilla-menu',
+								)
+							);
+							?>
 						<?php endif; ?>
 					</div>
 				</div>
@@ -117,17 +117,17 @@
 						<a href="#" class="footer__link"><?php echo esc_html_e( ' Creative Commons license.', 'community-portal' ); ?></a>
 					</p>
 					<div class="footer__menu-legal-container">
-						<?php if( $current_translation ): ?>
+						<?php if ( $current_translation ) : ?>
 							<?php
 							wp_nav_menu(
 								array(
-									'menu'       => 'Legal - '.$current_translation,
+									'menu'       => 'Legal - ' . $current_translation,
 									'menu_class' => 'footer-legal-menu',
 								)
 							);
 							?>
-						<?php else: ?>
-						<?php
+						<?php else : ?>
+							<?php
 							wp_nav_menu(
 								array(
 									'menu'       => 'Legal',
