@@ -63,6 +63,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 			</div>
 		</div>
 	</div>
+	<input type="hidden" id="string-translation" value="<?php echo esc_attr( $current_translation ? $current_translation : 'en' ); ?>" />
 	<form class="profile__form" id="complete-profile-form" method="post" novalidate>
 		<?php wp_nonce_field( 'newsletter_nonce', 'newsletter_nonce_field' ); ?>
 		<?php wp_nonce_field( 'protect_content', 'my_nonce_field' ); ?>
