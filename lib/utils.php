@@ -75,10 +75,11 @@ function mozilla_show_activity_metabox( $post ) {
  * General function for uploading images
  */
 function mozilla_upload_image() {
-
+	
 	if ( ! empty( $_FILES ) ) {
 
 		if ( isset( $_REQUEST['my_nonce_field'] ) ) {
+
 			$nonce = trim( sanitize_text_field( wp_unslash( $_REQUEST['my_nonce_field'] ) ) );
 
 			if ( wp_verify_nonce( $nonce, 'protect_content' ) ) {
@@ -124,11 +125,13 @@ function mozilla_upload_image() {
 											if ( $image[0] >= 175 && $image[1] >= 175 ) {
 												print esc_url_raw( trim( str_replace( "\n", '', $uploaded_url ) ) );
 											} else {
-												print esc_html( 'Image size is too small' );
+
+												print esc_html_e( 'Image size is too small', 'community-portal' );
+
 												unlink( $uploaded_bits['file'] );
 											}
 										} else {
-											print esc_html( 'Invalid image provided' );
+											print esc_html_e( 'Invalid image provided', 'community-portal' );
 											unlink( $uploaded_bits['file'] );
 										}
 									} elseif ( isset( $_REQUEST['group_image'] ) && 'true' === $_REQUEST['group_image'] || isset( $_REQUEST['event_image'] ) && 'true' === $_REQUEST['event_image'] ) {
@@ -136,11 +139,11 @@ function mozilla_upload_image() {
 											if ( $image[0] >= 703 && $image[1] >= 400 ) {
 												print esc_url_raw( trime( str_replace( "\n", '', $uploaded_url ) ) );
 											} else {
-												print esc_html( 'Image size is too small' );
+												print esc_html_e( 'Image size is too small', 'community-portal' );
 												unlink( $uploaded_bits['file'] );
 											}
 										} else {
-											print 'Invalid image provided';
+											print esc_html_e('Invalid image provided', 'community-portal');
 											unlink( $uploaded_bits['file'] );
 										}
 									} else {
@@ -151,7 +154,9 @@ function mozilla_upload_image() {
 							}
 						}
 					} else {
-						print esc_html( "Image size to large ({$max_files_size_allowed} KB maximum)" );
+						$image_size_string = __( 'Image size to large ', 'community-portal' );
+						$max_string = __( 'KB maximum', 'community-portal' );
+						print esc_html( "{$image_size_string} ({$max_files_size_allowed} {$max_string})" );
 					}
 				}
 			}
@@ -170,7 +175,12 @@ function mozilla_determine_site_section() {
 		$path_items = array_filter( explode( '/', esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ) );
 
 		if ( count( $path_items ) > 0 ) {
-			$section = array_shift( array_values( $path_items ) );
+			if( mozilla_get_current_translation() ) {
+				$section = $path_items[2];
+			} else {
+				$section = array_shift( array_values( $path_items ) );
+			}
+
 			return $section;
 		}
 	}
@@ -433,7 +443,9 @@ function mozilla_menu_class( $classes, $item, $args ) {
 		$menu_url   = strtolower( str_replace( '/', '', $item->url ) );
 
 		if ( count( $path_items ) > 0 ) {
-			if ( strtolower( $path_items[1] ) === $menu_url ) {
+			$current_translation = mozilla_get_current_translation();
+			$key = $current_translation ? 2 : 1;
+			if ( strtolower( $path_items[ $key ] ) === $menu_url ) {
 				$item->current = true;
 				$classes[]     = 'menu-item--active';
 			}
@@ -937,4 +949,10 @@ function mozilla_update_script_attributes( $html, $handle ) {
 
 }
 
-
+/**
+ * Gets the current language of the site
+ * 
+ */
+function mozilla_get_current_translation() {
+	return 'en' === ICL_LANGUAGE_CODE ? false : ICL_LANGUAGE_CODE;
+}

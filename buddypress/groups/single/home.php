@@ -9,7 +9,6 @@
  * @version 1.0.0
  * @author  Playground Inc.
  */
-
 	// Lets get the group data!
 	global $bp;
 	$group        = $bp->groups->current_group;
