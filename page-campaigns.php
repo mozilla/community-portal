@@ -72,6 +72,7 @@
 		foreach ( $campaigns->posts as $c ) {
 			$start = strtotime( get_field( 'campaign_start_date', $c->ID ) );
 			$today = time();
+			var_dump($start);
 
 			if ( $start > $today ) {
 				$incoming_campaign = $c;
@@ -136,11 +137,15 @@
 						<div class="campaigns__active-campaign-status"><?php print esc_html( $current_campaign_status ); ?></div>
 						<h2 class="campaigns__active-campaign-title"><?php print esc_html( $current_campaign->post_title ); ?></h2>
 						<div class="campaigns__active-campaign-date-container">
-							<?php print esc_html( $current_campaign_start_date ); ?>
+							<?php 
+								$formatted_start_date = gmdate( 'F j, Y', strtotime( $current_campaign_start_date ) );
+								print esc_html( $formatted_start_date ); ?>
 										<?php
 										if ( $current_campaign_end_date ) :
+											$formatted_end_date = gmdate( 'F j, Y', strtotime( $current_campaign_end_date ) );
+
 											?>
-								- <?php print esc_html( $current_campaign_end_date ); ?><?php endif; ?>
+								- <?php print esc_html( $formatted_end_date ); ?><?php endif; ?>
 						</div>
 						<a href="<?php print esc_attr( get_home_url(null, '/campaigns/' . $current_campaign->post_name ) ); ?>" class="campaign__hero-cta"><?php esc_html_e( 'Get Involved', 'community-portal' ); ?></a>
 					</div>
@@ -177,6 +182,7 @@
 			</div>
 			<?php endif; ?>
 			<?php if ( $incoming_campaign ) : ?>
+
 				<div class="campaigns__incoming-campaign-container">
 					<h2 class="campaigns__active-campaign-title"><?php esc_html_e( 'Campaign Incoming!', 'community-portal' ); ?></h2>
 					<p class="campaigns__incoming-campaign-copy"><?php esc_html_e( 'An extra cool Mozilla campaign is coming soon.  Keep an eye out for when it launches.', 'community-portal' ); ?></p>
@@ -188,11 +194,15 @@
 							<div class="campaigns__active-campaign-status"><?php print esc_html( $incoming_campaign_status ); ?></div>
 							<h2 class="campaigns__active-campaign-title"><?php print esc_html( $incoming_campaign->post_title ); ?></h2>
 							<div class="campaigns__active-campaign-date-container">
-								<?php print esc_html( $incoming_campaign_start_date ); ?>
-											<?php
+								<?php 
+									$formatted_start_date = gmdate( 'F j, Y', strtotime( $incoming_campaign_start_date));
+									print esc_html( $formatted_start_date ); 
+								
 											if ( $incoming_campaign_end_date ) :
+
+												$formatted_end_date = gmdate( 'F j, Y', strtotime( $incoming_campaign_end_date ) );
 												?>
-									- <?php print esc_html( $incoming_campaign_end_date ); ?><?php endif; ?>
+									- <?php print esc_html( $formatted_end_date ); ?><?php endif; ?>
 							</div>
 							<a href="<?php print esc_attr(get_home_url(null, '/campaigns/' . $incoming_campaign->post_name ) ); ?>" class="campaign__hero-cta campaign__hero-cta--secondary"><?php esc_html_e( 'Get Involved', 'community-portal' ); ?></a>
 						</div>
@@ -253,11 +263,17 @@
 						<div class="campaigns__active-campaign-title-container campaigns__active-campaign-title-container--card">
 							<h2 class="campaigns__active-campaign-title campaigns__active-campaign-title--card"><?php print esc_html( $campaign->post_title ); ?></h2>
 							<div class="campaigns__active-campaign-date-container campaigns__active-campaign-date-container--card">
-								<?php print esc_html( $campaign_start_date ); ?>
+								<?php 
+									$formatted_start_date = gmdate( 'F j, Y', strtotime( $campaign_start_date ) );
+									print esc_html( $formatted_start_date ); ?>
 											<?php
 											if ( $campaign_end_date ) :
 												?>
-									- <?php print esc_html( $campaign_end_date ); ?><?php endif; ?>
+									- <?php 
+									$formatted_end_date = gmdate( 'F j, Y', strtotime( $campaign_end_date ) );
+									
+									print esc_html( $formatted_end_date ); 
+									?><?php endif; ?>
 							</div>
 						</div>
 					</div>
