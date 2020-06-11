@@ -72,7 +72,6 @@
 		foreach ( $campaigns->posts as $c ) {
 			$start = strtotime( get_field( 'campaign_start_date', $c->ID ) );
 			$today = time();
-			var_dump($start);
 
 			if ( $start > $today ) {
 				$incoming_campaign = $c;
