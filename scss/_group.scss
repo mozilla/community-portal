@@ -837,13 +837,15 @@
 
     &__topic-link {
         text-decoration: none;
-        
+        position: relative;
+
         &:before {
             content: "";
             display: block;
-            height: 22%;
+            height: 100%;
             left: 0;
             position: absolute;
+            top: 0;
             width: 100%;
         }
     }
