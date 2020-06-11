@@ -130,7 +130,8 @@
 			<?php if ( $current_campaign ) : ?>
 			<div class="campaigns__active-campaign">
 				<div class="campaigns__active-campaign-hero-container">
-					<div class="campaign__hero-image" style="background-image: url(<?php print esc_attr( $current_campaign_image ); ?>);">
+        
+		<div class="campaign__hero-image" <?php if (isset($current_campaign_image) && strlen($current_campaign_image) > 0 ): ?> style="background-image: url(<?php print esc_attr( $current_campaign_image ); ?>);" <?php endif; ?> >
 					</div>
 					<div class="campaigns__active-campaign-title-container">
 						<div class="campaigns__active-campaign-status"><?php print esc_html( $current_campaign_status ); ?></div>
@@ -181,13 +182,12 @@
 			</div>
 			<?php endif; ?>
 			<?php if ( $incoming_campaign ) : ?>
-
 				<div class="campaigns__incoming-campaign-container">
 					<h2 class="campaigns__active-campaign-title"><?php esc_html_e( 'Campaign Incoming!', 'community-portal' ); ?></h2>
 					<p class="campaigns__incoming-campaign-copy"><?php esc_html_e( 'An extra cool Mozilla campaign is coming soon.  Keep an eye out for when it launches.', 'community-portal' ); ?></p>
 					<div class="campaigns__active-campaign">
 					<div class="campaigns__active-campaign-hero-container">
-						<div class="campaign__hero-image" style="background-image: url(<?php print esc_attr( $incoming_campaign_image ); ?>);">
+		<div class="campaign__hero-image" <?php if (isset($incoming_campaign_image) && strlen($incoming_campaign_image) > 0 ): ?> style="background-image: url(<?php print esc_attr( $incoming_campaign_image ); ?>);" <?php endif;?> >
 						</div>
 						<div class="campaigns__active-campaign-title-container">
 							<div class="campaigns__active-campaign-status"><?php print esc_html( $incoming_campaign_status ); ?></div>
@@ -257,7 +257,7 @@
 			<a class="campaigns__campaign" href="<?php print esc_html( get_home_url(null, '/campaigns/' . $campaign->post_name ) ); ?>">
 				<div class="campaigns__active-campaign-hero-container campaigns__active-campaign-hero-container--card">
 					<div class="campaigns__past-campaign-hero">
-						<div class="campaign__hero-image campaign__hero-image--card" style="background-image: url(<?php print esc_html( $campaign_image ); ?>);">
+        <div class="campaign__hero-image campaign__hero-image--card" <?php if (isset($campaign_image) && strlen($campaign_image) > 0 ): ?> style="background-image: url(<?php print esc_html( $campaign_image ); ?>);" <?php endif; ?> >
 						</div>
 						<div class="campaigns__active-campaign-title-container campaigns__active-campaign-title-container--card">
 							<h2 class="campaigns__active-campaign-title campaigns__active-campaign-title--card"><?php print esc_html( $campaign->post_title ); ?></h2>
