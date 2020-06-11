@@ -80,10 +80,20 @@
 					</div>
 				</div>
 				<div class="footer__menu-bottom-container">
-					<p class="footer__copy">
-						<?php echo esc_html_e( 'Portions of this content are copyright 1998-2019 by individual mozilla.org contributors. Content available under a ', 'community-portal' ); ?>
-						<a href="#" class="footer__link"><?php echo esc_html_e( ' Creative Commons license.', 'community-portal' ); ?></a>
-					</p>
+					<div class="row">
+						<div class="col-md-6">
+							<p class="footer__copy">
+								<?php echo esc_html_e( 'Portions of this content are copyright 1998-2019 by individual mozilla.org contributors. Content available under a ', 'community-portal' ); ?>
+								<a href="#" class="footer__link"><?php echo esc_html_e( ' Creative Commons license.', 'community-portal' ); ?></a>
+							</p>
+						</div>
+						<div class="col-md-6 footer__language-selector">
+							<div class="footer__language-selector__container">
+								<p class="footer__language-selector__label"><?php esc_html_e('Language', 'community-portal') ?></p>
+								<?php do_action('wpml_add_language_selector') ?>
+							</div>
+						</div>
+					</div>
 					<div class="footer__menu-legal-container">
 						<?php
 							wp_nav_menu(
