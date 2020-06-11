@@ -159,12 +159,12 @@ if (
 		<nav class="nav">
 			<div class="nav__header">
 				<div class="nav__container">
-					<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/">
+					<a href="<?php echo esc_attr(get_home_url()); ?>">
 						<img src="<?php echo esc_attr( get_stylesheet_directory_uri() . '/images/logo.svg' ); ?>" />
 					</a>
 					<div class="nav__login">
 						<?php if ( is_user_logged_in() ) : ?>
-							<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/people/<?php echo esc_attr( $user->user_nicename ); ?>" class="nav__avatar-link">
+							<a href="<?php echo esc_attr( get_home_url( null, 'people/' . $user->user_nicename ) ); ?>" class="nav__avatar-link">
 								<div class="nav__avatar
 								<?php
 								if ( ! $avatar ) :
@@ -185,7 +185,7 @@ if (
 						<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" class="nav__search-icon">
 							<path fill-rule="evenodd" clip-rule="evenodd" d="M9 5C9 7.20914 7.20914 9 5 9C2.79086 9 1 7.20914 1 5C1 2.79086 2.79086 1 5 1C7.20914 1 9 2.79086 9 5ZM8.00021 9.00021C7.16451 9.62799 6.1257 10 5 10C2.23858 10 0 7.76142 0 5C0 2.23858 2.23858 0 5 0C7.76142 0 10 2.23858 10 5C10 6.27532 9.52253 7.43912 8.73661 8.32239L11.7071 11.2929L11 12L8.00021 9.00021Z" fill="#737373" />
 						</svg>
-						<form method="GET" action="/">
+						<form method="GET" action="<?php echo esc_attr( get_home_url()); ?>">
 							<?php wp_nonce_field( 'site_search', 'site_search_nonce' ); ?>
 							<input type="text" class="nav__search" placeholder="<?php esc_attr_e( 'Search', 'community-portal' ); ?>" name="s" value="<?php echo esc_attr( $search_text ); ?>" />
 						</form>
@@ -221,7 +221,7 @@ if (
 		</nav>
 		<nav class="nav nav--mobile">
 			<div class="nav__container">
-				<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/">
+				<a href="<?php echo esc_attr( get_home_url()); ?>">
 					<svg width="193" height="40" viewBox="0 0 193 40" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<rect y="23.9711" width="56.5229" height="16.0289" fill="white"/>
 						<path fill-rule="evenodd" clip-rule="evenodd" d="M21.0859 31.0916C20.0511 31.0916 19.4083 31.8533 19.4083 33.1747C19.4083 34.3872 19.9727 35.32 21.0702 35.32C22.1206 35.32 22.8104 34.4805 22.8104 33.1435C22.8104 31.7289 22.0422 31.0916 21.0859 31.0916Z" fill="black"/>
@@ -253,7 +253,7 @@ if (
 					<input id="nav-trigger" type="checkbox" class="nav__trigger" />
 					<div class="nav__avatar-container">
 					<?php if ( is_user_logged_in() ) : ?>
-						<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/people/<?php echo esc_attr( $user->user_nicename ); ?>" class="nav__avatar-link">
+						<a href="<?php echo esc_attr( get_home_url( null, 'people/' . $user->user_nicename ) ); ?>" class="nav__avatar-link">
 							<div class="nav__avatar
 							<?php
 							if ( ! $avatar ) :
@@ -283,11 +283,7 @@ if (
 					<div class="nav__menu-container">
 						<div class="nav__user-container">
 						<?php if ( is_user_logged_in() ) : ?>
-								<a href="
-								<?php
-								if ( $current_translation ) :
-									?>
-									<?php echo '/' . esc_attr( $current_translation ); ?><?php endif; ?>/people/<?php echo esc_attr( $user->user_nicename ); ?>" class="nav__avatar-link">
+							<a href="<?php echo esc_attr( get_home_url( null, 'people/' . $user->user_nicename ) ); ?>" class="nav__avatar-link">
 								<div class="nav__avatar
 								<?php
 								if ( ! $avatar ) :
@@ -309,7 +305,7 @@ if (
 							<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" class="nav__search-icon">
 								<path fill-rule="evenodd" clip-rule="evenodd" d="M9 5C9 7.20914 7.20914 9 5 9C2.79086 9 1 7.20914 1 5C1 2.79086 2.79086 1 5 1C7.20914 1 9 2.79086 9 5ZM8.00021 9.00021C7.16451 9.62799 6.1257 10 5 10C2.23858 10 0 7.76142 0 5C0 2.23858 2.23858 0 5 0C7.76142 0 10 2.23858 10 5C10 6.27532 9.52253 7.43912 8.73661 8.32239L11.7071 11.2929L11 12L8.00021 9.00021Z" fill="#737373"/>
 							</svg>
-							<form method="GET" action="/">
+							<form method="GET" action="<?php echo esc_attr( get_home_url()); ?>">
 								<input type="text" class="nav__search" placeholder="<?php esc_attr_e( 'Seach', 'community-portal' ); ?>" name="s" value="<?php echo esc_attr( $original_query ); ?>" />
 							</form>
 						</div>
