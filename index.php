@@ -13,9 +13,8 @@
  */
 
 global $bp;
-$group        = $bp->groups->current_group;
-$live_user    = wp_get_current_user()->data;
-$template_dir = get_template_directory();
+$group     = $bp->groups->current_group;
+$live_user = wp_get_current_user()->data;
 
 // Improved site routing.
 if ( $group ) {
@@ -25,7 +24,15 @@ if ( $group ) {
 	$edit_group = bp_is_group_admin_page() && $is_admin;
 
 	if ( $edit_group && ( ! isset( $meta['agree'][0] ) || 'I Agree' !== $meta['agree'][0] ) ) {
-		wp_safe_redirect( "/people/{$user->user_nicename}/profile/edit/group/1/" );
+
+		$current_translation = mozilla_get_current_translation();
+
+		if( $current_translation ) {
+			wp_safe_redirect( "{$current_translation}/people/{$user->user_nicename}/profile/edit/group/1/" );
+		} else {
+			wp_safe_redirect( "/people/{$user->user_nicename}/profile/edit/group/1/" );
+		}
+
 		exit();
 	}
 
@@ -49,14 +56,13 @@ get_header();
 
 ?>
 	<div class="content">
-	<?php if ( $group ) : ?>
+	<?php if ( have_posts() ) : ?>
 		<?php
-		include "{$template_dir}/buddypress/groups/single/home.php";
-		?>
-	<?php else : ?>
-		<?php
-		include "{$template_dir}/buddypress/members/single/home.php";
-		?>
-			<?php endif; ?>
+		while ( have_posts() ) :
+			the_post();
+			?>
+			<?php the_content(); ?>
+		<?php endwhile; ?>
+	<?php endif; ?>
 	</div>
 <?php get_footer(); ?>
