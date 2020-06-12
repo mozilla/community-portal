@@ -13,8 +13,9 @@
  */
 
 global $bp;
-$group     = $bp->groups->current_group;
-$live_user = wp_get_current_user()->data;
+$group        = $bp->groups->current_group;
+$live_user    = wp_get_current_user()->data;
+$template_dir = get_template_directory();
 
 // Improved site routing.
 if ( $group ) {
@@ -48,13 +49,14 @@ get_header();
 
 ?>
 	<div class="content">
-	<?php if ( have_posts() ) : ?>
+	<?php if ( $group ) : ?>
 		<?php
-		while ( have_posts() ) :
-			the_post();
-			?>
-			<?php the_content(); ?>
-		<?php endwhile; ?>
-	<?php endif; ?>
+		include "{$template_dir}/buddypress/groups/single/home.php";
+		?>
+	<?php else : ?>
+		<?php
+		include "{$template_dir}/buddypress/members/single/home.php";
+		?>
+			<?php endif; ?>
 	</div>
 <?php get_footer(); ?>
