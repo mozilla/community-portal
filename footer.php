@@ -96,6 +96,7 @@
 									$current_langauge = ICL_LANGUAGE_CODE;
 									if (isset($wpml_languages) && count($wpml_languages) > 0):
 										$url = get_site_url( null, $_SERVER['REQUEST_URI'] );
+										
 
 								?>
 									<ul>
@@ -112,7 +113,6 @@
 										?>
 									</ul>
 								<?php endif; ?>
-								<?php do_action( 'wpml_add_language_selector' ) ?>
 							</div>
 						</div>
 					</div>

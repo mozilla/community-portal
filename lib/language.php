@@ -1,21 +1,33 @@
 <?php
 
-function mozilla_set_language($language) {
+function mozilla_wpml_redirect($url) {
+	$redirect = wp_sanitize_redirect($url);
+	if ( wp_redirect($redirect) ) {
+		exit();
+	}
+}
+
+function handle_english($url) {
+	$url = preg_replace('/en\b/', '', $url);
+	mozilla_wpml_redirect($url);
+}
+
+function mozilla_set_language($language, $url) {
 	if ($language === 'en') {
 		return;
 	}
-	mozilla_wpml_redirect($language);
+	$url = apply_filters( 'wpml_permalink', $url , $language );
+	mozilla_wpml_redirect($url);
 	return;
 }
 
-function mozilla_check_language() {
-	$language_set = isset( $_COOKIE['mozilla_language'] );
-	if ($language_set) {
-		mozilla_set_language($_COOKIE['mozilla_language']);	
+function mozilla_check_language($language, $url) {
+	if ($language) {
+		mozilla_set_language($language, $url);	
 		return;
 	}
 	$default_lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-	mozilla_set_language($default_lang);
+	mozilla_set_language($default_lang, $url);
 }
 
 /**
@@ -23,26 +35,26 @@ function mozilla_check_language() {
  *
  */
 function mozilla_match_browser_locale() {
-	$url = $_SERVER['REQUEST_URI'];
+	$url = get_site_url(null, $_SERVER['REQUEST_URI']);
+	$language = isset( $_COOKIE['mozilla_language'] ) ? $_COOKIE['mozilla_language'] : false;
 	$wpml_languages = icl_get_languages('skip_missing=N&orderby=KEY&order=DIR&link_empty_to=str');
 	preg_match('/\b[a-zA-Z]{2}\b/', $url, $matches);
-	if (wp_doing_ajax()) {
+	if (wp_doing_ajax() || is_admin()) {
 		return;
 	}
 	if ( isset($matches[0]) && isset($wpml_languages[$matches[0]] ) ) {
+		if ($language && $language === 'en' && $matches[0] === 'en') {
+			handle_english($url);
+			return;
+		}
 		setcookie('mozilla_language', $matches[0], time()+60, '/', $_SERVER['HTTP_HOST']);
+		if ($matches[0] === 'en') {
+			handle_english($url);
+			return;
+		}
 		return;
 	}
-	mozilla_check_language();
+	mozilla_check_language($language, $url);
 }
 
 add_action('after_setup_theme', 'mozilla_match_browser_locale');
-
-function mozilla_wpml_redirect($language) {
-	$url = get_site_url( null, $_SERVER['REQUEST_URI'] );
-	$wpml_permalink = apply_filters( 'wpml_permalink', $url , $language );
-	$redirect = wp_sanitize_redirect($wpml_permalink);
-	if ( wp_redirect($redirect) ) {
-		exit();
-	}
-}
