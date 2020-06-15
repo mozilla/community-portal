@@ -213,6 +213,7 @@ function mozilla_init_scripts() {
 	wp_enqueue_script( 'dropzone', get_stylesheet_directory_uri() . '/js/dropzone.js', array( 'jquery' ), filemtime( get_template_directory() . '/js/dropzone.js' ), false );
 	wp_enqueue_script( 'newsletter', get_stylesheet_directory_uri() . '/js/newsletter.js', array( 'jquery' ), filemtime( get_template_directory() . '/js/newsletter.js' ), false );
 	wp_enqueue_script( 'mailchimp', get_stylesheet_directory_uri() . '/js/campaigns.js', array( 'jquery' ), filemtime( get_template_directory() . '/js/campaigns.js' ), false );
+	wp_enqueue_script( 'language', get_stylesheet_directory_uri() . '/js/language.js', array( 'jquery' ), filemtime( get_template_directory() . '/js/language.js' ), false );
 
 	$google_analytics_id = get_option( 'google_analytics_id' );
 	if ( $google_analytics_id ) {

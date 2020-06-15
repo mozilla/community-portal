@@ -10,6 +10,7 @@
  * @author  Playground Inc.
  */
 
+
 $user = wp_get_current_user()->data;
 $meta = get_user_meta( $user->ID );
 
@@ -49,6 +50,10 @@ if (
 }
 
 	$protocol = ! empty( wp_get_server_protocol() ) && 0 === stripos( wp_get_server_protocol(), 'https' ) ? 'https://' : 'http://';
+	
+	$lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5);
+	
+
 ?>
 
 <!DOCTYPE html>

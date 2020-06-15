@@ -10,6 +10,7 @@
  * @author  Playground Inc.
  */
 
+
 ?>
 		<footer class="footer">
 			<?php
@@ -88,9 +89,30 @@
 							</p>
 						</div>
 						<div class="col-md-6 footer__language-selector">
-							<div class="footer__language-selector__container">
+							<div id="footer-language-selector" class="footer__language-selector__container">
 								<p class="footer__language-selector__label"><?php esc_html_e('Language', 'community-portal') ?></p>
-								<?php do_action('wpml_add_language_selector') ?>
+								<?php 
+									$wpml_languages = icl_get_languages('skip_missing=N&orderby=KEY&order=DIR&link_empty_to=str');
+									$current_langauge = ICL_LANGUAGE_CODE;
+									if (isset($wpml_languages) && count($wpml_languages) > 0):
+										$url = get_site_url( null, $_SERVER['REQUEST_URI'] );
+
+								?>
+									<ul>
+										<li><?php echo esc_html($wpml_languages[$current_langauge]['translated_name']) ?></li>
+										<?php foreach($wpml_languages as $index=>$language):
+											if ($index !== $current_langauge):
+											?>
+											<li>
+												<a href="<?php if ($index !== 'en') { echo esc_attr( $language['url'] ); } else { echo esc_attr( str_replace(get_site_url(), get_site_url('', 'en'), $language['url']) ); }?>"><?php echo esc_html( $language['translated_name'])?></a>
+											</li>
+										<?php 
+											endif;
+										endforeach; 
+										?>
+									</ul>
+								<?php endif; ?>
+								<?php do_action( 'wpml_add_language_selector' ) ?>
 							</div>
 						</div>
 					</div>
