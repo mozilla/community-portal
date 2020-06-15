@@ -1623,20 +1623,24 @@
 								<span><?php esc_html_e( 'Tags', 'community-portal' ); ?></span>
 								<div class="group__tags">
 									<?php foreach ( array_unique( $group_meta['group_tags'] ) as $tag_loop ) : ?>
-										<?php
-										$system_tag = array_values(
-											array_filter(
-												$tags,
-												function( $e ) use ( &$tag_loop ) {
-													return $e->slug === $tag_loop;
-												}
-											)
-										);
-
-
-										?>
-										<?php if ( ! empty( $system_tag[0]->name ) ) : ?>
-									<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/?tag=<?php echo esc_attr( $tag_loop ); ?>" class="group__tag"><?php echo esc_html( $system_tag[0]->name ); ?></a>
+									<?php 
+										foreach( $tags AS $t ) {
+											$found = false;
+											$tag_name = $t->name;
+											if( $current_translation ) {
+												$temp_slug = $t->slug;
+												$temp_slug = substr( $temp_slug , 0, stripos( $temp_slug , '-' ) ); 
+												if( $tag_loop === $temp_slug ) {
+													$found = true;
+													break;
+												}	
+											} else {
+												$temp_slug = $t->slug;
+											}
+										}
+									?>
+									<?php if ( $found ) : ?>
+									<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/?tag=<?php echo esc_attr( $temp_slug ); ?>" class="group__tag"><?php echo esc_html( $tag_name ); ?></a>
 									<?php endif; ?>
 									<?php endforeach; ?>
 								</div>
