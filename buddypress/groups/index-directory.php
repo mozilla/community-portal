@@ -45,10 +45,6 @@
 
 	$current_translation = mozilla_get_current_translation();
 
-	if( $current_translation ) {
-		$get_tag = substr( $get_tag, 0, stripos( $get_tag, '-' ) );
-	}
-
 	if ( $q ) {
 		if (
 			strpos( $q, '"' ) !== false ||
@@ -237,13 +233,21 @@
 					<?php echo esc_html_e( 'Meet up with people who share your passion and join the movement for an open internet.', 'community-portal' ); ?>
 				</p>
 				<p class="groups__hero-copy">
-					<?php echo esc_html_e( 'Look for groups in your area, or', 'community-portal' ); ?> <a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/create/step/group-details/" class="groups__hero-link"><?php echo esc_html_e( 'create your own.', 'community-portal' ); ?></a>
+					<?php echo esc_html_e( 'Look for groups in your area, or', 'community-portal' ); ?> <a href="
+							   <?php
+								if ( $current_translation ) :
+									?>
+									<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/create/step/group-details/" class="groups__hero-link"><?php echo esc_html_e( 'create your own.', 'community-portal' ); ?></a>
 					<svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M2.33337 8.66634L6.00004 4.99967L2.33337 1.33301" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 					</svg>
 				</p>
 				<div class="groups__search-container">
-					<form method="GET" action="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/" class="groups__form" id="group-search-form">
+					<form method="GET" action="
+					<?php
+					if ( $current_translation ) :
+						?>
+						<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/" class="groups__form" id="group-search-form">
 						<?php
 						if ( isset( $_GET['tag'] ) && strlen( $get_tag ) > 0 ) {
 							$get_tag = trim( $get_tag );
@@ -355,11 +359,11 @@
 					<select class="groups__tag-select">
 						<option value=""><?php esc_html_e( 'All', 'community-portal' ); ?></option>
 						<?php foreach ( $tags as $loop_tag ) : ?>
-						<?php 
-							if( $current_translation )	{
-								$loop_tag->slug = substr( $loop_tag->slug, 0, stripos( $loop_tag->slug, '-' ) ); 
+							<?php
+							if ( $current_translation ) {
+								$loop_tag->slug = substr( $loop_tag->slug, 0, stripos( $loop_tag->slug, '-' ) );
 							}
-						?>
+							?>
 						<option value="<?php echo esc_attr( $loop_tag->slug ); ?>" 
 											<?php
 											if ( isset( $_GET['tag'] ) && strtolower( trim( $get_tag ) ) === strtolower( $loop_tag->slug ) ) :
@@ -403,7 +407,11 @@
 							}
 						}
 						?>
-					<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>" class="groups__card">
+					<a href="
+						<?php
+						if ( $current_translation ) :
+							?>
+							<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>" class="groups__card">
 						<div class="groups__group-image" style="background-image: url('<?php echo isset( $meta['group_image_url'] ) && strlen( $meta['group_image_url'] ) > 0 ? esc_url_raw( $group_image_url ) : esc_url_raw( get_stylesheet_directory_uri() . '/images/group.png' ); ?>');">
 						</div>
 						<div class="groups__card-content">
@@ -509,7 +517,11 @@
 				<div class="groups__pagination">
 					<div class="groups__pagination-container">
 						<?php if ( $total_pages > 1 ) : ?>
-						<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/?page=<?php echo esc_attr( $previous_page ); ?>
+						<a href="
+							<?php
+							if ( $current_translation ) :
+								?>
+								<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/?page=<?php echo esc_attr( $previous_page ); ?>
 														<?php
 														if ( $q ) :
 															?>
@@ -537,7 +549,11 @@
 							<?php
 							if ( $page_min > 1 ) :
 								?>
-								<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/?page=1
+								<a href="
+								<?php
+								if ( $current_translation ) :
+									?>
+									<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/?page=1
 								<?php
 								if ( $q ) :
 									?>
@@ -559,7 +575,11 @@
 									?>
 	&language=<?php echo esc_attr( $get_language ); ?><?php endif; ?>" class="groups__pagination-link groups__pagination-link--first"><?php echo esc_html( '1' ); ?></a>&hellip; <?php endif; ?>
 							<?php for ( $x = $page_min - 1; $x < $page_max; $x++ ) : ?>
-						<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/?page=<?php echo esc_attr( $x + 1 ); ?>
+						<a href="
+								<?php
+								if ( $current_translation ) :
+									?>
+									<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/?page=<?php echo esc_attr( $x + 1 ); ?>
 														<?php
 														if ( $q ) :
 															?>
@@ -592,7 +612,11 @@
 							<?php
 							if ( $total_pages > $range && $p < $total_pages - 1 ) :
 								?>
-								&hellip; <a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/?page=<?php echo esc_attr( $total_pages ); ?>
+								&hellip; <a href="
+								<?php
+								if ( $current_translation ) :
+									?>
+									<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/?page=<?php echo esc_attr( $total_pages ); ?>
 								<?php
 								if ( $q ) :
 									?>
@@ -617,7 +641,11 @@
 								if ( $p === $total_pages ) :
 									?>
 	groups__pagination-link--active<?php endif; ?>"><?php echo esc_html( $total_pages ); ?></a><?php endif; ?>
-						<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/?page=<?php echo esc_attr( $next_page ); ?>
+						<a href="
+							<?php
+							if ( $current_translation ) :
+								?>
+								<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/?page=<?php echo esc_attr( $next_page ); ?>
 														<?php
 														if ( $q ) :
 															?>

@@ -73,8 +73,6 @@ $country_code  = strlen( trim( $location ) ) > 0 ? strtoupper( $location ) : fal
 $get_tag       = strlen( trim( $get_tag ) ) > 0 ? strtolower( $get_tag ) : false;
 $language_code = strlen( trim( $get_language ) ) > 0 ? strtolower( $get_language ) : false;
 
-
-
 $wp_user_query = new WP_User_Query(
 	array(
 		'offset' => 0,
@@ -806,6 +804,11 @@ $total_pages = ceil( count( $filtered_members ) / $members_per_page );
 					<select class="members__tag-select">
 						<option value=""><?php esc_html_e( 'Select', 'community-portal' ); ?></option>
 						<?php foreach ( $tags as $loop_tag ) : ?>
+							<?php
+							if ( $current_translation ) {
+								$loop_tag->slug = substr( $loop_tag->slug, 0, stripos( $loop_tag->slug, '-' ) );
+							}
+							?>
 						<option value="<?php echo esc_attr( $loop_tag->slug ); ?>" 
 												<?php
 												if ( isset( $_GET['tag'] ) && strtolower( trim( $get_tag ) ) === strtolower( $loop_tag->slug ) ) :
