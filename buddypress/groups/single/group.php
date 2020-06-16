@@ -846,28 +846,28 @@
 						if ( bp_is_group_home() && ! $is_events && ! $is_people ) :
 							?>
 							group__menu-link--active<?php endif; ?>" href="
-																 <?php
-																	if ( $current_translation ) :
-																		?>
-																		<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>"><?php esc_html_e( 'About us', 'community-portal' ); ?></a></li>
+							<?php
+							if ( $current_translation ) :
+								?>
+								<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>"><?php esc_html_e( 'About us', 'community-portal' ); ?></a></li>
 						<li class="menu-item"><a class="group__menu-link
 						<?php
 						if ( $is_events ) :
 							?>
 							group__menu-link--active<?php endif; ?>" href="
-																 <?php
-																	if ( $current_translation ) :
-																		?>
-																		<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>?view=events"><?php esc_html_e( 'Our Events', 'community-portal' ); ?></a></li>
+						<?php
+						if ( $current_translation ) :
+							?>
+							<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>?view=events"><?php esc_html_e( 'Our Events', 'community-portal' ); ?></a></li>
 						<li class="menu-item"><a class="group__menu-link
 						<?php
 						if ( $is_people ) :
 							?>
 							group__menu-link--active<?php endif; ?>" href="
-																 <?php
-																	if ( $current_translation ) :
-																		?>
-																		<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>/?view=people"><?php esc_html_e( 'Our Members', 'community-portal' ); ?></a></li>
+						<?php
+							if ( $current_translation ) :
+								?>
+								<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>/?view=people"><?php esc_html_e( 'Our Members', 'community-portal' ); ?></a></li>
 					</ul>
 				</div>
 				<div class="group__nav group__nav--mobile">
@@ -1215,11 +1215,16 @@
 										</div>
 										<ul class="events__tags">
 											<?php
+											
 											if ( is_array( $categories->terms ) ) :
 												if ( count( $categories->terms ) <= 2 ) :
 													foreach ( $categories->terms as $category ) {
+														if ($current_translation) {
+															$translation = get_term_by('slug', $category->slug . '-' . $current_translation, 'event-categories');
+														}
+														$term_name = isset($translation) && strlen($translation->name) > 0 ? $translation->name : $category->name;
 														?>
-													<li class="tag"><?php echo esc_html( $category->name ); ?></li>
+													<li class="tag"><?php echo esc_html( $term_name ); ?></li>
 														<?php
 														break;
 													}
