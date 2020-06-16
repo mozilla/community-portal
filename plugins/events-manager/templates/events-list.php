@@ -13,8 +13,6 @@
 ?>
 
 <?php
-	$nonce        = isset( $_REQUEST['nonce'] ) ? sanitize_key( $_REQUEST['nonce'] ) : false;
-	$valid_nonce  = wp_verify_nonce( $nonce, 'events-filter' );
 	$current_page = isset( $_REQUEST['pno'] ) ? intval( sanitize_key( $_REQUEST['pno'] ) ) : 1;
 	$args         = apply_filters( 'em_content_events_args', $args );
 if (
@@ -30,13 +28,9 @@ if (
 	$original_search = $args['search'];
 }
 	$view = htmlspecialchars( get_query_var( 'view', $default = '' ), ENT_QUOTES, 'UTF-8' );
-if ( $valid_nonce ) {
+
 	$country   = urldecode( htmlspecialchars( urldecode( get_query_var( 'country', $default = 'all' ) ), ENT_QUOTES, 'UTF-8' ) );
 	$event_tag = urldecode( htmlspecialchars( get_query_var( 'tag', $default = 'all' ), ENT_QUOTES, 'UTF-8' ) );
-} else {
-	$country   = 'all';
-	$event_tag = 'all';
-}
 
 	$args['scope'] = 'future';
 switch ( strtolower( trim( $view ) ) ) {
@@ -62,6 +56,10 @@ if ( 'all' !== strtolower( $country ) ) {
 }
 
 if ( 'all' !== $event_tag ) {
+	$current_translation = mozilla_get_current_translation();
+	if ($current_translation && stripos( $event_tag, '-' . $current_translation ) !== false) {
+		$event_tag = substr( $event_tag, 0, stripos( $event_tag, '-' . $current_translation ) );
+	}
 	$args['category'] = $event_tag;
 }
 
@@ -72,8 +70,8 @@ if ( isset( $args['tag'] ) ) {
 	$args['limit']    = '0';
 	$all_events       = EM_Events::get( $args );
 	$events           = array();
-	$initiative_input = $valid_nonce && isset( $_GET['initiative'] ) ? sanitize_text_field( wp_unslash( $_GET['initiative'] ) ) : null;
-	$language_input   = $valid_nonce && isset( $_GET['language'] ) ? sanitize_text_field( wp_unslash( $_GET['language'] ) ) : null;
+	$initiative_input = isset( $_GET['initiative'] ) ? sanitize_text_field( wp_unslash( $_GET['initiative'] ) ) : null;
+	$language_input   = isset( $_GET['language'] ) ? sanitize_text_field( wp_unslash( $_GET['language'] ) ) : null;
 	$event_initiative = isset( $initiative_input ) && strlen( $initiative_input ) > 0 && strtolower( $initiative_input ) !== 'all' ? $initiative_input : false;
 	$event_language   = isset( $language_input ) && strlen( $language_input ) > 0 && strtolower( $language_input ) !== 'all' ? $language_input : false;
 if ( $event_initiative || $event_language ) {

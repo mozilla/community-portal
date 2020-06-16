@@ -41,8 +41,16 @@ foreach ( $filter_events as $e ) {
 
 	$categories = EM_Categories::get();
 if ( count( $categories ) > 0 ) {
+	$current_translation = mozilla_get_current_translation();
 	foreach ( $categories as $category ) {
-		$categories[ $category->id ] = $category->name;
+		if ($current_translation) {
+			$main_category = substr( $category->slug, 0, stripos( $category->slug, '-' . $current_translation ) );
+			$term = get_term_by('slug', $main_category, 'event-categories');
+		}
+		$tag_name = !empty($term) ? $term->name : $category->name;
+		$categories[ $category->id ] = array();
+		$categories[$category->id]['value'] = $tag_name;
+		$categories[$category->id]['label'] = $category->name;
 	}
 } else {
 	$categories = array(

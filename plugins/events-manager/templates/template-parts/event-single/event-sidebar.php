@@ -26,8 +26,17 @@
 				<div class="col-lg-12 col-md-6 col-sm-12">
 					<p class="events-single__label"><?php esc_html_e( 'Tags', 'community-portal' ); ?></p>
 					<ul class="events-single__tags">
-						<?php foreach ( $categories as $category ) : ?>
-							<li class="tag"><a class="events-single__tag-link" href="/events/?tag=<?php print esc_attr( $category->name ); ?>"><?php echo esc_html( $category->name ); ?></a></li>
+						<?php 
+						foreach ( $categories as $category ) : 
+							$current_translation = mozilla_get_current_translation();
+							if ($current_translation) {
+								$main_category = $category->slug . '-' . $current_translation;
+								$term = get_term_by('slug', $main_category, 'event-categories');
+							}
+							$tag_name = !empty($term) ? $term->name : $category->name;
+						?>
+        
+							<li class="tag"><a class="events-single__tag-link" href="/events/?tag=<?php print esc_attr( $category->name ); ?>"><?php echo esc_html($tag_name); ?></a></li>
 							<?php break; ?>
 						<?php endforeach; ?>
 					</ul>

@@ -131,8 +131,15 @@
 			</div>
 			<ul class="events__tags">
 			<?php if ( false !== $categories && is_array( $categories->terms ) ) : ?>
-				<?php foreach ( $categories->terms as $category ) : ?>
-					<li class="tag"><?php echo esc_html( $category->name ); ?></li>
+			<?php 
+				foreach ( $categories->terms as $category ) : 
+					$current_translation = mozilla_get_current_translation();
+						if ($current_translation) {
+							$main_category = $category->slug . '-' . $current_translation;
+							$term = get_term_by('slug', $main_category, 'event-categories');
+						}
+						$tag_name = !empty($term) ? $term->name : $category->name;?>
+					<li class="tag"><?php echo esc_html( $tag_name ); ?></li>
 					<?php break; ?>
 				<?php endforeach; ?>
 			<?php endif; ?>
