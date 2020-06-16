@@ -1,13 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-<<<<<<< HEAD
-"POT-Creation-Date: 2020-06-10 12:23-0400\n"
-"PO-Revision-Date: 2020-06-10 12:33-0400\n"
-=======
 "POT-Creation-Date: 2020-06-04 12:54-0400\n"
 "PO-Revision-Date: 2020-06-10 14:20-0400\n"
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -43,29 +38,6 @@ msgstr ""
 msgid "Return Home"
 msgstr ""
 
-<<<<<<< HEAD
-#: buddypress/groups/index-create.php:65
-msgid "Create a Mozilla Group"
-msgstr ""
-
-#: buddypress/groups/index-create.php:79 buddypress/groups/index-create.php:97
-#: buddypress/groups/single/edit.php:73 buddypress/groups/single/edit.php:78
-msgid "Basic Information"
-msgstr ""
-
-#: buddypress/groups/index-create.php:88 buddypress/groups/index-create.php:102
-msgid "Terms & Responsibilities"
-msgstr ""
-
-#: buddypress/groups/index-create.php:118 buddypress/groups/single/edit.php:88
-msgid "What is your group's name? *"
-msgstr "What is your group’s name Spanish? *"
-
-#: buddypress/groups/index-create.php:130
-#: buddypress/groups/index-create.php:204
-#: buddypress/groups/index-create.php:358 buddypress/groups/single/edit.php:99
-#: buddypress/groups/single/edit.php:171 buddypress/members/single/edit.php:193
-=======
 #: buddypress/groups/index-create.php:56
 msgid "Create a Mozilla Group"
 msgstr ""
@@ -87,18 +59,12 @@ msgstr "What is your group’s name Spanish? *"
 #: buddypress/groups/index-create.php:195
 #: buddypress/groups/index-create.php:349 buddypress/groups/single/edit.php:98
 #: buddypress/groups/single/edit.php:170 buddypress/members/single/edit.php:193
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 #: buddypress/members/single/edit.php:221
 #: buddypress/members/single/edit.php:254
 #: buddypress/members/single/edit.php:414
 #: buddypress/members/single/edit.php:1086
-<<<<<<< HEAD
-#: plugins/events-manager/forms/event-editor.php:76
-#: plugins/events-manager/forms/event-editor.php:108
-=======
 #: plugins/events-manager/forms/event-editor.php:77
 #: plugins/events-manager/forms/event-editor.php:109
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 #: plugins/events-manager/forms/event/location-moz.php:86
 #: plugins/events-manager/forms/event/location-moz.php:105
 #: plugins/events-manager/forms/event/location-moz.php:122
@@ -118,17 +84,6 @@ msgstr "What is your group’s name Spanish? *"
 msgid "This field is required"
 msgstr ""
 
-<<<<<<< HEAD
-#: buddypress/groups/index-create.php:131 lib/groups.php:247
-msgid "This group name is already taken"
-msgstr ""
-
-#: buddypress/groups/index-create.php:136 buddypress/groups/single/edit.php:103
-msgid "Group Type"
-msgstr ""
-
-#: buddypress/groups/index-create.php:143 buddypress/groups/single/edit.php:110
-=======
 #: buddypress/groups/index-create.php:122 lib/groups.php:247
 msgid "This group name is already taken"
 msgstr ""
@@ -138,26 +93,12 @@ msgid "Group Type"
 msgstr ""
 
 #: buddypress/groups/index-create.php:134 buddypress/groups/single/edit.php:109
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 #: plugins/events-manager/forms/event/location-moz.php:76
 #: plugins/events-manager/forms/event/location-moz.php:120
 #: plugins/events-manager/forms/event/location-moz.php:147 search.php:215
 msgid "Online"
 msgstr ""
 
-<<<<<<< HEAD
-#: buddypress/groups/index-create.php:148 buddypress/groups/single/edit.php:115
-msgid "Offline"
-msgstr ""
-
-#: buddypress/groups/index-create.php:155
-#: buddypress/groups/index-create.php:158
-#: buddypress/groups/index-directory.php:334
-#: buddypress/groups/single/edit.php:122 buddypress/groups/single/edit.php:125
-#: buddypress/groups/single/group.php:1001
-#: buddypress/members/index-directory.php:789
-#: plugins/events-manager/forms/event-editor.php:80
-=======
 #: buddypress/groups/index-create.php:139 buddypress/groups/single/edit.php:114
 msgid "Offline"
 msgstr ""
@@ -169,48 +110,22 @@ msgstr ""
 #: buddypress/groups/single/group.php:1000
 #: buddypress/members/index-directory.php:784
 #: plugins/events-manager/forms/event-editor.php:81
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 #: plugins/events-manager/templates/template-parts/events-filters.php:73
 #: templates/campaigns-newsletter.php:68 templates/newsletter-form.php:66
 #: templates/newsletter-form.php:68
 msgid "Language"
 msgstr ""
 
-<<<<<<< HEAD
-#: buddypress/groups/index-create.php:172 buddypress/groups/single/edit.php:139
-msgid "Group Location"
-msgstr ""
-
-#: buddypress/groups/index-create.php:175 buddypress/groups/single/edit.php:142
-=======
 #: buddypress/groups/index-create.php:163 buddypress/groups/single/edit.php:138
 msgid "Group Location"
 msgstr ""
 
 #: buddypress/groups/index-create.php:166 buddypress/groups/single/edit.php:141
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 #: buddypress/members/single/edit.php:354
 #: plugins/events-manager/forms/event/location-moz.php:130
 msgid "Country"
 msgstr ""
 
-<<<<<<< HEAD
-#: buddypress/groups/index-create.php:187
-#: buddypress/groups/index-create.php:188 buddypress/groups/single/edit.php:154
-#: buddypress/groups/single/edit.php:155 buddypress/members/single/edit.php:373
-msgid "City"
-msgstr ""
-
-#: buddypress/groups/index-create.php:193
-msgid "Provide a short group description *"
-msgstr ""
-
-#: buddypress/groups/index-create.php:208
-msgid "Select an image"
-msgstr ""
-
-#: buddypress/groups/index-create.php:216 buddypress/groups/single/edit.php:191
-=======
 #: buddypress/groups/index-create.php:178
 #: buddypress/groups/index-create.php:179 buddypress/groups/single/edit.php:153
 #: buddypress/groups/single/edit.php:154 buddypress/members/single/edit.php:373
@@ -226,119 +141,19 @@ msgid "Select an image"
 msgstr ""
 
 #: buddypress/groups/index-create.php:207 buddypress/groups/single/edit.php:190
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 #: buddypress/members/single/edit.php:130
 msgid "Click or drag a photo above"
 msgstr ""
 
-<<<<<<< HEAD
-#: buddypress/groups/index-create.php:217 buddypress/groups/single/edit.php:192
-msgid "min dimensions 703px by 400px"
-msgstr ""
-
-#: buddypress/groups/index-create.php:224 buddypress/groups/single/edit.php:199
-=======
 #: buddypress/groups/index-create.php:208 buddypress/groups/single/edit.php:191
 msgid "min dimensions 703px by 400px"
 msgstr ""
 
 #: buddypress/groups/index-create.php:215 buddypress/groups/single/edit.php:198
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 #: buddypress/members/single/edit.php:138
 msgid "Remove file"
 msgstr ""
 
-<<<<<<< HEAD
-#: buddypress/groups/index-create.php:233 buddypress/groups/single/edit.php:208
-msgid "Tags for your group"
-msgstr ""
-
-#: buddypress/groups/index-create.php:258 buddypress/groups/single/edit.php:229
-msgid "Group Meetings"
-msgstr ""
-
-#: buddypress/groups/index-create.php:261 buddypress/groups/single/edit.php:232
-msgid "Where do you meet?"
-msgstr ""
-
-#: buddypress/groups/index-create.php:264
-#: buddypress/groups/index-create.php:268
-#: buddypress/groups/index-create.php:278 buddypress/groups/single/edit.php:239
-#: buddypress/groups/single/edit.php:249
-msgid "Address"
-msgstr ""
-
-#: buddypress/groups/index-create.php:269
-#: buddypress/groups/index-create.php:273 buddypress/groups/single/edit.php:244
-msgid "URL"
-msgstr ""
-
-#: buddypress/groups/index-create.php:283 buddypress/groups/single/edit.php:254
-msgid "Meeting details"
-msgstr ""
-
-#: buddypress/groups/index-create.php:292 buddypress/groups/single/edit.php:259
-#: buddypress/groups/single/group.php:1288
-msgid "Community Links"
-msgstr ""
-
-#: buddypress/groups/index-create.php:295 buddypress/groups/single/edit.php:262
-#: buddypress/groups/single/group.php:1314
-#: buddypress/members/single/profile.php:479
-msgid "Discourse"
-msgstr ""
-
-#: buddypress/groups/index-create.php:299 buddypress/groups/single/edit.php:266
-#: buddypress/groups/single/group.php:1354
-#: buddypress/members/single/profile.php:510
-msgid "Matrix"
-msgstr ""
-
-#: buddypress/groups/index-create.php:302 buddypress/groups/single/edit.php:269
-msgid "Please format as room-alias:domain"
-msgstr ""
-
-#: buddypress/groups/index-create.php:308 buddypress/groups/single/edit.php:275
-#: buddypress/groups/single/group.php:1305
-#: buddypress/members/single/profile.php:441
-msgid "Facebook"
-msgstr ""
-
-#: buddypress/groups/index-create.php:312 buddypress/groups/single/edit.php:279
-#: buddypress/groups/single/group.php:1339
-#: buddypress/members/single/profile.php:450
-msgid "Twitter"
-msgstr ""
-
-#: buddypress/groups/index-create.php:318 buddypress/groups/single/edit.php:285
-#: buddypress/groups/single/group.php:1296
-#: buddypress/members/single/profile.php:432
-msgid "Telegram"
-msgstr ""
-
-#: buddypress/groups/index-create.php:322 buddypress/groups/single/edit.php:289
-msgid "GitHub"
-msgstr ""
-
-#: buddypress/groups/index-create.php:329 buddypress/groups/single/edit.php:295
-#: buddypress/groups/single/group.php:1373
-msgid "Other"
-msgstr ""
-
-#: buddypress/groups/index-create.php:340
-msgid "Secondary Group Contact"
-msgstr ""
-
-#: buddypress/groups/index-create.php:342
-msgid "Secondary group contact"
-msgstr ""
-
-#: buddypress/groups/index-create.php:350
-msgid "Username *"
-msgstr ""
-
-#: buddypress/groups/index-create.php:351
-=======
 #: buddypress/groups/index-create.php:224 buddypress/groups/single/edit.php:207
 msgid "Tags for your group"
 msgstr ""
@@ -428,22 +243,10 @@ msgid "Username *"
 msgstr ""
 
 #: buddypress/groups/index-create.php:342
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 #: buddypress/members/single/edit.php:183
 msgid "Username"
 msgstr ""
 
-<<<<<<< HEAD
-#: buddypress/groups/index-create.php:359
-msgid "Invalid user"
-msgstr ""
-
-#: buddypress/groups/index-create.php:398
-msgid "I Agree"
-msgstr ""
-
-#: buddypress/groups/index-create.php:400
-=======
 #: buddypress/groups/index-create.php:350
 msgid "Invalid user"
 msgstr ""
@@ -453,30 +256,10 @@ msgid "I Agree"
 msgstr ""
 
 #: buddypress/groups/index-create.php:391
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 #: buddypress/members/single/edit.php:1082
 msgid "I agree to respect and adhere to"
 msgstr ""
 
-<<<<<<< HEAD
-#: buddypress/groups/index-create.php:401
-msgid "Mozilla’s Community Participation Guidelines *"
-msgstr ""
-
-#: buddypress/groups/index-create.php:403
-msgid "Please agree to the Community Participation Guidelines"
-msgstr ""
-
-#: buddypress/groups/index-create.php:412 buddypress/groups/single/edit.php:301
-msgid "Continue"
-msgstr ""
-
-#: buddypress/groups/index-directory.php:231
-msgid "Groups"
-msgstr "Spanish Groups"
-
-#: buddypress/groups/index-directory.php:233
-=======
 #: buddypress/groups/index-create.php:392
 msgid "Mozilla’s Community Participation Guidelines *"
 msgstr ""
@@ -494,29 +277,11 @@ msgid "Groups"
 msgstr "Spanish Groups"
 
 #: buddypress/groups/index-directory.php:231
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 msgid ""
 "Meet up with people who share your passion and join the movement for an open "
 "internet."
 msgstr ""
 
-<<<<<<< HEAD
-#: buddypress/groups/index-directory.php:236
-msgid "Look for groups in your area, or"
-msgstr ""
-
-#: buddypress/groups/index-directory.php:236
-msgid "create your own."
-msgstr ""
-
-#: buddypress/groups/index-directory.php:274
-msgid "Search groups"
-msgstr ""
-
-#: buddypress/groups/index-directory.php:276
-#: buddypress/groups/single/group.php:979
-#: buddypress/members/index-directory.php:766 header.php:189
-=======
 #: buddypress/groups/index-directory.php:234
 msgid "Look for groups in your area, or"
 msgstr ""
@@ -532,42 +297,11 @@ msgstr ""
 #: buddypress/groups/index-directory.php:274
 #: buddypress/groups/single/group.php:978
 #: buddypress/members/index-directory.php:761 header.php:189
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 #: plugins/events-manager/templates/events-search.php:82 search.php:135
 #: search.php:150 search.php:152
 msgid "Search"
 msgstr ""
 
-<<<<<<< HEAD
-#: buddypress/groups/index-directory.php:288
-#: buddypress/groups/index-directory.php:302
-msgid "Discover Groups"
-msgstr ""
-
-#: buddypress/groups/index-directory.php:296
-#: buddypress/members/single/profile.php:162
-msgid "Groups I'm In"
-msgstr ""
-
-#: buddypress/groups/index-directory.php:300
-#: buddypress/groups/single/group.php:855
-msgid "Showing"
-msgstr ""
-
-#: buddypress/groups/index-directory.php:310
-msgid "Groups I'm in"
-msgstr ""
-
-#: buddypress/groups/index-directory.php:318
-msgid "Filter by:"
-msgstr ""
-
-#: buddypress/groups/index-directory.php:320
-#: buddypress/groups/single/group.php:986
-#: buddypress/groups/single/group.php:1394
-#: buddypress/members/index-directory.php:775
-#: buddypress/members/single/profile.php:118
-=======
 #: buddypress/groups/index-directory.php:286
 #: buddypress/groups/index-directory.php:300
 msgid "Discover Groups"
@@ -596,73 +330,39 @@ msgstr ""
 #: buddypress/groups/single/group.php:1393
 #: buddypress/members/index-directory.php:770
 #: buddypress/members/single/profile.php:109
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 #: plugins/events-manager/templates/event-single.php:230
 #: plugins/events-manager/templates/template-parts/events-filters.php:67
 msgid "Location"
 msgstr ""
 
-<<<<<<< HEAD
-#: buddypress/groups/index-directory.php:322
-#: buddypress/groups/index-directory.php:336
-#: buddypress/groups/index-directory.php:352
-=======
 #: buddypress/groups/index-directory.php:320
 #: buddypress/groups/index-directory.php:334
 #: buddypress/groups/index-directory.php:350
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 #: plugins/events-manager/templates/template-parts/options.php:20
 msgid "All"
 msgstr ""
 
-<<<<<<< HEAD
-#: buddypress/groups/index-directory.php:350
-#: buddypress/groups/single/group.php:1017
-#: buddypress/members/index-directory.php:805
-=======
 #: buddypress/groups/index-directory.php:348
 #: buddypress/groups/single/group.php:1016
 #: buddypress/members/index-directory.php:800
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 #: plugins/events-manager/templates/template-parts/events-filters.php:79
 msgid "Tag"
 msgstr ""
 
-<<<<<<< HEAD
-#: buddypress/groups/index-directory.php:365
-#: buddypress/groups/single/group.php:1032
-#: buddypress/members/index-directory.php:820
-=======
 #: buddypress/groups/index-directory.php:363
 #: buddypress/groups/single/group.php:1031
 #: buddypress/members/index-directory.php:815
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 #: plugins/events-manager/templates/template-parts/events-filters.php:133
 msgid "Show Filters"
 msgstr ""
 
-<<<<<<< HEAD
-#: buddypress/groups/index-directory.php:366
-#: buddypress/groups/single/group.php:1033
-#: buddypress/members/index-directory.php:821
-=======
 #: buddypress/groups/index-directory.php:364
 #: buddypress/groups/single/group.php:1032
 #: buddypress/members/index-directory.php:816
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 #: plugins/events-manager/templates/template-parts/events-filters.php:132
 msgid "Hide Filters"
 msgstr ""
 
-<<<<<<< HEAD
-#: buddypress/groups/index-directory.php:372
-msgid "No results found.  Please try another search term."
-msgstr ""
-
-#: buddypress/groups/index-directory.php:376
-#: buddypress/groups/single/group.php:1041
-#: buddypress/members/index-directory.php:831
-=======
 #: buddypress/groups/index-directory.php:370
 msgid "No results found.  Please try another search term."
 msgstr ""
@@ -670,86 +370,10 @@ msgstr ""
 #: buddypress/groups/index-directory.php:374
 #: buddypress/groups/single/group.php:1040
 #: buddypress/members/index-directory.php:826
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 #: plugins/events-manager/templates/events-list.php:272 search.php:131
 msgid "Results for "
 msgstr ""
 
-<<<<<<< HEAD
-#: buddypress/groups/index-directory.php:460 front-page.php:240
-msgid " more tags"
-msgstr ""
-
-#: buddypress/groups/single/edit.php:67
-msgid "Edit Group"
-msgstr ""
-
-#: buddypress/groups/single/edit.php:160
-msgid "Description *"
-msgstr ""
-
-#: buddypress/groups/single/edit.php:175
-msgid "Group Photo"
-msgstr ""
-
-#: buddypress/groups/single/edit.php:301
-msgid "Save"
-msgstr ""
-
-#: buddypress/groups/single/group.php:787
-msgid "Verified"
-msgstr ""
-
-#: buddypress/groups/single/group.php:793
-msgid "Unverified"
-msgstr ""
-
-#: buddypress/groups/single/group.php:830
-msgid "Created"
-msgstr ""
-
-#: buddypress/groups/single/group.php:841
-#: buddypress/groups/single/group.php:862
-msgid "About us"
-msgstr "About Us Spanish"
-
-#: buddypress/groups/single/group.php:846
-#: buddypress/groups/single/group.php:867
-msgid "Our Events"
-msgstr ""
-
-#: buddypress/groups/single/group.php:851
-#: buddypress/groups/single/group.php:872
-msgid "Our Members"
-msgstr ""
-
-#: buddypress/groups/single/group.php:879
-#: buddypress/groups/single/group.php:1557
-msgid "Group Contacts"
-msgstr ""
-
-#: buddypress/groups/single/group.php:932
-#: buddypress/members/index-directory.php:746
-msgid "People"
-msgstr ""
-
-#: buddypress/groups/single/group.php:977
-#: buddypress/members/index-directory.php:764
-msgid "Search people"
-msgstr ""
-
-#: buddypress/groups/single/group.php:983
-#: buddypress/members/index-directory.php:773
-msgid "Search criteria:"
-msgstr ""
-
-#: buddypress/groups/single/group.php:988
-#: buddypress/groups/single/group.php:1003
-#: buddypress/groups/single/group.php:1019
-#: buddypress/members/index-directory.php:777
-#: buddypress/members/index-directory.php:791
-#: buddypress/members/index-directory.php:807
-=======
 #: buddypress/groups/index-directory.php:458 front-page.php:240
 msgid " more tags"
 msgstr ""
@@ -823,27 +447,11 @@ msgstr ""
 #: buddypress/members/index-directory.php:772
 #: buddypress/members/index-directory.php:786
 #: buddypress/members/index-directory.php:802
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 #: plugins/events-manager/forms/event/location-moz.php:146
 #: templates/event-export.php:54 templates/event-export.php:67
 msgid "Select"
 msgstr ""
 
-<<<<<<< HEAD
-#: buddypress/groups/single/group.php:1092
-#: buddypress/members/index-directory.php:888
-msgid "No members found"
-msgstr ""
-
-#: buddypress/groups/single/group.php:1096
-msgid "This group currently has no members"
-msgstr ""
-
-#: buddypress/groups/single/group.php:1170
-#: buddypress/groups/single/group.php:1538
-#: buddypress/members/single/profile.php:255
-#: buddypress/members/single/profile.php:327
-=======
 #: buddypress/groups/single/group.php:1091
 #: buddypress/members/index-directory.php:879
 msgid "No members found"
@@ -857,7 +465,6 @@ msgstr ""
 #: buddypress/groups/single/group.php:1529
 #: buddypress/members/single/profile.php:238
 #: buddypress/members/single/profile.php:306
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 #: plugins/events-manager/forms/event/location-moz.php:182
 #: plugins/events-manager/templates/event-single.php:240
 #: plugins/events-manager/templates/template-parts/single-event-card.php:77
@@ -865,74 +472,6 @@ msgstr ""
 msgid "Online Event"
 msgstr ""
 
-<<<<<<< HEAD
-#: buddypress/groups/single/group.php:1248
-#: buddypress/groups/single/group.php:1254
-msgid "Join Group"
-msgstr ""
-
-#: buddypress/groups/single/group.php:1249
-#: buddypress/groups/single/group.php:1255
-msgid "Leave Group"
-msgstr ""
-
-#: buddypress/groups/single/group.php:1264
-msgid "Share Group"
-msgstr ""
-
-#: buddypress/groups/single/group.php:1268
-msgid "About Us"
-msgstr ""
-
-#: buddypress/groups/single/group.php:1330
-#: buddypress/members/single/profile.php:495
-msgid "Github"
-msgstr ""
-
-#: buddypress/groups/single/group.php:1381
-msgid "Meetings"
-msgstr ""
-
-#: buddypress/groups/single/group.php:1385
-msgid "Meeting Details"
-msgstr ""
-
-#: buddypress/groups/single/group.php:1422
-msgid "Discussions"
-msgstr ""
-
-#: buddypress/groups/single/group.php:1428
-msgid "Topic"
-msgstr ""
-
-#: buddypress/groups/single/group.php:1429
-msgid "Replies"
-msgstr ""
-
-#: buddypress/groups/single/group.php:1430
-msgid "Views"
-msgstr ""
-
-#: buddypress/groups/single/group.php:1431
-#: buddypress/groups/single/group.php:1476 functions.php:180 search.php:282
-msgid "Activity"
-msgstr ""
-
-#: buddypress/groups/single/group.php:1460
-msgid "View more topics"
-msgstr ""
-
-#: buddypress/groups/single/group.php:1488
-msgid "Events this month"
-msgstr ""
-
-#: buddypress/groups/single/group.php:1492
-#: buddypress/members/single/profile.php:208 front-page.php:228 search.php:278
-msgid "Members"
-msgstr ""
-
-#: buddypress/groups/single/group.php:1521
-=======
 #: buddypress/groups/single/group.php:1247
 #: buddypress/groups/single/group.php:1253
 msgid "Join Group"
@@ -999,56 +538,27 @@ msgid "Members"
 msgstr ""
 
 #: buddypress/groups/single/group.php:1513
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 #: plugins/events-manager/templates/event-single.php:437
 #: single-activity.php:249
 msgid "Related Events"
 msgstr ""
 
-<<<<<<< HEAD
-#: buddypress/groups/single/group.php:1550 single-activity.php:289
-msgid "View more events"
-msgstr ""
-
-#: buddypress/groups/single/group.php:1611
-=======
 #: buddypress/groups/single/group.php:1541 single-activity.php:289
 msgid "View more events"
 msgstr ""
 
 #: buddypress/groups/single/group.php:1602
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 #: plugins/events-manager/templates/template-parts/event-single/event-sidebar.php:82
 msgid "Preferred Language"
 msgstr ""
 
-<<<<<<< HEAD
-#: buddypress/groups/single/group.php:1623
-#: buddypress/members/single/profile.php:542
-=======
 #: buddypress/groups/single/group.php:1614
 #: buddypress/members/single/profile.php:513
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 #: plugins/events-manager/templates/template-parts/event-single/event-sidebar.php:27
 #: single-activity.php:182 single-campaign.php:100
 msgid "Tags"
 msgstr ""
 
-<<<<<<< HEAD
-#: buddypress/groups/single/group.php:1653
-msgid "Reporting Group"
-msgstr ""
-
-#: buddypress/groups/single/group.php:1657
-msgid "Please provide a reason you are reporting this group"
-msgstr ""
-
-#: buddypress/groups/single/group.php:1666
-msgid "Report Group"
-msgstr ""
-
-#: buddypress/members/index-directory.php:748
-=======
 #: buddypress/groups/single/group.php:1644
 msgid "Reporting Group"
 msgstr ""
@@ -1062,7 +572,6 @@ msgid "Report Group"
 msgstr ""
 
 #: buddypress/members/index-directory.php:747
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 msgid ""
 "Ready to make it official? Set up a profile to attend events, join groups "
 "and manage your subscription settings. "
@@ -1227,13 +736,8 @@ msgid "Email contact (required)"
 msgstr ""
 
 #: buddypress/members/single/edit.php:404
-<<<<<<< HEAD
-#: buddypress/members/single/profile.php:134
-#: plugins/events-manager/forms/event-editor.php:63
-=======
 #: buddypress/members/single/profile.php:125
 #: plugins/events-manager/forms/event-editor.php:64
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 #: templates/campaign-rsvp.php:55 templates/campaigns-newsletter.php:44
 msgid "Email"
 msgstr ""
@@ -1242,11 +746,7 @@ msgstr ""
 msgid "An account with this email already exists"
 msgstr ""
 
-<<<<<<< HEAD
-#: buddypress/members/single/edit.php:416 lib/members.php:239
-=======
 #: buddypress/members/single/edit.php:416 lib/members.php:234
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 msgid "Invalid email address"
 msgstr ""
 
@@ -1371,46 +871,11 @@ msgstr ""
 msgid "They/Them"
 msgstr ""
 
-<<<<<<< HEAD
-#: buddypress/members/single/profile.php:43
-=======
 #: buddypress/members/single/profile.php:38
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 #: plugins/events-manager/forms/event/bookings.php:144
 msgid "Edit"
 msgstr ""
 
-<<<<<<< HEAD
-#: buddypress/members/single/profile.php:101
-msgid "Contact Information"
-msgstr ""
-
-#: buddypress/members/single/profile.php:149
-msgid "Phone"
-msgstr ""
-
-#: buddypress/members/single/profile.php:227
-msgid "Recent Events"
-msgstr ""
-
-#: buddypress/members/single/profile.php:299
-msgid "Organized Events"
-msgstr ""
-
-#: buddypress/members/single/profile.php:364
-msgid "Campaigns Participated In"
-msgstr ""
-
-#: buddypress/members/single/profile.php:423
-msgid "Social Handles"
-msgstr ""
-
-#: buddypress/members/single/profile.php:470
-msgid "Linkedin"
-msgstr ""
-
-#: buddypress/members/single/profile.php:518
-=======
 #: buddypress/members/single/profile.php:92
 msgid "Contact Information"
 msgstr ""
@@ -1440,7 +905,6 @@ msgid "Linkedin"
 msgstr ""
 
 #: buddypress/members/single/profile.php:493
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 msgid "Languages spoken"
 msgstr ""
 
@@ -1552,49 +1016,6 @@ msgstr ""
 msgid "to create or join events"
 msgstr ""
 
-<<<<<<< HEAD
-#: lib/groups.php:461
-msgid "Joined Group"
-msgstr ""
-
-#: lib/groups.php:471
-msgid "Could not join group"
-msgstr ""
-
-#: lib/groups.php:697
-msgid "Export Events"
-msgstr ""
-
-#: lib/members.php:254
-msgid "This email is already in use"
-msgstr ""
-
-#: lib/members.php:270
-msgid "This username is already in use"
-msgstr ""
-
-#: lib/utils.php:128 lib/utils.php:141
-msgid "Image size is too small"
-msgstr ""
-
-#: lib/utils.php:133 lib/utils.php:145
-msgid "Invalid image provided"
-msgstr ""
-
-#: lib/utils.php:546
-msgid "Group Created On"
-msgstr ""
-
-#: lib/utils.php:547
-msgid "Admins"
-msgstr ""
-
-#: lib/utils.php:548
-msgid "Events"
-msgstr ""
-
-#: lib/utils.php:549
-=======
 #: lib/groups.php:454
 msgid "Joined Group"
 msgstr ""
@@ -1628,7 +1049,6 @@ msgid "Events"
 msgstr ""
 
 #: lib/utils.php:540
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 msgid "Group Verified On"
 msgstr ""
 
@@ -1668,11 +1088,7 @@ msgstr ""
 msgid "Edit Event"
 msgstr ""
 
-<<<<<<< HEAD
-#: page-edit-event.php:40 plugins/events-manager/forms/event-editor.php:247
-=======
 #: page-edit-event.php:40 plugins/events-manager/forms/event-editor.php:248
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 msgid "Create Event"
 msgstr ""
 
@@ -1720,21 +1136,6 @@ msgstr ""
 msgid "You cannot delete a ticket that has a booking on it."
 msgstr ""
 
-<<<<<<< HEAD
-#: plugins/events-manager/forms/event-editor.php:29
-msgid "Unauthorized Access"
-msgstr ""
-
-#: plugins/events-manager/forms/event-editor.php:29
-msgid "You do not have the rights to manage this event."
-msgstr ""
-
-#: plugins/events-manager/forms/event-editor.php:56
-msgid "Your Details"
-msgstr ""
-
-#: plugins/events-manager/forms/event-editor.php:59
-=======
 #: plugins/events-manager/forms/event-editor.php:30
 msgid "Unauthorized Access"
 msgstr ""
@@ -1748,26 +1149,10 @@ msgid "Your Details"
 msgstr ""
 
 #: plugins/events-manager/forms/event-editor.php:60
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 #: plugins/events-manager/forms/event/bookings-ticket-form.php:31
 msgid "Name"
 msgstr ""
 
-<<<<<<< HEAD
-#: plugins/events-manager/forms/event-editor.php:73
-msgid "Event Name *"
-msgstr ""
-
-#: plugins/events-manager/forms/event-editor.php:82
-msgid " Language"
-msgstr ""
-
-#: plugins/events-manager/forms/event-editor.php:105
-msgid "Event description *"
-msgstr ""
-
-#: plugins/events-manager/forms/event-editor.php:106
-=======
 #: plugins/events-manager/forms/event-editor.php:74
 msgid "Event Name *"
 msgstr ""
@@ -1781,35 +1166,11 @@ msgid "Event description *"
 msgstr ""
 
 #: plugins/events-manager/forms/event-editor.php:107
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 msgid ""
 "Add in the details of your event’s agenda here. If this is a multi-day "
 "event, you can add in the details of each day’s schedule and start/end time."
 msgstr ""
 
-<<<<<<< HEAD
-#: plugins/events-manager/forms/event-editor.php:112
-msgid "Event goal(s)"
-msgstr ""
-
-#: plugins/events-manager/forms/event-editor.php:154
-msgid "Expected # of attendees"
-msgstr ""
-
-#: plugins/events-manager/forms/event-editor.php:158
-msgid "Is this event part of an activity or campaign?"
-msgstr ""
-
-#: plugins/events-manager/forms/event-editor.php:160
-msgid "No"
-msgstr ""
-
-#: plugins/events-manager/forms/event-editor.php:185
-msgid "External link URL"
-msgstr ""
-
-#: plugins/events-manager/forms/event-editor.php:199
-=======
 #: plugins/events-manager/forms/event-editor.php:113
 msgid "Event goal(s)"
 msgstr ""
@@ -1831,7 +1192,6 @@ msgid "External link URL"
 msgstr ""
 
 #: plugins/events-manager/forms/event-editor.php:200
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 msgid ""
 "The Mozilla Project welcomes contributions from everyone who shares our "
 "goals and wants to contribute in a healthy and constructive manner within "
@@ -1839,65 +1199,37 @@ msgid ""
 "respect and adhere to"
 msgstr ""
 
-<<<<<<< HEAD
-#: plugins/events-manager/forms/event-editor.php:200
-msgid "Mozilla’s Community Participation Guidelines (“CPG”)"
-msgstr ""
-
-#: plugins/events-manager/forms/event-editor.php:201
-=======
 #: plugins/events-manager/forms/event-editor.php:201
 msgid "Mozilla’s Community Participation Guidelines (“CPG”)"
 msgstr ""
 
 #: plugins/events-manager/forms/event-editor.php:202
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 msgid ""
 "in order to help us create a safe and positive community experience for all. "
 "Events that do not share our goals, or violate the CPG in any way, will be "
 "removed from the platform and potentially subject to further consequences."
 msgstr ""
 
-<<<<<<< HEAD
-#: plugins/events-manager/forms/event-editor.php:212
-=======
 #: plugins/events-manager/forms/event-editor.php:213
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 msgid ""
 "I agree to respect and adhere to Mozilla’s Community Participation "
 "Guidelines *"
 msgstr ""
 
-<<<<<<< HEAD
-#: plugins/events-manager/forms/event-editor.php:215
-msgid "Please agree to the community guidelines"
-msgstr ""
-
-#: plugins/events-manager/forms/event-editor.php:225
-=======
 #: plugins/events-manager/forms/event-editor.php:216
 msgid "Please agree to the community guidelines"
 msgstr ""
 
 #: plugins/events-manager/forms/event-editor.php:226
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 msgid ""
 "This action will permanently delete this event. Would you like to continue?"
 msgstr ""
 
-<<<<<<< HEAD
-#: plugins/events-manager/forms/event-editor.php:239
-msgid "Cancel Event"
-msgstr ""
-
-#: plugins/events-manager/forms/event-editor.php:249
-=======
 #: plugins/events-manager/forms/event-editor.php:240
 msgid "Cancel Event"
 msgstr ""
 
 #: plugins/events-manager/forms/event-editor.php:250
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 msgid "Update Event"
 msgstr ""
 
@@ -2271,11 +1603,7 @@ msgstr ""
 
 #: plugins/events-manager/templates/template-parts/event-single/event-sidebar.php:41
 msgid "Part of"
-<<<<<<< HEAD
-msgstr ""
-=======
 msgstr "Part of Spanish"
->>>>>>> adfb29cd1c3da186fff04d81f7da2b59b8561fb5
 
 #: plugins/events-manager/templates/template-parts/event-single/event-sidebar.php:72
 #: templates/share-modal.php:32
