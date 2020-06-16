@@ -142,8 +142,8 @@ $all_countries = em_get_countries();
 										if ($current_translation) {
 											$translation = get_term_by('slug', $category->slug . '-' . $current_translation, 'event-categories');
 										}
-										$term_name = isset($translation) && strlen($translation->name) > 0 ? $translation->name : $category->name;
 									}
+									$term_name = isset($translation) && strlen($translation->name) > 0 ? $translation->name : $category->name;
 							?>
 								
 								<li class="tag"><?php echo esc_html( $term_name ); ?></li>
