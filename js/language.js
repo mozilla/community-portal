@@ -1,41 +1,18 @@
-// jQuery(function() {
+jQuery(function() {
 
-// 	function checkCookieName(name) 
-//     {
-// 		const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-// 		if (match) {
-// 			return true;
-// 		}
-// 		else{
-// 			return false;
-// 		}
-// 	}
+	const handleLanguageSwitcher = function($element) {
+		$element.click(function(e) {
+			const $this = jQuery(this);
+			const $submenu = $this.find('.language-selector__select--submenu');
+			$this.toggleClass('language-selector__select--active')
+			$submenu.slideToggle();
+		});
+	}
 
-// 	function wpmlRedirect() {
-// 		const url = "/wp-admin/admin-ajax.php?action=update_mozilla_language";
-// 		const requestUrl = window.location.href;
-// 		console.log(url);
-// 		jQuery.ajax({
-// 			url,
-// 			method: "POST",
-// 			data: {
-// 				requestUrl,
-// 			},
-// 			success: function(resp) {
-// 				console.log(resp);
-// 			}
-// 		})
-// 	}
+	const init = function() {
+		const $footerLanguageSwitcher = jQuery('#footer-language-selector');
+		handleLanguageSwitcher($footerLanguageSwitcher);
+	}
 
-// 	const languageSwitchListener = function() {
-// 		const $option = jQuery('#wpml-language');
-// 		$option.on('change', wpmlRedirect);
-// 	}
-
-// 	const init = function() {
-// 		languageSwitchListener();
-// 	}
-
-// 	init();
-
-// });
+	init()
+})

@@ -88,9 +88,9 @@
 								<a href="#" class="footer__link"><?php echo esc_html_e( ' Creative Commons license.', 'community-portal' ); ?></a>
 							</p>
 						</div>
-						<div class="col-md-6 footer__language-selector">
-							<div id="footer-language-selector" class="footer__language-selector__container">
-								<p class="footer__language-selector__label"><?php esc_html_e('Language', 'community-portal') ?></p>
+						<div class="col-md-6 language-selector">
+							<div class="language-selector__container">
+								<p class="language-selector__label"><?php esc_html_e('Language', 'community-portal') ?></p>
 								<?php 
 									$wpml_languages = icl_get_languages('skip_missing=N&orderby=KEY&order=DIR&link_empty_to=str');
 									$current_langauge = ICL_LANGUAGE_CODE;
@@ -99,18 +99,20 @@
 										
 
 								?>
-									<ul>
-										<li><?php echo esc_html($wpml_languages[$current_langauge]['translated_name']) ?></li>
-										<?php foreach($wpml_languages as $index=>$language):
-											if ($index !== $current_langauge):
+									<ul id="footer-language-selector" class="language-selector__select">
+										<li class="language-selector__language language-selector__language--active"><?php echo esc_html($wpml_languages[$current_langauge]['translated_name']) ?></li>
+										<ul class="language-selector__select language-selector__select--submenu">
+											<?php foreach($wpml_languages as $index=>$language):
+												if ($index !== $current_langauge):
+												?>
+												<li class="language-selector__language">
+													<a href="<?php if ($index !== 'en') { echo esc_attr( $language['url'] ); } else { echo esc_attr( str_replace(get_site_url(), get_site_url('', 'en'), $language['url']) ); }?>"><?php echo esc_html( $language['translated_name'])?></a>
+												</li>
+											<?php 
+												endif;
+											endforeach; 
 											?>
-											<li>
-												<a href="<?php if ($index !== 'en') { echo esc_attr( $language['url'] ); } else { echo esc_attr( str_replace(get_site_url(), get_site_url('', 'en'), $language['url']) ); }?>"><?php echo esc_html( $language['translated_name'])?></a>
-											</li>
-										<?php 
-											endif;
-										endforeach; 
-										?>
+										</ul>
 									</ul>
 								<?php endif; ?>
 							</div>

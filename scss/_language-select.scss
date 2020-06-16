@@ -1,0 +1,80 @@
+.language-selector {
+	&__label {
+		margin-right: 24px;
+		margin-top: 0;
+		margin-bottom: 0;
+		@include tablet-and-up {
+			margin-bottom: 24px;
+		}
+		@include desktop-and-up {
+			margin-bottom: 0;
+		}
+	}
+	&__label, 
+	&__language,
+	&__language a {
+		font-size: remCalc(12);
+		line-height: 1;
+	}
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+	@include tablet-and-up {
+		align-items: flex-end;
+		flex-direction: column;
+	}
+	@include desktop-and-up {
+		flex-direction: row;
+		justify-content: flex-end;
+		align-items: center;
+	}
+	&__container {
+		display: flex;
+		margin-top: 24px;
+		min-width: 300px;
+		align-items: center;
+		justify-content: flex-start;
+		@include tablet-and-up {
+			margin-top: 0;
+			display: block;
+		}
+		@include desktop-and-up {
+			display: flex;
+			justify-content: flex-end;
+		}
+	}
+	&__select {
+		padding: 0;
+		margin: 0;
+		list-style: none;
+		background: white;
+		padding: 6px;
+		flex-basis: 150px;
+		position: relative;
+		background-image: url(./images/chevron-down.png);
+		background-repeat: no-repeat;
+		background-position: calc(100% - 6px) center;
+		&--submenu {
+			position: absolute;
+			display: none;
+			top: 100%;
+			left: 0;
+			width: 100%;
+			padding: 0;
+			background-image: none;
+		}
+		&--active {
+			background-image: none;
+		}
+	}
+	&__language a {
+		display: block;
+		padding: 6px;
+	}
+	&__language,
+	&__language a {
+		cursor: pointer;
+		color: black;
+		text-decoration: none;
+	}
+}
