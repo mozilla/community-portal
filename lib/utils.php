@@ -472,36 +472,61 @@ function mozilla_add_query_vars_filter( $vars ) {
 /**
  * Match taxonomy
  */
-function mozilla_match_categories() {
+function mozilla_add_category($id, $t_id, $tax) {
+	if ($tax !== 'post_tag') {
+		return;
+	}
+	$wp_term = get_term($id);
+	$cat_terms = get_terms( EM_TAXONOMY_CATEGORY, array( 'hide_empty' => false ) );
+
+	if (is_array($cat_terms)) {
+		$cat_terms_name = array_map(
+			function( $n ) {
+				return $n->name;
+			},
+			$cat_terms
+		);
+
+		if ( ! in_array( $wp_term->name, $cat_terms_name, true ) ) {
+			wp_insert_term( $wp_term->name, EM_TAXONOMY_CATEGORY, array( 'slug' => $wp_term->slug ));
+		}
+	} 
+}
+
+function mozilla_update_category($id, $t_id, $tax) {
+	if ($tax !== 'post_tag') {
+		return;
+	}
+
 	$cat_terms = get_terms( EM_TAXONOMY_CATEGORY, array( 'hide_empty' => false ) );
 	$wp_terms  = get_terms( 'post_tag', array( 'hide_empty' => false ) );
-
+	
 	$cat_terms_name = array_map(
 		function( $n ) {
 			return $n->name;
 		},
 		$cat_terms
 	);
-
+	
 	$wp_terms = array_map(
 		function( $n ) {
 			return $n->name;
 		},
 		$wp_terms
 	);
+	
+	foreach ( $cat_terms as $cat_term ) {
+		wp_delete_term( $cat_term->term_id, EM_TAXONOMY_CATEGORY );
+	}
 
 	foreach ( $wp_terms as $wp_term ) {
-		if ( ! in_array( $wp_term, $cat_terms_name, true ) ) {
-			wp_insert_term( $wp_term, EM_TAXONOMY_CATEGORY );
-		}
-	}
-
-	foreach ( $cat_terms as $cat_term ) {
-		if ( ! in_array( $cat_term->name, $wp_terms, true ) ) {
-			wp_delete_term( $cat_term->term_id, EM_TAXONOMY_CATEGORY );
-		}
+		wp_insert_term( $wp_term, EM_TAXONOMY_CATEGORY, array('slug' => $wp_term->slug));
 	}
 }
+
+add_filter( 'create_term',  'mozilla_add_category', 10, 3 );
+add_action( 'edited_term',  'mozilla_update_category', 10, 3 );
+
 
 /**
  * Redirect non admins

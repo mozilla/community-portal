@@ -17,6 +17,7 @@
 	$em_tags     = $GLOBALS['EM_Tags'];
 	$logged_in   = mozilla_is_logged_in();
 	$active_user = wp_get_current_user()->data;
+	$current_translation = mozilla_get_current_translation();
 
 	global $bp;
 	$options = wp_load_alloptions();
@@ -26,7 +27,7 @@
 
 	$map_box_access_token = ( isset( $options['mapbox'] ) && strlen( $options['mapbox'] ) > 0 ) ? trim( $options['mapbox'] ) : false;
 
-	$categories = get_the_terms( $em_event->post_id, EM_TAXONOMY_CATEGORY );
+  $categories = get_the_terms( $em_event->post_id, EM_TAXONOMY_CATEGORY );
 	$event_meta = get_post_meta( $em_event->post_id, 'event-meta' );
 
 	$all_countries = em_get_countries();
@@ -74,6 +75,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 	$all_related_events = array();
 	if ( is_array( $categories ) && count( $categories ) > 0 ) {
 		foreach ( $categories as $category ) {
+			
 			$related_events = EM_Events::get( array( 'category' => $category->term_id ) );
 			if ( count( $related_events ) > 0 ) {
 				foreach ( $related_events as $single_event ) {

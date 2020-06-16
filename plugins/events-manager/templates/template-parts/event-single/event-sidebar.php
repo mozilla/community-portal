@@ -12,6 +12,10 @@
 
 ?>
 
+<?php 
+	$current_translation = mozilla_get_current_translation();
+?>
+
 <div class="col-lg-4 col-sm-12 events-single__sidebar">
 	<div>
 		<div class="card events-single__attributes">
@@ -26,8 +30,21 @@
 				<div class="col-lg-12 col-md-6 col-sm-12">
 					<p class="events-single__label"><?php esc_html_e( 'Tags', 'community-portal' ); ?></p>
 					<ul class="events-single__tags">
-						<?php foreach ( $categories as $category ) : ?>
-							<li class="tag"><a class="events-single__tag-link" href="/events/?tag=<?php print esc_attr( $category->name ); ?>"><?php echo esc_html( $category->name ); ?></a></li>
+						<?php foreach ( $categories as $category ) :
+							if ( $current_translation ) {
+								$slug = $category->slug . '-' . $current_translation;
+								$term = get_term_by('slug', $slug, 'event-categories'); 
+							}
+						?>
+							<li class="tag"><a class="events-single__tag-link" href="/events/?tag=<?php print esc_attr( $category->name ); ?>">
+								<?php 
+								if (isset($term) && strlen($term->name) > 0) { 
+									echo esc_html( $term->name );
+								} else { 
+									echo esc_html($category->name);
+								}?>
+								</a>
+							</li>
 							<?php break; ?>
 						<?php endforeach; ?>
 					</ul>
