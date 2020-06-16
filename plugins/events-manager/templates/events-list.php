@@ -24,7 +24,7 @@ if (
 	$args['search']  = preg_replace( '/^\"|\"$|^\'|\'$/', '', $args['search'] );
 	$original_search = $args['search'];
 	$args['search']  = addslashes( $args['search'] );
-} else {
+} elseif (isset($args['search'])) {
 	$original_search = $args['search'];
 }
 	$view = htmlspecialchars( get_query_var( 'view', $default = '' ), ENT_QUOTES, 'UTF-8' );
@@ -63,7 +63,7 @@ if ( 'all' !== $event_tag ) {
 	$args['category'] = $event_tag;
 }
 
-if ( isset( $args['tag'] ) ) {
+if ( isset( $args['tag'] ) ) {	
 	unset( $args['tag'] );
 }
 
@@ -127,7 +127,7 @@ if ( $event_initiative || $event_language ) {
 							'country' => $country,
 							'tag'     => $event_tag,
 						),
-						get_site_url( '', 'events' )
+						get_home_url( '', 'events' )
 					)
 				);
 				?>
@@ -148,18 +148,7 @@ if ( $event_initiative || $event_language ) {
 					echo esc_attr( 'events__nav__link--active' );}
 				?>
 					" 
-				href="
-				<?php
-				echo esc_url_raw(
-					add_query_arg(
-						array(
-							'view'    => 'attending',
-							'country' => $country,
-							'tag'     => $event_tag,
-						),
-						get_site_url( '', 'events' )
-					)
-				);
+				href="<?php echo esc_url_raw( add_query_arg( array( 'view'    => 'attending', 'country' => $country, 'tag'     => $event_tag ), get_home_url( null, 'events' ) ) );
 				?>
 				"
 				>
@@ -174,20 +163,7 @@ if ( $event_initiative || $event_language ) {
 					echo esc_attr( 'events__nav__link--active' );}
 				?>
 					" 
-				href="
-				<?php
-				echo esc_url_raw(
-					add_query_arg(
-						array(
-							'view'    => 'organized',
-							'country' => $country,
-							'tag'     => $event_tag,
-						),
-						get_site_url( '', 'events' )
-					)
-				);
-				?>
-				"
+				href=" <?php echo esc_url_raw( add_query_arg( array( 'view'    => 'organized', 'country' => $country, 'tag'     => $event_tag ), get_home_url( null, 'events' ) ) ); ?> "
 				>
 					<?php esc_html_e( 'My Events', 'community-portal' ); ?>
 				</a>
@@ -201,21 +177,7 @@ if ( $event_initiative || $event_language ) {
 					echo esc_attr( 'events__nav__link--active' );}
 				?>
 					" 
-				href="
-				<?php
-				echo esc_url_raw(
-					add_query_arg(
-						array(
-							'view'    => 'past',
-							'country' => $country,
-							'tag'     => $event_tag,
-						),
-						get_site_url( '', 'events' ),
-						get_site_url( '', 'events' )
-					)
-				);
-				?>
-				"
+				href="<?php echo esc_url_raw( add_query_arg( array( 'view'    => 'past', 'country' => $country, 'tag'     => $event_tag, ), get_home_url( '', 'events' ), get_home_url( '', 'events' ) ) ); ?>"
 				>
 					<?php esc_html_e( 'Past events', 'community-portal' ); ?>
 				</a>
@@ -276,7 +238,9 @@ if ( $event_initiative || $event_language ) {
 	<div class="row events__cards">
 		<?php
 		foreach ( $events as $event ) {
-			include locate_template( 'plugins/events-manager/templates/template-parts/event-cards.php', false, false );
+			if (isset($event->event_name) && strlen($event->event_name) > 0) {
+				include locate_template( 'plugins/events-manager/templates/template-parts/event-cards.php', false, false );
+			}
 		}
 		?>
 		<?php
@@ -453,7 +417,7 @@ if ( $event_initiative || $event_language ) {
 		<div class="events__zero-state col-sm-12">
 			<p>
 			<?php
-			if ( $original_search ) {
+			if ( isset($original_search) ) {
 				esc_html_e( 'No results found. Please try another search term.', 'community-portal' );
 			} else {
 				esc_html_e( 'There are currently no events.', 'community-portal' );

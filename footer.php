@@ -10,6 +10,7 @@
  * @author  Playground Inc.
  */
 
+
 ?>
 <?php
 	$current_translation = mozilla_get_current_translation();

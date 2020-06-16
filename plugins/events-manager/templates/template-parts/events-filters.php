@@ -130,9 +130,6 @@ if ( count( $categories ) > 0 ) {
 			require locate_template( 'plugins/events-manager/templates/template-parts/options.php', false, false );
 
 			?>
-			<?php
-				wp_nonce_field( 'events-filter', 'events-filter-nonce' );
-			?>
 	</form>
 </div>
 <div class="col-md-12">

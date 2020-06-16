@@ -17,7 +17,7 @@ global $EM_Event, $EM_Notices, $bp, $EM_Ticket;
 if ( isset( $_REQUEST['event_id'] ) ) {
 	$event_id                  = sanitize_text_field( wp_unslash( $_REQUEST['event_id'] ) );
 	$event_meta                = get_post_meta( $EM_Event->post_id, 'event-meta' );
-	$external_url              = $event_meta[0]->external_url;
+	$external_url              = isset( $event_meta[0]->external_url ) && strlen( $event_meta[0]->external_url ) > 0 ? $event_meta[0]->external_url : false;
 	$event_initiative          = isset( $event_meta[0]->initiative ) && strlen( $event_meta[0]->initiative ) > 0 ? intval( $event_meta[0]->initiative ) : false;
 	$event_language            = isset( $event_meta[0]->language ) && strlen( $event_meta[0]->language ) > 0 ? $event_meta[0]->language : false;
 	$event_projected_attendees = isset( $event_meta[0]->projected_attendees ) ? trim( $event_meta[0]->projected_attendees ) : null;
@@ -110,7 +110,7 @@ if ( $EM_Event->is_recurring() ) {
 					</div>
 					<div class="half">
 						<label class="event-form-details event-creator__label" for="event-goal"><?php esc_html_e( 'Event goal(s)', 'commuity-portal' ); ?></label>
-						<textarea name="goal" id="event-goal" rows="10" id="event-goal" class="event-creator__input event-creator__textarea" style="width:100%" maxlength="3000"><?php echo esc_html( $event_goal ? $event_goal : '' ); ?></textarea>
+						<textarea name="goal" id="event-goal" rows="10" id="event-goal" class="event-creator__input event-creator__textarea" style="width:100%" maxlength="3000"><?php echo esc_html( isset($event_goal) && strlen($event_goal) > 0 ? $event_goal : '' ); ?></textarea>
 					</div>
 				</div>
 			<?php
@@ -152,7 +152,7 @@ if ( $EM_Event->is_recurring() ) {
 			<div class="event-creator__three-up">
 				<div class="wide">
 					<label class="event-creator__label" for="event-projected-attendees"><?php echo esc_html_e( 'Expected # of attendees', 'community-portal' ); ?></label>
-					<input class="event-creator__input" type="text" id="event-projected-attendees" name="projected-attendees" value="<?php echo esc_attr( $event_projected_attendees ); ?>">
+					<input class="event-creator__input" type="text" id="event-projected-attendees" name="projected-attendees" value="<?php echo (isset($event_projected_attendees) && strlen($event_projected_attendees) > 0 ? esc_attr( $event_projected_attendees ) : "" ); ?>">
 				</div>
 				<div class="wide--double">
 					<label class="event-form-details event-creator__label" for="initiative"><?php esc_html_e( 'Is this event part of an activity or campaign?', 'community-portal' ); ?></label>
@@ -192,7 +192,7 @@ else :
 	<div class="event-creator__hidden">
 		<?php em_locate_template( 'forms/event/bookings.php', true ); ?>
 	</div>
-	<?php if ( ! $event_id ) : ?>
+	<?php if ( ! isset( $event_id ) ) : ?>
 	<div class="event-wrap event-creator">
 		<div class="event-creator__container">
 			<p>
@@ -259,9 +259,9 @@ else :
 			<input type="hidden" name="redirect_to" value="
 			<?php
 			if ( $event_id ) {
-				echo esc_attr( get_site_url() . '/events/' . $EM_Event->event_slug );
+				echo esc_attr( get_home_url(null, 'events/' . $EM_Event->event_slug ));
 			} else {
-				esc_attr( get_site_url() . '/events/' );
+				esc_attr( get_home_url(null, 'events' ));
 			}
 			?>
 			" />

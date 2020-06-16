@@ -178,7 +178,8 @@ function mozilla_determine_site_section() {
 			if( mozilla_get_current_translation() ) {
 				$section = $path_items[2];
 			} else {
-				$section = array_shift( array_values( $path_items ) );
+        $values = array_values( $path_items );
+        $section = array_shift( $values );
 			}
 
 			return $section;
@@ -234,10 +235,11 @@ function mozilla_init_scripts() {
 		function gtag(){dataLayer.push(arguments);}
 		gtag("js", new Date());
 		gtag("config", "' . esc_attr( $google_analytics_id ) . '");
-		</script>';
+    </script>';
+  
+    wp_add_inline_script( 'google-analytics', $script, 'after' );
+    
 	}
-
-	wp_add_inline_script( 'google-analytics', $script, 'after' );
 }
 
 /**

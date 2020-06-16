@@ -37,7 +37,7 @@ get_header();
 <div class="events__header events__header--edit">
 	<div class="row middle-md event-creator__container">
 		<div class="col-md-6 events__header__text">
-		<h1 class="title"><?php ( $event_id ? esc_html_e( 'Edit Event', 'community-portal' ) : esc_html_e( 'Create Event', 'community-portal' ) ); ?></h1>
+		<h1 class="title"><?php ( isset($event_id) && strlen($event_id) > 0 ? esc_html_e( 'Edit Event', 'community-portal' ) : esc_html_e( 'Create Event', 'community-portal' ) ); ?></h1>
 		</div>
 	</div>
 </div>
