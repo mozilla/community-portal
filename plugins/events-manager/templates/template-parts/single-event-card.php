@@ -33,7 +33,6 @@
 	$location   = em_get_location( $event->location_id );
 	$site_url   = get_site_url();
 	$url        = $site_url . '/events/' . $event->slug;
-	$current_translation = mozilla_get_current_translation();
 
 	?>
 <div class="col-lg-4 col-md-6 events__column">
@@ -132,20 +131,8 @@
 			</div>
 			<ul class="events__tags">
 			<?php if ( false !== $categories && is_array( $categories->terms ) ) : ?>
-        <?php foreach ( $categories->terms as $category ) : 
-			if ( $current_translation ) {
-				$slug = $category->slug . '-' . $current_translation;
-				$term = get_term_by('slug', $slug, 'event-categories');
-			}
-			?>
-			<li class="tag">
-				<?php 
-					if (isset($term) && strlen($term->name) > 0) { 
-						echo esc_html( $term->name );
-					} else { 
-						echo esc_html($category->name);
-					}?>
-				</li>
+				<?php foreach ( $categories->terms as $category ) : ?>
+					<li class="tag"><?php echo esc_html( $category->name ); ?></li>
 					<?php break; ?>
 				<?php endforeach; ?>
 			<?php endif; ?>
