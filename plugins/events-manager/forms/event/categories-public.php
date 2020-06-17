@@ -27,17 +27,20 @@
 			<?php
 				$selected = $em_event->get_categories()->get_ids();
 				foreach ( $categories as $category ) {
-					$main_category = substr( $category->slug, 0, stripos( $category->slug, '-' ) );
-					$term = get_term_by('slug', $main_category, 'event-categories');
+					if ($current_translation) {
+						$main_category = substr( $category->slug, 0, stripos( $category->slug, '-' . $current_translation) );
+						$term = get_term_by('slug', $main_category, 'event-categories');
+					}
+					$tag_id = !empty( $term) ?  $term->term_id : $category->id;
 				?>
 				<input 
 					name="event_categories[]" 
 					class="event-creator__checkbox" 
 					id="<?php echo esc_attr( $category->id ); ?>"
 					type="radio"  
-					value="<?php if (!empty( $term)) { echo esc_attr( $term->term_id ); } else { echo esc_attr( $category->id );}?>"
+					value="<?php echo esc_attr( $tag_id); ?>"
 				<?php
-				if ( is_array( $selected ) && intval( $category->id ) === intval( $selected[0] ) ) {
+				if ( is_array( $selected ) && intval( $tag_id ) === intval( $selected[0] ) ) {
 					echo esc_attr( 'checked' );
 				}
 				?>
