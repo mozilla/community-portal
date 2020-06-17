@@ -26,13 +26,9 @@
 		</div>
 	</div>
 	<div class="content events__container">
-		<?php if ( have_posts() ) : ?>
-			<?php
-			while ( have_posts() ) :
-				the_post();
-				?>
-				<?php the_content(); ?>
-			<?php endwhile; ?>
-		<?php endif; ?>
+	<?php
+		$template_dir = get_template_directory();
+		include "{$template_dir}/plugins/events-manager/templates/events-list.php";
+	?>
 	</div>
 <?php get_footer(); ?>
