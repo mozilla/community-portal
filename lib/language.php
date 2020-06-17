@@ -58,3 +58,17 @@ function mozilla_match_browser_locale() {
 }
 
 add_action('after_setup_theme', 'mozilla_match_browser_locale');
+
+
+function mozilla_add_default_language($url, $code) {
+	if ($code === 'en') {
+		$path = parse_url( $url, PHP_URL_PATH);
+		if (strlen($path) < 4) {
+			$path = '';
+		}
+		$url = get_site_url(null, $code . $path);
+	}
+	return $url;
+}
+
+add_filter('wpml_permalink', 'mozilla_add_default_language', 10, 2);

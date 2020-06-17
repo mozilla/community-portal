@@ -95,18 +95,18 @@
 									$wpml_languages = icl_get_languages('skip_missing=N&orderby=KEY&order=DIR&link_empty_to=str');
 									$current_langauge = ICL_LANGUAGE_CODE;
 									if (isset($wpml_languages) && count($wpml_languages) > 0):
-										$url = get_site_url( null, $_SERVER['REQUEST_URI'] );
-										
-
+										$url = get_site_url(null, $_SERVER['REQUEST_URI']);
 								?>
 									<ul id="footer-language-selector" class="language-selector__select">
 										<li class="language-selector__language language-selector__language--active"><?php echo esc_html($wpml_languages[$current_langauge]['translated_name']) ?></li>
 										<ul class="language-selector__select language-selector__select--submenu">
 											<?php foreach($wpml_languages as $index=>$language):
 												if ($index !== $current_langauge):
+													$url = apply_filters( 'wpml_permalink', $url , $language['code'] );
+												
 												?>
 												<li class="language-selector__language">
-													<a href="<?php if ($index !== 'en') { echo esc_attr( $language['url'] ); } else { echo esc_attr( str_replace(get_site_url(), get_site_url('', 'en'), $language['url']) ); }?>"><?php echo esc_html( $language['translated_name'])?></a>
+													<a href="<?php echo esc_attr( $url ); ?>" ><?php echo esc_html( $language['translated_name'])?></a>
 												</li>
 											<?php 
 												endif;
