@@ -121,12 +121,12 @@ function mozilla_get_users() {
  * @param string  $refresh_token token string.
  **/
 function mozilla_post_user_creation( $user_id, $userinfo, $is_new, $id_token, $access_token, $refresh_token ) {
-	$meta = get_user_meta( $user_id );
+	$meta                = get_user_meta( $user_id );
 	$current_translation = mozilla_get_current_translation();
 
 	if ( $is_new || ! isset( $meta['agree'][0] ) || ( isset( $meta['agree'][0] ) && 'I Agree' !== $meta['agree'][0] ) ) {
 		$user = get_user_by( 'ID', $user_id );
-		if( $current_translation ) {
+		if ( $current_translation ) {
 			wp_safe_redirect( "/{$current_translation}/people/{$user->data->user_nicename}/profile/edit/group/1/" );
 		} else {
 			wp_safe_redirect( "/people/{$user->data->user_nicename}/profile/edit/group/1/" );
@@ -360,7 +360,7 @@ function mozilla_update_member() {
 				update_user_meta( $user->ID, 'community-meta-fields', $additional_meta );
 				$current_translation = mozilla_get_current_translation();
 
-				if( $current_translation ) {
+				if ( $current_translation ) {
 					wp_safe_redirect( "/{$current_translation}/people/{$user->user_nicename}" );
 				} else {
 					wp_safe_redirect( "/people/{$user->user_nicename}" );
@@ -575,7 +575,7 @@ function mozilla_delete_user() {
 
 	if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] ) {
 		if ( is_user_logged_in() ) {
-			$user = wp_get_current_user()->data;
+			$user                = wp_get_current_user()->data;
 			$current_translation = mozilla_get_current_translation();
 
 			if ( $user ) {
@@ -621,26 +621,26 @@ function mozilla_delete_user() {
 
 				echo wp_json_encode(
 					array(
-						'translation'	=>	$current_translation,
-						'status' => 'success',
-						'msg'    => 'Account Deleted',
+						'translation' => $current_translation,
+						'status'      => 'success',
+						'msg'         => 'Account Deleted',
 					)
 				);
 			} else {
 				echo wp_json_encode(
 					array(
-						'translation'	=>	$current_translation,
-						'status' => 'error',
-						'msg'    => 'No user',
+						'translation' => $current_translation,
+						'status'      => 'error',
+						'msg'         => 'No user',
 					)
 				);
 			}
 		} else {
 			echo wp_json_encode(
 				array(
-					'translation'	=>	$current_translation,
-					'status' => 'error',
-					'msg'    => 'Invalid Request',
+					'translation' => $current_translation,
+					'status'      => 'error',
+					'msg'         => 'Invalid Request',
 				)
 			);
 		}

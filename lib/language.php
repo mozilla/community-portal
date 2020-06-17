@@ -79,7 +79,6 @@ function mozilla_match_browser_locale() {
 		$language       = isset( $_COOKIE['mozilla_language'] ) ? sanitize_text_field( wp_unslash( $_COOKIE['mozilla_language'] ) ) : false;
 		$wpml_languages = icl_get_languages( 'skip_missing=N&orderby=KEY&order=DIR&link_empty_to=str' );
 		preg_match( '/\b[a-zA-Z]{2}\b/', $url, $matches );
-
 		if ( wp_doing_ajax() || is_admin() ) {
 			return;
 		}
@@ -90,7 +89,8 @@ function mozilla_match_browser_locale() {
 				return;
 			}
 			if ( isset( $_SERVER['HTTP_HOST'] ) ) {
-				setcookie( 'mozilla_language', $matches[0], time() + 60 * 60 * 24, '/', esc_url_raw( wp_unslash( $_SERVER['HTTP_HOST'] ) ) );
+				setcookie( 'mozilla_language', $matches[0], time() + 60 * 60 * 24, '/', sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) );
+
 				if ( 'en' === $matches[0] ) {
 					handle_english( $url );
 					return;
