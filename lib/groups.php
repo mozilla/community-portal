@@ -345,9 +345,10 @@ function mozilla_edit_group() {
 
 							groups_update_groupmeta( $group_id, 'meta', $meta );
 
+
 							global $bp;
 							$current_translation = mozilla_get_current_translation();
-							if ( $current_translation ) {
+							if( $current_translation ) {
 								wp_safe_redirect( "/{$current_translation}/groups/{$bp->groups->current_group->slug}" );
 							} else {
 								wp_safe_redirect( "/groups/{$bp->groups->current_group->slug}" );

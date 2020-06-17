@@ -34,19 +34,22 @@ if ( ! empty( $_GET['s'] ) && isset( $_GET['site_search'] ) && wp_verify_nonce( 
 	$search_text    = sanitize_text_field( wp_unslash( $_GET['s'] ) );
 	$original_query = htmlspecialchars( $search_text, ENT_QUOTES, 'UTF-8' );
 
-} else {
+}  elseif (!empty( $_GET['s'] )) {
 	$search_text = sanitize_text_field( wp_unslash( $_GET['s'] ) );
 }
 
 if (
-		strpos( $original_query, '"' ) !== false ||
-		strpos( $original_query, "'" ) !== false ||
+    isset($original_query) &&
+    strpos( $original_query, '"' ) !== false ||
+    isset($original_query) &&
+    strpos( $original_query, "'" ) !== false ||
+    isset($original_query) &&
 		strpos( $original_query, '\\' ) !== false
 	) {
 	$search_text    = sanitize_text_field( wp_unslash( $_GET['s'] ) );
 	$original_query = htmlspecialchars( $search_text, ENT_QUOTES, 'UTF-8' );
 	$original_query = preg_replace( '/^\"|\"$|^\'|\'$/', '', $original_query );
-} else {
+} elseif (!empty( $_GET['s'] )) {
 	$search_text = sanitize_text_field( wp_unslash( $_GET['s'] ) );
 }
 
@@ -82,7 +85,7 @@ if (
 					$theme_title = $og_title;
 					$og_desc     = isset( $event->post_content ) && strlen( $event->post_content ) ? wp_strip_all_tags( $event->post_content ) : wp_strip_all_tags( get_bloginfo( 'description' ) );
 
-					if ( isset( $event->event_attributes ) ) {
+					if ( isset( $event->event_attributes ) && isset($event->event_attributes['event-meta'])) {
 						$event_meta = unserialize( $event->event_attributes['event-meta'] );
 						$og_image   = isset( $event_meta->image_url ) && strlen( $event_meta->image_url ) > 0 ? $event_meta->image_url : get_stylesheet_directory_uri() . '/images/event.jpg';
 					} else {
