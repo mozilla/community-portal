@@ -13,11 +13,11 @@
 ?>
 <?php
 
-	/**
-	 * Redirect
-	 *
-	 * @param string $url URL to redirect.
-	 */
+/**
+ * Redirect
+ *
+ * @param string $url URL to redirect.
+ */
 function mozilla_wpml_redirect( $url ) {
 	$redirect = wp_sanitize_redirect( $url );
 	if ( wp_safe_redirect( $redirect ) ) {
@@ -25,38 +25,24 @@ function mozilla_wpml_redirect( $url ) {
 	}
 }
 
-
-	/**
-	 * Handle english
-	 *
-	 * @param string $url URL to redirect.
-	 */
-function handle_english( $url ) {
-	$url = preg_replace( '/\/en/', '', $url );
-	mozilla_wpml_redirect( $url );
-}
-
-	/**
-	 * Set the language
-	 *
-	 * @param string $language language.
-	 * @param string $url URL.
-	 */
+/**
+ * Set the language
+ *
+ * @param string $language language.
+ * @param string $url URL.
+ */
 function mozilla_set_language( $language, $url ) {
-	if ( 'en' === $language ) {
-		return;
-	}
 	$url = apply_filters( 'wpml_permalink', $url, $language );
 	mozilla_wpml_redirect( $url );
 }
 
-	/**
-	 * Checks language
-	 *
-	 * @param string $language langauge.
-	 * @param string $url url.
-	 * @param array  $active_languages the active languages.
-	 */
+/**
+ * Checks language
+ *
+ * @param string $language langauge.
+ * @param string $url url.
+ * @param array  $active_languages the active languages.
+ */
 function mozilla_check_language( $language, $url, $active_languages ) {
 	if ( $language ) {
 		mozilla_set_language( $language, $url );
@@ -85,14 +71,12 @@ function mozilla_match_browser_locale() {
 
 		if ( isset( $matches[0] ) && isset( $wpml_languages[ $matches[0] ] ) ) {
 			if ( $language && 'en' === $language && 'en' === $matches[0] ) {
-				handle_english( $url );
 				return;
 			}
 			if ( isset( $_SERVER['HTTP_HOST'] ) ) {
 				setcookie( 'mozilla_language', $matches[0], time() + 60 * 60 * 24, '/', sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) );
 
 				if ( 'en' === $matches[0] ) {
-					handle_english( $url );
 					return;
 				}
 			}
@@ -113,10 +97,6 @@ function mozilla_match_browser_locale() {
 	 * @param string $code language code.
 	 */
 function mozilla_add_default_language( $url, $code ) {
-	if ( 'en' === $code ) {
-		$path = wp_parse_url( $url, PHP_URL_PATH );
-		$url  = get_site_url( null, $code . $path );
-	}
 	return $url;
 }
 
