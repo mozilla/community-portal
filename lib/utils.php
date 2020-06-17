@@ -75,10 +75,11 @@ function mozilla_show_activity_metabox( $post ) {
  * General function for uploading images
  */
 function mozilla_upload_image() {
-
+	
 	if ( ! empty( $_FILES ) ) {
 
 		if ( isset( $_REQUEST['my_nonce_field'] ) ) {
+
 			$nonce = trim( sanitize_text_field( wp_unslash( $_REQUEST['my_nonce_field'] ) ) );
 
 			if ( wp_verify_nonce( $nonce, 'protect_content' ) ) {
@@ -124,11 +125,13 @@ function mozilla_upload_image() {
 											if ( $image[0] >= 175 && $image[1] >= 175 ) {
 												print esc_url_raw( trim( str_replace( "\n", '', $uploaded_url ) ) );
 											} else {
-												print esc_html( 'Image size is too small' );
+
+												print esc_html_e( 'Image size is too small', 'community-portal' );
+
 												unlink( $uploaded_bits['file'] );
 											}
 										} else {
-											print esc_html( 'Invalid image provided' );
+											print esc_html_e( 'Invalid image provided', 'community-portal' );
 											unlink( $uploaded_bits['file'] );
 										}
 									} elseif ( isset( $_REQUEST['group_image'] ) && 'true' === $_REQUEST['group_image'] || isset( $_REQUEST['event_image'] ) && 'true' === $_REQUEST['event_image'] ) {
@@ -136,11 +139,11 @@ function mozilla_upload_image() {
 											if ( $image[0] >= 703 && $image[1] >= 400 ) {
 												print esc_url_raw( trime( str_replace( "\n", '', $uploaded_url ) ) );
 											} else {
-												print esc_html( 'Image size is too small' );
+												print esc_html_e( 'Image size is too small', 'community-portal' );
 												unlink( $uploaded_bits['file'] );
 											}
 										} else {
-											print 'Invalid image provided';
+											print esc_html_e('Invalid image provided', 'community-portal');
 											unlink( $uploaded_bits['file'] );
 										}
 									} else {
@@ -151,7 +154,9 @@ function mozilla_upload_image() {
 							}
 						}
 					} else {
-						print esc_html( "Image size to large ({$max_files_size_allowed} KB maximum)" );
+						$image_size_string = __( 'Image size to large ', 'community-portal' );
+						$max_string = __( 'KB maximum', 'community-portal' );
+						print esc_html( "{$image_size_string} ({$max_files_size_allowed} {$max_string})" );
 					}
 				}
 			}

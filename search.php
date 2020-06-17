@@ -134,7 +134,7 @@ else :
 	?>
 					<?php esc_html_e( 'Search', 'community-portal' ); ?><?php endif; ?></h1>
 				<div class="search__search-form-container">
-					<form method="GET" action="/" class="groups__form" id="group-search-form">
+					<form method="GET" action="<?php echo get_home_url()?>" class="groups__form" id="group-search-form">
 						<div class="search__input-container">
 							<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M9.16667 15.8333C12.8486 15.8333 15.8333 12.8486 15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -165,7 +165,7 @@ else :
 					<div class="search__result">
 						<?php if ( isset( $result->post_type ) && 'campaign' === $result->post_type ) : ?>
 						<h3 class="search__result-title search__result-title--campaign"><?php esc_html_e( 'Campaign', 'community-portal' ); ?></h3>
-						<a href="/campaigns/<?php echo esc_attr( $result->post_name ); ?>" class="search__result-link"><?php echo esc_html( $result->post_title ); ?></a>
+						<a href="<?php echo esc_attr( get_home_url(null, 'campaigns/' . $result->post_name)); ?>" class="search__result-link"><?php echo esc_html( $result->post_title ); ?></a>
 						<div class="search__result-dates">
 							<?php
 							$start_date = get_field( 'campaign_start_date', $result->ID );
@@ -179,7 +179,6 @@ else :
 						<?php endif; ?>                
 						<?php if ( isset( $result->post_type ) && 'page' === $result->post_type ) : ?>
 						<h3 class="search__result-title search__result-title--campaign"><?php esc_html_e( 'Page', 'community-portal' ); ?></h3>
-						<a href="/<?php echo esc_attr( $result->post_name ); ?>" class="search__result-link"><?php echo esc_html( $result->post_title ); ?></a>
 						<div class="search__result-dates">
 							<?php
 							$start_date = get_field( 'campaign_start_date', $result->ID );
@@ -196,7 +195,7 @@ else :
 							$location = em_get_location( $result->location_id );
 							?>
 						<h3 class="search__result-title search__result-title--event"><?php esc_html_e( 'Event', 'community-portal' ); ?></h3>
-						<a href="/events/<?php echo esc_attr( $result->event_slug ); ?>" class="search__result-link"><?php echo esc_html( $result->event_name ); ?></a>
+						<a href="<?php echo esc_attr( get_home_url( null, 'events/' . $result->event_slug ) ); ?>" class="search__result-link"><?php echo esc_html( $result->event_name ); ?></a>
 						<div class="search__event-date">
 							<?php echo esc_html( gmdate( 'F j, Y', strtotime( $result->event_start_date ) ) ); ?>
 							<?php if ( isset( $result->event_start_time ) ) : ?>
@@ -237,7 +236,7 @@ else :
 						<?php endif; ?>              
 						<?php if ( 'BP_Groups_Group' === get_class( $result ) ) : ?>
 						<h3 class="search__result-title search__result-title--group"><?php print esc_html_e( 'Group', 'community-portal' ); ?></h3>
-						<a href="/groups/<?php echo esc_attr( $result->slug ); ?>" class="search__result-link"><?php echo esc_html( $result->name ); ?></a>
+						<a href="<?php echo esc_attr( get_home_url( null, 'groups/' . $result->slug ) ); ?>" class="search__result-link"><?php echo esc_html( $result->name ); ?></a>
 						<div class="search__result-description">
 
 							<?php
@@ -280,7 +279,7 @@ else :
 						<?php endif; ?>                
 						<?php if ( isset( $result->post_type ) && 'activity' === $result->post_type ) : ?>
 						<h3 class="search__result-title search__result-title--activity"><?php echo esc_html_e( 'Activity', 'community-portal' ); ?></h3>
-						<a href="/activities/<?php echo esc_attr( $result->post_name ); ?>" class="search__result-link"><?php echo esc_html( $result->post_title ); ?></a>
+						<a href="<?php echo esc_attr( get_home_url( null, 'activities/' . $result->post_name ) ); ?>" class="search__result-link"><?php echo esc_html( $result->post_title ); ?></a>
 						<div class="search__result-description">
 							<?php echo wp_kses( $description, array( 'p' => array() ) ); ?>
 						</div>
@@ -288,7 +287,7 @@ else :
 
 						<?php if ( 'WP_User' === get_class( $result ) ) : ?>
 						<h3 class="search__result-title search__result-title--member"><?php echo esc_html_e( 'Member', 'community-portal' ); ?></h3>
-						<a href="/people/<?php echo esc_attr( $result->user_nicename ); ?>" class="search__result-link"><?php echo esc_html( $result->user_nicename ); ?></a>
+						<a href="<?php echo esc_attr( get_home_url( null, 'people/' . $result->user_nicename ) ); ?>" class="search__result-link"><?php echo esc_html( $result->user_nicename ); ?></a>
 						<div class="search__member-name">
 							<?php if ( $result->info['first_name']->display ) : ?>
 								<?php echo esc_html( $result->info['first_name']->value ); ?>
@@ -310,7 +309,7 @@ else :
 			}
 
 				$previous_page = ( $p > 1 ) ? $p - 1 : 1;
-				$next_page     = ( $p <= $total_pages ) ? $p + 1 : $total_pages;
+				$next_page     = ( $p < $total_pages ) ? $p + 1 : $total_pages;
 
 			if ( $total_pages > 1 ) {
 				$range_min = ( 0 === $range % 2 ) ? ( $range / 2 ) - 1 : ( $range - 1 ) / 2;
@@ -332,11 +331,15 @@ else :
 			<div class="campaigns__pagination">
 				<div class="campaigns__pagination-container">
 					<?php if ( $total_pages > 1 ) : ?>
-					<a href="/?s=
-						<?php
-						if ( $search_term ) :
-							?>
-							<?php echo esc_attr( $search_term ); ?><?php endif; ?>&page=<?php echo esc_attr( $previous_page ); ?>" class="campaigns__pagination-link">
+					<a 
+						href="<?php 
+						if ($search_term) {
+							echo esc_attr(add_query_arg( array('s' => $search_term, 'page' => $previous_page ), get_home_url()));
+						} else {
+							echo esc_attr(add_query_arg( array('page' => $previous_page ), get_home_url()));
+						}	
+						?>" 
+						class="campaigns__pagination-link">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 							<path d="M17 23L6 12L17 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>
@@ -344,17 +347,25 @@ else :
 						<?php
 						if ( $page_min > 1 ) :
 							?>
-							<a href="/?s=
-							<?php
-							if ( $search_term ) :
-								?>
-														<?php echo esc_attr( $search_term ); ?><?php endif; ?>&page=1" class="campaigns__pagination-link campaigns__pagination-link--first"><?php echo '1'; ?></a>&hellip; <?php endif; ?>
-						<?php for ( $x = $page_min - 1; $x < $page_max; $x++ ) : ?>
-					<a href="/?s=
-							<?php
-							if ( $search_term ) :
-								?>
-								<?php echo esc_attr( $search_term ); ?><?php endif; ?>&page=<?php echo esc_attr( $x + 1 ); ?>" class="campaigns__pagination-link
+							<a 
+								href="<?php 
+									if ($search_term) {
+										echo esc_attr(add_query_arg( array('s' => $search_term, 'page' => $previous_page ), get_home_url()));
+									} else {
+										echo esc_attr(add_query_arg( array('page' => $previous_page ), get_home_url()));
+									}	
+								?>" 
+								class="campaigns__pagination-link campaigns__pagination-link--first"><?php echo '1'; ?></a>&hellip; <?php endif; ?>
+							<?php for ( $x = $page_min - 1; $x < $page_max; $x++ ) : ?>
+							<a
+								href="<?php 
+									if ($search_term) {
+										echo esc_attr(add_query_arg( array('s' => $search_term, 'page' => $x + 1 ), get_home_url()));
+									} else {
+										echo esc_attr(add_query_arg( array('page' => $x + 1 ), get_home_url()));
+									}	
+								?>"  
+								class="campaigns__pagination-link
 							<?php
 							if ( $p === $x + 1 ) :
 								?>
@@ -367,16 +378,20 @@ else :
 						<?php
 						if ( $total_pages > $range && $p < $total_pages - 1 ) :
 							?>
-							&hellip; <a href="/campaigns/?p=<?php echo esc_attr( $total_pages ); ?>" class="campaigns__pagination-link
+							&hellip; <a href="<?php echo esc_url( add_query_arg( array( 'p' => $total_pages ), get_home_url( null, 'campaigns') )) ?>" class="campaigns__pagination-link
 							<?php
 							if ( $p === $total_pages ) :
 								?>
 							campaigns__pagination-link--active<?php endif; ?>"><?php echo esc_html( $total_pages ); ?></a><?php endif; ?>
-					<a href="/?s=
-						<?php
-						if ( $search_term ) :
-							?>
-							<?php echo esc_attr( $search_term ); ?><?php endif; ?>&page=<?php echo esc_attr( $next_page ); ?>" class="campaigns__pagination-link">
+					<a 
+						href="<?php 
+							if ($search_term) {
+								echo esc_attr(add_query_arg( array('s' => $search_term, 'page' => $next_page ), get_home_url()));
+							} else {
+								echo esc_attr(add_query_arg( array('page' => $next_page ), get_home_url()));
+							}	
+							?>"  
+							class="campaigns__pagination-link">
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 						<path d="M7 23L18 12L7 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 					</svg>
