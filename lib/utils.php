@@ -75,7 +75,7 @@ function mozilla_show_activity_metabox( $post ) {
  * General function for uploading images
  */
 function mozilla_upload_image() {
-	
+
 	if ( ! empty( $_FILES ) ) {
 
 		if ( isset( $_REQUEST['my_nonce_field'] ) ) {
@@ -143,7 +143,7 @@ function mozilla_upload_image() {
 												unlink( $uploaded_bits['file'] );
 											}
 										} else {
-											print esc_html_e('Invalid image provided', 'community-portal');
+											print esc_html_e( 'Invalid image provided', 'community-portal' );
 											unlink( $uploaded_bits['file'] );
 										}
 									} else {
@@ -155,7 +155,7 @@ function mozilla_upload_image() {
 						}
 					} else {
 						$image_size_string = __( 'Image size to large ', 'community-portal' );
-						$max_string = __( 'KB maximum', 'community-portal' );
+						$max_string        = __( 'KB maximum', 'community-portal' );
 						print esc_html( "{$image_size_string} ({$max_files_size_allowed} {$max_string})" );
 					}
 				}
@@ -175,7 +175,7 @@ function mozilla_determine_site_section() {
 		$path_items = array_filter( explode( '/', esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ) );
 
 		if ( count( $path_items ) > 0 ) {
-			if( mozilla_get_current_translation() ) {
+			if ( mozilla_get_current_translation() ) {
 				$section = $path_items[2];
 			} else {
 				$section = array_shift( array_values( $path_items ) );
@@ -445,7 +445,7 @@ function mozilla_menu_class( $classes, $item, $args ) {
 
 		if ( count( $path_items ) > 0 ) {
 			$current_translation = mozilla_get_current_translation();
-			$key = $current_translation ? 2 : 1;
+			$key                 = $current_translation ? 2 : 1;
 			if ( strtolower( $path_items[ $key ] ) === $menu_url ) {
 				$item->current = true;
 				$classes[]     = 'menu-item--active';
@@ -952,7 +952,6 @@ function mozilla_update_script_attributes( $html, $handle ) {
 
 /**
  * Gets the current language of the site
- * 
  */
 function mozilla_get_current_translation() {
 	return ICL_LANGUAGE_CODE;
