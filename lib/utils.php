@@ -954,5 +954,5 @@ function mozilla_update_script_attributes( $html, $handle ) {
  * 
  */
 function mozilla_get_current_translation() {
-	return 'en' === ICL_LANGUAGE_CODE ? false : ICL_LANGUAGE_CODE;
+	return ICL_LANGUAGE_CODE;
 }
