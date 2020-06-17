@@ -488,13 +488,14 @@ else :
 						$discourse_value = $form['discourse'];
 					} else {
 						if ( is_array( $community_fields ) && isset( $community_fields['discourse'] ) ) {
+							
 							$discourse_value = $community_fields['discourse'];
 						} else {
 							$discourse_value = '';
 						}
 					}
 					?>
-					<input type="text" name="discourse" id="discourse" class="profile__input" value="<?php esc_attr( $discourse_value ); ?>"/>
+					<input type="text" name="discourse" id="discourse" class="profile__input" value="<?php echo esc_attr( $discourse_value ); ?>"/>
 				</div>
 				<div class="profile__select-container">
 					<label class="profile__label" for="profile-discourse-visibility"><?php esc_html_e( 'Can be viewed by', 'community-portal' ); ?></label>

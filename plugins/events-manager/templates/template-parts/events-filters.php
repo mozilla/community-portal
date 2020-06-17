@@ -20,12 +20,12 @@
 	$countries      = em_get_countries();
 	$ddm_countries  = array();
 	$used_languages = array();
-	$filter_events  = EM_Events::get();
+	$filter_events  = EM_Events::get(array('scope' => 'all'));
 
 foreach ( $filter_events as $e ) {
 	$location     = em_get_location( $e->location_id );
 	$country_code = $location->location_country;
-	if ( ! in_array( $country_code, $ddm_countries, true ) ) {
+	if ( strlen($country_code) > 0 && ! in_array( $country_code, $ddm_countries, true ) ) {
 		$ddm_countries[ $country_code ] = $countries[ $country_code ];
 	}
 	$e_meta = get_post_meta( $e->post_id, 'event-meta' );
