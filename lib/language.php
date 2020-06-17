@@ -21,13 +21,15 @@ function mozilla_set_language($language, $url) {
 	return;
 }
 
-function mozilla_check_language($language, $url) {
+function mozilla_check_language($language, $url, $active_languages) {
 	if ($language) {
 		mozilla_set_language($language, $url);	
 		return;
 	}
 	$default_lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-	mozilla_set_language($default_lang, $url);
+	if (isset($active_languages[$default_lang])) {
+		mozilla_set_language($default_lang, $url);
+	}
 }
 
 /**
@@ -54,7 +56,7 @@ function mozilla_match_browser_locale() {
 		}
 		return;
 	}
-	mozilla_check_language($language, $url);
+	mozilla_check_language($language, $url, $wpml_languages);
 }
 
 add_action('after_setup_theme', 'mozilla_match_browser_locale');
