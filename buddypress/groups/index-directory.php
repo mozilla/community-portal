@@ -351,6 +351,11 @@
 					<select class="groups__tag-select">
 						<option value=""><?php esc_html_e( 'All', 'community-portal' ); ?></option>
 						<?php foreach ( $tags as $loop_tag ) : ?>
+							<?php
+							if ( $current_translation ) {
+								$loop_tag->slug = substr( $loop_tag->slug, 0, stripos( $loop_tag->slug, '-' ) );
+							}
+							?>
 						<option value="<?php echo esc_attr( $loop_tag->slug ); ?>" 
 											<?php
 											if ( isset( $_GET['tag'] ) && strtolower( trim( $get_tag ) ) === strtolower( $loop_tag->slug ) ) :

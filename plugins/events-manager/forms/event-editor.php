@@ -10,10 +10,10 @@
 
 global $EM_Event, $EM_Notices, $bp, $EM_Ticket;
 
-$theme_directory = get_template_directory();
-require "{$theme_directory}/languages.php";
+	$theme_directory = get_template_directory();
+	require "{$theme_directory}/languages.php";
 
-mozilla_match_categories();
+	mozilla_match_categories();
 if ( isset( $_REQUEST['event_id'] ) ) {
 	$event_id                  = sanitize_text_field( wp_unslash( $_REQUEST['event_id'] ) );
 	$event_meta                = get_post_meta( $EM_Event->post_id, 'event-meta' );

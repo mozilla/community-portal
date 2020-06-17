@@ -542,10 +542,37 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 			<?php esc_html_e( 'Tags', 'community-portal' ); ?>
 			<div class="profile__tags-container">
 			<?php $tags = array_filter( explode( ',', $info['tags']->value ) ); ?>
+			<?php $system_tags = get_tags( array( 'hide_empty' => false ) ); ?>
 			<?php foreach ( $tags as $loop_tag ) : ?>
+				<?php
+				foreach ( $system_tags as $t ) {
+					$found = false;
+
+					if ( $current_translation ) {
+						$temp_slug = $t->slug;
+						if ( stripos( $temp_slug, '-' ) !== false ) {
+							$temp_slug = substr( $temp_slug, 0, stripos( $temp_slug, '-' ) );
+						}
+						$temp_name = $t->name;
+
+						if ( strtolower( $temp_slug ) === strtolower( $loop_tag ) ) {
+							$found = true;
+							break;
+						}
+					} else {
+						$temp_name = $t->name;
+						if ( strtolower( $t->slug ) === strtolower( $loop_tag ) ) {
+							$found = true;
+							break;
+						}
+					}
+				}
+				?>
+				<?php if ( $found ) : ?>
 				<span class="profile__static-tag">
-					<?php echo esc_html( $loop_tag ); ?>
+					<?php echo esc_html( $temp_name ); ?>
 				</span>
+				<?php endif; ?>
 			<?php endforeach; ?>
 			</div>
 		</div>

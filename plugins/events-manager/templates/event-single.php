@@ -13,12 +13,14 @@
 ?>
 
 <?php
+	mozilla_match_categories();
 	$em_event    = $GLOBALS['EM_Event'];
 	if (isset($GLOBALS['EM_Tags'])) {
 		$em_tags     = $GLOBALS['EM_Tags'];
 	}
 	$logged_in   = mozilla_is_logged_in();
 	$active_user = wp_get_current_user()->data;
+	
 
 	global $bp;
 	$options = wp_load_alloptions();

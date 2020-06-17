@@ -12,7 +12,10 @@
 
 ?>
 
-<?php get_header(); ?>
+<?php 
+	get_header();
+	mozilla_match_categories(); 
+?>
 	<div class="events__header">
 		<div class="row middle-md events__container">
 			<div class="col-md-6 events__header__text">
@@ -23,9 +26,13 @@
 		</div>
 	</div>
 	<div class="content events__container">
-		<?php 
-			$template_dir = get_template_directory();
-			include "{$template_dir}/plugins/events-manager/templates/events-list.php"; 
-		?>
+		<?php if ( have_posts() ) : ?>
+			<?php
+			while ( have_posts() ) :
+				the_post();
+				?>
+				<?php the_content(); ?>
+			<?php endwhile; ?>
+		<?php endif; ?>
 	</div>
 <?php get_footer(); ?>

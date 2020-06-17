@@ -135,8 +135,18 @@ $all_countries = em_get_countries();
 						<?php endif; ?>
 						<ul class="events__tags">
 						<?php if ( false !== $categories && is_array( $categories->terms ) ) : ?>
-							<?php foreach ( $categories->terms as $category ) : ?>
-								<li class="tag"><?php echo esc_html( $category->name ); ?></li>
+							<?php $current_translation = mozilla_get_current_translation(); ?>
+							<?php 
+								foreach ( $categories->terms as $category ) : 
+									if ($current_translation) {
+										if ($current_translation) {
+											$translation = get_term_by('slug', $category->slug . '-' . $current_translation, 'event-categories');
+										}
+									}
+									$term_name = isset($translation) && strlen($translation->name) > 0 ? $translation->name : $category->name;
+							?>
+								
+								<li class="tag"><?php echo esc_html( $term_name ); ?></li>
 								<?php break; ?>
 							<?php endforeach; ?>
 						<?php endif; ?>

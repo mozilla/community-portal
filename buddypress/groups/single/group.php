@@ -11,13 +11,12 @@
  */
 
 	get_header();
-
 	// Lets get the group data!
 	do_action( 'bp_before_directory_groups_page' );
 	global $bp;
 
-	$logged_in  = mozilla_is_logged_in();
-	$group_user = wp_get_current_user()->data;
+	$logged_in           = mozilla_is_logged_in();
+	$group_user          = wp_get_current_user()->data;
 	$current_translation = mozilla_get_current_translation();
 
 	$template_dir = get_template_directory();
@@ -1188,11 +1187,16 @@
 										</div>
 										<ul class="events__tags">
 											<?php
+											
 											if ( is_array( $categories->terms ) ) :
 												if ( count( $categories->terms ) <= 2 ) :
 													foreach ( $categories->terms as $category ) {
+														if ($current_translation) {
+															$translation = get_term_by('slug', $category->slug . '-' . $current_translation, 'event-categories');
+														}
+														$term_name = isset($translation) && strlen($translation->name) > 0 ? $translation->name : $category->name;
 														?>
-													<li class="tag"><?php echo esc_html( $category->name ); ?></li>
+													<li class="tag"><?php echo esc_html( $term_name ); ?></li>
 														<?php
 														break;
 													}
@@ -1624,16 +1628,25 @@
 								<div class="group__tags">
 									<?php foreach ( array_unique( $group_meta['group_tags'] ) as $tag_loop ) : ?>
 										<?php
-										$system_tag = array_values(
-											array_filter(
-												$tags,
-												function( $e ) use ( &$tag_loop ) {
-													return $e->slug === $tag_loop;
+										foreach ( $tags as $t ) {
+											$found = false;
+											if ( $current_translation ) {
+												$temp_slug = $t->slug;
+												$temp_slug = substr( $temp_slug, 0, stripos( $temp_slug, '-' ) );
+												if ( $tag_loop === $temp_slug ) {
+													$tag_name = $t->name;
+													$found    = true;
+													break;
 												}
-											)
-										);
-
-
+											} else {
+												if ( $t->slug === $tag_loop ) {
+													$temp_slug = $t->slug;
+													$tag_name  = $t->name;
+													$found     = true;
+													break;
+												}
+											}
+										}
 										?>
 										<?php if ( ! empty( $system_tag[0]->name ) ) : ?>
 									<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/?tag=<?php echo esc_attr( $tag_loop ); ?>" class="group__tag"><?php echo esc_html( $system_tag[0]->name ); ?></a>

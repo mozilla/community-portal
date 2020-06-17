@@ -213,6 +213,11 @@ $form_tags = isset( $form['tags'] ) ? array_unique( array_filter( $form['tags'],
 							?>
 							<div class="create-group__tag-container">
 								<?php foreach ( $tags as $loop_tag ) : ?>
+									<?php 
+										if( $current_translation )	{
+											$loop_tag->slug = substr( $loop_tag->slug, 0, stripos( $loop_tag->slug, '-' ) ); 
+										}
+									?>
 									<input class="create-group__checkbox" type="checkbox" id="<?php echo esc_attr( $loop_tag->slug ); ?>" data-value="<?php echo esc_attr( $loop_tag->slug ); ?>">
 									<label class="create-group__tag
 									<?php

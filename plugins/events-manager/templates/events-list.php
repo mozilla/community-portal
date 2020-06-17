@@ -56,6 +56,10 @@ if ( 'all' !== strtolower( $country ) ) {
 }
 
 if ( 'all' !== $event_tag ) {
+	$current_translation = mozilla_get_current_translation();
+	if ($current_translation && stripos( $event_tag, '-' . $current_translation ) !== false) {
+		$event_tag = substr( $event_tag, 0, stripos( $event_tag, '-' . $current_translation ) );
+	}
 	$args['category'] = $event_tag;
 }
 
