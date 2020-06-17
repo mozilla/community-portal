@@ -8,7 +8,7 @@ function mozilla_wpml_redirect($url) {
 }
 
 function handle_english($url) {
-	$url = preg_replace('/en\//', '', $url);
+	$url = preg_replace('/\/en/', '', $url);
 	mozilla_wpml_redirect($url);
 }
 
