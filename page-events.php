@@ -26,12 +26,13 @@
 		</div>
 	</div>
 	<div class="content events__container">
-		<div id="em-wrapper">
-			<?php 
-				$template_dir = get_template_directory();
-				include "{$template_dir}/plugins/events-manager/templates/events-search.php"; 
-				include "{$template_dir}/plugins/events-manager/templates/events-list.php"; 
-			?>
-		</div>
+		<?php if ( have_posts() ) : ?>
+			<?php
+			while ( have_posts() ) :
+				the_post();
+				?>
+				<?php the_content(); ?>
+			<?php endwhile; ?>
+		<?php endif; ?>
 	</div>
 <?php get_footer(); ?>
