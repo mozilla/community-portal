@@ -56,13 +56,19 @@ function mozilla_check_language( $language, $url, $active_languages ) {
 	}
 }
 
-	/**
-	 * Updates the website locale based on browser settings
-	 */
+/**
+ * Updates the website locale based on browser settings
+ */
 function mozilla_match_browser_locale() {
 	if ( isset( $_SERVER['REQUEST_URI'] ) ) {
 		$url            = get_site_url( null, esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
-		$language       = isset( $_COOKIE['mozilla_language'] ) ? sanitize_text_field( wp_unslash( $_COOKIE['mozilla_language'] ) ) : false;
+		
+		if ( isset( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) {
+			$language = substr( sanitize_text_field( wp_unslash( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ), 0, 2 );
+		} else {
+			$language       = mozilla_get_current_translation();
+		}
+
 		$wpml_languages = icl_get_languages( 'skip_missing=N&orderby=KEY&order=DIR&link_empty_to=str' );
 		preg_match( '/\b[a-zA-Z]{2}\b/', $url, $matches );
 		if ( wp_doing_ajax() || is_admin() ) {
@@ -70,12 +76,10 @@ function mozilla_match_browser_locale() {
 		}
 
 		if ( isset( $matches[0] ) && isset( $wpml_languages[ $matches[0] ] ) ) {
-			if ( $language && 'en' === $language && 'en' === $matches[0] ) {
+			if ( 'en' === $matches[0] ) {
 				return;
 			}
 			if ( isset( $_SERVER['HTTP_HOST'] ) ) {
-				setcookie( 'mozilla_language', $matches[0], time() + 60 * 60 * 24, '/', sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) );
-
 				if ( 'en' === $matches[0] ) {
 					return;
 				}
@@ -83,21 +87,22 @@ function mozilla_match_browser_locale() {
 
 			return;
 		}
+
 		mozilla_check_language( $language, $url, $wpml_languages );
 	}
 }
 
-	add_action( 'after_setup_theme', 'mozilla_match_browser_locale' );
+add_action( 'after_setup_theme', 'mozilla_match_browser_locale' );
 
 
-	/**
-	 * Adds default language
-	 *
-	 * @param string $url URL.
-	 * @param string $code language code.
-	 */
+/**
+ * Adds default language
+ *
+ * @param string $url URL.
+ * @param string $code language code.
+ */
 function mozilla_add_default_language( $url, $code ) {
 	return $url;
 }
 
-	add_filter( 'wpml_permalink', 'mozilla_add_default_language', 10, 2 );
+add_filter( 'wpml_permalink', 'mozilla_add_default_language', 10, 2 );
