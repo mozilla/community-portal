@@ -10,6 +10,7 @@
  * @author  Playground Inc.
  */
 
+
 $user = wp_get_current_user()->data;
 $meta = get_user_meta( $user->ID );
 $current_translation = mozilla_get_current_translation();
@@ -50,6 +51,7 @@ if (
 }
 
 	$protocol = ! empty( wp_get_server_protocol() ) && 0 === stripos( wp_get_server_protocol(), 'https' ) ? 'https://' : 'http://';
+
 ?>
 
 <!DOCTYPE html>
