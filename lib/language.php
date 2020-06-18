@@ -84,9 +84,6 @@
 				return;
 			}
 
-			if ($matches[0] === $language) {
-				return;
-			}
 			if ( isset( $matches[0] ) && array_key_exists( $matches[0],  $wpml_languages ) ) {
 				if ( $language && 'en' === $language && 'en' === $matches[0] ) {
 					handle_english( $url );
@@ -94,11 +91,10 @@
 				}
 				if ( isset( $_SERVER['HTTP_HOST'] ) ) {
 					setcookie( 'mozilla_language', $matches[0], time() + 60 * 60 * 24, '/', sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) );
-					return;
 					if ( 'en' === $matches[0] ) {
 						handle_english( $url );
-						return;
 					}
+					return;
 				}
 			}	
 			mozilla_check_language( $language, $url, $wpml_languages );
