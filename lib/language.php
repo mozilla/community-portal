@@ -31,9 +31,13 @@
 	 *
 	 * @param string $url URL to redirect.
 	 */
-	function handle_english( $url ) {
-		$url = preg_replace( '/\/en/', '', $url );
-		mozilla_wpml_redirect( $url );
+	function verify_trailing_slash( $url, $language ) {
+		$language = $language . '/';
+		$trailing_slash = stripos($url, $language );
+		if (empty($trailing_slash)) {
+			$url = preg_replace( '/(\b[a-zA-Z]{2}\b)/', '${1}/', $url );
+			mozilla_wpml_redirect( $url );
+		}
 	}
 
 	/**
@@ -43,11 +47,8 @@
 	 * @param string $url URL.
 	 */
 	function mozilla_set_language( $language, $url ) {
-		if ( 'en' === $language ) {
-			return;
-		}
 		$url = apply_filters( 'wpml_permalink', $url, $language );
-		mozilla_wpml_redirect( $url );
+		mozilla_wpml_redirect($url);
 	}
 
 	/**
@@ -57,11 +58,7 @@
 	 * @param string $url url.
 	 * @param array  $active_languages the active languages.
 	 */
-	function mozilla_check_language( $language, $url, $active_languages ) {
-		if ( $language ) {
-			mozilla_set_language( $language, $url );
-			return;
-		}
+	function mozilla_check_language( $url, $active_languages ) {
 		if ( isset( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) {
 			$default_lang = substr( sanitize_text_field( wp_unslash( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ), 0, 2 );
 			if ( isset( $active_languages[ $default_lang ] ) ) {
@@ -76,7 +73,6 @@
 	function mozilla_match_browser_locale() {
 		if ( isset( $_SERVER['REQUEST_URI'] ) ) {
 			$url            = get_site_url( null, esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
-			$language       = isset( $_COOKIE['mozilla_language'] ) ? sanitize_text_field( wp_unslash( $_COOKIE['mozilla_language'] ) ) : false;
 			$wpml_languages = icl_get_languages( 'skip_missing=N&orderby=KEY&order=DIR&link_empty_to=str' );
 			preg_match( '/\b[a-zA-Z]{2}\b/', $url, $matches );
 
@@ -85,19 +81,10 @@
 			}
 
 			if ( isset( $matches[0] ) && array_key_exists( $matches[0],  $wpml_languages ) ) {
-				if ( $language && 'en' === $language && 'en' === $matches[0] ) {
-					handle_english( $url );
-					return;
-				}
-				if ( isset( $_SERVER['HTTP_HOST'] ) ) {
-					setcookie( 'mozilla_language', $matches[0], time() + 60 * 60 * 24, '/', sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) );
-					if ( 'en' === $matches[0] ) {
-						handle_english( $url );
-					}
-					return;
-				}
-			}	
-			mozilla_check_language( $language, $url, $wpml_languages );
+				verify_trailing_slash($url, $matches[0]);
+				return;
+			}
+			mozilla_check_language( $url, $wpml_languages );
 		}
 	}
 
@@ -118,4 +105,4 @@ function mozilla_add_default_language( $url, $code ) {
 	return $url;
 }
 
-	add_filter( 'wpml_permalink', 'mozilla_add_default_language', 10, 2 );
+	// add_filter( 'wpml_permalink', 'mozilla_add_default_language', 10, 2 );
