@@ -20,7 +20,8 @@
  */
 function mozilla_wpml_redirect( $url ) {
 	$redirect = wp_sanitize_redirect( $url );
-	if ( wp_safe_redirect( $redirect ) ) {
+
+	if ( ! isset( $_GET['auth0'] ) && ! isset( $_GET['code'] ) && wp_safe_redirect( $redirect ) ) {
 		exit();
 	}
 }
@@ -37,6 +38,7 @@ function verify_trailing_slash( $url, $language ) {
 	$trailing_slash = stripos( $url, $language );
 	if ( empty( $trailing_slash ) ) {
 		$url = preg_replace( '/(\b[a-zA-Z]{2}\b)/', '${1}/', $url );
+
 		mozilla_wpml_redirect( $url );
 	}
 }
