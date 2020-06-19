@@ -231,14 +231,14 @@
 
 						$current_translation = mozilla_get_current_translation();
 						if ( 'en' === $current_translation ) {
-							$event_id = intval( $post->ID );
+							$initiative_id = intval( $post->ID );
 						} else {
-							$event_id = intval( apply_filters( 'wpml_object_id', $post->ID, 'activity', false, 'en' ) );
+							$initiative_id = intval( apply_filters( 'wpml_object_id', $post->ID, 'activity', false, 'en' ) );
 						}
 
 						foreach ( $events as $e ) {
 							$event_meta = get_post_meta( $e->post_id, 'event-meta' );
-							if ( isset( $event_meta[0]->initiative ) && intval( $event_meta[0]->initiative ) === $event_id ) {
+							if ( isset( $event_meta[0]->initiative ) && intval( $event_meta[0]->initiative ) === $initiative_id ) {
 								$related_events[] = $e;
 							}
 
