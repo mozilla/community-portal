@@ -28,17 +28,18 @@ function mozilla_wpml_redirect( $url ) {
 
 
 /**
- * Handle english
+ * Verify trailing slash
  *
  * @param string $url URL to redirect.
  * @param string $language language code.
  */
 function verify_trailing_slash( $url, $language ) {
-	$language       = $language . '/';
-	$trailing_slash = stripos( $url, $language );
-	if ( empty( $trailing_slash ) ) {
-		$url = preg_replace( '/(\b[a-zA-Z]{2}\b)/', '${1}/', $url );
 
+	$language = $language . '/';
+
+	if ( false === stripos( $url, $language ) ) {
+
+		$url = preg_replace( '/(\b[a-zA-Z]{2}\b)/', '${1}/', $url );
 		mozilla_wpml_redirect( $url );
 	}
 }
