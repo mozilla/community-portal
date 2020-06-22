@@ -352,8 +352,8 @@
 						<option value=""><?php esc_html_e( 'All', 'community-portal' ); ?></option>
 						<?php foreach ( $tags as $loop_tag ) : ?>
 							<?php
-							if ( $current_translation ) {
-								$loop_tag->slug = substr( $loop_tag->slug, 0, stripos( $loop_tag->slug, '-' ) );
+							if ( false !== stripos( $loop_tag->slug, '-' ) ) {
+								$loop_tag->slug = substr( $loop_tag->slug, 0, stripos( $loop_tag->slug, '_' ) );
 							}
 							?>
 						<option value="<?php echo esc_attr( $loop_tag->slug ); ?>" 
