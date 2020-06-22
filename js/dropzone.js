@@ -1,9 +1,10 @@
 jQuery(function() {
 
 	Dropzone.autoDiscover =false;
+	var language = (jQuery('#string-translation').length > 0 ) ? jQuery('#string-translation').val() : 'en';
 
 	jQuery("#dropzone-photo-uploader").dropzone({
-		url: '/wp-admin/admin-ajax.php?action=upload_group_image',
+		url: '/wp-admin/admin-ajax.php?action=upload_group_image&lang=' + language,
 		acceptedFiles: 'image/*',
 		createImageThumbnails: false,
 		addRemoveLinks: true,

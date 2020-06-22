@@ -78,7 +78,7 @@ function mozilla_download_activity_events() {
 			if ( $location_object->country ) {
 				$address = $address . ' ' . $countries[ $location_object->country ];
 			}
-			
+
 			$location     = 'OE' === $location->country ? 'Online' : $address;
 			$group_object = new BP_Groups_Group( $related_event->group_id );
 			$group        = ( $group_object->id ) ? $group_object->name : 'N/A';

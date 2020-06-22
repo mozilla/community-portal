@@ -12,8 +12,8 @@
 
 ?>
 <?php
-$theme_directory = get_template_directory();
-
+$theme_directory     = get_template_directory();
+$current_translation = mozilla_get_current_translation();
 require "{$theme_directory}/countries.php";
 require "{$theme_directory}/languages.php";
 $subscribed = get_user_meta( $user->ID, 'newsletter', true );
@@ -34,13 +34,21 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 					<?php
 						esc_html_e( 'Notice: We had a problem registering you for our newsletter. Please try signing up again later. To try again ', 'community-portal' );
 					?>
-						<a class="newsletter__link" href="/newsletter">
+						<a class="newsletter__link" href="
+						<?php
+						if ( $current_translation ) :
+							?>
+							<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/newsletter">
 							<?php esc_html_e( 'Click here', 'community-portal' ); ?>
 						</a> 
 				</p>
 			<?php endif; ?>
 			<div class="profile__button-container">
-				<a href="/people/<?php echo $updated_username ? esc_attr( $updated_username ) : esc_attr( $user->user_nicename ); ?>/profile/edit/group/1/" class="profile__button"><?php esc_html_e( 'Complete your profile', 'community-portal' ); ?></a><a href="" class="profile__button profile__button--secondary"><?php esc_html_e( 'Go back to browsing', 'community-portal' ); ?></a>
+				<a href="
+				<?php
+				if ( $current_translation ) :
+					?>
+					<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/people/<?php echo $updated_username ? esc_attr( $updated_username ) : esc_attr( $user->user_nicename ); ?>/profile/edit/group/1/" class="profile__button"><?php esc_html_e( 'Complete your profile', 'community-portal' ); ?></a><a href="" class="profile__button profile__button--secondary"><?php esc_html_e( 'Go back to browsing', 'community-portal' ); ?></a>
 			</div>
 		</section>
 	</div>
@@ -63,6 +71,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 			</div>
 		</div>
 	</div>
+	<input type="hidden" id="string-translation" value="<?php echo esc_attr( $current_translation ? $current_translation : 'en' ); ?>" />
 	<form class="profile__form" id="complete-profile-form" method="post" novalidate>
 		<?php wp_nonce_field( 'newsletter_nonce', 'newsletter_nonce_field' ); ?>
 		<?php wp_nonce_field( 'protect_content', 'my_nonce_field' ); ?>
@@ -891,7 +900,14 @@ else :
 							$tags = get_tags( array( 'hide_empty' => false ) );
 						?>
 						<div class="profile__tag-container">
-							<?php foreach ( $tags as $loop_tag ) : ?>
+							<?php foreach ( $tags as &$loop_tag ) : ?>
+								<?php
+								if ( $current_translation ) {
+									if ( stripos( $loop_tag->slug, '-' ) !== false ) {
+										$loop_tag->slug = substr( $loop_tag->slug, 0, stripos( $loop_tag->slug, '-' ) );
+									}
+								}
+								?>
 								<input class="profile__checkbox" type="checkbox" id="<?php echo esc_attr( $loop_tag->slug ); ?>" data-value="<?php echo esc_attr( $loop_tag->slug ); ?>">
 								<label class="profile__tag
 								<?php

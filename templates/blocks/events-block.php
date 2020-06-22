@@ -59,9 +59,10 @@ $all_countries = em_get_countries();
 
 					$location   = em_get_location( $em_event->location_id );
 					$categories = ( ! is_null( $em_event ) ) ? $em_event->get_categories() : false;
-					?>
-					<?php if ( ! empty( $event['event'] ) ) : ?>
-				<a href="<?php print esc_url_raw( $event['event']->guid ); ?>" class="campaign__event">
+					$event_object = em_get_event( $event['event']->ID, 'post_id' );
+
+				if ( ! empty( $event_object ) ) : ?>
+				<a href="<?php print esc_url_raw( get_home_url( null, 'events/' . $event_object->event_slug ) ); ?>" class="campaign__event">
 					<div class="campaign__event-image" 
 						<?php
 						if ( isset( $event_meta[0]->image_url ) && strlen( $event_meta[0]->image_url ) > 0 ) :
@@ -91,10 +92,10 @@ $all_countries = em_get_countries();
 								<?php if ( $location->town ) : ?>
 									<?php if ( strlen( $location->town ) > 180 ) : ?>
 										<?php $city = substr( $location->town, 0, 180 ); ?>
+										<?php print esc_html( $city ); ?>
 									<?php endif; ?>
-									<?php print esc_html( $city ); ?>
 									<?php if ( $location->country ) : ?>
-										<?php if ( $city ) : ?>
+										<?php if ( isset( $city  ) ) : ?>
 											<?php print ', '; ?>
 										<?php endif; ?>
 										<?php print esc_html( $all_countries[ $location->country ] ); ?>
@@ -134,8 +135,18 @@ $all_countries = em_get_countries();
 						<?php endif; ?>
 						<ul class="events__tags">
 						<?php if ( false !== $categories && is_array( $categories->terms ) ) : ?>
-							<?php foreach ( $categories->terms as $category ) : ?>
-								<li class="tag"><?php echo esc_html( $category->name ); ?></li>
+							<?php $current_translation = mozilla_get_current_translation(); ?>
+							<?php 
+								foreach ( $categories->terms as $category ) : 
+									if ($current_translation) {
+										if ($current_translation) {
+											$translation = get_term_by('slug', $category->slug . '-' . $current_translation, 'event-categories');
+										}
+									}
+									$term_name = isset($translation) && strlen($translation->name) > 0 ? $translation->name : $category->name;
+							?>
+								
+								<li class="tag"><?php echo esc_html( $term_name ); ?></li>
 								<?php break; ?>
 							<?php endforeach; ?>
 						<?php endif; ?>

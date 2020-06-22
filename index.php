@@ -24,7 +24,15 @@ if ( $group ) {
 	$edit_group = bp_is_group_admin_page() && $is_admin;
 
 	if ( $edit_group && ( ! isset( $meta['agree'][0] ) || 'I Agree' !== $meta['agree'][0] ) ) {
-		wp_safe_redirect( "/people/{$user->user_nicename}/profile/edit/group/1/" );
+
+		$current_translation = mozilla_get_current_translation();
+
+		if( $current_translation ) {
+			wp_safe_redirect( "{$current_translation}/people/{$user->user_nicename}/profile/edit/group/1/" );
+		} else {
+			wp_safe_redirect( "/people/{$user->user_nicename}/profile/edit/group/1/" );
+		}
+
 		exit();
 	}
 

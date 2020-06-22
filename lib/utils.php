@@ -79,6 +79,7 @@ function mozilla_upload_image() {
 	if ( ! empty( $_FILES ) ) {
 
 		if ( isset( $_REQUEST['my_nonce_field'] ) ) {
+
 			$nonce = trim( sanitize_text_field( wp_unslash( $_REQUEST['my_nonce_field'] ) ) );
 
 			if ( wp_verify_nonce( $nonce, 'protect_content' ) ) {
@@ -124,11 +125,13 @@ function mozilla_upload_image() {
 											if ( $image[0] >= 175 && $image[1] >= 175 ) {
 												print esc_url_raw( trim( str_replace( "\n", '', $uploaded_url ) ) );
 											} else {
-												print esc_html( 'Image size is too small' );
+
+												print esc_html_e( 'Image size is too small', 'community-portal' );
+
 												unlink( $uploaded_bits['file'] );
 											}
 										} else {
-											print esc_html( 'Invalid image provided' );
+											print esc_html_e( 'Invalid image provided', 'community-portal' );
 											unlink( $uploaded_bits['file'] );
 										}
 									} elseif ( isset( $_REQUEST['group_image'] ) && 'true' === $_REQUEST['group_image'] || isset( $_REQUEST['event_image'] ) && 'true' === $_REQUEST['event_image'] ) {
@@ -136,11 +139,11 @@ function mozilla_upload_image() {
 											if ( $image[0] >= 703 && $image[1] >= 400 ) {
 												print esc_url_raw( trime( str_replace( "\n", '', $uploaded_url ) ) );
 											} else {
-												print esc_html( 'Image size is too small' );
+												print esc_html_e( 'Image size is too small', 'community-portal' );
 												unlink( $uploaded_bits['file'] );
 											}
 										} else {
-											print 'Invalid image provided';
+											print esc_html_e( 'Invalid image provided', 'community-portal' );
 											unlink( $uploaded_bits['file'] );
 										}
 									} else {
@@ -151,7 +154,9 @@ function mozilla_upload_image() {
 							}
 						}
 					} else {
-						print esc_html( "Image size to large ({$max_files_size_allowed} KB maximum)" );
+						$image_size_string = __( 'Image size to large ', 'community-portal' );
+						$max_string        = __( 'KB maximum', 'community-portal' );
+						print esc_html( "{$image_size_string} ({$max_files_size_allowed} {$max_string})" );
 					}
 				}
 			}
@@ -170,7 +175,13 @@ function mozilla_determine_site_section() {
 		$path_items = array_filter( explode( '/', esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ) );
 
 		if ( count( $path_items ) > 0 ) {
-			$section = array_shift( array_values( $path_items ) );
+			if( mozilla_get_current_translation() ) {
+				$section = $path_items[2];
+			} else {
+				$values = array_values( $path_items );
+				$section = array_shift( $values );
+			}
+
 			return $section;
 		}
 	}
@@ -213,6 +224,7 @@ function mozilla_init_scripts() {
 	wp_enqueue_script( 'dropzone', get_stylesheet_directory_uri() . '/js/dropzone.js', array( 'jquery' ), filemtime( get_template_directory() . '/js/dropzone.js' ), false );
 	wp_enqueue_script( 'newsletter', get_stylesheet_directory_uri() . '/js/newsletter.js', array( 'jquery' ), filemtime( get_template_directory() . '/js/newsletter.js' ), false );
 	wp_enqueue_script( 'mailchimp', get_stylesheet_directory_uri() . '/js/campaigns.js', array( 'jquery' ), filemtime( get_template_directory() . '/js/campaigns.js' ), false );
+	wp_enqueue_script( 'language', get_stylesheet_directory_uri() . '/js/language.js', array( 'jquery' ), filemtime( get_template_directory() . '/js/language.js' ), false );
 
 	$google_analytics_id = get_option( 'google_analytics_id' );
 	if ( $google_analytics_id ) {
@@ -224,10 +236,11 @@ function mozilla_init_scripts() {
 		function gtag(){dataLayer.push(arguments);}
 		gtag("js", new Date());
 		gtag("config", "' . esc_attr( $google_analytics_id ) . '");
-		</script>';
+    </script>';
+  
+    wp_add_inline_script( 'google-analytics', $script, 'after' );
+    
 	}
-
-	wp_add_inline_script( 'google-analytics', $script, 'after' );
 }
 
 /**
@@ -433,7 +446,9 @@ function mozilla_menu_class( $classes, $item, $args ) {
 		$menu_url   = strtolower( str_replace( '/', '', $item->url ) );
 
 		if ( count( $path_items ) > 0 ) {
-			if ( strtolower( $path_items[1] ) === $menu_url ) {
+			$current_translation = mozilla_get_current_translation();
+			$key                 = $current_translation ? 2 : 1;
+			if ( strtolower( $path_items[ $key ] ) === $menu_url ) {
 				$item->current = true;
 				$classes[]     = 'menu-item--active';
 			}
@@ -461,31 +476,36 @@ function mozilla_add_query_vars_filter( $vars ) {
  * Match taxonomy
  */
 function mozilla_match_categories() {
+	$current_translation = mozilla_get_current_translation();
 	$cat_terms = get_terms( EM_TAXONOMY_CATEGORY, array( 'hide_empty' => false ) );
 	$wp_terms  = get_terms( 'post_tag', array( 'hide_empty' => false ) );
-
-	$cat_terms_name = array_map(
+	
+	$cat_terms_slugs = array_map(
 		function( $n ) {
-			return $n->name;
+			return $n->slug;
 		},
 		$cat_terms
 	);
 
-	$wp_terms = array_map(
+	$wp_terms_slugs = array_map(
 		function( $n ) {
-			return $n->name;
+			return $n->slug;
 		},
 		$wp_terms
 	);
 
-	foreach ( $wp_terms as $wp_term ) {
-		if ( ! in_array( $wp_term, $cat_terms_name, true ) ) {
-			wp_insert_term( $wp_term, EM_TAXONOMY_CATEGORY );
+	foreach ( $wp_terms as $single_term ) {
+		if ( ! in_array( $single_term->slug, $cat_terms_slugs, true ) ) {
+			if ($current_translation && stripos($single_term->slug, $current_translation) === false) {
+				$slug = $single_term->slug . '-' . $current_translation;
+				wp_insert_term( $single_term->name, EM_TAXONOMY_CATEGORY , array('slug' => $slug ));
+				continue;
+			}
+			wp_insert_term( $single_term->name, EM_TAXONOMY_CATEGORY , array('slug' => $single_term->slug));
 		}
 	}
-
 	foreach ( $cat_terms as $cat_term ) {
-		if ( ! in_array( $cat_term->name, $wp_terms, true ) ) {
+		if ( is_array($wp_terms_slugs) && ! in_array( $cat_term->slug, $wp_terms_slugs, true ) ) {
 			wp_delete_term( $cat_term->term_id, EM_TAXONOMY_CATEGORY );
 		}
 	}
@@ -937,4 +957,9 @@ function mozilla_update_script_attributes( $html, $handle ) {
 
 }
 
-
+/**
+ * Gets the current language of the site
+ */
+function mozilla_get_current_translation() {
+	return ICL_LANGUAGE_CODE;
+}

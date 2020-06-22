@@ -36,7 +36,6 @@ jQuery(function() {
 
     function applyFilters() {
 		const $filters = jQuery(".events__filter__option");
-		const nonceValue = jQuery('#events-filter-nonce').val();
         if ($filters) {
             $filters.each((i, filter) => {
                 jQuery(filter).on("change", function(e) {
@@ -44,9 +43,6 @@ jQuery(function() {
 					const filterTitle = getFilter(e.target);
 					let url = getUrl();
 					const params = getParams(url);
-					if (!params.has('nonce')) {
-						setUrlParams(url, 'nonce', nonceValue);
-					}
 					if (params.has('pno')) {
 						setUrlParams(url, 'pno', '1');
 					}
