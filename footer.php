@@ -10,6 +10,10 @@
  * @author  Playground Inc.
  */
 
+
+?>
+<?php
+	$current_translation = mozilla_get_current_translation();
 ?>
 		<footer class="footer">
 			<?php
@@ -49,7 +53,25 @@
 					<img src="<?php echo esc_attr( get_stylesheet_directory_uri() ); ?>/images/footer-logo.png"  class="footer__logo" alt="><?php echo esc_attr_e( 'Mozilla Logo', 'community-portal' ); ?>" />
 				</div>
 				<div class="footer__menu-container">
-					<?php
+					<?php if ( $current_translation ) : ?>
+						<?php
+						wp_nav_menu(
+							array(
+								'menu'       => 'Footer Primary - ' . $current_translation,
+								'menu_class' => 'footer-menu footer-menu--primary',
+							)
+						);
+						?>
+						<?php
+						wp_nav_menu(
+							array(
+								'menu'       => 'Mozilla Main Menu - ' . $current_translation,
+								'menu_class' => 'footer-nav-menu',
+							)
+						);
+						?>
+					<?php else : ?>
+						<?php
 						wp_nav_menu(
 							array(
 								'menu'       => 'Footer Primary',
@@ -57,7 +79,7 @@
 							)
 						);
 						?>
-					<?php
+						<?php
 						wp_nav_menu(
 							array(
 								'menu'       => 'Mozilla Main Menu',
@@ -65,35 +87,90 @@
 							)
 						);
 						?>
-
+					<?php endif; ?>
 					<div class="footer__mozilla-container">
 						<span class="footer__menu-title"><?php echo esc_html_e( 'Mozilla', 'community-portal' ); ?></span>
-					<?php
+						<?php if ( $current_translation ) : ?>
+							<?php
+							wp_nav_menu(
+								array(
+									'menu'       => 'Mozilla - ' . $current_translation,
+									'menu_class' => 'footer-mozilla-menu',
+								)
+							);
+							?>
+						<?php else : ?>
+							<?php
 
-						wp_nav_menu(
-							array(
-								'menu'       => 'Mozilla',
-								'menu_class' => 'footer-mozilla-menu',
-							)
-						);
-						?>
+							wp_nav_menu(
+								array(
+									'menu'       => 'Mozilla',
+									'menu_class' => 'footer-mozilla-menu',
+								)
+							);
+							?>
+						<?php endif; ?>
 					</div>
 				</div>
 				<div class="footer__menu-bottom-container">
-					<p class="footer__copy">
-						<?php echo esc_html_e( 'Portions of this content are copyright 1998-2019 by individual mozilla.org contributors. Content available under a ', 'community-portal' ); ?>
-						<a href="#" class="footer__link"><?php echo esc_html_e( ' Creative Commons license.', 'community-portal' ); ?></a>
-					</p>
+					<div class="row">
+						<div class="col-md-6">
+							<p class="footer__copy">
+								<?php echo esc_html_e( 'Portions of this content are copyright 1998-2019 by individual mozilla.org contributors. Content available under a ', 'community-portal' ); ?>
+								<a href="#" class="footer__link"><?php echo esc_html_e( ' Creative Commons license.', 'community-portal' ); ?></a>
+							</p>
+						</div>
+						<div class="col-md-6 language-selector">
+							<div class="language-selector__container">
+								<p class="language-selector__label"><?php esc_html_e('Language', 'community-portal') ?></p>
+								<?php 
+									$wpml_languages = icl_get_languages('skip_missing=N&orderby=KEY&order=DIR&link_empty_to=str');
+									$current_langauge = ICL_LANGUAGE_CODE;
+									if (isset($wpml_languages) && count($wpml_languages) > 0):
+										$url = get_site_url(null, $_SERVER['REQUEST_URI']);
+								?>
+									<ul id="footer-language-selector" class="language-selector__select">
+										<li class="language-selector__language language-selector__language--active"><?php echo esc_html($wpml_languages[$current_langauge]['translated_name']) ?></li>
+										<ul class="language-selector__select language-selector__select--submenu">
+											<?php foreach($wpml_languages as $index=>$language):
+												if ($index !== $current_langauge):
+													$url = apply_filters( 'wpml_permalink', $url , $language['code'] );
+												
+												?>
+												<li class="language-selector__language">
+													<a href="<?php echo esc_attr( $url ); ?>" ><?php echo esc_html( $language['translated_name'])?></a>
+												</li>
+											<?php 
+												endif;
+											endforeach; 
+											?>
+										</ul>
+									</ul>
+								<?php endif; ?>
+							</div>
+						</div>
+					</div>
 					<div class="footer__menu-legal-container">
-						<?php
+						<?php if ( $current_translation ) : ?>
+							<?php
+							wp_nav_menu(
+								array(
+									'menu'       => 'Legal - ' . $current_translation,
+									'menu_class' => 'footer-legal-menu',
+								)
+							);
+							?>
+						<?php else : ?>
+							<?php
 							wp_nav_menu(
 								array(
 									'menu'       => 'Legal',
 									'menu_class' => 'footer-legal-menu',
 								)
 							);
-							$options = wp_load_alloptions();
 							?>
+						<?php endif; ?>
+						<?php $options = wp_load_alloptions(); ?>
 						<div class="footer__menu-svg-container">
 							<?php
 								$discourse_link = ( isset( $options['community_discourse'] ) && strlen( $options['community_discourse'] ) > 0 ) ? $options['community_discourse'] : '#';

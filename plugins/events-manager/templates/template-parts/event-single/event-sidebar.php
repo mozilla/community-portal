@@ -26,8 +26,17 @@
 				<div class="col-lg-12 col-md-6 col-sm-12">
 					<p class="events-single__label"><?php esc_html_e( 'Tags', 'community-portal' ); ?></p>
 					<ul class="events-single__tags">
-						<?php foreach ( $categories as $category ) : ?>
-							<li class="tag"><a class="events-single__tag-link" href="/events/?tag=<?php print esc_attr( $category->name ); ?>"><?php echo esc_html( $category->name ); ?></a></li>
+						<?php 
+						foreach ( $categories as $category ) : 
+							$current_translation = mozilla_get_current_translation();
+							if ($current_translation) {
+								$main_category = $category->slug . '-' . $current_translation;
+								$term = get_term_by('slug', $main_category, 'event-categories');
+							}
+							$tag_name = !empty($term) ? $term->name : $category->name;
+						?>
+        
+							<li class="tag"><a class="events-single__tag-link" href="/events/?tag=<?php print esc_attr( $category->name ); ?>"><?php echo esc_html($tag_name); ?></a></li>
 							<?php break; ?>
 						<?php endforeach; ?>
 					</ul>
@@ -39,15 +48,7 @@
 				?>
 				<div class="col-lg-12 col-md-6 col-sm-12">
 					<p class="events-single__label"><?php esc_html_e( 'Part of', 'community-portal' ); ?></p>
-					<a href="
-					<?php
-					if ( 'campaign' === $c->post_type ) :
-						?>
-						/campaigns/
-						<?php
-else :
-	?>
-						/activities/<?php endif; ?><?php print esc_attr( $c->post_name ); ?>" class="events-single__externam-link events-single__externam-link--icon">
+					<a href="<?php if ( 'campaign' === $c->post_type ): echo esc_attr(get_home_url(null, 'campaigns/'. $c->post_name)); else: echo esc_attr(get_home_url(null, 'activities/'. $c->post_name)); endif; ?>" class="events-single__externam-link events-single__externam-link--icon">
 					<?php if ( 'campaign' === $c->post_type ) : ?>
 					<svg width="27" height="28" viewBox="0 0 27 28" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M14.8491 7.33834L9.19223 8.75256C9.19223 8.75256 3.81822 9.88393 2.96969 10.7325C2.29087 11.4113 2.59257 12.0524 2.82827 12.2881C3.39396 12.8538 5.421 14.8808 6.3638 15.8236" stroke="#0060DF" stroke-width="2"/>

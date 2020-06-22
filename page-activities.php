@@ -52,11 +52,12 @@ $total_pages = ceil( $activity_count / $activities_per_page );
 				?>
 				<div class="col-lg-4 col-md-6 activities__column">
 					<div class="activities__card">
-						<a href="/activities/<?php echo esc_attr( $activity->post_name ); ?>" class="activities__link">
+						<a href="<?php echo esc_attr(get_home_url(null, '/activities/' . $activity->post_name )); ?>" class="activities__link">
 							<div class="activities__activity-image" style="background-image: url('<?php echo strlen( $activity_image ) > 0 ? esc_url_raw( $activity_image ) : esc_url_raw( get_stylesheet_directory_uri() . '/images/activity.png' ); ?>');">
 							</div>
 							<div class="activities__card-content">
 								<h2 class="activities__activity-title"><?php print esc_html( str_replace( '\\', '', stripslashes( $activity->post_title ) ) ); ?></h2>
+								<?php if (isset($activitiy_desc) && strlen($activitiy_desc) > 0): ?>
 								<div class="activities__copy-container">
 									<p class="activities__copy">
 										<?php
@@ -64,22 +65,26 @@ $total_pages = ceil( $activity_count / $activities_per_page );
 										?>
 									</p>
 								</div>
+								<?php endif; ?>
 								<?php
 									$tags = get_the_tags( $activity->ID );
-								?>
-								<div class="activities__tag-container">
-									<?php if ( is_array( $tags ) && count( $tags ) > 0 ) : ?>
-									<span class="activities__tag"><?php echo esc_html( $tags[0]->name ); ?></span>
-									<?php endif; ?>
-									<?php if ( $time_commitment ) : ?>
-									<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path d="M7.99992 14.6654C11.6818 14.6654 14.6666 11.6806 14.6666 7.9987C14.6666 4.3168 11.6818 1.33203 7.99992 1.33203C4.31802 1.33203 1.33325 4.3168 1.33325 7.9987C1.33325 11.6806 4.31802 14.6654 7.99992 14.6654Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-										<path d="M8 4V8L10.6667 9.33333" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-									</svg>
-									<span class="activities__time-commitment"><?php echo esc_html( $time_commitment ); ?></span>
-									<?php endif; ?>
+									if ( ( is_array( $tags ) && count( $tags ) > 0 ) || $time_commitment ) :
 
-								</div>
+								?>
+									<div class="activities__tag-container">
+										<?php if ( is_array( $tags ) && count( $tags ) > 0 ) : ?>
+										<span class="activities__tag"><?php echo esc_html( $tags[0]->name ); ?></span>
+										<?php endif; ?>
+										<?php if ( $time_commitment ) : ?>
+										<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M7.99992 14.6654C11.6818 14.6654 14.6666 11.6806 14.6666 7.9987C14.6666 4.3168 11.6818 1.33203 7.99992 1.33203C4.31802 1.33203 1.33325 4.3168 1.33325 7.9987C1.33325 11.6806 4.31802 14.6654 7.99992 14.6654Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+											<path d="M8 4V8L10.6667 9.33333" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+										</svg>
+										<span class="activities__time-commitment"><?php echo esc_html( $time_commitment ); ?></span>
+										<?php endif; ?>
+
+									</div>
+								<?php endif; ?>
 							</div>
 						</a>
 					</div>
@@ -93,7 +98,7 @@ $total_pages = ceil( $activity_count / $activities_per_page );
 				}
 
 					$previous_page = ( $p > 1 ) ? $p - 1 : 1;
-					$next_page     = ( $p <= $total_pages ) ? $p + 1 : $total_pages;
+					$next_page     = ( $p < $total_pages ) ? $p + 1 : $total_pages;
 
 				if ( $total_pages > 1 ) {
 					$range_min = ( 0 === $range % 2 ) ? ( $range / 2 ) - 1 : ( $range - 1 ) / 2;
@@ -115,7 +120,7 @@ $total_pages = ceil( $activity_count / $activities_per_page );
 				<div class="activities__pagination">
 					<div class="activities__pagination-container">
 						<?php if ( $total_pages > 1 ) : ?>
-						<a href="/activities/?a=<?php echo esc_attr( $previous_page ); ?>" class="activities__pagination-link">
+						<a href="<?php echo esc_attr( add_query_arg(array('a' => $previous_page), get_home_url( null, 'activities' ) ) ); ?>" class="activities__pagination-link">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 								<path d="M17 23L6 12L17 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 							</svg>
@@ -123,9 +128,9 @@ $total_pages = ceil( $activity_count / $activities_per_page );
 							<?php
 							if ( $page_min > 1 ) :
 								?>
-								<a href="/activities/?a=1" class="activities__pagination-link activities__pagination-link--first"><?php echo '1'; ?></a>&hellip; <?php endif; ?>
+								<a href="<?php echo esc_attr( add_query_arg( array( 'a' => '1' ), get_home_url( null, 'activities' ) ) ); ?>" class="activities__pagination-link activities__pagination-link--first"><?php echo '1'; ?></a>&hellip; <?php endif; ?>
 							<?php for ( $x = $page_min - 1; $x < $page_max; $x++ ) : ?>
-						<a href="/activities/?a=<?php echo esc_attr( $x + 1 ); ?>" class="activities__pagination-link
+						<a href="<?php echo esc_attr( add_query_arg( array( 'a' => $x + 1 ), get_home_url( null, 'activities' ) ) ); ?>" class="activities__pagination-link
 															<?php
 															if ( $p === $x + 1 ) :
 																?>
@@ -138,12 +143,12 @@ $total_pages = ceil( $activity_count / $activities_per_page );
 							<?php
 							if ( $total_pages > $range && $p < $total_pages - 1 ) :
 								?>
-								&hellip; <a href="/activities?p=<?php echo esc_attr( $total_pages ); ?>" class="activities__pagination-link
+								&hellip; <a href="<?php echo esc_attr( add_query_arg(array( 'p' => $total_pages), get_home_url( null, 'activities' ) ) ); ?>" class="activities__pagination-link
 								<?php
 								if ( $p === $total_pages ) :
 									?>
 								activities__pagination-link--active<?php endif; ?>"><?php echo esc_html( $total_pages ); ?></a><?php endif; ?>
-						<a href="/activities/?a=<?php echo esc_attr( $next_page ); ?>" class="activities__pagination-link">
+						<a href="<?php echo esc_attr( add_query_arg( array( 'a' => $next_page ), get_home_url( null, 'activities' ) ) ); ?>" class="activities__pagination-link">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 							<path d="M7 23L18 12L7 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>

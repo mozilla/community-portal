@@ -20,12 +20,12 @@
 	$countries      = em_get_countries();
 	$ddm_countries  = array();
 	$used_languages = array();
-	$filter_events  = EM_Events::get();
+	$filter_events  = EM_Events::get(array('scope' => 'all'));
 
 foreach ( $filter_events as $e ) {
 	$location     = em_get_location( $e->location_id );
 	$country_code = $location->location_country;
-	if ( ! in_array( $country_code, $ddm_countries, true ) ) {
+	if ( strlen($country_code) > 0 && ! in_array( $country_code, $ddm_countries, true ) ) {
 		$ddm_countries[ $country_code ] = $countries[ $country_code ];
 	}
 	$e_meta = get_post_meta( $e->post_id, 'event-meta' );
@@ -41,8 +41,16 @@ foreach ( $filter_events as $e ) {
 
 	$categories = EM_Categories::get();
 if ( count( $categories ) > 0 ) {
+	$current_translation = mozilla_get_current_translation();
 	foreach ( $categories as $category ) {
-		$categories[ $category->id ] = $category->name;
+		if ($current_translation) {
+			$main_category = substr( $category->slug, 0, stripos( $category->slug, '-' . $current_translation ) );
+			$term = get_term_by('slug', $main_category, 'event-categories');
+		}
+		$tag_name = !empty($term) ? $term->name : $category->name;
+		$categories[ $category->id ] = array();
+		$categories[$category->id]['value'] = $tag_name;
+		$categories[$category->id]['label'] = $category->name;
 	}
 } else {
 	$categories = array(
@@ -121,9 +129,6 @@ if ( count( $categories ) > 0 ) {
 			$options = $initiatives;
 			require locate_template( 'plugins/events-manager/templates/template-parts/options.php', false, false );
 
-			?>
-			<?php
-				wp_nonce_field( 'events-filter', 'events-filter-nonce' );
 			?>
 	</form>
 </div>

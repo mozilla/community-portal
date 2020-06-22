@@ -159,7 +159,6 @@
         background-color: $color-white;
         border-radius: 5px;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-        margin-bottom: 24px;
         text-decoration: none;
         transition: box-shadow 0.3s ease-in-out;
 		width: 100%;
@@ -234,17 +233,16 @@
         line-height: 20px;
 		padding: 24px 32px;	
         padding-top: calc(45.4% + 24px);
-        margin-bottom: 16px;
     }
 
     &__tag-container {
         align-items: center;
         display: flex;
         flex-direction: row;
-        margin-top: auto;
+        margin-top: 24px;
 
-        svg {
-            margin-left: 16px;
+        .activities__tag {
+            margin-right: 16px;
         }
     }
 
