@@ -257,6 +257,7 @@ jQuery(function() {
 
     function toggleLocationContainer(container, location, country, typeValue) {
 		const $locationAddress = jQuery("#location-address");
+
         container.toggleClass("event-creator__location-edit");
         toggleInputAbility(location, typeValue);
 		toggleInputAbility(country);
@@ -298,7 +299,8 @@ jQuery(function() {
         const $editContainer = jQuery(".event-creator__location");
         const $countryInput = jQuery("#location-country");
         const $locationType = jQuery("#location-type");
-        const $locationTypeValue = $locationType.val();
+		const $locationTypeValue = $locationType.val();
+		const $locationName = jQuery('#location-name-label');
         if ($editBtn) {
             handleAutocomplete(
                 $editContainer,
@@ -312,7 +314,8 @@ jQuery(function() {
                     $countryInput,
                     $locationType,
                     $locationTypeValue
-                );
+				);
+				toggleStrings($locationName, 'event-creator__label', true);
             });
         }
     }

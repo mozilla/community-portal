@@ -28,7 +28,7 @@
 				$selected = $em_event->get_categories()->get_ids();
 				foreach ( $categories as $category ) {
 					if ($current_translation) {
-						$main_category = substr( $category->slug, 0, stripos( $category->slug, '-' . $current_translation) );
+						$main_category = substr( $category->slug, 0, stripos( $category->slug, '_') );
 						$term = get_term_by('slug', $main_category, 'event-categories');
 					}
 					$tag_id = !empty( $term) ?  $term->term_id : $category->id;

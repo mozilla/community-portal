@@ -94,7 +94,10 @@ endif;
 				>
 			</div>
 			<div class="wide--double">
-				<label class="event-creator__label event-creator__label--online" for="location-name" id="location-name-label">
+				<?php 
+					$location_class = 'address' === $location_type ? 'event-creator__label--in-person' : 'event-creator__label--online';
+				?>
+				<label class="event-creator__label <?php echo esc_attr($location_class); ?>" for="location-name" id="location-name-label">
 					<span class="online"><?php esc_html_e( 'Online Meeting Link *', 'commuity-portal' ); ?></span>
 					<span class="in-person"><?php esc_html_e( 'Location Name *', 'commuity-portal' ); ?></span>	
 				</label>
