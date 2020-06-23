@@ -1017,6 +1017,13 @@
 									<select class="members__tag-select">
 										<option value=""><?php esc_html_e( 'Select', 'community-portal' ); ?></option>
 										<?php foreach ( $tags as $loop_tag ) : ?>
+										<?php 
+											if( $current_translation )	{
+												if ( false !== stripos( $loop_tag->slug, '_' ) ) {
+													$loop_tag->slug = substr( $loop_tag->slug, 0, stripos( $loop_tag->slug, '_' ) ); 
+												}
+											}
+										?>
 										<option value="<?php echo esc_html( $loop_tag->slug ); ?>" 
 																<?php
 																if ( isset( $_GET['tag'] ) && strtolower( trim( $get_tag ) ) === strtolower( $loop_tag->slug ) ) :

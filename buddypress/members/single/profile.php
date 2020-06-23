@@ -550,8 +550,8 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 
 					if ( $current_translation ) {
 						$temp_slug = $t->slug;
-						if ( stripos( $temp_slug, '-' ) !== false ) {
-							$temp_slug = substr( $temp_slug, 0, stripos( $temp_slug, '-' ) );
+						if ( flase !== stripos( $temp_slug, '_' ) ) {
+							$temp_slug = substr( $temp_slug, 0, stripos( $temp_slug, '_' ) );
 						}
 						$temp_name = $t->name;
 
