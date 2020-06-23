@@ -494,6 +494,12 @@ function mozilla_match_categories() {
 		$wp_terms
 	);
 
+	foreach ( $cat_terms as $cat_term ) {
+		if ( is_array($wp_terms_slugs) && ! in_array( $cat_term->slug, $wp_terms_slugs, true ) ) {
+			wp_delete_term( $cat_term->term_id, EM_TAXONOMY_CATEGORY );
+		}
+	}
+
 	foreach ( $wp_terms as $single_term ) {
 		if ( ! in_array( $single_term->slug, $cat_terms_slugs, true ) ) {
 			if ($current_translation && stripos($single_term->slug, $current_translation) === false) {
@@ -502,11 +508,6 @@ function mozilla_match_categories() {
 				continue;
 			}
 			wp_insert_term( $single_term->name, EM_TAXONOMY_CATEGORY , array('slug' => $single_term->slug));
-		}
-	}
-	foreach ( $cat_terms as $cat_term ) {
-		if ( is_array($wp_terms_slugs) && ! in_array( $cat_term->slug, $wp_terms_slugs, true ) ) {
-			wp_delete_term( $cat_term->term_id, EM_TAXONOMY_CATEGORY );
 		}
 	}
 }

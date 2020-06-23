@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2020-06-17 16:18-0400\n"
-"PO-Revision-Date: 2020-06-17 16:27-0400\n"
+"POT-Creation-Date: 2020-06-23 12:14-0400\n"
+"PO-Revision-Date: 2020-06-23 12:20-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -25,35 +25,35 @@ msgstr ""
 
 #: 404.php:32
 msgid "Page Not Found"
-msgstr ""
+msgstr "Spanish"
 
 #: 404.php:37
 msgid ""
 "Ooops, looks like the page you are trying to reach is no longer available. "
 "If you are having trouble locating a destination on Community Portal, try "
 "visiting the home page."
-msgstr ""
+msgstr "Spanish."
 
 #: 404.php:40
 msgid "Return Home"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:65
 msgid "Create a Mozilla Group"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:79 buddypress/groups/index-create.php:97
 #: buddypress/groups/single/edit.php:74 buddypress/groups/single/edit.php:79
 msgid "Basic Information"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:88 buddypress/groups/index-create.php:102
 msgid "Terms & Responsibilities"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:118 buddypress/groups/single/edit.php:89
 msgid "What is your group's name? *"
-msgstr "What is your group’s name Spanish? *"
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:130
 #: buddypress/groups/index-create.php:204
@@ -66,10 +66,10 @@ msgstr "What is your group’s name Spanish? *"
 #: plugins/events-manager/forms/event-editor.php:76
 #: plugins/events-manager/forms/event-editor.php:108
 #: plugins/events-manager/forms/event/location-moz.php:86
-#: plugins/events-manager/forms/event/location-moz.php:105
-#: plugins/events-manager/forms/event/location-moz.php:122
-#: plugins/events-manager/forms/event/location-moz.php:174
-#: plugins/events-manager/forms/event/location-moz.php:185
+#: plugins/events-manager/forms/event/location-moz.php:108
+#: plugins/events-manager/forms/event/location-moz.php:125
+#: plugins/events-manager/forms/event/location-moz.php:177
+#: plugins/events-manager/forms/event/location-moz.php:188
 #: plugins/events-manager/forms/event/when-with-recurring.php:24
 #: plugins/events-manager/forms/event/when-with-recurring.php:32
 #: plugins/events-manager/forms/event/when-with-recurring.php:41
@@ -82,26 +82,26 @@ msgstr "What is your group’s name Spanish? *"
 #: plugins/events-manager/forms/event/when.php:95
 #: templates/campaign-rsvp.php:45 templates/campaign-rsvp.php:50
 msgid "This field is required"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:131 lib/groups.php:247
 msgid "This group name is already taken"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:136 buddypress/groups/single/edit.php:104
 msgid "Group Type"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:143 buddypress/groups/single/edit.php:111
 #: plugins/events-manager/forms/event/location-moz.php:76
-#: plugins/events-manager/forms/event/location-moz.php:120
-#: plugins/events-manager/forms/event/location-moz.php:147 search.php:214
+#: plugins/events-manager/forms/event/location-moz.php:123
+#: plugins/events-manager/forms/event/location-moz.php:150 search.php:214
 msgid "Online"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:148 buddypress/groups/single/edit.php:116
 msgid "Offline"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:155
 #: buddypress/groups/index-create.php:158
@@ -114,185 +114,185 @@ msgstr ""
 #: templates/campaigns-newsletter.php:68 templates/newsletter-form.php:66
 #: templates/newsletter-form.php:68
 msgid "Language"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:172 buddypress/groups/single/edit.php:140
 msgid "Group Location"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:175 buddypress/groups/single/edit.php:143
 #: buddypress/members/single/edit.php:363
-#: plugins/events-manager/forms/event/location-moz.php:130
+#: plugins/events-manager/forms/event/location-moz.php:133
 msgid "Country"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:187
 #: buddypress/groups/index-create.php:188 buddypress/groups/single/edit.php:155
 #: buddypress/groups/single/edit.php:156 buddypress/members/single/edit.php:382
 msgid "City"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:193
 msgid "Provide a short group description *"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:208
 msgid "Select an image"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:216 buddypress/groups/single/edit.php:192
 #: buddypress/members/single/edit.php:139
 msgid "Click or drag a photo above"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:217 buddypress/groups/single/edit.php:193
 msgid "min dimensions 703px by 400px"
-msgstr ""
+msgstr "spanish"
 
 #: buddypress/groups/index-create.php:224 buddypress/groups/single/edit.php:200
 #: buddypress/members/single/edit.php:147
 msgid "Remove file"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:233 buddypress/groups/single/edit.php:209
 msgid "Tags for your group"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:258 buddypress/groups/single/edit.php:235
 msgid "Group Meetings"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:261 buddypress/groups/single/edit.php:238
 msgid "Where do you meet?"
-msgstr ""
+msgstr "Spanish?"
 
 #: buddypress/groups/index-create.php:264
 #: buddypress/groups/index-create.php:268
 #: buddypress/groups/index-create.php:278 buddypress/groups/single/edit.php:245
 #: buddypress/groups/single/edit.php:255
 msgid "Address"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:269
 #: buddypress/groups/index-create.php:273 buddypress/groups/single/edit.php:250
 msgid "URL"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:283 buddypress/groups/single/edit.php:260
 msgid "Meeting details"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:292 buddypress/groups/single/edit.php:265
 #: buddypress/groups/single/group.php:1292
 msgid "Community Links"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:295 buddypress/groups/single/edit.php:268
 #: buddypress/groups/single/group.php:1318
 #: buddypress/members/single/profile.php:479
 msgid "Discourse"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:299 buddypress/groups/single/edit.php:272
 #: buddypress/groups/single/group.php:1358
 #: buddypress/members/single/profile.php:510
 msgid "Matrix"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:302 buddypress/groups/single/edit.php:275
 msgid "Please format as room-alias:domain"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:308 buddypress/groups/single/edit.php:281
 #: buddypress/groups/single/group.php:1309
 #: buddypress/members/single/profile.php:441
 msgid "Facebook"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:312 buddypress/groups/single/edit.php:285
 #: buddypress/groups/single/group.php:1343
 #: buddypress/members/single/profile.php:450
 msgid "Twitter"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:318 buddypress/groups/single/edit.php:291
 #: buddypress/groups/single/group.php:1300
 #: buddypress/members/single/profile.php:432
 msgid "Telegram"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:322 buddypress/groups/single/edit.php:295
 msgid "GitHub"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:329 buddypress/groups/single/edit.php:301
 #: buddypress/groups/single/group.php:1377
 msgid "Other"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:340
 msgid "Secondary Group Contact"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:342
 msgid "Secondary group contact"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:350
 msgid "Username *"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:351
 #: buddypress/members/single/edit.php:192
 msgid "Username"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:359
 msgid "Invalid user"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:398
 msgid "I Agree"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:400
 #: buddypress/members/single/edit.php:1099
 msgid "I agree to respect and adhere to"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:401
 msgid "Mozilla’s Community Participation Guidelines *"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:403
 msgid "Please agree to the Community Participation Guidelines"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-create.php:412 buddypress/groups/single/edit.php:307
 msgid "Continue"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-directory.php:231
 msgid "Groups"
-msgstr "Spanish Groups"
+msgstr "Spanish"
 
 #: buddypress/groups/index-directory.php:233
 msgid ""
 "Meet up with people who share your passion and join the movement for an open "
 "internet."
-msgstr ""
+msgstr "Spanish."
 
 #: buddypress/groups/index-directory.php:236
 msgid "Look for groups in your area, or"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-directory.php:236
 msgid "create your own."
-msgstr ""
+msgstr "spanish."
 
 #: buddypress/groups/index-directory.php:274
 msgid "Search groups"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-directory.php:276
 #: buddypress/groups/single/group.php:978
@@ -300,30 +300,30 @@ msgstr ""
 #: plugins/events-manager/templates/events-search.php:82 search.php:135
 #: search.php:150 search.php:152
 msgid "Search"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-directory.php:288
 #: buddypress/groups/index-directory.php:302
 msgid "Discover Groups"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-directory.php:296
 #: buddypress/members/single/profile.php:162
 msgid "Groups I'm In"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-directory.php:300
 #: buddypress/groups/single/group.php:854
 msgid "Showing"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-directory.php:310
 msgid "Groups I'm in"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-directory.php:318
 msgid "Filter by:"
-msgstr ""
+msgstr "Spanish:"
 
 #: buddypress/groups/index-directory.php:320
 #: buddypress/groups/single/group.php:985
@@ -333,320 +333,320 @@ msgstr ""
 #: plugins/events-manager/templates/event-single.php:234
 #: plugins/events-manager/templates/template-parts/events-filters.php:75
 msgid "Location"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-directory.php:322
 #: buddypress/groups/index-directory.php:336
 #: buddypress/groups/index-directory.php:352
 #: plugins/events-manager/templates/template-parts/options.php:20
 msgid "All"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-directory.php:350
 #: buddypress/groups/single/group.php:1016
-#: buddypress/members/index-directory.php:803
+#: buddypress/members/index-directory.php:804
 #: plugins/events-manager/templates/template-parts/events-filters.php:87
 msgid "Tag"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-directory.php:370
 #: buddypress/groups/single/group.php:1031
-#: buddypress/members/index-directory.php:823
+#: buddypress/members/index-directory.php:824
 #: plugins/events-manager/templates/template-parts/events-filters.php:138
 msgid "Show Filters"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-directory.php:371
 #: buddypress/groups/single/group.php:1032
-#: buddypress/members/index-directory.php:824
+#: buddypress/members/index-directory.php:825
 #: plugins/events-manager/templates/template-parts/events-filters.php:137
 msgid "Hide Filters"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/index-directory.php:377
 msgid "No results found.  Please try another search term."
-msgstr ""
+msgstr "Spanish."
 
 #: buddypress/groups/index-directory.php:381
 #: buddypress/groups/single/group.php:1040
-#: buddypress/members/index-directory.php:834
+#: buddypress/members/index-directory.php:835
 #: plugins/events-manager/templates/events-list.php:232 search.php:131
 msgid "Results for "
-msgstr ""
+msgstr "Spanish "
 
-#: buddypress/groups/index-directory.php:465 front-page.php:240
+#: buddypress/groups/index-directory.php:465 front-page.php:241
 msgid " more tags"
-msgstr ""
+msgstr " Spanish"
 
 #: buddypress/groups/single/edit.php:67
 msgid "Edit Group"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/edit.php:161
 msgid "Description *"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/edit.php:176
 msgid "Group Photo"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/edit.php:307
 msgid "Save"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/group.php:786
 msgid "Verified"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/group.php:792
 msgid "Unverified"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/group.php:829
 msgid "Created"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/group.php:840
 #: buddypress/groups/single/group.php:861
 msgid "About us"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/group.php:845
 #: buddypress/groups/single/group.php:866
 msgid "Our Events"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/group.php:850
 #: buddypress/groups/single/group.php:871
 msgid "Our Members"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/group.php:878
 #: buddypress/groups/single/group.php:1561
 msgid "Group Contacts"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/group.php:931
 #: buddypress/members/index-directory.php:744
 msgid "People"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/group.php:976
 #: buddypress/members/index-directory.php:762
 msgid "Search people"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/group.php:982
 #: buddypress/members/index-directory.php:771
 msgid "Search criteria:"
-msgstr ""
+msgstr "Spanish:"
 
 #: buddypress/groups/single/group.php:987
 #: buddypress/groups/single/group.php:1002
 #: buddypress/groups/single/group.php:1018
 #: buddypress/members/index-directory.php:775
 #: buddypress/members/index-directory.php:789
-#: buddypress/members/index-directory.php:805
-#: plugins/events-manager/forms/event/location-moz.php:146
+#: buddypress/members/index-directory.php:806
+#: plugins/events-manager/forms/event/location-moz.php:149
 #: templates/event-export.php:54 templates/event-export.php:67
 msgid "Select"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/group.php:1091
-#: buddypress/members/index-directory.php:891
+#: buddypress/members/index-directory.php:892
 msgid "No members found"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/group.php:1095
 msgid "This group currently has no members"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/group.php:1169
 #: buddypress/groups/single/group.php:1542
 #: buddypress/members/single/profile.php:255
 #: buddypress/members/single/profile.php:327
-#: plugins/events-manager/forms/event/location-moz.php:182
+#: plugins/events-manager/forms/event/location-moz.php:185
 #: plugins/events-manager/templates/event-single.php:244
 #: plugins/events-manager/templates/template-parts/single-event-card.php:79
-#: single-activity.php:275 templates/blocks/events-block.php:87
+#: single-activity.php:280 templates/blocks/events-block.php:87
 msgid "Online Event"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/group.php:1252
 #: buddypress/groups/single/group.php:1258
 msgid "Join Group"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/group.php:1253
 #: buddypress/groups/single/group.php:1259
 msgid "Leave Group"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/group.php:1268
 msgid "Share Group"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/group.php:1272
 msgid "About Us"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/group.php:1334
 #: buddypress/members/single/profile.php:495
 msgid "Github"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/group.php:1385
 msgid "Meetings"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/group.php:1389
 msgid "Meeting Details"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/group.php:1426
 msgid "Discussions"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/group.php:1432
 msgid "Topic"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/group.php:1433
 msgid "Replies"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/group.php:1434
 msgid "Views"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/group.php:1435
 #: buddypress/groups/single/group.php:1480 functions.php:183 search.php:281
 msgid "Activity"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/group.php:1464
 msgid "View more topics"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/group.php:1492
 msgid "Events this month"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/group.php:1496
-#: buddypress/members/single/profile.php:208 front-page.php:228 search.php:277
+#: buddypress/members/single/profile.php:208 search.php:277
 msgid "Members"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/group.php:1525
 #: plugins/events-manager/templates/event-single.php:441
-#: single-activity.php:248
+#: single-activity.php:253
 msgid "Related Events"
-msgstr ""
+msgstr "Spanish"
 
-#: buddypress/groups/single/group.php:1554 single-activity.php:288
+#: buddypress/groups/single/group.php:1554 single-activity.php:293
 msgid "View more events"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/group.php:1615
 #: plugins/events-manager/templates/template-parts/event-single/event-sidebar.php:83
 msgid "Preferred Language"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/group.php:1627
 #: buddypress/members/single/profile.php:542
 #: plugins/events-manager/templates/template-parts/event-single/event-sidebar.php:27
-#: single-activity.php:182 single-campaign.php:100
+#: single-activity.php:180 single-campaign.php:100
 msgid "Tags"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/group.php:1666
 msgid "Reporting Group"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/group.php:1670
 msgid "Please provide a reason you are reporting this group"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/groups/single/group.php:1679
 msgid "Report Group"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/index-directory.php:746
 msgid ""
 "Ready to make it official? Set up a profile to attend events, join groups "
 "and manage your subscription settings. "
-msgstr ""
+msgstr "Spanish "
 
 #: buddypress/members/single/edit.php:26
 msgid "CONGRATULATIONS!"
-msgstr ""
+msgstr "Spanish!"
 
 #: buddypress/members/single/edit.php:29
 msgid ""
 "Your Account has been created! You can keep adding to your profile or dive "
 "right in. You are now ready to connect with other users, participate in "
 "events and projects, and get involved in the Mozilla community."
-msgstr ""
+msgstr "Spanish."
 
 #: buddypress/members/single/edit.php:35
 msgid ""
 "Notice: We had a problem registering you for our newsletter. Please try "
 "signing up again later. To try again "
-msgstr ""
+msgstr "Spanish "
 
 #: buddypress/members/single/edit.php:42
 msgid "Click here"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:51
 msgid "Complete your profile"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:51
 msgid "Go back to browsing"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:59
 msgid "Edit Profile"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:59
 #: buddypress/members/single/edit.php:1110
 msgid "Complete Profile"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:67
 msgid ""
 "We've pre-populated some of your information via your connected account with "
-msgstr ""
+msgstr "Spanish "
 
 #: buddypress/members/single/edit.php:68
 msgid "Mozilla SSO."
-msgstr ""
+msgstr "Spanish."
 
 #: buddypress/members/single/edit.php:80
 msgid "Primary Information"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:82 buddypress/members/single/edit.php:481
 #: buddypress/members/single/edit.php:709
 #: buddypress/members/single/edit.php:958
 msgid "Visibility Settings"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:84 buddypress/members/single/edit.php:483
 #: buddypress/members/single/edit.php:711
 #: buddypress/members/single/edit.php:960
 msgid "Custom"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:95
 msgid "Profile Photo (optional)"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:140
 msgid "minimum dimensions 175px by 175px"
-msgstr ""
+msgstr "spanish"
 
 #: buddypress/members/single/edit.php:164
 #: buddypress/members/single/edit.php:210
@@ -673,240 +673,240 @@ msgstr ""
 #: buddypress/members/single/edit.php:1019
 #: buddypress/members/single/edit.php:1043
 msgid "Can be viewed by"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:187
 msgid "Username (required)"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:203
 msgid "This username is already taken"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:206
 msgid "Usernames are public"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:212 buddypress/members/single/home.php:15
 msgid "Public (Everyone)"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:219
 msgid "First Name (required)"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:224 templates/campaign-rsvp.php:43
 msgid "First Name"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:232
 msgid "Your first name is always visible to registered users"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:252
 msgid "Last Name (required)"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:257 templates/campaign-rsvp.php:48
 msgid "Last Name"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:283
 msgid "Preferred Pronouns (optional)"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:285
 msgid "Preferred Pronoun"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:325
 msgid "Bio (optional)"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:361
 msgid "Country (optional)"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:381
 msgid "City (optional)"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:408
 msgid "Email contact (required)"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:413
 #: buddypress/members/single/profile.php:134
 #: plugins/events-manager/forms/event-editor.php:63
 #: templates/campaign-rsvp.php:55 templates/campaigns-newsletter.php:44
 msgid "Email"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:424
 msgid "An account with this email already exists"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:425 lib/members.php:239
 msgid "Invalid email address"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:447
 msgid "Phone contact (optional)"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:479
 msgid "Social Links"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:493
 msgid "Mozilla Discourse username (optional)"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:524
 msgid "Facebook username (optional)"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:554
 msgid "Twitter username (optional)"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:584
 msgid "LinkedIn username (optional)"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:614
 msgid "Github username (optional)"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:644
 msgid "Telegram username (optional)"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:674
 msgid "Matrix username (optional)"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:688
 msgid "Please format as username:domain"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:707
 msgid "Communication & Interests"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:734
 #: buddypress/members/single/edit.php:805
 msgid "Languages spoken (optional)"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:736
 #: buddypress/members/single/edit.php:811
 #: buddypress/members/single/edit.php:835
 msgid "Make Selection"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:776
 msgid "Make Selection (optional)"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:787
 #: buddypress/members/single/edit.php:859
 msgid "Add Another Language"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:897
 msgid "Skills and interests (optional)"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:956
 msgid "Community Portal Activity"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:970
 msgid "Groups joined"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:992
 msgid "Events attended"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:1016
 msgid "Events organized"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:1040
 msgid "Campaigns participated in"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:1100
 msgid "Mozilla's Community Participation Guidelines*"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:1112
 msgid "Delete Profile"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/edit.php:1113
 msgid ""
 "Could not delete profile at this time, please contact a community manager"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/home.php:14
 msgid "Registered Users"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/home.php:16
 msgid "Private (Only Me)"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/home.php:21
 msgid "She/Her"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/home.php:22
 msgid "He/Him"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/home.php:23
 msgid "They/Them"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/profile.php:43
 #: plugins/events-manager/forms/event/bookings.php:144
 msgid "Edit"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/profile.php:101
 msgid "Contact Information"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/profile.php:149
 msgid "Phone"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/profile.php:227
 msgid "Recent Events"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/profile.php:299
 msgid "Organized Events"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/profile.php:364
 msgid "Campaigns Participated In"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/profile.php:423
 msgid "Social Handles"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/profile.php:470
 msgid "Linkedin"
-msgstr ""
+msgstr "Spanish"
 
 #: buddypress/members/single/profile.php:518
 msgid "Languages spoken"
-msgstr ""
+msgstr "Spanish"
 
 #: countries.php:12
 msgid "Andorra"
@@ -1753,8 +1753,10 @@ msgid "Somalia"
 msgstr ""
 
 #: countries.php:223
+#, fuzzy
+#| msgid "Username"
 msgid "Suriname"
-msgstr ""
+msgstr "Spanish"
 
 #: countries.php:224
 msgid "South Sudan"
@@ -1998,99 +2000,99 @@ msgstr ""
 
 #: footer.php:46
 msgid "Accept"
-msgstr ""
+msgstr "Spanish"
 
 #: footer.php:53
 msgid "Mozilla Logo"
-msgstr ""
+msgstr "Spanish"
 
 #: footer.php:92
 msgid "Mozilla"
-msgstr ""
+msgstr "Spanish"
 
 #: footer.php:119
 msgid ""
 "Portions of this content are copyright 1998-2019 by individual mozilla.org "
 "contributors. Content available under a "
-msgstr ""
+msgstr "Spanish "
 
 #: footer.php:120
 msgid " Creative Commons license."
-msgstr ""
+msgstr " Spanish."
 
 #: front-page.php:151 page-campaigns.php:150 page-campaigns.php:206
 #: templates/campaign-rsvp.php:23 templates/campaign-rsvp.php:68
 #: templates/event-rsvp.php:23
 msgid "Get Involved"
-msgstr ""
+msgstr "Spanish"
 
-#: front-page.php:270
+#: front-page.php:272
 msgid "More Groups."
-msgstr ""
+msgstr "Spanish."
 
-#: front-page.php:329
+#: front-page.php:332
 msgid "More Events."
-msgstr ""
+msgstr "Spanish."
 
 #: functions.php:143
 msgid "Mozilla Custom Theme Menu"
-msgstr ""
+msgstr "Spanish"
 
 #: functions.php:163
 msgid "Static Pages"
-msgstr ""
+msgstr "Spanish"
 
 #: functions.php:164
 msgid "Static Page"
-msgstr ""
+msgstr "Spanish"
 
 #: functions.php:182 page-activities.php:40
 msgid "Activities"
-msgstr ""
+msgstr "Spanish"
 
 #: functions.php:201 page-campaigns.php:122
 msgid "Campaigns"
-msgstr ""
+msgstr "Spanish"
 
 #: functions.php:202 search.php:167
 msgid "Campaign"
-msgstr ""
+msgstr "Spanish"
 
 #: header.php:73 header.php:84 header.php:100 header.php:108 header.php:116
 msgid "Mozilla Community Portal"
-msgstr ""
+msgstr "Spanish"
 
 #: header.php:73
 msgid "Groups - Mozilla Community Portal"
-msgstr ""
+msgstr "Spanish"
 
 #: header.php:84
 msgid "Events - Mozilla Community Portal"
-msgstr ""
+msgstr "Spanish"
 
 #: header.php:100
 msgid "People - Mozilla Community Portal"
-msgstr ""
+msgstr "Spanish"
 
 #: header.php:108
 msgid "Activities - Mozilla Community Portal"
-msgstr ""
+msgstr "Spanish"
 
 #: header.php:116
 msgid "Campaigns - Mozilla Community Portal"
-msgstr ""
+msgstr "Spanish"
 
 #: header.php:184 header.php:304
 msgid "Log Out"
-msgstr ""
+msgstr "Spanish"
 
 #: header.php:186 header.php:306
 msgid "Log In / Sign Up"
-msgstr ""
+msgstr "Spanish"
 
 #: header.php:314
 msgid "Seach"
-msgstr ""
+msgstr "Spanish"
 
 #: languages.php:12
 msgid "Abkhazian"
@@ -2818,7 +2820,7 @@ msgstr ""
 
 #: languages.php:194
 msgid "Gronings"
-msgstr ""
+msgstr "Spanish"
 
 #: languages.php:195
 msgid "Guarani"
@@ -3286,7 +3288,7 @@ msgstr ""
 
 #: languages.php:311
 msgid "Langi"
-msgstr ""
+msgstr "Spanish"
 
 #: languages.php:312
 msgid "Lango [Uganda]"
@@ -4746,206 +4748,206 @@ msgstr ""
 
 #: lib/events.php:20
 msgid "Please"
-msgstr ""
+msgstr "Spanish"
 
 #: lib/events.php:21
 msgid "log in"
-msgstr ""
+msgstr "spanish"
 
 #: lib/events.php:22
 msgid "to create or join events"
-msgstr ""
+msgstr "spanish"
 
 #: lib/groups.php:461
 msgid "Joined Group"
-msgstr ""
+msgstr "Spanish"
 
 #: lib/groups.php:471
 msgid "Could not join group"
-msgstr ""
+msgstr "Spanish"
 
 #: lib/groups.php:697
 msgid "Export Events"
-msgstr ""
+msgstr "Spanish"
 
 #: lib/members.php:254
 msgid "This email is already in use"
-msgstr ""
+msgstr "Spanish"
 
 #: lib/members.php:270
 msgid "This username is already in use"
-msgstr ""
+msgstr "Spanish"
 
 #: lib/utils.php:129 lib/utils.php:142
 msgid "Image size is too small"
-msgstr ""
+msgstr "Spanish"
 
 #: lib/utils.php:134 lib/utils.php:146
 msgid "Invalid image provided"
-msgstr ""
+msgstr "Spanish"
 
 #: lib/utils.php:157
 msgid "Image size to large "
-msgstr ""
+msgstr "Spanish "
 
 #: lib/utils.php:158
 msgid "KB maximum"
-msgstr ""
+msgstr "Spanish"
 
 #: lib/utils.php:557
 msgid "Group Created On"
-msgstr ""
+msgstr "Spanish"
 
 #: lib/utils.php:558
 msgid "Admins"
-msgstr ""
+msgstr "Spanish"
 
-#: lib/utils.php:559
+#: lib/utils.php:559 page-events.php:22
 msgid "Events"
-msgstr ""
+msgstr "Spanish"
 
 #: lib/utils.php:560
 msgid "Group Verified On"
-msgstr ""
+msgstr "Spanish"
 
 #: page-activities.php:42
 msgid ""
 "Activities are “evergreen” because they’re always important, relevant to "
 "Mozilla’s mission and need your participation now!"
-msgstr ""
+msgstr "Spanish!"
 
 #: page-campaigns.php:124
 msgid ""
 "Campaigns are how we come together to solve big problems. Take a look at our "
 "active campaigns and join in!"
-msgstr ""
+msgstr "Spanish!"
 
 #: page-campaigns.php:186
 msgid "Campaign Incoming!"
-msgstr ""
+msgstr "Spanish!"
 
 #: page-campaigns.php:187
 msgid ""
 "An extra cool Mozilla campaign is coming soon.  Keep an eye out for when it "
 "launches."
-msgstr ""
+msgstr "Spanish."
 
 #: page-campaigns.php:238
 msgid "Past Campaigns"
-msgstr ""
+msgstr "Spanish"
 
 #: page-campaigns.php:239
 msgid ""
 "Mozilla communities do great work together. These campaigns are over now but "
 "feel free to check out what everyone accomplished."
-msgstr ""
+msgstr "Spanish."
 
 #: page-edit-event.php:40
 msgid "Edit Event"
-msgstr ""
+msgstr "Spanish"
 
 #: page-edit-event.php:40 plugins/events-manager/forms/event-editor.php:247
 msgid "Create Event"
-msgstr ""
+msgstr "Spanish"
 
 #: page-edit-event.php:55
 msgid "You are not authorized to edit this event."
-msgstr ""
+msgstr "Spanish."
 
 #: page-events.php:23
 msgid ""
 "Ready to join the movement? Check out what's happening soon in your area. "
-msgstr ""
+msgstr "Spanish "
 
 #: page-events.php:24
 msgid "Explore community events near you, "
-msgstr ""
+msgstr "Spanish "
 
 #: page-events.php:24
 msgid "organize your own!"
-msgstr ""
+msgstr "spanish!"
 
 #: plugins/events-manager/classes/em-ticket.php:240
 msgid "Standard Ticket"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/classes/em-ticket.php:412
 msgid "Changes saved"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/classes/em-ticket.php:419
 msgid "Ticket created"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/classes/em-ticket.php:422
 #: plugins/events-manager/classes/em-ticket.php:423
 #: plugins/events-manager/classes/em-ticket.php:428
 #: plugins/events-manager/classes/em-ticket.php:429
 msgid "There was a problem saving the ticket."
-msgstr ""
+msgstr "Spanish."
 
 #: plugins/events-manager/classes/em-ticket.php:542
 msgid "Missing fields: "
-msgstr ""
+msgstr "Spanish: "
 
 #: plugins/events-manager/classes/em-ticket.php:795
 msgid "You cannot delete a ticket that has a booking on it."
-msgstr ""
+msgstr "Spanish."
 
 #: plugins/events-manager/forms/event-editor.php:29
 msgid "Unauthorized Access"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event-editor.php:29
 msgid "You do not have the rights to manage this event."
-msgstr ""
+msgstr "Spanish."
 
 #: plugins/events-manager/forms/event-editor.php:56
 msgid "Your Details"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event-editor.php:59
 #: plugins/events-manager/forms/event/bookings-ticket-form.php:31
 msgid "Name"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event-editor.php:73
 msgid "Event Name *"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event-editor.php:82
 msgid " Language"
-msgstr ""
+msgstr " Spanish"
 
 #: plugins/events-manager/forms/event-editor.php:105
 msgid "Event description *"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event-editor.php:106
 msgid ""
 "Add in the details of your event’s agenda here. If this is a multi-day "
 "event, you can add in the details of each day’s schedule and start/end time."
-msgstr ""
+msgstr "Spanish."
 
 #: plugins/events-manager/forms/event-editor.php:112
 msgid "Event goal(s)"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event-editor.php:154
 msgid "Expected # of attendees"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event-editor.php:158
 msgid "Is this event part of an activity or campaign?"
-msgstr ""
+msgstr "Spanish?"
 
 #: plugins/events-manager/forms/event-editor.php:160
 msgid "No"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event-editor.php:185
 msgid "External link URL"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event-editor.php:199
 msgid ""
@@ -4953,600 +4955,600 @@ msgid ""
 "goals and wants to contribute in a healthy and constructive manner within "
 "our communities. By creating an event on this platform you are agreeing to "
 "respect and adhere to"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event-editor.php:200
 msgid "Mozilla’s Community Participation Guidelines (“CPG”)"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event-editor.php:201
 msgid ""
 "in order to help us create a safe and positive community experience for all. "
 "Events that do not share our goals, or violate the CPG in any way, will be "
 "removed from the platform and potentially subject to further consequences."
-msgstr ""
+msgstr "spanish."
 
 #: plugins/events-manager/forms/event-editor.php:212
 msgid ""
 "I agree to respect and adhere to Mozilla’s Community Participation "
 "Guidelines *"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event-editor.php:215
 msgid "Please agree to the community guidelines"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event-editor.php:225
 msgid ""
 "This action will permanently delete this event. Would you like to continue?"
-msgstr ""
+msgstr "Spanish?"
 
 #: plugins/events-manager/forms/event-editor.php:239
 msgid "Cancel Event"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event-editor.php:249
 msgid "Update Event"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/bookings-ticket-form.php:31
 msgid "Enter a ticket name."
-msgstr ""
+msgstr "Spanish."
 
 #: plugins/events-manager/forms/event/bookings-ticket-form.php:35
 #: plugins/events-manager/templates/event-single.php:314
 msgid "Description"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/bookings-ticket-form.php:38
 #: plugins/events-manager/forms/event/bookings.php:96
 msgid "Price"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/bookings-ticket-form.php:40
 msgid "Enter a maximum number of spaces (required)."
-msgstr ""
+msgstr "Spanish."
 
 #: plugins/events-manager/forms/event/bookings-ticket-form.php:40
 msgid "Spaces"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/bookings-ticket-form.php:46
 #: plugins/events-manager/forms/event/bookings-ticket-form.php:52
 msgid "Leave either blank for no upper/lower limit."
-msgstr ""
+msgstr "Spanish."
 
 #: plugins/events-manager/forms/event/bookings-ticket-form.php:49
 #: plugins/events-manager/forms/event/bookings-ticket-form.php:54
 msgid "spaces per booking"
-msgstr ""
+msgstr "spanish"
 
 #: plugins/events-manager/forms/event/bookings-ticket-form.php:59
 msgid "Show Advanced Options"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/bookings-ticket-form.php:59
 msgid "Hide Advanced Options"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/bookings.php:21
 msgid "Enable registration for this event"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/bookings.php:44
 msgid "Ticket Options"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/bookings.php:48
 msgid "Tickets"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/bookings.php:55
 msgid ""
 "Modifications to event tickets will cause all bookings to individual "
 "recurrences of this event to be deleted."
-msgstr ""
+msgstr "Spanish."
 
 #: plugins/events-manager/forms/event/bookings.php:70
 msgid ""
 "You can edit individual recurrences and disassociate them with this "
 "recurring event."
-msgstr ""
+msgstr "Spanish."
 
 #: plugins/events-manager/forms/event/bookings.php:91
 msgid ""
 "You can have single or multiple tickets, where certain tickets become "
 "available under certain conditions, e.g. early bookings, group discounts, "
 "maximum bookings per ticket, etc."
-msgstr ""
+msgstr "Spanish."
 
 #: plugins/events-manager/forms/event/bookings.php:91
 msgid "Basic HTML is allowed in ticket labels and descriptions."
-msgstr ""
+msgstr "Spanish."
 
 #: plugins/events-manager/forms/event/bookings.php:95
 msgid "Ticket Name"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/bookings.php:97
 msgid "Min/Max"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/bookings.php:98
 msgid "Start/End"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/bookings.php:99
 msgid "Avail. Spaces"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/bookings.php:100
 msgid "Booked Spaces"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/bookings.php:107
 msgid "Add new ticket"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/bookings.php:146
 msgid "Delete"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/bookings.php:148
 msgid "View Bookings"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/bookings.php:158
 msgid "Free"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/bookings.php:202
 #: plugins/events-manager/forms/event/bookings.php:232
 #: plugins/events-manager/forms/event/bookings.php:333
 msgid "day(s)"
-msgstr ""
+msgstr "spanish"
 
 #: plugins/events-manager/forms/event/bookings.php:263
 msgid "Close Ticket Editor"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/bookings.php:286
 msgid "Cancel Ticket Recreation"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/bookings.php:294
 msgid "Modify Recurring Event Tickets "
-msgstr ""
+msgstr "Spanish "
 
 #: plugins/events-manager/forms/event/bookings.php:302
 msgid "Event Options"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/bookings.php:304
 msgid "Total Spaces"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/bookings.php:311
 msgid ""
 "Individual tickets with remaining spaces will not be available if total "
 "booking spaces reach this limit. Leave blank for no limit."
-msgstr ""
+msgstr "Spanish."
 
 #: plugins/events-manager/forms/event/bookings.php:314
 msgid "Maximum Spaces Per Booking"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/bookings.php:321
 msgid ""
 "If set, the total number of spaces for a single booking to this event cannot "
 "exceed this amount."
-msgstr ""
+msgstr "Spanish."
 
 #: plugins/events-manager/forms/event/bookings.php:321
 msgid "Leave blank for no limit."
-msgstr ""
+msgstr "Spanish."
 
 #: plugins/events-manager/forms/event/bookings.php:324
 msgid "Booking Cut-Off Date"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/bookings.php:340
 msgid "The event starts before"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/bookings.php:346
 msgid "The event starts after"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/bookings.php:348
 msgid "at"
-msgstr ""
+msgstr "spanish"
 
 #: plugins/events-manager/forms/event/bookings.php:352
 msgid ""
 "This is the definite date after which bookings will be closed for this "
 "event, regardless of individual ticket settings above. Default value will be "
 "the event start date."
-msgstr ""
+msgstr "Spanish."
 
 #: plugins/events-manager/forms/event/categories-public.php:26
 msgid "Select a tag for your event"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/featured-image-public.php:16
 msgid "Event Image"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/featured-image-public.php:56
 msgid "Click or drag a .PNG or .JPG above. Min dimensions 703px by 400px"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/group.php:27
 msgid "Hosted By"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/group.php:29
 msgid "No group"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/group.php:43
 msgid ""
 "As a site admin, you see all group events, users will only be able to choose "
 "groups they are admins of."
-msgstr ""
+msgstr "Spanish."
 
 #: plugins/events-manager/forms/event/location-moz.php:38
 msgid "Edit location details"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/location-moz.php:63
 msgid "Is this event online or on location? *"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/location-moz.php:83
 msgid "Physical Location"
-msgstr ""
+msgstr "Spanish"
 
-#: plugins/events-manager/forms/event/location-moz.php:98
+#: plugins/events-manager/forms/event/location-moz.php:101
 msgid "Online Meeting Link *"
-msgstr ""
+msgstr "Spanish"
 
-#: plugins/events-manager/forms/event/location-moz.php:99
+#: plugins/events-manager/forms/event/location-moz.php:102
 msgid "Location Name *"
-msgstr ""
+msgstr "Spanish"
 
-#: plugins/events-manager/forms/event/location-moz.php:106
+#: plugins/events-manager/forms/event/location-moz.php:109
 msgid "This field requires a valid url"
-msgstr ""
+msgstr "Spanish"
 
-#: plugins/events-manager/forms/event/location-moz.php:119
+#: plugins/events-manager/forms/event/location-moz.php:122
 msgid "Address *"
-msgstr ""
+msgstr "Spanish"
 
-#: plugins/events-manager/forms/event/location-moz.php:129
+#: plugins/events-manager/forms/event/location-moz.php:132
 msgid "Where will this event be held? *"
-msgstr ""
+msgstr "Spanish"
 
-#: plugins/events-manager/forms/event/location-moz.php:154
+#: plugins/events-manager/forms/event/location-moz.php:157
 msgid "Online Event *"
-msgstr ""
+msgstr "Spanish"
 
-#: plugins/events-manager/forms/event/location-moz.php:156
+#: plugins/events-manager/forms/event/location-moz.php:159
 msgid "On Location"
-msgstr ""
+msgstr "Spanish"
 
-#: plugins/events-manager/forms/event/location-moz.php:179
+#: plugins/events-manager/forms/event/location-moz.php:182
 msgid "City *"
-msgstr ""
+msgstr "Spanish"
 
-#: plugins/events-manager/forms/event/location-moz.php:180
+#: plugins/events-manager/forms/event/location-moz.php:183
 msgid "URL *"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/when-with-recurring.php:20
 #: plugins/events-manager/forms/event/when.php:21
 msgid "Start date *"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/when-with-recurring.php:28
 #: plugins/events-manager/forms/event/when.php:34
 msgid "End Date *"
-msgstr ""
+msgstr "Spanish *"
 
 #: plugins/events-manager/forms/event/when-with-recurring.php:38
 #: plugins/events-manager/forms/event/when.php:49
 msgid "Start time *"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/when-with-recurring.php:45
 #: plugins/events-manager/forms/event/when.php:61
 msgid "End time *"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/forms/event/when-with-recurring.php:53
 #: plugins/events-manager/forms/event/when.php:74
 msgid "Timezone *"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/placeholders/bookingform.php:62
 msgid "Will Not Attend"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/templates/event-single.php:226
 msgid "Attend"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/templates/event-single.php:248
 msgid "View more events in "
-msgstr ""
+msgstr "Spanish "
 
 #: plugins/events-manager/templates/event-single.php:250
 msgid "This is an online-only event"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/templates/event-single.php:252
 msgid "Meeting link"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/templates/event-single.php:336
 msgid "Goals"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/templates/event-single.php:355
 msgid "Attendees"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/templates/event-single.php:426
 msgid "View all attendees"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/templates/event-single.php:543
 msgid "Report Event"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/templates/events-list.php:136
 #: plugins/events-manager/templates/events-list.php:194
 msgid "Upcoming Events"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/templates/events-list.php:155
 msgid "Events I'm attending"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/templates/events-list.php:168
 msgid "My Events"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/templates/events-list.php:182
 msgid "Past events"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/templates/events-list.php:187
 msgid "Showing:"
-msgstr ""
+msgstr "Spanish:"
 
 #: plugins/events-manager/templates/events-list.php:203
 msgid "Events I'm Attending"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/templates/events-list.php:212
 msgid "Events I've Organized"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/templates/events-list.php:218
 msgid "Past Events"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/templates/events-list.php:421
 msgid "No results found. Please try another search term."
-msgstr ""
+msgstr "Spanish."
 
 #: plugins/events-manager/templates/events-list.php:423
 msgid "There are currently no events."
-msgstr ""
+msgstr "Spanish."
 
 #: plugins/events-manager/templates/events-search.php:80
 msgid "Search events"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/templates/template-parts/event-single/event-host.php:45
 msgid "Hosted by"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/templates/template-parts/event-single/event-sidebar.php:21
 msgid "Links"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/templates/template-parts/event-single/event-sidebar.php:50
 msgid "Part of"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/templates/template-parts/event-single/event-sidebar.php:73
 #: templates/share-modal.php:32
 msgid "Share"
-msgstr ""
+msgstr "Spanish"
 
 #: plugins/events-manager/templates/template-parts/events-filters.php:71
 msgid "Filter By:"
-msgstr ""
+msgstr "Spanish:"
 
 #: plugins/events-manager/templates/template-parts/events-filters.php:93
 msgid "Campaign or Activity"
-msgstr ""
+msgstr "Spanish"
 
 #: search.php:181
 msgid "Page"
-msgstr ""
+msgstr "Spanish"
 
 #: search.php:197
 msgid "Event"
-msgstr ""
+msgstr "Spanish"
 
 #: search.php:238
 msgid "Group"
-msgstr ""
+msgstr "Spanish"
 
 #: search.php:289
 msgid "Member"
-msgstr ""
+msgstr "Spanish"
 
-#: single-activity.php:59
+#: single-activity.php:57
 msgid "Share Activity"
-msgstr ""
+msgstr "Spanish"
 
-#: single-activity.php:190
+#: single-activity.php:188
 msgid "Time Commitment"
-msgstr ""
+msgstr "Spanish"
 
 #: single-campaign.php:108
 msgid "Share Campaign"
-msgstr ""
+msgstr "Spanish"
 
 #: templates/campaign-rsvp.php:25 templates/campaign-rsvp.php:30
 #: templates/event-rsvp.php:25 templates/event-rsvp.php:30
 msgid "Sign Up"
-msgstr ""
+msgstr "Spanish"
 
 #: templates/campaign-rsvp.php:27 templates/event-rsvp.php:27
 msgid ""
 "Create a Community Portal account to connect with the community and "
 "participate in a number of exciting campaigns."
-msgstr ""
+msgstr "Spanish."
 
 #: templates/campaign-rsvp.php:32 templates/event-rsvp.php:32
 msgid "Already a member?"
-msgstr ""
+msgstr "Spanish?"
 
 #: templates/campaign-rsvp.php:33 templates/event-rsvp.php:33
 msgid "Log In"
-msgstr ""
+msgstr "Spanish"
 
 #: templates/campaign-rsvp.php:38
 msgid "Get involved without a user account"
-msgstr ""
+msgstr "Spanish"
 
 #: templates/campaign-rsvp.php:39
 msgid ""
 "Fill out the form below to join this campaign without creating a user account"
-msgstr ""
+msgstr "Spanish"
 
 #: templates/campaign-rsvp.php:57
 msgid "Invalid email"
-msgstr ""
+msgstr "Spanish"
 
 #: templates/campaign-rsvp.php:62 templates/campaigns-newsletter.php:81
 msgid "I'm okay with Mozilla handling my info as explained in this"
-msgstr ""
+msgstr "Spanish"
 
 #: templates/campaign-rsvp.php:63 templates/campaigns-newsletter.php:82
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Spanish"
 
 #: templates/campaign-rsvp.php:65
 msgid "You must agree to the privacy policy"
-msgstr ""
+msgstr "Spanish"
 
 #: templates/campaign-rsvp.php:76
 msgid "Thank you for getting involved!"
-msgstr ""
+msgstr "Spanish!"
 
 #: templates/campaign-rsvp.php:77
 msgid "An email has been sent with more details"
-msgstr ""
+msgstr "Spanish"
 
 #: templates/campaign-rsvp.php:80
 msgid "Something went wrong."
-msgstr ""
+msgstr "Spanish."
 
 #: templates/campaign-rsvp.php:81
 msgid "Please try again later."
-msgstr ""
+msgstr "Spanish."
 
 #: templates/campaigns-newsletter.php:35 templates/newsletter-form.php:29
 msgid "Get Updates"
-msgstr ""
+msgstr "Spanish"
 
 #: templates/campaigns-newsletter.php:36 templates/newsletter-form.php:30
 msgid ""
 "Subscribe to our newsletter and join Mozillians all around the world and "
 "learn about impactful opportunities to support Mozilla’s mission."
-msgstr ""
+msgstr "Spanish."
 
 #: templates/campaigns-newsletter.php:46 templates/newsletter-form.php:45
 msgid "Invalid email."
-msgstr ""
+msgstr "Spanish."
 
 #: templates/campaigns-newsletter.php:50 templates/newsletter-form.php:48
 msgid "Country or Region"
-msgstr ""
+msgstr "Spanish"
 
 #: templates/campaigns-newsletter.php:52
 msgid "Select country or region"
-msgstr ""
+msgstr "Spanish"
 
 #: templates/campaigns-newsletter.php:70
 msgid "Select language"
-msgstr ""
+msgstr "Spanish"
 
 #: templates/campaigns-newsletter.php:75 templates/newsletter-form.php:85
 msgid "We’ll default to English but send in these languages whenever we can."
-msgstr ""
+msgstr "Spanish."
 
 #: templates/campaigns-newsletter.php:84 templates/newsletter-form.php:91
 msgid "You must agree to the privacy notice."
-msgstr ""
+msgstr "Spanish."
 
 #: templates/campaigns-newsletter.php:87
 msgid "Subscribe"
-msgstr ""
+msgstr "Spanish"
 
 #: templates/campaigns-newsletter.php:91
 msgid "Thanks!"
-msgstr ""
+msgstr "Spanish!"
 
 #: templates/campaigns-newsletter.php:92
 msgid ""
 "If you haven’t previously confirmed a subscription to a Mozilla-related "
 "newsletter you may have to do so. Please check your inbox and spam filter "
 "for an email from us."
-msgstr ""
+msgstr "Spanish."
 
 #: templates/campaigns-newsletter.php:95
 msgid "Sorry!"
-msgstr ""
+msgstr "Spanish!"
 
 #: templates/campaigns-newsletter.php:96
 msgid "Looks like something went wrong."
-msgstr ""
+msgstr "Spanish."
 
 #: templates/newsletter-form.php:50
 msgid "Country or region"
-msgstr ""
+msgstr "Spanish"
 
 #: templates/newsletter-form.php:89
 msgid "Yes, subscribe me to the newsletter"
-msgstr ""
+msgstr "Spanish"
 
 #: templates/share-modal.php:36
 msgid "Copy share link"
-msgstr ""
+msgstr "Spanish"
 
 #: templates/share-modal.php:37
 msgid "Link copied"
-msgstr ""
+msgstr "Spanish"
 
 #: templates/share-modal.php:42
 msgid "Share to Facebook"
-msgstr ""
+msgstr "Spanish"
 
 #: templates/share-modal.php:47
 msgid "Share to Twitter"
-msgstr ""
+msgstr "Spanish"
 
 #: templates/share-modal.php:52
 msgid "Share to Discourse"
-msgstr ""
+msgstr "Spanish"
 
 #: templates/share-modal.php:57
 msgid "Share to Telegram"
-msgstr ""
+msgstr "Spanish"
