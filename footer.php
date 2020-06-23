@@ -53,7 +53,7 @@
 					<img src="<?php echo esc_attr( get_stylesheet_directory_uri() ); ?>/images/footer-logo.png"  class="footer__logo" alt="><?php echo esc_attr_e( 'Mozilla Logo', 'community-portal' ); ?>" />
 				</div>
 				<div class="footer__menu-container">
-					<?php if ( $current_translation ) : ?>
+					<?php if ( 'en' !== $current_translation ) : ?>
 						<?php
 						wp_nav_menu(
 							array(
@@ -90,7 +90,7 @@
 					<?php endif; ?>
 					<div class="footer__mozilla-container">
 						<span class="footer__menu-title"><?php echo esc_html_e( 'Mozilla', 'community-portal' ); ?></span>
-						<?php if ( $current_translation ) : ?>
+						<?php if ( 'en' !== $current_translation ) : ?>
 							<?php
 							wp_nav_menu(
 								array(
