@@ -547,10 +547,11 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 				<?php
 				foreach ( $system_tags as $t ) {
 					$found = false;
-
+					
 					if ( $current_translation ) {
+						
 						$temp_slug = $t->slug;
-						if ( flase !== stripos( $temp_slug, '_' ) ) {
+						if ( false !== stripos( $temp_slug, '_' ) ) {
 							$temp_slug = substr( $temp_slug, 0, stripos( $temp_slug, '_' ) );
 						}
 						$temp_name = $t->name;
