@@ -79,7 +79,7 @@
 		$search_user = false;
 	}
 
-	$location     = isset( $_GET['location'] ) ? htmlspecialchars( sanitize_text_field( wp_unslash( $_GET['location'] ) ), ENT_QUOTES, 'UTF-8' ) : '';
+	$location     = isset( $_GET['country'] ) ? htmlspecialchars( sanitize_text_field( wp_unslash( $_GET['country'] ) ), ENT_QUOTES, 'UTF-8' ) : '';
 	$get_language = isset( $_GET['language'] ) ? htmlspecialchars( sanitize_text_field( wp_unslash( $_GET['language'] ) ), ENT_QUOTES, 'UTF-8' ) : '';
 	$get_tag      = isset( $_GET['tag'] ) ? htmlspecialchars( sanitize_text_field( wp_unslash( $_GET['tag'] ) ), ENT_QUOTES, 'UTF-8' ) : '';
 
@@ -797,7 +797,7 @@
 						if ( isset( $group_meta['group_country'] ) && strlen( $group_meta['group_country'] ) > 1 ) {
 							$location_code = $group_meta['group_country'];
 							?>
-							<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?><?php echo '/groups/?location=' . esc_attr( $location_code ); ?>" class="group__status">
+							<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?><?php echo '/groups/?country=' . esc_attr( $location_code ); ?>" class="group__status">
 							<?php
 						}
 
@@ -817,7 +817,7 @@
 							$country       = $countries[ $group_meta['group_country'] ];
 							$location_code = $group_meta['group_country'];
 							?>
-							<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?><?php echo '/groups/?location=' . esc_attr( $location_code ); ?>" class="group__status"><?php echo esc_html( $country ); ?></a> |
+							<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?><?php echo '/groups/?country=' . esc_attr( $location_code ); ?>" class="group__status"><?php echo esc_html( $country ); ?></a> |
 							<?php
 						}
 					}
@@ -951,13 +951,13 @@
 									?>
 									<input type="hidden" value="<?php echo esc_attr( $get_tag ); ?>" name="tag" id="user-tag" />
 									<?php
-									if ( isset( $_GET['location'] ) && strlen( $location ) > 0 ) {
+									if ( isset( $_GET['country'] ) && strlen( $location ) > 0 ) {
 										$location = trim( $location );
 									} else {
 										$location = '';
 									}
 									?>
-									<input type="hidden" value="<?php echo esc_attr( $location ); ?>" name="location" id="user-location" />
+									<input type="hidden" value="<?php echo esc_attr( $location ); ?>" name="country" id="user-location" />
 									<?php
 									if ( isset( $_GET['language'] ) && strlen( $get_language ) > 0 ) {
 										$get_language = trim( $get_language );
@@ -988,7 +988,7 @@
 										<?php foreach ( $used_country_list as $code   => $country ) : ?>
 										<option value="<?php echo esc_attr( $code ); ?>"
 															<?php
-															if ( isset( $_GET['location'] ) && strlen( $location ) > 0 && $location === $code ) :
+															if ( isset( $_GET['country'] ) && strlen( $location ) > 0 && $location === $code ) :
 																?>
 											selected<?php endif; ?>><?php echo esc_html( $country ); ?></option>
 										<?php endforeach; ?>

@@ -512,7 +512,7 @@ jQuery(function(){
 
     jQuery('.members__location-select').change(function(e) {
         var location = jQuery(this).val();
-        jQuery('input[name="location"]').val(location);
+        jQuery('input[name="country"]').val(location);
 
         if(jQuery('input[name="tag"]').val().length === 0) {
             jQuery('input[name="tag"]').prop('disabled', true);

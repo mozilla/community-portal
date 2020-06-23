@@ -43,7 +43,7 @@ if ( isset( $_GET['u'] ) ) {
 	$search_user = false;
 }
 
-$location     = isset( $_GET['location'] ) ? htmlspecialchars( sanitize_text_field( wp_unslash( $_GET['location'] ) ), ENT_QUOTES, 'UTF-8' ) : '';
+$location     = isset( $_GET['country'] ) ? htmlspecialchars( sanitize_text_field( wp_unslash( $_GET['country'] ) ), ENT_QUOTES, 'UTF-8' ) : '';
 $get_language = isset( $_GET['language'] ) ? htmlspecialchars( sanitize_text_field( wp_unslash( $_GET['language'] ) ), ENT_QUOTES, 'UTF-8' ) : '';
 $get_tag      = isset( $_GET['tag'] ) ? htmlspecialchars( sanitize_text_field( wp_unslash( $_GET['tag'] ) ), ENT_QUOTES, 'UTF-8' ) : '';
 
@@ -757,7 +757,7 @@ $total_pages = ceil( count( $filtered_members ) / $members_per_page );
 							<path d="M17.5 17.5L13.875 13.875" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>
 						<input type="hidden" value="<?php echo esc_html( $get_tag ); ?>" name="tag" id="user-tag" />
-						<input type="hidden" value="<?php echo esc_html( $location ); ?>" name="location" id="user-location" />
+						<input type="hidden" value="<?php echo esc_html( $location ); ?>" name="country" id="user-location" />
 						<input type="hidden" value="<?php echo esc_html( $get_language ); ?>" name="language" id="user-language" />
 						<input type="text" name="u" id="members-search" class="members__search-input" placeholder="<?php esc_attr_e( 'Search people', 'community-portal' ); ?>" value="<?php echo esc_html( $search_user ); ?>" />
 						</div>
@@ -776,7 +776,7 @@ $total_pages = ceil( count( $filtered_members ) / $members_per_page );
 						<?php foreach ( $used_country_list as $code   => $country ) : ?>
 						<option value="<?php echo esc_attr( $code ); ?>"
 												<?php
-												if ( isset( $_GET['location'] ) && strlen( $location ) > 0 && $location === $code ) :
+												if ( isset( $_GET['country'] ) && strlen( $location ) > 0 && $location === $code ) :
 													?>
 							selected<?php endif; ?>><?php echo esc_html( $country ); ?></option>
 						<?php endforeach; ?>
@@ -942,9 +942,9 @@ $total_pages = ceil( count( $filtered_members ) / $members_per_page );
 														?>
 						&u=<?php echo esc_attr( $search_user ); ?><?php endif; ?>
 						<?php
-						if ( isset( $_GET['location'] ) ) :
+						if ( isset( $_GET['country'] ) ) :
 							?>
-						&location=<?php echo esc_attr( $location ); ?><?php endif; ?>
+						&country=<?php echo esc_attr( $location ); ?><?php endif; ?>
 						<?php
 						if ( isset( $_GET['tag'] ) ) :
 							?>
@@ -970,9 +970,9 @@ $total_pages = ceil( count( $filtered_members ) / $members_per_page );
 								?>
 							&u=<?php echo esc_attr( $search_user ); ?><?php endif; ?>
 							<?php
-							if ( isset( $_GET['location'] ) ) :
+							if ( isset( $_GET['country'] ) ) :
 								?>
-	&location=<?php echo esc_attr( $location ); ?><?php endif; ?>
+	&country=<?php echo esc_attr( $location ); ?><?php endif; ?>
 							<?php
 							if ( isset( $_GET['tag'] ) ) :
 								?>
@@ -992,9 +992,9 @@ $total_pages = ceil( count( $filtered_members ) / $members_per_page );
 														?>
 						&u=<?php echo esc_attr( $search_user ); ?><?php endif; ?>
 							<?php
-							if ( isset( $_GET['location'] ) ) :
+							if ( isset( $_GET['country'] ) ) :
 								?>
-						&location=<?php echo esc_attr( $location ); ?><?php endif; ?>
+						&country=<?php echo esc_attr( $location ); ?><?php endif; ?>
 							<?php
 							if ( isset( $_GET['tag'] ) ) :
 								?>
@@ -1025,9 +1025,9 @@ $total_pages = ceil( count( $filtered_members ) / $members_per_page );
 								?>
 							&u=<?php echo esc_attr( $search_user ); ?><?php endif; ?>
 							<?php
-							if ( isset( $_GET['location'] ) ) :
+							if ( isset( $_GET['country'] ) ) :
 								?>
-	&location=<?php echo esc_attr( $location ); ?><?php endif; ?>
+	&country=<?php echo esc_attr( $location ); ?><?php endif; ?>
 							<?php
 							if ( isset( $_GET['tag'] ) ) :
 								?>
@@ -1050,9 +1050,9 @@ $total_pages = ceil( count( $filtered_members ) / $members_per_page );
 														?>
 						&u=<?php echo esc_attr( $search_user ); ?><?php endif; ?>
 						<?php
-						if ( isset( $_GET['location'] ) ) :
+						if ( isset( $_GET['country'] ) ) :
 							?>
-						&location=<?php echo esc_attr( $location ); ?><?php endif; ?>
+						&country=<?php echo esc_attr( $location ); ?><?php endif; ?>
 						<?php
 						if ( isset( $_GET['tag'] ) ) :
 							?>
