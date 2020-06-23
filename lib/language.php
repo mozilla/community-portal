@@ -36,11 +36,11 @@ function mozilla_wpml_redirect( $url ) {
 function verify_trailing_slash( $url, $language ) {
 
 	$language = $language . '/';
-
 	if ( false === stripos( $url, $language ) && ! isset( $_GET['page_id'] ) ) {
 		$url = preg_replace( '/(\b[a-zA-Z]{2}\b)/', '${1}/', $url );
 		mozilla_wpml_redirect( $url );
 	}
+	return;
 }
 
 /**

@@ -503,7 +503,6 @@ function mozilla_match_categories() {
 	foreach ( $wp_terms as $single_term ) {
 		if ( ! in_array( $single_term->slug, $cat_terms_slugs, true ) ) {
 			if ($current_translation && stripos($single_term->slug, $current_translation) === false) {
-				$slug = $single_term->slug . '-' . $current_translation;
 				wp_insert_term( $single_term->name, EM_TAXONOMY_CATEGORY , array('slug' => $slug ));
 				continue;
 			}
