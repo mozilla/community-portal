@@ -352,7 +352,7 @@
 						<option value=""><?php esc_html_e( 'All', 'community-portal' ); ?></option>
 						<?php foreach ( $tags as $loop_tag ) : ?>
 							<?php
-							if ( false !== stripos( $loop_tag->slug, '-' ) ) {
+							if ( false !== stripos( $loop_tag->slug, '_' ) ) {
 								$loop_tag->slug = substr( $loop_tag->slug, 0, stripos( $loop_tag->slug, '_' ) );
 							}
 							?>
