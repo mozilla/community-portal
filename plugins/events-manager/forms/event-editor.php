@@ -77,9 +77,9 @@ if ( $EM_Event->is_recurring() ) {
 					</div>
 				</div>
 				<div class="wide wide--md-third">
-					<label class="event-creator__label" for="language"><?php esc_html_e( 'Language' ); ?></label>
+					<label class="event-creator__label" for="language"><?php esc_html_e( 'Language', 'community-portal' ); ?></label>
 					<select class="event-creator__dropdown" name="language" id="language">
-						<option value="0" disabled selected><?php esc_html_e( ' Language' ); ?></option>
+						<option value="0" disabled selected><?php esc_html_e( ' Language', 'community-portal' ); ?></option>
 						<?php foreach ( $languages as $index => $language ) : ?>
 							<option value="<?php echo esc_attr( $index ); ?>" <?php echo ( $event_language && $event_language === $index ? 'selected' : '' ); ?>> <?php echo esc_html( $language ); ?></option>
 						<?php endforeach ?>
@@ -196,9 +196,9 @@ else :
 	<div class="event-wrap event-creator">
 		<div class="event-creator__container">
 			<p>
-				<?php esc_html_e( 'The Mozilla Project welcomes contributions from everyone who shares our goals and wants to contribute in a healthy and constructive manner within our communities. By creating an event on this platform you are agreeing to respect and adhere to' ); ?> 
+				<?php esc_html_e( 'The Mozilla Project welcomes contributions from everyone who shares our goals and wants to contribute in a healthy and constructive manner within our communities. By creating an event on this platform you are agreeing to respect and adhere to', 'community-portal' ); ?> 
 				<a class="event-creator__link" href="https://www.mozilla.org/about/governance/policies/participation/"><?php esc_html_e( 'Mozilla’s Community Participation Guidelines (“CPG”)', 'community-portal' ); ?></a> 
-				<?php esc_html_e( 'in order to help us create a safe and positive community experience for all. Events that do not share our goals, or violate the CPG in any way, will be removed from the platform and potentially subject to further consequences.' ); ?>
+				<?php esc_html_e( 'in order to help us create a safe and positive community experience for all. Events that do not share our goals, or violate the CPG in any way, will be removed from the platform and potentially subject to further consequences.', 'community-portal' ); ?>
 			</p>
 		</div>
 		<div class="event-creator__container cpg">

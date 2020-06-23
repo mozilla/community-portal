@@ -18,7 +18,7 @@ $reschedule_warnings = ! empty( $em_event->event_id ) && $em_event->is_recurring
 <div id="event-rsvp-box">
 	<input id="event-rsvp" name='event_rsvp' value='1' type='checkbox' <?php echo ( $em_event->event_rsvp ) ? 'checked="checked"' : ''; ?> />
 	&nbsp;&nbsp;
-	<?php esc_html_e( 'Enable registration for this event', 'commuity-portal' ); ?>
+	<?php esc_html_e( 'Enable registration for this event', 'community-portal' ); ?>
 </div>
 <div id="event-rsvp-options" style="<?php echo ( $em_event->event_rsvp ) ? '' : 'display:none;'; ?>">
 	<?php
@@ -41,18 +41,18 @@ $reschedule_warnings = ! empty( $em_event->event_id ) && $em_event->is_recurring
 		// output title.
 		if ( get_option( 'dbem_bookings_tickets_single' ) && 1 === count( $em_tickets->tickets ) ) {
 			?>
-			<h4><?php esc_html_e( 'Ticket Options', 'commuity-portal' ); ?></h4>
+			<h4><?php esc_html_e( 'Ticket Options', 'community-portal' ); ?></h4>
 			<?php
 		} else {
 			?>
-			<h4><?php esc_html_e( 'Tickets', 'commuity-portal' ); ?></h4>
+			<h4><?php esc_html_e( 'Tickets', 'community-portal' ); ?></h4>
 			<?php
 		}
 		// If this event is a recurring template, we need to warn the user that editing tickets will delete previous bookings.
 		if ( $reschedule_warnings ) {
 			?>
 			<div class="recurrence-reschedule-warning">
-				<p><?php esc_html_e( 'Modifications to event tickets will cause all bookings to individual recurrences of this event to be deleted.', 'commuity-portal' ); ?></p>
+				<p><?php esc_html_e( 'Modifications to event tickets will cause all bookings to individual recurrences of this event to be deleted.', 'community-portal' ); ?></p>
 				<p>			
 					<a href="
 					<?php
@@ -67,7 +67,7 @@ $reschedule_warnings = ! empty( $em_event->event_id ) && $em_event->is_recurring
 					);
 					?>
 								">
-						<strong><?php esc_html_e( 'You can edit individual recurrences and disassociate them with this recurring event.', 'commuity-portal' ); ?></strong>
+						<strong><?php esc_html_e( 'You can edit individual recurrences and disassociate them with this recurring event.', 'community-portal' ); ?></strong>
 					</a>
 				</p>
 			</div>
@@ -88,23 +88,23 @@ $reschedule_warnings = ! empty( $em_event->event_id ) && $em_event->is_recurring
 			include em_locate_template( 'forms/ticket-form.php' ); // in future we'll be accessing forms/event/bookings-ticket-form.php directly.
 		} else {
 			?>
-			<p><em><?php esc_html_e( 'You can have single or multiple tickets, where certain tickets become available under certain conditions, e.g. early bookings, group discounts, maximum bookings per ticket, etc.', 'commuity-portal' ); ?> <?php esc_html_e( 'Basic HTML is allowed in ticket labels and descriptions.', 'commuity-portal' ); ?></em></p>					
+			<p><em><?php esc_html_e( 'You can have single or multiple tickets, where certain tickets become available under certain conditions, e.g. early bookings, group discounts, maximum bookings per ticket, etc.', 'community-portal' ); ?> <?php esc_html_e( 'Basic HTML is allowed in ticket labels and descriptions.', 'community-portal' ); ?></em></p>					
 			<table class="form-table">
 				<thead>
 					<tr valign="top">
-						<th colspan="2"><?php esc_html_e( 'Ticket Name', 'commuity-portal' ); ?></th>
-						<th><?php esc_html_e( 'Price', 'commuity-portal' ); ?></th>
-						<th><?php esc_html_e( 'Min/Max', 'commuity-portal' ); ?></th>
-						<th><?php esc_html_e( 'Start/End', 'commuity-portal' ); ?></th>
-						<th><?php esc_html_e( 'Avail. Spaces', 'commuity-portal' ); ?></th>
-						<th><?php esc_html_e( 'Booked Spaces', 'commuity-portal' ); ?></th>
+						<th colspan="2"><?php esc_html_e( 'Ticket Name', 'community-portal' ); ?></th>
+						<th><?php esc_html_e( 'Price', 'community-portal' ); ?></th>
+						<th><?php esc_html_e( 'Min/Max', 'community-portal' ); ?></th>
+						<th><?php esc_html_e( 'Start/End', 'community-portal' ); ?></th>
+						<th><?php esc_html_e( 'Avail. Spaces', 'community-portal' ); ?></th>
+						<th><?php esc_html_e( 'Booked Spaces', 'community-portal' ); ?></th>
 						<th>&nbsp;</th>
 					</tr>
 				</thead>    
 				<tfoot>
 					<tr valign="top">
 						<td colspan="8">
-							<a href="#" id="em-tickets-add"><?php esc_html_e( 'Add new ticket', 'commuity-portal' ); ?></a>
+							<a href="#" id="em-tickets-add"><?php esc_html_e( 'Add new ticket', 'community-portal' ); ?></a>
 						</td>
 					</tr>
 				</tfoot>
@@ -141,11 +141,11 @@ $reschedule_warnings = ! empty( $em_event->event_id ) && $em_event->is_recurring
 									<?php echo wp_kses_data( $em_ticket->ticket_name ); ?></span>
 									<div class="ticket_description"><?php echo wp_kses( $em_ticket->ticket_description, $allowedposttags ); ?></div>
 									<div class="ticket-actions">
-										<a href="#" class="ticket-actions-edit"><?php esc_html_e( 'Edit', 'commuity-portal' ); ?></a> 
+										<a href="#" class="ticket-actions-edit"><?php esc_html_e( 'Edit', 'community-portal' ); ?></a> 
 									<?php if ( 0 === $em_ticket->get_bookings_count() ) : ?>
-										| <a href="<?php bloginfo( 'wpurl' ); ?>/wp-load.php" class="ticket-actions-delete"><?php esc_html_e( 'Delete', 'commuity-portal' ); ?></a>
+										| <a href="<?php bloginfo( 'wpurl' ); ?>/wp-load.php" class="ticket-actions-delete"><?php esc_html_e( 'Delete', 'community-portal' ); ?></a>
 										<?php else : ?>
-										| <a href="<?php echo esc_url( add_query_arg( 'ticket_id', $em_ticket->ticket_id, $em_event->get_bookings_url() ) ); ?>"><?php esc_html_e( 'View Bookings', 'commuity-portal' ); ?></a>
+										| <a href="<?php echo esc_url( add_query_arg( 'ticket_id', $em_ticket->ticket_id, $em_event->get_bookings_url() ) ); ?>"><?php esc_html_e( 'View Bookings', 'community-portal' ); ?></a>
 										<?php endif; ?>
 									</div>
 								</td>
@@ -155,7 +155,7 @@ $reschedule_warnings = ! empty( $em_event->event_id ) && $em_event->is_recurring
 									if ( $em_ticket->ticket_price ) {
 										echo esc_html( $em_ticket->get_price_precise( true ) );
 									} else {
-										echo esc_html_e( 'Free', 'commuity-portal' ); }
+										echo esc_html_e( 'Free', 'community-portal' ); }
 									?>
 									</span>
 								</td>
@@ -199,7 +199,7 @@ $reschedule_warnings = ! empty( $em_event->event_id ) && $em_event->is_recurring
 									if ( ! empty( $em_ticket->ticket_meta['recurrences'] ) && ! is_numeric( $em_ticket->ticket_meta['recurrences']['start_days'] ) ) {
 										echo esc_attr( 'hidden' );}
 									?>
-									"><?php esc_html_e( 'day(s)', 'commuity-portal' ); ?></span>
+									"><?php esc_html_e( 'day(s)', 'community-portal' ); ?></span>
 									<span class="ticket_start_time">
 									<?php
 									if ( ! empty( $em_ticket->ticket_start ) ) {
@@ -229,7 +229,7 @@ $reschedule_warnings = ! empty( $em_event->event_id ) && $em_event->is_recurring
 										echo esc_attr( 'hidden' );
 									}
 									?>
-									"><?php esc_html_e( 'day(s)', 'commuity-portal' ); ?></span>
+									"><?php esc_html_e( 'day(s)', 'community-portal' ); ?></span>
 									<span class="ticket_end_time">
 									<?php
 									if ( ! empty( $em_ticket->ticket_end ) ) {
@@ -260,7 +260,7 @@ $reschedule_warnings = ! empty( $em_event->event_id ) && $em_event->is_recurring
 								<td colspan="<?php echo esc_attr( apply_filters( 'em_event_edit_ticket_td_colspan', 7 ) ); ?>">
 								<?php include em_locate_template( 'forms/event/bookings-ticket-form.php' ); ?>
 									<div class="em-ticket-form-actions">
-									<button type="button" class="ticket-actions-edited"><?php esc_html_e( 'Close Ticket Editor', 'commuity-portal' ); ?></button>
+									<button type="button" class="ticket-actions-edited"><?php esc_html_e( 'Close Ticket Editor', 'community-portal' ); ?></button>
 									</div>
 								</td>
 							</tr>
@@ -283,7 +283,7 @@ $reschedule_warnings = ! empty( $em_event->event_id ) && $em_event->is_recurring
 								echo esc_attr( ' reschedule-hidden' );}
 							?>
 		" data-target=".em-tickets-form">
-				<?php esc_html_e( 'Cancel Ticket Recreation', 'commuity-portal' ); ?>
+				<?php esc_html_e( 'Cancel Ticket Recreation', 'community-portal' ); ?>
 			</a>
 			<a href="<?php echo esc_url( add_query_arg( 'recreate_tickets', '1' ) ); ?>" class="em-reschedule-trigger em-button button-secondary
 								<?php
@@ -291,7 +291,7 @@ $reschedule_warnings = ! empty( $em_event->event_id ) && $em_event->is_recurring
 									echo esc_attr( ' reschedule-hidden' );}
 								?>
 			" data-target=".em-tickets-form">
-				<?php esc_html_e( 'Modify Recurring Event Tickets ', 'commuity-portal' ); ?>
+				<?php esc_html_e( 'Modify Recurring Event Tickets ', 'community-portal' ); ?>
 			</a>
 			<input type="hidden" name="event_recreate_tickets" class="em-reschedule-value" value="<?php echo empty( $_REQUEST['recreate_tickets'] ) ? 0 : 1; ?>" />
 		</div>
@@ -299,29 +299,29 @@ $reschedule_warnings = ! empty( $em_event->event_id ) && $em_event->is_recurring
 	</div>
 	<div id="em-booking-options" class="em-booking-options">
 	<?php if ( ! get_option( 'dbem_bookings_tickets_single' ) || count( $em_ticket->get_event()->get_tickets()->tickets ) > 1 ) : ?>
-	<h4><?php esc_html_e( 'Event Options', 'commuity-portal' ); ?></h4>
+	<h4><?php esc_html_e( 'Event Options', 'community-portal' ); ?></h4>
 	<p>
-		<label><?php esc_html_e( 'Total Spaces', 'commuity-portal' ); ?></label>
+		<label><?php esc_html_e( 'Total Spaces', 'community-portal' ); ?></label>
 		<input type="text" name="event_spaces" value="
 		<?php
 		if ( $em_event->event_spaces > 0 ) {
 			echo esc_html( $em_event->event_spaces ); }
 		?>
 		" /><br />
-		<em><?php esc_html_e( 'Individual tickets with remaining spaces will not be available if total booking spaces reach this limit. Leave blank for no limit.', 'commuity-portal' ); ?></em>
+		<em><?php esc_html_e( 'Individual tickets with remaining spaces will not be available if total booking spaces reach this limit. Leave blank for no limit.', 'community-portal' ); ?></em>
 	</p>
 	<p>
-		<label><?php esc_html_e( 'Maximum Spaces Per Booking', 'commuity-portal' ); ?></label>
+		<label><?php esc_html_e( 'Maximum Spaces Per Booking', 'community-portal' ); ?></label>
 		<input type="text" name="event_rsvp_spaces" value="
 		<?php
 		if ( $em_event->event_rsvp_spaces > 0 ) {
 			echo esc_html( $em_event->event_rsvp_spaces ); }
 		?>
 		" /><br />
-		<em><?php esc_html_e( 'If set, the total number of spaces for a single booking to this event cannot exceed this amount.', 'commuity-portal' ); ?><?php esc_html_e( 'Leave blank for no limit.', 'commuity-portal' ); ?></em>
+		<em><?php esc_html_e( 'If set, the total number of spaces for a single booking to this event cannot exceed this amount.', 'community-portal' ); ?><?php esc_html_e( 'Leave blank for no limit.', 'community-portal' ); ?></em>
 	</p>
 	<p>
-		<label><?php esc_html_e( 'Booking Cut-Off Date', 'commuity-portal' ); ?></label>
+		<label><?php esc_html_e( 'Booking Cut-Off Date', 'community-portal' ); ?></label>
 		<span class="em-booking-date-normal">
 			<span class="em-date-single">
 				<input id="em-bookings-date-loc" class="em-date-input-loc" type="text" />
@@ -330,26 +330,26 @@ $reschedule_warnings = ! empty( $em_event->event_id ) && $em_event->is_recurring
 		</span>
 		<span class="em-booking-date-recurring">
 			<input type="text" name="recurrence_rsvp_days" size="3" value="<?php echo absint( $em_event->recurrence_rsvp_days ); ?>" />
-			<?php esc_html_e( 'day(s)', 'commuity-portal' ); ?>
+			<?php esc_html_e( 'day(s)', 'community-portal' ); ?>
 			<select name="recurrence_rsvp_days_when">
 				<option value="before" 
 				<?php
 				if ( ! empty( $em_event->recurrence_rsvp_days ) && $em_event->recurrence_rsvp_days <= 0 ) {
 					echo esc_attr( 'selected="selected"' );}
 				?>
-				><?php esc_html_e( 'The event starts before', 'commuity-portal' ); ?></option>
+				><?php esc_html_e( 'The event starts before', 'community-portal' ); ?></option>
 				<option value="after" 
 				<?php
 				if ( ! empty( $em_event->recurrence_rsvp_days ) && $em_event->recurrence_rsvp_days > 0 ) {
 					echo esc_attr( 'selected="selected"' );}
 				?>
-				><?php esc_html_e( 'The event starts after', 'commuity-portal' ); ?></option>
+				><?php esc_html_e( 'The event starts after', 'community-portal' ); ?></option>
 			</select>
-			<?php esc_html_e( 'at', 'commuity-portal' ); ?>
+			<?php esc_html_e( 'at', 'community-portal' ); ?>
 		</span>
 		<input type="text" name="event_rsvp_time" class="em-time-input" maxlength="8" size="8" value="<?php echo esc_html( $em_event->rsvp_end()->format( em_get_hour_format() ) ); ?>" />
 		<br />
-		<em><?php esc_html_e( 'This is the definite date after which bookings will be closed for this event, regardless of individual ticket settings above. Default value will be the event start date.', 'commuity-portal' ); ?></em>
+		<em><?php esc_html_e( 'This is the definite date after which bookings will be closed for this event, regardless of individual ticket settings above. Default value will be the event start date.', 'community-portal' ); ?></em>
 	</p>
 	<?php endif; ?>
 	</div>
