@@ -57,20 +57,8 @@ if ( count( $categories ) > 0 ) {
 		$categories[ $category->id ]['value'] = $tag_name;
 		$categories[ $category->id ]['label'] = $category->name;
 	}
-} else {
-	$categories = array(
-		'Localization (L10N)',
-		'User Support (SUMO)',
-		'Testing',
-		'Common Voice',
-		'Coding',
-		'Design',
-		'Advocacy',
-		'Documentation',
-		'Evangelism',
-		'Marketing',
-	);
 }
+
 ?>
 <div class="col-md-12 events__filter">
 	<p class="events__filter__title"><?php esc_html_e( 'Filter By:', 'community-portal' ); ?></p>
