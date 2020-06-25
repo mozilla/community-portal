@@ -270,7 +270,6 @@
         font-size: remCalc(14);
         height: auto;
         line-height: 22px;
-        max-width: 200px;
         min-width: 160px;
         padding: 15px 33px;
         padding-left: 55px;
@@ -279,6 +278,10 @@
         text-decoration: none;
         transition: background-color 0.2s ease-in;
         width: auto;
+
+        @include tablet-and-up {
+            max-width: 300px;
+        }
 
         &:first-child:last-child {
           margin-left: auto;
