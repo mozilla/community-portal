@@ -278,10 +278,7 @@
         text-decoration: none;
         transition: background-color 0.2s ease-in;
         width: auto;
-
-        @include tablet-and-up {
-            max-width: 300px;
-        }
+        max-width: 300px;
 
         &:first-child:last-child {
           margin-left: auto;

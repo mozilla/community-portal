@@ -517,6 +517,7 @@
         text-align: center;
         text-decoration: none;
         transition: background-color 0.2s ease-in;
+        max-width: 300px;
 
         &:focus,
         &:hover {
@@ -529,10 +530,6 @@
                     stroke: $color-white;
                 }
             }
-        }
-
-        @include tablet-and-up {
-            max-width: 300px;
         }
 
         svg {
