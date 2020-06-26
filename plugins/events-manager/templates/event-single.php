@@ -111,7 +111,8 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 		}
 	}
 
-
+	// Set default for var used to count attendees
+	$count = 0;
 	?>
 
 <div class="content events__container events-single">
@@ -366,7 +367,6 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 				</p>
 			</div>
 			<div class="row">
-				<?php $count = 0; ?>  
 				<?php foreach ( $active_bookings as $booking ) : ?>
 					<?php
 					if ( $count < 8 ) {
