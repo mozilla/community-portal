@@ -30,6 +30,9 @@ if ( $avatar && ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) 
 $section   = mozilla_determine_site_section();
 $theme_url = get_template_directory_uri();
 
+// Set default for search text
+$search_text = '';
+
 if ( ! empty( $_GET['s'] ) && isset( $_GET['site_search'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['site_search'] ) ), 'site_search_nonce' ) ) {
 	$search_text    = sanitize_text_field( wp_unslash( $_GET['s'] ) );
 	$original_query = htmlspecialchars( $search_text, ENT_QUOTES, 'UTF-8' );
