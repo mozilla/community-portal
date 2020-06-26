@@ -175,7 +175,7 @@ function mozilla_determine_site_section() {
 		$path_items = array_filter( explode( '/', esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ) );
 
 		if ( count( $path_items ) > 0 ) {
-			if ( mozilla_get_current_translation() ) {
+			if ( mozilla_get_current_translation() && !empty($path_items[2]) ) {
 				$section = $path_items[2];
 			} else {
 				$values  = array_values( $path_items );
