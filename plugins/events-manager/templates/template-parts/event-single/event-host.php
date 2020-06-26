@@ -35,7 +35,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 	<div class="row">
 		<div class="
 		<?php
-		if ( is_array( $admins ) && count( $admins ) < 2 ) :
+		if ( !empty($admins) && is_array( $admins ) && count( $admins ) < 2 ) :
 			echo 'col-lg-12 col-md-6';
 else :
 	echo 'events-single__hosts--multiple';
