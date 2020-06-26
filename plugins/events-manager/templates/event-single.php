@@ -532,7 +532,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 		endif;
 	?>
 </div>
-<?php if ( isset( $options['report_email'] ) && is_user_logged_in() && isset( $_SERVER['HTTP_HOST'] ) ) : ?>
+<?php if ( !empty( $group ) && isset( $options['report_email'] ) && is_user_logged_in() && isset( $_SERVER['HTTP_HOST'] ) ) : ?>
 <div class="events-single__report-container">
 	<a href="mailto:<?php print esc_attr( $options['report_email'] ); ?>?subject=<?php print sprintf( '%s %s', esc_html__( 'Reporting Event', 'community-portal' ), esc_attr( $group->name ) ); ?>&body=<?php print sprintf( '%s %s', esc_html__( 'Please provide a reason you are reporting this event', 'community-portal' ), esc_url_raw( wp_unslash( $_SERVER['HTTP_HOST'] ) ) . esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ); ?>" class="events-single__report-group-link">
 		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
