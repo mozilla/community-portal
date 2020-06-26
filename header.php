@@ -30,7 +30,7 @@ if ( $avatar && ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) 
 $section   = mozilla_determine_site_section();
 $theme_url = get_template_directory_uri();
 
-// Set default for search_text and original_query to eliminate errors
+// Set defaults for variables that are set in conditional blocks
 $search_text = '';
 $original_query = '';
 
