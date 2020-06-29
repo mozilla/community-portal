@@ -154,9 +154,7 @@ function mozilla_upload_image() {
 							}
 						}
 					} else {
-						$image_size_string = __( 'Image size to large ', 'community-portal' );
-						$max_string        = __( 'KB maximum', 'community-portal' );
-						print esc_html( "{$image_size_string} ({$max_files_size_allowed} {$max_string})" );
+						print esc_html_e( 'Image size to large ', 'community-portal' ).esc_html_e( '(250KB maximum)', 'community-portal' );
 					}
 				}
 			}
@@ -509,7 +507,6 @@ function mozilla_match_categories() {
 			wp_insert_term( $single_term->name, EM_TAXONOMY_CATEGORY , array('slug' => $single_term->slug));
 		}
 	}
-
 }
 
 /**

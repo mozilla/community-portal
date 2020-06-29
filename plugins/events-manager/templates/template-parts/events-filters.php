@@ -20,12 +20,13 @@
 	$countries      = em_get_countries();
 	$ddm_countries  = array();
 	$used_languages = array();
-	$filter_events  = EM_Events::get(array('scope' => 'all'));
+	$filter_events  = EM_Events::get( array( 'scope' => 'all' ) );
 
 foreach ( $filter_events as $e ) {
 	$location     = em_get_location( $e->location_id );
 	$country_code = $location->location_country;
-	if ( strlen($country_code) > 0 && ! in_array( $country_code, $ddm_countries, true ) ) {
+
+	if ( strlen( $country_code ) > 0 && ! in_array( $country_code, $ddm_countries, true ) ) {
 		$ddm_countries[ $country_code ] = $countries[ $country_code ];
 	}
 	$e_meta = get_post_meta( $e->post_id, 'event-meta' );
@@ -40,32 +41,24 @@ foreach ( $filter_events as $e ) {
 	$used_languages = array_unique( $used_languages );
 
 	$categories = EM_Categories::get();
+
 if ( count( $categories ) > 0 ) {
 	$current_translation = mozilla_get_current_translation();
+
 	foreach ( $categories as $category ) {
-		if ($current_translation) {
+
+		if ( 'en' !== $current_translation ) {
 			$main_category = substr( $category->slug, 0, stripos( $category->slug, '_' . $current_translation ) );
-			$term = get_term_by('slug', $main_category, 'event-categories');
+			$event_term    = get_term_by( 'slug', $main_category, 'event-categories' );
 		}
-		$tag_name = !empty($term) ? $term->name : $category->name;
-		$categories[ $category->id ] = array();
-		$categories[$category->id]['value'] = $tag_name;
-		$categories[$category->id]['label'] = $category->name;
+
+		$tag_name                             = ! empty( $event_term ) ? $event_term->name : $category->name;
+		$categories[ $category->id ]          = array();
+		$categories[ $category->id ]['value'] = $tag_name;
+		$categories[ $category->id ]['label'] = $category->name;
 	}
-} else {
-	$categories = array(
-		'Localization (L10N)',
-		'User Support (SUMO)',
-		'Testing',
-		'Common Voice',
-		'Coding',
-		'Design',
-		'Advocacy',
-		'Documentation',
-		'Evangelism',
-		'Marketing',
-	);
 }
+
 ?>
 <div class="col-md-12 events__filter">
 	<p class="events__filter__title"><?php esc_html_e( 'Filter By:', 'community-portal' ); ?></p>

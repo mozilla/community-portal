@@ -59,7 +59,7 @@
 		</div>
 	</div>
 </div>
-<input type="hidden" id="string-translation" value="<?php echo esc_attr( $current_translation ? $current_translation : 'en' ); ?>" />
+<input type="hidden" id="string-translation" value="<?php echo esc_attr( $current_translation ); ?>" />
 <input type="hidden" name="image_url" id="image-url" value="
 <?php
 if ( $img_url ) {
