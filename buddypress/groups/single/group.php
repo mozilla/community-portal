@@ -928,11 +928,10 @@
 							</a>
 							<?php endforeach; ?>
 						</div>
-									<h2 class="group__card-title"><?php esc_html_e( 'People', 'community-portal' ); ?>
-																					<?php
-																					if ( $members['count'] > 0 ) :
-																						?>
-																						<?php echo esc_html( " ({$members['count']})" ); ?><?php endif; ?></h2>
+							<h2 class="group__card-title"><?php esc_html_e( 'People', 'community-portal' ); ?>
+							<?php if ( ! empty( $members['count'] ) && $members['count'] > 0 ) : ?>
+								<?php echo esc_html( " ({$members['count']})" ); ?>
+							<?php endif; ?></h2>
 						<?php if ( $group_members['count'] > 0 ) : ?>
 						<div class="group members__search-container">
 								<form method="GET" action="<?php echo ! empty( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : ''; ?>" class="members__form" id="members-search-form">

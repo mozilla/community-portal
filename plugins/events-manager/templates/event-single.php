@@ -249,7 +249,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 						<p><a href="<?php print esc_attr(add_query_arg(array('country' => $all_countries[ $em_event->location->location_country ]), get_home_url(null, 'events')))?>"><?php esc_html_e( 'View more events in ', 'community-portal' ); ?><?php print esc_html( $all_countries[ $em_event->location->location_country ] ); ?></a></p>
 					<?php else : ?>
 						<p><?php esc_html_e( 'This is an online-only event', 'community-portal' ); ?></p>
-						<?php if ( filter_var( $em_event->location->name, FILTER_VALIDATE_URL ) ) : ?>
+						<?php if ( ! empty( $em_event->location->name ) && filter_var( $em_event->location->name, FILTER_VALIDATE_URL ) ) : ?>
 						<a href="<?php echo esc_attr( $em_event->location->name ); ?>"><?php echo esc_html_e( 'Meeting link', 'community-portal' ); ?>
 							<svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M1.33325 8.66732L4.99992 5.00065L1.33325 1.33398" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -261,6 +261,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 					<?php if ( false !== $map_box_access_token ) : ?>
 
 						<?php
+
 						$full_location = rawurlencode( $location->location_address . ' ' . $location->location_town );
 						$request       = wp_remote_get( 'https://api.mapbox.com/geocoding/v5/mapbox.places/' . $full_location . '.json?types=address&access_token=' . $map_box_access_token );
 						$mapbox_error  = false;
