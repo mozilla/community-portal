@@ -34,6 +34,7 @@ add_action( 'init', 'mozilla_init' );
 add_action( 'admin_init', 'mozilla_redirect_admin' );
 add_action( 'get_header', 'mozilla_remove_admin_login_header' );
 add_action( 'wp_enqueue_scripts', 'mozilla_init_scripts' );
+add_action( 'wp_enqueue_scripts', 'mozilla_init_fe_styles' );
 add_action( 'admin_enqueue_scripts', 'mozilla_init_admin_scripts' );
 add_action( 'admin_menu', 'mozilla_add_menu_item' );
 
@@ -131,10 +132,6 @@ function mozilla_theme_setup() {
 }
 
 
-// Include theme style.css file not in admin page.
-if ( ! is_admin() ) {
-	wp_enqueue_style( 'style', get_stylesheet_uri(), array(), filemtime( get_template_directory() . '/style.css' ), false );
-}
 
 /**
  * Initialize theme

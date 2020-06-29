@@ -243,6 +243,10 @@ function mozilla_init_scripts() {
 	}
 }
 
+function mozilla_init_fe_styles() {
+	wp_enqueue_style( 'style', get_stylesheet_uri(), array(), filemtime( get_template_directory() . '/style.css' ), false );
+}
+
 /**
  * Initialize admin scripts
  */
