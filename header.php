@@ -13,7 +13,7 @@
 
 $user = wp_get_current_user()->data;
 
-if (!empty($user->ID)) {
+if (property_exists($user, 'ID')) {
 	$meta = get_user_meta( $user->ID );
 }
 
