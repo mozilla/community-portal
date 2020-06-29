@@ -47,8 +47,11 @@ $total_pages = ceil( $activity_count / $activities_per_page );
 			<?php foreach ( $activities as $activity ) : ?>
 				<?php
 				$activity_image  = wp_get_attachment_url( get_post_thumbnail_id( $activity->ID ) );
-				$activitiy_desc  = get_field( 'card_description', $activity->ID );
-				$time_commitment = get_field( 'time_commitment', $activity->ID );
+
+				if (function_exists('get_field')) {
+					$activitiy_desc  = get_field( 'card_description', $activity->ID );
+					$time_commitment = get_field( 'time_commitment', $activity->ID );
+				}
 				?>
 				<div class="col-lg-4 col-md-6 activities__column">
 					<div class="activities__card">
