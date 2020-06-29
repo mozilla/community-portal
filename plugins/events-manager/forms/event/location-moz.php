@@ -110,7 +110,7 @@ endif;
 		</div>
 		<div class="event-creator__three-up 
 		<?php
-		if ( 'online' === $location_type || ! $event_id ) :
+		if ( 'online' === $location_type || empty( $event_id ) ) :
 			echo esc_attr( 'event-creator__hidden' );
 		endif;
 		?>

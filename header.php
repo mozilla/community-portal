@@ -76,7 +76,9 @@ if (
 				case 'groups':
 					global $bp;
 					$group       = $bp->groups->current_group;
-					$group_meta  = groups_get_groupmeta( $group->id, 'meta' );
+					if ( ! empty( $group->id ) ) {
+						$group_meta  = groups_get_groupmeta( $group->id, 'meta' );
+					}
 					$og_title    = isset( $group->name ) && strlen( $group->name ) > 0 ? "{$group->name} - " . __( 'Mozilla Community Portal', 'community-portal' ) : __( 'Groups - Mozilla Community Portal', 'community-portal' );
 					$theme_title = $og_title;
 					$og_desc     = isset( $group->description ) && strlen( $group->description ) > 0 ? wp_strip_all_tags( $group->description ) : get_bloginfo( 'description' );

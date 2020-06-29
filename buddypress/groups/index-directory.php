@@ -175,7 +175,9 @@
 	}
 
 	foreach ( $language_code_with_groups as $code ) {
-		$used_language_list[ $code ] = $languages[ $code ];
+		if ( ! empty( $used_language_list[ $code ] ) ) {
+			$used_language_list[ $code ] = $languages[ $code ];
+		}
 	}
 
 	asort( $used_language_list );
@@ -274,7 +276,7 @@
 							<path d="M9.16667 15.8333C12.8486 15.8333 15.8333 12.8486 15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 							<path d="M17.5 17.5L13.875 13.875" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>
-							<input type="text" name="q" id="groups-search" class="groups__search-input" placeholder="<?php esc_attr_e( 'Search groups', 'community-portal' ); ?>" value="<?php echo esc_attr( $original_query ); ?>" />
+							<input type="text" name="q" id="groups-search" class="groups__search-input" placeholder="<?php esc_attr_e( 'Search groups', 'community-portal' ); ?>" value="<?php echo ! empty( $original_query ) ? esc_attr( $original_query ) : ''; ?>" />
 						</div>
 						<input type="button" class="groups__search-cta" value="<?php esc_attr_e( 'Search', 'community-portal' ); ?>" />
 					</form>
@@ -379,7 +381,7 @@
 				<?php if ( 0 === count( $groups ) ) : ?>
 					<div class="groups__no-results"><?php esc_html_e( 'No results found.  Please try another search term.', 'community-portal' ); ?></div>
 				<?php else : ?>
-					<?php if ( $original_query ) : ?>
+					<?php if ( ! empty( $original_query ) ) : ?>
 				<div class="groups__results-query">
 						<?php echo esc_html_e( 'Results for ', 'community-portal' ) . esc_html( "\"{$original_query}\"" ); ?>
 				</div>
