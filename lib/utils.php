@@ -509,6 +509,44 @@ function mozilla_match_categories() {
 	}
 }
 
+function mozilla_create_event_category( $term_id, $tt_id ) {
+	$term = get_term($term_id, $taxonomy);
+	if (false === stripos($term->slug, '_')) {
+		wp_insert_term( $term->name, 'event-categories' , array('slug' => $term->slug));		
+	}
+	return;
+}
+add_action( 'create_post_tag', 'mozilla_create_event_category', 10, 2 );
+
+function mozilla_update_event_category( $term_id, $tt_id ) {
+	$term = get_term($term_id, $taxonomy);
+	$cat_term = get_term_by('slug', $term->slug, 'event-categories');
+	if (empty($cat_term)) {
+		$cat_term = get_term_by('name', $term->name, 'event-categories');
+	}
+
+	if (!empty($term) && !empty($cat_term) && false === stripos($term->slug, '_')) {
+		wp_update_term( $cat_term->term_id, 'event-categories' , array('slug' => $term->slug, 'name' => $term->name ));		
+	}
+	return;
+}
+add_action( 'edited_post_tag',  'mozilla_update_event_category', 10, 3 );
+
+
+function mozilla_delete_event_category( $term_id, $tt_id, $deleted_term, $object_ids  ) {
+	$term = get_term($term_id, $taxonomy);
+	$cat_term = get_term_by('slug', $term->slug, 'event-categories');
+	if (empty($cat_term)) {
+		$cat_term = get_term_by('name', $term->name, 'event-categories');
+	}
+
+	if (!empty($term) && !empty($cat_term) && false === stripos($term->slug, '_')) {
+		wp_delete_term( $cat_term->term_id, 'event-categories');		
+	}
+	return;
+}
+add_action( 'deleted_post_tag',  'mozilla_delete_event_category', 10, 4 );
+
 /**
  * Redirect non admins
  */
