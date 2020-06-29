@@ -124,8 +124,10 @@
 							<div class="language-selector__container">
 								<p class="language-selector__label"><?php esc_html_e('Language', 'community-portal') ?></p>
 								<?php 
+								if ( function_exists( 'icl_get_languages' ) ) {
 									$wpml_languages = icl_get_languages('skip_missing=N&orderby=KEY&order=DIR&link_empty_to=str');
 									$current_langauge = ICL_LANGUAGE_CODE;
+								}
 									if (isset($wpml_languages) && count($wpml_languages) > 0):
 										$url = get_site_url(null, $_SERVER['REQUEST_URI']);
 								?>
