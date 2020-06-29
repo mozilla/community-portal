@@ -270,7 +270,10 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 						} else {
 							$body        = wp_remote_retrieve_body( $request );
 							$data        = json_decode( $body );
-							$coordinates = $data->features[0]->geometry->coordinates;
+
+							if (!empty($data->features)) {
+								$coordinates = $data->features[0]->geometry->coordinates;
+							}
 						}
 						?>
 						<?php if ( false === $mapbox_error && isset( $location_type ) && strlen( $location_type ) && 'online' !== $location_type && 'OE' !== $location->location_country ) : ?>
