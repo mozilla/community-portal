@@ -12,7 +12,11 @@
 
 
 $user = wp_get_current_user()->data;
-$meta = get_user_meta( $user->ID );
+
+if (!empty($user->ID)) {
+	$meta = get_user_meta( $user->ID );
+}
+
 $current_translation = mozilla_get_current_translation();
 
 $community_fields = isset( $meta['community-meta-fields'][0] ) ? unserialize( $meta['community-meta-fields'][0] ) : array();
