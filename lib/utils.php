@@ -479,7 +479,7 @@ function mozilla_add_query_vars_filter( $vars ) {
  */
 function mozilla_create_event_category( $term_id, $tt_id ) {
 	$term = get_term( $term_id, $taxonomy );
-	if ( false === stripos( $term->slug, '_' ) ) {
+	if ( !empty( $term ) && false === stripos( $term->slug, '_' ) ) {
 		wp_insert_term( $term->name, 'event-categories', array( 'slug' => $term->slug ) );
 	}
 }
@@ -509,7 +509,10 @@ function mozilla_update_event_category( $term_id, $tt_id ) {
 				'name' => $term->name,
 			)
 		);
+		return;
 	}
+	mozilla_create_event_category( $term_id, $tt_id );
+	
 }
 add_action( 'edited_post_tag', 'mozilla_update_event_category', 10, 3 );
 
