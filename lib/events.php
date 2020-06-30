@@ -81,7 +81,7 @@ function mozilla_approve_booking( $EM_Booking ) {
  */
 function mozilla_events_redirect( $location ) {
 	if ( strpos( $location, 'event_id' ) !== false ) {
-		$location = get_site_url( null, 'events/' );
+		$location = get_home_url( null, 'events/' );
 		return $location;
 	}
 

@@ -46,16 +46,10 @@ if ( count( $categories ) > 0 ) {
 	$current_translation = mozilla_get_current_translation();
 
 	foreach ( $categories as $category ) {
-
-		if ( 'en' !== $current_translation ) {
-			$main_category = substr( $category->slug, 0, stripos( $category->slug, '_' . $current_translation ) );
-			$event_term    = get_term_by( 'slug', $main_category, 'event-categories' );
-		}
-
-		$tag_name                             = ! empty( $event_term ) ? $event_term->name : $category->name;
+		$tag_name                             = mozilla_get_translated_tag( $category );
 		$categories[ $category->id ]          = array();
-		$categories[ $category->id ]['value'] = $tag_name;
-		$categories[ $category->id ]['label'] = $category->name;
+		$categories[ $category->id ]['value'] = $category->name;
+		$categories[ $category->id ]['label'] = $tag_name;
 	}
 }
 

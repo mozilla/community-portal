@@ -62,7 +62,7 @@
 <input type="hidden" id="string-translation" value="<?php echo esc_attr( $current_translation ); ?>" />
 <input type="hidden" name="image_url" id="image-url" value="
 <?php
-if ( $img_url ) {
+if ( isset( $img_url ) ) {
 	print esc_attr( $img_url );
 } else {
 	esc_attr( '' ); }

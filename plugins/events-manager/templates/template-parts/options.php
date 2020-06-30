@@ -34,8 +34,8 @@
 			<?php elseif ( 'Tag' === $field_name ) : ?>
 				<option value="<?php print esc_attr( $option['value'] ); ?>" 
 					<?php
-						if ( isset( $event_tag ) && strlen( $event_tag ) > 0 && strtolower( $event_tag ) === strtolower( $option['value']) ) :
-					?>
+					if ( isset( $event_tag ) && strlen( $event_tag ) > 0 && strtolower( $event_tag ) === strtolower( $option['value'] ) ) :
+						?>
 					selected
 					<?php endif; ?> 
 					><?php print esc_html( $option['label'] ); ?></option>

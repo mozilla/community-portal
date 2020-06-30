@@ -40,7 +40,6 @@ function verify_trailing_slash( $url, $language ) {
 		$url = preg_replace( '/(\b[a-zA-Z]{2}\b)/', '${1}/', $url );
 		mozilla_wpml_redirect( $url );
 	}
-	return;
 }
 
 /**
@@ -77,8 +76,7 @@ function mozilla_match_browser_locale() {
 		$url            = get_site_url( null, esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
 		$wpml_languages = icl_get_languages( 'skip_missing=N&orderby=KEY&order=DIR&link_empty_to=str' );
 		preg_match( '/\b[a-zA-Z]{2}\b/', $url, $matches );
-
-		if ( wp_doing_ajax() || is_admin() || ( isset( $matches[0] ) && 'wp' === $matches[0] ) ) {
+		if ( wp_doing_ajax() || is_admin() || ( isset( $matches[0] ) && 'wp' === $matches[0] ) || isset( $_GET['action'] ) ) {
 			return;
 		}
 
@@ -105,4 +103,20 @@ function mozilla_add_default_language( $url, $code ) {
 		$url  = get_site_url( null, $code . $path );
 	}
 	return $url;
+}
+
+/**
+ * Get translated tag
+ *
+ * @param object $category Passing category object.
+ */
+function mozilla_get_translated_tag( $category ) {
+	$current_translation = mozilla_get_current_translation();
+	if ( 'en' !== $current_translation ) {
+		$translation = get_term_by( 'slug', $category->slug . '_' . $current_translation, 'post_tag' );
+		if ( ! empty( $translation ) ) {
+			return $translation->name;
+		}
+	}
+	return $category->name;
 }

@@ -23,7 +23,8 @@ if ( $user->ID && ( ! isset( $meta['agree'][0] ) || 'I Agree' !== $meta['agree']
 
 
 if ( ! empty( $_GET['success'] ) && '1' === $_GET['success'] ) {
-	wp_safe_redirect( '/events' );
+	$redirect = get_home_url( null, 'events' );
+	wp_safe_redirect( $redirect );
 	exit();
 }
 
@@ -37,7 +38,7 @@ get_header();
 <div class="events__header events__header--edit">
 	<div class="row middle-md event-creator__container">
 		<div class="col-md-6 events__header__text">
-		<h1 class="title"><?php ( isset($event_id) && strlen($event_id) > 0 ? esc_html_e( 'Edit Event', 'community-portal' ) : esc_html_e( 'Create Event', 'community-portal' ) ); ?></h1>
+		<h1 class="title"><?php ( isset( $event_id ) && strlen( $event_id ) > 0 ? esc_html_e( 'Edit Event', 'community-portal' ) : esc_html_e( 'Create Event', 'community-portal' ) ); ?></h1>
 		</div>
 	</div>
 </div>
