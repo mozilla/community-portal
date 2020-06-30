@@ -508,7 +508,7 @@
         border-radius: 28px;
         color: $color-blue-50;
         font-size: remCalc(16);
-        height: 48px;
+        min-height: 48px;
         line-height: 18px;
         min-width: 160px;
         padding: 15px 33px;
@@ -517,7 +517,7 @@
         text-align: center;
         text-decoration: none;
         transition: background-color 0.2s ease-in;
-        width: 188px;
+        max-width: 300px;
 
         &:focus,
         &:hover {
@@ -530,11 +530,6 @@
                     stroke: $color-white;
                 }
             }
-        }
-
-
-        @include tablet-and-up {
-            width: 188px;
         }
 
         svg {

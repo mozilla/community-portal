@@ -440,15 +440,24 @@ function mozilla_menu_class( $classes, $item, $args ) {
 	if ( ! empty( $_SERVER['REQUEST_URI'] ) ) {
 		$request_uri = trim( esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
 
-		$path_items = array_filter( explode( '/', $request_uri ) );
-		$menu_url   = strtolower( str_replace( '/', '', $item->url ) );
+		$current_translation = mozilla_get_current_translation();
+		$path_items          = array_filter( explode( '/', $request_uri ) );
+		$menu_url_parts      = explode( '/', $item->url );
+		$menu_url            = strtolower( str_replace( '/', '', $item->url ) );
 
 		if ( count( $path_items ) > 0 ) {
-			$current_translation = mozilla_get_current_translation();
-			$key                 = $current_translation ? 2 : 1;
-			if ( strtolower( $path_items[ $key ] ) === $menu_url ) {
-				$item->current = true;
-				$classes[]     = 'menu-item--active';
+			if ( 'en' !== $current_translation && ! empty( $path_items[2] ) && ! empty( $menu_url_parts[2] ) ) {
+				if ( strtolower( $path_items[2] ) === strtolower( $menu_url_parts[2] ) ) {
+					$item->current = true;
+					$classes[]     = 'menu-item--active';
+				}
+			} else {
+				if ( ! empty( $path_items[2] ) && ! empty( $menu_url_parts[1] ) ) {
+					if ( strtolower( $path_items[2] ) === strtolower( $menu_url_parts[1] ) ) {
+						$item->current = true;
+						$classes[]     = 'menu-item--active';
+					}
+				}
 			}
 		}
 	}

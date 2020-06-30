@@ -16,13 +16,14 @@
 	get_header();
 
 	$template_dir = get_template_directory();
+	
 	require "{$template_dir}/languages.php";
 
 	// Execute actions by buddypress!
 	do_action( 'bp_before_directory_groups_page' );
 	do_action( 'bp_before_directory_groups' );
 	$logged_in = mozilla_is_logged_in();
-
+	
 	$groups_per_page = 12;
 	$p               = ( isset( $_GET['page'] ) ) ? intval( $_GET['page'] ) : 1;
 	$args            = array(
@@ -39,12 +40,12 @@
 	}
 
 	$mygroups     = isset( $_GET['mygroups'] ) ? htmlspecialchars( sanitize_text_field( wp_unslash( $_GET['mygroups'] ) ), ENT_QUOTES, 'UTF-8' ) : '';
-	$location     = isset( $_GET['location'] ) ? htmlspecialchars( sanitize_text_field( wp_unslash( $_GET['location'] ) ), ENT_QUOTES, 'UTF-8' ) : '';
+	$location     = isset( $_GET['country'] ) ? htmlspecialchars( sanitize_text_field( wp_unslash( $_GET['country'] ) ), ENT_QUOTES, 'UTF-8' ) : '';
 	$get_language = isset( $_GET['language'] ) ? htmlspecialchars( sanitize_text_field( wp_unslash( $_GET['language'] ) ), ENT_QUOTES, 'UTF-8' ) : '';
 	$get_tag      = isset( $_GET['tag'] ) ? htmlspecialchars( sanitize_text_field( wp_unslash( $_GET['tag'] ), ENT_QUOTES, 'UTF-8' ) ) : '';
 
 	$current_translation = mozilla_get_current_translation();
-
+	
 	if ( $q ) {
 		if (
 			strpos( $q, '"' ) !== false ||
@@ -88,7 +89,7 @@
 	$used_country_list     = array();
 	$used_language_list    = array();
 
-
+	
 	foreach ( $groups as $group ) {
 		$meta        = groups_get_groupmeta( $group->id, 'meta' );
 		$group->meta = $meta;
@@ -102,8 +103,8 @@
 		}
 
 		if ( isset( $_GET['tag'] ) && strlen( $get_tag ) > 0
-			&& isset( $_GET['location'] ) && strlen( $location ) > 0
-			&& isset( $_GET['language'] ) && strlen( $get_language ) > 0 ) {
+			&& isset( $_GET['country'] ) && strlen( $location ) > 0
+			&& isset( $_GET['country'] ) && strlen( $get_language ) > 0 ) {
 
 			if ( isset( $meta['group_language'] ) ) {
 				if ( in_array( strtolower( trim( $get_tag ) ), array_map( 'strtolower', $meta['group_tags'] ), true )
@@ -114,7 +115,7 @@
 				}
 			}
 		} elseif ( ( ! isset( $_GET['tag'] ) || 0 === strlen( $get_tag ) )
-			&& isset( $_GET['location'] ) && strlen( $location ) > 0
+			&& isset( $_GET['country'] ) && strlen( $location ) > 0
 			&& isset( $_GET['language'] ) && strlen( $get_language ) > 0 ) {
 
 			if ( isset( $meta['group_language'] ) ) {
@@ -125,7 +126,7 @@
 				}
 			}
 		} elseif ( isset( $_GET['tag'] ) && strlen( $get_tag ) > 0
-			&& ( ! isset( $_GET['location'] ) || 0 === strlen( $location ) )
+			&& ( ! isset( $_GET['country'] ) || 0 === strlen( $location ) )
 			&& ( ! isset( $_GET['language'] ) || 0 === strlen( $get_language ) ) ) {
 
 			if ( in_array( strtolower( trim( $get_tag ) ), array_map( 'strtolower', $meta['group_tags'] ), true ) ) {
@@ -133,7 +134,7 @@
 				continue;
 			}
 		} elseif ( isset( $_GET['tag'] ) && strlen( $get_tag ) > 0
-			&& ( ! isset( $_GET['location'] ) || strlen( $location ) === 0 )
+			&& ( ! isset( $_GET['country'] ) || strlen( $location ) === 0 )
 			&& isset( $_GET['language'] ) && strlen( $get_language ) > 0 ) {
 
 			if ( isset( $meta['group_language'] ) ) {
@@ -143,7 +144,7 @@
 					continue;
 				}
 			}
-		} elseif ( isset( $_GET['location'] ) && strlen( $location ) > 0
+		} elseif ( isset( $_GET['country'] ) && strlen( $location ) > 0
 			&& ( ! isset( $_GET['language'] ) || 0 === strlen( $get_language ) )
 			&& ( ! isset( $_GET['tag'] ) || 0 === strlen( $get_tag ) )
 			) {
@@ -152,7 +153,7 @@
 				continue;
 			}
 		} elseif ( isset( $_GET['language'] ) && strlen( $get_language ) > 0
-			&& ( ! isset( $_GET['location'] ) || 0 === strlen( $location ) )
+			&& ( ! isset( $_GET['country'] ) || 0 === strlen( $location ) )
 			&& ( ! isset( $_GET['tag'] ) || 0 === strlen( $get_tag ) )
 		) {
 			if ( isset( $meta['group_language'] ) ) {
@@ -165,7 +166,7 @@
 			$filtered_groups[] = $group;
 		}
 	}
-
+	
 	$country_code_with_groups  = array_unique( $countries_with_groups );
 	$language_code_with_groups = array_unique( $languages_with_groups );
 
@@ -217,11 +218,13 @@
 
 	$group_count = count( $filtered_groups );
 	$offset      = ( $p - 1 ) * $groups_per_page;
+	
 	$groups      = array_slice( $filtered_groups, $offset, $groups_per_page );
 
 
 	$total_pages = ceil( $group_count / $groups_per_page );
 	$tags        = get_tags( array( 'hide_empty' => false ) );
+	
 	?>
 <div class="content">
 	<?php do_action( 'bp_before_directory_groups_content' ); ?>
@@ -247,11 +250,11 @@
 						?>
 						<input type="hidden" value="<?php echo esc_attr( $get_tag ); ?>" name="tag" id="group-tag" />
 						<?php
-						if ( isset( $_GET['location'] ) && strlen( $location ) > 0 ) {
+						if ( isset( $_GET['country'] ) && strlen( $location ) > 0 ) {
 							$location = trim( $location );
 						}
 						?>
-						<input type="hidden" value="<?php echo esc_attr( $location ); ?>" name="location" id="group-location" />
+						<input type="hidden" value="<?php echo esc_attr( $location ); ?>" name="country" id="group-location" />
 						<?php
 						if ( isset( $_GET['language'] ) && strlen( $get_language ) > 0 ) {
 							$get_language = trim( $get_language );
@@ -312,7 +315,7 @@
 			</div>
 				<div class="groups__filter-container
 				<?php
-				if ( ! isset( $_GET['location'] ) && ! isset( $_GET['mygroups'] ) ) :
+				if ( ! isset( $_GET['country'] ) && ! isset( $_GET['mygroups'] ) ) :
 					?>
 					groups__filter-container--hidden<?php endif; ?>">
 				<span><?php esc_html_e( 'Filter by:', 'community-portal' ); ?></span>
@@ -323,7 +326,7 @@
 						<?php foreach ( $used_country_list as $code   => $country ) : ?>
 						<option value="<?php echo esc_attr( $code ); ?>"
 												<?php
-												if ( isset( $_GET['location'] ) && strlen( $location ) > 0 && $location === $code ) :
+												if ( isset( $_GET['country'] ) && strlen( $location ) > 0 && $location === $code ) :
 													?>
 							selected<?php endif; ?>><?php echo esc_html( $country ); ?></option>
 						<?php endforeach; ?>
@@ -366,7 +369,7 @@
 				</div>
 			</div>
 			<div class="groups__show-filters-container">
-				<a href="#" class="groups__toggle-filter <?php echo ( isset( $_GET['location'] ) || isset( $_GET['mygroups'] ) ? 'groups__toggle-filter--hide' : 'groups__toggle-filter--show' ); ?>">
+				<a href="#" class="groups__toggle-filter <?php echo ( isset( $_GET['country'] ) || isset( $_GET['mygroups'] ) ? 'groups__toggle-filter--hide' : 'groups__toggle-filter--show' ); ?>">
 					<span class="filters__show"><?php esc_html_e( 'Show Filters', 'community-portal' ); ?></span>
 					<span class="filters__hide"><?php esc_html_e( 'Hide Filters', 'community-portal' ); ?></span>
 				</a>
@@ -519,9 +522,9 @@
 								?>
 	&tag=<?php echo esc_attr( $get_tag ); ?><?php endif; ?>
 							<?php
-							if ( isset( $_GET['location'] ) ) :
+							if ( isset( $_GET['country'] ) ) :
 								?>
-	&location=<?php echo esc_attr( $location ); ?><?php endif; ?>
+	&country=<?php echo esc_attr( $location ); ?><?php endif; ?>
 							<?php
 							if ( isset( $_GET['language'] ) ) :
 								?>
@@ -547,9 +550,9 @@
 									?>
 	&tag=<?php echo esc_attr( $get_tag ); ?><?php endif; ?>
 								<?php
-								if ( isset( $_GET['location'] ) ) :
+								if ( isset( $_GET['country'] ) ) :
 									?>
-	&location=<?php echo esc_attr( $location ); ?><?php endif; ?>
+	&country=<?php echo esc_attr( $location ); ?><?php endif; ?>
 								<?php
 								if ( isset( $_GET['language'] ) ) :
 									?>
@@ -569,9 +572,9 @@
 									?>
 	&tag=<?php echo esc_attr( $get_tag ); ?><?php endif; ?>
 								<?php
-								if ( isset( $_GET['location'] ) ) :
+								if ( isset( $_GET['country'] ) ) :
 									?>
-	&location=<?php echo esc_attr( $location ); ?><?php endif; ?>
+	&country=<?php echo esc_attr( $location ); ?><?php endif; ?>
 								<?php
 								if ( isset( $_GET['language'] ) ) :
 									?>
@@ -602,9 +605,9 @@
 									?>
 	&tag=<?php echo esc_attr( $get_tag ); ?><?php endif; ?>
 								<?php
-								if ( isset( $_GET['location'] ) ) :
+								if ( isset( $_GET['country'] ) ) :
 									?>
-	&location=<?php echo esc_attr( $location ); ?><?php endif; ?>
+	&country=<?php echo esc_attr( $location ); ?><?php endif; ?>
 								<?php
 								if ( isset( $_GET['language'] ) ) :
 									?>
@@ -627,9 +630,9 @@
 								?>
 	&tag=<?php echo esc_attr( $get_tag ); ?><?php endif; ?>
 							<?php
-							if ( isset( $_GET['location'] ) ) :
+							if ( isset( $_GET['country'] ) ) :
 								?>
-	&location=<?php echo esc_attr( $location ); ?><?php endif; ?>
+	&country=<?php echo esc_attr( $location ); ?><?php endif; ?>
 							<?php
 							if ( isset( $_GET['language'] ) ) :
 								?>

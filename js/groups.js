@@ -316,7 +316,7 @@ jQuery(function(){
     jQuery('.groups__search-cta').click(function(e) {
         jQuery('input[name="tag"]').prop('disabled', true);
         jQuery('input[name="language"]').prop('disabled', true);
-        jQuery('input[name="location"]').prop('disabled', true);
+        jQuery('input[name="country"]').prop('disabled', true);
         jQuery('input[name="mygroups"]').prop('disabled', true);
 
         jQuery('#group-search-form').submit();
@@ -330,7 +330,7 @@ jQuery(function(){
 
     jQuery('.groups__location-select').change(function(e) {
         var location = jQuery(this).val();
-        jQuery('input[name="location"]').val(location);
+        jQuery('input[name="country"]').val(location);
 
         if(jQuery('input[name="tag"]').val().length === 0) {
             jQuery('input[name="tag"]').prop('disabled', true);
@@ -352,8 +352,8 @@ jQuery(function(){
         var language = jQuery(this).val();
         jQuery('input[name="language"]').val(language);
 
-        if(jQuery('input[name="location"]').val().length === 0) {
-            jQuery('input[name="location"]').prop('disabled', true);
+        if(jQuery('input[name="country"]').val().length === 0) {
+            jQuery('input[name="country"]').prop('disabled', true);
         }
 
         if(jQuery('input[name="tag"]').val().length === 0) {
