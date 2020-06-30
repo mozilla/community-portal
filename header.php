@@ -76,7 +76,7 @@ if (
 				case 'groups':
 					global $bp;
 					$group       = $bp->groups->current_group;
-					if ( property_exists( $group, 'id' ) ) {
+					if ( is_object($group) && property_exists( $group, 'id' ) ) {
 						$group_meta  = groups_get_groupmeta( $group->id, 'meta' );
 					}
 					$og_title    = isset( $group->name ) && strlen( $group->name ) > 0 ? "{$group->name} - " . __( 'Mozilla Community Portal', 'community-portal' ) : __( 'Groups - Mozilla Community Portal', 'community-portal' );

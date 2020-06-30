@@ -175,7 +175,7 @@
 	}
 
 	foreach ( $language_code_with_groups as $code ) {
-		if ( ! empty( $used_language_list[ $code ] ) ) {
+		if ( ! empty( $languages[ $code ] ) ) {
 			$used_language_list[ $code ] = $languages[ $code ];
 		}
 	}
