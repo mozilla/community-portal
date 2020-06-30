@@ -137,7 +137,7 @@
 				foreach ( $categories->terms as $category ) : 
 					$current_translation = mozilla_get_current_translation();
 						if ($current_translation) {
-							$main_category = $category->slug . '-' . $current_translation;
+							$main_category = $category->slug . '_' . $current_translation;
 							$term = get_term_by('slug', $main_category, 'event-categories');
 						}
 						$tag_name = !empty($term) ? $term->name : $category->name;?>

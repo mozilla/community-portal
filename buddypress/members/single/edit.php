@@ -903,8 +903,8 @@ else :
 							<?php foreach ( $tags as &$loop_tag ) : ?>
 								<?php
 								if ( $current_translation ) {
-									if ( stripos( $loop_tag->slug, '-' ) !== false ) {
-										$loop_tag->slug = substr( $loop_tag->slug, 0, stripos( $loop_tag->slug, '-' ) );
+									if ( false !== stripos( $loop_tag->slug, '_' ) ) {
+										$loop_tag->slug = substr( $loop_tag->slug, 0, stripos( $loop_tag->slug, '_' ) );
 									}
 								}
 								?>

@@ -154,9 +154,7 @@ function mozilla_upload_image() {
 							}
 						}
 					} else {
-						$image_size_string = __( 'Image size to large ', 'community-portal' );
-						$max_string        = __( 'KB maximum', 'community-portal' );
-						print esc_html( "{$image_size_string} ({$max_files_size_allowed} {$max_string})" );
+						print esc_html_e( 'Image size to large ', 'community-portal' ).esc_html_e( '(250KB maximum)', 'community-portal' );
 					}
 				}
 			}
@@ -507,6 +505,12 @@ function mozilla_match_categories() {
 		$wp_terms
 	);
 
+	foreach ( $cat_terms as $cat_term ) {
+		if ( is_array($wp_terms_slugs) && ! in_array( $cat_term->slug, $wp_terms_slugs, true ) ) {
+			wp_delete_term( $cat_term->term_id, EM_TAXONOMY_CATEGORY );
+		}
+	}
+
 	foreach ( $wp_terms as $single_term ) {
 		if ( ! in_array( $single_term->slug, $cat_terms_slugs, true ) ) {
 			if ( $current_translation && stripos( $single_term->slug, $current_translation ) === false ) {
@@ -515,11 +519,6 @@ function mozilla_match_categories() {
 				continue;
 			}
 			wp_insert_term( $single_term->name, EM_TAXONOMY_CATEGORY, array( 'slug' => $single_term->slug ) );
-		}
-	}
-	foreach ( $cat_terms as $cat_term ) {
-		if ( is_array( $wp_terms_slugs ) && ! in_array( $cat_term->slug, $wp_terms_slugs, true ) ) {
-			wp_delete_term( $cat_term->term_id, EM_TAXONOMY_CATEGORY );
 		}
 	}
 }

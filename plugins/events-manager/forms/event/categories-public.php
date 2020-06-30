@@ -23,12 +23,12 @@
 	<div class="event-categories event-creator__container">
 	<!-- START Categories -->
 		<fieldset class="event-creator__fieldset" id="event_categories[]">
-			<legend class="event-creator__label" for="event_categories[]"><?php esc_html_e( 'Select a tag for your event', 'commuity-portal' ); ?></legend>
+			<legend class="event-creator__label" for="event_categories[]"><?php esc_html_e( 'Select a tag for your event', 'community-portal' ); ?></legend>
 			<?php
 				$selected = $em_event->get_categories()->get_ids();
 				foreach ( $categories as $category ) {
 					if ($current_translation) {
-						$main_category = substr( $category->slug, 0, stripos( $category->slug, '-' . $current_translation) );
+						$main_category = substr( $category->slug, 0, stripos( $category->slug, '_') );
 						$term = get_term_by('slug', $main_category, 'event-categories');
 					}
 					$tag_id = !empty( $term) ?  $term->term_id : $category->id;

@@ -153,7 +153,7 @@
 						</div>
 					</div>
 					<div class="footer__menu-legal-container">
-						<?php if ( $current_translation ) : ?>
+						<?php if ( 'en' !== $current_translation ) : ?>
 							<?php
 							wp_nav_menu(
 								array(

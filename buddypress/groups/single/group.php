@@ -1018,6 +1018,13 @@
 									<select class="members__tag-select">
 										<option value=""><?php esc_html_e( 'Select', 'community-portal' ); ?></option>
 										<?php foreach ( $tags as $loop_tag ) : ?>
+										<?php 
+											if( $current_translation )	{
+												if ( false !== stripos( $loop_tag->slug, '_' ) ) {
+													$loop_tag->slug = substr( $loop_tag->slug, 0, stripos( $loop_tag->slug, '_' ) ); 
+												}
+											}
+										?>
 										<option value="<?php echo esc_html( $loop_tag->slug ); ?>" 
 																<?php
 																if ( isset( $_GET['tag'] ) && strtolower( trim( $get_tag ) ) === strtolower( $loop_tag->slug ) ) :
@@ -1620,7 +1627,7 @@
 								<span><?php esc_html_e( 'Preferred Language', 'community-portal' ); ?></span>
 								<div class="group__tags">
 									<div class="group__language">
-										<a href="/groups/?language=<?php echo esc_attr( strtolower( $group_meta['group_language'] ) ); ?>" class="group__language-link"><?php echo esc_html( $languages[ strtolower( $group_meta['group_language'] ) ] ); ?></a>
+										<a href="/groups?language=<?php echo esc_attr( strtolower( $group_meta['group_language'] ) ); ?>" class="group__language-link"><?php echo esc_html( $languages[ strtolower( $group_meta['group_language'] ) ] ); ?></a>
 									</div>
 								</div>
 							</div>
@@ -1637,7 +1644,10 @@
 											$found = false;
 											if ( $current_translation ) {
 												$temp_slug = $t->slug;
-												$temp_slug = substr( $temp_slug, 0, stripos( $temp_slug, '-' ) );
+												if(false !== stripos( $temp_slug, '_' ) ) {
+													$temp_slug = substr( $temp_slug, 0, stripos( $temp_slug, '_' ) );
+												}
+											
 												if ( $tag_loop === $temp_slug ) {
 													$tag_name = $t->name;
 													$found    = true;
@@ -1653,9 +1663,7 @@
 											}
 										}
 										?>
-										<?php if ( ! empty( $system_tag[0]->name ) ) : ?>
-									<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/?tag=<?php echo esc_attr( $tag_loop ); ?>" class="group__tag"><?php echo esc_html( $system_tag[0]->name ); ?></a>
-									<?php endif; ?>
+										<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}/" ); ?><?php endif; ?>/groups/?tag=<?php echo esc_attr( $tag_loop ); ?>" class="group__tag"><?php echo esc_html( $tag_name ); ?></a>
 									<?php endforeach; ?>
 								</div>
 							</div>
