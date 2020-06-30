@@ -69,14 +69,14 @@ if ( isset( $_REQUEST['nonce'] ) && wp_verify_nonce( sanitize_key( $_REQUEST['no
 				required>
 					<option value="online" 
 					<?php
-					if ( 'online' === $location_type ) :
+					if ( isset( $location_type ) && 'online' === $location_type ) :
 						echo esc_attr( 'selected' );
 					endif;
 					?>
 					default ><?php esc_html_e( 'Online', 'community-portal' ); ?></option>
 					<option value="address" 
 					<?php
-					if ( 'address' === $location_type ) :
+					if ( isset( $location_type ) && 'address' === $location_type ) :
 						echo esc_attr( 'selected' );
 endif;
 					?>
@@ -94,10 +94,10 @@ endif;
 				>
 			</div>
 			<div class="wide--double">
-				<?php 
-					$location_class = 'address' === $location_type ? 'event-creator__label--in-person' : 'event-creator__label--online';
+				<?php
+					$location_class = isset( $location_type ) && 'address' === $location_type ? 'event-creator__label--in-person' : 'event-creator__label--online';
 				?>
-				<label class="event-creator__label <?php echo esc_attr($location_class); ?>" for="location-name" id="location-name-label">
+				<label class="event-creator__label <?php echo esc_attr( $location_class ); ?>" for="location-name" id="location-name-label">
 					<span class="online"><?php esc_html_e( 'Online Meeting Link *', 'community-portal' ); ?></span>
 					<span class="in-person"><?php esc_html_e( 'Location Name *', 'community-portal' ); ?></span>	
 				</label>
@@ -113,7 +113,7 @@ endif;
 		</div>
 		<div class="event-creator__three-up 
 		<?php
-		if ( 'online' === $location_type || ! $event_id ) :
+		if ( isset( $location_type ) && 'online' === $location_type || ! isset( $event_id ) ) :
 			echo esc_attr( 'event-creator__hidden' );
 		endif;
 		?>

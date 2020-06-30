@@ -31,7 +31,7 @@
 
 	$categories = ( ! is_null( $event ) ) ? $event->get_categories() : false;
 	$location   = em_get_location( $event->location_id );
-	$url        = get_home_url(null, '/events/' . $event->slug);
+	$url        = get_home_url( null, '/events/' . $event->slug );
 
 	?>
 <div class="col-lg-4 col-md-6 events__column">
@@ -56,10 +56,10 @@
 				<?php
 					$month      = substr( $event->start_date, 5, 2 );
 					$date       = substr( $event->start_date, 8, 2 );
-					$event_year = substr( $event->start_date, 0, 4 ); 
-					if (isset($months[$month]) && strlen($months[$month]) > 0):
-				?>
-					<p class="event-card__image__date"><span><?php  echo esc_html( substr( $months[ $month ], 0, 3 ) ); ?> </span><span><?php echo esc_html( $date ); ?></span>
+					$event_year = substr( $event->start_date, 0, 4 );
+				if ( isset( $months[ $month ] ) && strlen( $months[ $month ] ) > 0 ) :
+					?>
+					<p class="event-card__image__date"><span><?php echo esc_html( substr( $months[ $month ], 0, 3 ) ); ?> </span><span><?php echo esc_html( $date ); ?></span>
 					</p>
 				<?php endif; ?>
 			</div>
@@ -82,14 +82,14 @@
 							echo esc_html( $location->address ) . esc_html( ' - ' );
 						}
 
-						if ( isset( $location->town ) && strlen($location->town) > 0) {
+						if ( isset( $location->town ) && strlen( $location->town ) > 0 ) {
 							if ( strlen( $location->town ) > 180 ) {
 								$city = substr( $location->town, 0, 180 );
 								echo esc_html( $city );
 							}
 
 							if ( $location->country ) {
-								if ( isset($city) ) {
+								if ( isset( $city ) ) {
 									print esc_html( ', ' );
 								}
 
@@ -133,14 +133,10 @@
 			</div>
 			<ul class="events__tags">
 			<?php if ( false !== $categories && is_array( $categories->terms ) ) : ?>
-			<?php 
-				foreach ( $categories->terms as $category ) : 
-					$current_translation = mozilla_get_current_translation();
-						if ($current_translation) {
-							$main_category = $category->slug . '_' . $current_translation;
-							$term = get_term_by('slug', $main_category, 'event-categories');
-						}
-						$tag_name = !empty($term) ? $term->name : $category->name;?>
+				<?php
+				foreach ( $categories->terms as $category ) :
+					$tag_name = mozilla_get_translated_tag( $category );
+					?>
 					<li class="tag"><?php echo esc_html( $tag_name ); ?></li>
 					<?php break; ?>
 				<?php endforeach; ?>

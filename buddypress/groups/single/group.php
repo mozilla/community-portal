@@ -930,7 +930,7 @@
 						</div>
 									<h2 class="group__card-title"><?php esc_html_e( 'People', 'community-portal' ); ?>
 																					<?php
-																					if ( $members['count'] > 0 ) :
+																					if ( isset($members['count']) && $members['count'] > 0 ) :
 																						?>
 																						<?php echo esc_html( " ({$members['count']})" ); ?><?php endif; ?></h2>
 						<?php if ( $group_members['count'] > 0 ) : ?>
@@ -1198,10 +1198,8 @@
 											if ( is_array( $categories->terms ) ) :
 												if ( count( $categories->terms ) <= 2 ) :
 													foreach ( $categories->terms as $category ) {
-														if ($current_translation) {
-															$translation = get_term_by('slug', $category->slug . '-' . $current_translation, 'event-categories');
-														}
-														$term_name = isset($translation) && strlen($translation->name) > 0 ? $translation->name : $category->name;
+														$term_name = mozilla_get_translated_tag($category);
+
 														?>
 													<li class="tag"><?php echo esc_html( $term_name ); ?></li>
 														<?php
