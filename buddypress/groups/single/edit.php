@@ -67,7 +67,7 @@ $form_tags = isset( $form['tags'] ) ? array_unique( array_filter( $form['tags'],
 				<h1 class="create-group__title"><?php esc_html_e( 'Edit Group', 'community-portal' ); ?></h1>
 			</div>
 		</div>
-		<input type="hidden" id="string-translation" value="<?php echo esc_attr( $current_translation ? $current_translation : 'en' ); ?>" />
+		<input type="hidden" id="string-translation" value="<?php echo esc_attr( $current_translation ); ?>" />
 		<form action="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>/admin/edit-details/" method="post" id="create-group-form" class="standard-form create-group__form" enctype="multipart/form-data" novalidate>
 		<div class="create-group__container">
 			<ol class="create-group__menu">
@@ -215,7 +215,9 @@ $form_tags = isset( $form['tags'] ) ? array_unique( array_filter( $form['tags'],
 								<?php foreach ( $tags as $loop_tag ) : ?>
 									<?php 
 										if( $current_translation )	{
-											$loop_tag->slug = substr( $loop_tag->slug, 0, stripos( $loop_tag->slug, '-' ) ); 
+											if ( false !== stripos( $loop_tag->slug, '_' ) ) {
+												$loop_tag->slug = substr( $loop_tag->slug, 0, stripos( $loop_tag->slug, '_' ) ); 
+											}
 										}
 									?>
 									<input class="create-group__checkbox" type="checkbox" id="<?php echo esc_attr( $loop_tag->slug ); ?>" data-value="<?php echo esc_attr( $loop_tag->slug ); ?>">

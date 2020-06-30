@@ -155,7 +155,10 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 				<?php endif; ?>
 			</div>
 		</div>
+		<?php
 
+
+		?>
 		<?php if ( $info['groups']->display ) : ?>
 			<?php $groups = groups_get_user_groups( $info['id'] ); ?>
 			<?php if ( $groups['total'] > 0 ) : ?>
@@ -195,7 +198,13 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 						<?php
 						if ( isset( $group_meta['group_city'] ) && strlen( trim( $group_meta['group_city'] ) ) > 0 || isset( $group_meta['group_country'] ) && strlen( trim( $group_meta['group_country'] ) ) > 1 ) :
 							?>
-						|<?php endif; ?><?php echo esc_html( "{$group_meta['group_type']}" ); ?><?php endif; ?>
+						|<?php endif; ?>
+						<?php if( 'Online' === $group_meta['group_type'] ): ?>
+							<?php esc_html_e( 'Online', 'community-portal' ); ?>
+						<?php else: ?>
+							<?php esc_html_e( 'Offline', 'community-portal' ); ?>
+						<?php endif; ?>
+					<?php endif; ?>
 				</div>
 				<div class="profile__group-member-count">
 					<svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -547,11 +556,12 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 				<?php
 				foreach ( $system_tags as $t ) {
 					$found = false;
-
+					
 					if ( $current_translation ) {
+						
 						$temp_slug = $t->slug;
-						if ( stripos( $temp_slug, '-' ) !== false ) {
-							$temp_slug = substr( $temp_slug, 0, stripos( $temp_slug, '-' ) );
+						if ( false !== stripos( $temp_slug, '_' ) ) {
+							$temp_slug = substr( $temp_slug, 0, stripos( $temp_slug, '_' ) );
 						}
 						$temp_name = $t->name;
 

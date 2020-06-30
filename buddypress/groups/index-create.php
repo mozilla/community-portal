@@ -55,7 +55,7 @@ if ( isset( $_SESSION['form'] ) ) {
 }
 
 $form_tags = isset( $form['tags'] ) ? array_filter( explode( ',', $form['tags'] ), 'strlen' ) : array();
-
+$current_translation = mozilla_get_current_translation();
 ?>
 <div class="content">
 	<div class="create-group">
@@ -66,6 +66,7 @@ $form_tags = isset( $form['tags'] ) ? array_filter( explode( ',', $form['tags'] 
 			</div>
 		</div>
 		<form action="<?php bp_group_creation_form_action(); ?>" method="post" id="create-group-form" class="standard-form create-group__form" enctype="multipart/form-data" novalidate>
+			<input type="hidden" id="string-translation" value="<?php echo esc_attr( $current_translation ); ?>" />
 			<div class="create-group__container">
 				<ol class="create-group__menu">
 					<li class="create-group__menu-item
