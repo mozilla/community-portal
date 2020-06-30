@@ -16,6 +16,7 @@ global $bp;
 $group     = $bp->groups->current_group;
 $live_user = wp_get_current_user()->data;
 
+
 // Improved site routing.
 if ( $group && property_exists( $live_user, 'ID' ) ) {
 	$meta = get_user_meta( $live_user->ID );

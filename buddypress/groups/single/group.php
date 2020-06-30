@@ -131,9 +131,10 @@
 	$used_country_list = array();
 	$used_languages    = array();
 
+	$live_user = !empty($live_user) ? $live_user : false;
+
 	// Time to filter stuff!
 	foreach ( $real_members as $index => $member ) {
-
 		$info           = mozilla_get_user_info( $live_user, $member, $logged_in );
 		$member->info   = $info;
 		$member_tags    = array_filter( explode( ',', $info['tags']->value ) );
@@ -1505,19 +1506,23 @@
 								'scope'   => 'all',
 							);
 							$events     = EM_Events::get( $args );
-							$event      = isset( $events[0] ) ? $events[0] : false;
-							$event_time = strtotime( $event->start_date );
-							$event_date = gmdate( 'M d', $event_time );
+							$event      = isset( $events[0] ) && !empty($events[0]) ? $events[0] : false;
+							$event_time = $event && isset($event->start_date) ? strtotime( $event->start_date ) : false;
+							$event_date = $event_time ? gmdate( 'M d', $event_time ) : false;
 
-
-							$location = em_get_location( $event->location_id );
-
-							if( $current_translation ) {
-								$event_link = "/{$current_translation}/events/{$event->event_slug}";
+							if ($event) {
+								$location = em_get_location( $event->location_id );
 							} else {
-								$event_link = "/events/{$event->event_slug}";
+								$location = null;
 							}
 
+							if ($event) {
+								if( $current_translation ) {
+									$event_link = "/{$current_translation}/events/{$event->event_slug}";
+								} else {
+									$event_link = "/events/{$event->event_slug}";
+								}
+							}
 							?>
 						<?php if ( $event ) : ?>
 						<div class="group__card">
@@ -1609,7 +1614,7 @@
 								</div>
 							</div>
 						</div>
-												<?php if ( strlen( $group_meta['group_language'] ) > 0 && array_key_exists( strtolower( $group_meta['group_language'] ), $languages ) ) : ?>
+							<?php if ( isset($group_meta['group_language']) && strlen( $group_meta['group_language'] ) > 0 && array_key_exists( strtolower( $group_meta['group_language'] ), $languages ) ) : ?>
 						<div class="group__card">
 							<div class="group__card-content group__card-content--small">
 								<span><?php esc_html_e( 'Preferred Language', 'community-portal' ); ?></span>
@@ -1621,7 +1626,7 @@
 							</div>
 						</div>
 						<?php endif; ?>
-						<?php if ( count( array_unique( $group_meta['group_tags'] ) ) > 0 ) : ?>
+						<?php if ( isset($group_meta['group_tags']) && count( array_unique( $group_meta['group_tags'] ) ) > 0 ) : ?>
 						<div class="group__card">
 							<div class="group__card-content group__card-content--small">
 								<span><?php esc_html_e( 'Tags', 'community-portal' ); ?></span>
