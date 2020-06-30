@@ -88,7 +88,7 @@
 								echo esc_html( $city );
 							}
 
-							if ( $location->country ) {
+							if ( $location->country && isset($all_countries[$location->country])) {
 								if ( isset($city) ) {
 									print esc_html( ', ' );
 								}
