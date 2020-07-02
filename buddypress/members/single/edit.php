@@ -772,7 +772,7 @@ else :
 				</div>
 				<div class="profile__form-field profile__form-field--tight profile__form-field--hidden">
 					<div class="profile__select-container profile__select-container--full profile__select-container--no-label profile__select-container--languages">
-						<select id="languages-<?php echo esc_attr( $index ); ?>" name="languages[]" class="profile__select profile__select--short profile__select--hide">
+						<select id="languages-" name="languages[]" class="profile__select profile__select--short profile__select--hide">
 							<option value=""><?php esc_html_e( 'Make Selection (optional)', 'community-portal' ); ?>
 							<?php foreach ( $languages as $key    => $language ) : ?>
 							<option value="<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $language ); ?></option>

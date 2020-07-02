@@ -173,7 +173,7 @@ function mozilla_determine_site_section() {
 		$path_items = array_filter( explode( '/', esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ) );
 
 		if ( count( $path_items ) > 0 ) {
-			if ( mozilla_get_current_translation() ) {
+			if ( mozilla_get_current_translation() && !empty($path_items[2]) ) {
 				$section = $path_items[2];
 			} else {
 				$values  = array_values( $path_items );
@@ -239,6 +239,10 @@ function mozilla_init_scripts() {
 		wp_add_inline_script( 'google-analytics', $script, 'after' );
 
 	}
+}
+
+function mozilla_init_fe_styles() {
+	wp_enqueue_style( 'style', get_stylesheet_uri(), array(), filemtime( get_template_directory() . '/style.css' ), false );
 }
 
 /**
@@ -487,7 +491,7 @@ function mozilla_add_query_vars_filter( $vars ) {
  * @param int $tt_id id for taxonomy.
  */
 function mozilla_create_event_category( $term_id, $tt_id ) {
-	$term = get_term( $term_id, $taxonomy );
+	$term = get_term( $term_id, 'post_tags' );
 	if ( !empty( $term ) && false === stripos( $term->slug, '_' ) ) {
 		wp_insert_term( $term->name, 'event-categories', array( 'slug' => $term->slug ) );
 	}
@@ -503,7 +507,7 @@ add_action( 'create_post_tag', 'mozilla_create_event_category', 10, 2 );
  * @param int $tt_id id for taxonomy.
  */
 function mozilla_update_event_category( $term_id, $tt_id ) {
-	$term     = get_term( $term_id, $taxonomy );
+	$term     = get_term( $term_id, 'post_tags' );
 	$cat_term = get_term_by( 'slug', $term->slug, 'event-categories' );
 	if ( empty( $cat_term ) ) {
 		$cat_term = get_term_by( 'name', $term->name, 'event-categories' );
@@ -994,7 +998,11 @@ function mozilla_update_script_attributes( $html, $handle ) {
  * Gets the current language of the site
  */
 function mozilla_get_current_translation() {
-	return ICL_LANGUAGE_CODE;
+	if (defined('ICL_LANGUAGE_CODE')) {
+		return ICL_LANGUAGE_CODE;
+	} else {
+		return 'en';
+	}
 }
 
 

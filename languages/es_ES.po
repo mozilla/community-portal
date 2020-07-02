@@ -1,13 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-<<<<<<< HEAD
-"POT-Creation-Date: 2020-06-23 13:24-0400\n"
-"PO-Revision-Date: 2020-06-23 13:24-0400\n"
-=======
 "POT-Creation-Date: 2020-06-17 16:18-0400\n"
 "PO-Revision-Date: 2020-06-23 12:38-0400\n"
->>>>>>> 2c2a09758b3ff048063bf24f470606d59eb9059e
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -255,13 +250,9 @@ msgstr "nombre de usuario *"
 msgid "Username"
 msgstr "nombre de usuario *"
 
-<<<<<<< HEAD
-#: buddypress/groups/index-create.php:360
-=======
 #: buddypress/groups/index-create.php:359
 #, fuzzy
 #| msgid "Invalid email"
->>>>>>> 2c2a09758b3ff048063bf24f470606d59eb9059e
 msgid "Invalid user"
 msgstr "Email nulo"
 
@@ -278,13 +269,9 @@ msgstr "Apalabro respeto y adherir a"
 msgid "Mozilla’s Community Participation Guidelines *"
 msgstr "Las directrices de Participación de la Comunidad de Mozilla *"
 
-<<<<<<< HEAD
-#: buddypress/groups/index-create.php:404
-=======
 #: buddypress/groups/index-create.php:403
 #, fuzzy
 #| msgid "Mozilla's Community Participation Guidelines*"
->>>>>>> 2c2a09758b3ff048063bf24f470606d59eb9059e
 msgid "Please agree to the Community Participation Guidelines"
 msgstr "Las directrices de Participación de la Comunidad de Mozilla*"
 
@@ -4834,19 +4821,17 @@ msgstr "Imagen de acontecimiento"
 
 #: lib/utils.php:157
 msgid "Image size to large "
-<<<<<<< HEAD
 msgstr "Imagen de acontecimiento "
 
 #: lib/utils.php:157
 msgid "(250KB maximum)"
 msgstr "(250KB max)"
-=======
 msgstr "Imagen de acontecimiento"
 
 #: lib/utils.php:158
 msgid "KB maximum"
 msgstr "KB max"
->>>>>>> 2c2a09758b3ff048063bf24f470606d59eb9059e
+
 
 #: lib/utils.php:556
 msgid "Group Created On"
@@ -4929,11 +4914,7 @@ msgstr "Explora acontecimientos de comunidad os te acercáis, "
 
 #: page-events.php:24
 msgid "organize your own!"
-<<<<<<< HEAD
-msgstr "organizar vuestro propio!"
-=======
 msgstr "Organizar vuestro propio!"
->>>>>>> 2c2a09758b3ff048063bf24f470606d59eb9059e
 
 #: plugins/events-manager/classes/em-ticket.php:240
 msgid "Standard Ticket"
@@ -5314,21 +5295,13 @@ msgstr "Ubicación física"
 msgid "Online Meeting Link *"
 msgstr "Enlace de Reunión on-line *"
 
-<<<<<<< HEAD
-#: plugins/events-manager/forms/event/location-moz.php:102
-=======
 #: plugins/events-manager/forms/event/location-moz.php:99
->>>>>>> 2c2a09758b3ff048063bf24f470606d59eb9059e
 #, fuzzy
 #| msgid "Location"
 msgid "Location Name *"
 msgstr "Ubicación"
 
-<<<<<<< HEAD
-#: plugins/events-manager/forms/event/location-moz.php:109
-=======
 #: plugins/events-manager/forms/event/location-moz.php:106
->>>>>>> 2c2a09758b3ff048063bf24f470606d59eb9059e
 #, fuzzy
 #| msgid "This field is required"
 msgid "This field requires a valid url"

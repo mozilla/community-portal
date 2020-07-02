@@ -49,9 +49,14 @@ if ( $logged_in && is_array( $members_participating ) && in_array( $user->ID, $m
 						<span class="campaign__status"><?php print esc_html( $campaign_status ); ?></span>
 						<h1 class="campaign__hero-title"><?php print esc_html( $post->post_title ); ?></h1>
 						<div class="campaign__date-container">
-							<?php print esc_html( $campaign_start_date ); ?>
-							<?php if ( $campaign_end_date ) : ?>
-							- <?php print esc_html( $campaign_end_date ); ?>
+							<?php 
+								$formatted_start_date = gmdate( 'F j', strtotime( $campaign_start_date ) );
+								print esc_html( $formatted_start_date ); 
+							?>
+							<?php if ( $campaign_end_date ) : 
+								$formatted_end_date = gmdate( 'F j, Y', strtotime( $campaign_end_date ) );
+							?>
+							- <?php print esc_html( $formatted_end_date ); ?>
 							<?php endif; ?>
 						</div>
 						<?php if ( ( $campaign_hero_cta && $mailchimp && isset( $mailchimp->id ) ) || is_preview() ) : ?>

@@ -131,10 +131,10 @@
 	$used_country_list = array();
 	$used_languages    = array();
 
+	$live_user = !empty($live_user) ? $live_user : false;
 
 	// Time to filter stuff!
 	foreach ( $real_members as $index => $member ) {
-
 		$info           = mozilla_get_user_info( $live_user, $member, $logged_in );
 		$member->info   = $info;
 		$member_tags    = array_filter( explode( ',', $info['tags']->value ) );
@@ -769,6 +769,7 @@
 		}
 		$filtered_members[] = $member;
 	}
+
 	$count = count( $filtered_members );
 	?>
 	<div class="content">
@@ -928,11 +929,11 @@
 							</a>
 							<?php endforeach; ?>
 						</div>
-									<h2 class="group__card-title"><?php esc_html_e( 'People', 'community-portal' ); ?>
-																					<?php
-																					if ( isset($members['count']) && $members['count'] > 0 ) :
-																						?>
-																						<?php echo esc_html( " ({$members['count']})" ); ?><?php endif; ?></h2>
+							<h2 class="group__card-title"><?php esc_html_e( 'People', 'community-portal' ); 
+							?>
+							<?php if ( ! empty( $group_members['count'] ) && $group_members['count'] > 0 ) : ?>
+								<?php echo esc_html( " ({$group_members['count']})" ); ?>
+							<?php endif; ?></h2>
 						<?php if ( $group_members['count'] > 0 ) : ?>
 						<div class="group members__search-container">
 								<form method="GET" action="<?php echo ! empty( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : ''; ?>" class="members__form" id="members-search-form">
@@ -1510,19 +1511,23 @@
 								'scope'   => 'all',
 							);
 							$events     = EM_Events::get( $args );
-							$event      = isset( $events[0] ) ? $events[0] : false;
-							$event_time = strtotime( $event->start_date );
-							$event_date = gmdate( 'M d', $event_time );
+							$event      = isset( $events[0] ) && !empty($events[0]) ? $events[0] : false;
+							$event_time = $event && isset($event->start_date) ? strtotime( $event->start_date ) : false;
+							$event_date = $event_time ? gmdate( 'M d', $event_time ) : false;
 
-
-							$location = em_get_location( $event->location_id );
-
-							if( $current_translation ) {
-								$event_link = "/{$current_translation}/events/{$event->event_slug}";
+							if ($event) {
+								$location = em_get_location( $event->location_id );
 							} else {
-								$event_link = "/events/{$event->event_slug}";
+								$location = null;
 							}
 
+							if ($event) {
+								if( $current_translation ) {
+									$event_link = "/{$current_translation}/events/{$event->event_slug}";
+								} else {
+									$event_link = "/events/{$event->event_slug}";
+								}
+							}
 							?>
 						<?php if ( $event ) : ?>
 						<div class="group__card">
@@ -1614,7 +1619,7 @@
 								</div>
 							</div>
 						</div>
-												<?php if ( strlen( $group_meta['group_language'] ) > 0 && array_key_exists( strtolower( $group_meta['group_language'] ), $languages ) ) : ?>
+							<?php if ( isset($group_meta['group_language']) && strlen( $group_meta['group_language'] ) > 0 && array_key_exists( strtolower( $group_meta['group_language'] ), $languages ) ) : ?>
 						<div class="group__card">
 							<div class="group__card-content group__card-content--small">
 								<span><?php esc_html_e( 'Preferred Language', 'community-portal' ); ?></span>
@@ -1626,7 +1631,7 @@
 							</div>
 						</div>
 						<?php endif; ?>
-						<?php if ( count( array_unique( $group_meta['group_tags'] ) ) > 0 ) : ?>
+						<?php if ( isset($group_meta['group_tags']) && count( array_unique( $group_meta['group_tags'] ) ) > 0 ) : ?>
 						<div class="group__card">
 							<div class="group__card-content group__card-content--small">
 								<span><?php esc_html_e( 'Tags', 'community-portal' ); ?></span>

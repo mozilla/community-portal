@@ -72,7 +72,7 @@ function mozilla_check_language( $url, $active_languages ) {
  * Updates the website locale based on browser settings
  */
 function mozilla_match_browser_locale() {
-	if ( isset( $_SERVER['REQUEST_URI'] ) ) {
+	if ( isset( $_SERVER['REQUEST_URI'] ) && function_exists('icl_get_languages') ) {
 		$url            = get_site_url( null, esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
 		$wpml_languages = icl_get_languages( 'skip_missing=N&orderby=KEY&order=DIR&link_empty_to=str' );
 		preg_match( '/\b[a-zA-Z]{2}\b/', $url, $matches );

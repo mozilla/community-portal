@@ -111,7 +111,8 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 		}
 	}
 
-
+	// Set default for var used to count attendees
+	$count = 0;
 	?>
 
 <div class="content events__container events-single">
@@ -274,7 +275,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 						<p><a href="<?php print esc_attr( add_query_arg( array( 'country' => $all_countries[ $em_event->location->location_country ] ), get_home_url( null, 'events' ) ) ); ?>"><?php esc_html_e( 'View more events in ', 'community-portal' ); ?><?php print esc_html( $all_countries[ $em_event->location->location_country ] ); ?></a></p>
 					<?php else : ?>
 						<p><?php esc_html_e( 'This is an online-only event', 'community-portal' ); ?></p>
-						<?php if ( filter_var( $em_event->location->name, FILTER_VALIDATE_URL ) ) : ?>
+						<?php if ( ! empty( $em_event->location->name ) && filter_var( $em_event->location->name, FILTER_VALIDATE_URL ) ) : ?>
 						<a href="<?php echo esc_attr( $em_event->location->name ); ?>"><?php echo esc_html_e( 'Meeting link', 'community-portal' ); ?>
 							<svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M1.33325 8.66732L4.99992 5.00065L1.33325 1.33398" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -286,6 +287,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 					<?php if ( false !== $map_box_access_token ) : ?>
 
 						<?php
+
 						$full_location = rawurlencode( $location->location_address . ' ' . $location->location_town );
 						$request       = wp_remote_get( 'https://api.mapbox.com/geocoding/v5/mapbox.places/' . $full_location . '.json?types=address&access_token=' . $map_box_access_token );
 						$mapbox_error  = false;
@@ -294,7 +296,10 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 						} else {
 							$body        = wp_remote_retrieve_body( $request );
 							$data        = json_decode( $body );
-							$coordinates = $data->features[0]->geometry->coordinates;
+
+							if (!empty($data->features)) {
+								$coordinates = $data->features[0]->geometry->coordinates;
+							}
 						}
 						?>
 						<?php if ( false === $mapbox_error && isset( $location_type ) && strlen( $location_type ) && 'online' !== $location_type && 'OE' !== $location->location_country ) : ?>
@@ -392,7 +397,6 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 				</p>
 			</div>
 			<div class="row">
-				<?php $count = 0; ?>  
 				<?php foreach ( $active_bookings as $booking ) : ?>
 					<?php
 					if ( $count < 8 ) {
@@ -558,7 +562,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 		endif;
 	?>
 </div>
-<?php if ( isset( $options['report_email'] ) && is_user_logged_in() && isset( $_SERVER['HTTP_HOST'] ) ) : ?>
+<?php if ( !empty( $group ) && isset( $options['report_email'] ) && is_user_logged_in() && isset( $_SERVER['HTTP_HOST'] ) ) : ?>
 <div class="events-single__report-container">
 	<a href="mailto:<?php print esc_attr( $options['report_email'] ); ?>?subject=<?php print sprintf( '%s %s', esc_html__( 'Reporting Event', 'community-portal' ), esc_attr( $em_event->event_name ) ); ?>&body=<?php print sprintf( '%s %s', esc_html__( 'Please provide a reason you are reporting this event', 'community-portal' ), esc_url_raw( wp_unslash( $_SERVER['HTTP_HOST'] ) ) . esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ); ?>" class="events-single__report-group-link">
 		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

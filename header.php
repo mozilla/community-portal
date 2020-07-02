@@ -12,7 +12,11 @@
 
 
 $user = wp_get_current_user()->data;
-$meta = get_user_meta( $user->ID );
+
+if (property_exists($user, 'ID')) {
+	$meta = get_user_meta( $user->ID );
+}
+
 $current_translation = mozilla_get_current_translation();
 
 $community_fields = isset( $meta['community-meta-fields'][0] ) ? unserialize( $meta['community-meta-fields'][0] ) : array();
@@ -29,6 +33,10 @@ if ( $avatar && ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) 
 
 $section   = mozilla_determine_site_section();
 $theme_url = get_template_directory_uri();
+
+// Set defaults for variables that are set in conditional blocks
+$search_text = '';
+$original_query = '';
 
 if ( ! empty( $_GET['s'] ) && isset( $_GET['site_search'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['site_search'] ) ), 'site_search_nonce' ) ) {
 	$search_text    = sanitize_text_field( wp_unslash( $_GET['s'] ) );
@@ -54,7 +62,6 @@ if (
 }
 
 	$protocol = ! empty( wp_get_server_protocol() ) && 0 === stripos( wp_get_server_protocol(), 'https' ) ? 'https://' : 'http://';
-
 ?>
 
 <!DOCTYPE html>
@@ -69,7 +76,9 @@ if (
 				case 'groups':
 					global $bp;
 					$group       = $bp->groups->current_group;
-					$group_meta  = groups_get_groupmeta( $group->id, 'meta' );
+					if ( is_object($group) && property_exists( $group, 'id' ) ) {
+						$group_meta  = groups_get_groupmeta( $group->id, 'meta' );
+					}
 					$og_title    = isset( $group->name ) && strlen( $group->name ) > 0 ? "{$group->name} - " . __( 'Mozilla Community Portal', 'community-portal' ) : __( 'Groups - Mozilla Community Portal', 'community-portal' );
 					$theme_title = $og_title;
 					$og_desc     = isset( $group->description ) && strlen( $group->description ) > 0 ? wp_strip_all_tags( $group->description ) : get_bloginfo( 'description' );
