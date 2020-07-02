@@ -154,7 +154,7 @@ function mozilla_upload_image() {
 							}
 						}
 					} else {
-						print esc_html_e( 'Image size to large ', 'community-portal' ).esc_html_e( '(250KB maximum)', 'community-portal' );
+						print esc_html_e( 'Image size to large ', 'community-portal' ) . esc_html_e( '(250KB maximum)', 'community-portal' );
 					}
 				}
 			}
@@ -484,44 +484,69 @@ function mozilla_add_query_vars_filter( $vars ) {
 }
 
 /**
- * Match taxonomy
+ *
+ * Create Event Category
+ *
+ * @param int $term_id id of the existing term.
+ * @param int $tt_id id for taxonomy.
  */
-function mozilla_match_categories() {
-	$current_translation = mozilla_get_current_translation();
-	$cat_terms           = get_terms( EM_TAXONOMY_CATEGORY, array( 'hide_empty' => false ) );
-	$wp_terms            = get_terms( 'post_tag', array( 'hide_empty' => false ) );
-
-	$cat_terms_slugs = array_map(
-		function( $n ) {
-			return $n->slug;
-		},
-		$cat_terms
-	);
-
-	$wp_terms_slugs = array_map(
-		function( $n ) {
-			return $n->slug;
-		},
-		$wp_terms
-	);
-
-	foreach ( $cat_terms as $cat_term ) {
-		if ( is_array($wp_terms_slugs) && ! in_array( $cat_term->slug, $wp_terms_slugs, true ) ) {
-			wp_delete_term( $cat_term->term_id, EM_TAXONOMY_CATEGORY );
-		}
-	}
-
-	foreach ( $wp_terms as $single_term ) {
-		if ( ! in_array( $single_term->slug, $cat_terms_slugs, true ) ) {
-			if ( $current_translation && stripos( $single_term->slug, $current_translation ) === false ) {
-				$slug = $single_term->slug . '-' . $current_translation;
-				wp_insert_term( $single_term->name, EM_TAXONOMY_CATEGORY, array( 'slug' => $slug ) );
-				continue;
-			}
-			wp_insert_term( $single_term->name, EM_TAXONOMY_CATEGORY, array( 'slug' => $single_term->slug ) );
-		}
+function mozilla_create_event_category( $term_id, $tt_id ) {
+	$term = get_term( $term_id, $taxonomy );
+	if ( !empty( $term ) && false === stripos( $term->slug, '_' ) ) {
+		wp_insert_term( $term->name, 'event-categories', array( 'slug' => $term->slug ) );
 	}
 }
+
+add_action( 'create_post_tag', 'mozilla_create_event_category', 10, 2 );
+
+/**
+ *
+ * Update Event Categories
+ *
+ * @param int $term_id id of the existing term.
+ * @param int $tt_id id for taxonomy.
+ */
+function mozilla_update_event_category( $term_id, $tt_id ) {
+	$term     = get_term( $term_id, $taxonomy );
+	$cat_term = get_term_by( 'slug', $term->slug, 'event-categories' );
+	if ( empty( $cat_term ) ) {
+		$cat_term = get_term_by( 'name', $term->name, 'event-categories' );
+	}
+
+	if ( ! empty( $term ) && ! empty( $cat_term ) && false === stripos( $term->slug, '_' ) ) {
+		wp_update_term(
+			$cat_term->term_id,
+			'event-categories',
+			array(
+				'slug' => $term->slug,
+				'name' => $term->name,
+			)
+		);
+		return;
+	}
+	mozilla_create_event_category( $term_id, $tt_id );
+	
+}
+add_action( 'edited_post_tag', 'mozilla_update_event_category', 10, 3 );
+
+/**
+ * Delete Event Categories
+ *
+ * @param int    $term_id id of the existing term.
+ * @param int    $tt_id id for taxonomy.
+ * @param object $deleted_term the deleted term.
+ * @param object $object_ids deleted object.
+ */
+function mozilla_delete_event_category( $term_id, $tt_id, $deleted_term, $object_ids ) {
+	$cat_term = get_term_by( 'slug', $deleted_term->slug, 'event-categories' );
+	if ( empty( $cat_term ) ) {
+		$cat_term = get_term_by( 'name', $deleted_term->name, 'event-categories' );
+	}
+	if ( ! empty( $deleted_term ) && ! empty( $cat_term ) && false === stripos( $deleted_term->slug, '_' ) ) {
+		wp_delete_term( $cat_term->term_id, 'event-categories' );
+	}
+}
+add_action( 'delete_post_tag', 'mozilla_delete_event_category', 10, 4 );
 
 /**
  * Redirect non admins
@@ -979,3 +1004,5 @@ function mozilla_get_current_translation() {
 		return 'en';
 	}
 }
+
+

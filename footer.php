@@ -130,6 +130,7 @@
 								}
 									if (isset($wpml_languages) && count($wpml_languages) > 0):
 										$url = get_site_url(null, $_SERVER['REQUEST_URI']);
+
 								?>
 									<ul id="footer-language-selector" class="language-selector__select">
 										<li class="language-selector__language language-selector__language--active"><?php echo esc_html($wpml_languages[$current_langauge]['translated_name']) ?></li>

@@ -305,6 +305,8 @@
 								);
 								$values = array_values($event);
 								$event = array_shift( $values );
+								$all_countries = em_get_countries();
+                
 
 								include locate_template( 'plugins/events-manager/templates/template-parts/single-event-card.php', false, false );
 							}

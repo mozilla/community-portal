@@ -13,14 +13,14 @@
 ?>
 
 <?php
-	mozilla_match_categories();
-	$em_event    = $GLOBALS['EM_Event'];
-	if (isset($GLOBALS['EM_Tags'])) {
-		$em_tags     = $GLOBALS['EM_Tags'];
-	}
+
+	$em_event = $GLOBALS['EM_Event'];
+if ( isset( $GLOBALS['EM_Tags'] ) ) {
+	$em_tags = $GLOBALS['EM_Tags'];
+}
 	$logged_in   = mozilla_is_logged_in();
 	$active_user = wp_get_current_user()->data;
-	
+
 
 	global $bp;
 	$options = wp_load_alloptions();
@@ -34,7 +34,7 @@
 	$event_meta = get_post_meta( $em_event->post_id, 'event-meta' );
 
 	$all_countries = em_get_countries();
-	$img_url       = isset($event_meta[0]) && isset($event_meta[0]->image_url) && strlen($event_meta[0]->image_url) > 0 ? $event_meta[0]->image_url : false;
+	$img_url       = isset( $event_meta[0] ) && isset( $event_meta[0]->image_url ) && strlen( $event_meta[0]->image_url ) > 0 ? $event_meta[0]->image_url : false;
 
 if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'off' !== $_SERVER['HTTPS'] ) || 443 === $_SERVER['SERVER_PORT'] ) {
 	$img_url = preg_replace( '/^http:/i', 'https:', $img_url );
@@ -42,8 +42,8 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 	$avatar_url = $img_url;
 }
 
-	$location_type = isset($event_meta[0]) && isset($event_meta[0]->location_type) && strlen($event_meta[0]->location_type) > 0 ? $event_meta[0]->location_type : null;
-	$external_url  = isset($event_meta[0]) && isset($event_meta[0]->external_url) && strlen($event_meta[0]->external_url) > 0  ? $event_meta[0]->external_url : false;
+	$location_type = isset( $event_meta[0] ) && isset( $event_meta[0]->location_type ) && strlen( $event_meta[0]->location_type ) > 0 ? $event_meta[0]->location_type : null;
+	$external_url  = isset( $event_meta[0] ) && isset( $event_meta[0]->external_url ) && strlen( $event_meta[0]->external_url ) > 0 ? $event_meta[0]->external_url : false;
 
 	$initiative          = isset( $event_meta[0]->initiative ) ? $event_meta[0]->initiative : false;
 	$goal                = isset( $event_meta[0]->goal ) && strlen( $event_meta[0]->goal ) > 0 ? $event_meta[0]->goal : false;
@@ -148,9 +148,22 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 					<?php if ( strval( $current_user_id ) === $em_event->owner || mozilla_is_site_admin() ) : ?>
 						<a class="btn card__edit-btn
 						<?php
-						if ( isset($img_url) && strlen($img_url) > 0 ) :
+						if ( isset( $img_url ) && strlen( $img_url ) > 0 ) :
 							?>
-							card__edit-btn--white<?php endif; ?>" href="<?php echo esc_attr( add_query_arg(array( 'action' => 'edit', 'event_id' => $em_event->event_id, 'nonce' => wp_create_nonce( 'edit-event' ) ), get_home_url('','events/edit-event/'))); ?>">
+							card__edit-btn--white<?php endif; ?>" href="
+															<?php
+																echo esc_attr(
+																	add_query_arg(
+																		array(
+																			'action'   => 'edit',
+																			'event_id' => $em_event->event_id,
+																			'nonce'    => wp_create_nonce( 'edit-event' ),
+																		),
+																		get_home_url( '', 'events/edit-event/' )
+																	)
+																);
+															?>
+															">
 							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M23.64 6.36L17.64 0.36C17.16 -0.12 16.44 -0.12 15.96 0.36L0.36 15.96C0.12 16.2 0 16.44 0 16.8V22.8C0 23.52 0.48 24 1.2 24H7.2C7.56 24 7.8 23.88 8.04   23.64L23.64 8.04C24.12 7.56 24.12 6.84 23.64 6.36ZM6.72 21.6H2.4V17.28L16.8 2.88L21.12 7.2L6.72 21.6Z"  fill="#0060DF"/>
 							</svg>
@@ -162,7 +175,20 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 								<?php
 								if ( $img_url && isset( $_SERVER['REQUEST_URI'] ) ) :
 									?>
-									card__edit-btn--white<?php endif; ?>" href="<?php echo esc_attr( add_query_arg(array( 'action' => 'edit', 'event_id' => $em_event->event_id, 'nonce' => wp_create_nonce( 'edit-event' ) ), get_home_url('','events/edit-event/'))); ?>">
+									card__edit-btn--white<?php endif; ?>" href="
+										<?php
+																		echo esc_attr(
+																			add_query_arg(
+																				array(
+																					'action'   => 'edit',
+																					'event_id' => $em_event->event_id,
+																					'nonce'    => wp_create_nonce( 'edit-event' ),
+																				),
+																				get_home_url( '', 'events/edit-event/' )
+																			)
+																		);
+										?>
+																				">
 									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 										<path d="M23.64 6.36L17.64 0.36C17.16 -0.12 16.44 -0.12 15.96 0.36L0.36 15.96C0.12 16.2 0 16.44 0 16.8V22.8C0 23.52 0.48 24 1.2 24H7.2C7.56 24 7.8 23.88 8.04 23.64L23.64 8.04C24.12 7.56 24.12 6.84 23.64 6.36ZM6.72 21.6H2.4V17.28L16.8 2.88L21.12 7.2L6.72 21.6Z"  fill="#0060DF"/>
 									</svg>
@@ -175,7 +201,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 					<div class="card__date">
 						<h2 class="title--secondary">
 							<?php
-							if ( isset($end_day) ) {
+							if ( isset( $end_day ) ) {
 								echo esc_html( $months[ $start_month ] ) . esc_html( ' ' ) . esc_html( $start_day ) . esc_html( ' - ' ) . esc_html( $months[ $end_month ] ) . esc_html( ' ' ) . esc_html( $end_day ) . esc_html( ', ' ) . esc_html( $end_year );
 							} else {
 								echo esc_html( $months[ $start_month ] ) . esc_html( ' ' ) . esc_html( $start_day ) . esc_html( ', ' ) . esc_html( $start_year );
@@ -246,7 +272,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 						<?php else : ?>
 							<p><?php echo esc_html( $location->location_town ) . esc_html( ', ' ) . esc_html( $all_countries[ $em_event->location->location_country ] ); ?></p>
 						<?php endif; ?>
-						<p><a href="<?php print esc_attr(add_query_arg(array('country' => $all_countries[ $em_event->location->location_country ]), get_home_url(null, 'events')))?>"><?php esc_html_e( 'View more events in ', 'community-portal' ); ?><?php print esc_html( $all_countries[ $em_event->location->location_country ] ); ?></a></p>
+						<p><a href="<?php print esc_attr( add_query_arg( array( 'country' => $all_countries[ $em_event->location->location_country ] ), get_home_url( null, 'events' ) ) ); ?>"><?php esc_html_e( 'View more events in ', 'community-portal' ); ?><?php print esc_html( $all_countries[ $em_event->location->location_country ] ); ?></a></p>
 					<?php else : ?>
 						<p><?php esc_html_e( 'This is an online-only event', 'community-portal' ); ?></p>
 						<?php if ( ! empty( $em_event->location->name ) && filter_var( $em_event->location->name, FILTER_VALIDATE_URL ) ) : ?>
@@ -362,10 +388,10 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 				<p class="events-single__parenthetical">
 				(
 					<span>
-						<?php echo esc_html__( 'Actual: ', 'community-portal' ) . esc_html( count( $active_bookings ) ); ?> 
+						<?php echo esc_html__( 'Actual:', 'community-portal' ) . ' ' . esc_html( count( $active_bookings ) ); ?> 
 					</span>
 					<?php if ( $projected_attendees ) : ?>
-						<span class="expected-attendees"><?php echo esc_html__( 'Expecting: ', 'community-portal' ) . esc_html( $projected_attendees ); ?></span>
+						<span class="expected-attendees"><?php echo esc_html__( 'Expecting:', 'community-portal' ) . ' ' . esc_html( $projected_attendees ); ?></span>
 					<?php endif; ?>
 				)
 				</p>
@@ -387,7 +413,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 						}
 						?>
 					<div class="col-md-6 events-single__member-card">
-						<a href="<?php echo esc_attr( get_home_url(null, 'people/' . $user->user_nicename )); ?>">
+						<a href="<?php echo esc_attr( get_home_url( null, 'people/' . $user->user_nicename ) ); ?>">
 							<div class="events-single__avatar
 							<?php
 							if ( false === $info['profile_image']->display || false === $info['profile_image']->value ) :
@@ -447,7 +473,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 				<?php
 				foreach ( $all_related_events as $event ) {
 					$current_translation = mozilla_get_current_translation();
-					$url = get_home_url(null, '/events/' . $event->slug);
+					$url                 = get_home_url( null, '/events/' . $event->slug );
 					include locate_template( 'plugins/events-manager/templates/template-parts/single-event-card.php', false, false );
 				}
 				?>
@@ -455,7 +481,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 		</div>
 	<?php endif; ?>
 
-	<?php if ( isset( $em_event->bookings ) ) : ?>
+	<?php if ( isset( $em_event->bookings ) && is_array( $em_event->bookings ) ) : ?>
 	<div id="attendees-lightbox" class="lightbox">
 		<div class="lightbox__container">
 			<button id="close-attendees-lightbox" class="btn btn--close">
@@ -481,7 +507,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 						}
 						?>
 						<div class="col-md-6 events-single__member-card">
-							<a href="<?php echo esc_attr( get_home_url(null, '/people/' . $user->user_nicename ) ); ?>">
+							<a href="<?php echo esc_attr( get_home_url( null, '/people/' . $user->user_nicename ) ); ?>">
 								<div class="events-single__avatar
 								<?php
 								if ( false === $info['profile_image']->display || false === $info['profile_image']->value ) :
@@ -538,7 +564,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 </div>
 <?php if ( !empty( $group ) && isset( $options['report_email'] ) && is_user_logged_in() && isset( $_SERVER['HTTP_HOST'] ) ) : ?>
 <div class="events-single__report-container">
-	<a href="mailto:<?php print esc_attr( $options['report_email'] ); ?>?subject=<?php print sprintf( '%s %s', esc_html__( 'Reporting Event', 'community-portal' ), esc_attr( $group->name ) ); ?>&body=<?php print sprintf( '%s %s', esc_html__( 'Please provide a reason you are reporting this event', 'community-portal' ), esc_url_raw( wp_unslash( $_SERVER['HTTP_HOST'] ) ) . esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ); ?>" class="events-single__report-group-link">
+	<a href="mailto:<?php print esc_attr( $options['report_email'] ); ?>?subject=<?php print sprintf( '%s %s', esc_html__( 'Reporting Event', 'community-portal' ), esc_attr( $em_event->event_name ) ); ?>&body=<?php print sprintf( '%s %s', esc_html__( 'Please provide a reason you are reporting this event', 'community-portal' ), esc_url_raw( wp_unslash( $_SERVER['HTTP_HOST'] ) ) . esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ); ?>" class="events-single__report-group-link">
 		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 			<path d="M12 8V12" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

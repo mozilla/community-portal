@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2020-06-23 13:24-0400\n"
-"PO-Revision-Date: 2020-06-23 13:24-0400\n"
+"POT-Creation-Date: 2020-06-17 16:18-0400\n"
+"PO-Revision-Date: 2020-06-23 12:38-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -250,7 +250,9 @@ msgstr "nombre de usuario *"
 msgid "Username"
 msgstr "nombre de usuario *"
 
-#: buddypress/groups/index-create.php:360
+#: buddypress/groups/index-create.php:359
+#, fuzzy
+#| msgid "Invalid email"
 msgid "Invalid user"
 msgstr "Email nulo"
 
@@ -267,7 +269,9 @@ msgstr "Apalabro respeto y adherir a"
 msgid "Mozilla’s Community Participation Guidelines *"
 msgstr "Las directrices de Participación de la Comunidad de Mozilla *"
 
-#: buddypress/groups/index-create.php:404
+#: buddypress/groups/index-create.php:403
+#, fuzzy
+#| msgid "Mozilla's Community Participation Guidelines*"
 msgid "Please agree to the Community Participation Guidelines"
 msgstr "Las directrices de Participación de la Comunidad de Mozilla*"
 
@@ -4822,6 +4826,12 @@ msgstr "Imagen de acontecimiento "
 #: lib/utils.php:157
 msgid "(250KB maximum)"
 msgstr "(250KB max)"
+msgstr "Imagen de acontecimiento"
+
+#: lib/utils.php:158
+msgid "KB maximum"
+msgstr "KB max"
+
 
 #: lib/utils.php:556
 msgid "Group Created On"
@@ -4904,7 +4914,7 @@ msgstr "Explora acontecimientos de comunidad os te acercáis, "
 
 #: page-events.php:24
 msgid "organize your own!"
-msgstr "organizar vuestro propio!"
+msgstr "Organizar vuestro propio!"
 
 #: plugins/events-manager/classes/em-ticket.php:240
 msgid "Standard Ticket"
@@ -5285,13 +5295,13 @@ msgstr "Ubicación física"
 msgid "Online Meeting Link *"
 msgstr "Enlace de Reunión on-line *"
 
-#: plugins/events-manager/forms/event/location-moz.php:102
+#: plugins/events-manager/forms/event/location-moz.php:99
 #, fuzzy
 #| msgid "Location"
 msgid "Location Name *"
 msgstr "Ubicación"
 
-#: plugins/events-manager/forms/event/location-moz.php:109
+#: plugins/events-manager/forms/event/location-moz.php:106
 #, fuzzy
 #| msgid "This field is required"
 msgid "This field requires a valid url"
