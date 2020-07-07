@@ -21,20 +21,7 @@
 
 	$template_dir = get_template_directory();
 	require "{$template_dir}/languages.php";
-	$months = array(
-		'01' => 'Jan',
-		'02' => 'Feb',
-		'03' => 'Mar',
-		'04' => 'Apr',
-		'05' => 'May',
-		'06' => 'Jun',
-		'07' => 'Jul',
-		'08' => 'Aug',
-		'09' => 'uyp',
-		'10' => 'Oct',
-		'11' => 'Nov',
-		'12' => 'Dec',
-	);
+	require "{$template_dir}/months.php";
 
 	$group           = $bp->groups->current_group;
 	$group_meta      = groups_get_groupmeta( $group->id, 'meta' );
@@ -826,7 +813,7 @@
 					</span>
 					<span class="group__created">
 					<?php
-						$created      = gmdate( 'F d, Y', strtotime( $group->date_created ) );
+						$created      = date_i18n( 'F d, Y', strtotime( $group->date_created ) );
 						$created_word = __( 'Created', 'community-portal' );
 						echo '<span> ' . esc_html( $created_word ) . ' ' . esc_html( $created );
 					?>
@@ -1105,20 +1092,6 @@
 					</div>
 					<?php elseif ( true === $is_events ) : ?>
 						<?php
-						$months = array(
-							'01' => 'Jan',
-							'02' => 'Feb',
-							'03' => 'Mar',
-							'04' => 'Apr',
-							'05' => 'May',
-							'06' => 'Jun',
-							'07' => 'Jul',
-							'08' => 'Aug',
-							'09' => 'Sep',
-							'10' => 'Oct',
-							'11' => 'Nov',
-							'12' => 'Dec',
-						);
 
 						$args   = array(
 							'group' => $group->id,
@@ -1131,9 +1104,12 @@
 							<?php
 							$categories    = $event->get_categories();
 							$location      = em_get_location( $event->location_id );
-							$site_url      = get_site_url();
-							$url           = $site_url . '/events/' . $event->slug;
+							$site_url      = get_home_url(null, 'events/');
+							$url           = $site_url . $event->slug;
 							$all_countries = em_get_countries();
+							$time = gmdate('m', strtotime($event->start_date));
+							$month = $months[$time];
+
 							?>
 							<div class="col-lg-4 col-md-6 events__column">
 								<div class="event-card">
@@ -1154,14 +1130,12 @@
 												style="background-image: url(<?php echo esc_url_raw( $img_url ); ?>)"<?php endif; ?>
 										>
 											<?php
-
-												$month     = gmdate( 'M', strtotime( $event->start_date ) );
 												$date      = gmdate( 'd', strtotime( $event->start_date ) );
 												$year_part = gmdate( 'Y', strtotime( $event->start_date ) );
 
 												$event_time = strtotime( $event->start_date );
 											?>
-											<p class="event-card__image__date"><span><?php echo esc_html( gmdate( 'M', $event_time ) ); ?></span><span><?php echo esc_html( gmdate( 'd', $event_time ) ); ?></span></p>
+											<p class="event-card__image__date"><span><?php echo esc_attr(substr($month, 0, 3)); ?></span><span><?php echo esc_html( gmdate( 'd', $event_time ) ); ?></span></p>
 										</div>
 										<div class="event-card__description">
 											<h3 class="event-card__description__title title--event-card"><?php echo esc_html( $event->event_name ); ?></h2>

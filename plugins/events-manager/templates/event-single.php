@@ -27,6 +27,7 @@ if ( isset( $GLOBALS['EM_Tags'] ) ) {
 
 	$theme_directory = get_template_directory();
 	require "{$theme_directory}/languages.php";
+	require "{$theme_directory}/months.php";
 
 	$map_box_access_token = ( isset( $options['mapbox'] ) && strlen( $options['mapbox'] ) > 0 ) ? trim( $options['mapbox'] ) : false;
 
@@ -50,20 +51,6 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 	$language            = isset( $event_meta[0]->language ) && strlen( $event_meta[0]->language ) > 0 ? $languages[ $event_meta[0]->language ] : false;
 	$projected_attendees = isset( $event_meta[0]->projected_attendees ) && intval( $event_meta[0]->projected_attendees ) > 0 ? $event_meta[0]->projected_attendees : false;
 
-	$months = array(
-		'01' => 'January',
-		'02' => 'February',
-		'03' => 'March',
-		'04' => 'April',
-		'05' => 'May',
-		'06' => 'June',
-		'07' => 'July',
-		'08' => 'August',
-		'09' => 'September',
-		'10' => 'October',
-		'11' => 'November',
-		'12' => 'December',
-	);
 
 	$start_day   = substr( $em_event->event_start_date, 8, 2 );
 	$start_month = substr( $em_event->event_start_date, 5, 2 );

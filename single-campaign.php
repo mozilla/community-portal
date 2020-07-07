@@ -50,11 +50,13 @@ if ( $logged_in && is_array( $members_participating ) && in_array( $user->ID, $m
 						<h1 class="campaign__hero-title"><?php print esc_html( $post->post_title ); ?></h1>
 						<div class="campaign__date-container">
 							<?php 
-								$formatted_start_date = gmdate( 'F j', strtotime( $campaign_start_date ) );
+								var_dump($campaign_start_date);
+								$formatted_start_date = date_i18n( 'F j', strtotime( $campaign_start_date ) );
 								print esc_html( $formatted_start_date ); 
 							?>
 							<?php if ( $campaign_end_date ) : 
-								$formatted_end_date = gmdate( 'F j, Y', strtotime( $campaign_end_date ) );
+								$formatted_end_date = date_i18n( 'F j, Y', strtotime( $campaign_end_date ) );
+								var_dump($formatted_end_date);
 							?>
 							- <?php print esc_html( $formatted_end_date ); ?>
 							<?php endif; ?>
