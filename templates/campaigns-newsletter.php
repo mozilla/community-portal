@@ -72,7 +72,7 @@
 								<option value="<?php echo esc_attr( $index ); ?>" <?php echo ( strtoupper( $user_language ) === strtoupper( $index ) ? esc_attr( 'selected' ) : esc_attr( '' ) ); ?>><?php echo esc_html( $language ); ?></option>
 							<?php endforeach; ?>
 						</select>
-						<p class="newsletter__subtext"><?php esc_html_e( 'We’ll default to English but send in these languages whenever we can.', 'commmunity-portal' ); ?></p>
+						<p class="newsletter__subtext"><?php esc_html_e( 'We’ll default to English but send in these languages whenever we can.', 'community-portal' ); ?></p>
 					</div>
 				</div>
 				<div id="newsletter_privacy" class="newsletter__cpg cpg">

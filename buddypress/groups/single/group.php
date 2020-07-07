@@ -1495,7 +1495,7 @@
 									?>
 								<div class="group__member-count-container">
 									<span class="group__event-count"><?php echo esc_html( $event_count ); ?></span>
-									<?php esc_html_e( 'Events this month' ); ?>
+									<?php esc_html_e( 'Events this month', 'community-portal' ); ?>
 								</div>
 								<div class="group__member-count-container">
 									<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>?view=people" class="group__member-count"><?php echo esc_html( $member_count ); ?></a>
