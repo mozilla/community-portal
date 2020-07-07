@@ -417,22 +417,21 @@
     &__3up-text-block {
         background-color: $color-white;
         width: 100%;
-        max-width: 1440px;
-        margin: 0 auto;
-
-        padding: 64px $mobile-padding;
-
-        @include tablet-and-up {
-            padding: 64px $tablet-padding;    
-        }
-    
-        @include desktop-and-up {
-            padding: 64px $desktop-padding;
-        }
 
         .campaign__block-container {
-            max-width: none;
-        }
+			max-width: 1440px;
+			margin: 0 auto;
+
+			padding: 64px $mobile-padding;
+
+			@include tablet-and-up {
+				padding: 64px $tablet-padding;    
+			}
+		
+			@include desktop-and-up {
+				padding: 64px $desktop-padding;
+			}
+		}
 
         &.campaign__3up-text-block--grey {
             background-color: $color-gray-background;
