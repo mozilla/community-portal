@@ -23,6 +23,8 @@
 		'post_type'      => 'campaign',
 		'posts_per_page' => -1,
 	);
+	
+	$current_translation = mozilla_get_current_translation();
 
 	$campaign_count = 0;
 	$campaigns      = new WP_Query( $args );
@@ -137,12 +139,14 @@
 						<div class="campaigns__active-campaign-status"><?php print esc_html( $current_campaign_status ); ?></div>
 						<h2 class="campaigns__active-campaign-title"><?php print esc_html( $current_campaign->post_title ); ?></h2>
 						<div class="campaigns__active-campaign-date-container">
-							<?php 
-								$formatted_start_date = mozilla_localize_date( $current_campaign_start_date, '%d %B' );
+				<?php 
+								$date_format = 'en' === $current_translation ? 'F d' : 'd F';
+								$formatted_start_date = mozilla_localize_date( $current_campaign_start_date, $date_format );
 								print esc_html( $formatted_start_date ); ?>
 										<?php
 										if ( $current_campaign_end_date ) :
-											$formatted_end_date = mozilla_localize_date( $current_campaign_end_date, '%d %B, %G');
+											$date_format = 'en' === $current_translation ? 'F d, Y' : 'd F, Y';
+											$formatted_end_date = mozilla_localize_date( $current_campaign_end_date, 'd F, Y');
 											?>
 								- <?php print esc_html( $formatted_end_date ); ?><?php endif; ?>
 						</div>
@@ -193,12 +197,13 @@
 							<h2 class="campaigns__active-campaign-title"><?php print esc_html( $incoming_campaign->post_title ); ?></h2>
 							<div class="campaigns__active-campaign-date-container">
 								<?php 
-									$formatted_start_date = mozilla_localize_date( $incoming_campaign_start_date, '%d %B');
+									$date_format = 'en' === $current_translation ? 'F d' : 'd F';
+									$formatted_start_date = mozilla_localize_date( $incoming_campaign_start_date, $date_format);
 									print esc_html( $formatted_start_date ); 
 								
 											if ( $incoming_campaign_end_date ) :
-
-												$formatted_end_date = mozilla_localize_date( $incoming_campaign_end_date, '%d %B, %G' );
+												$date_format = 'en' === $current_translation ? 'F d, Y' : 'd F, Y';
+												$formatted_end_date = mozilla_localize_date( $incoming_campaign_end_date, $date_format );
 												?>
 									- <?php print esc_html( $formatted_end_date ); ?><?php endif; ?>
 							</div>
@@ -261,14 +266,15 @@
 						<div class="campaigns__active-campaign-title-container campaigns__active-campaign-title-container--card">
 							<h2 class="campaigns__active-campaign-title campaigns__active-campaign-title--card"><?php print esc_html( $campaign->post_title ); ?></h2>
 							<div class="campaigns__active-campaign-date-container campaigns__active-campaign-date-container--card">
-								<?php 
-									$formatted_start_date = mozilla_localize_date( $campaign_start_date, '%d %B, %G');
+                <?php 
+									$date_format = 'en' === $current_translation ? 'F d, Y' : 'd F, Y';
+									$formatted_start_date = mozilla_localize_date( $campaign_start_date, $date_format);
 									print esc_html( $formatted_start_date ); ?>
 											<?php
 											if ( $campaign_end_date ) :
 												?>
 									- <?php 
-									$formatted_end_date = mozilla_localize_date( $campaign_end_date, '%d %B, %G' );
+									$formatted_end_date = mozilla_localize_date( $campaign_end_date, $date_format );
 									
 									print esc_html( $formatted_end_date ); 
 									?><?php endif; ?>

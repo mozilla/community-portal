@@ -54,12 +54,12 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 
 
 	if ( $em_event->event_start_date !== $em_event->event_end_date ) {
-		$date_format = $current_translation === 'en' ? '%B %d' : '%d %B';
+		$date_format = $current_translation === 'en' ? 'F d' : 'd M';
 		$formatted_start_date = mozilla_localize_date($em_event->event_start_date, $date_format);
-		$date_format = $current_translation === 'en' ? '%B %d, %G' : '%d %B, %G';
+		$date_format = $current_translation === 'en' ? 'F d, Y' : 'd F, Y';
 		$formatted_end_date = mozilla_localize_date($em_event->event_end_date, $date_format);
 	} else {
-		$date_format = $current_translation === 'en' ? '%B %d, %G' : '%d %B, %G';
+		$date_format = $current_translation === 'en' ? 'F d, Y' : 'd F, Y';
 		$formatted_start_date = mozilla_localize_date($em_event->event_start_date, $date_format);
 	}
 

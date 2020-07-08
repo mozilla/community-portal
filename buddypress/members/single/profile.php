@@ -239,7 +239,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 					<?php
 					$event      = em_get_event( $event_booking->event_id );
 					$event_time = strtotime( $event->start_date );
-					$date_format = 'en' === $current_translation ? '%b %d' : "%d %b";
+					$date_format = 'en' === $current_translation ? 'M d' : "d M";
 					$event_date = mozilla_localize_date($event->start_date, $date_format);
 					$location   = em_get_location( $event->location_id );
 					?>
@@ -255,7 +255,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 					<div class="profile__event-title"><?php echo esc_html( $event->event_name ); ?></div>
 					<div class="profile__event-time">
 						<?php 
-							$date_format = 'en' === $current_translation ? '%B %d, %G ∙ %H:%M' : '%d %B, %G ∙ %H:%M';
+							$date_format = 'en' === $current_translation ? 'F d, Y ∙ H:i' : 'd F, Y ∙ H:i';
 							$event_date = mozilla_localize_date($event->start_date, $date_format);
 							echo esc_html( $event_date ); 
 						?>
@@ -316,7 +316,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 		<div class="profile__card">
 				<?php foreach ( $events_organized as $event ) : ?>
 					<?php
-					$date_format = 'en' === $current_translation ? '%b %d' : "%d %b";
+					$date_format = 'en' === $current_translation ? 'M d' : "d M";
 					$event_date = mozilla_localize_date($event->start_date, $date_format);
 
 					$location = em_get_location( $event->location_id );
@@ -333,7 +333,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 					<div class="profile__event-title"><?php echo esc_html( $event->event_name ); ?></div>
 					<div class="profile__event-time">
 						<?php 
-							$date_format = 'en' === $current_translation ? '%B %d, %G ∙ %H:%M' : '%d %B, %G ∙ %H:%M';
+							$date_format = 'en' === $current_translation ? 'F d, Y ∙ H:i' : 'd F, Y ∙ H:i';
 							$event_date = mozilla_localize_date($event->start_date, $date_format);
 							echo esc_html ($event_date);
 						?>

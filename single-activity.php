@@ -260,7 +260,7 @@
 								<span><?php esc_html_e( 'Related Events', 'community-portal' ); ?></span>
 								<?php foreach ( $related_events as $event ) : ?>
 									<?php
-										$date_format = 'en' === $current_translation ? '%b %d' : '%d %b';
+										$date_format = 'en' === $current_translation ? 'M d' : 'd M';
 										$event_date = mozilla_localize_date($event->start_date, $date_format);
 										$location = em_get_location( $event->location_id );
 									?>
@@ -276,7 +276,7 @@
 										<div class="activity__event-title"><?php echo esc_html( $event->event_name ); ?></div>
 										<div class="activity__event-time">
 											<?php 
-												$date_format = 'en' === $current_translation ? '%B %d, %G ∙ %H:%M' : '%d %B, %G ∙ %H:%M';
+												$date_format = 'en' === $current_translation ? 'F d, Y ∙ H:i' : 'd F, Y ∙ H:i';
 												$event_date = mozilla_localize_date($event->start_date, $date_format);
 												echo esc_html ($event_date) . ' ' . esc_html__('UTC');
 											?>

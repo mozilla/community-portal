@@ -21,7 +21,6 @@
 
 	$template_dir = get_template_directory();
 	require "{$template_dir}/languages.php";
-	require "{$template_dir}/months.php";
 
 	$group           = $bp->groups->current_group;
 	$group_meta      = groups_get_groupmeta( $group->id, 'meta' );
@@ -813,7 +812,7 @@
 					</span>
 					<span class="group__created">
 					<?php
-						$date_format = $current_translation === 'en' ? '%B %d, %G' : '%d %B, %G';
+						$date_format = $current_translation === 'en' ? 'F d, Y' : 'd F, Y';
 						$created      = mozilla_localize_date($group->date_created , $date_format);
 						$created_word = __( 'Created', 'community-portal' );
 						echo '<span> ' . esc_html( $created_word ) . ' ' . esc_html( $created );
@@ -1414,7 +1413,7 @@
 							$event      = isset( $events[0] ) && !empty($events[0]) ? $events[0] : false;
 							$event_date;
 							if ($event && isset( $event->start_date ) ) {
-								$date_format = 'en' === $current_translation ? "%b %d" : "%d %b";
+								$date_format = 'en' === $current_translation ? "M d" : "d M";
 								$event_date = mozilla_localize_date($event->start_date, $date_format);
 							}
 
@@ -1434,9 +1433,9 @@
 										<div class="group__event-title"><?php echo esc_html( $event->event_name ); ?></div>
 										<div class="group__event-time">
 											<?php 
-												$date_format = 'en' === $current_translation ? "%B %d, %G %I %M" : "%d %B, %G ∙ %H:%M";
+												$date_format = 'en' === $current_translation ? "F d, Y ∙ H:i" : "d F, Y ∙ H:i";
 												$formatted_date = mozilla_localize_date($event->start_date, $date_format);
-												echo esc_html( $formatted_date ); 
+												echo esc_html( $formatted_date ) . ' ' . esc_html__('UTC'); 
 											?>
 										</div>
 										<div class="group__event-location">

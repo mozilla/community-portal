@@ -1012,10 +1012,7 @@ function mozilla_get_current_translation() {
  * 
  */
 function mozilla_localize_date($date, $format) {
-	$locale = get_locale();
-	setlocale(LC_TIME, $locale.'.UTF8');
-	$formatted_date = strftime($format, strtotime( $date));
-	setlocale(LC_TIME, "C");
+	$formatted_date = date_i18n($format, strtotime( $date));
 	return $formatted_date;
 }
 

@@ -45,7 +45,7 @@
 					$date       = substr( $event->start_date, 8, 2 );
 					$event_year = substr( $event->start_date, 0, 4 );
 					$current_translation = mozilla_get_current_translation();
-					$date_format = $current_translation === 'en' ? '%b %d' : '%d %b';
+					$date_format = $current_translation === 'en' ? 'M d' : 'd M';
 					$formatted_date = mozilla_localize_date($event->start_date, $date_format);
 					$formatted_date = explode(' ', $formatted_date);
 				if ( isset( $formatted_date ) && count( $formatted_date ) > 1 ) :
@@ -57,7 +57,7 @@
 			<div class="event-card__description">
 				<h3 class="event-card__description__title title--event-card"><?php echo esc_html( $event->event_name ); ?></h2>
 			<?php  	
-				$date_format = $current_translation === 'en' ? '%B %d, %G' : '%d %B, %G';
+				$date_format = $current_translation === 'en' ? 'F d, Y' : 'd F, Y';
 				$formatted_date = mozilla_localize_date($event->start_date, $date_format); 
 			?>
 				<p><?php echo esc_html( $formatted_date ) . esc_html( ' @ ' ) . esc_html( substr( $event->event_start_time, 0, 5 ) ) . esc_html( ' - ' ) . esc_html( substr( $event->event_end_time, 0, 5 ) ) . esc_html( ' ' ) . esc_html( $event->event_timezone ); ?></p>

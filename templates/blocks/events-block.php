@@ -54,7 +54,7 @@ $all_countries = em_get_countries();
 					if (!empty($event['event'])):
 						$event_meta  = get_post_meta( $event['event']->ID, 'event-meta' );
 						$em_event    = em_get_event( $event['event']->ID, 'post_id' );
-						$date_format = 'en' === $current_translation ? '%b %d' : '%d %B';
+						$date_format = 'en' === $current_translation ? 'M d' : 'd M';
 						$event_date = mozilla_localize_date($em_event->start_date, $date_format);
 
 						$location   = em_get_location( $em_event->location_id );
@@ -75,7 +75,7 @@ $all_countries = em_get_countries();
 								<h3 class="campaign__event-title"><?php print esc_html( $event['event']->post_title ); ?></h3>
 								<div class="campaign__event-time">
 									<?php 
-										$date_format = 'en' === $current_translation ? '%B %d, %G @ %H:%M' : '%d %B, %G @ %H:%M';
+										$date_format = 'en' === $current_translation ? 'F d, Y @ H:i' : 'd F, Y @ H:i';
 										$event_date = mozilla_localize_date($event->start_date, $date_format);
 										echo esc_html ($event_date) . ' ' . esc_html__('UTC');
 									?>
