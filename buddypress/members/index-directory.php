@@ -17,6 +17,7 @@ $current_translation = mozilla_get_current_translation();
 
 $template_dir = get_template_directory();
 require "{$template_dir}/languages.php";
+require "{$theme_directory}/countries.php";
 
 $members_per_page = 20;
 $current_page     = isset( $_GET['page'] ) ? intval( $_GET['page'] ) : 0;

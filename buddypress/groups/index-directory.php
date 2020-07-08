@@ -18,6 +18,7 @@
 	$template_dir = get_template_directory();
 	
 	require "{$template_dir}/languages.php";
+	require "{$theme_directory}/countries.php";
 
 	// Execute actions by buddypress!
 	do_action( 'bp_before_directory_groups_page' );

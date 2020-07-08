@@ -14,6 +14,9 @@
 <?php get_header(); ?>
 	<div class="content content--homepage">
 		<?php
+			$theme_directory = get_template_directory();
+			require "{$theme_directory}/countries.php";
+		
 			$fields = array(
 				'hero_title',
 				'hero_subtitle',
