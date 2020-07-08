@@ -82,13 +82,14 @@
             }
         }
 
-        &.activity__card--additional,
+        & ~ .activity__card--additional,
         &.activity__card--flow,
-        &.activity__card--metrics,
-        &.activity__card--related-events,
+		&.activity__card--metrics,
+		& ~ .activity__card--related-events,
         &.activity__card--video {
             margin-top: 32px;
-        }
+		}
+		
     }
 
     &__card-content {

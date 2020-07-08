@@ -21,13 +21,13 @@ if ( isset( $GLOBALS['EM_Tags'] ) ) {
 	$logged_in   = mozilla_is_logged_in();
 	$active_user = wp_get_current_user()->data;
 
+	$current_translation = mozilla_get_current_translation();
 
 	global $bp;
 	$options = wp_load_alloptions();
 
 	$theme_directory = get_template_directory();
 	require "{$theme_directory}/languages.php";
-	require "{$theme_directory}/months.php";
 
 	$map_box_access_token = ( isset( $options['mapbox'] ) && strlen( $options['mapbox'] ) > 0 ) ? trim( $options['mapbox'] ) : false;
 
@@ -52,14 +52,15 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 	$projected_attendees = isset( $event_meta[0]->projected_attendees ) && intval( $event_meta[0]->projected_attendees ) > 0 ? $event_meta[0]->projected_attendees : false;
 
 
-	$start_day   = substr( $em_event->event_start_date, 8, 2 );
-	$start_month = substr( $em_event->event_start_date, 5, 2 );
-	$start_year  = substr( $em_event->event_start_date, 0, 4 );
 
 	if ( $em_event->event_start_date !== $em_event->event_end_date ) {
-		$end_day   = substr( $em_event->event_end_date, 8, 2 );
-		$end_month = substr( $em_event->event_end_date, 5, 2 );
-		$end_year  = substr( $em_event->event_end_date, 0, 4 );
+		$date_format = $current_translation === 'en' ? '%B %d' : '%d %B';
+		$formatted_start_date = mozilla_localize_date($em_event->event_start_date, $date_format);
+		$date_format = $current_translation === 'en' ? '%B %d, %G' : '%d %B, %G';
+		$formatted_end_date = mozilla_localize_date($em_event->event_end_date, $date_format);
+	} else {
+		$date_format = $current_translation === 'en' ? '%B %d, %G' : '%d %B, %G';
+		$formatted_start_date = mozilla_localize_date($em_event->event_start_date, $date_format);
 	}
 
 	$all_related_events = array();
@@ -188,10 +189,10 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 					<div class="card__date">
 						<h2 class="title--secondary">
 							<?php
-							if ( isset( $end_day ) ) {
-								echo esc_html( $months[ $start_month ] ) . esc_html( ' ' ) . esc_html( $start_day ) . esc_html( ' - ' ) . esc_html( $months[ $end_month ] ) . esc_html( ' ' ) . esc_html( $end_day ) . esc_html( ', ' ) . esc_html( $end_year );
+							if ( isset( $formatted_end_date ) ) {
+								echo esc_html($formatted_start_date) . esc_html( ' - ' ) . esc_html( $formatted_end_date );
 							} else {
-								echo esc_html( $months[ $start_month ] ) . esc_html( ' ' ) . esc_html( $start_day ) . esc_html( ', ' ) . esc_html( $start_year );
+								echo esc_html($formatted_start_date);
 							}
 							?>
 						</h2>
@@ -459,7 +460,6 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 			<div class="row">
 				<?php
 				foreach ( $all_related_events as $event ) {
-					$current_translation = mozilla_get_current_translation();
 					$url                 = get_home_url( null, '/events/' . $event->slug );
 					include locate_template( 'plugins/events-manager/templates/template-parts/single-event-card.php', false, false );
 				}

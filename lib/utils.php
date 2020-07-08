@@ -1005,4 +1005,18 @@ function mozilla_get_current_translation() {
 	}
 }
 
+/**
+ * Returns the formatted/translated date
+ * @param mixed $date the date to be translated
+ * @param string $format the desired format
+ * 
+ */
+function mozilla_localize_date($date, $format) {
+	$locale = get_locale();
+	setlocale(LC_TIME, $locale.'.UTF8');
+	$formatted_date = strftime($format, strtotime( $date));
+	setlocale(LC_TIME, "C");
+	return $formatted_date;
+}
+
 

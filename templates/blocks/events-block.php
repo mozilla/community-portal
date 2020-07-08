@@ -54,30 +54,31 @@ $all_countries = em_get_countries();
 					if (!empty($event['event'])):
 						$event_meta  = get_post_meta( $event['event']->ID, 'event-meta' );
 						$em_event    = em_get_event( $event['event']->ID, 'post_id' );
-						$event_time  = strtotime( $em_event->event_start_date );
-						$event_month = gmdate( 'M', $event_time );
-						$event_day   = gmdate( 'j', $event_time );
+						$date_format = 'en' === $current_translation ? '%b %d' : '%d %B';
+						$event_date = mozilla_localize_date($em_event->start_date, $date_format);
 
 						$location   = em_get_location( $em_event->location_id );
-						$categories = ( ! is_null( $em_event ) ) ? $em_event->get_categories() : false;
-						$event_object = em_get_event( $event['event']->ID, 'post_id' );
-					
+						$categories = ( ! is_null( $em_event ) ) ? $em_event->get_categories() : false;					
 
-						if ( ! empty( $event_object ) ) : ?>
-							<a href="<?php print esc_url_raw( get_home_url( null, 'events/' . $event_object->event_slug ) ); ?>" class="campaign__event">
+						if ( ! empty( $em_event ) ) : ?>
+							<a href="<?php print esc_url_raw( get_home_url( null, 'events/' . $em_event->event_slug ) ); ?>" class="campaign__event">
 							<div class="campaign__event-image" 
 								<?php
 									if ( isset( $event_meta[0]->image_url ) && strlen( $event_meta[0]->image_url ) > 0 ) :
 								?>
 								style="background-image: url('<?php print esc_url_raw( $event_meta[0]->image_url ); ?>')"<?php endif; ?>>
 								<div class="campaign__event-date">
-									<?php print esc_html( $event_month ) . ' ' . esc_html( $event_day ); ?>
+									<?php print esc_html( $event_date ); ?>
 								</div>
 							</div>
 							<div class="campaign__event-container">
 								<h3 class="campaign__event-title"><?php print esc_html( $event['event']->post_title ); ?></h3>
 								<div class="campaign__event-time">
-									<?php print esc_html( gmdate( 'F j, Y @ G:i', $event_time ) ) . esc_html__( ' UTC', 'community-portal' ); ?>
+									<?php 
+										$date_format = 'en' === $current_translation ? '%B %d, %G @ %H:%M' : '%d %B, %G @ %H:%M';
+										$event_date = mozilla_localize_date($event->start_date, $date_format);
+										echo esc_html ($event_date) . ' ' . esc_html__('UTC');
+									?>
 								</div>
 								<?php if ( strlen( $location->address ) > 0 || strlen( $location->town ) > 0 || strlen( $location->country ) > 0 ) : ?>
 								<div class="campaign__event-location">

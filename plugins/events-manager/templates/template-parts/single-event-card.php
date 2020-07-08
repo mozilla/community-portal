@@ -15,7 +15,6 @@
 <?php
 
 	$template_dir = get_template_directory();
-	require "{$template_dir}/months.php";
 
 	$categories = ( ! is_null( $event ) ) ? $event->get_categories() : false;
 	$location   = em_get_location( $event->location_id );
@@ -45,15 +44,23 @@
 					$month      = substr( $event->start_date, 5, 2 );
 					$date       = substr( $event->start_date, 8, 2 );
 					$event_year = substr( $event->start_date, 0, 4 );
-				if ( isset( $months[ $month ] ) && strlen( $months[ $month ] ) > 0 ) :
+					$current_translation = mozilla_get_current_translation();
+					$date_format = $current_translation === 'en' ? '%b %d' : '%d %b';
+					$formatted_date = mozilla_localize_date($event->start_date, $date_format);
+					$formatted_date = explode(' ', $formatted_date);
+				if ( isset( $formatted_date ) && count( $formatted_date ) > 1 ) :
 					?>
-					<p class="event-card__image__date"><span><?php echo esc_html( substr( $months[ $month ], 0, 3 ) ); ?> </span><span><?php echo esc_html( $date ); ?></span>
+					<p class="event-card__image__date"><span><?php echo esc_html( $formatted_date[0] ); ?> </span><span><?php echo esc_html( $formatted_date[1] ); ?></span>
 					</p>
 				<?php endif; ?>
 			</div>
 			<div class="event-card__description">
 				<h3 class="event-card__description__title title--event-card"><?php echo esc_html( $event->event_name ); ?></h2>
-				<p><?php echo esc_html( $months[ $month ] ) . esc_html( ' ' ) . esc_html( $date ) . esc_html( ', ' ) . esc_html( $event_year ) . esc_html( ' @ ' ) . esc_html( substr( $event->event_start_time, 0, 5 ) ) . esc_html( ' - ' ) . esc_html( substr( $event->event_end_time, 0, 5 ) ) . esc_html( ' ' ) . esc_html( $event->event_timezone ); ?></p>
+			<?php  	
+				$date_format = $current_translation === 'en' ? '%B %d, %G' : '%d %B, %G';
+				$formatted_date = mozilla_localize_date($event->start_date, $date_format); 
+			?>
+				<p><?php echo esc_html( $formatted_date ) . esc_html( ' @ ' ) . esc_html( substr( $event->event_start_time, 0, 5 ) ) . esc_html( ' - ' ) . esc_html( substr( $event->event_end_time, 0, 5 ) ) . esc_html( ' ' ) . esc_html( $event->event_timezone ); ?></p>
 
 				<?php if ( strlen( $location->address ) > 0 || strlen( $location->town ) > 0 || strlen( $location->country ) > 0 ) : ?>
 				<div class="event-card__location">

@@ -141,7 +141,7 @@
 												
 												?>
 												<li class="language-selector__language">
-													<a href="<?php echo esc_attr( $url ); ?>" ><?php echo esc_html( $language['translated_name'])?></a>
+													<a href="<?php echo esc_attr( $url ); ?>" ><?php echo esc_html( $language['translated_name'] . ' (' . $language['native_name'] . ')')?></a>
 												</li>
 											<?php 
 												endif;

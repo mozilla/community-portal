@@ -260,10 +260,9 @@
 								<span><?php esc_html_e( 'Related Events', 'community-portal' ); ?></span>
 								<?php foreach ( $related_events as $event ) : ?>
 									<?php
-									$event_time = strtotime( $event->start_date );
-									$event_date = gmdate( 'M d', $event_time );
-
-									$location = em_get_location( $event->location_id );
+										$date_format = 'en' === $current_translation ? '%b %d' : '%d %b';
+										$event_date = mozilla_localize_date($event->start_date, $date_format);
+										$location = em_get_location( $event->location_id );
 									?>
 								<a class="activity__event
 									<?php
@@ -276,7 +275,11 @@
 									<div class="activity__event-info">
 										<div class="activity__event-title"><?php echo esc_html( $event->event_name ); ?></div>
 										<div class="activity__event-time">
-											<?php echo esc_html( gmdate( 'M d, Y', $event_time ) . " ∙ {$event->start_time}" ); ?>
+											<?php 
+												$date_format = 'en' === $current_translation ? '%B %d, %G ∙ %H:%M' : '%d %B, %G ∙ %H:%M';
+												$event_date = mozilla_localize_date($event->start_date, $date_format);
+												echo esc_html ($event_date) . ' ' . esc_html__('UTC');
+											?>
 										</div>
 										<div class="activity__event-location">
 											<svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">

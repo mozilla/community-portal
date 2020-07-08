@@ -239,7 +239,8 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 					<?php
 					$event      = em_get_event( $event_booking->event_id );
 					$event_time = strtotime( $event->start_date );
-					$event_date = gmdate( 'M d', $event_time );
+					$date_format = 'en' === $current_translation ? '%b %d' : "%d %b";
+					$event_date = mozilla_localize_date($event->start_date, $date_format);
 					$location   = em_get_location( $event->location_id );
 					?>
 			<a class="profile__event" href="
@@ -253,23 +254,29 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 				<div class="profile__event-info">
 					<div class="profile__event-title"><?php echo esc_html( $event->event_name ); ?></div>
 					<div class="profile__event-time">
-						<?php echo esc_html( gmdate( 'M d, Y', $event_time ) . " ∙ {$event->start_time}" ); ?>
+						<?php 
+							$date_format = 'en' === $current_translation ? '%B %d, %G ∙ %H:%M' : '%d %B, %G ∙ %H:%M';
+							$event_date = mozilla_localize_date($event->start_date, $date_format);
+							echo esc_html( $event_date ); 
+						?>
 					</div>
-					<div class="profile__event-location">
-						<svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-							<path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-						</svg>
-						<?php if ( 'OE' === $location->location_country ) : ?>
-							<?php esc_html_e( 'Online Event', 'community-portal' ); ?>
-						<?php elseif ( $location->location_town && $location->location_country ) : ?>
-							<?php echo esc_html( "{$location->location_town}, {$event_countries[$location->location_country]}" ); ?>
-						<?php elseif ( $location->location_town && ! $location->location_country ) : ?>
-							<?php echo esc_html( "{$location->location_town}" ); ?>
-						<?php elseif ( ! $location->location_town && $location->location_country ) : ?>
-							<?php echo esc_html( "{$event_countries[$location->location_country]}" ); ?>
-						<?php endif; ?>
-					</div>
+					<?php if (!empty($location->location_id)): ?>
+						<div class="profile__event-location">
+							<svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+							</svg>
+							<?php if ( 'OE' === $location->location_country ) : ?>
+								<?php esc_html_e( 'Online Event', 'community-portal' ); ?>
+							<?php elseif ( $location->location_town && $location->location_country ) : ?>
+								<?php echo esc_html( "{$location->location_town}, {$event_countries[$location->location_country]}" ); ?>
+							<?php elseif ( $location->location_town && ! $location->location_country ) : ?>
+								<?php echo esc_html( "{$location->location_town}" ); ?>
+							<?php elseif ( ! $location->location_town && $location->location_country ) : ?>
+								<?php echo esc_html( "{$event_countries[$location->location_country]}" ); ?>
+							<?php endif; ?>
+						</div>
+					<?php endif; ?>
 				</div>
 			</a>
 					<?php $events_attended_count++; ?>
@@ -309,8 +316,8 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 		<div class="profile__card">
 				<?php foreach ( $events_organized as $event ) : ?>
 					<?php
-					$event_time = strtotime( $event->start_date );
-					$event_date = gmdate( 'M d', $event_time );
+					$date_format = 'en' === $current_translation ? '%b %d' : "%d %b";
+					$event_date = mozilla_localize_date($event->start_date, $date_format);
 
 					$location = em_get_location( $event->location_id );
 					?>
@@ -325,23 +332,30 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 				<div class="profile__event-info">
 					<div class="profile__event-title"><?php echo esc_html( $event->event_name ); ?></div>
 					<div class="profile__event-time">
-						<?php echo esc_html( gmdate( 'M d, Y' ) . " ∙ {$event->start_time}" ); ?>
+						<?php 
+							$date_format = 'en' === $current_translation ? '%B %d, %G ∙ %H:%M' : '%d %B, %G ∙ %H:%M';
+							$event_date = mozilla_localize_date($event->start_date, $date_format);
+							echo esc_html ($event_date);
+						?>
 					</div>
-					<div class="profile__event-location">
-						<svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-							<path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-						</svg>
-						<?php if ( 'OE' === $location->location_country ) : ?>
-							<?php esc_html_e( 'Online Event', 'community-portal' ); ?>
-						<?php elseif ( $location->location_town && $location->location_country ) : ?>
-							<?php echo esc_html( "{$location->location_town}, {$event_countries[$location->location_country]}" ); ?>
-						<?php elseif ( $location->location_town && ! $location->location_country ) : ?>
-							<?php echo esc_html( "{$location->location_town}" ); ?>
-						<?php elseif ( ! $location->location_town && $location->location_country ) : ?>
-							<?php echo esc_html( "{$event_countries[$location->location_country]}" ); ?>
-						<?php endif; ?>
-					</div>
+					<?php if (!empty($location->location_id)): ?>
+
+						<div class="profile__event-location">
+							<svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+							</svg>
+							<?php if ( 'OE' === $location->location_country ) : ?>
+								<?php esc_html_e( 'Online Event', 'community-portal' ); ?>
+							<?php elseif ( $location->location_town && $location->location_country ) : ?>
+								<?php echo esc_html( "{$location->location_town}, {$event_countries[$location->location_country]}" ); ?>
+							<?php elseif ( $location->location_town && ! $location->location_country ) : ?>
+								<?php echo esc_html( "{$location->location_town}" ); ?>
+							<?php elseif ( ! $location->location_town && $location->location_country ) : ?>
+								<?php echo esc_html( "{$event_countries[$location->location_country]}" ); ?>
+							<?php endif; ?>
+						</div>
+					<?php endif; ?>
 				</div>
 			</a>
 					<?php

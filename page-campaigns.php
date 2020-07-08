@@ -138,12 +138,11 @@
 						<h2 class="campaigns__active-campaign-title"><?php print esc_html( $current_campaign->post_title ); ?></h2>
 						<div class="campaigns__active-campaign-date-container">
 							<?php 
-								$formatted_start_date = gmdate( 'F j, Y', strtotime( $current_campaign_start_date ) );
+								$formatted_start_date = mozilla_localize_date( $current_campaign_start_date, '%d %B' );
 								print esc_html( $formatted_start_date ); ?>
 										<?php
 										if ( $current_campaign_end_date ) :
-											$formatted_end_date = gmdate( 'F j, Y', strtotime( $current_campaign_end_date ) );
-
+											$formatted_end_date = mozilla_localize_date( $current_campaign_end_date, '%d %B, %G');
 											?>
 								- <?php print esc_html( $formatted_end_date ); ?><?php endif; ?>
 						</div>
@@ -194,12 +193,12 @@
 							<h2 class="campaigns__active-campaign-title"><?php print esc_html( $incoming_campaign->post_title ); ?></h2>
 							<div class="campaigns__active-campaign-date-container">
 								<?php 
-									$formatted_start_date = gmdate( 'F j, Y', strtotime( $incoming_campaign_start_date));
+									$formatted_start_date = mozilla_localize_date( $incoming_campaign_start_date, '%d %B');
 									print esc_html( $formatted_start_date ); 
 								
 											if ( $incoming_campaign_end_date ) :
 
-												$formatted_end_date = gmdate( 'F j, Y', strtotime( $incoming_campaign_end_date ) );
+												$formatted_end_date = mozilla_localize_date( $incoming_campaign_end_date, '%d %B, %G' );
 												?>
 									- <?php print esc_html( $formatted_end_date ); ?><?php endif; ?>
 							</div>
@@ -263,13 +262,13 @@
 							<h2 class="campaigns__active-campaign-title campaigns__active-campaign-title--card"><?php print esc_html( $campaign->post_title ); ?></h2>
 							<div class="campaigns__active-campaign-date-container campaigns__active-campaign-date-container--card">
 								<?php 
-									$formatted_start_date = gmdate( 'F j, Y', strtotime( $campaign_start_date ) );
+									$formatted_start_date = mozilla_localize_date( $campaign_start_date, '%d %B, %G');
 									print esc_html( $formatted_start_date ); ?>
 											<?php
 											if ( $campaign_end_date ) :
 												?>
 									- <?php 
-									$formatted_end_date = gmdate( 'F j, Y', strtotime( $campaign_end_date ) );
+									$formatted_end_date = mozilla_localize_date( $campaign_end_date, '%d %B, %G' );
 									
 									print esc_html( $formatted_end_date ); 
 									?><?php endif; ?>
