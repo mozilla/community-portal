@@ -1015,7 +1015,7 @@
 										<option value="<?php echo esc_html( $loop_tag->slug ); ?>" 
 																<?php
 																if ( isset( $_GET['tag'] ) && strtolower( trim( $get_tag ) ) === strtolower( $loop_tag->slug ) ) :
-																	?>
+																?>
 											selected<?php endif; ?>><?php echo esc_html( $loop_tag->name ); ?></option>
 										<?php endforeach; ?>
 									</select>  
@@ -1556,7 +1556,9 @@
 											}
 										}
 										?>
-										<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}/" ); ?><?php endif; ?>/groups/?tag=<?php echo esc_attr( $tag_loop ); ?>" class="group__tag"><?php echo esc_html( $tag_name ); ?></a>
+										<?php if ( !empty( $tag_name) ): ?>
+											<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}/" ); ?><?php endif; ?>/groups/?tag=<?php echo esc_attr( $tag_loop ); ?>" class="group__tag"><?php echo esc_html( $tag_name ); ?></a>
+										<?php endif; ?>
 									<?php endforeach; ?>
 								</div>
 							</div>

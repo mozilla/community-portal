@@ -234,6 +234,7 @@ $current_translation = mozilla_get_current_translation();
 									<legend class="create-group__label"><?php esc_html_e( 'Tags for your group', 'community-portal' ); ?></legend>
 									<?php
 										// Get all tags!
+                    
 										$tags = get_tags( array( 'hide_empty' => false ) );
 									?>
 									<div class="create-group__tag-container">

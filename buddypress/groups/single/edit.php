@@ -57,7 +57,7 @@ if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHO
 	}
 }
 
-$form_tags = isset( $form['tags'] ) && is_array($form['tags']) ? array_unique( array_filter( $form['tags'], 'strlen' ) ) : array();
+$form_tags = isset( $form['tags'] ) && is_array($form['tags']) ? array_unique( array_map( 'mozilla_map_tags', $form['tags'] ) ) : array();
 
 ?>
 <div class="content">
@@ -222,14 +222,18 @@ $form_tags = isset( $form['tags'] ) && is_array($form['tags']) ? array_unique( a
 										}
 									?>
 									<input class="create-group__checkbox" type="checkbox" id="<?php echo esc_attr( $loop_tag->slug ); ?>" data-value="<?php echo esc_attr( $loop_tag->slug ); ?>">
-									<label class="create-group__tag
-									<?php
-									if ( in_array( $loop_tag->slug, $form_tags, true ) ) :
-										?>
-										create-group__tag--active<?php endif; ?>" for="<?php echo esc_attr( $loop_tag->slug ); ?>"><?php echo esc_html( $loop_tag->name ); ?></label>
+									<label 
+                                        class="create-group__tag
+                                        <?php if ( in_array( $loop_tag->slug, $form_tags, true ) ) : ?>
+                                            create-group__tag--active
+                                        <?php endif; ?>" 
+                                        for="<?php echo esc_attr( $loop_tag->slug ); ?>"
+                                    >
+                                        <?php echo esc_html( $loop_tag->name ); ?>
+                                    </label>
 								<?php endforeach; ?>
 							</div>
-							<input type="hidden" value="<?php print ( isset( $form['tags'] ) ) ? esc_attr( implode( ',', $form['tags'] ) ) : ''; ?>" name="tags" id="tags" /> 
+							<input type="hidden" value="<?php print ( isset( $form_tags ) ) ? esc_attr( implode( ',', $form_tags ) ) : ''; ?>" name="tags" id="tags" /> 
 						</fieldset>
 					</div>
 				</div>

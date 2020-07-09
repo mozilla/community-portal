@@ -208,7 +208,7 @@ if (
 			</div>
 			<div class="nav__menu">
 				<div class="nav__container">
-					<?php if ( $current_translation ) : ?>
+					<?php if ( 'en' !== $current_translation ) : ?>
 						<?php
 						wp_nav_menu(
 							array(
@@ -288,7 +288,7 @@ if (
 					</label>
 
 					<?php
-					if ( $current_translation ) {
+					if ( 'en' !== $current_translation ) {
 						$items = wp_get_nav_menu_items( 'Mozilla Main Menu - ' . $current_translation );
 					} else {
 						$items = wp_get_nav_menu_items( 'Mozilla Main Menu' );
