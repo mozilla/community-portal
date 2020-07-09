@@ -1017,6 +1017,11 @@ function mozilla_localize_date($date, $format) {
 }
 
 
+/**
+ * Maps tags saved by name to be slugs
+ * @param string $tag the saved tag
+ * 
+ */
 function mozilla_map_tags($tag) {
 	$term_obj = get_term_by('name', $tag, 'post_tag');
 	if (is_object($term_obj) && !empty($term_obj) && isset($term_obj->slug) && strlen($term_obj->slug) > 0) {
@@ -1026,9 +1031,4 @@ function mozilla_map_tags($tag) {
 		return $term_obj->slug;
 	}
 	return $tag;
-}
-
-function mozilla_filter_tags($tag) {
-	var_dump($tag);
-	return strlen($tag) > 1;
 }
