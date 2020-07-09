@@ -23,6 +23,11 @@
 		'post_type'      => 'campaign',
 		'posts_per_page' => -1,
 	);
+
+	$status = array(
+		'Active' => __('Active', 'community-portal'),
+		'Closed' => __('Closed', 'community-portal'),
+	);
 	
 	$current_translation = mozilla_get_current_translation();
 
@@ -57,6 +62,7 @@
 	}
 
 	if ( $current_campaign ) {
+		var_dump($current_campaign);
 		$current_campaign_image = get_the_post_thumbnail_url( $current_campaign->ID );
 
 		$current_campaign_status        = get_field( 'campaign_status', $current_campaign->ID );
@@ -136,7 +142,7 @@
 		<div class="campaign__hero-image" <?php if (isset($current_campaign_image) && strlen($current_campaign_image) > 0 ): ?> style="background-image: url(<?php print esc_attr( $current_campaign_image ); ?>);" <?php endif; ?> >
 					</div>
 					<div class="campaigns__active-campaign-title-container">
-						<div class="campaigns__active-campaign-status"><?php print esc_html( $current_campaign_status ); ?></div>
+						<div class="campaigns__active-campaign-status"><?php print esc_html( $status[ $current_campaign_status ] ); ?></div>
 						<h2 class="campaigns__active-campaign-title"><?php print esc_html( $current_campaign->post_title ); ?></h2>
 						<div class="campaigns__active-campaign-date-container">
 				<?php 
@@ -146,7 +152,7 @@
 										<?php
 										if ( $current_campaign_end_date ) :
 											$date_format = 'en' === $current_translation ? 'F d, Y' : 'd F, Y';
-											$formatted_end_date = mozilla_localize_date( $current_campaign_end_date, 'd F, Y');
+											$formatted_end_date = mozilla_localize_date( $current_campaign_end_date, $date_format);
 											?>
 								- <?php print esc_html( $formatted_end_date ); ?><?php endif; ?>
 						</div>
@@ -193,7 +199,7 @@
 		<div class="campaign__hero-image" <?php if (isset($incoming_campaign_image) && strlen($incoming_campaign_image) > 0 ): ?> style="background-image: url(<?php print esc_attr( $incoming_campaign_image ); ?>);" <?php endif;?> >
 						</div>
 						<div class="campaigns__active-campaign-title-container">
-							<div class="campaigns__active-campaign-status"><?php print esc_html( $incoming_campaign_status ); ?></div>
+							<div class="campaigns__active-campaign-status"><?php print esc_html( $status[ $incoming_campaign_status ] ); ?></div>
 							<h2 class="campaigns__active-campaign-title"><?php print esc_html( $incoming_campaign->post_title ); ?></h2>
 							<div class="campaigns__active-campaign-date-container">
 								<?php 
@@ -261,19 +267,20 @@
 			<a class="campaigns__campaign" href="<?php print esc_html( get_home_url(null, '/campaigns/' . $campaign->post_name ) ); ?>">
 				<div class="campaigns__active-campaign-hero-container campaigns__active-campaign-hero-container--card">
 					<div class="campaigns__past-campaign-hero">
-        <div class="campaign__hero-image campaign__hero-image--card" <?php if (isset($campaign_image) && strlen($campaign_image) > 0 ): ?> style="background-image: url(<?php print esc_html( $campaign_image ); ?>);" <?php endif; ?> >
+						<div class="campaign__hero-image campaign__hero-image--card" <?php if (isset($campaign_image) && strlen($campaign_image) > 0 ): ?> style="background-image: url(<?php print esc_html( $campaign_image ); ?>);" <?php endif; ?> >
 						</div>
 						<div class="campaigns__active-campaign-title-container campaigns__active-campaign-title-container--card">
 							<h2 class="campaigns__active-campaign-title campaigns__active-campaign-title--card"><?php print esc_html( $campaign->post_title ); ?></h2>
 							<div class="campaigns__active-campaign-date-container campaigns__active-campaign-date-container--card">
                 <?php 
-									$date_format = 'en' === $current_translation ? 'F d, Y' : 'd F, Y';
+									$date_format = 'en' === $current_translation ? 'F d' : 'd F';
 									$formatted_start_date = mozilla_localize_date( $campaign_start_date, $date_format);
 									print esc_html( $formatted_start_date ); ?>
 											<?php
 											if ( $campaign_end_date ) :
 												?>
 									- <?php 
+									$date_format = 'en' === $current_translation ? 'F d, Y' : 'd F, Y';
 									$formatted_end_date = mozilla_localize_date( $campaign_end_date, $date_format );
 									
 									print esc_html( $formatted_end_date ); 
