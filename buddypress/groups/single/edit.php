@@ -38,7 +38,7 @@ if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHO
 	$form['group_country']         = isset( $group_meta['group_country'] ) ? $group_meta['group_country'] : '0';
 	$form['group_city']            = isset( $group_meta['group_city'] ) ? $group_meta['group_city'] : '';
 	$form['image_url']             = isset( $group_meta['group_image_url'] ) ? $group_meta['group_image_url'] : '';
-	$form['tags']                  = $group_meta['group_tags'];
+	$form['tags']                  = isset( $group_meta['group_tags'] ) ? $group_meta['group_tags'] : '';
 	$form['group_address_type']    = isset( $group_meta['group_address_type'] ) ? $group_meta['group_address_type'] : 'Address';
 	$form['group_address']         = isset( $group_meta['group_address'] ) ? $group_meta['group_address'] : '';
 	$form['group_meeting_details'] = isset( $group_meta['group_meeting_details'] ) ? $group_meta['group_meeting_details'] : '';
@@ -57,7 +57,7 @@ if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHO
 	}
 }
 
-$form_tags = isset( $form['tags'] ) ? array_unique( array_filter( $form['tags'], 'strlen' ) ) : array();
+$form_tags = isset( $form['tags'] ) && is_array($form['tags']) ? array_unique( array_filter( $form['tags'], 'strlen' ) ) : array();
 
 ?>
 <div class="content">
