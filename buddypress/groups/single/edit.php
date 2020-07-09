@@ -209,12 +209,13 @@ $form_tags = isset( $form['tags'] ) && is_array($form['tags']) ? array_unique( a
 							<legend class="create-group__label"><?php esc_html_e( 'Tags for your group', 'community-portal' ); ?></legend>
 							<?php
 								// Get all tags!
-								$tags = get_tags( array( 'hide_empty' => false ) );
+                                $tags = get_tags( array( 'hide_empty' => false ) );
+
 							?>
 							<div class="create-group__tag-container">
 								<?php foreach ( $tags as $loop_tag ) : ?>
 									<?php 
-										if( $current_translation )	{
+										if( 'en' !== $current_translation )	{
 											if ( false !== stripos( $loop_tag->slug, '_' ) ) {
 												$loop_tag->slug = substr( $loop_tag->slug, 0, stripos( $loop_tag->slug, '_' ) ); 
 											}

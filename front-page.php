@@ -14,6 +14,7 @@
 <?php get_header(); ?>
 	<div class="content content--homepage">
 		<?php
+			$current_translation = mozilla_get_current_translation();
 			$theme_directory = get_template_directory();
 			require "{$theme_directory}/countries.php";
 		
@@ -237,12 +238,22 @@
 												if (isset($meta) && isset($meta['group_tags'])):
 										?>
 										<ul class="groups__card-tags__container">
-										<?php foreach ( $meta['group_tags'] as $key => $value ) : ?>
-											<li class="groups__tag"><?php echo esc_html( $value ); ?></li>
-											<?php $tag_counter++; ?>
-											<?php if ( 2 === $tag_counter && count( $meta['group_tags'] ) > 2 ) : ?>
-												<li class="groups__tag">+ <?php echo esc_html( count( $meta['group_tags'] ) - 2 ); ?> <?php echo esc_html_e( ' more tags', 'community-portal' ); ?></li>
-												<?php break; ?>
+										<?php foreach ( $meta['group_tags'] as $key => $value ) : 
+											$tag = false;
+											if ('en' !== $current_translation) {
+												$tag = get_term_by('slug', $value . '_' . $current_translation, 'post_tag');
+											}
+											if (false === $tag) {
+												$tag = get_term_by('slug', $value, 'post_tag');
+											}
+											if (!empty($tag) ):
+										?>
+												<li class="groups__tag"><?php echo esc_html( $tag->name ); ?></li>
+												<?php $tag_counter++; ?>
+												<?php if ( 2 === $tag_counter && count( $meta['group_tags'] ) > 2 ) : ?>
+													<li class="groups__tag">+ <?php echo esc_html( count( $meta['group_tags'] ) - 2 ); ?> <?php echo esc_html_e( ' more tags', 'community-portal' ); ?></li>
+													<?php break; ?>
+												<?php endif; ?>
 											<?php endif; ?>
 										<?php endforeach; ?>
 										</ul>
