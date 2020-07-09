@@ -10,7 +10,6 @@
  * @author  Playground Inc.
  */
 
-
 ?>
 <?php
 	$current_translation = mozilla_get_current_translation();
@@ -122,31 +121,32 @@
 						</div>
 						<div class="col-md-6 language-selector">
 							<div class="language-selector__container">
-								<p class="language-selector__label"><?php esc_html_e('Language', 'community-portal') ?></p>
-								<?php 
+								<p class="language-selector__label"><?php esc_html_e( 'Language', 'community-portal' ); ?></p>
+								<?php
 								if ( function_exists( 'icl_get_languages' ) ) {
-									$wpml_languages = icl_get_languages('skip_missing=N&orderby=KEY&order=DIR&link_empty_to=str');
+									$wpml_languages   = icl_get_languages( 'skip_missing=N&orderby=KEY&order=DIR&link_empty_to=str' );
 									$current_langauge = ICL_LANGUAGE_CODE;
 								}
-									if (isset($wpml_languages) && count($wpml_languages) > 0):
-										$url = get_site_url(null, $_SERVER['REQUEST_URI']);
+								if ( isset( $wpml_languages ) && count( $wpml_languages ) > 0 ) :
+									$url = get_site_url( null, $_SERVER['REQUEST_URI'] );
 
-								?>
+									?>
 									<ul id="footer-language-selector" class="language-selector__select">
-										<li class="language-selector__language language-selector__language--active"><?php echo esc_html($wpml_languages[$current_langauge]['translated_name']) ?></li>
+										<li class="language-selector__language language-selector__language--active"><?php echo esc_html( $wpml_languages[ $current_langauge ]['translated_name'] ); ?></li>
 										<ul class="language-selector__select language-selector__select--submenu">
-											<?php foreach($wpml_languages as $index=>$language):
-												if ($index !== $current_langauge):
-													$url = apply_filters( 'wpml_permalink', $url , $language['code'] );
-												
+										<?php
+										foreach ( $wpml_languages as $index => $language ) :
+											if ( $index !== $current_langauge ) :
+												$url = apply_filters( 'wpml_permalink', $url, $language['code'] );
+
 												?>
 												<li class="language-selector__language">
-													<a href="<?php echo esc_attr( $url ); ?>" ><?php echo esc_html( $language['translated_name'] . ' (' . $language['native_name'] . ')')?></a>
+													<a href="<?php echo esc_attr( $url ); ?>" ><?php echo esc_html( $language['translated_name'] . ' (' . $language['native_name'] . ')' ); ?></a>
 												</li>
-											<?php 
+												<?php
 												endif;
-											endforeach; 
-											?>
+											endforeach;
+										?>
 										</ul>
 									</ul>
 								<?php endif; ?>
@@ -186,7 +186,6 @@
 							<?php
 								$github_link = ( isset( $options['github_link'] ) && strlen( $options['github_link'] ) > 0 ) ? $options['github_link'] : '#';
 							?>
-					
 							<a href="<?php echo esc_url_raw( $github_link ); ?>">
 								<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 									<path d="M6.00001 13.3334C2.66668 14.3334 2.66668 11.6667 1.33334 11.3334M10.6667 15.3334V12.7534C10.6917 12.4355 10.6487 12.1159 10.5407 11.8159C10.4326 11.5159 10.262 11.2423 10.04 11.0134C12.1333 10.78 14.3333 9.98669 14.3333 6.34669C14.3332 5.4159 13.9751 4.52082 13.3333 3.84669C13.6372 3.03236 13.6158 2.13225 13.2733 1.33335C13.2733 1.33335 12.4867 1.10002 10.6667 2.32002C9.13868 1.9059 7.528 1.9059 6.00001 2.32002C4.18001 1.10002 3.39334 1.33335 3.39334 1.33335C3.05093 2.13225 3.02944 3.03236 3.33334 3.84669C2.68676 4.52582 2.32836 5.42899 2.33334 6.36669C2.33334 9.98002 4.53334 10.7734 6.62668 11.0334C6.40734 11.26 6.23819 11.5303 6.13022 11.8266C6.02225 12.123 5.97788 12.4387 6.00001 12.7534V15.3334" stroke="#EDEDF0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
