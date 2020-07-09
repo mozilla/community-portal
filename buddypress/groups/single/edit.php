@@ -57,7 +57,7 @@ if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHO
 	}
 }
 
-$form_tags = isset( $form['tags'] ) && is_array($form['tags']) ? array_unique( array_map( 'mozilla_map_tags', $form['tags'] ) ) : array();
+$form_tags = isset( $form['tags'] ) && is_array($form['tags']) ? array_unique( array_filter( array_map( 'mozilla_map_tags', $form['tags'] ), 'strlen' ) ) : array();
 
 ?>
 <div class="content">
