@@ -34,14 +34,14 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 					<?php
 						esc_html_e( 'Notice: We had a problem registering you for our newsletter. Please try signing up again later. To try again ', 'community-portal' );
 					?>
-					<a class="newsletter__link" href="<?php echo esc_attr( get_home_url(null, 'newsletter') ) ?>">
+					<a class="newsletter__link" href="<?php echo esc_attr( get_home_url( null, 'newsletter' ) ); ?>">
 						<?php esc_html_e( 'Click here', 'community-portal' ); ?>
 					</a> 
 				</p>
 			<?php endif; ?>
 			<div class="profile__button-container">
-				<?php $username =  $updated_username ? $updated_username : $user->user_nicename; ?>
-				<a href="<?php echo esc_attr( get_home_url(null, 'people/' . $username . '/profile/edit/group/1' ) ) ?>" class="profile__button">
+				<?php $username = $updated_username ? $updated_username : $user->user_nicename; ?>
+				<a href="<?php echo esc_attr( get_home_url( null, 'people/' . $username . '/profile/edit/group/1' ) ); ?>" class="profile__button">
 					<?php esc_html_e( 'Complete your profile', 'community-portal' ); ?>
 				</a>
 				<a href="" class="profile__button profile__button--secondary">
@@ -96,30 +96,30 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 							<?php esc_html_e( 'Profile Photo (optional)', 'community-portal' ); ?>
 						</label>
 						<?php
-							if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty( $_SERVER['SERVER_PORT'] ) && 443 === $_SERVER['SERVER_PORT'] ) {
-								if ( isset( $form['image_url'] ) && strlen( $form['image_url'] ) > 0 ) {
-									$avatar_url = preg_replace( '/^http:/i', 'https:', $form['image_url'] );
-								} else {
-									if ( is_array( $community_fields ) && isset( $community_fields['image_url'] ) && strlen( $community_fields['image_url'] ) > 0 ) {
-										$avatar_url = preg_replace( '/^http:/i', 'https:', $community_fields['image_url'] );
-									}
-								}
+						if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty( $_SERVER['SERVER_PORT'] ) && 443 === $_SERVER['SERVER_PORT'] ) {
+							if ( isset( $form['image_url'] ) && strlen( $form['image_url'] ) > 0 ) {
+								$avatar_url = preg_replace( '/^http:/i', 'https:', $form['image_url'] );
 							} else {
-								if ( isset( $form['image_url'] ) && strlen( $form['image_url'] ) > 0 ) {
-									$avatar_url = $form['image_url'];
-								} else {
-									if ( is_array( $community_fields ) && isset( $community_fields['image_url'] ) && strlen( $community_fields['image_url'] ) > 0 ) {
-										$avatar_url = $community_fields['image_url'];
-									}
+								if ( is_array( $community_fields ) && isset( $community_fields['image_url'] ) && strlen( $community_fields['image_url'] ) > 0 ) {
+									$avatar_url = preg_replace( '/^http:/i', 'https:', $community_fields['image_url'] );
 								}
 							}
+						} else {
+							if ( isset( $form['image_url'] ) && strlen( $form['image_url'] ) > 0 ) {
+								$avatar_url = $form['image_url'];
+							} else {
+								if ( is_array( $community_fields ) && isset( $community_fields['image_url'] ) && strlen( $community_fields['image_url'] ) > 0 ) {
+									$avatar_url = $community_fields['image_url'];
+								}
+							}
+						}
 						?>
 						<div 
 							id="dropzone-photo-uploader" 
 							class="profile__image-upload"
 							<?php if ( $form && isset( $form['image_url'] ) && strlen( $form['image_url'] ) > 0 ) : ?>
 								style="background: url('<?php echo esc_url_raw( $avatar_url ); ?>') cover;"
-							<?php else: ?>
+							<?php else : ?>
 								<?php if ( is_array( $community_fields ) && isset( $community_fields['image_url'] ) && strlen( $community_fields['image_url'] ) > 0 ) : ?>
 									style="background: url('<?php echo esc_url_raw( $avatar_url ); ?>'); background-size: cover;"
 								<?php endif; ?>
@@ -258,8 +258,8 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 						id="first-name" 
 						class="profile__input
 							<?php
-								if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] && ! isset( $form['first_name'] ) || ( isset( $form['first_name'] ) && empty( trim( $form['first_name'] ) ) ) ) :
-							?>
+							if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] && ! isset( $form['first_name'] ) || ( isset( $form['first_name'] ) && empty( trim( $form['first_name'] ) ) ) ) :
+								?>
 								profile__input--error
 							<?php endif; ?>" 
 						placeholder="<?php esc_attr_e( 'First Name', 'community-portal' ); ?>" 
@@ -290,8 +290,8 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 								<option 
 									value="<?php echo esc_html( $key ); ?>"
 									<?php
-										if ( isset( $meta['first_name_visibility'][0] ) && "{$key}" === $meta['first_name_visibility'][0] ) :
-									?>
+									if ( isset( $meta['first_name_visibility'][0] ) && "{$key}" === $meta['first_name_visibility'][0] ) :
+										?>
 										selected
 									<?php endif; ?>
 								>
@@ -314,8 +314,8 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 						id="last-name" 
 						class="profile__input
 							<?php
-								if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] && ! isset( $form['last_name'] ) || ( isset( $form['last_name'] ) && empty( trim( $form['last_name'] ) ) ) ) :
-							?>
+							if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] && ! isset( $form['last_name'] ) || ( isset( $form['last_name'] ) && empty( trim( $form['last_name'] ) ) ) ) :
+								?>
 								profile__input--error
 							<?php endif; ?>" 
 						placeholder="<?php esc_attr_e( 'Last Name', 'community-portal' ); ?>" 
@@ -325,8 +325,8 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 					<div 
 						class="form__error-container
 							<?php
-								if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] && ! isset( $form['last_name'] ) || ( isset( $form['last_name'] ) && empty( trim( $form['last_name'] ) ) ) ) :
-							?>
+							if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] && ! isset( $form['last_name'] ) || ( isset( $form['last_name'] ) && empty( trim( $form['last_name'] ) ) ) ) :
+								?>
 								form__error-container--visible
 							<?php endif; ?>"
 					>
@@ -344,8 +344,8 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 							<option 
 								value="<?php echo esc_attr( $key ); ?>"
 									<?php
-										if ( isset( $meta['last_name_visibility'][0] ) && "{$key}" === $meta['last_name_visibility'][0] ) :
-									?>
+									if ( isset( $meta['last_name_visibility'][0] ) && "{$key}" === $meta['last_name_visibility'][0] ) :
+										?>
 										selected
 									<?php endif; ?>
 							>
@@ -370,13 +370,13 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 								<option 
 									value="<?php echo esc_html( $p ); ?>"
 									<?php
-										if ( $form && isset( $form['pronoun'] ) && $form['pronoun'] === $p ) :
-									?>
-										selected
-									<?php else :?>
-										<?php
-											if ( isset( $community_fields['pronoun'] ) && $community_fields['pronoun'] === $p ) :
+									if ( $form && isset( $form['pronoun'] ) && $form['pronoun'] === $p ) :
 										?>
+										selected
+									<?php else : ?>
+										<?php
+										if ( isset( $community_fields['pronoun'] ) && $community_fields['pronoun'] === $p ) :
+											?>
 											selected
 										<?php endif; ?>
 									<?php endif; ?>
@@ -395,15 +395,15 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 								<option 
 									value="<?php echo esc_html( $key ); ?>"
 									<?php
-										if ( $form && isset( $form['profile_pronoun_visibility'] ) && "{$key}" === $form['profile_pronoun_visibility'] ) :
-									?>
-										selected
-									<?php
-										else :
-									?>
-										<?php
-											if ( isset( $community_fields['profile_pronoun_visibility'] ) && "{$key}" === $community_fields['profile_pronoun_visibility'] ) :
+									if ( $form && isset( $form['profile_pronoun_visibility'] ) && "{$key}" === $form['profile_pronoun_visibility'] ) :
 										?>
+										selected
+										<?php
+										else :
+											?>
+											<?php
+											if ( isset( $community_fields['profile_pronoun_visibility'] ) && "{$key}" === $community_fields['profile_pronoun_visibility'] ) :
+												?>
 											selected
 										<?php endif; ?>
 									<?php endif; ?>
@@ -421,13 +421,13 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 							<?php esc_html_e( 'Bio (optional)', 'community-portal' ); ?>
 						</label>
 						<?php
-							if ( $form && isset( $form['bio'] ) ) {
-								$bio = $form['bio'];
-							} else {
-								if ( is_array( $community_fields ) && isset( $community_fields['bio'] ) ) {
-									$bio = $community_fields['bio'];
-								}
+						if ( $form && isset( $form['bio'] ) ) {
+							$bio = $form['bio'];
+						} else {
+							if ( is_array( $community_fields ) && isset( $community_fields['bio'] ) ) {
+								$bio = $community_fields['bio'];
 							}
+						}
 						?>
 						<textarea name="bio" id="bio" class="profile__textarea" maxlength="3000">
 							<?php echo esc_textarea( $bio ); ?>
@@ -469,7 +469,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 									value="<?php echo esc_attr( $key ); ?>"
 									<?php if ( $form && isset( $form['country'] ) && $form['country'] === $key ) : ?>
 										selected
-									<?php else: ?>
+									<?php else : ?>
 										<?php if ( isset( $community_fields['country'] ) && $community_fields['country'] === $key ) : ?>
 											selected
 										<?php endif; ?>
@@ -504,7 +504,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 									value="<?php echo esc_attr( $key ); ?>"
 									<?php if ( $form && isset( $form['profile_location_visibility'] ) && "{$key}" === $form['profile_location_visibility'] ) : ?>
 										selected
-									<?php else: ?>
+									<?php else : ?>
 										<?php if ( isset( $meta['profile_location_visibility'][0] ) && "{$key}" === $meta['profile_location_visibility'][0] ) : ?>
 											selected
 										<?php endif; ?>
@@ -592,7 +592,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 							value="
 								<?php if ( $form && isset( $form['phone'] ) ) : ?>
 									<?php echo esc_attr( $form['phone'] ); ?>
-								<?php else :?>
+								<?php else : ?>
 									<?php if ( is_array( $community_fields ) && isset( $community_fields['phone'] ) ) : ?>
 										<?php echo esc_attr( $community_fields['phone'] ); ?>
 									<?php endif; ?>
@@ -643,16 +643,16 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 				<div class="profile__form-field">
 					<div class="profile__input-container">
 						<label class="profile__label" for="discourse"><?php esc_html_e( 'Mozilla Discourse username (optional)', 'community-portal' ); ?></label>
-						<?php 
-							if ( $form && isset( $form['discourse'] ) ) {
-								$discourse_value = $form['discourse'];
+						<?php
+						if ( $form && isset( $form['discourse'] ) ) {
+							$discourse_value = $form['discourse'];
+						} else {
+							if ( is_array( $community_fields ) && isset( $community_fields['discourse'] ) ) {
+								$discourse_value = $community_fields['discourse'];
 							} else {
-								if ( is_array( $community_fields ) && isset( $community_fields['discourse'] ) ) {
-									$discourse_value = $community_fields['discourse'];
-								} else {
-									$discourse_value = '';
-								}
-							}	
+								$discourse_value = '';
+							}
+						}
 						?>
 						<input type="text" name="discourse" id="discourse" class="profile__input" value="<?php echo esc_attr( $discourse_value ); ?>"/>
 					</div>
@@ -680,15 +680,15 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 							<?php esc_html_e( 'Facebook username (optional)', 'community-portal' ); ?>
 						</label>
 						<?php
-							if ( $form && isset( $form['facebook'] ) ) {
-								$facebook_value = $form['facebook'];
+						if ( $form && isset( $form['facebook'] ) ) {
+							$facebook_value = $form['facebook'];
+						} else {
+							if ( is_array( $community_fields ) && isset( $community_fields['facebook'] ) ) {
+								$facebook_value = $community_fields['facebook'];
 							} else {
-								if ( is_array( $community_fields ) && isset( $community_fields['facebook'] ) ) {
-									$facebook_value = $community_fields['facebook'];
-								} else {
-									$facebook_value = '';
-								}
+								$facebook_value = '';
 							}
+						}
 						?>
 						<input type="text" name="facebook" id="facebook" class="profile__input" value="<?php echo esc_attr( $facebook_value ); ?>"/>
 					</div>
@@ -716,15 +716,15 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 							<?php esc_html_e( 'Twitter username (optional)', 'community-portal' ); ?>
 						</label>
 						<?php
-							if ( $form && isset( $form['twitter'] ) ) {
-								$twitter_value = $form['twitter'];
+						if ( $form && isset( $form['twitter'] ) ) {
+							$twitter_value = $form['twitter'];
+						} else {
+							if ( is_array( $community_fields ) && isset( $community_fields['twitter'] ) ) {
+								$twitter_value = $community_fields['twitter'];
 							} else {
-								if ( is_array( $community_fields ) && isset( $community_fields['twitter'] ) ) {
-									$twitter_value = $community_fields['twitter'];
-								} else {
-									$twitter_value = '';
-								}
+								$twitter_value = '';
 							}
+						}
 						?>
 						<input type="text" name="twitter" id="twitter" class="profile__input" value="<?php echo esc_attr( $twitter_value ); ?>"/>
 					</div>
@@ -750,15 +750,15 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 					<div class="profile__input-container">
 						<label class="profile__label" for="linkedin"><?php esc_html_e( 'LinkedIn username (optional)', 'community-portal' ); ?></label>
 						<?php
-							if ( $form && isset( $form['linkedin'] ) ) {
-								$linkedin_value = $form['linkedin'];
+						if ( $form && isset( $form['linkedin'] ) ) {
+							$linkedin_value = $form['linkedin'];
+						} else {
+							if ( is_array( $community_fields ) && isset( $community_fields['linkedin'] ) ) {
+								$linkedin_value = $community_fields['linkedin'];
 							} else {
-								if ( is_array( $community_fields ) && isset( $community_fields['linkedin'] ) ) {
-									$linkedin_value = $community_fields['linkedin'];
-								} else {
-									$linkedin_value = '';
-								}
+								$linkedin_value = '';
 							}
+						}
 						?>
 						<input type="text" name="linkedin" id="linkedin" class="profile__input" value="<?php echo esc_attr( $linkedin_value ); ?>"/>
 					</div>
@@ -786,15 +786,15 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 							<?php esc_html_e( 'Github username (optional)', 'community-portal' ); ?>
 						</label>
 						<?php
-							if ( $form && isset( $form['github'] ) ) {
-								$github_value = $form['github'];
+						if ( $form && isset( $form['github'] ) ) {
+							$github_value = $form['github'];
+						} else {
+							if ( is_array( $community_fields ) && isset( $community_fields['github'] ) ) {
+								$github_value = $community_fields['github'];
 							} else {
-								if ( is_array( $community_fields ) && isset( $community_fields['github'] ) ) {
-									$github_value = $community_fields['github'];
-								} else {
-									$github_value = '';
-								}
+								$github_value = '';
 							}
+						}
 						?>
 						<input type="text" name="github" id="github" class="profile__input" value="<?php echo esc_attr( $github_value ); ?>"/>
 					</div>
@@ -805,9 +805,9 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 						<select id="profile-github-visibility" name="profile_github_visibility" class="profile__select">
 							<?php foreach ( $visibility_options as $key   => $value ) : ?>
 								<option value="<?php echo esc_attr( $key ); ?>"
-									<?php 
-										if ( isset( $community_fields['profile_github_visibility'] ) && "{$key}" === $community_fields['profile_github_visibility'] ) :
-									?>
+									<?php
+									if ( isset( $community_fields['profile_github_visibility'] ) && "{$key}" === $community_fields['profile_github_visibility'] ) :
+										?>
 										selected
 									<?php endif; ?>
 								>
@@ -824,15 +824,15 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 							<?php esc_html_e( 'Telegram username (optional)', 'community-portal' ); ?>
 						</label>
 						<?php
-							if ( $form && isset( $form['telegram'] ) ) {
-								$telegram_value = $form['telegram'];
+						if ( $form && isset( $form['telegram'] ) ) {
+							$telegram_value = $form['telegram'];
+						} else {
+							if ( is_array( $community_fields ) && isset( $community_fields['telegram'] ) ) {
+								$telegram_value = $community_fields['telegram'];
 							} else {
-								if ( is_array( $community_fields ) && isset( $community_fields['telegram'] ) ) {
-									$telegram_value = $community_fields['telegram'];
-								} else {
-									$telegram_value = '';
-								}
+								$telegram_value = '';
 							}
+						}
 						?>
 						<input type="text" name="telegram" id="telegram" class="profile__input" value="<?php echo esc_attr( $telegram_value ); ?>"/>
 					</div>
@@ -843,9 +843,9 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 						<select id="profile-telegram-visibility" name="profile_telegram_visibility" class="profile__select">
 							<?php foreach ( $visibility_options as $key   => $value ) : ?>
 								<option value="<?php echo esc_attr( $key ); ?>"
-									<?php 
-										if ( isset( $community_fields['profile_telegram_visibility'] ) && "{$key}" === $community_fields['profile_telegram_visibility'] ) :
-									?>
+									<?php
+									if ( isset( $community_fields['profile_telegram_visibility'] ) && "{$key}" === $community_fields['profile_telegram_visibility'] ) :
+										?>
 										selected
 									<?php endif; ?>
 								>
@@ -862,15 +862,15 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 							<?php esc_html_e( 'Matrix username (optional)', 'community-portal' ); ?>
 						</label>
 						<?php
-							if ( $form && isset( $form['matrix'] ) ) {
-								$matrix_input = $form['matrix'];
+						if ( $form && isset( $form['matrix'] ) ) {
+							$matrix_input = $form['matrix'];
+						} else {
+							if ( is_array( $community_fields ) && isset( $community_fields['matrix'] ) ) {
+								$matrix_input = $community_fields['matrix'];
 							} else {
-								if ( is_array( $community_fields ) && isset( $community_fields['matrix'] ) ) {
-									$matrix_input = $community_fields['matrix'];
-								} else {
-									$matrix_input = '';
-								}
+								$matrix_input = '';
 							}
+						}
 						?>
 						<input 
 							placeholder="username:domain" 
@@ -920,15 +920,15 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 					</div>
 				</div>
 				<?php
-					if ( $form && isset( $form['languages'] ) && is_array( $form['languages'] ) ) {
-						$languages_spoken = $form['languages'];
+				if ( $form && isset( $form['languages'] ) && is_array( $form['languages'] ) ) {
+					$languages_spoken = $form['languages'];
+				} else {
+					if ( is_array( $community_fields ) && isset( $community_fields['languages'] ) && is_array( $community_fields['languages'] ) ) {
+						$languages_spoken = array_filter( $community_fields['languages'] );
 					} else {
-						if ( is_array( $community_fields ) && isset( $community_fields['languages'] ) && is_array( $community_fields['languages'] ) ) {
-							$languages_spoken = array_filter( $community_fields['languages'] );
-						} else {
-							$languages_spoken = array();
-						}
+						$languages_spoken = array();
 					}
+				}
 				?>
 				<?php if ( count( $languages_spoken ) < 2 ) : ?>
 					<hr class="profile__keyline" />
@@ -963,15 +963,15 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 									<option 
 										value="<?php echo esc_attr( $key ); ?>"
 										<?php
-											if ( isset( $community_fields['profile_languages_visibility'] ) && "{$key}" === $community_fields['profile_languages_visibility'] ) :
-										?>
-											selected
-										<?php
-											else: 
-										?>
-											<?php
-												if ( isset( $community_fields['profile_languages_visibility'] ) && "{$key}" === $community_fields['profile_languages_visibility'] ) :
+										if ( isset( $community_fields['profile_languages_visibility'] ) && "{$key}" === $community_fields['profile_languages_visibility'] ) :
 											?>
+											selected
+											<?php
+											else :
+												?>
+												<?php
+												if ( isset( $community_fields['profile_languages_visibility'] ) && "{$key}" === $community_fields['profile_languages_visibility'] ) :
+													?>
 												selected
 											<?php endif; ?>
 										<?php endif; ?>
@@ -1059,8 +1059,8 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 													selected
 												<?php else : ?>
 													<?php
-														if ( isset( $community_fields['profile_languages_visibility'] ) && "{$key}" === $community_fields['profile_languages_visibility'] ) : 
-													?>
+													if ( isset( $community_fields['profile_languages_visibility'] ) && "{$key}" === $community_fields['profile_languages_visibility'] ) :
+														?>
 														selected
 													<?php endif; ?>
 												<?php endif; ?>
@@ -1094,8 +1094,8 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 									selected
 								<?php else : ?>
 									<?php
-										if ( isset( $community_fields['profile_languages_visibility'] ) && "{$key}" === $community_fields['profile_languages_visibility'] ) :
-									?>
+									if ( isset( $community_fields['profile_languages_visibility'] ) && "{$key}" === $community_fields['profile_languages_visibility'] ) :
+										?>
 										selected
 									<?php endif; ?>
 								<?php endif; ?>
@@ -1106,13 +1106,13 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 					</select>
 				</div>
 				<?php
-					if ( $form && isset( $form['profile_languages_visibility'] ) ) {
-						$language_visibility = $form['profile_languages_visibility'];
-					} else {
-						if ( isset( $community_fields['profile_languages_visibility'] ) ) {
-							$language_visibility = $community_fields['profile_languages_visibility'];
-						}
+				if ( $form && isset( $form['profile_languages_visibility'] ) ) {
+					$language_visibility = $form['profile_languages_visibility'];
+				} else {
+					if ( isset( $community_fields['profile_languages_visibility'] ) ) {
+						$language_visibility = $community_fields['profile_languages_visibility'];
 					}
+				}
 				?>
 				<input type="hidden" name="profile_languages_visibility" value="<?php echo esc_attr( $language_visibility ); ?>" />
 				<hr class="profile__keyline" />
@@ -1129,11 +1129,11 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 							<div class="profile__tag-container">
 								<?php foreach ( $tags as &$loop_tag ) : ?>
 									<?php
-										if ( 'en' !== $current_translation ) {
-											if ( false !== stripos( $loop_tag->slug, '_' ) ) {
-												$loop_tag->slug = substr( $loop_tag->slug, 0, stripos( $loop_tag->slug, '_' ) );
-											}
+									if ( 'en' !== $current_translation ) {
+										if ( false !== stripos( $loop_tag->slug, '_' ) ) {
+											$loop_tag->slug = substr( $loop_tag->slug, 0, stripos( $loop_tag->slug, '_' ) );
 										}
+									}
 									?>
 									<input 
 										class="profile__checkbox" 
@@ -1144,8 +1144,8 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 									<label 
 										class="profile__tag
 											<?php
-												if ( in_array( $loop_tag->slug, $form_tags, true ) ) :
-											?>
+											if ( in_array( $loop_tag->slug, $form_tags, true ) ) :
+												?>
 												profile__tag--active
 											<?php endif; ?>" 
 										for="<?php echo esc_attr( $loop_tag->slug ); ?>"
@@ -1155,15 +1155,15 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 								<?php endforeach; ?>
 							</div>
 							<?php
-								if ( $form && isset( $form['tags'] ) ) {
-									$input_tags = $form['tags'];
+							if ( $form && isset( $form['tags'] ) ) {
+								$input_tags = $form['tags'];
+							} else {
+								if ( $community_fields && isset( $community_fields['tags'] ) ) {
+									$input_tags = $community_fields['tags'];
 								} else {
-									if ( $community_fields && isset( $community_fields['tags'] ) ) {
-										$input_tags = $community_fields['tags'];
-									} else {
-										$input_tags = '';
-									}
+									$input_tags = '';
 								}
+							}
 							?>
 							<input type="hidden" value="<?php echo esc_attr( $input_tags ); ?>" name="tags" id="tags" /> 
 						</fieldset>
@@ -1245,7 +1245,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 									<?php if ( $form && isset( $form['profile_events_attended_visibility'] ) && "{$key}" === $form['profile_events_attended_visibility'] ) : ?>
 										selected
 									<?php else : ?> 
-										<?php if ( isset( $community_fields['profile_events_attended_visibility'] ) && "{$key}" === $community_fields['profile_events_attended_visibility'] ) :?>
+										<?php if ( isset( $community_fields['profile_events_attended_visibility'] ) && "{$key}" === $community_fields['profile_events_attended_visibility'] ) : ?>
 											selected
 										<?php endif; ?>
 									<?php endif; ?>
@@ -1293,13 +1293,13 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 								<option 
 									value="<?php echo esc_attr( $key ); ?>"
 									<?php
-										if ( $form && isset( $form['profile_campaigns_visibility'] ) && "{$key}" === $form['profile_campaigns_visibility'] ) :
-									?>
+									if ( $form && isset( $form['profile_campaigns_visibility'] ) && "{$key}" === $form['profile_campaigns_visibility'] ) :
+										?>
 										selected
 									<?php else : ?>
 										<?php
-											if ( isset( $community_fields['profile_campaigns_visibility'] ) && "{$key}" === $community_fields['profile_campaigns_visibility'] ) :
-										?>
+										if ( isset( $community_fields['profile_campaigns_visibility'] ) && "{$key}" === $community_fields['profile_campaigns_visibility'] ) :
+											?>
 											selected
 										<?php endif; ?>
 									<?php endif; ?>
@@ -1312,9 +1312,9 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 				</div>
 			</section>  
 		<?php endif; ?>
-		<?php 
+		<?php
 			$category_id = get_cat_ID( 'Community Participation Guidelines' );
-			$guidelines = get_posts(
+			$guidelines  = get_posts(
 				array(
 					'numberposts' => 1,
 					'category'    => $category_id,
@@ -1322,14 +1322,14 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 			);
 		?>
 		<?php
-			if ( ! isset( $subscribed ) || ( isset( $subscribed ) && intval( $subscribed ) !== 1 ) ) :
-		?>
+		if ( ! isset( $subscribed ) || ( isset( $subscribed ) && intval( $subscribed ) !== 1 ) ) :
+			?>
 			<section class="profile__form-container">
 				<div class="profile__newsletter">
-					<?php include get_template_directory() . '/templates/newsletter-form.php'; ?>
+				<?php include get_template_directory() . '/templates/newsletter-form.php'; ?>
 				</div>
 			</section>
-		<?php
+			<?php
 			endif;
 		?>
 		<?php if ( ! isset( $meta['agree'][0] ) || 'I Agree' !== $meta['agree'][0] ) : ?>

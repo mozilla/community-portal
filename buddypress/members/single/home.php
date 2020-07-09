@@ -24,7 +24,7 @@
 	);
 
 	$tags = get_tags( array( 'hide_empty' => false ) );
-?>
+	?>
 
 <div class="profile">
 	<?php if ( bp_is_my_profile() && 'edit' === bp_current_action() ) : ?>
@@ -35,24 +35,24 @@
 			// Get default user meta data!
 			$meta = get_user_meta( $user->ID );
 
-			if ( isset( $meta['community-meta-fields'] ) && isset( $meta['community-meta-fields'][0] ) ) {
-				$community_fields = unserialize( $meta['community-meta-fields'][0] );
-			} else {
-				$community_fields = false;
-			}
+		if ( isset( $meta['community-meta-fields'] ) && isset( $meta['community-meta-fields'][0] ) ) {
+			$community_fields = unserialize( $meta['community-meta-fields'][0] );
+		} else {
+			$community_fields = false;
+		}
 
 			$form = ( ! isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['my_nonce_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['my_nonce_field'] ) ), 'protect_content' ) ) ? $_POST : false;
 
-			if ( $form && isset( $form['tags'] ) ) {
-				$form_tags = array_filter( explode( ',', sanitize_text_field( wp_unslash( $form['tags'] ) ) ) );
-			} else {
+		if ( $form && isset( $form['tags'] ) ) {
+			$form_tags = array_filter( explode( ',', sanitize_text_field( wp_unslash( $form['tags'] ) ) ) );
+		} else {
 
-				if ( $community_fields && isset( $community_fields['tags'] ) ) {
-					$form_tags = array_filter( explode( ',', $community_fields['tags'] ) );
-				} else {
-					$form_tags = array();
-				}
+			if ( $community_fields && isset( $community_fields['tags'] ) ) {
+				$form_tags = array_filter( explode( ',', $community_fields['tags'] ) );
+			} else {
+				$form_tags = array();
 			}
+		}
 			do_action( 'bp_before_edit_member_page' );
 
 			$complete         = ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['my_nonce_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['my_nonce_field'] ) ), 'protect_content' ) && isset( $_POST['complete'] ) && true === $_POST['complete'] ) ? true : false;

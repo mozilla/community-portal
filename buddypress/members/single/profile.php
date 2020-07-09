@@ -18,11 +18,11 @@
 
 	$event_countries = em_get_countries();
 
-	if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty( $_SERVER['SERVER_PORT'] ) && 443 === $_SERVER['SERVER_PORT'] ) {
-		$avatar_url = preg_replace( '/^http:/i', 'https:', $info['profile_image']->value );
-	} else {
-		$avatar_url = $info['profile_image']->value;
-	}
+if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty( $_SERVER['SERVER_PORT'] ) && 443 === $_SERVER['SERVER_PORT'] ) {
+	$avatar_url = preg_replace( '/^http:/i', 'https:', $info['profile_image']->value );
+} else {
+	$avatar_url = $info['profile_image']->value;
+}
 
 ?>
 <div class="profile__public-container">
@@ -31,8 +31,11 @@
 			<div class="profile__card-header-container">
 				<?php if ( $is_me ) : ?>
 					<div class="profile__edit-link-container profile__edit-link-container--mobile">
-						<a href="<?php echo esc_attr(get_home_url(null, 'people/' .  $info['username']->value . '/profile/edit/group/1'))
-						?>" class="profile__link">
+						<a href="
+						<?php
+						echo esc_attr( get_home_url( null, 'people/' . $info['username']->value . '/profile/edit/group/1' ) )
+						?>
+						" class="profile__link">
 							<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" class="profile__edit-icon">
 								<path d="M8.25 3H3C2.60218 3 2.22064 3.15804 1.93934 3.43934C1.65804 3.72064 1.5 4.10218 1.5 4.5V15C1.5 15.3978 1.65804 15.7794 1.93934 16.0607C2.22064 16.342 2.60218 16.5 3 16.5H13.5C13.8978 16.5 14.2794 16.342 14.5607 16.0607C14.842 15.7794 15 15.3978 15 15V9.75" stroke="#0060DF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 								<path d="M13.875 1.87419C14.1734 1.57582 14.578 1.4082 15 1.4082C15.422 1.4082 15.8266 1.57582 16.125 1.87419C16.4234 2.17256 16.591 2.57724 16.591 2.99919C16.591 3.42115 16.4234 3.82582 16.125 4.12419L9 11.2492L6 11.9992L6.75 8.99919L13.875 1.87419Z" stroke="#0060DF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -41,7 +44,15 @@
 						</a>
 					</div>
 				<?php endif; ?>
-				<div class="profile__avatar <?php if ( false === $info['profile_image']->value || false === $info['profile_image']->display ) : ?> profile__avatar--empty<?php endif; ?>" <?php if ( $info['profile_image']->display ) : ?> style="background-image: url('<?php echo esc_attr( $avatar_url ); ?>')"<?php endif; ?> data-user="<?php echo esc_attr( $info['username']->value ); ?>">
+				<div class="profile__avatar 
+				<?php
+				if ( false === $info['profile_image']->value || false === $info['profile_image']->display ) :
+					?>
+					profile__avatar--empty<?php endif; ?>" 
+					<?php
+					if ( $info['profile_image']->display ) :
+						?>
+					style="background-image: url('<?php echo esc_attr( $avatar_url ); ?>')"<?php endif; ?> data-user="<?php echo esc_attr( $info['username']->value ); ?>">
 				</div>
 				<div class="profile__name-container">
 					<h3 class="profile__user-title"><?php echo esc_html( $info['username']->value ); ?></h3>
@@ -61,7 +72,7 @@
 				</div>
 				<?php if ( $is_me ) : ?>
 					<div class="profile__edit-link-container">
-						<a href="<?php echo esc_attr( get_home_url(null, 'people/' . $info['username']->value . '/profile/edit/group/1')) ?>" class="profile__link">
+						<a href="<?php echo esc_attr( get_home_url( null, 'people/' . $info['username']->value . '/profile/edit/group/1' ) ); ?>" class="profile__link">
 							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M23.64 6.36L17.64 0.36C17.16 -0.12 16.44 -0.12 15.96 0.36L0.36 15.96C0.12 16.2 0 16.44 0 16.8V22.8C0 23.52 0.48 24 1.2 24H7.2C7.56 24 7.8 23.88 8.04 23.64L23.64 8.04C24.12 7.56 24.12 6.84 23.64 6.36ZM6.72 21.6H2.4V17.28L16.8 2.88L21.12 7.2L6.72 21.6Z" fill="#0060DF"/>
 							</svg>
@@ -86,7 +97,7 @@
 				<?php if ( ( $info['location']->display && $info['location']->value ) || ( $info['email']->value && $info['email']->display ) || ( $info['phone']->value && $info['phone']->display ) ) : ?>
 					<span class="profile__contact-title"><?php esc_html_e( 'Contact Information', 'community-portal' ); ?></span>
 				<?php endif; ?>
-				<?php if ( $info['location']->display  && $info['location']->value ) : ?>
+				<?php if ( $info['location']->display && $info['location']->value ) : ?>
 					<div class="profile__location-container">
 						<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="profile__location-icon">
 							<circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
@@ -139,44 +150,44 @@
 				<?php endif; ?>
 			</div>
 		</div>
-		<?php 
-			if ( $info['groups']->display ) :
-				$groups = groups_get_user_groups( $info['id'] );
-				if ( $groups['total'] > 0 ) : 
-		?>
+		<?php
+		if ( $info['groups']->display ) :
+			$groups = groups_get_user_groups( $info['id'] );
+			if ( $groups['total'] > 0 ) :
+				?>
 					<h2 class="profile__heading"><?php esc_html_e( 'Groups I\'m In', 'community-portal' ); ?></h2>
-					<?php $group_count = 0; ?>
+				<?php $group_count = 0; ?>
 					<div class="profile__card">
-						<?php foreach ( $groups['groups'] as $gid ) : ?>
+					<?php foreach ( $groups['groups'] as $gid ) : ?>
 							<?php
 								$group      = new BP_Groups_Group( $gid );
 								$group_meta = groups_get_groupmeta( $gid, 'meta' );
 							?>
-							<a class="profile__group" href=" <?php echo esc_attr(get_home_url(null, 'groups/'.  $group->slug ) ); ?>">
+							<a class="profile__group" href=" <?php echo esc_attr( get_home_url( null, 'groups/' . $group->slug ) ); ?>">
 								<h2 class="profile__group-title"><?php echo esc_html( str_replace( '\\', '', stripslashes( $group->name ) ) ); ?></h2>
-								<?php 
-									if ((isset( $group_meta['group_city'] ) && strlen( trim( $group_meta['group_city'] ) ) > 0) || (isset( $group_meta['group_country'] ) && strlen( trim( $group_meta['group_country'] ) ) > 1 ) || isset($group_meta['group_type']) ) :
-								?>
+								<?php
+								if ( ( isset( $group_meta['group_city'] ) && strlen( trim( $group_meta['group_city'] ) ) > 0 ) || ( isset( $group_meta['group_country'] ) && strlen( trim( $group_meta['group_country'] ) ) > 1 ) || isset( $group_meta['group_type'] ) ) :
+									?>
 									<div class="profile__group-location">
 										<svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 											<path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 											<path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 										</svg>
-										<?php 
-											if ( isset( $group_meta['group_city'] ) && strlen( $group_meta['group_city'] ) > 0 ) {
-												echo esc_html( $group_meta['group_city'] );
-											}
-											if ( isset( $group_meta['group_country'] ) && strlen( $group_meta['group_country'] ) > 1 )  {
-												echo esc_html( $countries[ $group_meta['group_country'] ] );
-											}
-											if ( isset( $group_meta['group_type'] ) ) {
-												if( 'Online' === $group_meta['group_type'] ) {
-													esc_html_e( 'Online', 'community-portal' );
-												} else {
-													esc_html_e( 'Offline', 'community-portal' );
-												}
-											}
-										?>
+									<?php
+									if ( isset( $group_meta['group_city'] ) && strlen( $group_meta['group_city'] ) > 0 ) {
+										echo esc_html( $group_meta['group_city'] );
+									}
+									if ( isset( $group_meta['group_country'] ) && strlen( $group_meta['group_country'] ) > 1 ) {
+										echo esc_html( $countries[ $group_meta['group_country'] ] );
+									}
+									if ( isset( $group_meta['group_type'] ) ) {
+										if ( 'Online' === $group_meta['group_type'] ) {
+											esc_html_e( 'Online', 'community-portal' );
+										} else {
+											esc_html_e( 'Offline', 'community-portal' );
+										}
+									}
+									?>
 									</div>
 								<?php endif; ?>
 								<div class="profile__group-member-count">
@@ -199,7 +210,7 @@
 			<?php endif; ?>
 			<?php if ( $info['events_attended']->display ) : ?>
 				<?php
-					$event_user = new EM_Person( $info['id'] );
+					$event_user            = new EM_Person( $info['id'] );
 					$events                = $event_user->get_bookings();
 					$events_attended_count = 0;
 				?>
@@ -208,13 +219,13 @@
 					<div class="profile__card">
 						<?php foreach ( $events->bookings as $event_booking ) : ?>
 							<?php
-								$event      = em_get_event( $event_booking->event_id );
-								$event_time = strtotime( $event->start_date );
-								$date_format = 'en' === $current_translation ? 'M d' : "d M";
-								$event_date = mozilla_localize_date($event->start_date, $date_format);
-								$location   = em_get_location( $event->location_id );
+								$event       = em_get_event( $event_booking->event_id );
+								$event_time  = strtotime( $event->start_date );
+								$date_format = 'en' === $current_translation ? 'M d' : 'd M';
+								$event_date  = mozilla_localize_date( $event->start_date, $date_format );
+								$location    = em_get_location( $event->location_id );
 							?>
-							<a class="profile__event" href="<?php echo esc_attr(get_home_url(null, 'events/' . $event->slug ) ); ?>">
+							<a class="profile__event" href="<?php echo esc_attr( get_home_url( null, 'events/' . $event->slug ) ); ?>">
 								<div class="profile__event-date">
 									<?php echo esc_html( $event_date ); ?>
 								</div>
@@ -223,28 +234,28 @@
 										<?php echo esc_html( $event->event_name ); ?>
 									</div>
 									<div class="profile__event-time">
-										<?php 
+										<?php
 											$date_format = 'en' === $current_translation ? 'F d, Y ∙ H:i' : 'd F, Y ∙ H:i';
-											$event_date = mozilla_localize_date($event->start_date, $date_format);
-											echo esc_html( $event_date ); 
+											$event_date  = mozilla_localize_date( $event->start_date, $date_format );
+											echo esc_html( $event_date );
 										?>
 									</div>
-									<?php if (!empty($location->location_id)): ?>
+									<?php if ( ! empty( $location->location_id ) ) : ?>
 										<div class="profile__event-location">
 											<svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 												<path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 												<path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 											</svg>
-											<?php 
-												if ( 'OE' === $location->location_country ) {
-													esc_html_e( 'Online Event', 'community-portal' );
-												} elseif ( $location->location_town && $location->location_country ) {
-													echo esc_html( "{$location->location_town}, {$event_countries[$location->location_country]}" );
-												} elseif ( $location->location_town && ! $location->location_country ) {
-													echo esc_html( "{$location->location_town}" );
-												} elseif ( ! $location->location_town && $location->location_country ) {
-													echo esc_html( "{$event_countries[$location->location_country]}" );
-												} 
+											<?php
+											if ( 'OE' === $location->location_country ) {
+												esc_html_e( 'Online Event', 'community-portal' );
+											} elseif ( $location->location_town && $location->location_country ) {
+												echo esc_html( "{$location->location_town}, {$event_countries[$location->location_country]}" );
+											} elseif ( $location->location_town && ! $location->location_country ) {
+												echo esc_html( "{$location->location_town}" );
+											} elseif ( ! $location->location_town && $location->location_country ) {
+												echo esc_html( "{$event_countries[$location->location_country]}" );
+											}
 											?>
 										</div>
 									<?php endif; ?>
@@ -276,8 +287,8 @@
 					);
 					$events_organized         = EM_Events::get( $args );
 					$events_organized         = array_unique( array_merge( $events_organized, $private_events_organized ), SORT_REGULAR );
-					$events_organized_count = 0;
-				?>
+					$events_organized_count   = 0;
+					?>
 				<?php if ( count( $events_organized ) > 0 ) : ?>
 					<h2 class="profile__heading">
 						<?php esc_html_e( 'Organized Events', 'community-portal' ); ?>
@@ -285,11 +296,11 @@
 					<div class="profile__card">
 						<?php foreach ( $events_organized as $event ) : ?>
 							<?php
-								$date_format = 'en' === $current_translation ? 'M d' : "d M";
-								$event_date = mozilla_localize_date($event->start_date, $date_format);
-								$location = em_get_location( $event->location_id );
+								$date_format = 'en' === $current_translation ? 'M d' : 'd M';
+								$event_date  = mozilla_localize_date( $event->start_date, $date_format );
+								$location    = em_get_location( $event->location_id );
 							?>
-							<a class="profile__event" href="<?php echo esc_attr( get_home_url(null, 'events/' . $event->slug ) ); ?>">
+							<a class="profile__event" href="<?php echo esc_attr( get_home_url( null, 'events/' . $event->slug ) ); ?>">
 								<div class="profile__event-date">
 									<?php echo esc_html( $event_date ); ?>
 								</div>
@@ -298,28 +309,28 @@
 										<?php echo esc_html( $event->event_name ); ?>
 									</div>
 									<div class="profile__event-time">
-										<?php 
+										<?php
 											$date_format = 'en' === $current_translation ? 'F d, Y ∙ H:i' : 'd F, Y ∙ H:i';
-											$event_date = mozilla_localize_date($event->start_date, $date_format);
-											echo esc_html ($event_date);
+											$event_date  = mozilla_localize_date( $event->start_date, $date_format );
+											echo esc_html( $event_date );
 										?>
 									</div>
-									<?php if (!empty($location->location_id)): ?>
+									<?php if ( ! empty( $location->location_id ) ) : ?>
 										<div class="profile__event-location">
 											<svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 												<path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 												<path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 											</svg>
-											<?php 
-												if ( 'OE' === $location->location_country ) {
-													esc_html_e( 'Online Event', 'community-portal' );
-												} elseif ( $location->location_town && $location->location_country ) {
-													echo esc_html( "{$location->location_town}, {$event_countries[$location->location_country]}" );
-												} elseif ( $location->location_town && ! $location->location_country ) {
-													echo esc_html( "{$location->location_town}" );
-												} elseif ( ! $location->location_town && $location->location_country ) {
-													echo esc_html( "{$event_countries[$location->location_country]}" );
-												}
+											<?php
+											if ( 'OE' === $location->location_country ) {
+												esc_html_e( 'Online Event', 'community-portal' );
+											} elseif ( $location->location_town && $location->location_country ) {
+												echo esc_html( "{$location->location_town}, {$event_countries[$location->location_country]}" );
+											} elseif ( $location->location_town && ! $location->location_country ) {
+												echo esc_html( "{$location->location_town}" );
+											} elseif ( ! $location->location_town && $location->location_country ) {
+												echo esc_html( "{$event_countries[$location->location_country]}" );
+											}
 											?>
 										</div>
 									<?php endif; ?>
@@ -341,14 +352,14 @@
 					$campaign_count   = 0;
 					$campaign_objects = array();
 
-					if ( is_array( $campaigns ) ) {
-						foreach ( $campaigns as $cid ) {
-							$object = get_post( $cid );
-							if ( !empty( $object ) ) {
-								$campaign_objects[] = $object;
-							}
+				if ( is_array( $campaigns ) ) {
+					foreach ( $campaigns as $cid ) {
+						$object = get_post( $cid );
+						if ( ! empty( $object ) ) {
+							$campaign_objects[] = $object;
 						}
 					}
+				}
 				?>
 				<?php if ( count( $campaign_objects ) > 0 ) : ?>
 					<h2 class="profile__heading"><?php esc_html_e( 'Campaigns Participated In', 'community-portal' ); ?></h2>
@@ -364,14 +375,18 @@
 							<a class="profile__campaign" href="<?php echo esc_attr( get_home_url( null, 'campaigns/' . $campaign->post_name ) ); ?>">
 								<h3 class="profile__campaign-title"><?php echo esc_html( $campaign->post_title ); ?></h3>
 								<div class="profile__campaign-dates">
-									<?php 
-										if ( $end ) {
-											$date_format = 'en' === $current_translation ? 'F d' : 'd F';
-											echo esc_html( mozilla_localize_date( $start, $date_format) ); ?> - <?php echo esc_html(  mozilla_localize_date( $end , $date_format . ' Y' ) );
-										}  else {
-											$date_format = 'en' === $current_translation ? 'F d Y' : 'd F Y';
-											echo esc_html( mozilla_localize_date( $start , $date_format ) );
-										}
+									<?php
+									if ( $end ) {
+										$date_format = 'en' === $current_translation ? 'F d' : 'd F';
+										echo esc_html( mozilla_localize_date( $start, $date_format ) );
+										?>
+										- 
+											<?php
+											echo esc_html( mozilla_localize_date( $end, $date_format . ' Y' ) );
+									} else {
+										$date_format = 'en' === $current_translation ? 'F d Y' : 'd F Y';
+										echo esc_html( mozilla_localize_date( $start, $date_format ) );
+									}
 									?>
 								</div>
 								<div class="profile__campaign-desc">
@@ -399,7 +414,7 @@
 	</section>
 	<section class="profile__section profile__section--right">
 		<?php
-			if (
+		if (
 				( $info['telegram']->display && $info['telegram']->value ) ||
 				( $info['facebook']->display && $info['facebook']->value ) ||
 				( $info['twitter']->display && $info['twitter']->value ) ||
@@ -408,11 +423,11 @@
 				( $info['github']->display && $info['github']->value ) ||
 				( $info['matrix']->display && $info['matrix']->value )
 			) :
-		?>
+			?>
 			<div class="profile__social-card profile__card--right">
-				<?php esc_html_e( 'Social Handles', 'community-portal' ); ?>
+			<?php esc_html_e( 'Social Handles', 'community-portal' ); ?>
 				<div class="profile__social-container">
-					<?php if ( $info['telegram']->value && $info['telegram']->display ) : ?>
+				<?php if ( $info['telegram']->value && $info['telegram']->display ) : ?>
 						<a href="<?php echo mozilla_verify_url( $info['telegram']->value, true ) ? esc_attr( mozilla_verify_url( $info['telegram']->value, true ) ) : esc_attr( "https://t.me/{$info['telegram']->value}" ); ?>" class="profile__social-link">
 							<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
@@ -422,7 +437,7 @@
 							<?php esc_html_e( 'Telegram', 'community-portal' ); ?>
 						</a>
 					<?php endif; ?>
-					<?php if ( $info['facebook']->value && $info['facebook']->display ) : ?>
+				<?php if ( $info['facebook']->value && $info['facebook']->display ) : ?>
 						<a href="<?php print mozilla_verify_url( $info['facebook']->value, true ) ? esc_attr( mozilla_verify_url( $info['facebook']->value, true ) ) : esc_attr( "https://www.facebook.com/{$info['facebook']->value}" ); ?>" class="profile__social-link">
 							<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
@@ -431,7 +446,7 @@
 							<?php esc_html_e( 'Facebook', 'community-portal' ); ?>
 						</a>
 					<?php endif; ?>
-					<?php if ( $info['twitter']->value && $info['twitter']->display ) : ?>
+				<?php if ( $info['twitter']->value && $info['twitter']->display ) : ?>
 						<a href="<?php print mozilla_verify_url( $info['twitter']->value, true ) ? esc_attr( mozilla_verify_url( $info['twitter']->value, true ) ) : esc_attr( "https://www.twitter.com/{$info['twitter']->value}" ); ?>" class="profile__social-link">
 							<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
@@ -440,7 +455,7 @@
 							<?php esc_html_e( 'Twitter', 'community-portal' ); ?>
 						</a>
 					<?php endif; ?>
-					<?php if ( $info['linkedin']->value && $info['linkedin']->display ) : ?>
+				<?php if ( $info['linkedin']->value && $info['linkedin']->display ) : ?>
 						<a href="<?php print mozilla_verify_url( $info['linkedin']->value, true ) ? esc_attr( mozilla_verify_url( $info['linkedin']->value, true ) ) : esc_attr( "https://www.linkedin.com/in/{$info['linkedin']->value}" ); ?>" class="profile__social-link">
 							<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
@@ -459,7 +474,7 @@
 							<?php esc_html_e( 'Linkedin', 'community-portal' ); ?>
 						</a>
 					<?php endif; ?>
-					<?php if ( $info['discourse']->value && $info['discourse']->display ) : ?>
+				<?php if ( $info['discourse']->value && $info['discourse']->display ) : ?>
 						<a href="<?php print mozilla_verify_url( $info['discourse']->value, true ) ? esc_attr( mozilla_verify_url( $info['discourse']->value, true ) ) : esc_attr( "https://discourse.mozilla.org/u/{$info['discourse']->value}/summary" ); ?>" class="profile__social-link">
 							<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
@@ -468,7 +483,7 @@
 							<?php esc_html_e( 'Discourse', 'community-portal' ); ?>
 						</a>
 					<?php endif; ?>
-					<?php if ( $info['github']->value && $info['github']->display ) : ?>
+				<?php if ( $info['github']->value && $info['github']->display ) : ?>
 						<a href="<?php print mozilla_verify_url( $info['github']->value, true ) ? esc_attr( mozilla_verify_url( $info['github']->value, true ) ) : esc_attr( "https://www.github.com/{$info['github']->value}" ); ?>" class="profile__social-link">
 							<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
@@ -484,7 +499,7 @@
 							<?php esc_html_e( 'Github', 'community-portal' ); ?>
 						</a>
 					<?php endif; ?>
-					<?php if ( $info['matrix']->value && $info['matrix']->display ) : ?>
+				<?php if ( $info['matrix']->value && $info['matrix']->display ) : ?>
 						<a href="<?php echo esc_attr( "https://matrix.to/#/@{$info['matrix']->value}" ); ?>" class="profile__social-link">
 							<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
@@ -513,13 +528,13 @@
 					<?php foreach ( $info['languages']->value as $code ) : ?>
 						<?php $index++; ?>
 						<span>
-							<a href="<?php echo esc_attr( add_query_arg( array( 'language' => $code), get_home_url( null, 'people' ))); ?>" class="profile__languages-link">
+							<a href="<?php echo esc_attr( add_query_arg( array( 'language' => $code ), get_home_url( null, 'people' ) ) ); ?>" class="profile__languages-link">
 								<?php echo esc_html( $languages[ $code ] ); ?>
 							</a>
-							<?php 
-								if ( $index < $languages_spoken ) {
-									echo esc_html( ',' ); 
-								}
+							<?php
+							if ( $index < $languages_spoken ) {
+								echo esc_html( ',' );
+							}
 							?>
 						</span>
 					<?php endforeach; ?>
@@ -534,26 +549,26 @@
 					<?php $system_tags = get_tags( array( 'hide_empty' => false ) ); ?>
 					<?php foreach ( $tags as $loop_tag ) : ?>
 						<?php
-							foreach ( $system_tags as $t ) {
-								$found = false;
-								if ( 'en' !== $current_translation ) {
-									$temp_slug = $t->slug;
-									if ( false !== stripos( $temp_slug, '_' ) ) {
-										$temp_slug = substr( $temp_slug, 0, stripos( $temp_slug, '_' ) );
-									}
-									$temp_name = $t->name;
-									if ( strtolower( $temp_slug ) === strtolower( $loop_tag ) ) {
-										$found = true;
-										break;
-									}
-								} else {
-									$temp_name = $t->name;
-									if ( strtolower( $t->slug ) === strtolower( $loop_tag ) ) {
-										$found = true;
-										break;
-									}
+						foreach ( $system_tags as $t ) {
+							$found = false;
+							if ( 'en' !== $current_translation ) {
+								$temp_slug = $t->slug;
+								if ( false !== stripos( $temp_slug, '_' ) ) {
+									$temp_slug = substr( $temp_slug, 0, stripos( $temp_slug, '_' ) );
+								}
+								$temp_name = $t->name;
+								if ( strtolower( $temp_slug ) === strtolower( $loop_tag ) ) {
+									$found = true;
+									break;
+								}
+							} else {
+								$temp_name = $t->name;
+								if ( strtolower( $t->slug ) === strtolower( $loop_tag ) ) {
+									$found = true;
+									break;
 								}
 							}
+						}
 						?>
 						<?php if ( $found ) : ?>
 							<span class="profile__static-tag">
