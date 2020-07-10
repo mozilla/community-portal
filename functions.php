@@ -218,8 +218,14 @@ function mozilla_init() {
 
 add_filter( 'wpml_sl_blacklist_requests', 'wpml_sl_blacklist_requests', 10, 2 );
 
+/**
+ * Stop WPML from rewriting Event URLs
+ *
+ * @param array $blacklist current list of blacklisted strings.
+ * @param mixed $sitepress the current sitepress instance.
+ */
 function wpml_sl_blacklist_requests( $blacklist, $sitepress ) {
 	$blacklist[] = '/events\/[a-zA-z]/';
-    return $blacklist;
+	return $blacklist;
 }
 
