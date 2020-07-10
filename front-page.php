@@ -14,9 +14,10 @@
 <?php get_header(); ?>
 	<div class="content content--homepage">
 		<?php
-			$theme_directory = get_template_directory();
+			$current_translation = mozilla_get_current_translation();
+			$theme_directory     = get_template_directory();
 			require "{$theme_directory}/countries.php";
-		
+
 			$fields = array(
 				'hero_title',
 				'hero_subtitle',
@@ -151,7 +152,7 @@
 															?>
 												- <?php echo esc_html( $current_campaign_end_date ); ?><?php endif; ?>
 										</div>
-										<a href="<?php echo esc_attr( get_home_url( null, 'campaigns/'. $current_campaign->post_name ) ); ?>" class="campaign__hero-cta"><?php echo esc_html_e( 'Get Involved', 'community-portal' ); ?></a>
+										<a href="<?php echo esc_attr( get_home_url( null, 'campaigns/' . $current_campaign->post_name ) ); ?>" class="campaign__hero-cta"><?php echo esc_html_e( 'Get Involved', 'community-portal' ); ?></a>
 									</div>
 								</div>
 							<?php if ( ! empty( $current_campaign_card_description ) ) : ?>
@@ -179,7 +180,7 @@
 						<h2 class="subheader homepage__groups__subheader"><?php echo esc_html( $field_values->featured_groups_title ); ?></h2>
 					</div>
 					<div class="col-md-6 col-sm-12 homepage__groups__cta">
-						<a href="<?php echo esc_attr( get_home_url( null, 'groups')); ?>" class="btn btn--small btn--dark"><?php echo esc_html( $field_values->featured_groups_cta_text ); ?></a>
+						<a href="<?php echo esc_attr( get_home_url( null, 'groups' ) ); ?>" class="btn btn--small btn--dark"><?php echo esc_html( $field_values->featured_groups_cta_text ); ?></a>
 					</div>
 				</div>
 				<div class="row homepage__groups__grid">
@@ -228,23 +229,34 @@
 											<path d="M16.3333 14.0002V12.6669C16.3328 12.0761 16.1362 11.5021 15.7742 11.0351C15.4122 10.5682 14.9053 10.2346 14.3333 10.0869" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 											<path d="M11.6667 2.08691C12.2404 2.23378 12.7488 2.56738 13.1118 3.03512C13.4749 3.50286 13.672 4.07813 13.672 4.67025C13.672 5.26236 13.4749 5.83763 13.1118 6.30537C12.7488 6.77311 12.2404 7.10671 11.6667 7.25358" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 										</svg>
-										<?php echo esc_html( "{$member_count}&nbsp;" ) . esc_html( 'Members', 'community-portal' ); ?>
+										<?php echo esc_html( "{$member_count}&nbsp;" ) . esc_html__( 'Members', 'community-portal' ); ?>
 								</div>
 								<div class="groups__card-info">
 									<div class="groups__card-tags">
 										<?php
 												$tag_counter = 0;
-												if (isset($meta) && isset($meta['group_tags'])):
-										?>
+										if ( isset( $meta ) && isset( $meta['group_tags'] ) ) :
+											?>
 										<ul class="groups__card-tags__container">
-										<?php foreach ( $meta['group_tags'] as $key => $value ) : ?>
-											<li class="groups__tag"><?php echo esc_html( $value ); ?></li>
-											<?php $tag_counter++; ?>
-											<?php if ( 2 === $tag_counter && count( $meta['group_tags'] ) > 2 ) : ?>
-												<li class="groups__tag">+ <?php echo esc_html( count( $meta['group_tags'] ) - 2 ); ?> <?php echo esc_html_e( ' more tags', 'community-portal' ); ?></li>
-												<?php break; ?>
+											<?php
+											foreach ( $meta['group_tags'] as $key => $value ) :
+												$tag_value = false;
+												if ( 'en' !== $current_translation ) {
+													$tag_value = get_term_by( 'slug', $value . '_' . $current_translation, 'post_tag' );
+												}
+												if ( false === $tag_value ) {
+													$tag_value = get_term_by( 'slug', $value, 'post_tag' );
+												}
+												if ( ! empty( $tag_value ) ) :
+													?>
+												<li class="groups__tag"><?php echo esc_html( $tag_value->name ); ?></li>
+													<?php $tag_counter++; ?>
+													<?php if ( 2 === $tag_counter && count( $meta['group_tags'] ) > 2 ) : ?>
+													<li class="groups__tag">+ <?php echo esc_html( count( $meta['group_tags'] ) - 2 ); ?> <?php echo esc_html_e( ' more tags', 'community-portal' ); ?></li>
+														<?php break; ?>
+												<?php endif; ?>
 											<?php endif; ?>
-										<?php endforeach; ?>
+											<?php endforeach; ?>
 										</ul>
 										<?php endif; ?>	
 									</div>
@@ -300,16 +312,16 @@
 
 						foreach ( $field_values->featured_events as $featured_event ) {
 							if ( $featured_event['single_event'] ) {
-								$event = EM_Events::get(
+								$event         = EM_Events::get(
 									array(
 										'post_id' => $featured_event['single_event']->ID,
 										'scope'   => 'all',
 									)
 								);
-								$values = array_values($event);
-								$event = array_shift( $values );
+								$values        = array_values( $event );
+								$event         = array_shift( $values );
 								$all_countries = em_get_countries();
-                
+
 
 								include locate_template( 'plugins/events-manager/templates/template-parts/single-event-card.php', false, false );
 							}
@@ -384,23 +396,23 @@
 										<div class="activities__card-content">
 											<h2 class="activities__activity-title"><?php echo esc_html( $activity->post_title ); ?></h2>
 											<div class="activities__copy-container">
-												<?php if (isset($activitiy_desc) && strlen($activitiy_desc) > 0 ): ?>
+												<?php if ( isset( $activitiy_desc ) && strlen( $activitiy_desc ) > 0 ) : ?>
 												<p class="activities__copy">
-												<?php
+													<?php
 													echo esc_html( $activitiy_desc );
-												?>
+													?>
 												</p>
 												<?php endif; ?>
 											</div>
 											<?php
 											$tags = get_the_tags( $activity->ID );
-											if ( $time_commitment || (is_array($tags) && count($tags) > 0)) :
-											?>
+											if ( $time_commitment || ( is_array( $tags ) && count( $tags ) > 0 ) ) :
+												?>
 											<div class="activities__tag-container">
-											<?php if ( is_array( $tags ) && count( $tags ) > 0 ) : ?>
+												<?php if ( is_array( $tags ) && count( $tags ) > 0 ) : ?>
 												<span class="activities__tag"><?php echo esc_html( $tags[0]->name ); ?></span>
 											<?php endif; ?>
-											<?php if ( $time_commitment ) : ?>
+												<?php if ( $time_commitment ) : ?>
 												<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 													<path d="M7.99992 14.6654C11.6818 14.6654 14.6666 11.6806 14.6666 7.9987C14.6666 4.3168 11.6818 1.33203 7.99992 1.33203C4.31802 1.33203 1.33325 4.3168 1.33325 7.9987C1.33325 11.6806 4.31802 14.6654 7.99992 14.6654Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 													<path d="M8 4V8L10.6667 9.33333" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

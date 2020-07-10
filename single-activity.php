@@ -57,25 +57,25 @@
 										<?php esc_html_e( 'Share Activity', 'community-portal' ); ?>
 									</a>
 								</div>
-								<?php if (!empty($post->post_content) ): ?>
+								<?php if ( ! empty( $post->post_content ) ) : ?>
 									<hr class="activity__keyline" />
 									<div class="activity__description-container">
 										<?php
 											echo wp_kses(
 												wpautop( $post->post_content ),
 												array(
-													'h2'     => array( 'class' => array() ),
-													'h3'     => array( 'class' => array() ),
-													'h4'     => array( 'class' => array() ),
-													'p'      => array( 'class' => array() ),
-													'br'     => array(),
-													'div'    => array( 'class' => array() ),
-													'img'    => array(
+													'h2'  => array( 'class' => array() ),
+													'h3'  => array( 'class' => array() ),
+													'h4'  => array( 'class' => array() ),
+													'p'   => array( 'class' => array() ),
+													'br'  => array(),
+													'div' => array( 'class' => array() ),
+													'img' => array(
 														'href' => array(),
 														'class' => array(),
 														'alt'  => array(),
 													),
-													'a'      => array(
+													'a'   => array(
 														'class' => array(),
 														'href' => array(),
 													),
@@ -83,7 +83,7 @@
 													'figcaption' => array( 'class' => array() ),
 												)
 											);
-											?>
+										?>
 									</div>
 								<?php endif; ?>
 							</div>
@@ -105,22 +105,23 @@
 						<?php endif; ?>
 						<?php if ( strlen( $activity_flow_title ) > 0 ) : ?>
 							<h2 class="activity__card-title"><?php echo esc_html( $activity_flow_title ); ?></h2>
-						<?php endif; 
-							if ( is_array( $activity_flow ) && count( $activity_flow ) > 0): 
-						?>
+							<?php
+						endif;
+						if ( is_array( $activity_flow ) && count( $activity_flow ) > 0 ) :
+							?>
 							<div class="activity__card activity__card--flow">        
 								<div class="activity__card-content">
-									<?php
-									echo wp_kses(
-										$activity_flow_copy,
-										array(
-											'p'   => array(),
-											'a'   => array( 'href' => array() ),
-											'div' => array( 'class' => array() ),
-										)
-									);
-									?>
-									<?php  if ( strlen( $activity_flow[0]['title'] ) > 0 ) : ?>
+								<?php
+								echo wp_kses(
+									$activity_flow_copy,
+									array(
+										'p'   => array(),
+										'a'   => array( 'href' => array() ),
+										'div' => array( 'class' => array() ),
+									)
+								);
+								?>
+								<?php if ( strlen( $activity_flow[0]['title'] ) > 0 ) : ?>
 									<div class="activity__accordion">
 										<?php $accordion_counter = 0; ?>
 										<?php foreach ( $activity_flow as $flow ) : ?>
@@ -179,7 +180,7 @@
 						<?php endif; ?>
 					</div>
 					<div class="activity__right-column">
-						<?php if ( (is_array( $tags ) && count( $tags ) > 0 ) || $time_commitment ) : ?>
+						<?php if ( ( is_array( $tags ) && count( $tags ) > 0 ) || $time_commitment ) : ?>
 							<div class="activity__card">
 								<div class="activity__card-content">
 									<?php if ( is_array( $tags ) && count( $tags ) > 0 ) : ?>
@@ -261,8 +262,8 @@
 								<?php foreach ( $related_events as $event ) : ?>
 									<?php
 										$date_format = 'en' === $current_translation ? 'M d' : 'd M';
-										$event_date = mozilla_localize_date($event->start_date, $date_format);
-										$location = em_get_location( $event->location_id );
+										$event_date  = mozilla_localize_date( $event->start_date, $date_format );
+										$location    = em_get_location( $event->location_id );
 									?>
 								<a class="activity__event
 									<?php
@@ -275,10 +276,10 @@
 									<div class="activity__event-info">
 										<div class="activity__event-title"><?php echo esc_html( $event->event_name ); ?></div>
 										<div class="activity__event-time">
-											<?php 
+											<?php
 												$date_format = 'en' === $current_translation ? 'F d, Y ∙ H:i' : 'd F, Y ∙ H:i';
-												$event_date = mozilla_localize_date($event->start_date, $date_format);
-												echo esc_html ($event_date) . ' ' . esc_html__('UTC');
+												$event_date  = mozilla_localize_date( $event->start_date, $date_format );
+												echo esc_html( $event_date ) . ' ' . esc_html__( 'UTC' );
 											?>
 										</div>
 										<div class="activity__event-location">

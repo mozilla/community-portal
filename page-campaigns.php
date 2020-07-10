@@ -24,7 +24,7 @@
 		'posts_per_page' => -1,
 	);
 
-	$status = array(
+	$translated_status = array(
 		'Active' => __( 'Active', 'community-portal' ),
 		'Closed' => __( 'Closed', 'community-portal' ),
 	);
@@ -137,15 +137,14 @@
 			<?php if ( $current_campaign ) : ?>
 			<div class="campaigns__active-campaign">
 				<div class="campaigns__active-campaign-hero-container">
-		
 		<div class="campaign__hero-image" 
 				<?php
 				if ( isset( $current_campaign_image ) && strlen( $current_campaign_image ) > 0 ) :
 					?>
-						style="background-image: url(<?php print esc_attr( $current_campaign_image ); ?>);" <?php endif; ?> >
+			style="background-image: url(<?php print esc_attr( $current_campaign_image ); ?>);" <?php endif; ?> >
 					</div>
 					<div class="campaigns__active-campaign-title-container">
-						<div class="campaigns__active-campaign-status"><?php print esc_html( $status[ $current_campaign_status ] ); ?></div>
+						<div class="campaigns__active-campaign-status"><?php print esc_html( $translated_status[ $current_campaign_status ] ); ?></div>
 						<h2 class="campaigns__active-campaign-title"><?php print esc_html( $current_campaign->post_title ); ?></h2>
 						<div class="campaigns__active-campaign-date-container">
 				<?php
@@ -204,10 +203,10 @@
 				<?php
 				if ( isset( $incoming_campaign_image ) && strlen( $incoming_campaign_image ) > 0 ) :
 					?>
-						style="background-image: url(<?php print esc_attr( $incoming_campaign_image ); ?>);" <?php endif; ?> >
+			style="background-image: url(<?php print esc_attr( $incoming_campaign_image ); ?>);" <?php endif; ?> >
 						</div>
 						<div class="campaigns__active-campaign-title-container">
-							<div class="campaigns__active-campaign-status"><?php print esc_html( $status[ $incoming_campaign_status ] ); ?></div>
+							<div class="campaigns__active-campaign-status"><?php print esc_html( $translated_status[ $incoming_campaign_status ] ); ?></div>
 							<h2 class="campaigns__active-campaign-title"><?php print esc_html( $incoming_campaign->post_title ); ?></h2>
 							<div class="campaigns__active-campaign-date-container">
 								<?php
@@ -279,7 +278,7 @@
 						<?php
 						if ( isset( $campaign_image ) && strlen( $campaign_image ) > 0 ) :
 							?>
-								style="background-image: url(<?php print esc_html( $campaign_image ); ?>);" <?php endif; ?> >
+		style="background-image: url(<?php print esc_html( $campaign_image ); ?>);" <?php endif; ?> >
 						</div>
 						<div class="campaigns__active-campaign-title-container campaigns__active-campaign-title-container--card">
 							<h2 class="campaigns__active-campaign-title campaigns__active-campaign-title--card"><?php print esc_html( $campaign->post_title ); ?></h2>
@@ -389,10 +388,10 @@
 						if ( $total_pages > $range && $p < $total_pages - 1 ) :
 							?>
 							&hellip; <a href="<?php print esc_attr( add_query_arg( array( 'p' => $total_pages ), get_home_url( null, 'campaigns' ) ) ); ?>"  class="campaigns__pagination-link 
-														  <?php
-															if ( $total_pages === $p ) :
-																?>
-								 campaigns__pagination-link--active<?php endif; ?>"><?php print esc_html( $total_pages ); ?></a><?php endif; ?>
+							<?php
+							if ( $total_pages === $p ) :
+								?>
+				campaigns__pagination-link--active<?php endif; ?>"><?php print esc_html( $total_pages ); ?></a><?php endif; ?>
 					<a href="<?php print esc_attr( add_query_arg( array( 'a' => $next_page ), get_home_url( null, 'campaigns' ) ) ); ?>" class="campaigns__pagination-link">
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 						<path d="M7 23L18 12L7 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

@@ -51,21 +51,22 @@ $all_countries = em_get_countries();
 			<div class="campaign__events-container">
 				<?php foreach ( $block['events'] as $event ) : ?>
 					<?php
-					if (!empty($event['event'])):
+					if ( ! empty( $event['event'] ) ) :
 						$event_meta  = get_post_meta( $event['event']->ID, 'event-meta' );
 						$em_event    = em_get_event( $event['event']->ID, 'post_id' );
 						$date_format = 'en' === $current_translation ? 'M d' : 'd M';
-						$event_date = mozilla_localize_date($em_event->start_date, $date_format);
+						$event_date  = mozilla_localize_date( $em_event->start_date, $date_format );
 
 						$location   = em_get_location( $em_event->location_id );
-						$categories = ( ! is_null( $em_event ) ) ? $em_event->get_categories() : false;					
+						$categories = ( ! is_null( $em_event ) ) ? $em_event->get_categories() : false;
 
-						if ( ! empty( $em_event ) ) : ?>
+						if ( ! empty( $em_event ) ) :
+							?>
 							<a href="<?php print esc_url_raw( get_home_url( null, 'events/' . $em_event->event_slug ) ); ?>" class="campaign__event">
 							<div class="campaign__event-image" 
 								<?php
-									if ( isset( $event_meta[0]->image_url ) && strlen( $event_meta[0]->image_url ) > 0 ) :
-								?>
+								if ( isset( $event_meta[0]->image_url ) && strlen( $event_meta[0]->image_url ) > 0 ) :
+									?>
 								style="background-image: url('<?php print esc_url_raw( $event_meta[0]->image_url ); ?>')"<?php endif; ?>>
 								<div class="campaign__event-date">
 									<?php print esc_html( $event_date ); ?>
@@ -74,10 +75,10 @@ $all_countries = em_get_countries();
 							<div class="campaign__event-container">
 								<h3 class="campaign__event-title"><?php print esc_html( $event['event']->post_title ); ?></h3>
 								<div class="campaign__event-time">
-									<?php 
+									<?php
 										$date_format = 'en' === $current_translation ? 'F d, Y @ H:i' : 'd F, Y @ H:i';
-										$event_date = mozilla_localize_date($event->start_date, $date_format);
-										echo esc_html ($event_date) . ' ' . esc_html__('UTC');
+										$event_date  = mozilla_localize_date( $event->start_date, $date_format );
+										echo esc_html( $event_date ) . ' ' . esc_html__( 'UTC' );
 									?>
 								</div>
 								<?php if ( strlen( $location->address ) > 0 || strlen( $location->town ) > 0 || strlen( $location->country ) > 0 ) : ?>
@@ -98,7 +99,7 @@ $all_countries = em_get_countries();
 												<?php print esc_html( $city ); ?>
 											<?php endif; ?>
 											<?php if ( $location->country ) : ?>
-												<?php if ( isset( $city  ) ) : ?>
+												<?php if ( isset( $city ) ) : ?>
 													<?php print ', '; ?>
 												<?php endif; ?>
 												<?php print esc_html( $all_countries[ $location->country ] ); ?>
@@ -139,12 +140,10 @@ $all_countries = em_get_countries();
 								<ul class="events__tags">
 								<?php if ( false !== $categories && is_array( $categories->terms ) ) : ?>
 									<?php $current_translation = mozilla_get_current_translation(); ?>
-									<?php 
-										foreach ( $categories->terms as $category ) : 
-											$term_name = mozilla_get_translated_tag($category);
-
-									?>
-										
+									<?php
+									foreach ( $categories->terms as $category ) :
+										$term_name = mozilla_get_translated_tag( $category );
+										?>
 										<li class="tag"><?php echo esc_html( $term_name ); ?></li>
 										<?php break; ?>
 									<?php endforeach; ?>

@@ -17,8 +17,8 @@
 	$args['scope'] = 'future';
 	$events        = EM_Events::get( $args );
 
-	foreach ( $events as $event ) {
-		include locate_template( 'plugins/events-manager/templates/template-parts/event-cards.php', false, false );
-	}
+foreach ( $events as $event ) {
+	include locate_template( 'plugins/events-manager/templates/template-parts/event-cards.php', false, false );
+}
 
 
