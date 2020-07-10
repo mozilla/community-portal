@@ -9,9 +9,10 @@
  * @version 1.0.0
  * @author  Playground Inc.
  */
+
 	// Lets get the group data!
 	global $bp;
-	
+
 	$user         = wp_get_current_user();
 	$group        = $bp->groups->current_group;
 	$group_meta   = groups_get_groupmeta( $group->id, 'meta' );

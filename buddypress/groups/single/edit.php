@@ -11,10 +11,10 @@
  */
 
 do_action( 'bp_before_edit_group_page' );
-$group_id     = bp_get_current_group_id();
-$group        = $bp->groups->current_group;
-$group_meta   = groups_get_groupmeta( $group_id, 'meta' );
-$group_admins = groups_get_group_admins( $group_id );
+$group_id            = bp_get_current_group_id();
+$group               = $bp->groups->current_group;
+$group_meta          = groups_get_groupmeta( $group_id, 'meta' );
+$group_admins        = groups_get_group_admins( $group_id );
 $current_translation = mozilla_get_current_translation();
 
 if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] ) {
@@ -57,7 +57,7 @@ if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHO
 	}
 }
 
-$form_tags = isset( $form['tags'] ) && is_array($form['tags']) ? array_unique( array_filter( array_map( 'mozilla_map_tags', $form['tags'] ), 'strlen' ) ) : array();
+$form_tags = isset( $form['tags'] ) && is_array( $form['tags'] ) ? array_unique( array_filter( array_map( 'mozilla_map_tags', $form['tags'] ), 'strlen' ) ) : array();
 
 ?>
 <div class="content">
@@ -68,7 +68,11 @@ $form_tags = isset( $form['tags'] ) && is_array($form['tags']) ? array_unique( a
 			</div>
 		</div>
 		<input type="hidden" id="string-translation" value="<?php echo esc_attr( $current_translation ); ?>" />
-		<form action="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>/admin/edit-details/" method="post" id="create-group-form" class="standard-form create-group__form" enctype="multipart/form-data" novalidate>
+		<form action="
+		<?php
+		if ( $current_translation ) :
+			?>
+			<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>/admin/edit-details/" method="post" id="create-group-form" class="standard-form create-group__form" enctype="multipart/form-data" novalidate>
 		<div class="create-group__container">
 			<ol class="create-group__menu">
 				<li class="create-group__menu-item create-group__menu-item--disabled"><a href="#" class="create-group__menu-link"><?php esc_html_e( 'Basic Information', 'community-portal' ); ?></a></li>
@@ -209,28 +213,28 @@ $form_tags = isset( $form['tags'] ) && is_array($form['tags']) ? array_unique( a
 							<legend class="create-group__label"><?php esc_html_e( 'Tags for your group', 'community-portal' ); ?></legend>
 							<?php
 								// Get all tags!
-                                $tags = get_tags( array( 'hide_empty' => false ) );
+								$tags = get_tags( array( 'hide_empty' => false ) );
 
 							?>
 							<div class="create-group__tag-container">
 								<?php foreach ( $tags as $loop_tag ) : ?>
-									<?php 
-										if( 'en' !== $current_translation )	{
-											if ( false !== stripos( $loop_tag->slug, '_' ) ) {
-												$loop_tag->slug = substr( $loop_tag->slug, 0, stripos( $loop_tag->slug, '_' ) ); 
-											}
+									<?php
+									if ( 'en' !== $current_translation ) {
+										if ( false !== stripos( $loop_tag->slug, '_' ) ) {
+											$loop_tag->slug = substr( $loop_tag->slug, 0, stripos( $loop_tag->slug, '_' ) );
 										}
+									}
 									?>
 									<input class="create-group__checkbox" type="checkbox" id="<?php echo esc_attr( $loop_tag->slug ); ?>" data-value="<?php echo esc_attr( $loop_tag->slug ); ?>">
 									<label 
-                                        class="create-group__tag
-                                        <?php if ( in_array( $loop_tag->slug, $form_tags, true ) ) : ?>
-                                            create-group__tag--active
-                                        <?php endif; ?>" 
-                                        for="<?php echo esc_attr( $loop_tag->slug ); ?>"
-                                    >
-                                        <?php echo esc_html( $loop_tag->name ); ?>
-                                    </label>
+										class="create-group__tag
+										<?php if ( in_array( $loop_tag->slug, $form_tags, true ) ) : ?>
+											create-group__tag--active
+										<?php endif; ?>" 
+										for="<?php echo esc_attr( $loop_tag->slug ); ?>"
+									>
+										<?php echo esc_html( $loop_tag->name ); ?>
+									</label>
 								<?php endforeach; ?>
 							</div>
 							<input type="hidden" value="<?php print ( isset( $form_tags ) ) ? esc_attr( implode( ',', $form_tags ) ) : ''; ?>" name="tags" id="tags" /> 

@@ -28,7 +28,7 @@ if ( $group && property_exists( $live_user, 'ID' ) ) {
 
 		$current_translation = mozilla_get_current_translation();
 
-		if( 'en' !== $current_translation ) {
+		if ( 'en' !== $current_translation ) {
 			wp_safe_redirect( "{$current_translation}/people/{$user->user_nicename}/profile/edit/group/1/" );
 		} else {
 			wp_safe_redirect( "/people/{$user->user_nicename}/profile/edit/group/1/" );
