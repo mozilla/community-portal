@@ -25,10 +25,10 @@
 	);
 
 	$status = array(
-		'Active' => __('Active', 'community-portal'),
-		'Closed' => __('Closed', 'community-portal'),
+		'Active' => __( 'Active', 'community-portal' ),
+		'Closed' => __( 'Closed', 'community-portal' ),
 	);
-	
+
 	$current_translation = mozilla_get_current_translation();
 
 	$campaign_count = 0;
@@ -62,7 +62,6 @@
 	}
 
 	if ( $current_campaign ) {
-		var_dump($current_campaign);
 		$current_campaign_image = get_the_post_thumbnail_url( $current_campaign->ID );
 
 		$current_campaign_status        = get_field( 'campaign_status', $current_campaign->ID );
@@ -138,25 +137,30 @@
 			<?php if ( $current_campaign ) : ?>
 			<div class="campaigns__active-campaign">
 				<div class="campaigns__active-campaign-hero-container">
-        
-		<div class="campaign__hero-image" <?php if (isset($current_campaign_image) && strlen($current_campaign_image) > 0 ): ?> style="background-image: url(<?php print esc_attr( $current_campaign_image ); ?>);" <?php endif; ?> >
+		
+		<div class="campaign__hero-image" 
+				<?php
+				if ( isset( $current_campaign_image ) && strlen( $current_campaign_image ) > 0 ) :
+					?>
+						style="background-image: url(<?php print esc_attr( $current_campaign_image ); ?>);" <?php endif; ?> >
 					</div>
 					<div class="campaigns__active-campaign-title-container">
 						<div class="campaigns__active-campaign-status"><?php print esc_html( $status[ $current_campaign_status ] ); ?></div>
 						<h2 class="campaigns__active-campaign-title"><?php print esc_html( $current_campaign->post_title ); ?></h2>
 						<div class="campaigns__active-campaign-date-container">
-				<?php 
-								$date_format = 'en' === $current_translation ? 'F d' : 'd F';
+				<?php
+								$date_format          = 'en' === $current_translation ? 'F d' : 'd F';
 								$formatted_start_date = mozilla_localize_date( $current_campaign_start_date, $date_format );
-								print esc_html( $formatted_start_date ); ?>
+								print esc_html( $formatted_start_date );
+				?>
 										<?php
 										if ( $current_campaign_end_date ) :
-											$date_format = 'en' === $current_translation ? 'F d, Y' : 'd F, Y';
-											$formatted_end_date = mozilla_localize_date( $current_campaign_end_date, $date_format);
+											$date_format        = 'en' === $current_translation ? 'F d, Y' : 'd F, Y';
+											$formatted_end_date = mozilla_localize_date( $current_campaign_end_date, $date_format );
 											?>
 								- <?php print esc_html( $formatted_end_date ); ?><?php endif; ?>
 						</div>
-						<a href="<?php print esc_attr( get_home_url(null, '/campaigns/' . $current_campaign->post_name ) ); ?>" class="campaign__hero-cta"><?php esc_html_e( 'Get Involved', 'community-portal' ); ?></a>
+						<a href="<?php print esc_attr( get_home_url( null, '/campaigns/' . $current_campaign->post_name ) ); ?>" class="campaign__hero-cta"><?php esc_html_e( 'Get Involved', 'community-portal' ); ?></a>
 					</div>
 				</div>
 				<?php if ( ! empty( $current_campaign_card_description ) ) : ?>
@@ -196,28 +200,32 @@
 					<p class="campaigns__incoming-campaign-copy"><?php esc_html_e( 'An extra cool Mozilla campaign is coming soon.  Keep an eye out for when it launches.', 'community-portal' ); ?></p>
 					<div class="campaigns__active-campaign">
 					<div class="campaigns__active-campaign-hero-container">
-		<div class="campaign__hero-image" <?php if (isset($incoming_campaign_image) && strlen($incoming_campaign_image) > 0 ): ?> style="background-image: url(<?php print esc_attr( $incoming_campaign_image ); ?>);" <?php endif;?> >
+		<div class="campaign__hero-image" 
+				<?php
+				if ( isset( $incoming_campaign_image ) && strlen( $incoming_campaign_image ) > 0 ) :
+					?>
+						style="background-image: url(<?php print esc_attr( $incoming_campaign_image ); ?>);" <?php endif; ?> >
 						</div>
 						<div class="campaigns__active-campaign-title-container">
 							<div class="campaigns__active-campaign-status"><?php print esc_html( $status[ $incoming_campaign_status ] ); ?></div>
 							<h2 class="campaigns__active-campaign-title"><?php print esc_html( $incoming_campaign->post_title ); ?></h2>
 							<div class="campaigns__active-campaign-date-container">
-								<?php 
-									$date_format = 'en' === $current_translation ? 'F d' : 'd F';
-									$formatted_start_date = mozilla_localize_date( $incoming_campaign_start_date, $date_format);
-									print esc_html( $formatted_start_date ); 
-								
-											if ( $incoming_campaign_end_date ) :
-												$date_format = 'en' === $current_translation ? 'F d, Y' : 'd F, Y';
-												$formatted_end_date = mozilla_localize_date( $incoming_campaign_end_date, $date_format );
-												?>
+								<?php
+									$date_format          = 'en' === $current_translation ? 'F d' : 'd F';
+									$formatted_start_date = mozilla_localize_date( $incoming_campaign_start_date, $date_format );
+									print esc_html( $formatted_start_date );
+
+								if ( $incoming_campaign_end_date ) :
+									$date_format        = 'en' === $current_translation ? 'F d, Y' : 'd F, Y';
+									$formatted_end_date = mozilla_localize_date( $incoming_campaign_end_date, $date_format );
+									?>
 									- <?php print esc_html( $formatted_end_date ); ?><?php endif; ?>
 							</div>
-							<a href="<?php print esc_attr(get_home_url(null, '/campaigns/' . $incoming_campaign->post_name ) ); ?>" class="campaign__hero-cta campaign__hero-cta--secondary"><?php esc_html_e( 'Get Involved', 'community-portal' ); ?></a>
+							<a href="<?php print esc_attr( get_home_url( null, '/campaigns/' . $incoming_campaign->post_name ) ); ?>" class="campaign__hero-cta campaign__hero-cta--secondary"><?php esc_html_e( 'Get Involved', 'community-portal' ); ?></a>
 						</div>
 					</div>
 					<div class="campaigns__active-campaign-description">
-						<?php echo wp_kses( $incoming_campaignn_card_description,  wp_kses_allowed_html( 'post' ) ); ?>
+						<?php echo wp_kses( $incoming_campaignn_card_description, wp_kses_allowed_html( 'post' ) ); ?>
 					</div>
 					<?php if ( is_array( $incoming_campaign_tags ) && count( $incoming_campaign_tags ) > 0 ) : ?>
 					<div class="campaigns__active-campaign-tags">
@@ -264,27 +272,34 @@
 					$campaign_tags             = get_the_terms( $campaign, 'post_tag' );
 
 					?>
-			<a class="campaigns__campaign" href="<?php print esc_html( get_home_url(null, '/campaigns/' . $campaign->post_name ) ); ?>">
+			<a class="campaigns__campaign" href="<?php print esc_html( get_home_url( null, '/campaigns/' . $campaign->post_name ) ); ?>">
 				<div class="campaigns__active-campaign-hero-container campaigns__active-campaign-hero-container--card">
 					<div class="campaigns__past-campaign-hero">
-						<div class="campaign__hero-image campaign__hero-image--card" <?php if (isset($campaign_image) && strlen($campaign_image) > 0 ): ?> style="background-image: url(<?php print esc_html( $campaign_image ); ?>);" <?php endif; ?> >
+						<div class="campaign__hero-image campaign__hero-image--card" 
+						<?php
+						if ( isset( $campaign_image ) && strlen( $campaign_image ) > 0 ) :
+							?>
+								style="background-image: url(<?php print esc_html( $campaign_image ); ?>);" <?php endif; ?> >
 						</div>
 						<div class="campaigns__active-campaign-title-container campaigns__active-campaign-title-container--card">
 							<h2 class="campaigns__active-campaign-title campaigns__active-campaign-title--card"><?php print esc_html( $campaign->post_title ); ?></h2>
 							<div class="campaigns__active-campaign-date-container campaigns__active-campaign-date-container--card">
-                <?php 
-									$date_format = 'en' === $current_translation ? 'F d' : 'd F';
-									$formatted_start_date = mozilla_localize_date( $campaign_start_date, $date_format);
-									print esc_html( $formatted_start_date ); ?>
+					<?php
+									$date_format          = 'en' === $current_translation ? 'F d' : 'd F';
+									$formatted_start_date = mozilla_localize_date( $campaign_start_date, $date_format );
+									print esc_html( $formatted_start_date );
+					?>
 											<?php
 											if ( $campaign_end_date ) :
 												?>
-									- <?php 
-									$date_format = 'en' === $current_translation ? 'F d, Y' : 'd F, Y';
-									$formatted_end_date = mozilla_localize_date( $campaign_end_date, $date_format );
-									
-									print esc_html( $formatted_end_date ); 
-									?><?php endif; ?>
+									- 
+												<?php
+												$date_format        = 'en' === $current_translation ? 'F d, Y' : 'd F, Y';
+												$formatted_end_date = mozilla_localize_date( $campaign_end_date, $date_format );
+
+												print esc_html( $formatted_end_date );
+												?>
+									<?php endif; ?>
 							</div>
 						</div>
 					</div>
@@ -350,7 +365,7 @@
 			<div class="campaigns__pagination">
 				<div class="campaigns__pagination-container">
 					<?php if ( $total_pages > 1 ) : ?>
-					<a href="<?php print esc_attr(add_query_arg(array('a' => $previous_page), get_home_url(null, 'campaigns') ) ) ?>" class="campaigns__pagination-link">
+					<a href="<?php print esc_attr( add_query_arg( array( 'a' => $previous_page ), get_home_url( null, 'campaigns' ) ) ); ?>" class="campaigns__pagination-link">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 							<path d="M17 23L6 12L17 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>
@@ -358,9 +373,9 @@
 						<?php
 						if ( $page_min > 1 ) :
 							?>
-							<a href="<?php print esc_attr(add_query_arg(array('a' => '1'), get_home_url(null, 'campaigns') ) ) ?>" class="campaigns__pagination-link campaigns__pagination-link--first"><?php print '1'; ?></a>&hellip; <?php endif; ?>
+							<a href="<?php print esc_attr( add_query_arg( array( 'a' => '1' ), get_home_url( null, 'campaigns' ) ) ); ?>" class="campaigns__pagination-link campaigns__pagination-link--first"><?php print '1'; ?></a>&hellip; <?php endif; ?>
 						<?php for ( $x = $page_min - 1; $x < $page_max; $x++ ) : ?>
-					<a href="<?php print esc_attr(add_query_arg(array('a' =>  $x + 1), get_home_url(null, 'campaigns') ) ) ?>" class="campaigns__pagination-link
+					<a href="<?php print esc_attr( add_query_arg( array( 'a' => $x + 1 ), get_home_url( null, 'campaigns' ) ) ); ?>" class="campaigns__pagination-link
 							<?php
 							if ( $p === $x + 1 ) :
 								?>
@@ -373,8 +388,12 @@
 						<?php
 						if ( $total_pages > $range && $p < $total_pages - 1 ) :
 							?>
-							&hellip; <a href="<?php print esc_attr(add_query_arg(array('p' => $total_pages), get_home_url(null, 'campaigns') ) ) ?>"  class="campaigns__pagination-link <?php if ( $total_pages === $p ) : ?> campaigns__pagination-link--active<?php endif; ?>"><?php print esc_html( $total_pages ); ?></a><?php endif; ?>
-					<a href="<?php print esc_attr(add_query_arg(array('a' => $next_page), get_home_url(null, 'campaigns') ) ) ?>" class="campaigns__pagination-link">
+							&hellip; <a href="<?php print esc_attr( add_query_arg( array( 'p' => $total_pages ), get_home_url( null, 'campaigns' ) ) ); ?>"  class="campaigns__pagination-link 
+														  <?php
+															if ( $total_pages === $p ) :
+																?>
+								 campaigns__pagination-link--active<?php endif; ?>"><?php print esc_html( $total_pages ); ?></a><?php endif; ?>
+					<a href="<?php print esc_attr( add_query_arg( array( 'a' => $next_page ), get_home_url( null, 'campaigns' ) ) ); ?>" class="campaigns__pagination-link">
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 						<path d="M7 23L18 12L7 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 					</svg>
@@ -387,7 +406,7 @@
 	</div>
 </div>
 <?php
-if ( ( $current_campaign && $incoming_campaign ) || ( $current_campaign && !$incoming_campaign ) && ( isset( $subscribed ) && intval( $subscribed ) !== 1 ) ) {
+if ( ( $current_campaign && $incoming_campaign ) || ( $current_campaign && ! $incoming_campaign ) && ( isset( $subscribed ) && intval( $subscribed ) !== 1 ) ) {
 	?>
 	<div class="newsletter newsletter--hero">
 	<?php include get_template_directory() . '/templates/campaigns-newsletter.php'; ?>
