@@ -33,7 +33,7 @@
 	$user                  = wp_get_current_user();
 	$members_participating = get_post_meta( $post->ID, 'members-participating', true );
 	$sub                   = true;
-	$current_translation = mozilla_get_current_translation();
+	$current_translation   = mozilla_get_current_translation();
 
 if ( $logged_in && is_array( $members_participating ) && in_array( $user->ID, $members_participating, true ) ) {
 	$sub = false;
@@ -50,15 +50,16 @@ if ( $logged_in && is_array( $members_participating ) && in_array( $user->ID, $m
 						<span class="campaign__status"><?php print esc_html( $campaign_status ); ?></span>
 						<h1 class="campaign__hero-title"><?php print esc_html( $post->post_title ); ?></h1>
 						<div class="campaign__date-container">
-							<?php 
-								$date_format = 'en' === $current_translation ? 'F d' : 'd F';
-								$formatted_start_date = mozilla_localize_date($campaign_start_date, $date_format);
-								print esc_html( $formatted_start_date ); 
+							<?php
+								$date_format          = 'en' === $current_translation ? 'F d' : 'd F';
+								$formatted_start_date = mozilla_localize_date( $campaign_start_date, $date_format );
+								print esc_html( $formatted_start_date );
 							?>
-							<?php if ( $campaign_end_date ) : 
-								$date_format = 'en' === $current_translation ? 'F d, Y' : 'd F, Y';
-								$formatted_end_date = mozilla_localize_date($campaign_end_date, $date_format);
-							?>
+							<?php
+							if ( $campaign_end_date ) :
+								$date_format        = 'en' === $current_translation ? 'F d, Y' : 'd F, Y';
+								$formatted_end_date = mozilla_localize_date( $campaign_end_date, $date_format );
+								?>
 							- <?php print esc_html( $formatted_end_date ); ?>
 							<?php endif; ?>
 						</div>

@@ -28,7 +28,7 @@
 				$selected = $em_event->get_categories()->get_ids();
 			?>
 
-			<?php	foreach ( $categories as $category ): ?>
+			<?php	foreach ( $categories as $category ) : ?>
 				<?php $tag_name = mozilla_get_translated_tag( $category ); ?>
 				<input 
 					name="event_categories[]" 
@@ -37,13 +37,13 @@
 					type="radio"  
 					value="<?php echo esc_attr( $category->id ); ?>"
 					<?php
-						if ( is_array( $selected ) && intval( $category->id ) === intval( $selected[0] ) ) {
-							echo esc_attr( 'checked' );
-						}
+					if ( is_array( $selected ) && intval( $category->id ) === intval( $selected[0] ) ) {
+						echo esc_attr( 'checked' );
+					}
 					?>
 				/>
 				<label class="event-creator__tag" for="<?php echo esc_attr( $category->id ); ?>"><?php echo esc_html( $tag_name ); ?></label>
-			<?php
+				<?php
 				endforeach;
 			?>
 			<!-- <input type="hidden" name="event_categories[]" id="event_categories--all" value=""> -->

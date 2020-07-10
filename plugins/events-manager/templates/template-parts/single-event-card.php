@@ -20,7 +20,7 @@
 	$location   = em_get_location( $event->location_id );
 	$url        = get_home_url( null, '/events/' . $event->slug );
 
-	?>
+?>
 <div class="col-lg-4 col-md-6 events__column">
 	<div class="event-card">
 		<a class="events__link" href="<?php echo esc_url_raw( $url ); ?>">
@@ -41,13 +41,13 @@
 			<?php endif; ?>
 			>
 				<?php
-					$month      = substr( $event->start_date, 5, 2 );
-					$date       = substr( $event->start_date, 8, 2 );
-					$event_year = substr( $event->start_date, 0, 4 );
+					$month               = substr( $event->start_date, 5, 2 );
+					$date                = substr( $event->start_date, 8, 2 );
+					$event_year          = substr( $event->start_date, 0, 4 );
 					$current_translation = mozilla_get_current_translation();
-					$date_format = $current_translation === 'en' ? 'M d' : 'd M';
-					$formatted_date = mozilla_localize_date($event->start_date, $date_format);
-					$formatted_date = explode(' ', $formatted_date);
+					$date_format         = 'en' === $current_translation ? 'M d' : 'd M';
+					$formatted_date      = mozilla_localize_date( $event->start_date, $date_format );
+					$formatted_date      = explode( ' ', $formatted_date );
 				if ( isset( $formatted_date ) && count( $formatted_date ) > 1 ) :
 					?>
 					<p class="event-card__image__date"><span><?php echo esc_html( $formatted_date[0] ); ?> </span><span><?php echo esc_html( $formatted_date[1] ); ?></span>
@@ -56,9 +56,9 @@
 			</div>
 			<div class="event-card__description">
 				<h3 class="event-card__description__title title--event-card"><?php echo esc_html( $event->event_name ); ?></h2>
-			<?php  	
-				$date_format = $current_translation === 'en' ? 'F d, Y' : 'd F, Y';
-				$formatted_date = mozilla_localize_date($event->start_date, $date_format); 
+			<?php
+				$date_format    = 'en' === $current_translation ? 'F d, Y' : 'd F, Y';
+				$formatted_date = mozilla_localize_date( $event->start_date, $date_format );
 			?>
 				<p><?php echo esc_html( $formatted_date ) . esc_html( ' @ ' ) . esc_html( substr( $event->event_start_time, 0, 5 ) ) . esc_html( ' - ' ) . esc_html( substr( $event->event_end_time, 0, 5 ) ) . esc_html( ' ' ) . esc_html( $event->event_timezone ); ?></p>
 
@@ -83,8 +83,8 @@
 								echo esc_html( $city );
 							}
 
-							if ( $location->country && isset($all_countries[$location->country])) {
-								if ( isset($city) ) {
+							if ( $location->country && isset( $all_countries[ $location->country ] ) ) {
+								if ( isset( $city ) ) {
 									print esc_html( ', ' );
 								}
 

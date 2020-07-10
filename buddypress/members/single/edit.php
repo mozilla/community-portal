@@ -496,7 +496,7 @@ else :
 						$discourse_value = $form['discourse'];
 					} else {
 						if ( is_array( $community_fields ) && isset( $community_fields['discourse'] ) ) {
-							
+
 							$discourse_value = $community_fields['discourse'];
 						} else {
 							$discourse_value = '';

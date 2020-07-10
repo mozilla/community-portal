@@ -53,55 +53,55 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 
 
 
-	if ( $em_event->event_start_date !== $em_event->event_end_date ) {
-		$date_format = $current_translation === 'en' ? 'F d' : 'd M';
-		$formatted_start_date = mozilla_localize_date($em_event->event_start_date, $date_format);
-		$date_format = $current_translation === 'en' ? 'F d, Y' : 'd F, Y';
-		$formatted_end_date = mozilla_localize_date($em_event->event_end_date, $date_format);
-	} else {
-		$date_format = $current_translation === 'en' ? 'F d, Y' : 'd F, Y';
-		$formatted_start_date = mozilla_localize_date($em_event->event_start_date, $date_format);
-	}
+if ( $em_event->event_start_date !== $em_event->event_end_date ) {
+	$date_format          = 'en' === $current_translation ? 'F d' : 'd M';
+	$formatted_start_date = mozilla_localize_date( $em_event->event_start_date, $date_format );
+	$date_format          = 'en' === $current_translation ? 'F d, Y' : 'd F, Y';
+	$formatted_end_date   = mozilla_localize_date( $em_event->event_end_date, $date_format );
+} else {
+	$date_format          = 'en' === $current_translation ? 'F d, Y' : 'd F, Y';
+	$formatted_start_date = mozilla_localize_date( $em_event->event_start_date, $date_format );
+}
 
 	$all_related_events = array();
-	if ( is_array( $categories ) && count( $categories ) > 0 ) {
-		foreach ( $categories as $category ) {
-			$related_events = EM_Events::get( array( 'category' => $category->term_id ) );
-			if ( count( $related_events ) > 0 ) {
-				foreach ( $related_events as $single_event ) {
-					if ( $related_events[0]->event_id === $single_event->event_id ) {
-						continue;
-					}
-					if ( $single_event->event_id === $em_event->event_id ) {
-						continue;
-					}
-					$all_related_events[] = $single_event;
-					if ( count( $all_related_events ) >= 2 ) {
-						break;
-					}
+if ( is_array( $categories ) && count( $categories ) > 0 ) {
+	foreach ( $categories as $category ) {
+		$related_events = EM_Events::get( array( 'category' => $category->term_id ) );
+		if ( count( $related_events ) > 0 ) {
+			foreach ( $related_events as $single_event ) {
+				if ( $related_events[0]->event_id === $single_event->event_id ) {
+					continue;
+				}
+				if ( $single_event->event_id === $em_event->event_id ) {
+					continue;
+				}
+				$all_related_events[] = $single_event;
+				if ( count( $all_related_events ) >= 2 ) {
+					break;
 				}
 			}
+		}
 
-			if ( count( $all_related_events ) >= 2 ) {
-				break;
-			}
+		if ( count( $all_related_events ) >= 2 ) {
+			break;
 		}
 	}
+}
 
-	if ( isset( $em_event->group_id ) ) {
-		$group  = new BP_Groups_Group( $em_event->group_id );
-		$admins = groups_get_group_admins( $group->id );
+if ( isset( $em_event->group_id ) ) {
+	$group  = new BP_Groups_Group( $em_event->group_id );
+	$admins = groups_get_group_admins( $group->id );
 
-		if ( isset( $admins ) ) {
-			$user   = get_userdata( $admins[0]->user_id );
-			$avatar = get_avatar_url( $admins[0]->user_id );
-			$users  = get_current_user_id();
-		}
+	if ( isset( $admins ) ) {
+		$user   = get_userdata( $admins[0]->user_id );
+		$avatar = get_avatar_url( $admins[0]->user_id );
+		$users  = get_current_user_id();
 	}
+}
 
-	// Set default for var used to count attendees
+	// Set default for var used to count attendees.
 	$count = 0;
-	?>
+?>
 
 <div class="content events__container events-single">
 	<div class="row">
@@ -190,9 +190,9 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 						<h2 class="title--secondary">
 							<?php
 							if ( isset( $formatted_end_date ) ) {
-								echo esc_html($formatted_start_date) . esc_html( ' - ' ) . esc_html( $formatted_end_date );
+								echo esc_html( $formatted_start_date ) . esc_html( ' - ' ) . esc_html( $formatted_end_date );
 							} else {
-								echo esc_html($formatted_start_date);
+								echo esc_html( $formatted_start_date );
 							}
 							?>
 						</h2>
@@ -282,10 +282,10 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 						if ( is_wp_error( $request ) ) {
 							$mapbox_error = true;
 						} else {
-							$body        = wp_remote_retrieve_body( $request );
-							$data        = json_decode( $body );
+							$body = wp_remote_retrieve_body( $request );
+							$data = json_decode( $body );
 
-							if (!empty($data->features)) {
+							if ( ! empty( $data->features ) ) {
 								$coordinates = $data->features[0]->geometry->coordinates;
 							}
 						}
@@ -460,7 +460,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 			<div class="row">
 				<?php
 				foreach ( $all_related_events as $event ) {
-					$url                 = get_home_url( null, '/events/' . $event->slug );
+					$url = get_home_url( null, '/events/' . $event->slug );
 					include locate_template( 'plugins/events-manager/templates/template-parts/single-event-card.php', false, false );
 				}
 				?>
@@ -549,7 +549,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 		endif;
 	?>
 </div>
-<?php if ( !empty( $group ) && isset( $options['report_email'] ) && is_user_logged_in() && isset( $_SERVER['HTTP_HOST'] ) ) : ?>
+<?php if ( ! empty( $group ) && isset( $options['report_email'] ) && is_user_logged_in() && isset( $_SERVER['HTTP_HOST'] ) ) : ?>
 <div class="events-single__report-container">
 	<a href="mailto:<?php print esc_attr( $options['report_email'] ); ?>?subject=<?php print sprintf( '%s %s', esc_html__( 'Reporting Event', 'community-portal' ), esc_attr( $em_event->event_name ) ); ?>&body=<?php print sprintf( '%s %s', esc_html__( 'Please provide a reason you are reporting this event', 'community-portal' ), esc_url_raw( wp_unslash( $_SERVER['HTTP_HOST'] ) ) . esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ); ?>" class="events-single__report-group-link">
 		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

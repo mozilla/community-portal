@@ -155,56 +155,52 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 				<?php endif; ?>
 			</div>
 		</div>
-		<?php
-
-
-		?>
-		<?php if ( $info['groups']->display ) : ?>
-			<?php $groups = groups_get_user_groups( $info['id'] ); ?>
-			<?php if ( $groups['total'] > 0 ) : ?>
+				<?php if ( $info['groups']->display ) : ?>
+					<?php $groups = groups_get_user_groups( $info['id'] ); ?>
+					<?php if ( $groups['total'] > 0 ) : ?>
 		<h2 class="profile__heading"><?php esc_html_e( 'Groups I\'m In', 'community-portal' ); ?></h2>
-				<?php $group_count = 0; ?>
+						<?php $group_count = 0; ?>
 		<div class="profile__card">
-				<?php foreach ( $groups['groups'] as $gid ) : ?>
-					<?php
-					$group      = new BP_Groups_Group( $gid );
-					$group_meta = groups_get_groupmeta( $gid, 'meta' );
-					?>
+						<?php foreach ( $groups['groups'] as $gid ) : ?>
+							<?php
+							$group      = new BP_Groups_Group( $gid );
+							$group_meta = groups_get_groupmeta( $gid, 'meta' );
+							?>
 			<a class="profile__group" href="
-					<?php
-					if ( $current_translation ) :
-						?>
-						<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>">
+							<?php
+							if ( $current_translation ) :
+								?>
+								<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>">
 				<h2 class="profile__group-title"><?php echo esc_html( str_replace( '\\', '', stripslashes( $group->name ) ) ); ?></h2>
 				<div class="profile__group-location">
 					<svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 						<path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 					</svg>
-					<?php
-					if ( isset( $group_meta['group_city'] ) && strlen( $group_meta['group_city'] ) > 0 ) :
-						?>
-						<?php echo esc_html( $group_meta['group_city'] ); ?><?php endif; ?>
-						<?php
-						if ( isset( $group_meta['group_country'] ) && strlen( $group_meta['group_country'] ) > 0 ) :
-							?>
+							<?php
+							if ( isset( $group_meta['group_city'] ) && strlen( $group_meta['group_city'] ) > 0 ) :
+								?>
+								<?php echo esc_html( $group_meta['group_city'] ); ?><?php endif; ?>
+							<?php
+							if ( isset( $group_meta['group_country'] ) && strlen( $group_meta['group_country'] ) > 0 ) :
+								?>
 												<?php
 												if ( isset( $group_meta['group_city'] ) && strlen( $group_meta['group_city'] ) > 0 ) :
 													?>
 	, <?php endif; ?><?php echo esc_html( $countries[ $group_meta['group_country'] ] ); ?><?php endif; ?>
-					<?php
-					if ( isset( $group_meta['group_type'] ) ) :
-						?>
-						<?php
-						if ( isset( $group_meta['group_city'] ) && strlen( trim( $group_meta['group_city'] ) ) > 0 || isset( $group_meta['group_country'] ) && strlen( trim( $group_meta['group_country'] ) ) > 1 ) :
-							?>
+							<?php
+							if ( isset( $group_meta['group_type'] ) ) :
+								?>
+								<?php
+								if ( isset( $group_meta['group_city'] ) && strlen( trim( $group_meta['group_city'] ) ) > 0 || isset( $group_meta['group_country'] ) && strlen( trim( $group_meta['group_country'] ) ) > 1 ) :
+									?>
 						|<?php endif; ?>
-						<?php if( 'Online' === $group_meta['group_type'] ): ?>
-							<?php esc_html_e( 'Online', 'community-portal' ); ?>
-						<?php else: ?>
+								<?php if ( 'Online' === $group_meta['group_type'] ) : ?>
+									<?php esc_html_e( 'Online', 'community-portal' ); ?>
+						<?php else : ?>
 							<?php esc_html_e( 'Offline', 'community-portal' ); ?>
 						<?php endif; ?>
-					<?php endif; ?>
+							<?php endif; ?>
 				</div>
 				<div class="profile__group-member-count">
 					<svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -214,11 +210,11 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 						<path d="M11.667 2.08594C12.2406 2.2328 12.749 2.5664 13.1121 3.03414C13.4752 3.50188 13.6722 4.07716 13.6722 4.66927C13.6722 5.26138 13.4752 5.83666 13.1121 6.3044C12.749 6.77214 12.2406 7.10574 11.667 7.2526" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 					</svg>
 
-					<?php echo esc_html( groups_get_total_member_count( $gid ) ); ?> <?php esc_html_e( 'Members', 'community-portal' ); ?>
+							<?php echo esc_html( groups_get_total_member_count( $gid ) ); ?> <?php esc_html_e( 'Members', 'community-portal' ); ?>
 				</div>
 			</a>
-					<?php $group_count++; ?>
-					<?php if ( $group_count > 0 && $group_count < $groups['total'] ) : ?>
+							<?php $group_count++; ?>
+							<?php if ( $group_count > 0 && $group_count < $groups['total'] ) : ?>
 			<hr class="profile__group-line" />
 			<?php endif; ?>
 			<?php endforeach; ?>
@@ -237,11 +233,11 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 		<div class="profile__card">
 				<?php foreach ( $events->bookings as $event_booking ) : ?>
 					<?php
-					$event      = em_get_event( $event_booking->event_id );
-					$event_time = strtotime( $event->start_date );
-					$date_format = 'en' === $current_translation ? 'M d' : "d M";
-					$event_date = mozilla_localize_date($event->start_date, $date_format);
-					$location   = em_get_location( $event->location_id );
+					$event       = em_get_event( $event_booking->event_id );
+					$event_time  = strtotime( $event->start_date );
+					$date_format = 'en' === $current_translation ? 'M d' : 'd M';
+					$event_date  = mozilla_localize_date( $event->start_date, $date_format );
+					$location    = em_get_location( $event->location_id );
 					?>
 			<a class="profile__event" href="
 					<?php
@@ -254,13 +250,13 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 				<div class="profile__event-info">
 					<div class="profile__event-title"><?php echo esc_html( $event->event_name ); ?></div>
 					<div class="profile__event-time">
-						<?php 
+						<?php
 							$date_format = 'en' === $current_translation ? 'F d, Y ∙ H:i' : 'd F, Y ∙ H:i';
-							$event_date = mozilla_localize_date($event->start_date, $date_format);
-							echo esc_html( $event_date ); 
+							$event_date  = mozilla_localize_date( $event->start_date, $date_format );
+							echo esc_html( $event_date );
 						?>
 					</div>
-					<?php if (!empty($location->location_id)): ?>
+					<?php if ( ! empty( $location->location_id ) ) : ?>
 						<div class="profile__event-location">
 							<svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -316,8 +312,8 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 		<div class="profile__card">
 				<?php foreach ( $events_organized as $event ) : ?>
 					<?php
-					$date_format = 'en' === $current_translation ? 'M d' : "d M";
-					$event_date = mozilla_localize_date($event->start_date, $date_format);
+					$date_format = 'en' === $current_translation ? 'M d' : 'd M';
+					$event_date  = mozilla_localize_date( $event->start_date, $date_format );
 
 					$location = em_get_location( $event->location_id );
 					?>
@@ -332,13 +328,13 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 				<div class="profile__event-info">
 					<div class="profile__event-title"><?php echo esc_html( $event->event_name ); ?></div>
 					<div class="profile__event-time">
-						<?php 
+						<?php
 							$date_format = 'en' === $current_translation ? 'F d, Y ∙ H:i' : 'd F, Y ∙ H:i';
-							$event_date = mozilla_localize_date($event->start_date, $date_format);
-							echo esc_html ($event_date);
+							$event_date  = mozilla_localize_date( $event->start_date, $date_format );
+							echo esc_html( $event_date );
 						?>
 					</div>
-					<?php if (!empty($location->location_id)): ?>
+					<?php if ( ! empty( $location->location_id ) ) : ?>
 
 						<div class="profile__event-location">
 							<svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -570,9 +566,9 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 				<?php
 				foreach ( $system_tags as $t ) {
 					$found = false;
-					
+
 					if ( $current_translation ) {
-						
+
 						$temp_slug = $t->slug;
 						if ( false !== stripos( $temp_slug, '_' ) ) {
 							$temp_slug = substr( $temp_slug, 0, stripos( $temp_slug, '_' ) );
