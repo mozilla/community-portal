@@ -50,17 +50,53 @@ jQuery(function(){
 		jQuery('#group-matrix').on('blur', handleMatrixInput);
 	}
 
+	const getCurrentTags = function(tagsInput) {
+		let currentValue = tagsInput.val(); 
+		currentValue = currentValue.length > 0 ? currentValue.split(/,\s?/) : [];
+		return currentValue;
+	}
+
+	const updateValues = function($tagsInput, currentValue) {
+		let newValues = currentValue;
+		console.log(newValues);
+		if (currentValue.length > 1) {
+			newValues = currentValue.join(',');
+		} 
+		console.log(newValues);
+		$tagsInput.val(`${newValues}`);
+	}
+
+	const removeExistingTag = function($tagsInput, currentValue, tag) {
+		if (currentValue.indexOf(tag) !== -1) {
+			const index = currentValue.indexOf(tag);
+			currentValue.splice(index, 1);
+			updateValues($tagsInput, currentValue);
+		}
+	}
+
+	const addNewTag = function($tagsInput, currentValue, tag) {
+		if (currentValue.indexOf(tag) === -1) {
+			currentValue.push(tag);
+			updateValues($tagsInput, currentValue);
+		}
+	}
+
+
+	const $tagsInput = jQuery('#tags');
+
     jQuery('.create-group__checkbox').on('change', function(e) {
 		var $this = jQuery(this);
 		var id = $this.prop('id');
 		var $label = jQuery('label[for=' + id + ']');
 		var tag = $this.data('value');
-		var current = jQuery('#tags').val();
+		currentValue = getCurrentTags($tagsInput);
 
-		if(!$label.hasClass('create-group__tag--active'))
-		jQuery('#tags').val(current + ',' + tag);
-		if($label.hasClass('create-group__tag--active'))
-		jQuery('#tags').val(current.replace(',' + tag, ''));
+		if(!$label.hasClass('create-group__tag--active')) {
+			addNewTag($tagsInput, currentValue, tag);
+		} 
+		if($label.hasClass('create-group__tag--active')){
+			removeExistingTag($tagsInput, currentValue, tag);
+		}	
 		$label.toggleClass('create-group__tag--active');
 		return false;
     });

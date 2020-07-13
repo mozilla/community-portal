@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2020-06-23 13:26-0400\n"
-"PO-Revision-Date: 2020-06-23 13:26-0400\n"
+"PO-Revision-Date: 2020-07-08 15:43-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -24,7 +24,7 @@ msgstr ""
 
 #: 404.php:32
 msgid "Page Not Found"
-msgstr ""
+msgstr "Seite nicht gefunden"
 
 #: 404.php:37
 msgid ""

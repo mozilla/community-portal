@@ -21,32 +21,33 @@
 	?>
 <?php if ( count( $categories ) > 0 ) : ?>
 	<div class="event-categories event-creator__container">
-	<!-- START Categories -->
+		<!-- START Categories -->
 		<fieldset class="event-creator__fieldset" id="event_categories[]">
 			<legend class="event-creator__label" for="event_categories[]"><?php esc_html_e( 'Select a tag for your event', 'community-portal' ); ?></legend>
 			<?php
 				$selected = $em_event->get_categories()->get_ids();
-			foreach ( $categories as $category ) {
-				$tag_name = mozilla_get_translated_tag( $category );
-				?>
+			?>
+
+			<?php	foreach ( $categories as $category ) : ?>
+				<?php $tag_name = mozilla_get_translated_tag( $category ); ?>
 				<input 
 					name="event_categories[]" 
 					class="event-creator__checkbox" 
 					id="<?php echo esc_attr( $category->id ); ?>"
 					type="radio"  
 					value="<?php echo esc_attr( $category->id ); ?>"
-				<?php
-				if ( is_array( $selected ) && ! empty( $selected ) && intval( $tag_id ) === intval( $selected[0] ) ) {
-					echo esc_attr( 'checked' );
-				}
-				?>
+					<?php
+					if ( is_array( $selected ) && intval( $category->id ) === intval( $selected[0] ) ) {
+						echo esc_attr( 'checked' );
+					}
+					?>
 				/>
 				<label class="event-creator__tag" for="<?php echo esc_attr( $category->id ); ?>"><?php echo esc_html( $tag_name ); ?></label>
 				<?php
-			}
+				endforeach;
 			?>
-		<!-- <input type="hidden" name="event_categories[]" id="event_categories--all" value=""> -->
-		<!-- END Categories -->
+			<!-- <input type="hidden" name="event_categories[]" id="event_categories--all" value=""> -->
+			<!-- END Categories -->
 		</fieldset>
 	</div>
 <?php endif; ?>

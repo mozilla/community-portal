@@ -461,8 +461,9 @@
 
         &:hover {
             box-shadow: 0 0 0 4px #d7d7db;
-        }
-    }
+		}
+	}
+	
 
     &__group-image {
 		padding-top: 45.5%;
@@ -480,7 +481,15 @@
         margin: 0;
         margin-bottom: 16px;
         padding: 0;
-    }
+	}
+	
+	&__card-members,
+	&__card-location {
+		svg {
+			transform: translateY(2px);
+			margin-right: 3px;
+		}
+	}
 
     &__card-content {
 		color: $color-gray-secondary;

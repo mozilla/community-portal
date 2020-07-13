@@ -82,7 +82,7 @@
 		</select>
 	</div>
 	<div class="col-lg-12">
-		<p class="newsletter__subtext"><?php esc_html_e( 'We’ll default to English but send in these languages whenever we can.', 'community-portal' ); ?></p>
+		<p class="newsletter__subtext"><?php esc_html_e( 'We\'ll default to English but send in these languages whenever we can.', 'community-portal' ); ?></p>
 		<div class="cpg">
 			<input class="checkbox--hidden" type="checkbox" id="newsletter">
 			<label class="cpg__label" for="newsletter">

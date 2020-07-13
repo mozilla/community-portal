@@ -12,6 +12,11 @@
 
 get_header();
 $results = array();
+$theme_directory     = get_template_directory();
+require "{$theme_directory}/countries.php";
+
+$date_format        = 'en' === $current_translation ? 'F d, Y' : 'd F Y';
+
 
 $p = intval( get_query_var( 'page' ) ) <= 1 ? 1 : intval( get_query_var( 'page' ) );
 
@@ -82,6 +87,7 @@ $wp_user_query = new WP_User_Query(
 
 $logged_in = mozilla_is_logged_in();
 $this_user = wp_get_current_user()->data;
+$current_translation = mozilla_get_current_translation();
 
 $members          = $wp_user_query->get_results();
 $filtered_members = array();
@@ -171,7 +177,7 @@ else :
 							$start_date = get_field( 'campaign_start_date', $result->ID );
 							$end_date   = get_field( 'campaign_end_date', $result->ID );
 							?>
-							<?php echo esc_html( gmdate( 'F j, Y', strtotime( $start_date ) ) ); ?> - <?php echo esc_html( gmdate( 'F j, Y', strtotime( $end_date ) ) ); ?>
+							<?php echo esc_html( date_i18n( $date_format, strtotime( $start_date ) ) ); ?> - <?php echo esc_html( date_i18n( $date_format, strtotime( $end_date ) ) ); ?>
 						</div>
 						<div class="search__result-description">
 							<?php echo wp_kses( $description, array( 'p' => array() ) ); ?>
@@ -184,7 +190,7 @@ else :
 							$start_date = get_field( 'campaign_start_date', $result->ID );
 							$end_date   = get_field( 'campaign_end_date', $result->ID );
 							?>
-							<?php echo esc_html( gmdate( 'F j, Y', strtotime( $start_date ) ) ); ?> - <?php echo esc_html( gmdate( 'F j, Y', strtotime( $end_date ) ) ); ?>
+							<?php echo esc_html( date_i18n( $date_format, strtotime( $start_date ) ) ); ?> - <?php echo esc_html( date_i18n( $date_format, strtotime( $end_date ) ) ); ?>
 						</div>
 						<div class="search__result-description">
 							<?php echo wp_kses( $description, array( 'p' => array() ) ); ?>
@@ -197,12 +203,12 @@ else :
 						<h3 class="search__result-title search__result-title--event"><?php esc_html_e( 'Event', 'community-portal' ); ?></h3>
 						<a href="<?php echo esc_attr( get_home_url( null, 'events/' . $result->event_slug ) ); ?>" class="search__result-link"><?php echo esc_html( $result->event_name ); ?></a>
 						<div class="search__event-date">
-							<?php echo esc_html( gmdate( 'F j, Y', strtotime( $result->event_start_date ) ) ); ?>
+							<?php echo esc_html( date_i18n( $date_format, strtotime( $result->event_start_date ) ) ); ?>
 							<?php if ( isset( $result->event_start_time ) ) : ?>
-							@ <?php echo esc_html( gmdate( 'H:i', strtotime( $result->event_start_time ) ) ); ?> 
+							@ <?php echo esc_html( date_i18n( 'H:i', strtotime( $result->event_start_time ) ) ); ?> 
 						<?php endif; ?>
 							<?php if ( isset( $results->event_end_time ) && $result->event_start_time !== $results->event_end_time ) : ?>
-							- <?php echo esc_html( gmdate( 'H:i', strtotime( $result->event_end_time ) ) ); ?> 
+							- <?php echo esc_html( date_i18n( 'H:i', strtotime( $result->event_end_time ) ) ); ?> 
 						<?php endif; ?>
 						</div>
 						<div class="search__event-location">
@@ -210,28 +216,29 @@ else :
 								<path d="M14 7.66699C14 12.3337 8 16.3337 8 16.3337C8 16.3337 2 12.3337 2 7.66699C2 6.07569 2.63214 4.54957 3.75736 3.42435C4.88258 2.29913 6.4087 1.66699 8 1.66699C9.5913 1.66699 11.1174 2.29913 12.2426 3.42435C13.3679 4.54957 14 6.07569 14 7.66699Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 								<path d="M8 9.66699C9.10457 9.66699 10 8.77156 10 7.66699C10 6.56242 9.10457 5.66699 8 5.66699C6.89543 5.66699 6 6.56242 6 7.66699C6 8.77156 6.89543 9.66699 8 9.66699Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 							</svg>
-							<?php if ( 'OE' === $location->country ) : ?>
-								<?php esc_html_e( 'Online', 'community-portal' ); ?>
-							<?php else : ?>
-								<?php if ( $location->location_address ) : ?>
-									<?php echo esc_html( $location->location_address ); ?> - 
-								<?php endif; ?>
-								<?php if ( $location->town ) : ?>
-									<?php
-									$city = strlen( $location->town ) > 180 ? substr( $location->town, 0, 180 ) : $location->town;
-									echo esc_html( $city );
-									?>
-									<?php if ( $location->country ) : ?>
-										<?php if ( $city ) : ?>
-									,&nbsp;
-									<?php endif; ?>
-										<?php echo esc_html( $all_countries[ $location->country ] ); ?>
-								<?php endif; ?>
-									<?php echo esc_html( $all_countries[ $location->country ] ); ?>
+							<p>
+								<?php if ( 'OE' === $location->country ) : ?>
+									<?php esc_html_e( 'Online', 'community-portal' ); ?>
 								<?php else : ?>
+									<?php if ( $location->location_address ) : ?>
+										<?php echo esc_html( $location->location_address ); ?> - 
+									<?php endif; ?>
+									<?php if ( $location->town ) : ?>
+										<?php
+											$city = strlen( $location->town ) > 180 ? substr( $location->town, 0, 180 ) : $location->town;
+											echo esc_html( $city );
+										?>
+										<?php if ( $location->country ) : ?>
+											<?php if ( $city ) : ?>
+												,&nbsp;
+											<?php endif; ?>
+											<?php echo esc_html( $all_countries[ $location->country ] ); ?>
+										<?php endif; ?>
+									<?php else : ?>
 
+									<?php endif; ?>
 								<?php endif; ?>
-							<?php endif; ?>
+							</p>
 						</div>
 						<?php endif; ?>              
 						<?php if ( 'BP_Groups_Group' === get_class( $result ) ) : ?>
@@ -250,6 +257,7 @@ else :
 								<path d="M14 7.66699C14 12.3337 8 16.3337 8 16.3337C8 16.3337 2 12.3337 2 7.66699C2 6.07569 2.63214 4.54957 3.75736 3.42435C4.88258 2.29913 6.4087 1.66699 8 1.66699C9.5913 1.66699 11.1174 2.29913 12.2426 3.42435C13.3679 4.54957 14 6.07569 14 7.66699Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 								<path d="M8 9.66699C9.10457 9.66699 10 8.77156 10 7.66699C10 6.56242 9.10457 5.66699 8 5.66699C6.89543 5.66699 6 6.56242 6 7.66699C6 8.77156 6.89543 9.66699 8 9.66699Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 							</svg>
+							<p>
 								<?php
 								if ( strlen( $group_meta['group_city'] ) > 180 ) {
 									$group_meta['group_city'] = substr( $group_meta['group_city'], 0, 180 );
@@ -265,6 +273,7 @@ else :
 									}
 								}
 								?>
+							</p>
 						</div>
 						<?php endif; ?>
 						<div class="search__group-members">
@@ -274,7 +283,9 @@ else :
 								<path d="M16.3333 14.0002V12.6669C16.3328 12.0761 16.1362 11.5021 15.7742 11.0351C15.4122 10.5682 14.9053 10.2346 14.3333 10.0869" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 								<path d="M11.6667 2.08691C12.2404 2.23378 12.7488 2.56738 13.1118 3.03512C13.4749 3.50286 13.672 4.07813 13.672 4.67025C13.672 5.26236 13.4749 5.83763 13.1118 6.30537C12.7488 6.77311 12.2404 7.10671 11.6667 7.25358" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 							</svg>
-							<?php echo esc_html( "{$member_count}&nbsp;" . __( 'Members', 'community-portal' ) ); ?>
+							<p>
+								<?php echo esc_html( "{$member_count}&nbsp;" . __( 'Members', 'community-portal' ) ); ?>
+							</p>
 						</div>
 						<?php endif; ?>                
 						<?php if ( isset( $result->post_type ) && 'activity' === $result->post_type ) : ?>

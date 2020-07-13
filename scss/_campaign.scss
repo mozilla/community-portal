@@ -796,6 +796,10 @@
         letter-spacing: 0.0025em;
         line-height: 20px;
         margin-bottom: 8px;
+        svg {
+          transform: translateY(3px);
+          margin-right: 3px;
+        }
     }
 
     &__video-container {

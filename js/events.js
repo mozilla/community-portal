@@ -119,7 +119,8 @@ jQuery(function() {
 
     function handleCityForOnline($country, $city) {
         if ($country.val() === 'OE') {
-            $city.val('Online Event');
+			string = $city.data('string');
+            $city.val(string);
         } else if ($city.val() === 'Online Event') {
             $city.val('');
         }
@@ -243,8 +244,8 @@ jQuery(function() {
         }
     }
 
-    function toggleInputAbility(input, typeValue) {
-        if (input.prop("disabled") !== false) {
+    function toggleInputAbility(input, typeValue, enabled) {
+        if (enabled) {
 			input.attr("disabled", false);
 			input.attr('tabindex', '0');
             if (typeValue) {
@@ -255,13 +256,10 @@ jQuery(function() {
         input.prop("disabled", true);
     }
 
-    function toggleLocationContainer(container, location, country, typeValue) {
+    function toggleLocationContainer($container, $locationType) {
 		const $locationAddress = jQuery("#location-address");
-
-        container.toggleClass("event-creator__location-edit");
-        toggleInputAbility(location, typeValue);
-		toggleInputAbility(country);
-		if (country.val() === "online") {
+		$container.toggleClass("event-creator__location-edit");
+		if ($locationType.val() === "online") {
 			toggleVisibility($locationAddress, "Online", false);
 			return;
 		}
@@ -278,45 +276,51 @@ jQuery(function() {
         }
     }
 
-    function handleAutocomplete(container, location, country, typeValue) {
+    function handleAutocomplete($container, $locationType, $country, typeValue) {
         jQuery("#location-name").on("autocompleteselect", function(e) {
-			const $errors = container.find(".event-creator__input--error");
+			const $errors = $container.find(".event-creator__input--error");
 			if ($errors.length > 0) {
 				$errors.each(function() {
 					const $this = jQuery(this);
 					toggleError($this);
 				});	
 			}
-            clearPrePopErrors(container, "event-creator__error");
-            clearPrePopErrors(container, "event-creator__error-text");
-            toggleLocationContainer(container, location, country, typeValue);
-            container.addClass("event-creator__location-edit");
+            clearPrePopErrors($container, "event-creator__error");
+            clearPrePopErrors($container, "event-creator__error-text");
+			toggleLocationContainer($container, $locationType);
+			toggleInputAbility($locationType, typeValue, true);
+			toggleInputAbility($country, null, true);
+            $container.addClass("event-creator__location-edit");
         });
-    }
+	}
+	
+	function handleLocationEdit($editContainer, $countryInput, $locationType, locationTypeValue) {
+		const $locationName = jQuery('#location-name-label');
+		toggleLocationContainer(
+			$editContainer,
+			$locationType,
+		);
+		toggleInputAbility($locationType, locationTypeValue, true);
+		toggleInputAbility($countryInput, null, true);
+		toggleStrings($locationName, 'event-creator__label', true);
+	}
 
     function editLocation() {
         const $editBtn = jQuery("#em-location-reset a");
         const $editContainer = jQuery(".event-creator__location");
         const $countryInput = jQuery("#location-country");
         const $locationType = jQuery("#location-type");
-		const $locationTypeValue = $locationType.val();
-		const $locationName = jQuery('#location-name-label');
+		const locationTypeValue = $locationType.val();
         if ($editBtn) {
             handleAutocomplete(
                 $editContainer,
                 $countryInput,
                 $locationType,
-                $locationTypeValue
+				locationTypeValue
             );
-            $editBtn.on("click", function() {
-                toggleLocationContainer(
-                    $editContainer,
-                    $countryInput,
-                    $locationType,
-                    $locationTypeValue
-				);
-				toggleStrings($locationName, 'event-creator__label', true);
-            });
+            $editBtn.on("click", function( ) {
+				handleLocationEdit($editContainer, $countryInput, $locationType, locationTypeValue);
+			});
         }
     }
 

@@ -173,7 +173,7 @@ function mozilla_determine_site_section() {
 		$path_items = array_filter( explode( '/', esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ) );
 
 		if ( count( $path_items ) > 0 ) {
-			if ( mozilla_get_current_translation() && !empty($path_items[2]) ) {
+			if ( mozilla_get_current_translation() && ! empty( $path_items[2] ) ) {
 				$section = $path_items[2];
 			} else {
 				$values  = array_values( $path_items );
@@ -241,6 +241,9 @@ function mozilla_init_scripts() {
 	}
 }
 
+/**
+ * Initialize front end scripts
+ */
 function mozilla_init_fe_styles() {
 	wp_enqueue_style( 'style', get_stylesheet_uri(), array(), filemtime( get_template_directory() . '/style.css' ), false );
 }
@@ -492,7 +495,7 @@ function mozilla_add_query_vars_filter( $vars ) {
  */
 function mozilla_create_event_category( $term_id, $tt_id ) {
 	$term = get_term( $term_id, 'post_tags' );
-	if ( !empty( $term ) && false === stripos( $term->slug, '_' ) ) {
+	if ( ! empty( $term ) && false === stripos( $term->slug, '_' ) ) {
 		wp_insert_term( $term->name, 'event-categories', array( 'slug' => $term->slug ) );
 	}
 }
@@ -525,7 +528,7 @@ function mozilla_update_event_category( $term_id, $tt_id ) {
 		return;
 	}
 	mozilla_create_event_category( $term_id, $tt_id );
-	
+
 }
 add_action( 'edited_post_tag', 'mozilla_update_event_category', 10, 3 );
 
@@ -998,11 +1001,37 @@ function mozilla_update_script_attributes( $html, $handle ) {
  * Gets the current language of the site
  */
 function mozilla_get_current_translation() {
-	if (defined('ICL_LANGUAGE_CODE')) {
+	if ( defined( 'ICL_LANGUAGE_CODE' ) ) {
 		return ICL_LANGUAGE_CODE;
 	} else {
 		return 'en';
 	}
 }
 
+/**
+ * Returns the formatted/translated date
+ *
+ * @param mixed  $date the date to be translated.
+ * @param string $format the desired format.
+ */
+function mozilla_localize_date( $date, $format ) {
+	$formatted_date = date_i18n( $format, strtotime( $date ) );
+	return $formatted_date;
+}
 
+
+/**
+ * Maps tags saved by name to be slugs
+ *
+ * @param string $tag the saved tag.
+ */
+function mozilla_map_tags( $tag ) {
+	$term_obj = get_term_by( 'name', $tag, 'post_tag' );
+	if ( is_object( $term_obj ) && ! empty( $term_obj ) && isset( $term_obj->slug ) && strlen( $term_obj->slug ) > 0 ) {
+		if ( false !== stripos( $term_obj->slug, '_' ) ) {
+			$term_obj->slug = substr( $term_obj->slug, 0, stripos( $term_obj->slug, '_' ) );
+		};
+		return $term_obj->slug;
+	}
+	return $tag;
+}

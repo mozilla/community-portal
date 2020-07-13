@@ -21,20 +21,6 @@
 
 	$template_dir = get_template_directory();
 	require "{$template_dir}/languages.php";
-	$months = array(
-		'01' => 'Jan',
-		'02' => 'Feb',
-		'03' => 'Mar',
-		'04' => 'Apr',
-		'05' => 'May',
-		'06' => 'Jun',
-		'07' => 'Jul',
-		'08' => 'Aug',
-		'09' => 'uyp',
-		'10' => 'Oct',
-		'11' => 'Nov',
-		'12' => 'Dec',
-	);
 
 	$group           = $bp->groups->current_group;
 	$group_meta      = groups_get_groupmeta( $group->id, 'meta' );
@@ -131,7 +117,7 @@
 	$used_country_list = array();
 	$used_languages    = array();
 
-	$live_user = !empty($live_user) ? $live_user : false;
+	$live_user = ! empty( $live_user ) ? $live_user : false;
 
 	// Time to filter stuff!
 	foreach ( $real_members as $index => $member ) {
@@ -798,7 +784,11 @@
 						if ( isset( $group_meta['group_country'] ) && strlen( $group_meta['group_country'] ) > 1 ) {
 							$location_code = $group_meta['group_country'];
 							?>
-							<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?><?php echo '/groups/?country=' . esc_attr( $location_code ); ?>" class="group__status">
+							<a href="
+							<?php
+							if ( $current_translation ) :
+								?>
+								<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?><?php echo '/groups/?country=' . esc_attr( $location_code ); ?>" class="group__status">
 							<?php
 						}
 
@@ -818,7 +808,11 @@
 							$country       = $countries[ $group_meta['group_country'] ];
 							$location_code = $group_meta['group_country'];
 							?>
-							<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?><?php echo '/groups/?country=' . esc_attr( $location_code ); ?>" class="group__status"><?php echo esc_html( $country ); ?></a> |
+							<a href="
+							<?php
+							if ( $current_translation ) :
+								?>
+								<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?><?php echo '/groups/?country=' . esc_attr( $location_code ); ?>" class="group__status"><?php echo esc_html( $country ); ?></a> |
 							<?php
 						}
 					}
@@ -826,7 +820,8 @@
 					</span>
 					<span class="group__created">
 					<?php
-						$created      = gmdate( 'F d, Y', strtotime( $group->date_created ) );
+						$date_format  = 'en' === $current_translation ? 'F d, Y' : 'd F, Y';
+						$created      = mozilla_localize_date( $group->date_created, $date_format );
 						$created_word = __( 'Created', 'community-portal' );
 						echo '<span> ' . esc_html( $created_word ) . ' ' . esc_html( $created );
 					?>
@@ -838,17 +833,29 @@
 						<?php
 						if ( bp_is_group_home() && ! $is_events && ! $is_people ) :
 							?>
-							group__menu-link--active<?php endif; ?>" href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>"><?php esc_html_e( 'About us', 'community-portal' ); ?></a></li>
+							group__menu-link--active<?php endif; ?>" href="
+								<?php
+								if ( $current_translation ) :
+									?>
+									<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>"><?php esc_html_e( 'About us', 'community-portal' ); ?></a></li>
 						<li class="menu-item"><a class="group__menu-link
 						<?php
 						if ( $is_events ) :
 							?>
-							group__menu-link--active<?php endif; ?>" href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>?view=events"><?php esc_html_e( 'Our Events', 'community-portal' ); ?></a></li>
+							group__menu-link--active<?php endif; ?>" href="
+								<?php
+								if ( $current_translation ) :
+									?>
+									<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>?view=events"><?php esc_html_e( 'Our Events', 'community-portal' ); ?></a></li>
 						<li class="menu-item"><a class="group__menu-link
 						<?php
 						if ( $is_people ) :
 							?>
-							group__menu-link--active<?php endif; ?>" href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>/?view=people"><?php esc_html_e( 'Our Members', 'community-portal' ); ?></a></li>
+							group__menu-link--active<?php endif; ?>" href="
+								<?php
+								if ( $current_translation ) :
+									?>
+									<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>/?view=people"><?php esc_html_e( 'Our Members', 'community-portal' ); ?></a></li>
 					</ul>
 				</div>
 				<div class="group__nav group__nav--mobile">
@@ -891,7 +898,11 @@
 								}
 
 								?>
-							<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/people/<?php echo esc_attr( $a->user_nicename ); ?>" class="members__member-card">
+							<a href="
+								<?php
+								if ( $current_translation ) :
+									?>
+									<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/people/<?php echo esc_attr( $a->user_nicename ); ?>" class="members__member-card">
 								<div class="members__avatar
 								<?php
 								if ( false === $info['profile_image']->display || false === $info['profile_image']->value ) :
@@ -929,7 +940,9 @@
 							</a>
 							<?php endforeach; ?>
 						</div>
-							<h2 class="group__card-title"><?php esc_html_e( 'People', 'community-portal' ); 
+							<h2 class="group__card-title">
+							<?php
+							esc_html_e( 'People', 'community-portal' );
 							?>
 							<?php if ( ! empty( $group_members['count'] ) && $group_members['count'] > 0 ) : ?>
 								<?php echo esc_html( " ({$group_members['count']})" ); ?>
@@ -1018,13 +1031,13 @@
 									<select class="members__tag-select">
 										<option value=""><?php esc_html_e( 'Select', 'community-portal' ); ?></option>
 										<?php foreach ( $tags as $loop_tag ) : ?>
-										<?php 
-											if( $current_translation )	{
+											<?php
+											if ( $current_translation ) {
 												if ( false !== stripos( $loop_tag->slug, '_' ) ) {
-													$loop_tag->slug = substr( $loop_tag->slug, 0, stripos( $loop_tag->slug, '_' ) ); 
+													$loop_tag->slug = substr( $loop_tag->slug, 0, stripos( $loop_tag->slug, '_' ) );
 												}
 											}
-										?>
+											?>
 										<option value="<?php echo esc_html( $loop_tag->slug ); ?>" 
 																<?php
 																if ( isset( $_GET['tag'] ) && strtolower( trim( $get_tag ) ) === strtolower( $loop_tag->slug ) ) :
@@ -1058,7 +1071,11 @@
 										$avatar_url = $info['profile_image']->value;
 									}
 									?>
-							<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/people/<?php echo esc_attr( $member->user_nicename ); ?>" class="members__member-card">
+							<a href="
+									<?php
+									if ( $current_translation ) :
+										?>
+										<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/people/<?php echo esc_attr( $member->user_nicename ); ?>" class="members__member-card">
 								<div class="members__avatar
 									<?php
 									if ( false === $info['profile_image']->display || false === $info['profile_image']->value ) :
@@ -1105,20 +1122,6 @@
 					</div>
 					<?php elseif ( true === $is_events ) : ?>
 						<?php
-						$months = array(
-							'01' => 'Jan',
-							'02' => 'Feb',
-							'03' => 'Mar',
-							'04' => 'Apr',
-							'05' => 'May',
-							'06' => 'Jun',
-							'07' => 'Jul',
-							'08' => 'Aug',
-							'09' => 'Sep',
-							'10' => 'Oct',
-							'11' => 'Nov',
-							'12' => 'Dec',
-						);
 
 						$args   = array(
 							'group' => $group->id,
@@ -1131,88 +1134,14 @@
 							<?php
 							$categories    = $event->get_categories();
 							$location      = em_get_location( $event->location_id );
-							$site_url      = get_site_url();
-							$url           = $site_url . '/events/' . $event->slug;
+							$site_url      = get_home_url( null, 'events/' );
+							$url           = $site_url . $event->slug;
 							$all_countries = em_get_countries();
+							$time          = gmdate( 'm', strtotime( $event->start_date ) );
+
+							include locate_template( 'plugins/events-manager/templates/template-parts/single-event-card.php', false, false );
+
 							?>
-							<div class="col-lg-4 col-md-6 events__column">
-								<div class="event-card">
-									<a class="events__link" href="<?php echo esc_url_raw( $url ); ?>">
-										<div class="event-card__image"
-											<?php
-												$event_meta = get_post_meta( $event->post_id, 'event-meta' );
-												$img_url    = $event_meta[0]->image_url;
-
-											if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty( $_SERVER['SERVER_PORT'] ) && 443 === $_SERVER['SERVER_PORT'] ) {
-												$img_url = preg_replace( '/^http:/i', 'https:', $img_url );
-											} else {
-												$img_url = $img_url;
-											}
-
-											if ( $img_url && '' !== $img_url ) :
-												?>
-												style="background-image: url(<?php echo esc_url_raw( $img_url ); ?>)"<?php endif; ?>
-										>
-											<?php
-
-												$month     = gmdate( 'M', strtotime( $event->start_date ) );
-												$date      = gmdate( 'd', strtotime( $event->start_date ) );
-												$year_part = gmdate( 'Y', strtotime( $event->start_date ) );
-
-												$event_time = strtotime( $event->start_date );
-											?>
-											<p class="event-card__image__date"><span><?php echo esc_html( gmdate( 'M', $event_time ) ); ?></span><span><?php echo esc_html( gmdate( 'd', $event_time ) ); ?></span></p>
-										</div>
-										<div class="event-card__description">
-											<h3 class="event-card__description__title title--event-card"><?php echo esc_html( $event->event_name ); ?></h2>
-											<p><?php echo esc_html( $month . ' ' . $date . ', ' . $year_part . ' @ ' . substr( $event->event_start_time, 0, 5 ) . ' - ' . substr( $event->event_end_time, 0, 5 ) . ' ' . $event->event_timezone ); ?></p>
-											<div class="event-card__location">
-												<svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-													<path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-													<path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-												</svg>
-												<p class="text--light text--small">
-													<?php
-													if ( 'OE' === $location->country ) {
-														esc_html_e( 'Online Event', 'community-portal' );
-													} else {
-														if ( $location->address ) {
-															echo esc_html( $location->address ) . ' - ';
-														}
-
-														if ( strlen( $location->town ) > 0 ) {
-															echo esc_html( $location->town );
-															if ( $location->country ) {
-																echo ', ' . esc_html( $all_countries[ $location->country ] );
-															}
-														} else {
-															echo esc_html( $all_countries[ $location->country ] );
-														}
-													}
-													?>
-												</p>
-											</div>
-										</div>
-										<ul class="events__tags">
-											<?php
-											
-											if ( is_array( $categories->terms ) ) :
-												if ( count( $categories->terms ) <= 2 ) :
-													foreach ( $categories->terms as $category ) {
-														$term_name = mozilla_get_translated_tag($category);
-
-														?>
-													<li class="tag"><?php echo esc_html( $term_name ); ?></li>
-														<?php
-														break;
-													}
-												endif;
-											endif;
-											?>
-										</ul>
-									</a>
-								</div>
-							</div>
 					<?php endforeach; ?>
 					</div>
 					<?php else : ?>
@@ -1228,7 +1157,11 @@
 								?>
 							<div class="group__card-image" style="background-image: url('<?php echo esc_url_raw( $group_image_url ); ?>');">
 								<?php if ( $is_admin ) : ?>
-								<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>/admin/edit-details/" class="group__edit-link">
+								<a href="
+									<?php
+									if ( $current_translation ) :
+										?>
+										<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>/admin/edit-details/" class="group__edit-link">
 									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 										<path d="M23.64 6.36L17.64 0.36C17.16 -0.12 16.44 -0.12 15.96 0.36L0.36 15.96C0.12 16.2 0 16.44 0 16.8V22.8C0 23.52 0.48 24 1.2 24H7.2C7.56 24 7.8 23.88 8.04 23.64L23.64 8.04C24.12 7.56 24.12 6.84 23.64 6.36ZM6.72 21.6H2.4V17.28L16.8 2.88L21.12 7.2L6.72 21.6Z" fill="#0060DF"/>
 									</svg>
@@ -1238,7 +1171,11 @@
 							<?php else : ?>
 							<div class="group__card-no-image">
 								<?php if ( $is_admin ) : ?>
-								<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>/admin/edit-details/" class="group__edit-link">
+								<a href="
+									<?php
+									if ( $current_translation ) :
+										?>
+										<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>/admin/edit-details/" class="group__edit-link">
 									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 										<path d="M23.64 6.36L17.64 0.36C17.16 -0.12 16.44 -0.12 15.96 0.36L0.36 15.96C0.12 16.2 0 16.44 0 16.8V22.8C0 23.52 0.48 24 1.2 24H7.2C7.56 24 7.8 23.88 8.04 23.64L23.64 8.04C24.12 7.56 24.12 6.84 23.64 6.36ZM6.72 21.6H2.4V17.28L16.8 2.88L21.12 7.2L6.72 21.6Z" fill="#0060DF"/>
 									</svg>
@@ -1495,39 +1432,35 @@
 									?>
 								<div class="group__member-count-container">
 									<span class="group__event-count"><?php echo esc_html( $event_count ); ?></span>
-									<?php esc_html_e( 'Events this month' ); ?>
+									<?php esc_html_e( 'Events this month', 'community-portal' ); ?>
 								</div>
 								<div class="group__member-count-container">
-									<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>?view=people" class="group__member-count"><?php echo esc_html( $member_count ); ?></a>
+									<a href="
+									<?php
+									if ( $current_translation ) :
+										?>
+										<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>?view=people" class="group__member-count"><?php echo esc_html( $member_count ); ?></a>
 									<?php esc_html_e( 'Members', 'community-portal' ); ?>
 								</div>
 							</div>
 						</div>
 						<?php
-							$args       = array(
+							$args   = array(
 								'group'   => $group->id,
 								'orderby' => 'event_start_date',
 								'order'   => 'DESC',
 								'scope'   => 'all',
 							);
-							$events     = EM_Events::get( $args );
-							$event      = isset( $events[0] ) && !empty($events[0]) ? $events[0] : false;
-							$event_time = $event && isset($event->start_date) ? strtotime( $event->start_date ) : false;
-							$event_date = $event_time ? gmdate( 'M d', $event_time ) : false;
-
-							if ($event) {
-								$location = em_get_location( $event->location_id );
-							} else {
-								$location = null;
+							$events = EM_Events::get( $args );
+							$event  = isset( $events[0] ) && ! empty( $events[0] ) ? $events[0] : false;
+							$event_date;
+							if ( $event && isset( $event->start_date ) ) {
+								$date_format = 'en' === $current_translation ? 'M d' : 'd M';
+								$event_date  = mozilla_localize_date( $event->start_date, $date_format );
 							}
 
-							if ($event) {
-								if( $current_translation ) {
-									$event_link = "/{$current_translation}/events/{$event->event_slug}";
-								} else {
-									$event_link = "/events/{$event->event_slug}";
-								}
-							}
+							$location   = $event ? em_get_location( $event->location_id ) : null;
+							$event_link = $event ? get_home_url( null, 'events/' . $event->event_slug ) : null;
 							?>
 						<?php if ( $event ) : ?>
 						<div class="group__card">
@@ -1541,7 +1474,11 @@
 									<div class="group__event-info">
 										<div class="group__event-title"><?php echo esc_html( $event->event_name ); ?></div>
 										<div class="group__event-time">
-											<?php echo esc_html( gmdate( 'M d, Y', $event_time ) . " ∙ {$event->start_time}" ); ?>
+											<?php
+												$date_format    = 'en' === $current_translation ? 'F d, Y ∙ H:i' : 'd F, Y ∙ H:i';
+												$formatted_date = mozilla_localize_date( $event->start_date, $date_format );
+												echo esc_html( $formatted_date ) . ' ' . esc_html__( 'UTC' );
+											?>
 										</div>
 										<div class="group__event-location">
 											<svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1560,7 +1497,11 @@
 										</div>
 									</div>
 								</a>
-								<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>/?view=events" class="group__events-link">
+								<a href="
+								<?php
+								if ( $current_translation ) :
+									?>
+									<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>/?view=events" class="group__events-link">
 									<?php esc_html_e( 'View more events', 'community-portal' ); ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
 								</a>
 							</div>
@@ -1588,7 +1529,11 @@
 										}
 
 										?>
-									<a class="group__admin" href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/people/<?php echo esc_attr( $u->user_nicename ); ?>">
+									<a class="group__admin" href="
+										<?php
+										if ( $current_translation ) :
+											?>
+											<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/people/<?php echo esc_attr( $u->user_nicename ); ?>">
 										<div class="members__avatar
 										<?php
 										if ( false === $info['profile_image']->display || false === $info['profile_image']->value ) :
@@ -1619,7 +1564,7 @@
 								</div>
 							</div>
 						</div>
-							<?php if ( isset($group_meta['group_language']) && strlen( $group_meta['group_language'] ) > 0 && array_key_exists( strtolower( $group_meta['group_language'] ), $languages ) ) : ?>
+							<?php if ( isset( $group_meta['group_language'] ) && strlen( $group_meta['group_language'] ) > 0 && array_key_exists( strtolower( $group_meta['group_language'] ), $languages ) ) : ?>
 						<div class="group__card">
 							<div class="group__card-content group__card-content--small">
 								<span><?php esc_html_e( 'Preferred Language', 'community-portal' ); ?></span>
@@ -1631,7 +1576,7 @@
 							</div>
 						</div>
 						<?php endif; ?>
-						<?php if ( isset($group_meta['group_tags']) && count( array_unique( $group_meta['group_tags'] ) ) > 0 ) : ?>
+						<?php if ( isset( $group_meta['group_tags'] ) && count( array_unique( $group_meta['group_tags'] ) ) > 0 ) : ?>
 						<div class="group__card">
 							<div class="group__card-content group__card-content--small">
 								<span><?php esc_html_e( 'Tags', 'community-portal' ); ?></span>
@@ -1642,10 +1587,10 @@
 											$found = false;
 											if ( $current_translation ) {
 												$temp_slug = $t->slug;
-												if(false !== stripos( $temp_slug, '_' ) ) {
+												if ( false !== stripos( $temp_slug, '_' ) ) {
 													$temp_slug = substr( $temp_slug, 0, stripos( $temp_slug, '_' ) );
 												}
-											
+
 												if ( $tag_loop === $temp_slug ) {
 													$tag_name = $t->name;
 													$found    = true;
@@ -1661,7 +1606,13 @@
 											}
 										}
 										?>
-										<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}/" ); ?><?php endif; ?>/groups/?tag=<?php echo esc_attr( $tag_loop ); ?>" class="group__tag"><?php echo esc_html( $tag_name ); ?></a>
+										<?php if ( ! empty( $tag_name ) ) : ?>
+											<a href="
+											<?php
+											if ( $current_translation ) :
+												?>
+												<?php echo esc_url_raw( "/{$current_translation}/" ); ?><?php endif; ?>/groups/?tag=<?php echo esc_attr( $tag_loop ); ?>" class="group__tag"><?php echo esc_html( $tag_name ); ?></a>
+										<?php endif; ?>
 									<?php endforeach; ?>
 								</div>
 							</div>
