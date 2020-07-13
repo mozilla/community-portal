@@ -1341,9 +1341,13 @@
         line-height: 24px;
         letter-spacing: 0.0025em;
 		margin-bottom: 4px;
+	}
+
+	&__group-location, 
+	&__event-location {
 		svg {
 			transform: translateY(3px);
-			margin-right: 5px;
+			margin-right: 3px;
 		}
 	}
 	
