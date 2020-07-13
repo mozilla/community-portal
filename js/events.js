@@ -84,8 +84,7 @@ jQuery(function() {
     }
 
     function toggleVisibility($selector, value, hidden) {
-		$selector.val(value);
-		console.log($selector.val());
+        $selector.val(value);
         if (hidden) {
             $selector
                 .parent()
@@ -288,7 +287,7 @@ jQuery(function() {
 			}
             clearPrePopErrors($container, "event-creator__error");
             clearPrePopErrors($container, "event-creator__error-text");
-			toggleLocationContainer(container, $locationType);
+			toggleLocationContainer($container, $locationType);
 			toggleInputAbility($locationType, typeValue, true);
 			toggleInputAbility($country, null, true);
             $container.addClass("event-creator__location-edit");
