@@ -178,13 +178,27 @@
         font-size: remCalc(14);
         line-height: 24px;
         margin-top: 8px;
+        
     }
 
     &__group-members {
         color: $color-gray-70;
         font-size: remCalc(14);
         line-height: 24px; 
-    }
+	}
+	
+	&__group-members,
+	&__group-location, 
+	&__event-location {
+		svg {
+			transform: translateY(3px);
+			margin-right: 3px;
+		}
+		p {
+			display: inline;
+			margin: 0;
+		}
+	}
 
     &__event-location {
         color: $color-gray-70;

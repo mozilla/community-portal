@@ -172,17 +172,33 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 										</svg>
 									<?php
 									if ( isset( $group_meta['group_city'] ) && strlen( $group_meta['group_city'] ) > 0 ) {
-										echo esc_html( $group_meta['group_city'] );
+										?>
+										<span>
+										<?php
+											echo esc_html( $group_meta['group_city'] );
+										?>
+										</span>
+										<?php
 									}
 									if ( isset( $group_meta['group_country'] ) && strlen( $group_meta['group_country'] ) > 1 ) {
-										echo esc_html( $countries[ $group_meta['group_country'] ] );
+									?>
+										<span>
+											<?php echo esc_html( $countries[ $group_meta['group_country'] ] ); ?>
+										</span>
+									<?php
 									}
-									if ( isset( $group_meta['group_type'] ) ) {
-										if ( 'Online' === $group_meta['group_type'] ) {
-											esc_html_e( 'Online', 'community-portal' );
-										} else {
-											esc_html_e( 'Offline', 'community-portal' );
-										}
+									if ( isset( $group_meta['group_type'] ) ) { 
+										?>
+										<span class="profile__group-location__online">
+											<?php
+												if ( 'Online' === $group_meta['group_type'] ) {
+													esc_html_e( 'Online', 'community-portal' );
+												} else {
+													esc_html_e( 'Offline', 'community-portal' );
+												}
+											?>
+										</span>
+										<?php
 									}
 									?>
 									</div>
