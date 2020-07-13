@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2020-07-08 15:33-0400\n"
-"PO-Revision-Date: 2020-07-08 15:33-0400\n"
+"POT-Creation-Date: 2020-07-09 09:39-0400\n"
+"PO-Revision-Date: 2020-07-09 09:40-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -110,10 +110,10 @@ msgstr "Off-line"
 
 #: buddypress/groups/index-create.php:156
 #: buddypress/groups/index-create.php:159
-#: buddypress/groups/index-directory.php:339
+#: buddypress/groups/index-directory.php:340
 #: buddypress/groups/single/edit.php:123 buddypress/groups/single/edit.php:126
 #: buddypress/groups/single/group.php:988
-#: buddypress/members/index-directory.php:787 footer.php:125
+#: buddypress/members/index-directory.php:788 footer.php:125
 #: plugins/events-manager/forms/event-editor.php:96
 #: plugins/events-manager/templates/template-parts/events-filters.php:68
 #: templates/campaigns-newsletter.php:68 templates/newsletter-form.php:66
@@ -277,11 +277,11 @@ msgstr "Las directrices de Participación de la Comunidad de Mozilla"
 msgid "Continue"
 msgstr "Continúa"
 
-#: buddypress/groups/index-directory.php:236
+#: buddypress/groups/index-directory.php:237
 msgid "Groups"
 msgstr "Grupos"
 
-#: buddypress/groups/index-directory.php:238
+#: buddypress/groups/index-directory.php:239
 msgid ""
 "Meet up with people who share your passion and join the movement for an open "
 "internet."
@@ -289,99 +289,99 @@ msgstr ""
 "Conoce arriba con personas que comparten vuestra pasión y unir el movimiento "
 "para un internet abierto."
 
-#: buddypress/groups/index-directory.php:241
+#: buddypress/groups/index-directory.php:242
 msgid "Look for groups in your area, or"
 msgstr "Busca grupos en vuestra área, o"
 
-#: buddypress/groups/index-directory.php:241
+#: buddypress/groups/index-directory.php:242
 msgid "create your own."
 msgstr "crear vuestro propio."
 
-#: buddypress/groups/index-directory.php:279
+#: buddypress/groups/index-directory.php:280
 msgid "Search groups"
 msgstr "Grupos de búsqueda"
 
-#: buddypress/groups/index-directory.php:281
+#: buddypress/groups/index-directory.php:282
 #: buddypress/groups/single/group.php:966
-#: buddypress/members/index-directory.php:764 header.php:204 header.php:323
+#: buddypress/members/index-directory.php:765 header.php:204 header.php:323
 #: plugins/events-manager/templates/events-search.php:82 search.php:135
 #: search.php:150 search.php:152
 msgid "Search"
 msgstr "Búsqueda"
 
-#: buddypress/groups/index-directory.php:293
-#: buddypress/groups/index-directory.php:307
+#: buddypress/groups/index-directory.php:294
+#: buddypress/groups/index-directory.php:308
 msgid "Discover Groups"
 msgstr "Descubre Grupos"
 
-#: buddypress/groups/index-directory.php:301
+#: buddypress/groups/index-directory.php:302
 #: buddypress/members/single/profile.php:165
 msgid "Groups I'm In"
 msgstr "Grupos  soy En"
 
-#: buddypress/groups/index-directory.php:305
+#: buddypress/groups/index-directory.php:306
 #: buddypress/groups/single/group.php:842
 msgid "Showing"
 msgstr "Mostrando"
 
-#: buddypress/groups/index-directory.php:315
+#: buddypress/groups/index-directory.php:316
 msgid "Groups I'm in"
 msgstr "Grupos  soy en"
 
-#: buddypress/groups/index-directory.php:323
+#: buddypress/groups/index-directory.php:324
 msgid "Filter by:"
 msgstr "Filtro por:"
 
-#: buddypress/groups/index-directory.php:325
+#: buddypress/groups/index-directory.php:326
 #: buddypress/groups/single/group.php:973
 #: buddypress/groups/single/group.php:1303
-#: buddypress/members/index-directory.php:773
+#: buddypress/members/index-directory.php:774
 #: buddypress/members/single/profile.php:118
 #: plugins/events-manager/templates/event-single.php:249
 #: plugins/events-manager/templates/template-parts/events-filters.php:62
 msgid "Location"
 msgstr "Ubicación"
 
-#: buddypress/groups/index-directory.php:327
-#: buddypress/groups/index-directory.php:341
-#: buddypress/groups/index-directory.php:357
+#: buddypress/groups/index-directory.php:328
+#: buddypress/groups/index-directory.php:342
+#: buddypress/groups/index-directory.php:358
 #: plugins/events-manager/templates/template-parts/options.php:20
 msgid "All"
 msgstr "Todo"
 
-#: buddypress/groups/index-directory.php:355
+#: buddypress/groups/index-directory.php:356
 #: buddypress/groups/single/group.php:1004
-#: buddypress/members/index-directory.php:804
+#: buddypress/members/index-directory.php:805
 #: plugins/events-manager/templates/template-parts/events-filters.php:74
 msgid "Tag"
 msgstr "Tag"
 
-#: buddypress/groups/index-directory.php:375
+#: buddypress/groups/index-directory.php:376
 #: buddypress/groups/single/group.php:1026
-#: buddypress/members/index-directory.php:824
+#: buddypress/members/index-directory.php:825
 #: plugins/events-manager/templates/template-parts/events-filters.php:125
 msgid "Show Filters"
 msgstr "Filtros de espectáculo"
 
-#: buddypress/groups/index-directory.php:376
+#: buddypress/groups/index-directory.php:377
 #: buddypress/groups/single/group.php:1027
-#: buddypress/members/index-directory.php:825
+#: buddypress/members/index-directory.php:826
 #: plugins/events-manager/templates/template-parts/events-filters.php:124
 msgid "Hide Filters"
 msgstr "Filtros de escondrijo"
 
-#: buddypress/groups/index-directory.php:382
+#: buddypress/groups/index-directory.php:383
 msgid "No results found.  Please try another search term."
 msgstr "Ningún resultado encontró.  Complacer probar otro plazo de búsqueda."
 
-#: buddypress/groups/index-directory.php:386
+#: buddypress/groups/index-directory.php:387
 #: buddypress/groups/single/group.php:1035
-#: buddypress/members/index-directory.php:835
+#: buddypress/members/index-directory.php:836
 #: plugins/events-manager/templates/events-list.php:270 search.php:131
 msgid "Results for "
 msgstr "Resultados para "
 
-#: buddypress/groups/index-directory.php:470 front-page.php:241
+#: buddypress/groups/index-directory.php:471 front-page.php:244
 msgid " more tags"
 msgstr " Más tags"
 
@@ -434,33 +434,33 @@ msgid "Group Contacts"
 msgstr "Contactos de grupo"
 
 #: buddypress/groups/single/group.php:919
-#: buddypress/members/index-directory.php:744
+#: buddypress/members/index-directory.php:745
 msgid "People"
 msgstr "Personas"
 
 #: buddypress/groups/single/group.php:964
-#: buddypress/members/index-directory.php:762
+#: buddypress/members/index-directory.php:763
 msgid "Search people"
 msgstr "Personas de búsqueda"
 
 #: buddypress/groups/single/group.php:970
-#: buddypress/members/index-directory.php:771
+#: buddypress/members/index-directory.php:772
 msgid "Search criteria:"
 msgstr "Criterios de búsqueda:"
 
 #: buddypress/groups/single/group.php:975
 #: buddypress/groups/single/group.php:990
 #: buddypress/groups/single/group.php:1006
-#: buddypress/members/index-directory.php:775
-#: buddypress/members/index-directory.php:789
-#: buddypress/members/index-directory.php:806
+#: buddypress/members/index-directory.php:776
+#: buddypress/members/index-directory.php:790
+#: buddypress/members/index-directory.php:807
 #: plugins/events-manager/forms/event/location-moz.php:149
 #: templates/event-export.php:54 templates/event-export.php:67
 msgid "Select"
 msgstr "Selecciona"
 
 #: buddypress/groups/single/group.php:1086
-#: buddypress/members/index-directory.php:892
+#: buddypress/members/index-directory.php:893
 msgid "No members found"
 msgstr "Ningún miembro encontró"
 
@@ -577,7 +577,7 @@ msgstr "Complacer proporcionar una razón  estás informando este grupo"
 msgid "Report Group"
 msgstr "Grupo de informe"
 
-#: buddypress/members/index-directory.php:746
+#: buddypress/members/index-directory.php:747
 msgid ""
 "Ready to make it official? Set up a profile to attend events, join groups "
 "and manage your subscription settings. "
@@ -2040,17 +2040,17 @@ msgstr ""
 msgid " Creative Commons license."
 msgstr " Creativo Commons licencia."
 
-#: front-page.php:151 page-campaigns.php:153 page-campaigns.php:210
+#: front-page.php:154 page-campaigns.php:158 page-campaigns.php:215
 #: templates/campaign-rsvp.php:23 templates/campaign-rsvp.php:68
 #: templates/event-rsvp.php:23
 msgid "Get Involved"
 msgstr "Consigue Implicado"
 
-#: front-page.php:272
+#: front-page.php:275
 msgid "More Groups."
 msgstr "Más Grupos."
 
-#: front-page.php:334
+#: front-page.php:337
 msgid "More Events."
 msgstr "Más Acontecimientos."
 
@@ -2070,7 +2070,7 @@ msgstr "Página estática"
 msgid "Activities"
 msgstr "Actividades"
 
-#: functions.php:198 page-campaigns.php:124
+#: functions.php:198 page-campaigns.php:129
 msgid "Campaigns"
 msgstr "Campañas"
 
@@ -4834,7 +4834,15 @@ msgstr ""
 "Las actividades son “perennifolias” porque son siempre importantes, "
 "pertinentes a la misión de Mozilla y necesitar vuestra participación ahora!"
 
-#: page-campaigns.php:126
+#: page-campaigns.php:28
+msgid "Active"
+msgstr "Activa"
+
+#: page-campaigns.php:29
+msgid "Closed"
+msgstr "Cerrada"
+
+#: page-campaigns.php:131
 msgid ""
 "Campaigns are how we come together to solve big problems. Take a look at our "
 "active campaigns and join in!"
@@ -4842,11 +4850,11 @@ msgstr ""
 "Las campañas son cómo nosotras viene junto de solucionar problemas grandes. "
 "Tomar una mirada en nuestras campañas activas y unir en!"
 
-#: page-campaigns.php:189
+#: page-campaigns.php:194
 msgid "Campaign Incoming!"
 msgstr "Campaña Incoming!"
 
-#: page-campaigns.php:190
+#: page-campaigns.php:195
 msgid ""
 "An extra cool Mozilla campaign is coming soon.  Keep an eye out for when it "
 "launches."
@@ -4854,11 +4862,11 @@ msgstr ""
 "Una campaña de Mozilla fresca extra está viniendo pronto.  Mantener un ojo "
 "fuera para cuándo  lanza."
 
-#: page-campaigns.php:242
+#: page-campaigns.php:247
 msgid "Past Campaigns"
 msgstr "Campañas pasadas"
 
-#: page-campaigns.php:243
+#: page-campaigns.php:248
 msgid ""
 "Mozilla communities do great work together. These campaigns are over now but "
 "feel free to check out what everyone accomplished."

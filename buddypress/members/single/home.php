@@ -72,7 +72,6 @@
 			$is_me = $logged_in && intval( $live_user->ID ) === intval( $user->ID );
 			$info  = mozilla_get_user_info( $live_user, $user, $logged_in );
 			include "{$theme_directory}/buddypress/members/single/profile.php";
-
 		?>
 	<?php endif; ?>
 </div>	
