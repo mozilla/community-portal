@@ -52,6 +52,10 @@ if ( $logged_in && is_array( $members_participating ) && in_array( $user->ID, $m
 						<div class="campaign__date-container">
 							<?php
 								$date_format          = 'en' === $current_translation ? 'F d' : 'd F';
+								if (!$campaign_end_date) {
+									$date_format          = 'en' === $current_translation ? 'F d, Y' : 'd F Y';
+
+								}
 								$formatted_start_date = mozilla_localize_date( $campaign_start_date, $date_format );
 								print esc_html( $formatted_start_date );
 							?>
