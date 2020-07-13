@@ -15,6 +15,9 @@
 	get_header();
 	global $post;
 
+	$theme_directory     = get_template_directory();
+	require "{$theme_directory}/countries.php";
+
 	$featured_image = get_the_post_thumbnail_url();
 
 	// Get the advanced custom fields for the activity.
