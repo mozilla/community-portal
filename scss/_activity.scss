@@ -474,7 +474,7 @@
 
         
     }
- 
+
     &__event-date {
         color: $color-blue-50;
         display: flex;
@@ -486,7 +486,7 @@
         text-align: center;
         width: 36px;
     }
- 
+
     &__event-title {
         color: $color-black;
         font-size: remCalc(16);
@@ -494,7 +494,7 @@
         line-height: 24px;
         margin-bottom: 8px;
     }
- 
+
     &__event-location,
     &__event-time {
         color: $color-gray-secondary;
@@ -502,7 +502,13 @@
         line-height: 20px;
         margin-bottom: 8px;
     }
-
+	
+	&__event-location {
+		svg {
+			transform: translateY(3px);
+			margin-right: 3px;
+		}
+	}
     &__events-link {
         color: $color-blue-50;
         display: inline-block;
