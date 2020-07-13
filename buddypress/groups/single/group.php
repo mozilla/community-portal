@@ -855,7 +855,7 @@
 								<?php
 								if ( $current_translation ) :
 									?>
-									<?php echo esc_url_raw( "/{$current_HEADtranslation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>/?view=people"><?php esc_html_e( 'Our Members', 'community-portal' ); ?></a></li>
+									<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>/?view=people"><?php esc_html_e( 'Our Members', 'community-portal' ); ?></a></li>
 					</ul>
 				</div>
 				<div class="group__nav group__nav--mobile">
