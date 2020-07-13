@@ -1020,3 +1020,18 @@ function mozilla_localize_date( $date, $format ) {
 }
 
 
+/**
+ * Maps tags saved by name to be slugs
+ *
+ * @param string $tag the saved tag.
+ */
+function mozilla_map_tags( $tag ) {
+	$term_obj = get_term_by( 'name', $tag, 'post_tag' );
+	if ( is_object( $term_obj ) && ! empty( $term_obj ) && isset( $term_obj->slug ) && strlen( $term_obj->slug ) > 0 ) {
+		if ( false !== stripos( $term_obj->slug, '_' ) ) {
+			$term_obj->slug = substr( $term_obj->slug, 0, stripos( $term_obj->slug, '_' ) );
+		};
+		return $term_obj->slug;
+	}
+	return $tag;
+}

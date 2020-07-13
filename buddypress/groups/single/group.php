@@ -1606,11 +1606,13 @@
 											}
 										}
 										?>
-										<a href="
-										<?php
-										if ( $current_translation ) :
-											?>
-											<?php echo esc_url_raw( "/{$current_translation}/" ); ?><?php endif; ?>/groups/?tag=<?php echo esc_attr( $tag_loop ); ?>" class="group__tag"><?php echo esc_html( $tag_name ); ?></a>
+										<?php if ( ! empty( $tag_name ) ) : ?>
+											<a href="
+											<?php
+											if ( $current_translation ) :
+												?>
+												<?php echo esc_url_raw( "/{$current_translation}/" ); ?><?php endif; ?>/groups/?tag=<?php echo esc_attr( $tag_loop ); ?>" class="group__tag"><?php echo esc_html( $tag_name ); ?></a>
+										<?php endif; ?>
 									<?php endforeach; ?>
 								</div>
 							</div>
