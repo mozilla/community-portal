@@ -57,7 +57,7 @@ if ( $logged_in && is_array( $members_participating ) && in_array( $user->ID, $m
 							?>
 							<?php
 							if ( $campaign_end_date ) :
-								$date_format        = 'en' === $current_translation ? 'F d, Y' : 'd F, Y';
+								$date_format        = 'en' === $current_translation ? 'F d, Y' : 'd F Y';
 								$formatted_end_date = mozilla_localize_date( $campaign_end_date, $date_format );
 								?>
 							- <?php print esc_html( $formatted_end_date ); ?>

@@ -154,7 +154,7 @@
 				?>
 										<?php
 										if ( $current_campaign_end_date ) :
-											$date_format        = 'en' === $current_translation ? 'F d, Y' : 'd F, Y';
+											$date_format        = 'en' === $current_translation ? 'F d, Y' : 'd F Y';
 											$formatted_end_date = mozilla_localize_date( $current_campaign_end_date, $date_format );
 											?>
 								- <?php print esc_html( $formatted_end_date ); ?><?php endif; ?>
@@ -215,7 +215,7 @@
 									print esc_html( $formatted_start_date );
 
 								if ( $incoming_campaign_end_date ) :
-									$date_format        = 'en' === $current_translation ? 'F d, Y' : 'd F, Y';
+									$date_format        = 'en' === $current_translation ? 'F d, Y' : 'd F Y';
 									$formatted_end_date = mozilla_localize_date( $incoming_campaign_end_date, $date_format );
 									?>
 									- <?php print esc_html( $formatted_end_date ); ?><?php endif; ?>
@@ -293,7 +293,7 @@
 												?>
 									- 
 												<?php
-												$date_format        = 'en' === $current_translation ? 'F d, Y' : 'd F, Y';
+												$date_format        = 'en' === $current_translation ? 'F d, Y' : 'd F Y';
 												$formatted_end_date = mozilla_localize_date( $campaign_end_date, $date_format );
 
 												print esc_html( $formatted_end_date );

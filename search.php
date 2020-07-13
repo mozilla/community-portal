@@ -12,6 +12,11 @@
 
 get_header();
 $results = array();
+$theme_directory     = get_template_directory();
+require "{$theme_directory}/countries.php";
+
+$date_format        = 'en' === $current_translation ? 'F d, Y' : 'd F Y';
+
 
 $p = intval( get_query_var( 'page' ) ) <= 1 ? 1 : intval( get_query_var( 'page' ) );
 
@@ -82,6 +87,7 @@ $wp_user_query = new WP_User_Query(
 
 $logged_in = mozilla_is_logged_in();
 $this_user = wp_get_current_user()->data;
+$current_translation = mozilla_get_current_translation();
 
 $members          = $wp_user_query->get_results();
 $filtered_members = array();
@@ -171,7 +177,7 @@ else :
 							$start_date = get_field( 'campaign_start_date', $result->ID );
 							$end_date   = get_field( 'campaign_end_date', $result->ID );
 							?>
-							<?php echo esc_html( gmdate( 'F j, Y', strtotime( $start_date ) ) ); ?> - <?php echo esc_html( gmdate( 'F j, Y', strtotime( $end_date ) ) ); ?>
+							<?php echo esc_html( date_i18n( $date_format, strtotime( $start_date ) ) ); ?> - <?php echo esc_html( date_i18n( $date_format, strtotime( $end_date ) ) ); ?>
 						</div>
 						<div class="search__result-description">
 							<?php echo wp_kses( $description, array( 'p' => array() ) ); ?>
@@ -184,7 +190,7 @@ else :
 							$start_date = get_field( 'campaign_start_date', $result->ID );
 							$end_date   = get_field( 'campaign_end_date', $result->ID );
 							?>
-							<?php echo esc_html( gmdate( 'F j, Y', strtotime( $start_date ) ) ); ?> - <?php echo esc_html( gmdate( 'F j, Y', strtotime( $end_date ) ) ); ?>
+							<?php echo esc_html( date_i18n( $date_format, strtotime( $start_date ) ) ); ?> - <?php echo esc_html( date_i18n( $date_format, strtotime( $end_date ) ) ); ?>
 						</div>
 						<div class="search__result-description">
 							<?php echo wp_kses( $description, array( 'p' => array() ) ); ?>
@@ -197,12 +203,12 @@ else :
 						<h3 class="search__result-title search__result-title--event"><?php esc_html_e( 'Event', 'community-portal' ); ?></h3>
 						<a href="<?php echo esc_attr( get_home_url( null, 'events/' . $result->event_slug ) ); ?>" class="search__result-link"><?php echo esc_html( $result->event_name ); ?></a>
 						<div class="search__event-date">
-							<?php echo esc_html( gmdate( 'F j, Y', strtotime( $result->event_start_date ) ) ); ?>
+							<?php echo esc_html( date_i18n( $date_format, strtotime( $result->event_start_date ) ) ); ?>
 							<?php if ( isset( $result->event_start_time ) ) : ?>
-							@ <?php echo esc_html( gmdate( 'H:i', strtotime( $result->event_start_time ) ) ); ?> 
+							@ <?php echo esc_html( date_i18n( 'H:i', strtotime( $result->event_start_time ) ) ); ?> 
 						<?php endif; ?>
 							<?php if ( isset( $results->event_end_time ) && $result->event_start_time !== $results->event_end_time ) : ?>
-							- <?php echo esc_html( gmdate( 'H:i', strtotime( $result->event_end_time ) ) ); ?> 
+							- <?php echo esc_html( date_i18n( 'H:i', strtotime( $result->event_end_time ) ) ); ?> 
 						<?php endif; ?>
 						</div>
 						<div class="search__event-location">
@@ -218,16 +224,15 @@ else :
 								<?php endif; ?>
 								<?php if ( $location->town ) : ?>
 									<?php
-									$city = strlen( $location->town ) > 180 ? substr( $location->town, 0, 180 ) : $location->town;
-									echo esc_html( $city );
+										$city = strlen( $location->town ) > 180 ? substr( $location->town, 0, 180 ) : $location->town;
+										echo esc_html( $city );
 									?>
 									<?php if ( $location->country ) : ?>
 										<?php if ( $city ) : ?>
-									,&nbsp;
-									<?php endif; ?>
+											,&nbsp;
+										<?php endif; ?>
 										<?php echo esc_html( $all_countries[ $location->country ] ); ?>
-								<?php endif; ?>
-									<?php echo esc_html( $all_countries[ $location->country ] ); ?>
+									<?php endif; ?>
 								<?php else : ?>
 
 								<?php endif; ?>
