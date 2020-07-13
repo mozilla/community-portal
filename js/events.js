@@ -1,40 +1,30 @@
 jQuery(function() {
 
-	function toggleStrings($label, className, online) {
-		if (online) {
-			$label.removeClass(`${className}--in-person`);
-			$label.addClass(`${className}--online`);
-			return;
-		} 
-		$label.addClass(`${className}--in-person`);
-		$label.removeClass(`${className}--online`);
-	}
-
-    function getFilter(option) {
+    const getFilter = function(option) {
 		const filter = option.dataset.filter;
         return filter;
     }
 
-    function getUrl() {
+    const getUrl = function() {
         const url = new URL(location.href);
         return url;
     }
 
-    function getParams(url) {
+    const getParams = function(url) {
 		const params = new URLSearchParams(url.search);
         return params;
     }
 
-    function setUrlParams(url, key, value) {
+    const setUrlParams = function(url, key, value) {
 		url.searchParams.set(key.toLowerCase(), value);
 		return url;
 	}
 	
-	function relocate(url) {
+	const relocate = function(url) {
 		window.location.href = url;
 	} 
 
-    function applyFilters() {
+    const applyFilters = function() {
 		const $filters = jQuery(".events__filter__option");
         if ($filters) {
             $filters.each((i, filter) => {
@@ -53,7 +43,7 @@ jQuery(function() {
         }
     }
 
-    function toggleMobileEventsNav(className, toggleTarget) {
+    const toggleMobileEventsNav = function(className, toggleTarget) {
         const $eventsNavToggle = jQuery(className);
         const $eventsNav = jQuery(toggleTarget);
         if ($eventsNavToggle && $eventsNav) {
@@ -72,7 +62,7 @@ jQuery(function() {
         }
     }
 
-    function eventsMobileNav() {
+    const eventsMobileNav = function() {
         const $viewOptions = jQuery(".events__nav--mobile select");
         if ($viewOptions) {
             $viewOptions.on("change", function(e) {
@@ -82,8 +72,10 @@ jQuery(function() {
             });
         }
     }
+	
 
-    function toggleVisibility($selector, value, hidden) {
+	// FORM VALIDATION
+	const toggleVisibility = function($selector, value, hidden) {
         $selector.val(value);
         if (hidden) {
             $selector
@@ -98,48 +90,27 @@ jQuery(function() {
             .addClass("event-creator__hidden");
     }
 
-    function toggleLocationType() {
-        const $locationTypeInput = jQuery("#location-type");
-        const $locationAddress = jQuery("#location-address");
-        const $locationNameLabel = jQuery("#location-name-label");
-        const $countryLabel = jQuery("#location-country-label");
-        $locationTypeInput.on("change", function() {
-            $this = jQuery(this);
-            if ($this.val() === "online") {
-                toggleVisibility($locationAddress, "Online", false);
-				toggleStrings($locationNameLabel, 'event-creator__label', true);
-				toggleStrings($countryLabel, 'event-creator__label', true);
-                return;
-            }
-			toggleVisibility($locationAddress, "", true);
-			toggleStrings($locationNameLabel, 'event-creator__label', false);
-			toggleStrings($countryLabel, 'event-creator__label', false);
-        });
-    }
-
-    function handleCityForOnline($country, $city) {
-        if ($country.val() === 'OE') {
-			string = $city.data('string');
-            $city.val(string);
-        } else if ($city.val() === 'Online Event') {
-            $city.val('');
-        }
-
-    }
-
-    function handleOnlineEvent() {
-        const $locationCountry = jQuery('#location-country');
-        const $locationCity = jQuery('#location-town');
-
-        if ($locationCountry.length > 0) {
-            $locationCountry.on('change', function(e) {
-				const $this = jQuery(this);
-                handleCityForOnline($this, $locationCity);
-            });
-        }
+	const toggleStrings = function($label, className, online) {
+		if (online) {
+			$label.removeClass(`${className}--in-person`);
+			$label.addClass(`${className}--online`);
+			return;
+		} 
+		$label.addClass(`${className}--in-person`);
+		$label.removeClass(`${className}--online`);
 	}
 
-    function clearErrors(input) {
+	const toggleError = function(input, error = true) {
+		if (error) {
+			input.addClass('event-creator__input--error');
+			input.next('.form__error-container').addClass('form__error-container--visible');
+			return;
+		}
+		input.removeClass('event-creator__input--error');
+		input.next('.form__error-container').removeClass('form__error-container--visible');
+	}
+
+	const clearErrors = function(input) {
         input.on("focus blur", function() {
 			const $this = jQuery(this);
 			if ($this.hasClass('event-creator__input--error')){
@@ -148,17 +119,19 @@ jQuery(function() {
 		});
     }
 
-    function toggleError(input, error = true) {
-		if (error) {
-			input.addClass('event-creator__input--error');
-			input.next('.form__error-container').addClass('form__error-container--visible');
-			return;
-		}
-		input.removeClass('event-creator__input--error');
-		input.next('.form__error-container').removeClass('form__error-container--visible');
+	const validateCpg = function(allClear) {
+        const $cpgCheck = jQuery("#cpg");
+        if ($cpgCheck.length && !$cpgCheck.prop("checked")) {
+            $cpgCheck.one("change", function() {
+				$cpgCheck.removeClass("event-creator__input--error");
+				$cpgCheck.siblings('.form__error-container').eq('0').removeClass('form__error-container--visible');
+            });
+            allClear = false;
+        }
+        return allClear;
     }
 
-    function checkInputs(inputs) {
+    const checkInputs = function(inputs) {
         let $allClear = true;
         let $first = true;
 
@@ -207,19 +180,7 @@ jQuery(function() {
         return $allClear;
     }
 
-    function validateCpg(allClear) {
-        const $cpgCheck = jQuery("#cpg");
-        if ($cpgCheck.length && !$cpgCheck.prop("checked")) {
-            $cpgCheck.one("change", function() {
-				$cpgCheck.removeClass("event-creator__input--error");
-				$cpgCheck.siblings('.form__error-container').eq('0').removeClass('form__error-container--visible');
-            });
-            allClear = false;
-        }
-        return allClear;
-    }
-
-    function updateRedirect() {
+    const updateRedirect = function() {
         const $eventName = jQuery("#event-name");
         const $redirect = jQuery("input[name=redirect_to]");
         if (!$redirect.val() && $eventName.length) {
@@ -229,7 +190,7 @@ jQuery(function() {
         }
     }
 
-    function validateForm() {
+	const validateForm = function() {
         const $eventForm = jQuery("#event-form")[0];
 
         if ($eventForm) {
@@ -244,87 +205,7 @@ jQuery(function() {
         }
     }
 
-    function toggleInputAbility(input, typeValue, enabled) {
-        if (enabled) {
-			input.attr("disabled", false);
-			input.attr('tabindex', '0');
-            if (typeValue) {
-                input.val(typeValue);
-            }
-            return;
-        }
-        input.prop("disabled", true);
-    }
-
-    function toggleLocationContainer($container, $locationType) {
-		const $locationAddress = jQuery("#location-address");
-		$container.toggleClass("event-creator__location-edit");
-		if ($locationType.val() === "online") {
-			toggleVisibility($locationAddress, "Online", false);
-			return;
-		}
-		toggleVisibility($locationAddress, "", true);
-    }
-
-    function clearPrePopErrors(container, selector) {
-        const $errors = container.find("." + selector);
-        if ($errors.length) {
-            $errors.each(function() {
-                const $this = jQuery(this);
-                $this.removeClass(selector);
-            });
-        }
-    }
-
-    function handleAutocomplete($container, $locationType, $country, typeValue) {
-        jQuery("#location-name").on("autocompleteselect", function(e) {
-			const $errors = $container.find(".event-creator__input--error");
-			if ($errors.length > 0) {
-				$errors.each(function() {
-					const $this = jQuery(this);
-					toggleError($this);
-				});	
-			}
-            clearPrePopErrors($container, "event-creator__error");
-            clearPrePopErrors($container, "event-creator__error-text");
-			toggleLocationContainer($container, $locationType);
-			toggleInputAbility($locationType, typeValue, true);
-			toggleInputAbility($country, null, true);
-            $container.addClass("event-creator__location-edit");
-        });
-	}
-	
-	function handleLocationEdit($editContainer, $countryInput, $locationType, locationTypeValue) {
-		const $locationName = jQuery('#location-name-label');
-		toggleLocationContainer(
-			$editContainer,
-			$locationType,
-		);
-		toggleInputAbility($locationType, locationTypeValue, true);
-		toggleInputAbility($countryInput, null, true);
-		toggleStrings($locationName, 'event-creator__label', true);
-	}
-
-    function editLocation() {
-        const $editBtn = jQuery("#em-location-reset a");
-        const $editContainer = jQuery(".event-creator__location");
-        const $countryInput = jQuery("#location-country");
-        const $locationType = jQuery("#location-type");
-		const locationTypeValue = $locationType.val();
-        if ($editBtn) {
-            handleAutocomplete(
-                $editContainer,
-                $countryInput,
-                $locationType,
-				locationTypeValue
-            );
-            $editBtn.on("click", function( ) {
-				handleLocationEdit($editContainer, $countryInput, $locationType, locationTypeValue);
-			});
-        }
-    }
-
-    function handleSubmit() {
+	const handleSubmit = function() {
         const $form = jQuery("#event-form");
         if ($form) {
             $form.on("submit", function(e) {
@@ -333,54 +214,208 @@ jQuery(function() {
             });
         }
     }
+	
+	const clearLocationNameErrors = function() {
+		jQuery("#location-name").on('focus', function() {
+			const $this = jQuery(this);
+			const $errorContainer = $this.next('.form__error-container');
+			if ($errorContainer.hasClass("form__error--online")) {
+				$errorContainer.removeClass("form__error--online");
+				return
+			} 
+			if ($errorContainer.hasClass("form__error--in-person")) {
+				$errorContainer.removeClass('form__error--in-person');
+			}
+		});
+	}
 
-    function trackLocationType() {
-        const $locationTypeInput = jQuery('#location-type-placeholder');
-        const $locationType = jQuery('#location-type');
-        $locationType.change(function() {
-        const $this = jQuery(this);
-            $locationTypeInput.val($this.val());
+	const handleEventCancellation = function() {
+		jQuery('#event-cancel').on('click', function(e) {
+			const $this = jQuery(this);
+			const confirmation = $this.data('confirmation');
+			return confirm(confirmation);
+		});
+	}
+
+	const showDebugInformation = function() {
+		jQuery('#events-show-debug-info').click(function(e){
+			e.preventDefault();
+			jQuery('.events-single__debug-info').toggleClass('events-single__debug-info--hidden');
+			return false;
+		});
+	}
+
+	// LOCATION HANDLER
+	const handleCityForOnline = function($country, $city) {
+        if ($country.val() === 'OE') {
+			string = $city.data('string');
+            $city.val(string);
+        } else if ($city.val() === 'Online Event') {
+            $city.val('');
+        }
+
+    }
+
+    const toggleInputAbility = function(input, typeValue, enabled) {
+		input.prop("disabled", false);
+		console.log(input);
+		console.log(input.prop("disba"))
+        if (enabled) {
+			input.attr("readonly", false);
+			input.attr('tabindex', '0');
+            if (typeValue) {
+                input.val(typeValue);
+            }
+            return;
+		}
+		input.prop("readonly", true);
+    }
+
+    const toggleLocationContainer = function() {
+        const $container = jQuery(".event-creator__location");
+		$container.toggleClass("event-creator__location-edit");
+    }
+
+    const clearPrePopErrors = function(selector) {
+		const $errors = jQuery(`.event-creator__location .${selector}`);
+		console.log($errors);
+        if ($errors.length) {
+            $errors.each(function() {
+				const $this = jQuery(this);
+				console.log($this);
+                $this.removeClass(selector);
+            });
+        }
+    }
+
+	const iterateThroughErrors = function($errors) {
+		$errors.each(function() {
+			const $this = jQuery(this);
+			toggleError($this);
+		});	
+	}
+
+    const handleAutocomplete = function($locationType, $country, typeValue) {
+
+        jQuery("#location-name").on("autocompleteselect", function(e) {
+			const $container = jQuery(".event-creator__location");
+			const $errors = $container.find(".event-creator__input--error");
+			if ($errors.length > 0) {
+				iterateThroughErrors($errors);
+			}
+			clearPrePopErrors("event-creator__input--error");
+            clearPrePopErrors("form__error-container--visible");
+			toggleInputAbility($locationType, typeValue, true);
+			console.log($locationType);
+			toggleInputAbility($country, null, true);
+			toggleLocationContainer();
         });
+	}
+	
+	const handleLocationEdit = function($countryInput, $locationType, locationTypeValue) {
+		toggleLocationContainer();
+		toggleInputAbility($locationType, locationTypeValue, true);
+		toggleInputAbility($countryInput, null, true);
+		
+	}
+
+    const editLocation = function() {
+        const $editBtn = jQuery("#em-location-reset a");
+        const $countryInput = jQuery("#location-country");
+        const $locationType = jQuery("#location-type");
+		const locationTypeValue = $locationType.val();
+        if ($editBtn) {
+            $editBtn.on("click", function( ) {
+				handleLocationEdit($countryInput, $locationType, locationTypeValue);
+			});
+        }
 	}
 
 
-    function init() {
+	const toggleLocationType = function (online ) {
+        const $locationAddress = jQuery("#location-address");
+        const $locationNameLabel = jQuery("#location-name-label");
+        const $countryLabel = jQuery("#location-country-label");
+		if (online) {
+			toggleVisibility($locationAddress, "Online", false);
+			toggleStrings($locationNameLabel, 'event-creator__label', true);
+			toggleStrings($countryLabel, 'event-creator__label', true);
+			return;
+		}
+		toggleVisibility($locationAddress, "", true);
+		toggleStrings($locationNameLabel, 'event-creator__label', false);
+		toggleStrings($countryLabel, 'event-creator__label', false);
+	}
+
+	const handleLocationTypeChange = function() {
+		const $locationTypeInput = jQuery("#location-type");
+        $locationTypeInput.on("change", function() {
+			$this = jQuery(this);
+			if ($this.val() === 'online') {
+				toggleLocationType(true);
+				return;
+			}
+			toggleLocationType(false);
+        });
+	}
+	
+	const handleOnlineEvent = function() {
+        const $locationCountry = jQuery('#location-country');
+        const $locationCity = jQuery('#location-town');
+
+        if ($locationCountry.length > 0) {
+            $locationCountry.on('change', function(e) {
+				const $this = jQuery(this);
+                handleCityForOnline($this, $locationCity);
+            });
+        }
+	}
+
+	jQuery('#location-name__mozilla').autoComplete({
+        source: function(term, suggest) {
+            jQuery.getJSON('/wp-admin/admin-ajax.php?action=get_locations', { q: term }, function(data){
+	
+				const locations = data.map((location) => {
+					return {
+						name: location.location_name,
+						id: location.location_id,
+						country: location.location_country,
+						city: location.location_town,
+						address: location.location_address,
+					};
+				});
+				suggest(locations); 
+            });
+        },
+        renderItem: function(item, search) {
+			return `<div class="autocomplete-suggestion" data-id=${item.id} data-country=${item.country} data-city=${item.city} data-address=${item.address}>${item.name}</div>`
+        },
+        onSelect: function(e, term, item) {
+            e.preventDefault();
+            // jQuery('#group-admin-id').val(item.data('id'));
+        }
+    });
+
+	const init = function() {
         toggleMobileEventsNav(".events__nav__toggle", ".events__nav");
         toggleMobileEventsNav(".events__filter__toggle", ".events__filter");
         eventsMobileNav();
         applyFilters();
 
-        toggleLocationType();
-        handleSubmit();
-        editLocation();
-        trackLocationType();
-        handleOnlineEvent();
+		editLocation();
+
+		// LOCATION HANDLER
+		handleLocationTypeChange();
+		
+		// FORM VALIDATION
+		handleSubmit();
+		
+		// Event handlers
+		clearLocationNameErrors();
+		handleEventCancellation();
+		showDebugInformation();
+		handleOnlineEvent();
     }
-
-
-    jQuery('#events-show-debug-info').click(function(e){
-        e.preventDefault();
-        jQuery('.events-single__debug-info').toggleClass('events-single__debug-info--hidden');
-        return false;
-	});
-	
-	jQuery("#location-name").on('focus', function() {
-		const $this = jQuery(this);
-		const $errorContainer = $this.next('.form__error-container');
-		if ($errorContainer.hasClass("form__error--online")) {
-			$errorContainer.removeClass("form__error--online");
-			return
-		} 
-		if ($errorContainer.hasClass("form__error--in-person")) {
-			$errorContainer.removeClass('form__error--in-person');
-		}
-	});
-
-	jQuery('#event-cancel').on('click', function(e) {
-		const $this = jQuery(this);
-		const confirmation = $this.data('confirmation');
-		return confirm(confirmation);
-	});
 
     init();
 });

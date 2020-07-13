@@ -296,4 +296,27 @@ function mozilla_add_user_discourse() {
 }
 
 
+/**
+ * Get an array of locations
+ **/
+function mozilla_get_locations() {
+	$json_users = array();
+
+	if ( isset( $_GET['q'] ) ) {
+		$q = trim( sanitize_user( wp_unslash( $_GET['q'] ) ) );
+		if ( strlen( $q ) > 0 ) {
+			$all_locations = EM_Locations::get();
+			$matching_locations = array();
+			foreach($all_locations as $location) {
+				if (false !== stripos($location->location_name, $q)) {
+					array_push($matching_locations, $location);
+				}
+			}
+
+			echo wp_json_encode( $matching_locations );
+		}
+	}
+	die();
+}
+
 

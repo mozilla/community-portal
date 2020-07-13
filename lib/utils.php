@@ -210,6 +210,7 @@ function mozilla_init_scripts() {
 	wp_enqueue_script( 'identicon', get_stylesheet_directory_uri() . '/js/vendor/identicon.js', array(), filemtime( get_template_directory() . '/js/vendor/identicon.js' ), false );
 	wp_enqueue_script( 'mapbox', get_stylesheet_directory_uri() . '/js/vendor/mapbox.js', array(), filemtime( get_template_directory() . '/js/vendor/mapbox.js' ), false );
 
+
 	// Custom scripts.
 	wp_enqueue_script( 'groups', get_stylesheet_directory_uri() . '/js/groups.js', array( 'jquery' ), filemtime( get_template_directory() . '/js/groups.js' ), false );
 	wp_enqueue_script( 'events', get_stylesheet_directory_uri() . '/js/events.js', array( 'jquery' ), filemtime( get_template_directory() . '/js/events.js' ), false );
@@ -672,6 +673,8 @@ function mozilla_group_addional_column_info( $retval = '', $column_name, $item )
  * @param boolean $update are we updating.
  */
 function mozilla_save_post( $post_id, $post, $update ) {
+	var_dump($_POST); 
+	die();
 
 	if ( 'event' === $post->post_type && $update ) {
 
@@ -703,8 +706,8 @@ function mozilla_save_post( $post_id, $post, $update ) {
 				$event->image_url = $event_update_meta[0]->image_url;
 			}
 
-			if ( isset( $_POST['location-type'] ) ) {
-				$event->location_type = sanitize_text_field( wp_unslash( $_POST['location-type'] ) );
+			if ( isset( $_POST['location_type'] ) ) {
+				$event->location_type = sanitize_text_field( wp_unslash( $_POST['location_type'] ) );
 			} else {
 				$event->location_type = $event_update_meta[0]->location_type;
 			}
@@ -833,8 +836,8 @@ function mozilla_post_status_transition( $new_status, $old_status, $post ) {
 					$event->image_url = '';
 				}
 
-				if ( isset( $_POST['location-type'] ) ) {
-					$event->location_type = sanitize_text_field( wp_unslash( $_POST['location-type'] ) );
+				if ( isset( $_POST['location_type'] ) ) {
+					$event->location_type = sanitize_text_field( wp_unslash( $_POST['location_type'] ) );
 				} else {
 					$event->location_type = '';
 				}

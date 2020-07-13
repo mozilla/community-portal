@@ -62,6 +62,7 @@ add_action( 'wp_ajax_nopriv_validate_group', 'mozilla_validate_group_name' );
 add_action( 'wp_ajax_validate_group', 'mozilla_validate_group_name' );
 add_action( 'wp_ajax_check_user', 'mozilla_validate_username' );
 add_action( 'wp_ajax_delete_user', 'mozilla_delete_user' );
+add_action( 'wp_ajax_get_locations', 'mozilla_get_locations' );
 add_action( 'wp_ajax_newsletter_subscribe', 'mozilla_newsletter_subscribe' );
 add_action( 'wp_ajax_nopriv_newsletter_subscribe', 'mozilla_newsletter_subscribe' );
 add_action( 'wp_ajax_mailchimp_unsubscribe', 'mozilla_mailchimp_unsubscribe' );
