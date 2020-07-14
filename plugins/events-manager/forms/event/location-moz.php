@@ -22,7 +22,7 @@ if ( isset( $_REQUEST['nonce'] ) && wp_verify_nonce( sanitize_key( $_REQUEST['no
 	$event               = sanitize_key( $_REQUEST['event_id'] );
 	$event               = em_get_event( $event );
 	$event_meta          = get_post_meta( $event->post_id, 'event-meta' );
-	$event_location_type = isset( $event_meta[0]->location_type ) && strlen( $event_meta[0]->location_type ) > 0 ? $event_meta[0]->location->type : null;
+	$event_location_type = isset( $event_meta[0]->location_type ) && strlen( $event_meta[0]->location_type ) > 0 ? $event_meta[0]->location_type : null;
 	$location_type       = get_post_meta( $em_location->post_id, 'location-type', true );
 	$location_type       = isset( $location_type ) && strlen( $location_type ) > 0 ? $location_type : $event_location_type;
 } else {

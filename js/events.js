@@ -370,18 +370,17 @@ jQuery(function() {
         const $locationAddress = jQuery("#location-address");
         const $locationNameLabel = jQuery("#location-name-label");
 		const $countryLabel = jQuery("#location-country-label");
-		const editMode = editContainer()
+		const editMode = editContainer();
+		if (editMode) {
+			const fields = [ 'town', 'country', 'name-mozilla', 'id', 'address'];
+			handleLocationEdit(fields);
+		}
 		if (online) {
-			if (!editMode) {
-				toggleVisibility($locationAddress, "Online", false);
-			}
 			toggleStrings($locationNameLabel, 'event-creator__label', true);
 			toggleStrings($countryLabel, 'event-creator__label', true);
 			return;
 		}
-		if (!editMode) {
-			toggleVisibility($locationAddress, address, true);
-		}
+		toggleVisibility($locationAddress, address, true);
 		toggleStrings($locationNameLabel, 'event-creator__label', false);
 		toggleStrings($countryLabel, 'event-creator__label', false);
 	}
