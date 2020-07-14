@@ -24,7 +24,6 @@
 		$event_meta    = get_post_meta( $event->post_id, 'event-meta' );
 		$location_type = get_post_meta($em_location->post_id, 'location-type', true);
 		$location_type = isset( $location_type ) && strlen( $location_type ) > 0 ? $location_type : null;
-
 	} else {
 		$event = false;
 	}
@@ -54,11 +53,11 @@
 				</label>
 				<select 
 					class="event-creator__dropdown" 
-					name="location-type" 
+					name="location_type" 
 					id="location-type" 
 					<?php 
 						if ( $event ) {
-							echo esc_attr( 'readonly selected' ); 
+							echo esc_attr( 'selected' ); 
 						}
 					?>
 					required
@@ -98,7 +97,15 @@
 					<span class="in-person"><?php esc_html_e( 'Location Name *', 'community-portal' ); ?></span>	
 				</label>
 				<input id='location-id' name='location_id' type='hidden' value='<?php echo esc_attr( $em_location->location_id ); ?>' size='15'  />
-				<input class="event-creator__input" id="location-name-mozilla" type="type" name="location_name" required value="<?php echo esc_attr( $em_location->location_name ); ?>" required />	
+				<input 
+					class="event-creator__input" 
+					id="location-name-mozilla" 
+					type="type" 
+					name="location_name" 
+					required value="<?php echo esc_attr( $em_location->location_name ); ?>" 
+					required
+					<?php echo $event ? esc_attr('readonly') : null ?> 
+				/>	
 				<div class="form__error-container">
 					<p class="form__error">
 						<span class="in-person"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></span>
@@ -109,14 +116,22 @@
 		</div>
 		<div class="event-creator__three-up 
 		<?php
-		if ( isset( $location_type ) && 'online' === $location_type || ! isset( $event_id ) ) :
+		if ( ( isset( $location_type ) && 'online' === $location_type ) || ! isset( $event) ) :
 			echo esc_attr( 'event-creator__hidden' );
 		endif;
 		?>
 		">
 			<div class="em-location-data-address wide--full">
 				<label class="event-creator__label" for="location-address"><?php esc_html_e( 'Address *', 'community-portal' ); ?></label>
-				<input class="event-creator__input" id="location-address" type="text" name="location_address" required value="<?php $em_location->location_address ? print esc_attr( $em_location->location_address ) : esc_html_e( 'Online', 'community-portal' ); ?>" required/> 
+				<input 
+					class="event-creator__input" 
+					id="location-address" 
+					type="text" 
+					name="location_address" 
+					required 
+					value="<?php $em_location->location_address ? print esc_attr( $em_location->location_address ) : esc_html_e( 'Online', 'community-portal' ); ?>" 
+					<?php echo $event ? esc_attr('readonly') : null ?>
+				/> 
 				<div class="form__error-container">
 					<p class="form__error"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></p>
 				</div>
@@ -130,14 +145,20 @@
 				</label>
 				<select class="event-creator__dropdown" id="location-country" name="location_country" 
 				required>
-					<option value="0" 
-					<?php
-					if ( '' === $em_location->location_country && '' === $em_location->location_id ) {
-						echo esc_attr( 'selected="selected"' );
-					} else {
-						echo esc_attr( '' ); }
-					?>
-					><?php esc_html_e( 'Select', 'community-portal' ); ?></option>
+					<option 
+						value="0" 
+						default
+
+						<?php 
+							if ( '' === $em_location->location_country ) {
+								echo esc_attr( 'selected="selected"' );
+							} else {
+								echo esc_attr( '' ); 
+							} 
+						?>
+					>
+						<?php esc_html_e( 'Select', 'community-portal' ); ?>
+					</option>
 					<optgroup label="<?php esc_html_e( 'Online', 'community-portal' ); ?>">
 						<option value="OE" 
 						<?php
@@ -173,7 +194,17 @@
 					<span class="in-person"><?php esc_html_e( 'City *', 'community-portal' ); ?></span>
 					<span class="online"><?php esc_html_e( 'URL *', 'community-portal' ); ?></span>
 				</label>
-				<input class="event-creator__input" id="location-town" type="text" name="location_town" data-string="<?php esc_html_e( 'Online Event', 'community-portal' ); ?>" value="<?php echo esc_attr( $em_location->location_town ); ?>"  maxlength="180" required/>
+				<input 
+					class="event-creator__input" 
+					id="location-town" 
+					type="text" 
+					name="location_town" 
+					data-string="<?php esc_html_e( 'Online Event', 'community-portal' ); ?>" 
+					value="<?php echo esc_attr( $em_location->location_town ); ?>"  
+					maxlength="180" 
+					required
+					<?php echo $event ? esc_attr('readonly') : null ?> 
+				/>
 				<div class="form__error-container">
 					<p class="form__error">
 						<?php esc_html_e( 'This field is required', 'community-portal' ); ?>

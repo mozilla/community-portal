@@ -705,6 +705,7 @@ function mozilla_save_post( $post_id, $post, $update ) {
 			}
 
 			if ( isset( $_POST['location_type'] ) ) {
+				mozilla_add_location_type($_POST['location_id']);
 				$event->location_type = sanitize_text_field( wp_unslash( $_POST['location_type'] ) );
 			} else {
 				$event->location_type = $event_update_meta[0]->location_type;
@@ -832,10 +833,10 @@ function mozilla_post_status_transition( $new_status, $old_status, $post ) {
 					$event->image_url = esc_url_raw( wp_unslash( $_POST['image_url'] ) );
 				} else {
 					$event->image_url = '';
-				}
+				}	
 
-				if ( isset( $_POST['location_type'] ) ) {
-					$event->location_type = sanitize_text_field( wp_unslash( $_POST['location_type'] ) );
+				if ( isset( $_POST['location-type'] ) ) {
+					$event->location_type = sanitize_text_field( wp_unslash( $_POST['location-type'] ) );
 				} else {
 					$event->location_type = '';
 				}

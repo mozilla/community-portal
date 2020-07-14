@@ -254,11 +254,23 @@ jQuery(function() {
 		}
 	}
 
+	const clearPrePopErrors = function(selector) {
+		const $errors = jQuery(`.event-creator__location .${selector}`);
+        if ($errors.length) {
+            $errors.each(function() {
+				const $this = jQuery(this);
+                $this.removeClass(selector);
+            });
+        }
+    }
+
 	const handleCityForOnline = function($country, $city) {
 		checkContainerClass();
         if ($country.val() === 'OE') {
 			string = $city.data('string');
 			$city.val(string);
+			clearPrePopErrors('form__error-container--visible');
+			clearPrePopErrors('event-creator__input--error');
 			return;
         } 
 		$city.val('');
@@ -268,15 +280,15 @@ jQuery(function() {
         if (enabled) {
 			inputs.forEach((input) => {
 				let $el = jQuery(`#location-${input}`);
-				$el.attr('readonly', false);
-				$el.attr('tabindex', '0');
+				$el.prop('readonly', false);
+				$el.prop('tabindex', '0');
 			})
             return;
 		}
 		inputs.forEach((input) => {
 			let $el = jQuery(`#location-${input}`);
-			$el.attr('readonly', true);
-			$el.attr('tabindex', '0');
+			$el.prop('readonly', true);
+			$el.prop('tabindex', '0');
 		})
     }
 
@@ -287,18 +299,6 @@ jQuery(function() {
 			return;
 		}
 		$container.addClass("event-creator__location-edit");
-    }
-
-    const clearPrePopErrors = function(selector) {
-		const $errors = jQuery(`.event-creator__location .${selector}`);
-		console.log($errors);
-        if ($errors.length) {
-            $errors.each(function() {
-				const $this = jQuery(this);
-				console.log($this);
-                $this.removeClass(selector);
-            });
-        }
     }
 
 	const iterateThroughErrors = function($errors) {
@@ -333,6 +333,10 @@ jQuery(function() {
 	const clearLocationFields = function(fields) {
 		fields.forEach((field) => {
 			let $el = jQuery(`#location-${field}`);
+			if (field === 'country') {
+				$el.val('0');
+				return;
+			}
 			$el.val('');
 		});
 
@@ -357,7 +361,7 @@ jQuery(function() {
         }
 	}
 
-	const toggleLocationType = function (online ) {
+	const toggleLocationType = function (online, address = "") {
         const $locationAddress = jQuery("#location-address");
         const $locationNameLabel = jQuery("#location-name-label");
         const $countryLabel = jQuery("#location-country-label");
@@ -367,7 +371,7 @@ jQuery(function() {
 			toggleStrings($countryLabel, 'event-creator__label', true);
 			return;
 		}
-		toggleVisibility($locationAddress, "", true);
+		toggleVisibility($locationAddress, address, true);
 		toggleStrings($locationNameLabel, 'event-creator__label', false);
 		toggleStrings($countryLabel, 'event-creator__label', false);
 	}
@@ -399,12 +403,15 @@ jQuery(function() {
 	}
 
 	const handleAutocompleteSelection = function(data) {
+		data.type = data.type ? data.type : 'online';
 		for (key in data) {
 			let $el = jQuery(`#location-${key}`);
 			$el.val(data[key]);
 		}
 		const $location_name = jQuery('#location-name-mozilla');
 		$location_name.val(data.name);
+		$location_type = data.type === 'online' ? true : false;
+		toggleLocationType($location_type, data.address);
 		handleAutocomplete();
 	}
 
@@ -427,8 +434,7 @@ jQuery(function() {
             });
         },
         renderItem: function(item, search) {
-			console.log(item.location_type);
-			return `<div class="autocomplete-suggestion" data-name="${item.name}" data-id=${item.id} data-country="${item.country}" data-town="${item.town}" data-address="${item.address}">${item.name}</div>`
+			return `<div class="autocomplete-suggestion" data-name="${item.name}" data-id=${item.id} data-country="${item.country}" data-type="${item.type}" data-town="${item.town}" data-address="${item.address}">${item.name}</div>`
         },
         onSelect: function(e, term, item) {
 			e.preventDefault();

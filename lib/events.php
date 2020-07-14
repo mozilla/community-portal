@@ -310,7 +310,7 @@ function mozilla_get_locations() {
 			foreach($all_locations as $location) {
 				if (false !== stripos($location->location_name, $q)) {
 					$location_type = get_post_meta($location->post_id, 'location-type', true);
-					$location['location_type'] = isset($location_type) && strlen($location_type) > 0 ? $location_type : null;
+					$location->location_type = isset($location_type) && strlen($location_type) > 0 ? $location_type : null;
 					array_push($matching_locations, $location);
 					if (count($matching_locations) > 4) {
 						break;
@@ -324,10 +324,15 @@ function mozilla_get_locations() {
 	die();
 }
 
-function mozilla_add_location_type($post_id, $post, $update) {
-	if (isset( $_POST['location-type'] ) ) {
-		update_post_meta($post_id, 'location-type', $_POST['location-type']);
+function mozilla_add_location_type($post_id) {
+	$location = em_get_location($post_id);
+	mozilla_handle_location_save($location->post_id, $location, false);
+}
+
+function mozilla_handle_location_save($post_id, $post, $update) {
+	if (isset( $_POST['location_type'] ) ) {
+		update_post_meta($post_id, 'location-type', $_POST['location_type']);
 	}
 }
 
-add_action('save_post_location', 'mozilla_add_location_type', 10, 3);
+add_action('save_post_location', 'mozilla_handle_location_save', 10, 3);

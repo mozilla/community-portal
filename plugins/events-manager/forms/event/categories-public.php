@@ -37,7 +37,7 @@
 					type="radio"  
 					value="<?php echo esc_attr( $category->id ); ?>"
 					<?php
-					if ( is_array( $selected ) && intval( $category->id ) === intval( $selected[0] ) ) {
+					if ( is_array( $selected ) && !empty($selected) && intval( $category->id ) === intval( $selected[0] ) ) {
 						echo esc_attr( 'checked' );
 					}
 					?>
