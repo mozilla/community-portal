@@ -1035,3 +1035,13 @@ function mozilla_map_tags( $tag ) {
 	}
 	return $tag;
 }
+
+
+add_filter('acf/fields/post_object/query/name=event', 'my_acf_fields_post_object_query', 10, 3);
+function my_acf_fields_post_object_query( $args, $field, $post_id ) {
+
+	var_dump($args);
+	die();
+
+    return $args;
+}
