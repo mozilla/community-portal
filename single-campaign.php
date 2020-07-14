@@ -33,7 +33,12 @@
 	$user                  = wp_get_current_user();
 	$members_participating = get_post_meta( $post->ID, 'members-participating', true );
 	$sub                   = true;
-	$current_translation   = mozilla_get_current_translation();
+  $current_translation   = mozilla_get_current_translation();
+  
+  $translated_status = array(
+		'Active' => __( 'Active', 'community-portal' ),
+		'Closed' => __( 'Closed', 'community-portal' ),
+	);
 
 if ( $logged_in && is_array( $members_participating ) && in_array( $user->ID, $members_participating, true ) ) {
 	$sub = false;
@@ -47,7 +52,7 @@ if ( $logged_in && is_array( $members_participating ) && in_array( $user->ID, $m
 					<div class="campaign__hero-image" style="background-image: url(<?php print esc_attr( $campaign_image ); ?>);">
 					</div>
 					<div class="campaign__hero-content-container">
-						<span class="campaign__status"><?php print esc_html( $campaign_status ); ?></span>
+						<span class="campaign__status"><?php print esc_html( $translated_status[$campaign_status] ); ?></span>
 						<h1 class="campaign__hero-title"><?php print esc_html( $post->post_title ); ?></h1>
 						<div class="campaign__date-container">
 							<?php

@@ -11,6 +11,8 @@
  */
 
 ?>
+
+<?php ?>
 <?php get_header(); ?>
 	<div class="content content--homepage">
 		<?php
@@ -321,9 +323,10 @@
 								$values        = array_values( $event );
 								$event         = array_shift( $values );
 								$all_countries = em_get_countries();
+								if (!empty($event)) {
+									include locate_template( 'plugins/events-manager/templates/template-parts/single-event-card.php', false, false );
+								}
 
-
-								include locate_template( 'plugins/events-manager/templates/template-parts/single-event-card.php', false, false );
 							}
 						}
 					}

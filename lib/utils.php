@@ -1037,11 +1037,10 @@ function mozilla_map_tags( $tag ) {
 }
 
 
-add_filter('acf/fields/post_object/query/name=event', 'my_acf_fields_post_object_query', 10, 3);
-function my_acf_fields_post_object_query( $args, $field, $post_id ) {
+add_filter('acf/fields/post_object/query/name=event', 'mozilla_query_all_events', 10, 3);
+add_filter('acf/fields/post_object/query/name=single_event', 'mozilla_query_all_events', 10, 3);
 
-	var_dump($args);
-	die();
-
-    return $args;
+function mozilla_query_all_events( $args, $post, $post_id ) {
+	$args['suppress_filters'] = true;
+	return $args;
 }
