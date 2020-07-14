@@ -704,9 +704,9 @@ function mozilla_save_post( $post_id, $post, $update ) {
 				$event->image_url = $event_update_meta[0]->image_url;
 			}
 
-			if ( isset( $_POST['location_type'] ) ) {
-				mozilla_add_location_type($_POST['location_id']);
-				$event->location_type = sanitize_text_field( wp_unslash( $_POST['location_type'] ) );
+			if ( isset( $_POST['location-type'] ) ) {
+				$event->location_type = isset($event_update_meta[0]->location_type) && strlen( $event_update_meta[0]->location_type ) > 0 ? $event_update_meta[0]->location_type : sanitize_text_field( wp_unslash( $_POST['location-type'] ) );
+				mozilla_add_location_type($_POST['location_id'], $event->location_type);
 			} else {
 				$event->location_type = $event_update_meta[0]->location_type;
 			}

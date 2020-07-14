@@ -8,11 +8,14 @@
  * @author  Playground Inc.
  */
 
-	$em_event    = $GLOBALS['EM_Event'];
+	global $EM_Event;
 	$em_location = $GLOBALS['EM_Location'];
 
-	if ( 0 !== $em_event->location_id ) {
-		$em_location = $em_event->get_location();
+  // $em_event->get_event_location();
+  // var_dump($em_event->has_location());
+
+	if ( 0 !== $EM_Event->location_id ) {
+		$em_location = $EM_Event->get_location();
 	} else {
 		$em_location = new EM_Location();
 	}
@@ -22,8 +25,10 @@
 		$event         = sanitize_key( $_REQUEST['event_id'] );
 		$event         = em_get_event( $event );
 		$event_meta    = get_post_meta( $event->post_id, 'event-meta' );
+		$event_location_type = isset($event_meta[0]->location_type)  && strlen($event_meta[0]->location_type) > 0 ? $event_meta[0]->location->type : null;
 		$location_type = get_post_meta($em_location->post_id, 'location-type', true);
-		$location_type = isset( $location_type ) && strlen( $location_type ) > 0 ? $location_type : null;
+		$location_type = isset( $location_type ) && strlen( $location_type ) > 0 ? $location_type : $event_location_type;
+		var_dump($location_type);
 	} else {
 		$event = false;
 	}
@@ -53,7 +58,7 @@
 				</label>
 				<select 
 					class="event-creator__dropdown" 
-					name="location_type" 
+					name="location-type" 
 					id="location-type" 
 					<?php 
 						if ( $event ) {
@@ -92,7 +97,7 @@
 				<?php
 					$location_class = isset( $location_type ) && 'address' === $location_type ? 'event-creator__label--in-person' : 'event-creator__label--online';
 				?>
-				<label class="event-creator__label <?php echo esc_attr( $location_class ); ?>" for="location-name__mozilla" id="location-name-label">
+				<label class="event-creator__label <?php echo esc_attr( $location_class ); ?>" for="location-name-mozilla" id="location-name-label">
 					<span class="online"><?php esc_html_e( 'Online Meeting Link *', 'community-portal' ); ?></span>
 					<span class="in-person"><?php esc_html_e( 'Location Name *', 'community-portal' ); ?></span>	
 				</label>
@@ -102,8 +107,8 @@
 					id="location-name-mozilla" 
 					type="type" 
 					name="location_name" 
-					required value="<?php echo esc_attr( $em_location->location_name ); ?>" 
 					required
+					value="<?php echo esc_attr( $em_location->location_name ); ?>" 
 					<?php echo $event ? esc_attr('readonly') : null ?> 
 				/>	
 				<div class="form__error-container">
@@ -116,9 +121,14 @@
 		</div>
 		<div class="event-creator__three-up 
 		<?php
-		if ( ( isset( $location_type ) && 'online' === $location_type ) || ! isset( $event) ) :
+		if ( !isset($event) ) {
 			echo esc_attr( 'event-creator__hidden' );
-		endif;
+		} elseif (!isset( $location_type )) {
+			echo esc_attr( 'event-creator__hidden' );
+
+		} elseif( 'address' !== $location_type )  {
+			echo esc_attr( 'event-creator__hidden' );
+		}
 		?>
 		">
 			<div class="em-location-data-address wide--full">
@@ -139,7 +149,11 @@
 		</div>
 		<div class="event-creator__three-up">
 			<div class="wide">
-				<label id="location-country-label" class="event-creator__label event-creator__label--online " for="location-country">
+				<label 
+					id="location-country-label" 
+					class="event-creator__label <?php echo isset($location_type) && $location_type === 'online' ? esc_attr('event-creator__label--online') : esc_attr('event-creator__label--in-person'); ?>" 
+					for="location-country"
+				>
 					<span class="online"><?php esc_html_e( 'Where will this event be held? *', 'community-portal' ); ?></span>
 					<span class="in-person"><?php esc_html_e( 'Country', 'community-portal' ); ?></span>
 				</label>

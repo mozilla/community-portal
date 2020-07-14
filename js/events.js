@@ -142,7 +142,7 @@ jQuery(function() {
             $allClear = validateCpg($allClear);
             const input_id = $this.attr("id");
 
-            if(input_id == 'location-name') {
+            if(input_id == 'location-name-mozilla') {
 				if (jQuery('#location-type').val() === 'online') {
 					var pattern = new RegExp( /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi,'i');
 					if(!pattern.test($this.val())) {
@@ -216,7 +216,7 @@ jQuery(function() {
     }
 	
 	const clearLocationNameErrors = function() {
-		jQuery("#location-name").on('focus', function() {
+		jQuery("#location-name-mozilla").on('focus', function() {
 			const $this = jQuery(this);
 			const $errorContainer = $this.next('.form__error-container');
 			if ($errorContainer.hasClass("form__error--online")) {
@@ -246,9 +246,14 @@ jQuery(function() {
 	}
 
 	// LOCATION HANDLER
-	const checkContainerClass = function() {
+	const editContainer = function() {
 		const $container = jQuery(".event-creator__location");
-		if ($container.hasClass('event-creator__location-edit')) {
+		return $container.hasClass('event-creator__location-edit');
+	}
+
+	const checkContainerClass = function() {
+		const editMode = editContainer();
+		if (editMode) {
 			const fields = [ 'name-mozilla', 'id', 'address'];
 			handleLocationEdit(fields);
 		}
@@ -364,14 +369,19 @@ jQuery(function() {
 	const toggleLocationType = function (online, address = "") {
         const $locationAddress = jQuery("#location-address");
         const $locationNameLabel = jQuery("#location-name-label");
-        const $countryLabel = jQuery("#location-country-label");
+		const $countryLabel = jQuery("#location-country-label");
+		const editMode = editContainer()
 		if (online) {
-			toggleVisibility($locationAddress, "Online", false);
+			if (!editMode) {
+				toggleVisibility($locationAddress, "Online", false);
+			}
 			toggleStrings($locationNameLabel, 'event-creator__label', true);
 			toggleStrings($countryLabel, 'event-creator__label', true);
 			return;
 		}
-		toggleVisibility($locationAddress, address, true);
+		if (!editMode) {
+			toggleVisibility($locationAddress, address, true);
+		}
 		toggleStrings($locationNameLabel, 'event-creator__label', false);
 		toggleStrings($countryLabel, 'event-creator__label', false);
 	}
@@ -380,8 +390,6 @@ jQuery(function() {
 		const $locationTypeInput = jQuery("#location-type");
         $locationTypeInput.on("change", function() {
 			$this = jQuery(this);
-			const fields = [ 'name-mozilla', 'id', 'country', 'town', 'address'];
-			handleLocationEdit(fields);
 			if ($this.val() === 'online') {
 				toggleLocationType(true);
 				return;

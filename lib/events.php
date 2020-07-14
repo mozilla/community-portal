@@ -324,14 +324,20 @@ function mozilla_get_locations() {
 	die();
 }
 
-function mozilla_add_location_type($post_id) {
+function mozilla_add_location_type($post_id, $location_type = null) {
 	$location = em_get_location($post_id);
-	mozilla_handle_location_save($location->post_id, $location, false);
+	if (!empty($location_type)) {
+		update_post_meta($location->post_id, 'location-type', $location_type);
+		return;
+	}
+	if (isset( $_POST['location-type'] ) ) {
+		update_post_meta($post_id, 'location-type', $_POST['location-type']);
+	}
 }
 
 function mozilla_handle_location_save($post_id, $post, $update) {
-	if (isset( $_POST['location_type'] ) ) {
-		update_post_meta($post_id, 'location-type', $_POST['location_type']);
+	if (isset( $_POST['location-type'] ) ) {
+		update_post_meta($post_id, 'location-type', $_POST['location-type']);
 	}
 }
 
