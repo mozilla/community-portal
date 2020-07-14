@@ -210,7 +210,6 @@ function mozilla_init_scripts() {
 	wp_enqueue_script( 'identicon', get_stylesheet_directory_uri() . '/js/vendor/identicon.js', array(), filemtime( get_template_directory() . '/js/vendor/identicon.js' ), false );
 	wp_enqueue_script( 'mapbox', get_stylesheet_directory_uri() . '/js/vendor/mapbox.js', array(), filemtime( get_template_directory() . '/js/vendor/mapbox.js' ), false );
 
-
 	// Custom scripts.
 	wp_enqueue_script( 'groups', get_stylesheet_directory_uri() . '/js/groups.js', array( 'jquery' ), filemtime( get_template_directory() . '/js/groups.js' ), false );
 	wp_enqueue_script( 'events', get_stylesheet_directory_uri() . '/js/events.js', array( 'jquery' ), filemtime( get_template_directory() . '/js/events.js' ), false );
@@ -705,8 +704,9 @@ function mozilla_save_post( $post_id, $post, $update ) {
 			}
 
 			if ( isset( $_POST['location-type'] ) ) {
-				$event->location_type = isset($event_update_meta[0]->location_type) && strlen( $event_update_meta[0]->location_type ) > 0 ? $event_update_meta[0]->location_type : sanitize_text_field( wp_unslash( $_POST['location-type'] ) );
-				mozilla_add_location_type($_POST['location_id'], $event->location_type);
+				$event->location_type = isset( $_POST['location-type']) && strlen( $_POST['location-type'] ) > 0 ? sanitize_text_field( wp_unslash( $_POST['location-type'] ) ) : $event_update_meta[0]->location_type ;
+				$location_id          = sanitize_text_field( wp_unslash( $_POST['location_id'] ) );
+				mozilla_add_location_type( $location_id, $event->location_type );
 			} else {
 				$event->location_type = $event_update_meta[0]->location_type;
 			}
@@ -833,7 +833,7 @@ function mozilla_post_status_transition( $new_status, $old_status, $post ) {
 					$event->image_url = esc_url_raw( wp_unslash( $_POST['image_url'] ) );
 				} else {
 					$event->image_url = '';
-				}	
+				}
 
 				if ( isset( $_POST['location-type'] ) ) {
 					$event->location_type = sanitize_text_field( wp_unslash( $_POST['location-type'] ) );

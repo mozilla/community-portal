@@ -11,34 +11,35 @@
 	global $EM_Event;
 	$em_location = $GLOBALS['EM_Location'];
 
-  // $em_event->get_event_location();
-  // var_dump($em_event->has_location());
-
-	if ( 0 !== $EM_Event->location_id ) {
-		$em_location = $EM_Event->get_location();
-	} else {
-		$em_location = new EM_Location();
-	}
+if ( 0 !== $EM_Event->location_id ) {
+	$em_location = $EM_Event->get_location();
+} else {
+	$em_location = new EM_Location();
+}
 
 	$required = apply_filters( 'em_required_html', '<i>*</i>' );
-	if ( isset( $_REQUEST['nonce'] ) && wp_verify_nonce( sanitize_key( $_REQUEST['nonce'] ), 'edit-event' ) && isset( $_REQUEST['event_id'] ) ) {
-		$event         = sanitize_key( $_REQUEST['event_id'] );
-		$event         = em_get_event( $event );
-		$event_meta    = get_post_meta( $event->post_id, 'event-meta' );
-		$event_location_type = isset($event_meta[0]->location_type)  && strlen($event_meta[0]->location_type) > 0 ? $event_meta[0]->location->type : null;
-		$location_type = get_post_meta($em_location->post_id, 'location-type', true);
-		$location_type = isset( $location_type ) && strlen( $location_type ) > 0 ? $location_type : $event_location_type;
-		var_dump($location_type);
-	} else {
-		$event = false;
-	}
+if ( isset( $_REQUEST['nonce'] ) && wp_verify_nonce( sanitize_key( $_REQUEST['nonce'] ), 'edit-event' ) && isset( $_REQUEST['event_id'] ) ) {
+	$event               = sanitize_key( $_REQUEST['event_id'] );
+	$event               = em_get_event( $event );
+	$event_meta          = get_post_meta( $event->post_id, 'event-meta' );
+	$event_location_type = isset( $event_meta[0]->location_type ) && strlen( $event_meta[0]->location_type ) > 0 ? $event_meta[0]->location->type : null;
+	$location_type       = get_post_meta( $em_location->post_id, 'location-type', true );
+	$location_type       = isset( $location_type ) && strlen( $location_type ) > 0 ? $location_type : $event_location_type;
+} else {
+	$event = false;
+}
 
 ?>
 <div id="em-location-data" class="em-location-data">
 	<div>
 		<button 
 			id="em-location-reset"
-			class="btn event-creator__location-reset <?php if ( ! $event ) { echo esc_attr( 'hidden' ); } ?>" 
+			class="btn event-creator__location-reset 
+			<?php
+			if ( ! $event ) {
+				echo esc_attr( 'hidden' ); }
+			?>
+			" 
 		>
 			<a>
 				<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -48,10 +49,20 @@
 			</a>
 		</button>
 	</div>
-	<div class="<?php if ( $event ) { echo esc_attr( 'event-creator__location-edit' ); } ?> em-location-data event-creator__location">
+	<div class="
+	<?php
+	if ( $event ) {
+		echo esc_attr( 'event-creator__location-edit' ); }
+	?>
+		em-location-data event-creator__location">
 		<div class="event-creator__three-up">
 			<div 
-				class="wide <?php if ( $event ) { echo esc_attr( 'wide--md-third' ); } ?>"
+				class="wide 
+				<?php
+				if ( $event ) {
+					echo esc_attr( 'wide--md-third' ); }
+				?>
+				"
 			>
 				<label class="event-creator__label" for="location-type">
 					<?php esc_html_e( 'Is this event online or on location? *', 'community-portal' ); ?>
@@ -60,18 +71,18 @@
 					class="event-creator__dropdown" 
 					name="location-type" 
 					id="location-type" 
-					<?php 
-						if ( $event ) {
-							echo esc_attr( 'selected' ); 
-						}
+					<?php
+					if ( $event ) {
+						echo esc_attr( 'selected' );
+					}
 					?>
 					required
 				>
 					<option 
 						value="online" 
-						<?php 
-							if ( isset( $location_type ) && 'online' === $location_type ) :
-								echo esc_attr( 'selected' );
+						<?php
+						if ( isset( $location_type ) && 'online' === $location_type ) :
+							echo esc_attr( 'selected' );
 							endif;
 						?>
 						default 
@@ -81,8 +92,8 @@
 					<option 
 						value="address" 
 						<?php
-							if ( isset( $location_type ) && 'address' === $location_type ) :
-								echo esc_attr( 'selected' );
+						if ( isset( $location_type ) && 'address' === $location_type ) :
+							echo esc_attr( 'selected' );
 							endif;
 						?>
 					>
@@ -109,7 +120,7 @@
 					name="location_name" 
 					required
 					value="<?php echo esc_attr( $em_location->location_name ); ?>" 
-					<?php echo $event ? esc_attr('readonly') : null ?> 
+					<?php echo $event ? esc_attr( 'readonly' ) : null; ?> 
 				/>	
 				<div class="form__error-container">
 					<p class="form__error">
@@ -121,12 +132,12 @@
 		</div>
 		<div class="event-creator__three-up 
 		<?php
-		if ( !isset($event) ) {
+		if ( ! isset( $event ) ) {
 			echo esc_attr( 'event-creator__hidden' );
-		} elseif (!isset( $location_type )) {
+		} elseif ( ! isset( $location_type ) ) {
 			echo esc_attr( 'event-creator__hidden' );
 
-		} elseif( 'address' !== $location_type )  {
+		} elseif ( 'address' !== $location_type ) {
 			echo esc_attr( 'event-creator__hidden' );
 		}
 		?>
@@ -140,7 +151,7 @@
 					name="location_address" 
 					required 
 					value="<?php $em_location->location_address ? print esc_attr( $em_location->location_address ) : esc_html_e( 'Online', 'community-portal' ); ?>" 
-					<?php echo $event ? esc_attr('readonly') : null ?>
+					<?php echo $event ? esc_attr( 'readonly' ) : null; ?>
 				/> 
 				<div class="form__error-container">
 					<p class="form__error"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></p>
@@ -151,7 +162,7 @@
 			<div class="wide">
 				<label 
 					id="location-country-label" 
-					class="event-creator__label <?php echo isset($location_type) && $location_type === 'online' ? esc_attr('event-creator__label--online') : esc_attr('event-creator__label--in-person'); ?>" 
+					class="event-creator__label <?php echo isset( $location_type ) && 'online' === $location_type ? esc_attr( 'event-creator__label--online' ) : esc_attr( 'event-creator__label--in-person' ); ?>" 
 					for="location-country"
 				>
 					<span class="online"><?php esc_html_e( 'Where will this event be held? *', 'community-portal' ); ?></span>
@@ -163,12 +174,12 @@
 						value="0" 
 						default
 
-						<?php 
-							if ( '' === $em_location->location_country ) {
-								echo esc_attr( 'selected="selected"' );
-							} else {
-								echo esc_attr( '' ); 
-							} 
+						<?php
+						if ( '' === $em_location->location_country ) {
+							echo esc_attr( 'selected="selected"' );
+						} else {
+							echo esc_attr( '' );
+						}
 						?>
 					>
 						<?php esc_html_e( 'Select', 'community-portal' ); ?>
@@ -217,7 +228,7 @@
 					value="<?php echo esc_attr( $em_location->location_town ); ?>"  
 					maxlength="180" 
 					required
-					<?php echo $event ? esc_attr('readonly') : null ?> 
+					<?php echo $event ? esc_attr( 'readonly' ) : null; ?> 
 				/>
 				<div class="form__error-container">
 					<p class="form__error">
