@@ -40,6 +40,7 @@ if ( isset( $_REQUEST['nonce'] ) && wp_verify_nonce( sanitize_key( $_REQUEST['no
 				echo esc_attr( 'hidden' ); }
 			?>
 			" 
+			type="button"
 		>
 			<a>
 				<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -121,6 +122,7 @@ if ( isset( $_REQUEST['nonce'] ) && wp_verify_nonce( sanitize_key( $_REQUEST['no
 					required
 					value="<?php echo esc_attr( $em_location->location_name ); ?>" 
 					<?php echo $event ? esc_attr( 'readonly' ) : null; ?> 
+					tabindex=<?php echo  $event  ? esc_attr( '-1' ) : esc_attr('0');  ?>
 				/>	
 				<div class="form__error-container">
 					<p class="form__error">
@@ -152,6 +154,7 @@ if ( isset( $_REQUEST['nonce'] ) && wp_verify_nonce( sanitize_key( $_REQUEST['no
 					required 
 					value="<?php $em_location->location_address ? print esc_attr( $em_location->location_address ) : esc_html_e( 'Online', 'community-portal' ); ?>" 
 					<?php echo $event ? esc_attr( 'readonly' ) : null; ?>
+					tabindex=<?php echo  $event  ? esc_attr( '-1' ) : esc_attr('0');  ?>
 				/> 
 				<div class="form__error-container">
 					<p class="form__error"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></p>
@@ -229,6 +232,7 @@ if ( isset( $_REQUEST['nonce'] ) && wp_verify_nonce( sanitize_key( $_REQUEST['no
 					maxlength="180" 
 					required
 					<?php echo $event ? esc_attr( 'readonly' ) : null; ?> 
+					tabindex=<?php echo  $event  ? esc_attr( '-1' ) : esc_attr('0');  ?>
 				/>
 				<div class="form__error-container">
 					<p class="form__error">

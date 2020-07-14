@@ -286,14 +286,14 @@ jQuery(function() {
 			inputs.forEach((input) => {
 				let $el = jQuery(`#location-${input}`);
 				$el.prop('readonly', false);
-				$el.prop('tabindex', '0');
+				$el.attr('tabindex', '0');
 			})
             return;
 		}
 		inputs.forEach((input) => {
 			let $el = jQuery(`#location-${input}`);
 			$el.prop('readonly', true);
-			$el.prop('tabindex', '0');
+			$el.prop('tabindex', '-1');
 		})
     }
 
@@ -356,7 +356,7 @@ jQuery(function() {
 	}
 
     const editLocation = function() {
-        const $editBtn = jQuery("#em-location-reset a")
+        const $editBtn = jQuery("#em-location-reset")
         if ($editBtn) {
             $editBtn.on("click", function(e) {
 				e.preventDefault();
