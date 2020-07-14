@@ -673,8 +673,6 @@ function mozilla_group_addional_column_info( $retval = '', $column_name, $item )
  * @param boolean $update are we updating.
  */
 function mozilla_save_post( $post_id, $post, $update ) {
-	var_dump($_POST); 
-	die();
 
 	if ( 'event' === $post->post_type && $update ) {
 

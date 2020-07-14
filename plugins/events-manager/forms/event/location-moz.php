@@ -11,17 +11,23 @@
 	$em_event    = $GLOBALS['EM_Event'];
 	$em_location = $GLOBALS['EM_Location'];
 
+	if ( 0 !== $em_event->location_id ) {
+		$em_location = $em_event->get_location();
+	} else {
+		$em_location = new EM_Location();
+	}
+
 	$required = apply_filters( 'em_required_html', '<i>*</i>' );
 	if ( isset( $_REQUEST['nonce'] ) && wp_verify_nonce( sanitize_key( $_REQUEST['nonce'] ), 'edit-event' ) && isset( $_REQUEST['event_id'] ) ) {
 		$event         = sanitize_key( $_REQUEST['event_id'] );
 		$event         = em_get_event( $event );
 		$event_meta    = get_post_meta( $event->post_id, 'event-meta' );
-		$location_type = isset( $event_meta[0]->location_type ) && strlen( $event_meta[0]->location_type ) > 0 ? $event_meta[0]->location_type : null;
+		$location_type = get_post_meta($em_location->post_id, 'location-type', true);
+		$location_type = isset( $location_type ) && strlen( $location_type ) > 0 ? $location_type : null;
 
 	} else {
 		$event = false;
 	}
-	var_dump($event_meta[0]);
 
 ?>
 <div id="em-location-data" class="em-location-data">
@@ -39,14 +45,6 @@
 		</button>
 	</div>
 	<div class="<?php if ( $event ) { echo esc_attr( 'event-creator__location-edit' ); } ?> em-location-data event-creator__location">
-		<?php
-			global $em_location;
-			if ( 0 !== $em_event->location_id ) {
-				$em_location = $em_event->get_location();
-			} else {
-				$em_location = new EM_Location();
-			}
-		?>
 		<div class="event-creator__three-up">
 			<div 
 				class="wide <?php if ( $event ) { echo esc_attr( 'wide--md-third' ); } ?>"
@@ -56,7 +54,7 @@
 				</label>
 				<select 
 					class="event-creator__dropdown" 
-					name="type" 
+					name="location-type" 
 					id="location-type" 
 					<?php 
 						if ( $event ) {
@@ -100,7 +98,7 @@
 					<span class="in-person"><?php esc_html_e( 'Location Name *', 'community-portal' ); ?></span>	
 				</label>
 				<input id='location-id' name='location_id' type='hidden' value='<?php echo esc_attr( $em_location->location_id ); ?>' size='15'  />
-				<input class="event-creator__input" id="location-name__mozilla" type="type" name="location_name" required value="<?php echo esc_attr( $em_location->location_name ); ?>" required />	
+				<input class="event-creator__input" id="location-name-mozilla" type="type" name="location_name" required value="<?php echo esc_attr( $em_location->location_name ); ?>" required />	
 				<div class="form__error-container">
 					<p class="form__error">
 						<span class="in-person"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></span>
@@ -131,11 +129,6 @@
 					<span class="in-person"><?php esc_html_e( 'Country', 'community-portal' ); ?></span>
 				</label>
 				<select class="event-creator__dropdown" id="location-country" name="location_country" 
-				<?php
-				if ( $event ) :
-					echo esc_attr( 'disabled' );
-endif;
-				?>
 				required>
 					<option value="0" 
 					<?php

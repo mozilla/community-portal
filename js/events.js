@@ -246,34 +246,47 @@ jQuery(function() {
 	}
 
 	// LOCATION HANDLER
+	const checkContainerClass = function() {
+		const $container = jQuery(".event-creator__location");
+		if ($container.hasClass('event-creator__location-edit')) {
+			const fields = [ 'name-mozilla', 'id', 'address'];
+			handleLocationEdit(fields);
+		}
+	}
+
 	const handleCityForOnline = function($country, $city) {
+		checkContainerClass();
         if ($country.val() === 'OE') {
 			string = $city.data('string');
-            $city.val(string);
-        } else if ($city.val() === 'Online Event') {
-            $city.val('');
-        }
-
+			$city.val(string);
+			return;
+        } 
+		$city.val('');
     }
 
-    const toggleInputAbility = function(input, typeValue, enabled) {
-		input.prop("disabled", false);
-		console.log(input);
-		console.log(input.prop("disba"))
+    const toggleInputAbility = function(inputs, enabled) {
         if (enabled) {
-			input.attr("readonly", false);
-			input.attr('tabindex', '0');
-            if (typeValue) {
-                input.val(typeValue);
-            }
+			inputs.forEach((input) => {
+				let $el = jQuery(`#location-${input}`);
+				$el.attr('readonly', false);
+				$el.attr('tabindex', '0');
+			})
             return;
 		}
-		input.prop("readonly", true);
+		inputs.forEach((input) => {
+			let $el = jQuery(`#location-${input}`);
+			$el.attr('readonly', true);
+			$el.attr('tabindex', '0');
+		})
     }
 
-    const toggleLocationContainer = function() {
-        const $container = jQuery(".event-creator__location");
-		$container.toggleClass("event-creator__location-edit");
+    const toggleLocationContainer = function(display = false) {
+		const $container = jQuery(".event-creator__location");
+		if (display) {
+			$container.removeClass("event-creator__location-edit");
+			return;
+		}
+		$container.addClass("event-creator__location-edit");
     }
 
     const clearPrePopErrors = function(selector) {
@@ -295,42 +308,54 @@ jQuery(function() {
 		});	
 	}
 
-    const handleAutocomplete = function($locationType, $country, typeValue) {
+	const displayReset = function(display) {
+		const resetBtn = jQuery('#em-location-reset');
+		if (display) {
+			resetBtn.show();
+			return;
+		}
+		resetBtn.hide();
+	}
 
-        jQuery("#location-name").on("autocompleteselect", function(e) {
-			const $container = jQuery(".event-creator__location");
-			const $errors = $container.find(".event-creator__input--error");
-			if ($errors.length > 0) {
-				iterateThroughErrors($errors);
-			}
-			clearPrePopErrors("event-creator__input--error");
-            clearPrePopErrors("form__error-container--visible");
-			toggleInputAbility($locationType, typeValue, true);
-			console.log($locationType);
-			toggleInputAbility($country, null, true);
-			toggleLocationContainer();
-        });
+    const handleAutocomplete = function() {
+		displayReset(true);
+		const $errors = jQuery(".event-creator__location .event-creator__input--error");
+		const inputs = ['address', 'name-mozilla', 'town'];
+		if ($errors.length > 0) {
+			iterateThroughErrors($errors);
+		}
+		clearPrePopErrors("event-creator__input--error");
+		clearPrePopErrors("form__error-container--visible");
+		toggleInputAbility(inputs, false);
+		toggleLocationContainer();
+	}
+
+	const clearLocationFields = function(fields) {
+		fields.forEach((field) => {
+			let $el = jQuery(`#location-${field}`);
+			$el.val('');
+		});
+
 	}
 	
-	const handleLocationEdit = function($countryInput, $locationType, locationTypeValue) {
-		toggleLocationContainer();
-		toggleInputAbility($locationType, locationTypeValue, true);
-		toggleInputAbility($countryInput, null, true);
-		
+	const handleLocationEdit = function(fields) {
+		const inputs = ['name-mozilla', 'town', 'address'];
+		toggleLocationContainer(true);
+		toggleInputAbility(inputs, true);
+		displayReset(false);
+		clearLocationFields(fields);
 	}
 
     const editLocation = function() {
-        const $editBtn = jQuery("#em-location-reset a");
-        const $countryInput = jQuery("#location-country");
-        const $locationType = jQuery("#location-type");
-		const locationTypeValue = $locationType.val();
+        const $editBtn = jQuery("#em-location-reset a")
         if ($editBtn) {
-            $editBtn.on("click", function( ) {
-				handleLocationEdit($countryInput, $locationType, locationTypeValue);
+            $editBtn.on("click", function(e) {
+				e.preventDefault();
+				const fields = [ 'name-mozilla', 'id', 'country', 'town', 'address'];
+				handleLocationEdit(fields);
 			});
         }
 	}
-
 
 	const toggleLocationType = function (online ) {
         const $locationAddress = jQuery("#location-address");
@@ -351,6 +376,8 @@ jQuery(function() {
 		const $locationTypeInput = jQuery("#location-type");
         $locationTypeInput.on("change", function() {
 			$this = jQuery(this);
+			const fields = [ 'name-mozilla', 'id', 'country', 'town', 'address'];
+			handleLocationEdit(fields);
 			if ($this.val() === 'online') {
 				toggleLocationType(true);
 				return;
@@ -366,12 +393,23 @@ jQuery(function() {
         if ($locationCountry.length > 0) {
             $locationCountry.on('change', function(e) {
 				const $this = jQuery(this);
-                handleCityForOnline($this, $locationCity);
+				handleCityForOnline($this, $locationCity);
             });
         }
 	}
 
-	jQuery('#location-name__mozilla').autoComplete({
+	const handleAutocompleteSelection = function(data) {
+		for (key in data) {
+			let $el = jQuery(`#location-${key}`);
+			$el.val(data[key]);
+		}
+		const $location_name = jQuery('#location-name-mozilla');
+		$location_name.val(data.name);
+		handleAutocomplete();
+	}
+
+
+	jQuery('#location-name-mozilla').autoComplete({
         source: function(term, suggest) {
             jQuery.getJSON('/wp-admin/admin-ajax.php?action=get_locations', { q: term }, function(data){
 	
@@ -380,19 +418,21 @@ jQuery(function() {
 						name: location.location_name,
 						id: location.location_id,
 						country: location.location_country,
-						city: location.location_town,
+						town: location.location_town,
 						address: location.location_address,
+						type: location.location_type,
 					};
 				});
 				suggest(locations); 
             });
         },
         renderItem: function(item, search) {
-			return `<div class="autocomplete-suggestion" data-id=${item.id} data-country=${item.country} data-city=${item.city} data-address=${item.address}>${item.name}</div>`
+			console.log(item.location_type);
+			return `<div class="autocomplete-suggestion" data-name="${item.name}" data-id=${item.id} data-country="${item.country}" data-town="${item.town}" data-address="${item.address}">${item.name}</div>`
         },
         onSelect: function(e, term, item) {
-            e.preventDefault();
-            // jQuery('#group-admin-id').val(item.data('id'));
+			e.preventDefault();
+			handleAutocompleteSelection(item.data());
         }
     });
 
