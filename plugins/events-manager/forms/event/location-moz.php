@@ -68,14 +68,14 @@ if ( isset( $_REQUEST['nonce'] ) && wp_verify_nonce( sanitize_key( $_REQUEST['no
 				<label class="event-creator__label" for="location-type">
 					<?php esc_html_e( 'Is this event online or on location? *', 'community-portal' ); ?>
 				</label>
-				<input type="hidden" id="location-type--hidden" name="location-type" value="<?php echo esc_attr($location_type) ?>">
+				<input type="hidden" id="location-type--hidden" name="location-type" value="<?php echo esc_attr( $location_type ); ?>">
 				<select 
 					class="event-creator__dropdown" 
 					name="location-type" 
 					id="location-type" 
-					<?php if ( isset($location_type) && strlen($location_type) > 0): ?>
-						<?php echo esc_attr('disabled'); ?>
-						tabindex=<?php echo esc_attr("-1") ?>
+					<?php if ( isset( $location_type ) && strlen( $location_type ) > 0 ) : ?>
+						<?php echo esc_attr( 'disabled' ); ?>
+						tabindex=<?php echo esc_attr( '-1' ); ?>
 					<?php endif; ?>
 					required
 				>
@@ -122,7 +122,7 @@ if ( isset( $_REQUEST['nonce'] ) && wp_verify_nonce( sanitize_key( $_REQUEST['no
 					required
 					value="<?php echo esc_attr( $em_location->location_name ); ?>" 
 					<?php echo $event ? esc_attr( 'readonly' ) : null; ?> 
-					tabindex=<?php echo  $event  ? esc_attr( '-1' ) : esc_attr('0');  ?>
+					tabindex=<?php echo $event ? esc_attr( '-1' ) : esc_attr( '0' ); ?>
 				/>	
 				<div class="form__error-container">
 					<p class="form__error">
@@ -154,7 +154,7 @@ if ( isset( $_REQUEST['nonce'] ) && wp_verify_nonce( sanitize_key( $_REQUEST['no
 					required 
 					value="<?php $em_location->location_address ? print esc_attr( $em_location->location_address ) : esc_html_e( 'Online', 'community-portal' ); ?>" 
 					<?php echo $event ? esc_attr( 'readonly' ) : null; ?>
-					tabindex=<?php echo  $event  ? esc_attr( '-1' ) : esc_attr('0');  ?>
+					tabindex=<?php echo $event ? esc_attr( '-1' ) : esc_attr( '0' ); ?>
 				/> 
 				<div class="form__error-container">
 					<p class="form__error"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></p>
@@ -171,15 +171,15 @@ if ( isset( $_REQUEST['nonce'] ) && wp_verify_nonce( sanitize_key( $_REQUEST['no
 					<span class="online"><?php esc_html_e( 'Where will this event be held? *', 'community-portal' ); ?></span>
 					<span class="in-person"><?php esc_html_e( 'Country', 'community-portal' ); ?></span>
 				</label>
-				<input type="hidden" id="location-country--hidden" name="location_country" value="<?php echo esc_attr($em_location->location_country) ?>">
+				<input type="hidden" id="location-country--hidden" name="location_country" value="<?php echo esc_attr( $em_location->location_country ); ?>">
 				<select 
 					class="event-creator__dropdown" 
 					id="location-country" 
 					name="location_country" 
 					required
-					<?php if ( isset($em_location->location_country) && strlen($em_location->location_country) > 0): ?>
-						<?php echo esc_attr('disabled'); ?>
-						tabindex=<?php echo esc_attr("-1") ?>
+					<?php if ( isset( $em_location->location_country ) && strlen( $em_location->location_country ) > 0 ) : ?>
+						<?php echo esc_attr( 'disabled' ); ?>
+						tabindex=<?php echo esc_attr( '-1' ); ?>
 					<?php endif; ?>
 				>
 					<option 
@@ -241,7 +241,7 @@ if ( isset( $_REQUEST['nonce'] ) && wp_verify_nonce( sanitize_key( $_REQUEST['no
 					maxlength="180" 
 					required
 					<?php echo $event ? esc_attr( 'readonly' ) : null; ?> 
-					tabindex=<?php echo  $event  ? esc_attr( '-1' ) : esc_attr('0');  ?>
+					tabindex=<?php echo $event ? esc_attr( '-1' ) : esc_attr( '0' ); ?>
 				/>
 				<div class="form__error-container">
 					<p class="form__error">

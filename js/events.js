@@ -78,7 +78,6 @@ jQuery(function() {
 	const toggleVisibility = function($selector, value, hidden) {
         $selector.val(value);
         if (hidden) {
-			console.log($selector.parent().parent());
             $selector
                 .parent()
                 .parent()
@@ -409,10 +408,14 @@ jQuery(function() {
 	}
 
 	const handleAutocompleteSelection = function(data) {
-		data.type = data.type ? data.type : 'address';
+		data.type = data.address === 'Online' ? 'online' : 'address';
 		for (key in data) {
 			let $el = jQuery(`#location-${key}`);
 			$el.val(data[key]);
+			let $el_hidden = jQuery(`#location-${key}--hidden`);
+			if ($el_hidden.length > 0) {
+				$el_hidden.val(data[key]);
+			}
 		}
 		const $location_name = jQuery('#location-name-mozilla');
 		$location_name.val(data.name);

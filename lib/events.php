@@ -305,14 +305,14 @@ function mozilla_get_locations() {
 	if ( isset( $_GET['q'] ) ) {
 		$q = trim( sanitize_user( wp_unslash( $_GET['q'] ) ) );
 		if ( strlen( $q ) > 0 ) {
-			$all_locations = EM_Locations::get();
+			$all_locations      = EM_Locations::get();
 			$matching_locations = array();
-			foreach($all_locations as $location) {
-				if (false !== stripos($location->location_name, $q)) {
-					$location_type = get_post_meta($location->post_id, 'location-type', true);
-					$location->location_type = isset($location_type) && strlen($location_type) > 0 ? $location_type : null;
-					array_push($matching_locations, $location);
-					if (count($matching_locations) > 4) {
+			foreach ( $all_locations as $location ) {
+				if ( false !== stripos( $location->location_name, $q ) ) {
+					$location_type           = get_post_meta( $location->post_id, 'location-type', true );
+					$location->location_type = isset( $location_type ) && strlen( $location_type ) > 0 ? $location_type : null;
+					array_push( $matching_locations, $location );
+					if ( count( $matching_locations ) > 4 ) {
 						break;
 					}
 				}
@@ -324,21 +324,37 @@ function mozilla_get_locations() {
 	die();
 }
 
-function mozilla_add_location_type($post_id, $location_type = null) {
-	$location = em_get_location($post_id);
-	if (!empty($location_type)) {
-		update_post_meta($location->post_id, 'location-type', $location_type);
+/**
+ * Add location type to location post metadata
+ *
+ * @param integer $post_id post ID.
+ * @param string  $location_type location type value.
+ */
+function mozilla_add_location_type( $post_id, $location_type = null ) {
+	$location = em_get_location( $post_id );
+	if ( ! empty( $location_type ) ) {
+		update_post_meta( $location->post_id, 'location-type', $location_type );
 		return;
 	}
-	if (isset( $_POST['location-type'] ) ) {
-		update_post_meta($post_id, 'location-type', $_POST['location-type']);
+	if ( isset( $_POST['location-type'] ) ) {
+		$location_type = sanitize_text_field( wp_unslash( $_POST['location-type'] ) );
+		update_post_meta( $post_id, 'location-type', $location_type );
 	}
 }
 
-function mozilla_handle_location_save($post_id, $post, $update) {
-	if (isset( $_POST['location-type'] ) ) {
-		update_post_meta($post_id, 'location-type', $_POST['location-type']);
+
+/**
+ * Add location type to location post metadata
+ *
+ * @param integer $post_id post ID.
+ * @param mixed   $post location post object.
+ * @param bool    $update if this is an update.
+ */
+function mozilla_handle_location_save( $post_id, $post, $update ) {
+	if ( isset( $_POST['location-type'] ) ) {
+		$location_type = sanitize_text_field( wp_unslash( $_POST['location-type'] ) );
+		update_post_meta( $post_id, 'location-type', $location_type );
 	}
 }
 
-add_action('save_post_location', 'mozilla_handle_location_save', 10, 3);
+add_action( 'save_post_location', 'mozilla_handle_location_save', 10, 3 );
