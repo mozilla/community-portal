@@ -161,8 +161,9 @@ if ( $EM_Event->is_recurring() ) {
 					);
 
 					$activities  = new WP_Query( $args );
-					$initiatives = array_merge( $initiatives, $activities->posts );
 
+					$initiatives = array_merge( $initiatives, $activities->posts );
+					array_map('mozilla_apply_default_post_ids', $initiatives);
 					?>
 			<?php if ( count( $initiatives ) > 0 ) : ?>
 			<div class="event-creator__three-up">

@@ -94,12 +94,14 @@ if ( count( $categories ) > 0 ) {
 				$campaign_status = get_field( 'campaign_status', $campaign->ID );
 
 				if ( strtolower( $campaign_status ) !== 'closed' ) {
-					$initiatives[ $campaign->ID ] = $campaign->post_title;
+					$campaign_id = apply_filters( 'wpml_object_id', $campaign->ID, 'campaign', true, 'en' );
+					$initiatives[ $campaign_id ] = $campaign->post_title;
 					continue;
 				}
 
 				if ( $today >= $start && $today <= $end ) {
-					$initiatives[ $campaign->ID ] = $campaign->post_title;
+					$campaign_id = apply_filters( 'wpml_object_id', $campaign->ID, 'campaign', true, 'en' );
+					$initiatives[ $campaign_id ] = $campaign->post_title;
 				}
 			}
 
@@ -110,7 +112,8 @@ if ( count( $categories ) > 0 ) {
 
 			$activities = new WP_Query( $args );
 			foreach ( $activities->posts as $activity ) {
-				$initiatives[ $activity->ID ] = $activity->post_title;
+				$activity_id = apply_filters( 'wpml_object_id', $activity->ID, 'activity', true, 'en' );
+				$initiatives[ $activity_id ] = $activity->post_title;
 			}
 
 			$options = $initiatives;
