@@ -1044,5 +1044,17 @@ function mozilla_map_tags( $tag ) {
 function mozilla_apply_default_post_ids($post) {
 	$post_type = $post->post_type;
 	$post->ID = apply_filters( 'wpml_object_id', $post->ID, $post_type, true, 'en' );
-	return $post;
+  return $post;
+}
+
+/** 
+ * Adjusts filters on ACF post search to allow all events
+ *
+ * @param array $args current arguments.
+ * @param object $post current post.
+ * @param integer $post_id current post id.
+ */
+function mozilla_query_all_events( $args, $post, $post_id ) {
+	$args['suppress_filters'] = true;
+	return $args;
 }
