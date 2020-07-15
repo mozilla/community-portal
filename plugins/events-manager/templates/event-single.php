@@ -200,7 +200,7 @@ if ( isset( $em_event->group_id ) ) {
 							<?php
 							echo esc_html( substr( $em_event->event_start_time, 0, 5 ) );
 							if ( null !== $em_event->event_end_time ) {
-								echo esc_html( ' to ' ) . esc_html( substr( $em_event->event_end_time, 0, 5 ) ) . esc_html( ' ' ) . esc_html( $em_event->event_timezone );
+								echo esc_html( ' - ' ) . esc_html( substr( $em_event->event_end_time, 0, 5 ) ) . esc_html( ' ' ) . esc_html( $em_event->event_timezone );
 							}
 							?>
 						</p>

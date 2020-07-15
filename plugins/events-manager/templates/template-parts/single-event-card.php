@@ -116,7 +116,7 @@
 					</svg>
 					<?php endif; ?>
 					<?php
-					print esc_html__( 'Part of ', 'community-portal' ) . esc_html( '  ' ) . esc_html( $initiative->post_title );
+					print esc_html__( 'Part of', 'community-portal' ) . esc_html( '  ' ) . esc_html( $initiative->post_title );
 					if ( 'campaign' === $initiative->post_type ) {
 						esc_html__( 'Campaign', 'community-portal' );
 					} else {

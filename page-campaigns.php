@@ -24,11 +24,6 @@
 		'posts_per_page' => -1,
 	);
 
-	$translated_status = array(
-		'Active' => __( 'Active', 'community-portal' ),
-		'Closed' => __( 'Closed', 'community-portal' ),
-	);
-
 	$current_translation = mozilla_get_current_translation();
 
 	$campaign_count = 0;

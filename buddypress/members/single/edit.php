@@ -16,6 +16,7 @@ $theme_directory     = get_template_directory();
 $current_translation = mozilla_get_current_translation();
 require "{$theme_directory}/countries.php";
 require "{$theme_directory}/languages.php";
+require "{$theme_directory}/pronouns.php";
 $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 
 ?>
@@ -366,16 +367,16 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 							<option value="">
 								<?php esc_html_e( 'Preferred Pronoun', 'community-portal' ); ?>
 							</option> 
-							<?php foreach ( $pronouns as $p ) : ?>
+							<?php foreach ( $pronouns as $key=>$p ) : ?>
 								<option 
-									value="<?php echo esc_html( $p ); ?>"
+									value="<?php echo esc_attr( $key ); ?>"
 									<?php
-									if ( $form && isset( $form['pronoun'] ) && $form['pronoun'] === $p ) :
+									if ( $form && isset( $form['pronoun'] ) && $form['pronoun'] === $key ) :
 										?>
 										selected
 									<?php else : ?>
 										<?php
-										if ( isset( $community_fields['pronoun'] ) && $community_fields['pronoun'] === $p ) :
+										if ( isset( $community_fields['pronoun'] ) && $community_fields['pronoun'] === $key ) :
 											?>
 											selected
 										<?php endif; ?>
@@ -873,7 +874,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 						}
 						?>
 						<input 
-							placeholder="username:domain" 
+							placeholder="<?php esc_attr_e('username:domain', 'community-portal') ?>"
 							type="text" 
 							name="matrix" 
 							id="matrix" 
