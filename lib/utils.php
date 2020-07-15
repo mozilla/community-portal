@@ -1037,6 +1037,17 @@ function mozilla_map_tags( $tag ) {
 }
 
 /**
+ * Maps initiatives to use IDs for English versions
+ *
+ * @param mixed $post_object the individual post.
+ */
+function mozilla_apply_default_post_ids($post) {
+	$post_type = $post->post_type;
+	$post->ID = apply_filters( 'wpml_object_id', $post->ID, $post_type, true, 'en' );
+  return $post;
+}
+
+/** 
  * Adjusts filters on ACF post search to allow all events
  *
  * @param array $args current arguments.
