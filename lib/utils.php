@@ -1036,10 +1036,13 @@ function mozilla_map_tags( $tag ) {
 	return $tag;
 }
 
-
-add_filter('acf/fields/post_object/query/name=event', 'mozilla_query_all_events', 10, 3);
-add_filter('acf/fields/post_object/query/name=single_event', 'mozilla_query_all_events', 10, 3);
-
+/**
+ * Adjusts filters on ACF post search to allow all events
+ *
+ * @param array $args current arguments.
+ * @param object $post current post.
+ * @param integer $post_id current post id.
+ */
 function mozilla_query_all_events( $args, $post, $post_id ) {
 	$args['suppress_filters'] = true;
 	return $args;
