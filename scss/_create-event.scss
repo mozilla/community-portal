@@ -538,6 +538,7 @@ div.time-picker ul li {
         input,
         select {
             color: $color-gray-60;
+            cursor: not-allowed;
         }
     }
 

@@ -58,11 +58,9 @@ jQuery(function(){
 
 	const updateValues = function($tagsInput, currentValue) {
 		let newValues = currentValue;
-		console.log(newValues);
 		if (currentValue.length > 1) {
 			newValues = currentValue.join(',');
 		} 
-		console.log(newValues);
 		$tagsInput.val(`${newValues}`);
 	}
 
