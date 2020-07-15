@@ -1035,3 +1035,15 @@ function mozilla_map_tags( $tag ) {
 	}
 	return $tag;
 }
+
+/**
+ * Adjusts filters on ACF post search to allow all events
+ *
+ * @param array $args current arguments.
+ * @param object $post current post.
+ * @param integer $post_id current post id.
+ */
+function mozilla_query_all_events( $args, $post, $post_id ) {
+	$args['suppress_filters'] = true;
+	return $args;
+}
