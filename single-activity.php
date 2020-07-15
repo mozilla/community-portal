@@ -303,7 +303,7 @@
 									</div>
 								</a>   
 								<?php endforeach; ?>
-								<a href="<?php echo esc_attr( add_query_arg( array( 'initiative' => $post->ID ), get_home_url( null, '/events/' ) ) ); ?>" class="activity__events-link">
+								<a href="<?php echo esc_attr( add_query_arg( array( 'initiative' => $initiative_id ), get_home_url( null, '/events/' ) ) ); ?>" class="activity__events-link">
 									<?php esc_html_e( 'View more events', 'community-portal' ); ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
 								</a>
 							</div>
