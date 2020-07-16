@@ -259,7 +259,7 @@ if ( isset( $em_event->group_id ) ) {
 						<?php else : ?>
 							<p><?php echo esc_html( $location->location_town ) . esc_html( ', ' ) . esc_html( $all_countries[ $em_event->location->location_country ] ); ?></p>
 						<?php endif; ?>
-						<p><a href="<?php print esc_attr( add_query_arg( array( 'country' => $all_countries[ $em_event->location->location_country ] ), get_home_url( null, 'events' ) ) ); ?>"><?php esc_html_e( 'View more events in ', 'community-portal' ); ?><?php print esc_html( $all_countries[ $em_event->location->location_country ] ); ?></a></p>
+						<p><a href="<?php print esc_attr( add_query_arg( array( 'country' => $em_event->location->location_country ), get_home_url( null, 'events' ) ) ); ?>"><?php esc_html_e( 'View more events in ', 'community-portal' ); ?><?php print esc_html( $all_countries[ $em_event->location->location_country ] ); ?></a></p>
 					<?php else : ?>
 						<p><?php esc_html_e( 'This is an online-only event', 'community-portal' ); ?></p>
 						<?php if ( ! empty( $em_event->location->name ) && filter_var( $em_event->location->name, FILTER_VALIDATE_URL ) ) : ?>
