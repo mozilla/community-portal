@@ -99,10 +99,10 @@
 				</div>
 				<?php endif; ?>
 				<?php if ( isset( $card_event_meta[0]->initiative ) && strlen( $card_event_meta[0]->initiative ) > 0 ) : ?>
-					<?php
+				<?php
 					$initiative = get_post( intval( $card_event_meta[0]->initiative ) );
-						if (!empty($initiative)): 
-					?>
+					if (!empty($initiative)): 
+				?>
 							<div class="events__campaign">
 								<?php if ( 'campaign' === $initiative->post_type ) : ?>
 								<svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -117,7 +117,7 @@
 								</svg>
 								<?php endif; ?>
 								<?php
-								print esc_html__( 'Part of ', 'community-portal' ) . esc_html( '  ' ) . esc_html( $initiative->post_title );
+								print esc_html__( 'Part of', 'community-portal' ) . esc_html( '  ' ) . esc_html( $initiative->post_title );
 								if ( 'campaign' === $initiative->post_type ) {
 									esc_html__( 'Campaign', 'community-portal' );
 								} else {
@@ -125,7 +125,7 @@
 								}
 								?>
 							</div>
-						<?php endif; ?>
+					<?php endif; ?>
 				<?php endif; ?>
 			</div>
 			<ul class="events__tags">

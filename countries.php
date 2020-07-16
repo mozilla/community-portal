@@ -61,7 +61,7 @@ $countries = array(
 	'CR' => __( 'Costa Rica',  'community-portal' ),
 	'CU' => __( 'Cuba',  'community-portal' ),
 	'CV' => __( 'Cabo Verde',  'community-portal' ),
-	'CW' => __( "Cura\u00e7ao",  'community-portal' ),
+	'CW' => __( "Curaçao",  'community-portal' ),
 	'CX' => __( 'Christmas Island',  'community-portal' ),
 	'CY' => __( 'Cyprus',  'community-portal' ),
 	'CZ' => __( 'Czech Republic',  'community-portal' ),
@@ -280,7 +280,7 @@ $countries = array(
 	'YT' => __( 'Mayotte',  'community-portal' ),
 	'ZA' => __( 'South Africa',  'community-portal' ),
 	'ZM' => __( 'Zambia',  'community-portal' ),
-	'ZW' => __( 'Zimbabwe',  'community-portal' ),
+  'ZW' => __( 'Zimbabwe',  'community-portal' ),
 );
 
 

@@ -21,6 +21,7 @@
 
 	$template_dir = get_template_directory();
 	require "{$template_dir}/languages.php";
+	require "{$template_dir}/countries.php";
 
 	$group           = $bp->groups->current_group;
 	$group_meta      = groups_get_groupmeta( $group->id, 'meta' );
@@ -141,10 +142,8 @@
 			} else {
 				$member_country = $info['location']->value;
 			}
-
-			$key = array_search( $member_country, $countries, true );
-			if ( $key ) {
-				$used_country_list[ $key ] = $countries[ $key ];
+			if ( isset($countries[ $member_country ] ) ) {
+				$used_country_list[ $member_country ] = $countries[ $member_country ];
 			}
 		}
 
@@ -164,7 +163,7 @@
 			if ( $info['tags']->display &&
 				$info['location']->display &&
 				array_key_exists( $country_code, $countries ) &&
-				strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+				strtolower( $country_code ) === strtolower( $member_country ) &&
 				in_array( $get_tag, array_map( 'strtolower', $member_tags ), true ) &&
 				stripos( $member->data->user_nicename, $search_user ) !== false &&
 				$info['languages']->display &&
@@ -180,7 +179,7 @@
 				if ( $info['tags']->display &&
 					$info['location']->display &&
 					array_key_exists( $country_code, $countries ) &&
-					strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+					strtolower( $country_code ) === strtolower( $member_country ) &&
 					in_array( $get_tag, array_map( 'strtolower', $member_tags ), true ) &&
 					$info['first_name']->display &&
 					stripos( $info['first_name']->value, $first_name ) !== false &&
@@ -195,7 +194,7 @@
 				if ( $info['tags']->display &&
 					$info['location']->display &&
 					array_key_exists( $country_code, $countries ) &&
-					strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+					strtolower( $country_code ) === strtolower( $member_country ) &&
 					in_array( $get_tag, array_map( 'strtolower', $member_tags ), true ) &&
 					$info['first_name']->display &&
 					stripos( $info['first_name']->value, $search_user ) !== false &&
@@ -212,7 +211,7 @@
 			if ( $last_name ) {
 				if ( $info['tags']->display && $info['location']->display &&
 					array_key_exists( $country_code, $countries ) &&
-					strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+					strtolower( $country_code ) === strtolower( $member_country ) &&
 					in_array( $get_tag, array_map( 'strtolower', $member_tags ), true ) &&
 					$info['last_name']->display &&
 					stripos( $info['last_name']->value, $last_name ) !== false &&
@@ -226,7 +225,7 @@
 			} else {
 				if ( $info['tags']->display && $info['location']->display &&
 					array_key_exists( $country_code, $countries ) &&
-					strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+					strtolower( $country_code ) === strtolower( $member_country ) &&
 					in_array( $get_tag, array_map( 'strtolower', $member_tags ), true ) &&
 					$info['last_name']->display &&
 					stripos( $info['last_name']->value, $search_user ) !== false &&
@@ -315,7 +314,7 @@
 			if ( $info['tags']->display &&
 				$info['location']->display &&
 				array_key_exists( $country_code, $countries ) &&
-				strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+				strtolower( $country_code ) === strtolower( $member_country ) &&
 				in_array( $get_tag, array_map( 'strtolower', $member_tags ), true ) &&
 				stripos( $member->data->user_nicename, $search_user ) !== false ) {
 					$filtered_members[] = $member;
@@ -327,7 +326,7 @@
 				if ( $info['tags']->display &&
 					$info['location']->display &&
 					array_key_exists( $country_code, $countries ) &&
-					strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+					strtolower( $country_code ) === strtolower( $member_country ) &&
 					in_array( $get_tag, array_map( 'strtolower', $member_tags ), true ) &&
 					$info['first_name']->display &&
 					stripos( $info['first_name']->value, $first_name ) !== false ) {
@@ -338,7 +337,7 @@
 				if ( $info['tags']->display &&
 					$info['location']->display &&
 					array_key_exists( $country_code, $countries ) &&
-					strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+					strtolower( $country_code ) === strtolower( $member_country ) &&
 					in_array( $get_tag, array_map( 'strtolower', $member_tags ), true ) &&
 					$info['first_name']->display &&
 					stripos( $info['first_name']->value, $search_user ) !== false ) {
@@ -351,7 +350,7 @@
 			if ( $last_name ) {
 				if ( $info['tags']->display && $info['location']->display &&
 					array_key_exists( $country_code, $countries ) &&
-					strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+					strtolower( $country_code ) === strtolower( $member_country ) &&
 					in_array( $get_tag, array_map( 'strtolower', $member_tags ), true ) &&
 					$info['last_name']->display &&
 					stripos( $info['last_name']->value, $last_name ) !== false ) {
@@ -361,7 +360,7 @@
 			} else {
 				if ( $info['tags']->display && $info['location']->display &&
 					array_key_exists( $country_code, $countries ) &&
-					strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+					strtolower( $country_code ) === strtolower( $member_country ) &&
 					in_array( $get_tag, array_map( 'strtolower', $member_tags ), true ) &&
 					$info['last_name']->display &&
 					stripos( $info['last_name']->value, $search_user ) !== false ) {
@@ -376,6 +375,7 @@
 
 		// Location / language / tag!
 		if ( false === $search_user && $country_code && $language_code && $get_tag ) {
+
 			if ( $info['languages']->display &&
 				$info['tags']->display &&
 				in_array( $get_tag, array_map( 'strtolower', $member_tags ), true ) &&
@@ -383,7 +383,7 @@
 				in_array( $language_code, $info['languages']->value, true ) &&
 				$info['location']->display &&
 				array_key_exists( $country_code, $countries ) &&
-				strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) ) {
+				strtolower( $country_code ) === strtolower( $member_country ) ) {
 					$filtered_members[] = $member;
 					continue;
 			}
@@ -395,13 +395,14 @@
 
 		// Search / location / language!
 		if ( $search_user && false === $get_tag && $country_code && $language_code ) {
-			if ( $info['language']->display &&
+
+			if ( $info['languages']->display &&
 				$info['location']->display &&
 				array_key_exists( $country_code, $countries ) &&
-				strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+				strtolower( $country_code ) === strtolower( $member_country ) &&
 				is_array( $info['languages']->value ) &&
 				in_array( $language_code, $info['languages']->value, true ) &&
-				stripos( false !== $member->data->user_nicename, $search_user ) ) {
+				false !== stripos( $member->data->user_nicename, $search_user ) ) {
 					$filtered_members[] = $member;
 					continue;
 			}
@@ -410,7 +411,7 @@
 			if ( $first_name ) {
 				if ( $info['location']->display &&
 					array_key_exists( $country_code, $countries ) &&
-					strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+					strtolower( $country_code ) === strtolower( $member_country ) &&
 					$info['first_name']->display &&
 					stripos( $info['first_name']->value, $first_name ) !== false &&
 					$info['languages']->display &&
@@ -423,7 +424,7 @@
 			} else {
 				if ( $info['location']->display &&
 					array_key_exists( $country_code, $countries ) &&
-					strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+					strtolower( $country_code ) === strtolower( $member_country ) &&
 					$info['first_name']->display &&
 					stripos( $info['first_name']->value, $search_user ) !== false &&
 					$info['languages']->display &&
@@ -439,7 +440,7 @@
 			if ( $last_name ) {
 				if ( $info['location']->display &&
 					array_key_exists( $country_code, $countries ) &&
-					strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+					strtolower( $country_code ) === strtolower( $member_country ) &&
 					$info['last_name']->display &&
 					stripos( $info['last_name']->value, $last_name ) !== false &&
 					$info['languages']->display &&
@@ -452,7 +453,7 @@
 			} else {
 				if ( $info['location']->display &&
 					array_key_exists( $country_code, $countries ) &&
-					strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+					strtolower( $country_code ) === strtolower( $member_country ) &&
 					$info['last_name']->display &&
 					stripos( $info['last_name']->value, $search_user ) !== false &&
 					$info['languages']->display &&
@@ -473,7 +474,7 @@
 
 			// Country and username!
 			if ( array_key_exists( $country_code, $countries ) &&
-				strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+				strtolower( $country_code ) === strtolower( $member_country ) &&
 				$info['location']->display &&
 				stripos( $member->data->user_nicename, $search_user ) !== false ) {
 				$filtered_members[] = $member;
@@ -484,7 +485,7 @@
 			// Country and first name!
 			if ( $first_name ) {
 				if ( array_key_exists( $country_code, $countries ) &&
-					strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+					strtolower( $country_code ) === strtolower( $member_country ) &&
 					$info['location']->display &&
 					$info['first_name']->display &&
 					stripos( $info['first_name']->value, $first_name ) !== false ) {
@@ -493,7 +494,7 @@
 				}
 			} else {
 				if ( array_key_exists( $country_code, $countries ) &&
-					strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+					strtolower( $country_code ) === strtolower( $member_country ) &&
 					$info['location']->display &&
 					$info['first_name']->display &&
 					stripos( $info['first_name']->value, $search_user ) !== false ) {
@@ -505,7 +506,7 @@
 			// Country and last name!
 			if ( $last_name ) {
 				if ( array_key_exists( $country_code, $countries ) &&
-					strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+					strtolower( $country_code ) === strtolower( $member_country ) &&
 					$info['location']->display &&
 					$info['first_name']->display &&
 					stripos( $info['last_name']->value, $last_name ) !== false ) {
@@ -514,7 +515,7 @@
 				}
 			} else {
 				if ( array_key_exists( $country_code, $countries ) &&
-					strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+					strtolower( $country_code ) === strtolower( $member_country ) &&
 					$info['location']->display &&
 					$info['last_name']->display &&
 					stripos( $info['last_name']->value, $search_user ) !== false ) {
@@ -654,7 +655,7 @@
 		if ( $country_code && false === $get_tag && false === $search_user && $language_code ) {
 			if ( $info['location']->display &&
 				array_key_exists( $country_code, $countries ) &&
-				strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+				strtolower( $country_code ) === strtolower( $member_country ) &&
 				$info['languages']->display &&
 				is_array( $info['languages']->value ) &&
 				in_array( $language_code, $info['languages']->value, true ) ) {
@@ -670,7 +671,7 @@
 			if ( $info['tags']->display &&
 				$info['location']->display &&
 				array_key_exists( $country_code, $countries ) &&
-				strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+				strtolower( $country_code ) === strtolower( $member_country ) &&
 				in_array( $get_tag, array_map( 'strtolower', $member_tags ), true ) ) {
 					$filtered_members[] = $member;
 					continue;
@@ -685,7 +686,7 @@
 
 			if ( $info['location']->display &&
 				array_key_exists( $country_code, $countries ) &&
-				strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) ) {
+				strtolower( $country_code ) === strtolower( $member_country ) ) {
 					$filtered_members[] = $member;
 					continue;
 			}
@@ -927,13 +928,13 @@
 										}
 										?>
 									</div>
-									<?php if ( $info['location']->display && $info['location']->value ) : ?>
+									<?php if ( $info['location']->display && $info['location']->value && isset($countries[ $info['location']->value] ) ) : ?>
 									<div class="members__location">
 										<svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 											<path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 											<path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 										</svg>&nbsp;
-										<?php echo esc_html( $info['location']->value ); ?>
+										<?php echo esc_html( $countries[$info['location']->value] ); ?>
 									</div>
 									<?php endif; ?>
 								</div>
@@ -1100,13 +1101,13 @@
 										}
 										?>
 									</div>
-									<?php if ( $info['location']->display && $info['location']->value ) : ?>
+									<?php if ( $info['location']->display && $info['location']->value && isset($countries[$info['location']->value])) : ?>
 										<div class="members__location">
 											<svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 												<path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 												<path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 											</svg>&nbsp;
-											<?php echo esc_html( $info['location']->value ); ?>
+											<?php echo esc_html( $countries[ $info['location']->value ] ); ?>
 										</div>
 									<?php endif; ?>
 								</div>

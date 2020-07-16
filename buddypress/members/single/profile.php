@@ -13,7 +13,8 @@
 ?>
 <?php
 	require "{$theme_directory}/languages.php";
-	require "{$theme_directory}/countries.php";
+  require "{$theme_directory}/countries.php";
+  require "{$theme_directory}/pronouns.php";
 	$current_translation = mozilla_get_current_translation();
 
 	$event_countries = em_get_countries();
@@ -61,9 +62,9 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 							<?php echo esc_html( "{$info['last_name']->value}" ); ?>
 						<?php endif; ?>
 					</span>
-					<?php if ( $info['pronoun']->display ) : ?>
+					<?php if ( $info['pronoun']->display && isset($pronouns[$info['pronoun']->value])) : ?>
 						<div class="profile__pronoun">
-							<?php echo esc_html( $info['pronoun']->value ); ?>
+							<?php echo esc_html( $pronouns[$info['pronoun']->value] ); ?>
 						</div>
 					<?php endif; ?>
 				</div>
@@ -94,7 +95,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 				<?php if ( ( $info['location']->display && $info['location']->value ) || ( $info['email']->value && $info['email']->display ) || ( $info['phone']->value && $info['phone']->display ) ) : ?>
 					<span class="profile__contact-title"><?php esc_html_e( 'Contact Information', 'community-portal' ); ?></span>
 				<?php endif; ?>
-				<?php if ( $info['location']->display && $info['location']->value ) : ?>
+				<?php if ( $info['location']->display && $info['location']->value && $countries[$info['location']->value ]) : ?>
 					<div class="profile__location-container">
 						<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="profile__location-icon">
 							<circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
@@ -111,7 +112,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 						<?php esc_html_e( 'Location', 'community-portal' ); ?>
 						<div class="profile__details">
 							<span class="profile__city-country">
-								<?php echo esc_html( $info['location']->value ); ?>
+								<?php echo esc_html( $countries[ $info['location']->value ] ); ?>
 							</span>
 						</div>
 					</div>

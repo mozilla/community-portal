@@ -21,13 +21,18 @@
 	$ddm_countries  = array();
 	$used_languages = array();
 	$filter_events  = EM_Events::get( array( 'scope' => 'all' ) );
+	$online_event = __('Online Event', 'community-portal');
 
 foreach ( $filter_events as $e ) {
 	$location     = em_get_location( $e->location_id );
 	$country_code = $location->location_country;
 
 	if ( strlen( $country_code ) > 0 && ! in_array( $country_code, $ddm_countries, true ) ) {
-		$ddm_countries[ $country_code ] = $countries[ $country_code ];
+		if ('OE' === $country_code ) {
+			$ddm_countries[$country_code] = $online_event;
+		} else {
+			$ddm_countries[ $country_code ] = $countries[ $country_code ];
+		}
 	}
 	$e_meta = get_post_meta( $e->post_id, 'event-meta' );
 

@@ -17,11 +17,6 @@
 	);
 
 	$theme_directory = get_template_directory();
-	$pronouns        = array(
-		__( 'She/Her', 'community-portal' ),
-		__( 'He/Him', 'community-portal' ),
-		__( 'They/Them', 'community-portal' ),
-	);
 
 	$tags = get_tags( array( 'hide_empty' => false ) );
 	?>
