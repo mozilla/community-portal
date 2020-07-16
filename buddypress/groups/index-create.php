@@ -16,6 +16,7 @@ do_action( 'bp_before_create_group_page' );
 $user                = wp_get_current_user();
 $meta                = get_user_meta( $user->ID );
 $current_translation = mozilla_get_current_translation();
+$step = null;
 
 if ( ! isset( $meta['agree'][0] ) || 'I Agree' !== $meta['agree'][0] ) {
 	if ( $current_translation ) {

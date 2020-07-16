@@ -251,8 +251,7 @@ if ( isset( $em_event->group_id ) ) {
 				<div class="row">
 					<div class="card__address col-md-5 col-sm-12">
 					<?php $location = $em_event->location; ?>
-
-					<?php if ( isset( $location->location_country ) && strlen( $location->location_country ) > 0 && 'OE' !== $location->location_country ) : ?>
+					<?php if ( isset($location_type) && $location_type !== 'online' && isset( $location->location_country ) && strlen( $location->location_country ) > 0 && 'OE' !== $location->location_country ) : ?>
 						<p><?php echo esc_html( $location->location_name ); ?></p>
 						<p><?php echo esc_html( $location->location_address ); ?></p>
 						<?php if ( 'OE' === $location->location_country ) : ?>

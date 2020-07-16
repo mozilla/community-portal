@@ -19,6 +19,8 @@
 	$categories = ( ! is_null( $event ) ) ? $event->get_categories() : false;
 	$location   = em_get_location( $event->location_id );
 	$url        = get_home_url( null, '/events/' . $event->slug );
+	$card_event_meta = get_post_meta( $event->post_id, 'event-meta' );
+	$location_type = isset($card_event_meta[0]->location_type) && strlen($card_event_meta[0]->location_type) > 0 ? $card_event_meta[0]->location_type : null;
 
 ?>
 <div class="col-lg-4 col-md-6 events__column">
@@ -26,7 +28,6 @@
 		<a class="events__link" href="<?php echo esc_url_raw( $url ); ?>">
 			<div class="event-card__image"
 			<?php
-				$card_event_meta = get_post_meta( $event->post_id, 'event-meta' );
 				$img_url         = $card_event_meta[0]->image_url;
 
 			if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'off' !== $_SERVER['HTTPS'] ) || 443 === $_SERVER['SERVER_PORT'] ) {
@@ -70,10 +71,10 @@
 					</svg>
 					<p class="text--light text--small">
 					<?php
-					if ( 'OE' === $location->country ) {
+					if ( ('OE' === $location->country) || (!empty($location_type) && 'online' === $location_type) ) {
 						esc_html_e( 'Online Event', 'community-portal' );
 					} else {
-						if ( $location->address ) {
+						if ( isset( $location->address ) && strlen($location->address) > 0 && 'online' !== $location->address) {
 							echo esc_html( $location->address ) . esc_html( ' - ' );
 						}
 
