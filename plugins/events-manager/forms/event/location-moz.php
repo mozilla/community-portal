@@ -18,6 +18,7 @@ if ( 0 !== $EM_Event->location_id ) {
 }
 
 	$required = apply_filters( 'em_required_html', '<i>*</i>' );
+	$location_type = '';
 if ( isset( $_REQUEST['nonce'] ) && wp_verify_nonce( sanitize_key( $_REQUEST['nonce'] ), 'edit-event' ) && isset( $_REQUEST['event_id'] ) ) {
 	$event               = sanitize_key( $_REQUEST['event_id'] );
 	$event               = em_get_event( $event );
