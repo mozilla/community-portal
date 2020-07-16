@@ -13,8 +13,11 @@
 ?>
 
 <?php
+	$theme_directory = get_template_directory_uri();
+	$countries = em_get_countries();
 	$current_page = isset( $_REQUEST['pno'] ) ? intval( sanitize_key( $_REQUEST['pno'] ) ) : 1;
 	$args         = apply_filters( 'em_content_events_args', $args );
+
 if (
 	isset( $args['search'] ) &&
 		( strpos( $args['search'], '"' ) !== false ||
@@ -52,13 +55,13 @@ switch ( strtolower( trim( $view ) ) ) {
 }
 
 if ( 'all' !== strtolower( $country ) ) {
-	$args['country'] = $country;
+	$args['country'] = $countries[ $country ];
 }
 
 if ( 'all' !== $event_tag ) {
 	$current_translation = mozilla_get_current_translation();
 	if ( $current_translation && stripos( $event_tag, '_' . $current_translation ) !== false ) {
-		$event_tag = substr( $event_tag, 0, stripos( $event_tag, '_' . $current_translation ) );
+    $event_tag = substr( $event_tag, 0, stripos( $event_tag, '_' . $current_translation ) );
 	}
 	$args['category'] = $event_tag;
 }

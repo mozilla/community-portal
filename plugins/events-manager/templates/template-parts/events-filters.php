@@ -16,7 +16,6 @@
 	global $wpdb;
 	$theme_directory = get_template_directory();
 	require "{$theme_directory}/languages.php";
-
 	$countries      = em_get_countries();
 	$ddm_countries  = array();
 	$used_languages = array();
@@ -41,7 +40,6 @@ foreach ( $filter_events as $e ) {
 	}
 }
 	asort( $ddm_countries );
-
 	asort( $used_languages );
 	$used_languages = array_unique( $used_languages );
 
@@ -51,10 +49,10 @@ if ( count( $categories ) > 0 ) {
 	$current_translation = mozilla_get_current_translation();
 
 	foreach ( $categories as $category ) {
-		$tag_name                             = mozilla_get_translated_tag( $category );
+		$term_object                             = mozilla_get_translated_tag( $category );
 		$categories[ $category->id ]          = array();
-		$categories[ $category->id ]['value'] = $category->name;
-		$categories[ $category->id ]['label'] = $tag_name;
+		$categories[ $category->id ]['value'] = $term_object->id;
+		$categories[ $category->id ]['label'] = $term_object->name;
 	}
 }
 

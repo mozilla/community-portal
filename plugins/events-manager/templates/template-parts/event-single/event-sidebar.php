@@ -32,9 +32,9 @@
 						<?php
 						foreach ( $categories as $category ) :
 							$current_translation = mozilla_get_current_translation();
-							$tag_name            = mozilla_get_translated_tag( $category );
+							$term_object            = mozilla_get_translated_tag( $category );
 							?>
-							<li class="tag"><a class="events-single__tag-link" href="<?php print esc_attr( add_query_arg( array( 'tag' => $category->name ), get_home_url( null, 'events' ) ) ); ?>"><?php echo esc_html( $tag_name ); ?></a></li>
+							<li class="tag"><a class="events-single__tag-link" href="<?php print esc_attr( add_query_arg( array( 'tag' => $category->term_id ), get_home_url( null, 'events' ) ) ); ?>"><?php echo esc_html( $term_object->name ); ?></a></li>
 							<?php break; ?>
 						<?php endforeach; ?>
 					</ul>

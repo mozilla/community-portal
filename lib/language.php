@@ -113,10 +113,16 @@ function mozilla_add_default_language( $url, $code ) {
 function mozilla_get_translated_tag( $category ) {
 	$current_translation = mozilla_get_current_translation();
 	if ( 'en' !== $current_translation ) {
-		$translation = get_term_by( 'slug', $category->slug . '_' . $current_translation, 'post_tag' );
+    $translation = get_term_by( 'slug', $category->slug . '_' . $current_translation, 'post_tag' );
 		if ( ! empty( $translation ) ) {
-			return $translation->name;
+			return (object) [
+        'name' => $translation->name,
+        'id' => $translation->term_id,
+      ];
 		}
-	}
-	return $category->name;
+  }
+	return (object) [
+    'name' => $category->name,
+    'id' => $category->term_id,
+  ];
 }

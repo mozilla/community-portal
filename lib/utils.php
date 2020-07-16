@@ -494,7 +494,7 @@ function mozilla_add_query_vars_filter( $vars ) {
  * @param int $tt_id id for taxonomy.
  */
 function mozilla_create_event_category( $term_id, $tt_id ) {
-	$term = get_term( $term_id, 'post_tags' );
+	$term = get_term( $term_id, 'post_tag' );
 	if ( ! empty( $term ) && false === stripos( $term->slug, '_' ) ) {
 		wp_insert_term( $term->name, 'event-categories', array( 'slug' => $term->slug ) );
 	}
@@ -510,12 +510,11 @@ add_action( 'create_post_tag', 'mozilla_create_event_category', 10, 2 );
  * @param int $tt_id id for taxonomy.
  */
 function mozilla_update_event_category( $term_id, $tt_id ) {
-	$term     = get_term( $term_id, 'post_tags' );
+	$term     = get_term( $term_id, 'post_tag' );
 	$cat_term = get_term_by( 'slug', $term->slug, 'event-categories' );
 	if ( empty( $cat_term ) ) {
 		$cat_term = get_term_by( 'name', $term->name, 'event-categories' );
 	}
-
 	if ( ! empty( $term ) && ! empty( $cat_term ) && false === stripos( $term->slug, '_' ) ) {
 		wp_update_term(
 			$cat_term->term_id,

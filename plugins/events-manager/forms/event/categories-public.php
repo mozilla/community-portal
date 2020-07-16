@@ -29,7 +29,7 @@
 			?>
 
 			<?php	foreach ( $categories as $category ) : ?>
-				<?php $tag_name = mozilla_get_translated_tag( $category ); ?>
+				<?php $term_object = mozilla_get_translated_tag( $category ); ?>
 				<input 
 					name="event_categories[]" 
 					class="event-creator__checkbox" 
@@ -42,7 +42,7 @@
 					}
 					?>
 				/>
-				<label class="event-creator__tag" for="<?php echo esc_attr( $category->id ); ?>"><?php echo esc_html( $tag_name ); ?></label>
+				<label class="event-creator__tag" for="<?php echo esc_attr( $category->id ); ?>"><?php echo esc_html( $term_object->name ); ?></label>
 				<?php
 				endforeach;
 			?>
