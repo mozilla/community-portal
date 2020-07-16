@@ -152,7 +152,7 @@ if ( isset( $_REQUEST['nonce'] ) && wp_verify_nonce( sanitize_key( $_REQUEST['no
 					type="text" 
 					name="location_address" 
 					required 
-					value="<?php $em_location->location_address ? print esc_attr( $em_location->location_address ) : esc_html_e( 'Online', 'community-portal' ); ?>" 
+					value="<?php $em_location->location_address ? print esc_attr( $em_location->location_address ) : esc_attr_e( 'Online', 'community-portal' ); ?>" 
 					<?php echo $event ? esc_attr( 'readonly' ) : null; ?>
 					tabindex=<?php echo $event ? esc_attr( '-1' ) : esc_attr( '0' ); ?>
 				/> 
@@ -236,7 +236,7 @@ if ( isset( $_REQUEST['nonce'] ) && wp_verify_nonce( sanitize_key( $_REQUEST['no
 					id="location-town" 
 					type="text" 
 					name="location_town" 
-					data-string="<?php esc_html_e( 'Online Event', 'community-portal' ); ?>" 
+					data-string="<?php esc_attr_e( 'Online Event', 'community-portal' ); ?>" 
 					value="<?php echo esc_attr( $em_location->location_town ); ?>"  
 					maxlength="180" 
 					required
