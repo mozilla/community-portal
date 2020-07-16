@@ -1577,13 +1577,13 @@
 							</div>
 						</div>
 						<?php endif; ?>
-						<?php if ( isset( $group_meta['group_tags'] ) && count( array_unique( $group_meta['group_tags'] ) ) > 0 ) : ?>
+						<?php $group_tags = isset($group_meta['group_tags']) ? array_unique( array_filter( $group_meta['group_tags'], 'mozilla_filter_inactive_tags')) : false; ?>
+						<?php if ( isset( $group_tags ) && count( $group_tags ) > 0 ) : ?>
 						<div class="group__card">
 							<div class="group__card-content group__card-content--small">
 								<span><?php esc_html_e( 'Tags', 'community-portal' ); ?></span>
 								<div class="group__tags">
-									<?php $post_tags = array_unique( array_filter( $group_meta['group_tags'], 'mozilla_filter_inactive_tags'))?>
-									<?php foreach ( $post_tags as $tag_loop ) : ?>
+									<?php foreach ( $group_tags as $tag_loop ) : ?>
 										
 										<?php
 										foreach ( $tags as $t ) {
