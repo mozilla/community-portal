@@ -374,7 +374,7 @@ jQuery(function() {
         if ($editBtn) {
             $editBtn.on("click", function(e) {
 				e.preventDefault();
-				const fields = [ 'name-mozilla', 'id', 'country', 'town', 'address'];
+				const fields = [ 'name-mozilla', 'country--hidden', 'id', 'country', 'town', 'address'];
 				handleLocationEdit(fields);
 			});
         }

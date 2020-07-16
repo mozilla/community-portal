@@ -165,7 +165,18 @@ if ( isset( $_REQUEST['nonce'] ) && wp_verify_nonce( sanitize_key( $_REQUEST['no
 			<div class="wide">
 				<label 
 					id="location-country-label" 
-					class="event-creator__label <?php echo isset( $location_type ) && 'online' === $location_type ? esc_attr( 'event-creator__label--online' ) : esc_attr( 'event-creator__label--in-person' ); ?>" 
+					class="event-creator__label 
+						<?php
+							if (isset( $location_type )) {
+								if ('online' === $location_type) {
+									echo esc_attr( 'event-creator__label--online' );
+								} else {
+									echo esc_attr( 'event-creator__label--in-person' );
+								}
+							} else {
+								echo esc_attr('event-creator__label--online');
+							}
+						?>" 
 					for="location-country"
 				>
 					<span class="online"><?php esc_html_e( 'Where will this event be held? *', 'community-portal' ); ?></span>
