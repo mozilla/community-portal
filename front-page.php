@@ -238,10 +238,12 @@
 										<?php
 												$tag_counter = 0;
 										if ( isset( $meta ) && isset( $meta['group_tags'] ) ) :
+											$group_tags = array_unique( array_filter( $meta['group_tags'], 'mozilla_filter_inactive_tags'));
+
 											?>
 										<ul class="groups__card-tags__container">
 											<?php
-											foreach ( $meta['group_tags'] as $key => $value ) :
+											foreach ( $group_tags as $key => $value ) :
 												$tag_value = false;
 												if ( 'en' !== $current_translation ) {
 													$tag_value = get_term_by( 'slug', $value . '_' . $current_translation, 'post_tag' );
@@ -253,8 +255,8 @@
 													?>
 												<li class="groups__tag"><?php echo esc_html( $tag_value->name ); ?></li>
 													<?php $tag_counter++; ?>
-													<?php if ( 2 === $tag_counter && count( $meta['group_tags'] ) > 2 ) : ?>
-													<li class="groups__tag">+ <?php echo esc_html( count( $meta['group_tags'] ) - 2 ); ?> <?php echo esc_html_e( ' more tags', 'community-portal' ); ?></li>
+													<?php if ( 2 === $tag_counter && count( $group_tags ) > 2 ) : ?>
+													<li class="groups__tag">+ <?php echo esc_html( count( $group_tags ) - 2 ); ?> <?php echo esc_html_e( ' more tags', 'community-portal' ); ?></li>
 														<?php break; ?>
 												<?php endif; ?>
 											<?php endif; ?>
