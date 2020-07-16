@@ -36,6 +36,7 @@ if (
 switch ( strtolower( trim( $view ) ) ) {
 	case 'past':
 		$args['scope'] = 'past';
+		$args['order'] = 'desc';
 		break;
 	case 'organized':
 		if ( is_user_logged_in() ) {
