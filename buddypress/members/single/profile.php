@@ -585,9 +585,11 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 						}
 						?>
 						<?php if ( $found ) : ?>
-							<span class="profile__static-tag">
-								<?php echo esc_html( $temp_name ); ?>
-							</span>
+							<a href="<?php echo esc_url_raw( add_query_arg(array('tag' => $t->slug), get_home_url(null, 'people'))) ;?>" class="profile__static-tag">
+								<span>
+									<?php echo esc_html( $temp_name ); ?>
+								</span>
+							</a>
 						<?php endif; ?>
 					<?php endforeach; ?>
 				</div>
