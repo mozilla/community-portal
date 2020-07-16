@@ -102,6 +102,11 @@
 				<?php
 					$initiative = get_post( intval( $card_event_meta[0]->initiative ) );
 					if (!empty($initiative)): 
+					if ('en' !== $current_translation ) {
+						$translated_initiative = apply_filters( 'wpml_object_id', $initiative->ID, $initiative->post_type, true, $current_translation );
+						$translated_title = get_the_title($translated_initiative);
+						$initiative->post_title = isset($translated_title) && strlen($translated_title) > 0 ? $translated_title : $initiative->post_title;
+					}
 				?>
 							<div class="events__campaign">
 								<?php if ( 'campaign' === $initiative->post_type ) : ?>

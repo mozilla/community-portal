@@ -43,6 +43,11 @@
 			<?php if ( $initiative ) : ?>
 				<?php
 					$c = get_post( $initiative );
+					if ('en' !== $current_translation ) {
+						$translated_initiative = apply_filters( 'wpml_object_id', $c->ID, $c->post_type, true, $current_translation );
+						$translated_title = get_the_title($translated_initiative);
+						$c->post_title = isset($translated_title) && strlen($translated_title) > 0 ? $translated_title : $c->post_title;
+					}
 					if (!empty($c)):
 				?>
 						<div class="col-lg-12 col-md-6 col-sm-12">
