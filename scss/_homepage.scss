@@ -2,7 +2,7 @@ body.home-page {
     background: white;
     overflow-x: hidden;
 
-    a {
+    a:not(.footer__link) {
         text-decoration: none;
     }
 }
