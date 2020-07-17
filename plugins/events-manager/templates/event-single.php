@@ -481,7 +481,7 @@ if ( isset( $em_event->group_id ) ) {
 			<div class="row events-single__all-attendees">
 				<p class="title--secondary col-sm-12"><?php echo esc_html( $count ) . esc_html__( ' Attendees', 'community-portal' ); ?></p>
 				<?php foreach ( $em_event->bookings as $booking ) : ?>    
-					<?php if ( '3' !== $booking->booking_status ) : ?>
+					<?php if ( !empty($booking) && isset($booking->booking_status) && '3' !== $booking->booking_status ) : ?>
 						<?php
 								$user  = $booking->person->data;
 								$is_me = $logged_in && intval( $active_user->ID ) === intval( $user->ID );
