@@ -228,7 +228,8 @@ add_filter( 'wpml_sl_blacklist_requests', 'wpml_sl_blacklist_requests', 10, 2 );
  * @param mixed $sitepress the current sitepress instance.
  */
 function wpml_sl_blacklist_requests( $blacklist, $sitepress ) {
-	$blacklist[] = '/events\/[a-zA-z]/';
+  $blacklist[] = '/events\/[a-zA-z]/';
+  $blacklist[] = '/.+/';
 	return $blacklist;
 }
 
