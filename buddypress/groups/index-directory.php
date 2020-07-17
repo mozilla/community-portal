@@ -364,6 +364,7 @@
 					<label class="groups__label"><?php esc_html_e( 'Tag', 'community-portal' ); ?></label>
 					<select class="groups__tag-select">
 						<option value=""><?php esc_html_e( 'All', 'community-portal' ); ?></option>
+
 						<?php foreach ( $tags as $loop_tag ) : ?>
 							<?php
 							if ( false !== stripos( $loop_tag->slug, '_' ) ) {
@@ -460,10 +461,11 @@
 								<div class="groups__card-tags">
 									<?php
 										$tag_counter = 0;
+										$group_tags = array_unique( array_filter( $meta['group_tags'], 'mozilla_filter_inactive_tags'));
 									?>
 									<?php if ( isset( $meta['group_tags'] ) && is_array( $meta['group_tags'] ) ) : ?>
 									<ul class="groups__card-tags__container">
-										<?php foreach ( array_unique( $meta['group_tags'] ) as $key => $value ) : ?>
+										<?php foreach ( $group_tags as $key => $value ) : ?>
 											<?php
 
 											$system_tag = array_values(
@@ -479,8 +481,8 @@
 										<li class="groups__tag"><?php echo esc_html( $system_tag[0]->name ); ?></li>
 												<?php $tag_counter++; ?>
 										<?php endif; ?>
-											<?php if ( 2 === $tag_counter && count( $meta['group_tags'] ) > 2 ) : ?>
-										<li class="groups__tag">+ <?php echo esc_html( count( $meta['group_tags'] ) - 2 ); ?> <?php esc_html_e( ' more tags', 'community-portal' ); ?></li>
+											<?php if ( 2 === $tag_counter && count( $group_tags ) > 2 ) : ?>
+										<li class="groups__tag">+ <?php echo esc_html( count( $group_tags )  - 2 ); ?> <?php esc_html_e( ' more tags', 'community-portal' ); ?></li>
 												<?php break; ?>
 										<?php endif; ?>
 									<?php endforeach; ?>
