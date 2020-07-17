@@ -13,7 +13,8 @@
 ?>
 
 <?php
-
+	$theme_directory     = get_template_directory();
+	require "{$theme_directory}/countries.php";
 	$em_event = $GLOBALS['EM_Event'];
 if ( isset( $GLOBALS['EM_Tags'] ) ) {
 	$em_tags = $GLOBALS['EM_Tags'];
@@ -426,9 +427,10 @@ if ( isset( $em_event->group_id ) ) {
 									?>
 								</div>
 								<?php endif; ?>
-								<?php if ( $info['location']->display && $info['location']->value ) : ?>
+
+								<?php if ( $info['location']->display && $info['location']->value && isset($countries[$info['location']->value])) : ?>
 									<p class="events-single__country">
-										<?php echo esc_html( $info['location']->value ); ?>
+										<?php echo esc_html( $countries[$info['location']->value] ); ?>
 									</p>
 								<?php endif; ?>
 							</div>
@@ -466,8 +468,7 @@ if ( isset( $em_event->group_id ) ) {
 			</div>
 		</div>
 	<?php endif; ?>
-
-	<?php if ( isset( $em_event->bookings ) && is_array( $em_event->bookings ) ) : ?>
+	<?php if ( isset( $em_event->bookings ) && !empty($em_event->bookings) ) : ?>
 	<div id="attendees-lightbox" class="lightbox">
 		<div class="lightbox__container">
 			<button id="close-attendees-lightbox" class="btn btn--close">
@@ -480,7 +481,7 @@ if ( isset( $em_event->group_id ) ) {
 			<div class="row events-single__all-attendees">
 				<p class="title--secondary col-sm-12"><?php echo esc_html( $count ) . esc_html__( ' Attendees', 'community-portal' ); ?></p>
 				<?php foreach ( $em_event->bookings as $booking ) : ?>    
-					<?php if ( '3' !== $booking->booking_status ) : ?>
+					<?php if ( !empty($booking) && isset($booking->booking_status) && '3' !== $booking->booking_status ) : ?>
 						<?php
 								$user  = $booking->person->data;
 								$is_me = $logged_in && intval( $active_user->ID ) === intval( $user->ID );
@@ -521,9 +522,10 @@ if ( isset( $em_event->group_id ) ) {
 											?>
 										</div>
 									<?php endif; ?>
-									<?php if ( $info['location']->display && $info['location']->value ) : ?>
+									<?php if ( $info['location']->display && $info['location']->value && isset($countries[$info['location']->value]) ) : ?>
+
 									<p class="events-single__country">
-										<?php echo esc_html( $info['location']->value ); ?>
+										<?php echo esc_html( $countries[$info['location']->value] ); ?>
 									</p>
 									<?php endif; ?>
 								</div>
