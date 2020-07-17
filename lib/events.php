@@ -358,8 +358,3 @@ function mozilla_handle_location_save( $post_id, $post, $update ) {
 }
 
 add_action( 'save_post_location', 'mozilla_handle_location_save', 10, 3 );
-
-
-function mozilla_get_events_from_bookings($booking) {
-	return $booking->event_id;	
-}
