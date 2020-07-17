@@ -13,7 +13,8 @@
 ?>
 
 <?php
-
+	$theme_directory     = get_template_directory();
+	require "{$theme_directory}/countries.php";
 	$em_event = $GLOBALS['EM_Event'];
 if ( isset( $GLOBALS['EM_Tags'] ) ) {
 	$em_tags = $GLOBALS['EM_Tags'];
@@ -426,9 +427,10 @@ if ( isset( $em_event->group_id ) ) {
 									?>
 								</div>
 								<?php endif; ?>
-								<?php if ( $info['location']->display && $info['location']->value ) : ?>
+
+								<?php if ( $info['location']->display && $info['location']->value && isset($countries[$info['location']->value])) : ?>
 									<p class="events-single__country">
-										<?php echo esc_html( $info['location']->value ); ?>
+										<?php echo esc_html( $countries[$info['location']->value] ); ?>
 									</p>
 								<?php endif; ?>
 							</div>
@@ -466,8 +468,7 @@ if ( isset( $em_event->group_id ) ) {
 			</div>
 		</div>
 	<?php endif; ?>
-
-	<?php if ( isset( $em_event->bookings ) && is_array( $em_event->bookings ) ) : ?>
+	<?php if ( isset( $em_event->bookings ) && !empty($em_event->bookings) ) : ?>
 	<div id="attendees-lightbox" class="lightbox">
 		<div class="lightbox__container">
 			<button id="close-attendees-lightbox" class="btn btn--close">
@@ -521,9 +522,10 @@ if ( isset( $em_event->group_id ) ) {
 											?>
 										</div>
 									<?php endif; ?>
-									<?php if ( $info['location']->display && $info['location']->value ) : ?>
+									<?php if ( $info['location']->display && $info['location']->value && isset($countries[$info['location']->value]) ) : ?>
+
 									<p class="events-single__country">
-										<?php echo esc_html( $info['location']->value ); ?>
+										<?php echo esc_html( $countries[$info['location']->value] ); ?>
 									</p>
 									<?php endif; ?>
 								</div>

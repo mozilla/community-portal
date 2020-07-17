@@ -6,10 +6,10 @@ jQuery(function() {
 
     function toggleLightbox(lightboxID, openBtnID, closeBtnID, firstSelector) {
 		var $lightbox = jQuery(lightboxID);
-		$lightbox.on('click', function(e) {
-			closeByClickingOff(e.target);
-		});
         if ($lightbox.length > 0) {
+			$lightbox.on('click', function(e) {
+				closeByClickingOff(e.target);
+			});
             var $openBtn = jQuery(openBtnID);
             var $closeBtn = jQuery(closeBtnID);
             var $firstBtn = $lightbox.find(firstSelector).first();
