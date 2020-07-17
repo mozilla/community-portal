@@ -113,10 +113,10 @@ $all_countries = em_get_countries();
 								<?php if ( isset( $event_meta[0]->initiative ) && strlen( $event_meta[0]->initiative ) > 0 ) : ?>
 									<?php
 									$initiative = get_post( intval( $event_meta[0]->initiative ) );
-									if ('en' !== $current_translation ) {
-										$translated_initiative = apply_filters( 'wpml_object_id', $initiative->ID, $initiative->post_type, true, $current_translation );
-										$translated_title = get_the_title($translated_initiative);
-										$initiative->post_title = isset($translated_title) && strlen($translated_title) > 0 ? $translated_title : $initiative->post_title;
+									if ( 'en' !== $current_translation ) {
+										$translated_initiative  = apply_filters( 'wpml_object_id', $initiative->ID, $initiative->post_type, true, $current_translation );
+										$translated_title       = get_the_title( $translated_initiative );
+										$initiative->post_title = isset( $translated_title ) && strlen( $translated_title ) > 0 ? $translated_title : $initiative->post_title;
 									}
 									?>
 								<div class="campaign__campaign-events">
