@@ -45,7 +45,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 				<a href="<?php echo esc_attr( get_home_url( null, 'people/' . $username . '/profile/edit/group/1' ) ); ?>" class="profile__button">
 					<?php esc_html_e( 'Complete your profile', 'community-portal' ); ?>
 				</a>
-				<a href="" class="profile__button profile__button--secondary">
+				<a href="<?php echo esc_url_raw(get_home_url()); ?>" class="profile__button profile__button--secondary">
 					<?php esc_html_e( 'Go back to browsing', 'community-portal' ); ?>
 				</a>
 			</div>
