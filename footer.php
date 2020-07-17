@@ -116,7 +116,7 @@
 						<div class="col-md-6">
 							<p class="footer__copy">
 								<?php echo esc_html_e( 'Portions of this content are copyright 1998-2019 by individual mozilla.org contributors. Content available under a ', 'community-portal' ); ?>
-								<a href="#" class="footer__link"><?php echo esc_html_e( ' Creative Commons license.', 'community-portal' ); ?></a>
+								<a href="https://www.mozilla.org/foundation/licensing/website-content/" class="footer__link"><?php echo esc_html_e( ' Creative Commons license.', 'community-portal' ); ?></a>
 							</p>
 						</div>
 						<div class="col-md-6 language-selector">
