@@ -121,15 +121,16 @@
 						</div>
 						<div class="col-md-6 language-selector">
 							<div class="language-selector__container">
-								<p class="language-selector__label"><?php esc_html_e( 'Language', 'community-portal' ); ?></p>
-								<?php
-								if ( function_exists( 'icl_get_languages' ) ) {
-									$wpml_languages   = icl_get_languages( 'skip_missing=N&orderby=KEY&order=DIR&link_empty_to=str' );
-									$current_langauge = ICL_LANGUAGE_CODE;
-								}
-								if ( isset( $wpml_languages ) && count( $wpml_languages ) > 0 ) :
-									$url = get_site_url( null, $_SERVER['REQUEST_URI'] );
-
+								<?php 
+									if ( function_exists( 'icl_get_languages' ) ) {
+										$wpml_languages   = icl_get_languages( 'skip_missing=N&orderby=KEY&order=DIR&link_empty_to=str' );
+										$current_langauge = ICL_LANGUAGE_CODE;
+									}
+									if ( isset( $wpml_languages ) && count( $wpml_languages ) > 1 ) : 
+								?>
+									<p class="language-selector__label"><?php esc_html_e( 'Language', 'community-portal' ); ?></p>
+									<?php
+										$url = get_site_url( null, $_SERVER['REQUEST_URI'] );
 									?>
 									<ul id="footer-language-selector" class="language-selector__select">
 										<li class="language-selector__language language-selector__language--active"><?php echo esc_html( $wpml_languages[ $current_langauge ]['translated_name'] ); ?></li>
