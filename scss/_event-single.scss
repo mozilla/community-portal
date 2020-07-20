@@ -625,4 +625,12 @@
             margin-right: 8px;
         }
     }
-}
+
+    &__external-link-wrapper {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: $color-blue-50;
+    }
+
+} // end .events-single
