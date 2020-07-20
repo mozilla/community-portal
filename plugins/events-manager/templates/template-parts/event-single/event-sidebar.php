@@ -19,7 +19,7 @@
 			<?php if ( isset( $external_url ) && strlen( $external_url ) > 0 && filter_var( $external_url, FILTER_VALIDATE_URL ) ) : ?>
 				<div class="col-lg-12 col-md-6 col-sm-12">
 					<p class="events-single__label"><?php esc_html_e( 'Links', 'community-portal' ); ?></p>
-					<p><a href="<?php echo esc_url_raw( mozilla_verify_url( $external_url, false ) ); ?>" class="events-single__external-link"><?php echo esc_html( $external_url ); ?></a></p>
+					<p class="events-single__external-link-wrapper" title="<?php echo esc_html( $external_url ); ?>"><a href="<?php echo esc_url_raw( mozilla_verify_url( $external_url, false ) ); ?>" class="events-single__external-link"><?php echo esc_html( $external_url ); ?></a></p>
 				</div>
 				<?php
 			endif;
