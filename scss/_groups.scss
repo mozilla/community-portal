@@ -431,7 +431,7 @@
         margin-bottom: 24px;
         overflow: hidden;
         text-decoration: none;
-        transition: box-shadow 0.3s ease-in-out;
+        transition: transform 0.3s ease-in-out;
 		width: 100%;
 
 		&--homepage {
@@ -458,9 +458,11 @@
                 margin-right: 0;
             }
         }
-
         &:hover {
-            box-shadow: 0 0 0 4px #d7d7db;
+			transform: scale(1.02);
+			.groups__group-title {
+				text-decoration: underline;
+			}
 		}
 	}
 	

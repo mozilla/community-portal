@@ -367,6 +367,9 @@ body.home-page {
                     position: relative;
                     top: 3px;
                 }
+                &:hover {
+					border-bottom: 1px solid $color-blue-50;
+                }
             }
         }
 	}
