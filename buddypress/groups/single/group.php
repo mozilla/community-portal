@@ -1360,7 +1360,9 @@
 
 							if ( isset( $options['discourse_url'] ) && strlen( $options['discourse_url'] ) > 0 ) {
 								$discourse_api_url = rtrim( $options['discourse_url'], '/' );
-								$api_url           = "{$options['discourse_url']}/c/{$discourse_group['discourse_category_id']}";
+								
+								$discourse_category_id = intval( trim( $discourse_group['discourse_category_id'] ) );
+								$api_url           = "{$options['discourse_url']}/c/{$discourse_category_id}";
 
 								$topics = mozilla_discourse_get_category_topics( $api_url );
 								$topics = array_slice( $topics, 0, 4 );
