@@ -100,10 +100,15 @@
 				</div>
 				<?php endif; ?>
 				<?php if ( isset( $card_event_meta[0]->initiative ) && strlen( $card_event_meta[0]->initiative ) > 0 ) : ?>
-				<?php
+					<?php
 					$initiative = get_post( intval( $card_event_meta[0]->initiative ) );
-					if (!empty($initiative)): 
-				?>
+					if ( ! empty( $initiative ) ) :
+						if ( 'en' !== $current_translation ) {
+							$translated_initiative  = apply_filters( 'wpml_object_id', $initiative->ID, $initiative->post_type, true, $current_translation );
+							$translated_title       = get_the_title( $translated_initiative );
+							$initiative->post_title = isset( $translated_title ) && strlen( $translated_title ) > 0 ? $translated_title : $initiative->post_title;
+						}
+						?>
 							<div class="events__campaign">
 								<?php if ( 'campaign' === $initiative->post_type ) : ?>
 								<svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">

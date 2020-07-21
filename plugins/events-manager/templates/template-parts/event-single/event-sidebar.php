@@ -43,18 +43,25 @@
 			<?php if ( $initiative ) : ?>
 				<?php
 					$c = get_post( $initiative );
-					if (!empty($c)):
-				?>
+				if ( 'en' !== $current_translation ) {
+					$translated_initiative = apply_filters( 'wpml_object_id', $c->ID, $c->post_type, true, $current_translation );
+					$translated_title      = get_the_title( $translated_initiative );
+					$c->post_title         = isset( $translated_title ) && strlen( $translated_title ) > 0 ? $translated_title : $c->post_title;
+				}
+				if ( ! empty( $c ) ) :
+					?>
 						<div class="col-lg-12 col-md-6 col-sm-12">
 							<p class="events-single__label"><?php esc_html_e( 'Part of', 'community-portal' ); ?></p>
 							<a 
-								href="<?php
-									if ( 'campaign' === $c->post_type ) :
-										echo esc_attr( get_home_url( null, 'campaigns/' . $c->post_name ) );
+								href="
+								<?php
+								if ( 'campaign' === $c->post_type ) :
+									echo esc_attr( get_home_url( null, 'campaigns/' . $c->post_name ) );
 									else :
 										echo esc_attr( get_home_url( null, 'activities/' . $c->post_name ) );
 									endif;
-									?>" 
+									?>
+									" 
 								class="events-single__externam-link events-single__externam-link--icon">
 							<?php if ( 'campaign' === $c->post_type ) : ?>
 							<svg width="27" height="28" viewBox="0 0 27 28" fill="none" xmlns="http://www.w3.org/2000/svg">

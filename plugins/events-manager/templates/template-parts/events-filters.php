@@ -20,15 +20,15 @@
 	$ddm_countries  = array();
 	$used_languages = array();
 	$filter_events  = EM_Events::get( array( 'scope' => 'all' ) );
-	$online_event = __('Online Event', 'community-portal');
+	$online_event   = __( 'Online Event', 'community-portal' );
 
 foreach ( $filter_events as $e ) {
 	$location     = em_get_location( $e->location_id );
 	$country_code = $location->location_country;
 
 	if ( strlen( $country_code ) > 0 && ! in_array( $country_code, $ddm_countries, true ) ) {
-		if ('OE' === $country_code ) {
-			$ddm_countries[$country_code] = $online_event;
+		if ( 'OE' === $country_code ) {
+			$ddm_countries[ $country_code ] = $online_event;
 		} else {
 			$ddm_countries[ $country_code ] = $countries[ $country_code ];
 		}
@@ -97,13 +97,13 @@ if ( count( $categories ) > 0 ) {
 				$campaign_status = get_field( 'campaign_status', $campaign->ID );
 
 				if ( strtolower( $campaign_status ) !== 'closed' ) {
-					$campaign_id = apply_filters( 'wpml_object_id', $campaign->ID, 'campaign', true, 'en' );
+					$campaign_id                 = apply_filters( 'wpml_object_id', $campaign->ID, 'campaign', true, 'en' );
 					$initiatives[ $campaign_id ] = $campaign->post_title;
 					continue;
 				}
 
 				if ( $today >= $start && $today <= $end ) {
-					$campaign_id = apply_filters( 'wpml_object_id', $campaign->ID, 'campaign', true, 'en' );
+					$campaign_id                 = apply_filters( 'wpml_object_id', $campaign->ID, 'campaign', true, 'en' );
 					$initiatives[ $campaign_id ] = $campaign->post_title;
 				}
 			}
@@ -115,7 +115,7 @@ if ( count( $categories ) > 0 ) {
 
 			$activities = new WP_Query( $args );
 			foreach ( $activities->posts as $activity ) {
-				$activity_id = apply_filters( 'wpml_object_id', $activity->ID, 'activity', true, 'en' );
+				$activity_id                 = apply_filters( 'wpml_object_id', $activity->ID, 'activity', true, 'en' );
 				$initiatives[ $activity_id ] = $activity->post_title;
 			}
 
