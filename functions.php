@@ -106,6 +106,7 @@ remove_action( 'em_event_save', 'bp_em_group_event_save', 1, 2 );
 remove_action( 'media_buttons', 'media_buttons' );
 
 // Filters.
+add_filter( 'send_email_change_email', '__return_false' );
 add_filter( 'nav_menu_link_attributes', 'mozilla_add_menu_attrs', 10, 3 );
 add_filter( 'nav_menu_css_class', 'mozilla_menu_class', 10, 4 );
 add_filter( 'em_get_countries', 'mozilla_add_online_to_countries', 10, 1 );
