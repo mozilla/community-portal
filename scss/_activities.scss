@@ -292,22 +292,26 @@
         color: $color-black;
         font-size: remCalc(14);
         line-height: 22px;
-        margin-right: 1em;
-        text-decoration: none;
+		text-decoration: none;
+		position: relative;
+		padding: 10px 24px;
 
-        &.activities__pagination-link--active {
-            position: relative;
+		&.activities__pagination-link--active,
+		&:hover {
 
             &:after {
                 content : '';
                 position: absolute;
                 border-bottom: 1px solid $color-black;
-                bottom: -2px;
+                bottom: 8px;
                 display: block;
-                width: 100%;
-                left: 0;
+                width: calc(100% - 48px);
+                left: 24px;
             }
-        }
+		}
+		&.activities__pagination-link--arrow:hover::after {
+			border-bottom: 1px solid $color-blue-50;
+		}
 
     }
 }
