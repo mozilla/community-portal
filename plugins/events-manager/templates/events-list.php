@@ -13,7 +13,6 @@
 ?>
 
 <?php
-	$theme_directory = get_template_directory_uri();
 	$countries = em_get_countries();
 	$current_page = isset( $_REQUEST['pno'] ) ? intval( sanitize_key( $_REQUEST['pno'] ) ) : 1;
 	$args         = apply_filters( 'em_content_events_args', $args );
