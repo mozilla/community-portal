@@ -32,18 +32,18 @@
 						?>
 						selected<?php endif; ?>><?php print esc_html( $option ); ?></option>
 			<?php elseif ( 'Tag' === $field_name ) : ?>
-				<option value="<?php print esc_attr( $option['value'] ); ?>" 
+				<option value="<?php print esc_attr( $key ); ?>" 
 					<?php
-					if ( isset( $event_tag ) && strlen( $event_tag ) > 0 && strtolower( $event_tag ) === strtolower( $option['value'] ) ) :
+					if ( isset( $event_tag ) && strlen( $event_tag ) > 0 && intval( $event_tag ) === intval( $key ) ) :
 						?>
 					selected
 					<?php endif; ?> 
 					><?php print esc_html( $option['label'] ); ?></option>
 			<?php else : ?>
-				<?php if ( $option === $country ) : ?>
-				<option value="<?php echo esc_attr( $option ); ?>" selected><?php echo esc_html( $option ); ?></option>
+				<?php if ( $key === $country ) : ?>
+				<option value="<?php echo esc_attr( $key ); ?>" selected><?php echo esc_html( $option ); ?></option>
 			<?php else : ?>
-				<option value="<?php echo esc_attr( $option ); ?>"><?php echo esc_html( $option ); ?></option>
+				<option value="<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $option ); ?></option>
 			<?php endif; ?>
 			<?php endif; ?>
 		<?php endforeach; ?>

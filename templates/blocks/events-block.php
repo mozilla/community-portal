@@ -142,9 +142,9 @@ $all_countries = em_get_countries();
 									<?php $current_translation = mozilla_get_current_translation(); ?>
 									<?php
 									foreach ( $categories->terms as $category ) :
-										$term_name = mozilla_get_translated_tag( $category );
+										$term_object = mozilla_get_translated_tag( $category );
 										?>
-										<li class="tag"><?php echo esc_html( $term_name ); ?></li>
+										<li class="tag"><?php echo esc_html( $term_object->name ); ?></li>
 										<?php break; ?>
 									<?php endforeach; ?>
 								<?php endif; ?>

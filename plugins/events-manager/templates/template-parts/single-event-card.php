@@ -133,9 +133,9 @@
 			<?php if ( false !== $categories && is_array( $categories->terms ) ) : ?>
 				<?php
 				foreach ( $categories->terms as $category ) :
-					$tag_name = mozilla_get_translated_tag( $category );
+					$term_object = mozilla_get_translated_tag( $category );
 					?>
-					<li class="tag"><?php echo esc_html( $tag_name ); ?></li>
+					<li class="tag"><?php echo esc_html( $term_object->name ); ?></li>
 					<?php break; ?>
 				<?php endforeach; ?>
 			<?php endif; ?>
