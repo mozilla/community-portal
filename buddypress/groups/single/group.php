@@ -1573,7 +1573,7 @@
 								<span><?php esc_html_e( 'Preferred Language', 'community-portal' ); ?></span>
 								<div class="group__tags">
 									<div class="group__language">
-										<a href="/groups?language=<?php echo esc_attr( strtolower( $group_meta['group_language'] ) ); ?>" class="group__language-link"><?php echo esc_html( $languages[ strtolower( $group_meta['group_language'] ) ] ); ?></a>
+										<a href="<?php echo esc_url_raw( add_query_arg( array('language' => strtolower( $group_meta['group_language'] ) ),get_home_url( null, 'groups') ) ); ?>" class="group__language-link"><?php echo esc_html( $languages[ strtolower( $group_meta['group_language'] ) ] ); ?></a>
 									</div>
 								</div>
 							</div>
