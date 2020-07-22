@@ -358,19 +358,24 @@
         line-height: 22px;
         margin-right: 1em;
         text-decoration: none;
+        padding: 10px;
 
-        &.campaigns__pagination-link--active {
+        &.campaigns__pagination-link--active,
+        &:hover {
             position: relative;
 
             &:after {
                 content : '';
                 position: absolute;
                 border-bottom: 1px solid $color-black;
-                bottom: -2px;
+                bottom: 8px;
                 display: block;
-                width: 100%;
-                left: 0;
+                width: calc(100% - 20px);
+                left: 10px;
             }
+        }
+        &--arrow:hover::after {
+          border-color: $color-blue-50;
         }
     }
 
