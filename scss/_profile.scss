@@ -9,14 +9,15 @@
     width: 100%;
 
     a {
-        text-decoration: none;
 
         &.profile__languages-link {
             color: $color-blue-50;
             font-size: remCalc(14);
             line-height: 20px;
             text-decoration: none;
-    
+			&:hover {
+				text-decoration: underline;
+			}
             @include tablet-and-up {
                 font-size: remCalc(16);
                 line-height: 24px;
@@ -103,9 +104,12 @@
         }
     }
 
-    &__hero-link {
+    a.profile__hero-link {
         color: $color-black;
-        text-decoration: underline!important;
+		text-decoration: underline;
+		&:hover {
+			text-decoration: none;
+		}
     }
 
     &__hero-content {
@@ -610,7 +614,10 @@
             left: 0;
             position: absolute;
             width: 100%;
-        }
+		}
+		&:hover::after {
+			display: none;
+		}
     }
 
     &__remove-language {
@@ -620,7 +627,10 @@
         color: $error;  
         height: 40px;
         margin-left: 8px;
-        width: 40px;
+		width: 40px;
+		&:hover {
+			border: 2px solid $color-blue-50;
+		}
     }
 
     &__cta-container {
@@ -637,9 +647,10 @@
             display: block;
             margin-top: 64px;
             text-decoration: underline;
-
+			color: $color-black;
             &:hover {
-                cursor: pointer;
+				cursor: pointer;
+				text-decoration: none;
             }
         }
 
@@ -872,7 +883,10 @@
             min-width: 515px;
             padding: 32px;
             width: 100%;
-        }
+		}
+		&--links {
+			padding: 0;
+		}
     }
     
     &__contact-title {
@@ -892,8 +906,10 @@
         flex-wrap: wrap;
         justify-content: flex-start;
         margin-bottom: 32px;
-
+		position: relative;
+		padding-top: 40px;
         @include tablet-and-up {
+			padding-top: 0;
             flex-direction: row;
         }
     }
@@ -969,14 +985,49 @@
 
     &__edit-link-container {
         display: none;
-
         @include tablet-and-up {
             align-self: flex-start;
             display: flex;
             justify-content: flex-start;
             flex-direction: row;
             margin-left: auto;
-        }
+		}
+		.profile__link {
+			position: absolute;
+			top: -56px;
+			right: -16px;
+			padding: 16px;
+			&::after {
+				content: "";
+				position: absolute;
+				bottom: 8px;
+				width: calc(100% - 32px);
+				background-color: $color-blue-50;
+				height: 1px;
+				display: none;
+				@include tablet-and-up {
+					width: calc(100% - 48px);
+					bottom: 16px;
+				}
+				@include desktop-and-up {
+					width: calc(100% - 64px);
+					bottom: 24px;
+				}
+			}
+			&:hover::after {
+				display: block;
+			}
+			@include tablet-and-up {
+				top: -24px;
+				right: -24px;
+				padding: 24px;
+			}
+			@include desktop-and-up {
+				padding: 32px;
+				top: -32px;
+				right: -32px;
+			}
+		}
 
         &.profile__edit-link-container--mobile {
             display: block;
@@ -987,7 +1038,7 @@
 
             .profile__link {
                 justify-content: flex-end;
-                margin-bottom: 16px;
+				margin-bottom: 16px;
             }
 
             @include tablet-and-up {
@@ -1065,10 +1116,12 @@
         margin-top: 8px;
         overflow: hidden;
         width: 105px;
-        z-index: 100;
+		z-index: 100;
+		border: 1px solid transparent;
 
         &:hover {
-            cursor: pointer;
+			cursor: pointer;
+			border: 1px solid $color-blue-50;
         }
 
 
@@ -1274,7 +1327,11 @@
         line-height: 20px;
         margin-right: 8px;
         margin-bottom: 8px;
-        padding: 10px 15px;
+		padding: 10px 15px;
+		text-decoration: none;
+		&:hover {
+			text-decoration: underline;
+		}
     }
 
     &__languages-container {
@@ -1307,21 +1364,38 @@
         margin-right: 16px;
         min-width: 120px;
         line-height: 28px;
-        text-decoration: none;
+		text-decoration: none;
+		&:hover {
+			text-decoration: underline;
+		}
 
         svg {
             flex-shrink: 0;
             margin-right: 8px;
         }
     }
-    
+	
+	&__group {
+		display: block;
+		padding: 16px;
+		text-decoration: none;
+		&:hover {
+			.profile__group-title {
+				text-decoration: underline;
+			}
+		}
+		@include tablet-and-up {
+			padding: 24px;
+		}
+	}
 
     &__group-title  {
         color: $color-off-black;
         font-family: $title-font;
         font-size: remCalc(24);
         line-height: 32px;
-        margin-bottom: 8px;
+		margin: 0;
+		margin-bottom: 8px;
     }
 
     &__heading {
@@ -1365,15 +1439,8 @@
 		color: $color-gray-20;
 		display: block;
 		height: 1px;
-		margin: 16px -16px;    
+		margin: 0;
 
-		@include tablet-and-up {
-            margin: 24px -24px;    
-		}
-
-		@include desktop-and-up {
-            margin: 32px -32px;    
-		}
 	}
 
 	&__event {
@@ -1381,6 +1448,16 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: flex-start;
+		padding: 16px; 
+		text-decoration: none;
+		&:hover {
+			.profile__event-title {
+				text-decoration: underline;
+			}
+		}
+		@include tablet-and-up {
+			padding: 24px;
+		}
 	}
 
 

@@ -93,7 +93,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 				<hr class="profile__keyline" />
 				<div class="profile__form-field">
 					<div class="profile__input-container profile__input-container--profile">
-						<label class="profile__label" for="image-url">
+						<label class="profile__label" for="dropzone-trigger">
 							<?php esc_html_e( 'Profile Photo (optional)', 'community-portal' ); ?>
 						</label>
 						<?php
@@ -430,9 +430,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 							}
 						}
 						?>
-						<textarea name="bio" id="bio" class="profile__textarea" maxlength="3000">
-							<?php echo esc_textarea( $bio ); ?>
-						</textarea>
+						<textarea name="bio" id="bio" class="profile__textarea" maxlength="3000"><?php echo esc_textarea( $bio ); ?></textarea>
 					</div>
 					<div class="profile__select-container">
 						<label class="profile__label" for="profile-bio-visibility">
@@ -1361,7 +1359,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 		<section class="profile__cta-container">
 			<input type="submit" class="profile__cta" value="<?php esc_attr_e( 'Complete Profile', 'community-portal' ); ?>" />
 			<?php if ( isset( $meta['agree'][0] ) && 'I Agree' === $meta['agree'][0] ) : ?>
-				<a id="profile-delete-account" class="profile__delete-cta"><?php esc_html_e( 'Delete Profile', 'community-portal' ); ?></a>
+				<a id="profile-delete-account" href="#" class="profile__delete-cta"><?php esc_html_e( 'Delete Profile', 'community-portal' ); ?></a>
 				<div class="profile__delete-account-error profile__delete-account-error--hidden"><?php esc_html_e( 'Could not delete profile at this time, please contact a community manager', 'community-portal' ); ?></div>
 			<?php endif; ?>
 		</section>
