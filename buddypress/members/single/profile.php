@@ -360,9 +360,11 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 			<?php if ( $info['campaigns_participated']->display ) : ?>
 				<?php
 					$campaigns        = get_user_meta( $user->ID, 'campaigns', true );
+	
 					$campaign_count   = 0;
 					$campaign_objects = array();
 					
+
 				if ( is_array( $campaigns ) ) {
 					foreach ( $campaigns as $cid ) {
 						$object = get_post( $cid );
@@ -374,7 +376,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 				?>
 				<?php if ( count( $campaign_objects ) > 0 ) : ?>
 					<h2 class="profile__heading"><?php esc_html_e( 'Campaigns Participated In', 'community-portal' ); ?></h2>
-					<div class="profile__card">
+					<div class="profile__card profile__card--links">
 					<?php foreach ( $campaign_objects as $campaign ) : ?>
 						<?php if ( $campaign ) : ?>
 							<?php
