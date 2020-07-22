@@ -14,7 +14,7 @@ get_header();
 $results = array();
 $theme_directory     = get_template_directory();
 require "{$theme_directory}/countries.php";
-
+$current_translation = mozilla_get_current_translation();
 $date_format        = 'en' === $current_translation ? 'F d, Y' : 'd F Y';
 
 
@@ -87,7 +87,6 @@ $wp_user_query = new WP_User_Query(
 
 $logged_in = mozilla_is_logged_in();
 $this_user = wp_get_current_user()->data;
-$current_translation = mozilla_get_current_translation();
 
 $members          = $wp_user_query->get_results();
 $filtered_members = array();
