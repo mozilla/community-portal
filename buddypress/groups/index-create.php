@@ -207,7 +207,7 @@ $current_translation = mozilla_get_current_translation();
 								</div>
 							</div>
 							<div class="create-group__input-container create-group__input-container--40 create-group__input-container--vertical-spacing">
-								<label class="create-group__label"><?php esc_html_e( 'Select an image', 'community-portal' ); ?></label>
+								<label for="dropzone-trigger" class="create-group__label"><?php esc_html_e( 'Select an image', 'community-portal' ); ?></label>
 								<div id="dropzone-photo-uploader" class="create-group__image-upload">
 									<div class="dz-message" data-dz-message="">
 										<div>

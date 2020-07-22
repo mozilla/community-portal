@@ -139,12 +139,15 @@
         width: 24px;
 	}
 	.nav__avatar-link, 
-	.nav__logout-link,
 	.nav__login-link {
 		&:hover {
 			text-decoration: underline;
 		}	
-	}
+  }
+	.nav__logout-link:hover {
+    text-decoration: none;
+  }
+  
 }
 
 .nav--mobile {
