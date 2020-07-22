@@ -240,6 +240,15 @@
         
     }
 
+    &__location-select,
+    &__language-select, 
+    &__tag-select {
+      border: 1px solid transparent;
+      &:hover {
+        border: 1px solid $color-blue-50;
+      }
+    }
+
 
     &__label {
         color: $color-gray-secondary;
@@ -283,6 +292,7 @@
     &__search-input {
         background-color: $color-white;
         border: none;
+        border: 1px solid transparent;
         border-bottom: 1px solid $color-gray-20;
         color: $color-gray-secondary;
         font-size: remCalc(16);
@@ -290,6 +300,9 @@
         margin-bottom: 24px;
         padding: 6px 32px;
         width: 100%;
+        &:hover {
+          border: 1px solid $color-blue-50;
+        }
 
         @include tablet-and-up {
             margin-bottom: 0;
@@ -358,11 +371,14 @@
         margin-bottom: 32px;
         padding: 16px;
         text-decoration: none;
-        transition: box-shadow 0.3s ease-in-out;
+        transition: transform 0.3s ease-in-out;
         width: 100%;
 
         &:hover {
-            box-shadow: 0 0 0 4px #d7d7db;
+          transform: scale(1.02);
+          .members__username {
+            text-decoration: underline;
+          }
         }
 
         @include tablet-and-up {
