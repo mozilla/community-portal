@@ -349,13 +349,13 @@
 
     .menu-item {
         border-bottom: 1px solid $color-white;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        height: 56px;
-        padding: 0;
-        text-align: left;
-        width: 100%;
+		width: 100%;
+		height: auto;
+        .menu-item__link {
+			text-align: left;
+			display: block;
+			padding: 16px 0;
+        }
     }
 
     @include desktop-and-up {
