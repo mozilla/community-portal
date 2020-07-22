@@ -256,10 +256,11 @@
             margin: 0;
             padding: 0;
             text-align: left;
-			      width: auto;
+			width: auto;
 			&:first-child .group__menu-link {
 				padding-left: 0;
-				&--active::after {
+				&--active::after,
+				&:hover::after {
 					width: calc(100% - 16px);
 					left: 0;
 				}
@@ -273,23 +274,27 @@
         line-height: 22px;
         text-decoration: none;
         display: inline-block;
-        padding: 16px;
+		padding: 16px;
+		position: relative;
+		
 
         &--active {
             font-weight: 600;
-            position: relative;
-
-            &:after {
-                background-color: $color-blue-50;
-
-                bottom: 0;
-                content: '';
-				height: 2px;
-				left: 16px;
+			&::after {
 				width: calc(100% - 32px);
-                position: absolute;
-            }
-        }
+			}
+		}
+		&:after {
+			background-color: $color-blue-50;
+			bottom: 0;
+			content: '';
+			height: 2px;
+			left: 16px;
+			position: absolute;
+		}
+		&:hover::after {
+			width: calc(100% - 32px);
+		}
 	}
 
     &__card-title {

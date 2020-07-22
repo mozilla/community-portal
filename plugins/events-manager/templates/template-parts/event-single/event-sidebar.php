@@ -97,7 +97,7 @@
 			<div class="col-lg-12 col-md-6 col-sm-12">
 				<p class="events-single__label"><?php esc_html_e( 'Preferred Language', 'community-portal' ); ?></p>
 				<p>
-				<a href="/events/?language=<?php print esc_attr( $event_meta[0]->language ); ?>" class="events-single__langauge-link"><?php echo esc_html( $language ); ?></a>
+				<a href="/events/?language=<?php print esc_attr( $event_meta[0]->language ); ?>" class="events-single__language-link"><?php echo esc_html( $language ); ?></a>
 				</p>
 			</div>
 		</div>

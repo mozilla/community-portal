@@ -63,7 +63,10 @@
     }
 
     &__hero-link {
-        color: $color-black;
+		color: $color-black;
+		&:hover {
+			text-decoration: none;
+		}
     }
 
     &__title {
@@ -167,7 +170,8 @@
 
     &__search-input {
         background-color: $color-white;
-        border: none;
+		border: none;
+		border: 1px solid transparent;
         border-bottom: 1px solid $color-gray-20;
         color: $color-gray-secondary;
         font-size: remCalc(16);
@@ -179,7 +183,10 @@
         @include tablet-and-up {
             margin-bottom: 0;
             max-width: 450px;
-        }
+		}
+		&:hover {
+			border: 1px solid $color-blue-50;
+		}
     }
 
 
@@ -256,10 +263,11 @@
 
         .menu-item {
 			width: auto;
-			&:first-child .groups__menu-link {
+			&:first-child .group__menu-link {
 				padding-left: 0;
 			}
-			&:first-child .group__menu-link--active::after {
+			&:first-child .group__menu-link--active::after,
+			&:first-child .group__menu-link:hover::after {
 				width: calc(100% - 16px);
 				left: 0;
 			}
@@ -271,7 +279,11 @@
         font-size: remCalc(14);
         text-decoration: none;
         display: inline-block;
-        padding: 16px;
+		padding: 16px;
+		position: relative;
+		&:hover::after {
+			width: 100%;
+		}
     }
 
 
@@ -385,7 +397,16 @@
         -webkit-appearance: none;
         width: 100%;
         
-    }
+	}
+	
+	&__location-select,
+	&__language-select, 
+	&__tag-select {
+		border: 1px solid transparent;
+		&:hover {
+			border: 1px solid $color-blue-50;
+		}
+	}
 
 
     &__label {
@@ -564,21 +585,29 @@
         font-size: remCalc(14);
         line-height: 22px;
         margin-right: 1em;
-        text-decoration: none;
+		text-decoration: none;
+		padding: 10px;
 
-        &.groups__pagination-link--active {
+		&.groups__pagination-link--active,
+		&:hover {
             position: relative;
 
             &:after {
                 content : '';
                 position: absolute;
                 border-bottom: 1px solid $color-black;
-                bottom: -2px;
+                bottom: 8px;
                 display: block;
-                width: 100%;
-                left: 0;
+                width: calc( 100% - 20px);
+                left: 10px;
             }
-        }
+		}
+		
+		&.groups__pagination-link--arrow {
+			&:hover::after {
+				border-color: $color-blue-50;
+			}
+		}
 
         &.members__pagination-link--last,
         &.members__pagination-link--first {
