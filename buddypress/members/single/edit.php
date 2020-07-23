@@ -42,10 +42,10 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 			<?php endif; ?>
 			<div class="profile__button-container">
 				<?php $username = $updated_username ? $updated_username : $user->user_nicename; ?>
-				<a href="<?php echo esc_attr( get_home_url( null, 'people/' . $username . '/profile/edit/group/1' ) ); ?>" class="profile__button">
+				<a href="<?php echo esc_attr( get_home_url( null, 'people/' . $username . '/profile/edit/group/1' ) ); ?>" class="btn btn--dark btn--submit">
 					<?php esc_html_e( 'Complete your profile', 'community-portal' ); ?>
 				</a>
-				<a href="<?php echo esc_url_raw(get_home_url()); ?>" class="profile__button profile__button--secondary">
+				<a href="<?php echo esc_url_raw(get_home_url()); ?>" class="btn btn--light btn--submit">
 					<?php esc_html_e( 'Go back to browsing', 'community-portal' ); ?>
 				</a>
 			</div>
@@ -58,17 +58,20 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 				<h1 class="profile__title">
 					<?php ( isset( $meta['agree'][0] ) && 'I Agree' === $meta['agree'][0] ) ? esc_html_e( 'Edit Profile', 'community-portal' ) : esc_html_e( 'Complete Profile', 'community-portal' ); ?>
 				</h1>
-				<p class="profile__hero-copy profile__hero-copy--green">
-					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-						<path d="M12 16V12" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-						<circle cx="12" cy="8" r="1" fill="black"/>
-					</svg>
-					<span>
-						<?php esc_html_e( 'We\'ve pre-populated some of your information via your connected account with ', 'community-portal' ); ?>
-						<a href="#" class="profile__hero-link"><?php esc_html_e( 'Mozilla SSO.', 'community-portal' ); ?></a>
-					</span>
-				</p>
+				<?php if ( !isset( $meta['agree'][0] ) || 'I Agree' !== $meta['agree'][0] ) : ?>
+					<p class="profile__hero-copy profile__hero-copy--green">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M12 16V12" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+							<circle cx="12" cy="8" r="1" fill="black"/>
+						</svg>
+						<span>
+							<?php esc_html_e( 'We\'ve pre-populated some of your information via your connected account with ', 'community-portal' ); ?>
+							<a href="#" class="profile__hero-link"><?php esc_html_e( 'Mozilla SSO.', 'community-portal' ); ?></a>
+						</span>
+					</p>
+				<?php endif;?>
+
 			</div>
 		</div>
 	</div>
@@ -1359,7 +1362,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 			<?php endif ?>
 		<?php endif ?>
 		<section class="profile__cta-container">
-			<input type="submit" class="profile__cta" value="<?php esc_attr_e( 'Complete Profile', 'community-portal' ); ?>" />
+			<input type="submit" class="profile__cta" value="<?php ( isset( $meta['agree'][0] ) && 'I Agree' === $meta['agree'][0] ) ? esc_attr_e( 'Save Profile', 'community-portal' ) : esc_attr_e( 'Complete Profile', 'community-portal' ); ?>" />
 			<?php if ( isset( $meta['agree'][0] ) && 'I Agree' === $meta['agree'][0] ) : ?>
 				<a id="profile-delete-account" class="profile__delete-cta"><?php esc_html_e( 'Delete Profile', 'community-portal' ); ?></a>
 				<div class="profile__delete-account-error profile__delete-account-error--hidden"><?php esc_html_e( 'Could not delete profile at this time, please contact a community manager', 'community-portal' ); ?></div>

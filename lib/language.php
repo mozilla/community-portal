@@ -62,8 +62,8 @@ function mozilla_match_browser_locale() {
 		if (empty(ICL_LANGUAGE_CODE)) {
 			return;
 		}
-		$base_url = get_site_url(null, ICL_LANGUAGE_CODE ); 
-		if ( wp_doing_ajax() || is_admin() || isset( $_GET['action'] ) ) {
+    $base_url = get_site_url(null, ICL_LANGUAGE_CODE ); 
+		if ( wp_doing_ajax() || is_admin() || isset( $_GET['action'] ) || false !== stripos($url, get_site_url(null, 'wp'))) {
 			return;
 		}
 
