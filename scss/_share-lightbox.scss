@@ -3,47 +3,62 @@
 }
 
 .share-link-container {
-    padding: 0;
+	padding: 0;
+	margin: 32px 0;
+}
+
+
+.lightbox__container--share {
+	padding: 0;
+	.lightbox__flex-container {
+		width: 90%;
+		margin: 0 auto;
+		display: flex;
+		justify-content: center;
+	}
+	.title--secondary {
+		font-family: $copy-font;
+		font-size: remCalc(20);
+		margin: 0;
+		padding: 16px;
+		border-bottom: 1px solid $color-gray-30;
+	}
+	.btn--close {
+		padding: 16px;
+	}
+	.share-link .btn {
+		border: 1px solid $color-gray-40;
+		padding: 16px 59px;
+		text-align: center;
+		position: relative;
+		flex-grow: 1;
+	
+		&::before {
+			content: "";
+		}
+		.btn--close {
+			padding: 16px;
+		}
+		svg {
+			position: absolute;
+			left: 16px;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+
+		&:hover,
+		&:focus {
+			background-color: black;
+			color: white;
+		}
+	}
 }
 
 .share-link {
     list-style-type: none;
     padding: 0;
-    position: relative;
-
-    &__copy::before,
-    &__facebook::before,
-    &__twitter::before,
-    &__discourse::before,
-    &__telegram::before {
-        left: 12px;
-        position: absolute;
-        top: calc(50% - 12px);
-
-        @include tablet-and-up {
-            left: 45px;
-        }
-    }
-
-    &__copy::before {
-        content: url('./images/copy.svg');
-    }
-
-    &__facebook::before {
-        content: url('./images/facebook.svg');
-    }
-
-    &__twitter::before {
-        content: url('./images/twitter.svg');
-    }
-
-    &__discourse::before {
-        content: url('./images/discourse.svg')
-    }
-
-    &__telegram::before {
-        content: url('./images/telegram.svg');
-	}
+	position: relative;
+	display: flex;
 	
 	&__completed {
 		display: none;
@@ -64,7 +79,6 @@
         display: inline-block;
         font-size: remCalc(14);
         margin-bottom: 16px;
-        min-width: 200px;
         padding: 15px 15px 15px 45px;
         position: relative;
         text-align: left;
@@ -72,7 +86,6 @@
         
         @include tablet-and-up {
             font-size: remCalc(16);
-            min-width: 256px;
             padding: 15px 15px 15px 82px;
         }
     }
