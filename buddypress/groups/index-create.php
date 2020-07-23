@@ -385,7 +385,7 @@ $current_translation = mozilla_get_current_translation();
 							<input class="checkbox--hidden" type="checkbox" name="agree" id="agree" value="<?php esc_attr_e( 'I Agree', 'community-portal' ); ?>" required />
 							<label class="cpg__label" for="agree">
 								<?php esc_html_e( 'I agree to respect and adhere to', 'community-portal' ); ?>
-								<a class="create-group__checkbox-container__link" href="https://www.mozilla.org/en-US/about/governance/policies/participation/"><?php esc_html_e( 'Mozilla’s Community Participation Guidelines *', 'community-portal' ); ?></a>
+								<a class="create-group__checkbox-container__link" href="https://www.mozilla.org/about/governance/policies/participation/"><?php esc_html_e( 'Mozilla’s Community Participation Guidelines *', 'community-portal' ); ?></a>
 								<div class="form__error-container form__error-container--checkbox">
 									<p class="form__error"><?php esc_html_e( 'Please agree to the Community Participation Guidelines', 'community-portal' ); ?></p>
 								</div>

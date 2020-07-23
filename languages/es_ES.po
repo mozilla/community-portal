@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2020-07-22 16:48-0400\n"
-"PO-Revision-Date: 2020-07-22 16:51-0400\n"
+"POT-Creation-Date: 2020-07-23 11:16-0400\n"
+"PO-Revision-Date: 2020-07-23 11:18-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -60,7 +60,7 @@ msgstr "Qué es el nombre de vuestro grupo? *"
 
 #: buddypress/groups/index-create.php:132
 #: buddypress/groups/index-create.php:206
-#: buddypress/groups/index-create.php:368 buddypress/groups/single/edit.php:103
+#: buddypress/groups/index-create.php:361 buddypress/groups/single/edit.php:103
 #: buddypress/groups/single/edit.php:175 buddypress/members/single/edit.php:227
 #: buddypress/members/single/edit.php:277
 #: buddypress/members/single/edit.php:335
@@ -163,141 +163,117 @@ msgstr "Saca archivo"
 msgid "Tags for your group"
 msgstr "Tags Para vuestro grupo"
 
-#: buddypress/groups/index-create.php:268 buddypress/groups/single/edit.php:245
+#: buddypress/groups/index-create.php:261 buddypress/groups/single/edit.php:245
 msgid "Group Meetings"
 msgstr "Reuniones de grupo"
 
-#: buddypress/groups/index-create.php:271 buddypress/groups/single/edit.php:248
+#: buddypress/groups/index-create.php:264 buddypress/groups/single/edit.php:248
 msgid "Where do you meet?"
 msgstr "Dónde   conoces?"
 
-#: buddypress/groups/index-create.php:274
-#: buddypress/groups/index-create.php:278
-#: buddypress/groups/index-create.php:288 buddypress/groups/single/edit.php:255
+#: buddypress/groups/index-create.php:267
+#: buddypress/groups/index-create.php:271
+#: buddypress/groups/index-create.php:281 buddypress/groups/single/edit.php:255
 #: buddypress/groups/single/edit.php:265
 msgid "Address"
 msgstr "Dirección"
 
-#: buddypress/groups/index-create.php:279
-#: buddypress/groups/index-create.php:283 buddypress/groups/single/edit.php:260
+#: buddypress/groups/index-create.php:272
+#: buddypress/groups/index-create.php:276 buddypress/groups/single/edit.php:260
 msgid "URL"
 msgstr "URL"
 
-#: buddypress/groups/index-create.php:293 buddypress/groups/single/edit.php:270
+#: buddypress/groups/index-create.php:286 buddypress/groups/single/edit.php:270
 msgid "Meeting details"
 msgstr "Conociendo detalles"
 
-#: buddypress/groups/index-create.php:302 buddypress/groups/single/edit.php:275
+#: buddypress/groups/index-create.php:295 buddypress/groups/single/edit.php:275
 #: buddypress/groups/single/group.php:1236
 msgid "Community Links"
 msgstr "Enlaces de comunidad"
 
-#: buddypress/groups/index-create.php:305 buddypress/groups/single/edit.php:278
+#: buddypress/groups/index-create.php:298 buddypress/groups/single/edit.php:278
 #: buddypress/groups/single/group.php:1262
 #: buddypress/members/single/profile.php:497
 msgid "Discourse"
 msgstr "Discurso"
 
-#: buddypress/groups/index-create.php:309 buddypress/groups/single/edit.php:282
+#: buddypress/groups/index-create.php:302 buddypress/groups/single/edit.php:282
 #: buddypress/groups/single/group.php:1302
 #: buddypress/members/single/profile.php:528
 msgid "Matrix"
 msgstr "Matrix"
 
-#: buddypress/groups/index-create.php:312 buddypress/groups/single/edit.php:285
+#: buddypress/groups/index-create.php:305 buddypress/groups/single/edit.php:285
 msgid "Please format as room-alias:domain"
 msgstr "Complacer formato cuando habitación-alias:ámbito"
 
-#: buddypress/groups/index-create.php:318 buddypress/groups/single/edit.php:291
+#: buddypress/groups/index-create.php:311 buddypress/groups/single/edit.php:291
 #: buddypress/groups/single/group.php:1253
 #: buddypress/members/single/profile.php:460
 msgid "Facebook"
 msgstr "Facebook"
 
-#: buddypress/groups/index-create.php:322 buddypress/groups/single/edit.php:295
+#: buddypress/groups/index-create.php:315 buddypress/groups/single/edit.php:295
 #: buddypress/groups/single/group.php:1287
 #: buddypress/members/single/profile.php:469
 msgid "Twitter"
 msgstr "Twitter"
 
-#: buddypress/groups/index-create.php:328 buddypress/groups/single/edit.php:301
+#: buddypress/groups/index-create.php:321 buddypress/groups/single/edit.php:301
 #: buddypress/groups/single/group.php:1244
 #: buddypress/members/single/profile.php:451
 msgid "Telegram"
 msgstr "Telegrama"
 
-#: buddypress/groups/index-create.php:332 buddypress/groups/single/edit.php:305
+#: buddypress/groups/index-create.php:325 buddypress/groups/single/edit.php:305
 msgid "GitHub"
 msgstr "GitHub"
 
-#: buddypress/groups/index-create.php:339 buddypress/groups/single/edit.php:311
+#: buddypress/groups/index-create.php:332 buddypress/groups/single/edit.php:311
 #: buddypress/groups/single/group.php:1321
 msgid "Other"
 msgstr "Otro"
 
-#: buddypress/groups/index-create.php:350
+#: buddypress/groups/index-create.php:343
 msgid "Secondary Group Contact"
 msgstr "Contacto de Grupo secundario"
 
-#: buddypress/groups/index-create.php:352
+#: buddypress/groups/index-create.php:345
 msgid "Secondary group contact"
 msgstr "Contacto de grupo secundario"
 
-#: buddypress/groups/index-create.php:360
+#: buddypress/groups/index-create.php:353
 msgid "Username *"
 msgstr "nombre de usuario *"
 
-#: buddypress/groups/index-create.php:361
+#: buddypress/groups/index-create.php:354
 #: buddypress/members/single/edit.php:210
 msgid "Username"
 msgstr "nombre de usuario *"
 
-#: buddypress/groups/index-create.php:369
+#: buddypress/groups/index-create.php:362
 msgid "Invalid user"
 msgstr "Email nulo"
 
-#: buddypress/groups/index-create.php:380
-msgid ""
-"We use cookies to improve your experience on our site and to show you "
-"personalized advertising."
-msgstr ""
-"Utilizamos cookies para mejorar su experiencia en nuestro sitio y mostrarle "
-"publicidad personalizada."
-
-#: buddypress/groups/index-create.php:381
-msgid "To find out more, read our"
-msgstr "Para saber más, lea nuestra"
-
-#: buddypress/groups/index-create.php:381
-msgid "privacy policy"
-msgstr "Política de privacidad"
-
-#: buddypress/groups/index-create.php:381
-msgid "and"
-msgstr "y"
-
-#: buddypress/groups/index-create.php:381
-msgid "cookie policy"
-msgstr "política de cookies"
-
-#: buddypress/groups/index-create.php:385
+#: buddypress/groups/index-create.php:401
 msgid "I Agree"
 msgstr "Estoy de acuerdo"
 
-#: buddypress/groups/index-create.php:387
+#: buddypress/groups/index-create.php:403
 #: buddypress/members/single/edit.php:1351
 msgid "I agree to respect and adhere to"
 msgstr "Apalabro respeto y adherir a"
 
-#: buddypress/groups/index-create.php:388
+#: buddypress/groups/index-create.php:404
 msgid "Mozilla’s Community Participation Guidelines *"
 msgstr "Las directrices de Participación de la Comunidad de Mozilla *"
 
-#: buddypress/groups/index-create.php:390
+#: buddypress/groups/index-create.php:406
 msgid "Please agree to the Community Participation Guidelines"
 msgstr "Las directrices de Participación de la Comunidad de Mozilla"
 
-#: buddypress/groups/index-create.php:398 buddypress/groups/single/edit.php:317
+#: buddypress/groups/index-create.php:415 buddypress/groups/single/edit.php:317
 msgid "Continue"
 msgstr "Continúa"
 
@@ -5353,13 +5329,13 @@ msgid "Timezone *"
 msgstr "Zona horaria *"
 
 #: plugins/events-manager/placeholders/bookingform.php:62
-msgid "Will Not Attend"
-msgstr "No Atenderá"
+msgid "I won't attend"
+msgstr "No voy a asistir"
 
 #: plugins/events-manager/placeholders/bookingform.php:90
 #: plugins/events-manager/templates/event-single.php:242
-msgid "Attend"
-msgstr "Atiende"
+msgid "I will attend"
+msgstr "Asistiré"
 
 #: plugins/events-manager/templates/event-single.php:263
 msgid "View more events in "
@@ -5385,7 +5361,15 @@ msgstr "Attendants"
 msgid "View all attendees"
 msgstr "Vista todo attendees"
 
+#: plugins/events-manager/templates/event-single.php:557
+msgid "Reporting Event"
+msgstr "Acontecimiento de informe"
+
 #: plugins/events-manager/templates/event-single.php:561
+msgid "Please provide a reason you are reporting this event"
+msgstr "Complacer proporcionar una razón estás informando este evento"
+
+#: plugins/events-manager/templates/event-single.php:570
 msgid "Report Event"
 msgstr "Acontecimiento de informe"
 
@@ -5662,6 +5646,31 @@ msgstr "Participación a Discurso"
 #: templates/share-modal.php:57
 msgid "Share to Telegram"
 msgstr "Participación a Telegrama"
+
+#~ msgid "Will Not Attend"
+#~ msgstr "No Atenderá"
+
+#~ msgid "Attend"
+#~ msgstr "Atiende"
+
+#~ msgid ""
+#~ "We use cookies to improve your experience on our site and to show you "
+#~ "personalized advertising."
+#~ msgstr ""
+#~ "Utilizamos cookies para mejorar su experiencia en nuestro sitio y "
+#~ "mostrarle publicidad personalizada."
+
+#~ msgid "To find out more, read our"
+#~ msgstr "Para saber más, lea nuestra"
+
+#~ msgid "privacy policy"
+#~ msgstr "Política de privacidad"
+
+#~ msgid "and"
+#~ msgstr "y"
+
+#~ msgid "cookie policy"
+#~ msgstr "política de cookies"
 
 #~ msgid ""
 #~ "We will default to English but send in these languages whenever we can."

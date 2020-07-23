@@ -572,11 +572,13 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 								}
 								$temp_name = $t->name;
 								if ( strtolower( $temp_slug ) === strtolower( $loop_tag ) ) {
+									$t->slug = $temp_slug;
 									$found = true;
 									break;
 								}
 							} else {
 								$temp_name = $t->name;
+								$temp_slug = $t->slug;
 								if ( strtolower( $t->slug ) === strtolower( $loop_tag ) ) {
 									$found = true;
 									break;
@@ -585,7 +587,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 						}
 						?>
 						<?php if ( $found ) : ?>
-							<a href="<?php echo esc_url_raw( add_query_arg(array('tag' => $t->slug), get_home_url(null, 'people'))) ;?>" class="profile__static-tag">
+							<a href="<?php echo esc_url_raw( add_query_arg(array('tag' => $temp_slug), get_home_url(null, 'people'))) ;?>" class="profile__static-tag">
 								<span>
 									<?php echo esc_html( $temp_name ); ?>
 								</span>
