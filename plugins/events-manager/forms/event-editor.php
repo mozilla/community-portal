@@ -255,7 +255,7 @@ else :
 				);
 				?>
 				">
-				<?php esc_html_e( 'Cancel Event', 'community-portal' ); ?>
+				<?php esc_html_e( 'Delete Event', 'community-portal' ); ?>
 		</a>
 				<?php
 			endif;
