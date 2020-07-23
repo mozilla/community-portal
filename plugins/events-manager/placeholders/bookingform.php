@@ -59,7 +59,7 @@ if ( get_option( 'dbem_css_rsvp' ) ) {
 		);
 		?>
 																						" onclick="if( !confirm('<?php print esc_attr__( 'Are you sure you dont want to attend this event?', 'community-portal' ); ?>') ){ return false; }">
-		<?php esc_html_e( 'Will Not Attend', 'community-portal' ); ?>
+		<?php esc_html_e( 'I won\'t attend', 'community-portal' ); ?>
 	</a>
 	<?php else : ?>
 	<form 
@@ -87,7 +87,7 @@ if ( get_option( 'dbem_css_rsvp' ) ) {
 		if ( is_admin() ) {
 			echo 'button-primary ';}
 		?>
-		em-booking-submit" id="em-booking-submit" value="<?php echo esc_attr_e( 'Attend', 'community-portal' ); ?>" />
+		em-booking-submit" id="em-booking-submit" value="<?php echo esc_attr_e( 'I will attend', 'community-portal' ); ?>" />
 	</form>	
 	<?php endif; ?>
 </div>
