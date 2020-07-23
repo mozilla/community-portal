@@ -67,7 +67,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 						</svg>
 						<span>
 							<?php esc_html_e( 'We\'ve pre-populated some of your information via your connected account with ', 'community-portal' ); ?>
-							<a href="#" class="profile__hero-link"><?php esc_html_e( 'Mozilla SSO.', 'community-portal' ); ?></a>
+							<a href="https://wiki.mozilla.org/Single_Sign_On" class="profile__hero-link"><?php esc_html_e( 'Mozilla SSO.', 'community-portal' ); ?></a>
 						</span>
 					</p>
 				<?php endif;?>
