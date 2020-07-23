@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2020-07-22 17:25-0400\n"
-"PO-Revision-Date: 2020-07-22 17:25-0400\n"
+"POT-Creation-Date: 2020-07-23 11:16-0400\n"
+"PO-Revision-Date: 2020-07-23 11:18-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -5329,13 +5329,13 @@ msgid "Timezone *"
 msgstr "Zona horaria *"
 
 #: plugins/events-manager/placeholders/bookingform.php:62
-msgid "Will Not Attend"
-msgstr "No Atenderá"
+msgid "I won't attend"
+msgstr "No voy a asistir"
 
 #: plugins/events-manager/placeholders/bookingform.php:90
 #: plugins/events-manager/templates/event-single.php:242
-msgid "Attend"
-msgstr "Atiende"
+msgid "I will attend"
+msgstr "Asistiré"
 
 #: plugins/events-manager/templates/event-single.php:263
 msgid "View more events in "
@@ -5646,6 +5646,12 @@ msgstr "Participación a Discurso"
 #: templates/share-modal.php:57
 msgid "Share to Telegram"
 msgstr "Participación a Telegrama"
+
+#~ msgid "Will Not Attend"
+#~ msgstr "No Atenderá"
+
+#~ msgid "Attend"
+#~ msgstr "Atiende"
 
 #~ msgid ""
 #~ "We use cookies to improve your experience on our site and to show you "

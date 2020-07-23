@@ -239,7 +239,7 @@ if ( isset( $em_event->group_id ) ) {
 					} else {
 						?>
 						<div>
-							<button class="btn btn--dark btn--submit event__no-account"><?php esc_html_e( 'Attend', 'community-portal' ); ?></button>
+							<button class="btn btn--dark btn--submit event__no-account"><?php esc_html_e( 'I will attend', 'community-portal' ); ?></button>
 						</div>
 						<?php
 					}
