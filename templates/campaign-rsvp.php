@@ -60,7 +60,7 @@
 						<input class="checkbox--hidden" type="checkbox" name="privacy-policy" id="privacy-policy">
 						<label class="cpg__label" for="privacy-policy">
 							<?php esc_html_e( 'I\'m okay with Mozilla handling my info as explained in this', 'community-portal' ); ?> 
-							<a href="https://www.mozilla.org/en-US/privacy/"><?php esc_html_e( 'Privacy Policy', 'community-portal' ); ?></a>
+							<a href="https://www.mozilla.org/privacy/"><?php esc_html_e( 'Privacy Policy', 'community-portal' ); ?></a>
 						</label>
 						<p class="form__error-container"><?php esc_html_e( 'You must agree to the privacy policy', 'community-portal' ); ?></p>
 					</div>

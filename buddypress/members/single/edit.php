@@ -1349,7 +1349,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 					<label class="create-group__checkbox-container cpg__label" for="agree">
 						<p class="create-group__checkbox-container__copy">
 							<?php esc_html_e( 'I agree to respect and adhere to', 'community-portal' ); ?>
-							<a class="create-group__checkbox-container__link" href="https://www.mozilla.org/en-US/about/governance/policies/participation/"><?php esc_html_e( 'Mozilla\'s Community Participation Guidelines*', 'community-portal' ); ?></a>
+							<a class="create-group__checkbox-container__link" href="https://www.mozilla.org/about/governance/policies/participation/"><?php esc_html_e( 'Mozilla\'s Community Participation Guidelines*', 'community-portal' ); ?></a>
 						</p>
 						<div class="form__error-container form__error-container--checkbox">
 							<p class="form__error"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></p>
