@@ -240,6 +240,13 @@ $current_translation = mozilla_get_current_translation();
 									?>
 									<div class="create-group__tag-container">
 										<?php foreach ( $tags as $loop_tag ) : ?>
+											<?php
+												if ( 'en' !== $current_translation ) {
+													if ( false !== stripos( $loop_tag->slug, '_' ) ) {
+														$loop_tag->slug = substr( $loop_tag->slug, 0, stripos( $loop_tag->slug, '_' ) );
+													}
+												}
+											?>
 											<input class="create-group__checkbox" type="checkbox" id="<?php echo esc_attr( $loop_tag->slug ); ?>" data-value="<?php echo esc_attr( $loop_tag->slug ); ?>">
 											<label class="create-group__tag
 											<?php
@@ -368,34 +375,11 @@ $current_translation = mozilla_get_current_translation();
 					</section>
 					<?php if ( 1 === $step ) : ?>
 					<section class="create-group__details">
-						<?php
-							$category_id            = get_cat_ID( 'Group Terms of Service', 'community-portal' );
-							$terms_of_service_posts = get_posts(
-								array(
-									'numberposts' => 1,
-									'category'    => $category_id,
-								)
-							);
-						?>
-						<?php if ( 1 === count( $terms_of_service_posts ) ) : ?>
 
 						<div class="create-group__terms">
-							<?php
-							echo wp_kses(
-								apply_filters( 'the_content', $terms_of_service_posts[0]->post_content ),
-								array(
-									'br'  => array(),
-									'p'   => array( 'class' => array() ),
-									'b'   => array(),
-									'h3'  => array(),
-									'div' => array(),
-									'a'   => array( 'href' => array() ),
-									'li'  => array(),
-									'ul'  => array(),
-									'ol'  => array(),
-								)
-							);
-							?>
+							<p><?php echo esc_html_e('We use cookies to improve your experience on our site and to show you personalized advertising.', 'community-portal') ?></p>
+							<p><?php echo esc_html_e('To find out more, read our', 'community-portal' ) ?> <a href="https://www.mozilla.org/privacy/"><?php echo esc_html_e('privacy policy', 'community-portal') ?> </a> <?php echo esc_html_e('and', 'community-portal') ?> <a href="https://www.mozilla.org/privacy/websites/#cookies"><?php echo esc_html_e('cookie policy', 'community-portal') ?></a>.
+							</p>
 						</div>
 						<div class="create-group__input-container create-group__input-container--full cpg">
 							<input class="checkbox--hidden" type="checkbox" name="agree" id="agree" value="<?php esc_attr_e( 'I Agree', 'community-portal' ); ?>" required />
@@ -407,7 +391,6 @@ $current_translation = mozilla_get_current_translation();
 								</div>
 							</label>
 						</div>
-						<?php endif; ?>
 						<input type="hidden" name="step" value="2" />
 					</section>
 					<?php endif; ?>
