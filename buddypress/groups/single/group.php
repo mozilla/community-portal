@@ -1126,7 +1126,9 @@
 
 						$args   = array(
 							'group' => $group->id,
-							'scope' => 'all',
+								'scope' => 'all',
+								'orderby' => 'event_start_date',
+								'order' => 'DESC',
 						);
 						$events = EM_Events::get( $args );
 						?>
