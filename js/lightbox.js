@@ -47,6 +47,7 @@ jQuery(function() {
 		const $target = jQuery(target);
 		if ($target.hasClass('lightbox')) {
 			toggleLightboxVisibility($target);
+			jQuery("body").removeClass("noscroll");
 		}
 	}
 
@@ -68,17 +69,20 @@ jQuery(function() {
 
     function handleCopyToClipboardClick() {
         var $copyTrigger = jQuery("#copy-share-link");
-        $copyTrigger.on("click", function(e) {
-            e.preventDefault();
-            
-            copyToClipboard();
+        $copyTrigger.one("click", function(e) {
+			e.preventDefault();
+			let target = e.target;
+			if (target.tagName !== 'A') {
+				target = target.closest('a');
+			} 
+            copyToClipboard(target.dataset.url);
             $copyTrigger.addClass('share-link__copy--complete')
         });
     }
 
-    function copyToClipboard() {
+    function copyToClipboard(value) {
         var el = document.createElement("textarea");
-        el.value = location.href;
+        el.value = value;
         el.setAttribute("readonly", "");
         el.style.position = "absolute";
         el.style.left = "-9999px";
