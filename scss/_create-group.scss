@@ -638,10 +638,15 @@
         cursor: pointer;
         padding-top: 44.5%;
         margin-top: 15px;
-        margin-bottom: 90px;
+		margin-bottom: 90px;
+		border: 1px solid transparent;
+		&:hover {
+			border: 1px solid $color-blue-50;
+		}
         @include tablet-and-up {
 			margin-bottom: 60px;
             max-width: none;
+
         }
 
         &.create-group__image-upload--reset {
@@ -719,6 +724,10 @@
                     text-align: center;
                     text-decoration: none;
                     width: 127px;
+                    &:hover {
+                      background: black;
+                      color: white;
+                    }
                 }
             }
         }
@@ -774,9 +783,14 @@
         text-align: center;
         text-decoration: none;
         width: 127px;
-
+      transition: all 0.3s ease-in-out;
         &--hide {
             display: none;
+        }
+        &:hover {
+          cursor: pointer;
+          background-color: black;
+          color: white;
         }
 	}
 	.form__error__secondary {

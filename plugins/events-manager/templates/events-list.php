@@ -334,7 +334,7 @@ if ( $event_initiative || $event_language ) {
 				<?php
 				if ( strlen( $view ) > 0 ) :
 					?>
-					&view=<?php print esc_attr( trim( $view ) ); ?><?php endif; ?>" class="campaigns__pagination-link">
+					&view=<?php print esc_attr( trim( $view ) ); ?><?php endif; ?>" class="campaigns__pagination-link campaigns__pagination-link--arrow">
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 					<path d="M17 23L6 12L17 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 				</svg>
@@ -446,7 +446,7 @@ if ( $event_initiative || $event_language ) {
 				<?php
 				if ( strlen( $view ) > 0 ) :
 					?>
-					&view=<?php print esc_attr( $view ); ?><?php endif; ?>" class="campaigns__pagination-link">
+					&view=<?php print esc_attr( $view ); ?><?php endif; ?>" class="campaigns__pagination-link campaigns__pagination-link--arrow">
 			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 				<path d="M7 23L18 12L7 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 			</svg>

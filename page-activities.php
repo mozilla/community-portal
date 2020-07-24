@@ -123,7 +123,7 @@ $total_pages = ceil( $activity_count / $activities_per_page );
 				<div class="activities__pagination">
 					<div class="activities__pagination-container">
 						<?php if ( $total_pages > 1 ) : ?>
-						<a href="<?php echo esc_attr( add_query_arg(array('a' => $previous_page), get_home_url( null, 'activities' ) ) ); ?>" class="activities__pagination-link">
+						<a href="<?php echo esc_attr( add_query_arg(array('a' => $previous_page), get_home_url( null, 'activities' ) ) ); ?>" class="activities__pagination-link activities__pagination-link--arrow">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 								<path d="M17 23L6 12L17 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 							</svg>
@@ -151,7 +151,7 @@ $total_pages = ceil( $activity_count / $activities_per_page );
 								if ( $p === $total_pages ) :
 									?>
 								activities__pagination-link--active<?php endif; ?>"><?php echo esc_html( $total_pages ); ?></a><?php endif; ?>
-						<a href="<?php echo esc_attr( add_query_arg( array( 'a' => $next_page ), get_home_url( null, 'activities' ) ) ); ?>" class="activities__pagination-link">
+						<a href="<?php echo esc_attr( add_query_arg( array( 'a' => $next_page ), get_home_url( null, 'activities' ) ) ); ?>" class="activities__pagination-link activities__pagination-link--arrow">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 							<path d="M7 23L18 12L7 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>

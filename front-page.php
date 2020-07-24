@@ -289,7 +289,7 @@
 						<p>
 							<span class="large-number homepage__events__count__span"><?php echo esc_html( $groups_total ); ?></span>
 							<?php esc_html_e( 'More Groups.', 'community-portal' ); ?>
-							<a href="<?php echo esc_attr( get_home_url( null, 'groups' ) ); ?>" class="homepage__events__count__link"><?php esc_html( $field_values->featured_groups_secondary_cta_text ); ?></a>
+							<a href="<?php echo esc_attr( get_home_url( null, 'groups' ) ); ?>" class="homepage__events__count__link"><?php echo esc_html( $field_values->featured_groups_secondary_cta_text ); ?></a>
 						</p>
 					</div>
 				</div>

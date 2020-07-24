@@ -315,10 +315,13 @@
         margin-top: 32px;
         padding: 24px;
         text-decoration: none;
-        transition: box-shadow 0.3s ease-in-out;
+        transition: transform 0.3s ease-in-out;
 
         &:hover {
-            box-shadow: 0 0 0 4px #d7d7db;
+			transform: scale(1.02);
+			.campaigns__active-campaign-title {
+				text-decoration: underline;
+			}
         }
 
         @include tablet-and-up {
@@ -358,19 +361,24 @@
         line-height: 22px;
         margin-right: 1em;
         text-decoration: none;
+        padding: 10px;
 
-        &.campaigns__pagination-link--active {
+        &.campaigns__pagination-link--active,
+        &:hover {
             position: relative;
 
             &:after {
                 content : '';
                 position: absolute;
                 border-bottom: 1px solid $color-black;
-                bottom: -2px;
+                bottom: 8px;
                 display: block;
-                width: 100%;
-                left: 0;
+                width: calc(100% - 20px);
+                left: 10px;
             }
+        }
+        &--arrow:hover::after {
+          border-color: $color-blue-50;
         }
     }
 

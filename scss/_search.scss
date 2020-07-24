@@ -16,6 +16,12 @@
         }
     }
 
+	&__result-link {
+		&:hover {
+			text-decoration: none;
+		}
+	}
+
     &__title {
         display: block;
         font-family: $title-font;

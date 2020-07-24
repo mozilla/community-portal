@@ -176,7 +176,7 @@ $form_tags = isset( $form['tags'] ) && is_array( $form['tags'] ) ? array_unique(
 						</div>
 					</div>
 					<div class="create-group__input-container create-group__input-container--40 create-group__input-container--vertical-spacing">
-						<label class="create-group__label" for="group-desc"><?php esc_html_e( 'Group Photo', 'community-portal' ); ?></label>
+						<label class="create-group__label" for="dropzone-trigger"><?php esc_html_e( 'Group Photo', 'community-portal' ); ?></label>
 						<div id="dropzone-photo-uploader" class="create-group__image-upload
 						<?php
 						if ( isset( $form['image_url'] ) && strlen( $form['image_url'] ) > 0 ) :

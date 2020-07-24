@@ -42,20 +42,24 @@
 
     &__search-input {
         border: none;
-        background-color: $color-white;
+		background-color: $color-white;
+		border: 1px solid white;
         border-bottom: 1px solid $color-gray-20;
         padding: 6px 32px;
         width: 100%;
         font-size: remCalc(16);
         line-height: 24px;
         color: $color-gray-secondary;
-        margin-bottom: 24px;
+		margin-bottom: 24px;
 
 
         @include tablet-and-up {
             margin-bottom: 0;
             max-width: 450px;
-        }
+		}
+		&:hover {
+			border: 1px solid $color-blue-50;
+		}
     }
 
     &__header { 
@@ -105,7 +109,10 @@
                     text-decoration: none;
                     position: absolute;
                     right: -15px;
-                }
+				}
+				&:hover {
+					text-decoration: none;
+				}
             }
         }
 
@@ -226,9 +233,9 @@
         justify-content: flex-start;
         text-decoration: none;
 
-		    color: #000;
-		    display: block;
-		    height: 100%;
+		color: #000;
+		display: block;
+		height: 100%;
 
     }
 
@@ -404,13 +411,14 @@
             text-decoration: none;
             color: #000;
             font-size: remCalc(14);
+			position: relative;
 
             &--active {
                 font-weight: bold;
-                position: relative;
             }
 
-            &--active::after {
+			&--active::after,
+			&:hover::after {
                 content: "";
                 position: absolute;
                 background: $color-blue-50;
@@ -436,7 +444,11 @@
             &--active::after {
                 width: 100%;
                 margin: 0;
-            }
+			}
+			&:hover:after {
+				width: 100%;
+                margin: 0;
+			}
         }
 
         &--mobile {
@@ -455,7 +467,11 @@
                 -webkit-appearance: none;
                 border: none;
                 padding: 15px 7px;
-                background: none;
+				background: none;
+				border: 1px solid $color-gray-20;
+				&:hover {
+					border: 1px solid $color-blue-50;
+				}
             }
 
             .events__nav__icon {
@@ -515,7 +531,7 @@
     &__zero-state {
         padding: 106px 0;
         p {
-          text-align: center;
+			text-align: center;
         }
     }
 
@@ -524,7 +540,7 @@
         margin-top: 0;
 
         p {
-          margin: 0;
+			margin: 0;
         }
 
         @include tablet-and-up {

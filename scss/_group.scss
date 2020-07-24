@@ -107,7 +107,10 @@
         color: $color-black;
         display: inline-block;
         margin-left: 4px;
-        text-decoration: underline!important;
+		text-decoration: underline;
+		&:hover {
+			text-decoration: none;
+		}
     }
 
     &__created,
@@ -170,7 +173,9 @@
         line-height: 20px;
         margin-left: 8px;
         text-decoration: none;
-
+		&:hover {
+			text-decoration: underline;
+		}
         @include tablet-and-up {
             font-size: remCalc(16);
             line-height: 24px;
@@ -186,16 +191,22 @@
         color: $color-blue-50;
         font-size: remCalc(14);
         line-height: 20px;
-        text-decoration: none;
-
+		text-decoration: none;
+		padding: 0 16px 16px;
+		display: block;
+		&:hover {
+			text-decoration: underline;
+		}
         @include tablet-and-up {
             font-size: remCalc(16);
-            line-height: 24px;
+			line-height: 24px;
+			padding: 0 24px 24px;
         }
 
         @include desktop-and-up {
             font-size: remCalc(18);
-            line-height: 28px;
+			line-height: 28px;
+			padding: 0 32px 32px;
         }
     }
 
@@ -256,10 +267,11 @@
             margin: 0;
             padding: 0;
             text-align: left;
-			      width: auto;
+			width: auto;
 			&:first-child .group__menu-link {
 				padding-left: 0;
-				&--active::after {
+				&--active::after,
+				&:hover::after {
 					width: calc(100% - 16px);
 					left: 0;
 				}
@@ -273,23 +285,27 @@
         line-height: 22px;
         text-decoration: none;
         display: inline-block;
-        padding: 16px;
+		padding: 16px;
+		position: relative;
+		
 
         &--active {
             font-weight: 600;
-            position: relative;
-
-            &:after {
-                background-color: $color-blue-50;
-
-                bottom: 0;
-                content: '';
-				height: 2px;
-				left: 16px;
+			&::after {
 				width: calc(100% - 32px);
-                position: absolute;
-            }
-        }
+			}
+		}
+		&:after {
+			background-color: $color-blue-50;
+			bottom: 0;
+			content: '';
+			height: 2px;
+			left: 16px;
+			position: absolute;
+		}
+		&:hover::after {
+			width: calc(100% - 32px);
+		}
 	}
 
     &__card-title {
@@ -325,9 +341,27 @@
             position: absolute;
             width: 40px;
             right: 32px;
-            top: 32px;
+			top: 32px;
+			&::after {
+				content: "";
+				display: block;
+				background-color: $color-blue-50;
+				height: 1px;
+				width: calc(100% - 16px);
+				position: absolute;
+				bottom: 4px;
+				left: 8px;
+				display: none;
+			}
+			&:hover::after {
+				display: block;
+			}
         }
-    }
+	}
+	
+	&__card--activity {
+		border-bottom: 0;
+	}
 
     &__card-no-image {
         align-items: center;
@@ -349,27 +383,36 @@
 
         @include desktop-and-up {
             padding: 32px;
-        }
+		}
+		
+
 
         &--small {
-            padding: 16px 16px 0 16px; 
+			padding: 0;
+        //     padding: 16px 16px 0 16px; 
 
-            @include tablet-and-up {
-                padding: 24px 24px 0 24px; 
-            }
-            @include desktop-and-up {
-                padding: 32px 32px 0 32px; 
-            }
+        //     @include tablet-and-up {
+        //         padding: 24px 24px 0 24px; 
+        //     }
+        //     @include desktop-and-up {
+        //         padding: 32px 32px 0 32px; 
+        //     }
         }
 
-        span {
+        p.group__card-content__subtitle {
             color: $color-gray-secondary;
-            display: inline-block;
+            display: block;
             font-size: remCalc(14);
             line-height: 24px;
             position: relative;
-            width: 100%;
-
+			width: 100%;
+			padding: 16px;
+			@include tablet-and-up {
+				padding: 24px 24px 16px;
+			}
+			@include desktop-and-up {
+				padding: 32px 32px 16px;
+			}
             &.no-line {
                 &:after {
                     display: none;
@@ -542,12 +585,14 @@
 
     &__tags {
         height: 100%;
-        margin-bottom: 24px;
-        margin-top: 16px;
         width: 100%;
-
+		padding: 16px;
+		padding: 0 16px 16px;
+		@include tablet-and-up {
+			padding: 0 24px 24px;
+		}
         @include desktop-and-up {
-            margin-bottom: 32px;
+            padding: 0 32px 32px;
         }
     }
 
@@ -560,23 +605,14 @@
         line-height: 20px;
         margin-bottom: 8px;
         padding: 10px 15px;
-        text-decoration: none;
+		text-decoration: none;
+		&:hover {
+			text-decoration: underline;
+		}
     }
 
     &__admins {
-        margin-top: 16px;
-        margin-bottom: 16px;
         width: 100%;
-
-        @include tablet-and-up {
-            margin-bottom: 24px;
-            margin-top: 24px;
-        }
-
-        @include desktop-and-up {
-            margin-bottom: 32px;
-            margin-top: 32px;
-        }
     }
 
 
@@ -584,12 +620,35 @@
     &__admin {
         align-items: center;
         display: flex;
-        text-decoration: none;
-
-        &:not(:first-of-type) {
-            margin-top: 40px;
-        }
-
+		text-decoration: none;
+		padding: 0 16px 8px;
+		@include tablet-and-up {
+			padding: 0 24px 8px;
+		}
+		@include desktop-and-up {
+			padding: 0 32px 8px;
+		}
+		& + .group__admin {
+			padding: 8px 16px 16px;
+			@include tablet-and-up {
+				padding: 8px 24px 24px;
+			}
+			@include desktop-and-up {
+				padding: 8px 32px 32px;
+			}
+		}
+		.group__admin-username {
+			margin-bottom: 0;
+		}
+		.group__admin-name {
+			color: $color-gray-secondary;
+            font-size: remCalc(14);
+		}
+		&:hover {
+			.group__admin-username {
+				text-decoration: underline;
+			}
+		}
         .members__avatar {
             background-color: $color-gray-20;
             background-position: center;
@@ -628,19 +687,12 @@
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
-        margin: 0 -16px;
-        margin-top: 16px;
-        padding: 16px 16px;
-  
-        @include tablet-and-up {
-            margin: 0 -24px;
-            margin-top: 24px;
-            padding: 24px 24px;
-        }
+		padding: 24px;
+		&:nth-child(2) {
+			border-top:0;
+		}
 
         @include desktop-and-up {
-            margin: 0 -32px;
-            margin-top: 32px;
             padding: 32px 32px;
         }
 
@@ -650,10 +702,24 @@
             border-top: none;
         }
     }
-    
+    .group__member-count {
+		color: $color-black;
+		text-decoration: none;
+		display: block;
+		&:nth-child(n + 3) {
+			border-top: 1px solid $color-gray-20;
+		}
+		&:hover span{
+			text-decoration: underline;
+			&.group__member-count__numeral {
+				text-decoration: none;
+			}
+		}
+	}
     span.group__event-count,
-    a.group__member-count {
-
+    .group__member-count__numeral {
+		display: inline-block;
+		transform: translateY(3px);
         color: $color-blue-50;
         font-family: $title-font;
         font-size: remCalc(36);
@@ -673,19 +739,19 @@
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
-        margin: 16px -16px;
-        padding: 16px 24px;
+        padding: 16px;
         text-decoration: none;
-        
+		&:hover .group__event-title {
+			text-decoration: underline;
+		}
 
         @include tablet-and-up {
-            margin: 24px -24px;
-            padding: 24px 32px;
+            padding: 24px;
         }
 
         @include desktop-and-up {
-            margin: 32px -32px;
-        }
+			padding: 24px 32px;
+		}
     }
  
     &__event-date {
@@ -717,18 +783,24 @@
 
     &__events-link {
         color: $color-blue-50;
-        display: inline-block;
+        display: block;
         font-size: remCalc(16);
         line-height: 24px;
-        margin-bottom: 24px;
-
+		text-decoration: none;
+		padding: 16px;
         svg {
             margin-left: 4px;
-        }
+		}
+		@include tablet-and-up {
+			padding: 20px 24px 24px;
+		}
+		@include desktop-and-up {
+			padding: 32px;
+		}
+		&:hover {
+			text-decoration: underline;
+		}
 
-        @include desktop-and-up {
-            margin-bottom: 32px;
-        }
     }
 
     &__admin-name {
@@ -886,7 +958,7 @@
     &__language {
         color: $color-gray-80;
         font-size: remCalc(14);
-        line-height: 20px;
+		line-height: 20px;
     }
 
 
