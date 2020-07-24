@@ -119,7 +119,7 @@ if ( $EM_Event->is_recurring() ) {
 				<div class="event-creator__three-up">
 					<div class="half">
 						<label class="event-form-details event-creator__label" for="event-description"><?php esc_html_e( 'Event description *', 'community-portal' ); ?></label>
-						<textarea name="content" id="event-description" placeholder="<?php esc_html_e( 'Add in the details of your event’s agenda here. If this is a multi-day event, you can add in the details of each day’s schedule and start/end time.' ); ?>" rows="10" id="event-description" class="event-creator__input event-creator__textarea" style="width:100%" required maxlength="3000"><?php echo esc_html( $EM_Event->post_content ); ?></textarea>
+						<textarea name="content" id="event-description" placeholder="<?php esc_html_e( 'Add in the details of your event’s agenda here. If this is a multi-day event, you can add in the details of each day’s schedule and start/end time.', 'community-portal'); ?>" rows="10" id="event-description" class="event-creator__input event-creator__textarea" style="width:100%" required maxlength="3000"><?php echo esc_html( $EM_Event->post_content ); ?></textarea>
 						<div class="form__error-container">
 							<p class="form__error"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></p>
 						</div>
@@ -255,7 +255,7 @@ else :
 				);
 				?>
 				">
-				<?php esc_html_e( 'Cancel Event', 'community-portal' ); ?>
+				<?php esc_html_e( 'Delete Event', 'community-portal' ); ?>
 		</a>
 				<?php
 			endif;
@@ -267,7 +267,8 @@ else :
 		else :
 			$update_label = __( 'Update Event', 'community-portal' );
 		endif;
-		?>
+    ?>
+    
 		<input id="event-creator__submit-btn" type='submit' class='button-primary btn btn--dark btn--submit' value='<?php echo esc_attr( $update_label ); ?>' />
 		<?php wp_nonce_field( 'event_update', 'event_update_field' ); ?>
 		<input type="hidden" name="event_id" value="<?php echo esc_attr( $EM_Event->event_id ); ?>" />

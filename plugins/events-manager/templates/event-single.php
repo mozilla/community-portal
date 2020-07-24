@@ -239,7 +239,7 @@ if ( isset( $em_event->group_id ) ) {
 					} else {
 						?>
 						<div>
-							<button class="btn btn--dark btn--submit event__no-account"><?php esc_html_e( 'Attend', 'community-portal' ); ?></button>
+							<button class="btn btn--dark btn--submit event__no-account"><?php esc_html_e( 'I will attend', 'community-portal' ); ?></button>
 						</div>
 						<?php
 					}
@@ -552,14 +552,23 @@ if ( isset( $em_event->group_id ) ) {
 </div>
 <?php if ( ! empty( $group ) && isset( $options['report_email'] ) && is_user_logged_in() && isset( $_SERVER['HTTP_HOST'] ) ) : ?>
 <div class="events-single__report-container">
-	<a href="mailto:<?php print esc_attr( $options['report_email'] ); ?>?subject=<?php print sprintf( '%s %s', esc_html__( 'Reporting Event', 'community-portal' ), esc_attr( $em_event->event_name ) ); ?>&body=<?php print sprintf( '%s %s', esc_html__( 'Please provide a reason you are reporting this event', 'community-portal' ), esc_url_raw( wp_unslash( $_SERVER['HTTP_HOST'] ) ) . esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ); ?>" class="events-single__report-group-link">
-		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-			<path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-			<path d="M12 8V12" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-			<circle cx="12" cy="16" r="0.5" fill="#CDCDD4" stroke="#0060DF"/>
-		</svg>
-		<?php esc_html_e( 'Report Event', 'community-portal' ); ?>
-	</a>                                           
+	<?php
+		$report_email = trim( sanitize_email( $options['report_email'] ) );
+		$subject      = sprintf( '%s %s', __( 'Reporting Event', 'community-portal' ), $em_event->event_name );
+		if ( ! empty( $_SERVER['HTTP_HOST'] ) && ! empty( $_SERVER['REQUEST_URI'] ) ) {
+			$server_host = sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) );
+			$server_uri  = sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) );
+			$body        = __( 'Please provide a reason you are reporting this event', 'community-portal' ) . " https://{$server_host}{$server_uri}";
+		}
+	?>
+		<a href="mailto:<?php echo esc_attr( $report_email ); ?>?subject=<?php echo esc_attr( $subject ); ?>&body=<?php echo esc_attr( $body ); ?>" class="group__report-group-link">
+			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+				<path d="M12 8V12" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+				<circle cx="12" cy="16" r="0.5" fill="#CDCDD4" stroke="#0060DF"/>
+			</svg>
+			<?php esc_html_e( 'Report Event', 'community-portal' ); ?>
+		</a>                                
 </div>
 
 <?php endif ?>
