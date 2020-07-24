@@ -23,7 +23,8 @@
 .input, 
 .textarea,
 .select {
-  &:focus {
+  :&:focus,
+  &:hover {
       outline: 0;
       border: 1px solid $color-blue-50;
   }
