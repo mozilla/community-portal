@@ -1323,7 +1323,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 			);
 		?>
 		<?php
-		if ( ! isset( $subscribed ) || ( isset( $subscribed ) && intval( $subscribed ) !== 1 ) ) :
+		if ( ! isset( $subscribed ) || ( isset( $subscribed ) && intval( $subscribed ) === 1 ) ) :
 			?>
 			<section class="profile__form-container">
 				<div class="profile__newsletter">
