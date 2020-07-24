@@ -342,8 +342,19 @@
             width: 40px;
             right: 32px;
 			top: 32px;
-			&:hover {
-				border-bottom: 1px solid $color-blue-50;
+			&::after {
+				content: "";
+				display: block;
+				background-color: $color-blue-50;
+				height: 1px;
+				width: calc(100% - 16px);
+				position: absolute;
+				bottom: 4px;
+				left: 8px;
+				display: none;
+			}
+			&:hover::after {
+				display: block;
 			}
         }
 	}

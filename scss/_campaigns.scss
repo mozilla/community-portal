@@ -318,7 +318,10 @@
         transition: transform 0.3s ease-in-out;
 
         &:hover {
-            transform: scale(1.02);
+			transform: scale(1.02);
+			.campaigns__active-campaign-title {
+				text-decoration: underline;
+			}
         }
 
         @include tablet-and-up {
