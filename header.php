@@ -189,7 +189,7 @@ if (
 									style="background-image: url('<?php echo esc_attr( $avatar ); ?>')"<?php endif; ?> data-user="<?php echo esc_attr( $user->user_nicename ); ?>"></div>
 								<?php echo esc_html( $user->user_nicename ); ?>
 							</a>
-							<a href="/wp-login.php?action=logout" class="nav__logout-link"><?php esc_attr_e( 'Log Out', 'community-portal' ); ?></a>
+							<a href="<?php echo wp_logout_url(); ?>" class="nav__logout-link"><?php esc_attr_e( 'Log Out', 'community-portal' ); ?></a>
 						<?php else : ?>
 							<a href="/wp-login.php?action=login" class="nav__login-link"><?php esc_attr_e( 'Log In / Sign Up', 'community-portal' ); ?></a>
 						<?php endif; ?>
