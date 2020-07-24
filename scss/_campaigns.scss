@@ -315,10 +315,10 @@
         margin-top: 32px;
         padding: 24px;
         text-decoration: none;
-        transition: box-shadow 0.3s ease-in-out;
+        transition: transform 0.3s ease-in-out;
 
         &:hover {
-            box-shadow: 0 0 0 4px #d7d7db;
+            transform: scale(1.02);
         }
 
         @include tablet-and-up {
