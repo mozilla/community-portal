@@ -267,7 +267,8 @@ else :
 		else :
 			$update_label = __( 'Update Event', 'community-portal' );
 		endif;
-		?>
+    ?>
+    
 		<input id="event-creator__submit-btn" type='submit' class='button-primary btn btn--dark btn--submit' value='<?php echo esc_attr( $update_label ); ?>' />
 		<?php wp_nonce_field( 'event_update', 'event_update_field' ); ?>
 		<input type="hidden" name="event_id" value="<?php echo esc_attr( $EM_Event->event_id ); ?>" />
