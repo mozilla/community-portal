@@ -69,4 +69,7 @@
     &--share {
         padding: 9px 24px;
     }
+    & + .btn {
+      margin-left: 16px;
+    }
 }
