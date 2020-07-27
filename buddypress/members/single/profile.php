@@ -226,11 +226,15 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 					$events_attended_count = 0;
 				?>
 				<?php if ( count( $events->bookings ) > 0 ) : ?>
+					
 					<h2 class="profile__heading"><?php esc_html_e( 'Recent Events', 'community-portal' ); ?></h2>
 					<div class="profile__card profile__card--links">
-						<?php foreach ( $events->bookings as $event_booking ) : ?>
+						<?php 
+							$events = array_map('mozilla_replace_bookings_with_events', $events->bookings);
+						?>
+						<?php usort($events, 'mozilla_sort_events_by_date'); ?>
+						<?php foreach ( $events as $event ) : ?>
 							<?php
-								$event       = em_get_event( $event_booking->event_id );
 								$event_time  = strtotime( $event->start_date );
 								$date_format = 'en' === $current_translation ? 'M d' : 'd M';
 								$event_date  = mozilla_localize_date( $event->start_date, $date_format );
@@ -273,7 +277,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 								</div>
 							</a>
 							<?php $events_attended_count++; ?>
-							<?php if ( $events_attended_count < count( $events->bookings ) ) : ?>
+							<?php if ( $events_attended_count < count( $events ) ) : ?>
 								<hr class="profile__group-line" />
 							<?php endif; ?>
 						<?php endforeach; ?>
@@ -298,6 +302,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 					);
 					$events_organized         = EM_Events::get( $args );
 					$events_organized         = array_unique( array_merge( $events_organized, $private_events_organized ), SORT_REGULAR );
+					usort($events_organized, 'mozilla_sort_events_by_date');
 					$events_organized_count   = 0;
 					?>
 				<?php if ( count( $events_organized ) > 0 ) : ?>

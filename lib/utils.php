@@ -1055,7 +1055,7 @@ function mozilla_filter_inactive_tags( $tag ) {
 function mozilla_apply_default_post_ids($post) {
 	$post_type = $post->post_type;
 	$post->ID = apply_filters( 'wpml_object_id', $post->ID, $post_type, true, 'en' );
-  return $post;
+	return $post;
 }
 
 /** 
@@ -1069,3 +1069,19 @@ function mozilla_query_all_events( $args, $post, $post_id ) {
 	$args['suppress_filters'] = true;
 	return $args;
 }
+
+function mozilla_replace_bookings_with_events($booking) {
+	$event = em_get_event($booking->event_id);
+	return $event;
+}
+
+function mozilla_sort_events_by_date($event_1, $event_2) {
+	if (strtotime($event_1->start_date) === strtotime($event_2->start_date)) {
+		return 0;
+	} elseif (strtotime($event_1->start_date) > strtotime($event_2->start_date)) {
+		return -1;
+	} else {
+		return 1;
+	}
+}
+
