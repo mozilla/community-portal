@@ -558,7 +558,7 @@ if ( isset( $em_event->group_id ) ) {
 		if ( ! empty( $_SERVER['HTTP_HOST'] ) && ! empty( $_SERVER['REQUEST_URI'] ) ) {
 			$server_host = sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) );
 			$server_uri  = sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) );
-			$body        = __( 'Please provide a reason you are reporting this event', 'community-portal' ) . " https://{$server_host}{$server_uri}";
+			$body        = __('Please provide a reason you are reporting this event', 'community-portal') . " https://" . $server_host . $server_uri;
 		}
 	?>
 		<a href="mailto:<?php echo esc_attr( $report_email ); ?>?subject=<?php echo esc_attr( $subject ); ?>&body=<?php echo esc_attr( $body ); ?>" class="group__report-group-link">
