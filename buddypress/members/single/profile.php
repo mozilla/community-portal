@@ -33,12 +33,9 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 				<?php if ( $is_me ) : ?>
 					<div class="profile__edit-link-container profile__edit-link-container--mobile">
 					<a href="<?php if ( $current_translation ) :?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/people/<?php echo esc_attr( $info['username']->value ); ?>/profile/edit/group/1" class="profile__link">
-
-							<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" class="profile__edit-icon">
-								<path d="M8.25 3H3C2.60218 3 2.22064 3.15804 1.93934 3.43934C1.65804 3.72064 1.5 4.10218 1.5 4.5V15C1.5 15.3978 1.65804 15.7794 1.93934 16.0607C2.22064 16.342 2.60218 16.5 3 16.5H13.5C13.8978 16.5 14.2794 16.342 14.5607 16.0607C14.842 15.7794 15 15.3978 15 15V9.75" stroke="#0060DF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-								<path d="M13.875 1.87419C14.1734 1.57582 14.578 1.4082 15 1.4082C15.422 1.4082 15.8266 1.57582 16.125 1.87419C16.4234 2.17256 16.591 2.57724 16.591 2.99919C16.591 3.42115 16.4234 3.82582 16.125 4.12419L9 11.2492L6 11.9992L6.75 8.99919L13.875 1.87419Z" stroke="#0060DF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M23.64 6.36L17.64 0.36C17.16 -0.12 16.44 -0.12 15.96 0.36L0.36 15.96C0.12 16.2 0 16.44 0 16.8V22.8C0 23.52 0.48 24 1.2 24H7.2C7.56 24 7.8 23.88 8.04 23.64L23.64 8.04C24.12 7.56 24.12 6.84 23.64 6.36ZM6.72 21.6H2.4V17.28L16.8 2.88L21.12 7.2L6.72 21.6Z" fill="#0060DF"/>
 							</svg>
-							<?php esc_html_e( 'Edit', 'community-portal' ); ?>
 						</a>
 					</div>
 				<?php endif; ?>
@@ -155,7 +152,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 				?>
 					<h2 class="profile__heading"><?php esc_html_e( 'Groups I\'m In', 'community-portal' ); ?></h2>
 				<?php $group_count = 0; ?>
-					<div class="profile__card">
+					<div class="profile__card profile__card--links">
 					<?php foreach ( $groups['groups'] as $gid ) : ?>
 							<?php
 								$group      = new BP_Groups_Group( $gid );
@@ -230,7 +227,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 				?>
 				<?php if ( count( $events->bookings ) > 0 ) : ?>
 					<h2 class="profile__heading"><?php esc_html_e( 'Recent Events', 'community-portal' ); ?></h2>
-					<div class="profile__card">
+					<div class="profile__card profile__card--links">
 						<?php foreach ( $events->bookings as $event_booking ) : ?>
 							<?php
 								$event       = em_get_event( $event_booking->event_id );
@@ -307,7 +304,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 					<h2 class="profile__heading">
 						<?php esc_html_e( 'Organized Events', 'community-portal' ); ?>
 					</h2>
-					<div class="profile__card">
+					<div class="profile__card profile__card--links">
 						<?php foreach ( $events_organized as $event ) : ?>
 							<?php
 								$date_format = 'en' === $current_translation ? 'M d' : 'd M';
@@ -363,8 +360,10 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 			<?php if ( $info['campaigns_participated']->display ) : ?>
 				<?php
 					$campaigns        = get_user_meta( $user->ID, 'campaigns', true );
+	
 					$campaign_count   = 0;
 					$campaign_objects = array();
+					
 
 				if ( is_array( $campaigns ) ) {
 					foreach ( $campaigns as $cid ) {
@@ -377,7 +376,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 				?>
 				<?php if ( count( $campaign_objects ) > 0 ) : ?>
 					<h2 class="profile__heading"><?php esc_html_e( 'Campaigns Participated In', 'community-portal' ); ?></h2>
-					<div class="profile__card">
+					<div class="profile__card profile__card--links">
 					<?php foreach ( $campaign_objects as $campaign ) : ?>
 						<?php if ( $campaign ) : ?>
 							<?php
@@ -473,17 +472,11 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 						<a href="<?php print mozilla_verify_url( $info['linkedin']->value, true ) ? esc_attr( mozilla_verify_url( $info['linkedin']->value, true ) ) : esc_attr( "https://www.linkedin.com/in/{$info['linkedin']->value}" ); ?>" class="profile__social-link">
 							<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
-								<g clip-path="url(#clip0)">
-									<path d="M20.1663 23.5V21.8333C20.1663 20.9493 19.8152 20.1014 19.19 19.4763C18.5649 18.8512 17.7171 18.5 16.833 18.5H10.1663C9.28229 18.5 8.43444 18.8512 7.80932 19.4763C7.1842 20.1014 6.83301 20.9493 6.83301 21.8333V23.5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-									<path d="M13.5003 15.1667C15.3413 15.1667 16.8337 13.6743 16.8337 11.8333C16.8337 9.99238 15.3413 8.5 13.5003 8.5C11.6594 8.5 10.167 9.99238 10.167 11.8333C10.167 13.6743 11.6594 15.1667 13.5003 15.1667Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-									<path d="M25.167 23.4991V21.8324C25.1664 21.0939 24.9206 20.3764 24.4681 19.7927C24.0156 19.209 23.3821 18.7921 22.667 18.6074" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-									<path d="M19.333 8.60742C20.05 8.79101 20.6855 9.20801 21.1394 9.79268C21.5932 10.3774 21.8395 11.0964 21.8395 11.8366C21.8395 12.5767 21.5932 13.2958 21.1394 13.8805C20.6855 14.4652 20.05 14.8822 19.333 15.0658" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+								<g transform="translate(6 6)">
+									<path d="M13.333 6.66602C14.6591 6.66602 15.9309 7.1928 16.8685 8.13048C17.8062 9.06816 18.333 10.3399 18.333 11.666V17.4993H14.9997V11.666C14.9997 11.224 14.8241 10.8001 14.5115 10.4875C14.199 10.1749 13.775 9.99935 13.333 9.99935C12.891 9.99935 12.4671 10.1749 12.1545 10.4875C11.8419 10.8001 11.6663 11.224 11.6663 11.666V17.4993H8.33301V11.666C8.33301 10.3399 8.85979 9.06816 9.79747 8.13048C10.7352 7.1928 12.0069 6.66602 13.333 6.66602V6.66602Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+									<path d="M5.00033 7.5H1.66699V17.5H5.00033V7.5Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+									<path d="M3.33366 4.99935C4.25413 4.99935 5.00033 4.25316 5.00033 3.33268C5.00033 2.41221 4.25413 1.66602 3.33366 1.66602C2.41318 1.66602 1.66699 2.41221 1.66699 3.33268C1.66699 4.25316 2.41318 4.99935 3.33366 4.99935Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 								</g>
-								<defs>
-									<clipPath id="clip0">
-										<rect width="20" height="20" fill="white" transform="translate(6 6)"/>
-									</clipPath>
-								</defs>
 							</svg>
 							<?php esc_html_e( 'Linkedin', 'community-portal' ); ?>
 						</a>

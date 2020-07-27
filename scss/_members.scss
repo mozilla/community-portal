@@ -240,6 +240,15 @@
         
     }
 
+    &__location-select,
+    &__language-select, 
+    &__tag-select {
+      border: 1px solid transparent;
+      &:hover {
+        border: 1px solid $color-blue-50;
+      }
+    }
+
 
     &__label {
         color: $color-gray-secondary;
@@ -283,6 +292,7 @@
     &__search-input {
         background-color: $color-white;
         border: none;
+        border: 1px solid transparent;
         border-bottom: 1px solid $color-gray-20;
         color: $color-gray-secondary;
         font-size: remCalc(16);
@@ -290,6 +300,9 @@
         margin-bottom: 24px;
         padding: 6px 32px;
         width: 100%;
+        &:hover {
+          border: 1px solid $color-blue-50;
+        }
 
         @include tablet-and-up {
             margin-bottom: 0;
@@ -358,11 +371,14 @@
         margin-bottom: 32px;
         padding: 16px;
         text-decoration: none;
-        transition: box-shadow 0.3s ease-in-out;
+        transition: transform 0.3s ease-in-out;
         width: 100%;
 
         &:hover {
-            box-shadow: 0 0 0 4px #d7d7db;
+          transform: scale(1.02);
+          .members__username {
+            text-decoration: underline;
+          }
         }
 
         @include tablet-and-up {
@@ -445,21 +461,27 @@
         font-size: remCalc(14);
         line-height: 22px;
         margin-right: 1em;
-        text-decoration: none;
+		text-decoration: none;
+		padding: 10px;
         
-        &.members__pagination-link--active {
+		&.members__pagination-link--active,
+		&:hover {
             position: relative;
 
             &:after {
                 content : '';
                 border-bottom: 1px solid $color-black;
-                bottom: -2px;
+                bottom: 8px;
                 display: block;
-                left: 0;
+                left: 10px;
                 position: absolute;
-                width: 100%;
+				width: calc( 100% - 20px);
             }
-        }
+		}
+		
+		&--arrow:hover::after {
+			border-bottom: 1px solid $color-blue-50;
+		}
 
         &.members__pagination-link--last,
         &.members__pagination-link--first {

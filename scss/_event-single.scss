@@ -12,9 +12,12 @@
     &__language-link {
         color: $color-blue-50;
         font-size: remCalc(14);
-        line-height: 20px;
+		line-height: 20px;
+		padding-right: 16px;
         text-decoration: none;
-
+		&:hover {
+			text-decoration: underline;
+		}
         @include tablet-and-up {
             font-size: remCalc(16);
             line-height: 24px;
@@ -54,20 +57,33 @@
             svg {
                 margin-right: 8px;
             }
-        }
+		}
+		&:hover {
+			text-decoration: underline;
+		}
     }
 
-    a {
+	a {
         text-decoration: none;
 
-        .events-single__tag-link {
+        &.events-single__tag-link {
             color: $color-black;
 
             &:visited {
                 color: $color-black;
-            }
-        }
-    }
+			}
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+	
+	&__external-link,
+	&__host {
+		&:hover {
+			text-decoration: underline;
+		}
+	}
 
     .row {
         margin-left: 0;
@@ -169,7 +185,11 @@
         &__edit-btn {
             background: transparent;
             margin: 5px 24px;
-            padding: 11px;
+			padding: 11px;
+			border: 1px solid transparent;
+			&:hover {
+				border-bottom: 1px solid $color-blue-50;
+			}
 
             &.card__edit-btn--white {
                 align-items: center;
@@ -195,6 +215,9 @@
                 margin: 0;
                 line-height: remCalc(28);
             }
+            a:hover {
+				text-decoration: underline;
+            }
             a:visited {
                 color: $color-blue-50;
             }
@@ -210,10 +233,12 @@
 
         .tag {
             font-size: remCalc(14);
-            margin-bottom: 10px;
-            padding: 10px 20px;
+			margin-bottom: 10px;
+			padding: 0;
 
             .events-single__tag-link {
+				display: inline-block;
+				padding: 10px 20px;
                 color: $color-black;
 
                 &:visited {
@@ -277,7 +302,11 @@
                 display: flex;
                 flex-wrap: wrap;
                 margin-bottom: 0;
-
+				&:hover {
+					.events-single__username {
+						text-decoration: underline;
+					}
+				}
                 .events-single__name {
                     margin-left: 97px;
                     margin-top: -25px;
@@ -403,7 +432,12 @@
 
         @include tablet-and-up {
             margin-bottom: 32px;
-        }
+		}
+		&:hover {
+			.events-single__username {
+				text-decoration: underline;
+			}
+		}
     }
 
     &__avatar {

@@ -952,7 +952,7 @@ $total_pages = ceil( count( $filtered_members ) / $members_per_page );
 						<?php
 						if ( isset( $_GET['language'] ) ) :
 							?>
-	&language=<?php echo esc_attr( $get_language ); ?><?php endif; ?>" class="members__pagination-link">
+	&language=<?php echo esc_attr( $get_language ); ?><?php endif; ?>" class="members__pagination-link members__pagination-link--arrow">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 							<path d="M17 23L6 12L17 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>
@@ -1060,7 +1060,7 @@ $total_pages = ceil( count( $filtered_members ) / $members_per_page );
 						<?php
 						if ( isset( $_GET['language'] ) ) :
 							?>
-	&language=<?php echo esc_attr( $get_language ); ?><?php endif; ?>" class="members__pagination-link">
+	&language=<?php echo esc_attr( $get_language ); ?><?php endif; ?>" class="members__pagination-link members__pagination-link--arrow">
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 						<path d="M7 23L18 12L7 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 					</svg>

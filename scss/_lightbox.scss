@@ -18,7 +18,7 @@
         width: 80%;
 
         @include tablet-and-up {
-            padding: 48px;
+			padding: 48px;
         }
 
         .row {
@@ -28,8 +28,8 @@
 
         p {
             margin-top: 0;
-        }
-    }
+		}
+	}
 
     .btn--close {
         padding: 24px;
@@ -40,5 +40,6 @@
 
     &-show {
         display: flex;
-    }
+	}
+
 }

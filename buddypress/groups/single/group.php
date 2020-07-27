@@ -1126,7 +1126,9 @@
 
 						$args   = array(
 							'group' => $group->id,
-							'scope' => 'all',
+								'scope' => 'all',
+								'orderby' => 'event_start_date',
+								'order' => 'DESC',
 						);
 						$events = EM_Events::get( $args );
 						?>
@@ -1423,7 +1425,9 @@
 					<div class="group__right-column">
 						<div class="group__card">
 							<div class="group__card-content group__card-content--small">
-								<span><?php esc_html_e( 'Activity', 'community-portal' ); ?></span>
+								<div>
+									<p class="group__card-content__subtitle"><?php esc_html_e( 'Activity', 'community-portal' ); ?></p>
+								</div>
 								<?php
 									$args = array(
 										'group' => $group->id,
@@ -1433,18 +1437,27 @@
 									$events      = EM_Events::get( $args );
 									$event_count = count( $events );
 									?>
-								<div class="group__member-count-container">
-									<span class="group__event-count"><?php echo esc_html( $event_count ); ?></span>
-									<?php esc_html_e( 'Events this month', 'community-portal' ); ?>
-								</div>
-								<div class="group__member-count-container">
-									<a href="
+								<a href="<?php if ( $current_translation ) : ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>/?view=events" class="group__member-count">
+									<div class="group__member-count-container">
+										<p>
+											<span class="group__member-count__numeral"><?php echo esc_html( $event_count ); ?></span>
+											<span><?php esc_html_e( 'Events this month', 'community-portal' ); ?></span>
+										</p>
+									</div>
+								</a>
+
+								<a href="
 									<?php
 									if ( $current_translation ) :
 										?>
-										<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>?view=people" class="group__member-count"><?php echo esc_html( $member_count ); ?></a>
-									<?php esc_html_e( 'Members', 'community-portal' ); ?>
-								</div>
+								<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>?view=people" class="group__member-count">
+									<div class="group__member-count-container">
+										<p>
+											<span class="group__member-count__numeral"><?php echo esc_html( $member_count ); ?></span>
+											<span><?php esc_html_e( 'Members', 'community-portal' ); ?></span>
+										</p>
+									</div>
+								</a>
 							</div>
 						</div>
 						<?php
@@ -1468,7 +1481,9 @@
 						<?php if ( $event ) : ?>
 						<div class="group__card">
 							<div class="group__card-content group__card-content--small">
-								<span><?php esc_html_e( 'Related Events', 'community-portal' ); ?></span>
+								<div>
+									<p class="group__card-content__subtitle"><?php esc_html_e( 'Related Events', 'community-portal' ); ?></p>
+								</div>
 
 								<a class="group__event wtf" href="<?php echo esc_url_raw( $event_link ); ?>"> 
 									<div class="group__event-date">
@@ -1512,7 +1527,9 @@
 						<?php endif; ?>
 						<div class="group__card">
 							<div class="group__card-content group__card-content--small">
-								<span><?php esc_html_e( 'Group Contacts', 'community-portal' ); ?></span> 
+								<div>
+									<p class="group__card-content__subtitle"><?php esc_html_e( 'Group Contacts', 'community-portal' ); ?></p>
+								</div>
 								<div class="group__admins">
 									<?php foreach ( $admins as $admin ) : ?>
 										<?php
@@ -1548,8 +1565,8 @@
 											style="background-image: url('<?php echo esc_url_raw( $avatar_url ); ?>')"<?php endif; ?> data-username="<?php echo esc_attr( $u->user_nicename ); ?>">
 										</div>
 										<div class="username">
-											<div><?php echo esc_html( "@{$u->user_nicename}" ); ?></div>
-											<div class="group__admin-name">
+											<p class="group__admin-username"><?php echo esc_html( "@{$u->user_nicename}" ); ?></>
+											<p class="group__admin-name">
 												<?php
 												if ( $info['first_name']->display && $info['first_name']->value ) :
 													echo esc_html( $info['first_name']->value );
@@ -1560,7 +1577,7 @@
 													echo esc_html( $info['last_name']->value );
 													?>
 													<?php endif; ?>
-											</div>
+											</p>
 										</div>
 									</a>
 									<?php endforeach; ?>
@@ -1570,11 +1587,11 @@
 							<?php if ( isset( $group_meta['group_language'] ) && strlen( $group_meta['group_language'] ) > 0 && array_key_exists( strtolower( $group_meta['group_language'] ), $languages ) ) : ?>
 						<div class="group__card">
 							<div class="group__card-content group__card-content--small">
-								<span><?php esc_html_e( 'Preferred Language', 'community-portal' ); ?></span>
-								<div class="group__tags">
-									<div class="group__language">
-										<a href="<?php echo esc_url_raw( add_query_arg( array('language' => strtolower( $group_meta['group_language'] ) ),get_home_url( null, 'groups') ) ); ?>" class="group__language-link"><?php echo esc_html( $languages[ strtolower( $group_meta['group_language'] ) ] ); ?></a>
-									</div>
+								<div>
+									<p class="group__card-content__subtitle"><?php esc_html_e( 'Preferred Language', 'community-portal' ); ?></p>
+								</div>
+								<div class="group__language">
+									<a href="<?php echo esc_url_raw( add_query_arg( array('language' => strtolower( $group_meta['group_language'] ) ),get_home_url( null, 'groups') ) ); ?>" class="group__language-link"><?php echo esc_html( $languages[ strtolower( $group_meta['group_language'] ) ] ); ?></a>
 								</div>
 							</div>
 						</div>
@@ -1583,7 +1600,9 @@
 						<?php if ( isset( $group_tags ) && count( $group_tags ) > 0 ) : ?>
 						<div class="group__card">
 							<div class="group__card-content group__card-content--small">
-								<span><?php esc_html_e( 'Tags', 'community-portal' ); ?></span>
+								<div>
+									<p class="group__card-content__subtitle"><?php esc_html_e( 'Tags', 'community-portal' ); ?></p>
+								</div>
 								<div class="group__tags">
 									<?php foreach ( $group_tags as $tag_loop ) : ?>
 										

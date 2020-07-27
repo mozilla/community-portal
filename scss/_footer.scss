@@ -11,7 +11,19 @@
 
     @include desktop-and-up {
         margin-top: 125px;
-    }
+	}
+	
+	&__link {
+		&:hover {
+			text-decoration: none;
+		}
+	}
+	&__social-link {
+		&:hover {
+			border-bottom: 1px solid white;
+		}
+	}
+
 
     &__container {
         align-items: flex-start;
@@ -193,13 +205,18 @@
     .menu-item {
         font-size: remCalc(18);
         line-height: 32px;
-        margin-top: 12px;
         text-align: left;
         width: 100%;
 
         &:first-of-type {
-            margin-top: 0;
-        }
+			margin-top: 0;
+			.menu-item__link {
+				padding-top: 0;
+			}
+		}
+		.menu-item__link {
+			padding: 8px 0;
+		}
 
         &.menu-item--active {
             .menu-item__link {
@@ -207,6 +224,10 @@
                     display: none;
                 }
             }
+        }
+        &:hover,
+        &:focus {
+			text-decoration: underline;
         }
     }
 
@@ -238,7 +259,13 @@
             font-size: remCalc(12);
             line-height: 12px;
             text-decoration: underline;
-        }
+		}
+		&:hover, 
+		&:focus {
+			.menu-item__link {
+				text-decoration: none;
+			}
+		}
     }
 }
 
@@ -252,19 +279,29 @@
         font-size: remCalc(16);
         line-height: 32px;
         margin: 0;
-        margin-top: 12px;
         padding: 0;
         text-align: left;
         width: 178px;
-        
+        transition: text-decoration 0.3s ease-in-out;
         &:first-of-type {
-            margin-top: 0;
-        }
+			margin-top: 0;
+			.menu-item__link {
+				padding-top: 0;
+			}
+		}
+		
+		.menu-item__link {
+			padding: 8px 0;
+		}
 
 
         @include tablet-and-up {
             font-size: remCalc(18);
         }
+		&:hover,
+		&:focus {
+			text-decoration: underline;
+		}
     }
 }
 
