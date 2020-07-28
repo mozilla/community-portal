@@ -242,9 +242,9 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 						<?php usort( $events, 'mozilla_sort_events_by_date' ); ?>
 						<?php foreach ( $events as $event ) : ?>
 							<?php
-								$event_time  = strtotime( $event->start_date );
+								$event_time  = strtotime( $event->event_start_date );
 								$date_format = 'en' === $current_translation ? 'M d' : 'd M';
-								$event_date  = mozilla_localize_date( $event->start_date, $date_format );
+								$event_date  = mozilla_localize_date( $event->event_start_date, $date_format );
 								$location    = em_get_location( $event->location_id );
 							?>
 							<a class="profile__event" href="<?php echo esc_attr( get_home_url( null, 'events/' . $event->slug ) ); ?>">
@@ -258,7 +258,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 									<div class="profile__event-time">
 										<?php
 											$date_format = 'en' === $current_translation ? 'F d, Y ∙ H:i' : 'd F, Y ∙ H:i';
-											$event_date  = mozilla_localize_date( $event->start_date, $date_format );
+											$event_date  = mozilla_localize_date( $event->event_start_date . $event->event_start_time, $date_format );
 											echo esc_html( $event_date );
 										?>
 									</div>
@@ -320,7 +320,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 						<?php foreach ( $events_organized as $event ) : ?>
 							<?php
 								$date_format = 'en' === $current_translation ? 'M d' : 'd M';
-								$event_date  = mozilla_localize_date( $event->start_date, $date_format );
+								$event_date  = mozilla_localize_date( $event->event_start_date, $date_format );
 								$location    = em_get_location( $event->location_id );
 							?>
 							<a class="profile__event" href="<?php echo esc_attr( get_home_url( null, 'events/' . $event->slug ) ); ?>">
@@ -334,7 +334,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 									<div class="profile__event-time">
 										<?php
 											$date_format = 'en' === $current_translation ? 'F d, Y ∙ H:i' : 'd F, Y ∙ H:i';
-											$event_date  = mozilla_localize_date( $event->start_date, $date_format );
+											$event_date  = mozilla_localize_date( $event->event_start_date . $event->event_start_time, $date_format );
 											echo esc_html( $event_date );
 										?>
 									</div>

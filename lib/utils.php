@@ -1088,9 +1088,9 @@ function mozilla_replace_bookings_with_events( $booking ) {
  * @param object $event_2 second event.
  */
 function mozilla_sort_events_by_date( $event_1, $event_2 ) {
-	if ( strtotime( $event_1->start_date ) === strtotime( $event_2->start_date ) ) {
+	if ( strtotime( $event_1->event_start_date ) === strtotime( $event_2->event_start_date ) ) {
 		return 0;
-	} elseif ( strtotime( $event_1->start_date ) > strtotime( $event_2->start_date ) ) {
+	} elseif ( strtotime( $event_1->event_start_date ) > strtotime( $event_2->event_start_date ) ) {
 		return -1;
 	} else {
 		return 1;
