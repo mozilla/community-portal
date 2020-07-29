@@ -13,7 +13,7 @@
 <?php $current_translation = mozilla_get_current_translation(); ?>
 
 <div class="event-creator__container">
-	<label class="event-creator__label" for="event-image"><?php esc_html_e( 'Event Image', 'community-portal' ); ?></label>
+	<label class="event-creator__label" for="dropzone-trigger"><?php esc_html_e( 'Event Image', 'community-portal' ); ?></label>
 
 	<?php
 	if ( isset( $_REQUEST['nonce'] ) && wp_verify_nonce( sanitize_key( $_REQUEST['nonce'] ), 'edit-event' ) && isset( $_REQUEST['event_id'] ) ) {
@@ -59,10 +59,10 @@
 		</div>
 	</div>
 </div>
-<input type="hidden" id="string-translation" value="<?php echo esc_attr( $current_translation ? $current_translation : 'en' ); ?>" />
+<input type="hidden" id="string-translation" value="<?php echo esc_attr( $current_translation ); ?>" />
 <input type="hidden" name="image_url" id="image-url" value="
 <?php
-if ( $img_url ) {
+if ( isset( $img_url ) ) {
 	print esc_attr( $img_url );
 } else {
 	esc_attr( '' ); }

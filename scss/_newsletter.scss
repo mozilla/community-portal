@@ -99,7 +99,10 @@
 		margin-top: 24px;
 	}
 	&__link {
-		color: $color-blue-50;
+    color: $color-blue-50;
+    &:hover {
+		text-decoration: none;
+    }
 	}
 	&__page,
 	&__solo {

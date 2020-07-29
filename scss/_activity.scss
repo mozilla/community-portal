@@ -82,13 +82,31 @@
             }
         }
 
-        &.activity__card--additional,
+        & ~ .activity__card--additional,
         &.activity__card--flow,
-        &.activity__card--metrics,
-        &.activity__card--related-events,
+		&.activity__card--metrics,
+		& ~ .activity__card--related-events,
         &.activity__card--video {
             margin-top: 32px;
-        }
+		}
+		&--related-events .activity__card-content {
+			padding: 0;	
+			span:first-child {
+				padding: 16px 16px 0;
+			}
+			@include tablet-and-up {
+				span:first-child {
+					padding: 24px 24px 0;
+				}
+			}
+			@include desktop-and-up {
+				span:first-child {
+					padding: 32px 32px 0;
+				}
+			}
+		
+		}
+		
     }
 
     &__card-content {
@@ -214,7 +232,6 @@
                 position: relative;
                 text-align: center;
                 text-decoration: none;
-                  
                 &:focus,
                 &:hover {
                     background-color: $color-blue-50;
@@ -241,19 +258,11 @@
         border: 0;
         border-top: 1px solid $color-gray-20;
         height: 0;
-        margin: 0 -16px;
-        margin-bottom: 16px;
-
         @include tablet-and-up {
-            margin: 0 -24px;
-            margin-bottom: 24px;
-            margin-top: 8px;
+
         }
         
         @include desktop-and-up {
-            margin: 0 -32px;
-            margin-bottom: 32px;
-            margin-top: 16px;
         }
     }
 
@@ -311,6 +320,7 @@
 		text-align: left;
 		padding: 16px;
 		position: relative;
+		border: 1px solid white;
         @include tablet-and-up {
             padding: 24px;
 		}
@@ -338,7 +348,10 @@
             transform: translateY(-50%);
 			width: 3px;
 			transition: opacity 0.3s ease-in;	
-        }
+		}
+		&:hover {
+			border: 1px solid $color-blue-50;
+		}
     }
 
 
@@ -440,8 +453,7 @@
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
-        margin: 0 -16px;
-        padding: 16px 24px;
+        padding: 16px;
         text-decoration: none;
         
         &:first-of-type {
@@ -462,18 +474,19 @@
         }
 
         @include tablet-and-up {
-            margin: 0 -24px;
             padding: 24px 32px;
         }
 
-        @include desktop-and-up {
-            margin: 0 -32px;
-        }
 
+		&:hover {
+			.activity__event-title {
+				text-decoration: underline;
+			}
+		}
 
         
     }
- 
+
     &__event-date {
         color: $color-blue-50;
         display: flex;
@@ -485,7 +498,7 @@
         text-align: center;
         width: 36px;
     }
- 
+
     &__event-title {
         color: $color-black;
         font-size: remCalc(16);
@@ -493,7 +506,7 @@
         line-height: 24px;
         margin-bottom: 8px;
     }
- 
+
     &__event-location,
     &__event-time {
         color: $color-gray-secondary;
@@ -501,27 +514,34 @@
         line-height: 20px;
         margin-bottom: 8px;
     }
-
+	
+	&__event-location {
+		svg {
+			transform: translateY(3px);
+			margin-right: 3px;
+		}
+	}
     &__events-link {
         color: $color-blue-50;
-        display: inline-block;
+        display: block;
         font-size: remCalc(16);
         line-height: 24px;
         text-decoration: none;
-        
+        padding: 16px;
         svg {
             margin-left: 4px;
         }
-
+		&:hover {
+			text-decoration: underline;
+		}
         
-        margin-top: 16px;
 
         @include tablet-and-up {
-            margin-top: 24px;
+            padding: 24px;
         }
 
         @include desktop-and-up {
-            margin-top: 32px;
+            padding: 32px;
         }
     }
 
@@ -552,4 +572,14 @@
         }
     }
 
+	&__accordion-content,
+	&__card--additional {
+		a {
+			color: $color-blue-50;
+			text-decoration: none;
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+}
 }

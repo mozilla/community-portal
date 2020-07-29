@@ -2,9 +2,6 @@ body.home-page {
     background: white;
     overflow-x: hidden;
 
-    a {
-        text-decoration: none;
-    }
 }
 
 .homepage {
@@ -359,6 +356,7 @@ body.home-page {
 
             &__link,
             &__link:visited {
+                text-decoration: none;
                 color: $color-blue-50;
                 &::after {
                     content: url('./images/chevron-right-2.svg');
@@ -366,6 +364,9 @@ body.home-page {
                     padding-left: 4px;
                     position: relative;
                     top: 3px;
+                }
+                &:hover {
+					border-bottom: 1px solid $color-blue-50;
                 }
             }
         }

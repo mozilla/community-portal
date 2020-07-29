@@ -242,6 +242,7 @@
         color: $color-gray-secondary;
         display: flex;
         flex-direction: row;
+        flex-wrap: wrap;
         font-size: remCalc(14);
         height: 100%;
         line-height: 20px;
@@ -270,7 +271,6 @@
         font-size: remCalc(14);
         height: auto;
         line-height: 22px;
-        max-width: 200px;
         min-width: 160px;
         padding: 15px 33px;
         padding-left: 55px;
@@ -279,6 +279,7 @@
         text-decoration: none;
         transition: background-color 0.2s ease-in;
         width: auto;
+        max-width: 300px;
 
         &:first-child:last-child {
           margin-left: auto;
@@ -416,22 +417,21 @@
     &__3up-text-block {
         background-color: $color-white;
         width: 100%;
-        max-width: 1440px;
-        margin: 0 auto;
-
-        padding: 64px $mobile-padding;
-
-        @include tablet-and-up {
-            padding: 64px $tablet-padding;    
-        }
-    
-        @include desktop-and-up {
-            padding: 64px $desktop-padding;
-        }
 
         .campaign__block-container {
-            max-width: none;
-        }
+			max-width: 1440px;
+			margin: 0 auto;
+
+			padding: 64px $mobile-padding;
+
+			@include tablet-and-up {
+				padding: 64px $tablet-padding;    
+			}
+		
+			@include desktop-and-up {
+				padding: 64px $desktop-padding;
+			}
+		}
 
         &.campaign__3up-text-block--grey {
             background-color: $color-gray-background;
@@ -708,11 +708,14 @@
         margin-bottom: 24px;
         overflow: hidden;
         text-decoration: none;
-        transition: box-shadow 0.3s ease-in-out;
+        transition: transform 0.3s ease-in-out;
         width: 100%;
 
         &:hover {
-            box-shadow: 0 0 0 4px #d7d7db;
+            transform: scale(1.02);
+            .campaign__event-title {
+				text-decoration: underline;
+            }
         }
         
         @include tablet-and-up {
@@ -796,6 +799,10 @@
         letter-spacing: 0.0025em;
         line-height: 20px;
         margin-bottom: 8px;
+        svg {
+          transform: translateY(3px);
+          margin-right: 3px;
+        }
     }
 
     &__video-container {

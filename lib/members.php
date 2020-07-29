@@ -387,7 +387,6 @@ function mozilla_is_logged_in() {
  * @param boolean $logged_in are they logged in.
  **/
 function mozilla_get_user_info( $me, $user, $logged_in ) {
-
 	// Username is ALWAYS public!
 	$object          = new stdClass();
 	$object->value   = $user->user_nicename;
@@ -398,7 +397,7 @@ function mozilla_get_user_info( $me, $user, $logged_in ) {
 		'id'       => $user->ID,
 	);
 
-	$is_me            = $logged_in && intval( $me->ID ) === intval( $user->ID );
+	$is_me            = $me && $logged_in && intval( $me->ID ) === intval( $user->ID );
 	$meta             = get_user_meta( $user->ID );
 	$community_fields = isset( $meta['community-meta-fields'][0] ) ? unserialize( $meta['community-meta-fields'][0] ) : array();
 
@@ -429,8 +428,8 @@ function mozilla_get_user_info( $me, $user, $logged_in ) {
 	} else {
 		if ( isset( $community_fields['city'] ) && strlen( $community_fields['city'] ) > 0 ) {
 			$object->value = $community_fields['city'];
-		} elseif ( isset( $community_fields['country'] ) && strlen( $community_fields['country'] ) > 0  && isset($countries[ $community_fields['country'] ])) {
-			$object->value = $countries[ $community_fields['country'] ];
+		} elseif ( isset( $community_fields['country'] ) && strlen( $community_fields['country'] ) > 0 && isset( $countries[ $community_fields['country'] ] ) ) {
+			$object->value = $community_fields['country'];
 		} else {
 			$object->value = false;
 		}

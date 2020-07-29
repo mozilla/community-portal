@@ -332,19 +332,54 @@ jQuery(function(){
             $this.next('.form__error-container--visible').removeClass('form__error-container--visible');
         }
 
-    });
+	});
+	
+	const getCurrentTags = function(tagsInput) {
+		let currentValue = tagsInput.val(); 
+		currentValue = currentValue.length > 0 ? currentValue.split(/,\s?/) : [];
+		return currentValue;
+	}
+
+	const updateValues = function($tagsInput, currentValue) {
+		let newValues = currentValue;
+		if (currentValue.length > 1) {
+			newValues = currentValue.join(',');
+		} 
+		$tagsInput.val(`${newValues}`);
+	}
+
+	const removeExistingTag = function($tagsInput, currentValue, tag) {
+		if (currentValue.indexOf(tag) !== -1) {
+			const index = currentValue.indexOf(tag);
+			currentValue.splice(index, 1);
+			updateValues($tagsInput, currentValue);
+		}
+	}
+
+	const addNewTag = function($tagsInput, currentValue, tag) {
+		if (currentValue.indexOf(tag) === -1) {
+			currentValue.push(tag);
+			updateValues($tagsInput, currentValue);
+		}
+	}
+
+	const $tagsInput = jQuery('#tags');
 
     jQuery('.profile__checkbox').change(function(e) {
 		var $this = jQuery(this);
 		var id = $this.prop('id');
 		var $label = jQuery('label[for=' + id + ']');
 		var tag = $this.data('value');
-		var current = jQuery('#tags').val();
+		var currentValue = $tagsInput.val();
 
-		if(!$label.hasClass('profile__tag--active'))
-		jQuery('#tags').val(current + ',' + tag);
-		if($label.hasClass('profile__tag--active'))
-		jQuery('#tags').val(current.replace(',' + tag, ''));
+		currentValue = getCurrentTags($tagsInput);
+
+		if(!$label.hasClass('profile__tag--active')) {
+			addNewTag($tagsInput, currentValue, tag);
+		} 
+		if($label.hasClass('profile__tag--active')){
+			removeExistingTag($tagsInput, currentValue, tag);
+		}	
 		$label.toggleClass('profile__tag--active');
 		return false;
 	});
@@ -512,7 +547,7 @@ jQuery(function(){
 
     jQuery('.members__location-select').change(function(e) {
         var location = jQuery(this).val();
-        jQuery('input[name="location"]').val(location);
+        jQuery('input[name="country"]').val(location);
 
         if(jQuery('input[name="tag"]').val().length === 0) {
             jQuery('input[name="tag"]').prop('disabled', true);

@@ -16,17 +16,22 @@
 	global $wpdb;
 	$theme_directory = get_template_directory();
 	require "{$theme_directory}/languages.php";
-
 	$countries      = em_get_countries();
 	$ddm_countries  = array();
 	$used_languages = array();
-	$filter_events  = EM_Events::get(array('scope' => 'all'));
+	$filter_events  = EM_Events::get( array( 'scope' => 'all' ) );
+	$online_event   = __( 'Online Event', 'community-portal' );
 
 foreach ( $filter_events as $e ) {
 	$location     = em_get_location( $e->location_id );
 	$country_code = $location->location_country;
-	if ( strlen($country_code) > 0 && ! in_array( $country_code, $ddm_countries, true ) ) {
-		$ddm_countries[ $country_code ] = $countries[ $country_code ];
+
+	if ( strlen( $country_code ) > 0 && ! in_array( $country_code, $ddm_countries, true ) ) {
+		if ( 'OE' === $country_code ) {
+			$ddm_countries[ $country_code ] = $online_event;
+		} else {
+			$ddm_countries[ $country_code ] = $countries[ $country_code ];
+		}
 	}
 	$e_meta = get_post_meta( $e->post_id, 'event-meta' );
 
@@ -35,37 +40,22 @@ foreach ( $filter_events as $e ) {
 	}
 }
 	asort( $ddm_countries );
-
 	asort( $used_languages );
 	$used_languages = array_unique( $used_languages );
 
 	$categories = EM_Categories::get();
+
 if ( count( $categories ) > 0 ) {
 	$current_translation = mozilla_get_current_translation();
+
 	foreach ( $categories as $category ) {
-		if ($current_translation) {
-			$main_category = substr( $category->slug, 0, stripos( $category->slug, '-' . $current_translation ) );
-			$term = get_term_by('slug', $main_category, 'event-categories');
-		}
-		$tag_name = !empty($term) ? $term->name : $category->name;
-		$categories[ $category->id ] = array();
-		$categories[$category->id]['value'] = $tag_name;
-		$categories[$category->id]['label'] = $category->name;
+		$term_object                             = mozilla_get_translated_tag( $category );
+		$categories[ $category->id ]          = array();
+		$categories[ $category->id ]['value'] = $term_object->id;
+		$categories[ $category->id ]['label'] = $term_object->name;
 	}
-} else {
-	$categories = array(
-		'Localization (L10N)',
-		'User Support (SUMO)',
-		'Testing',
-		'Common Voice',
-		'Coding',
-		'Design',
-		'Advocacy',
-		'Documentation',
-		'Evangelism',
-		'Marketing',
-	);
 }
+
 ?>
 <div class="col-md-12 events__filter">
 	<p class="events__filter__title"><?php esc_html_e( 'Filter By:', 'community-portal' ); ?></p>
@@ -107,12 +97,14 @@ if ( count( $categories ) > 0 ) {
 				$campaign_status = get_field( 'campaign_status', $campaign->ID );
 
 				if ( strtolower( $campaign_status ) !== 'closed' ) {
-					$initiatives[ $campaign->ID ] = $campaign->post_title;
+					$campaign_id                 = apply_filters( 'wpml_object_id', $campaign->ID, 'campaign', true, 'en' );
+					$initiatives[ $campaign_id ] = $campaign->post_title;
 					continue;
 				}
 
 				if ( $today >= $start && $today <= $end ) {
-					$initiatives[ $campaign->ID ] = $campaign->post_title;
+					$campaign_id                 = apply_filters( 'wpml_object_id', $campaign->ID, 'campaign', true, 'en' );
+					$initiatives[ $campaign_id ] = $campaign->post_title;
 				}
 			}
 
@@ -123,7 +115,8 @@ if ( count( $categories ) > 0 ) {
 
 			$activities = new WP_Query( $args );
 			foreach ( $activities->posts as $activity ) {
-				$initiatives[ $activity->ID ] = $activity->post_title;
+				$activity_id                 = apply_filters( 'wpml_object_id', $activity->ID, 'activity', true, 'en' );
+				$initiatives[ $activity_id ] = $activity->post_title;
 			}
 
 			$options = $initiatives;

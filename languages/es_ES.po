@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2020-06-17 16:18-0400\n"
-"PO-Revision-Date: 2020-06-17 16:27-0400\n"
+"POT-Creation-Date: 2020-07-27 10:34-0400\n"
+"PO-Revision-Date: 2020-07-27 10:34-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -25,7 +25,7 @@ msgstr ""
 
 #: 404.php:32
 msgid "Page Not Found"
-msgstr ""
+msgstr "La página No Encontrada"
 
 #: 404.php:37
 msgid ""
@@ -33,43 +33,48 @@ msgid ""
 "If you are having trouble locating a destination on Community Portal, try "
 "visiting the home page."
 msgstr ""
+"Ooops, parece la página estás intentando lograr es ya no disponible. Si eres "
+"habiendo el problema que localiza un destino encima Portal de Comunidad, "
+"prueba visitar la página de casa."
 
 #: 404.php:40
 msgid "Return Home"
-msgstr ""
+msgstr "Casa de regreso"
 
-#: buddypress/groups/index-create.php:65
+#: buddypress/groups/index-create.php:66
 msgid "Create a Mozilla Group"
-msgstr ""
+msgstr "Crear un Grupo de Mozilla"
 
-#: buddypress/groups/index-create.php:79 buddypress/groups/index-create.php:97
-#: buddypress/groups/single/edit.php:74 buddypress/groups/single/edit.php:79
+#: buddypress/groups/index-create.php:81 buddypress/groups/index-create.php:99
+#: buddypress/groups/index-create.php:379 buddypress/groups/single/edit.php:77
+#: buddypress/groups/single/edit.php:82
 msgid "Basic Information"
-msgstr ""
+msgstr "Información básica"
 
-#: buddypress/groups/index-create.php:88 buddypress/groups/index-create.php:102
+#: buddypress/groups/index-create.php:90 buddypress/groups/index-create.php:104
+#: buddypress/groups/index-create.php:394
 msgid "Terms & Responsibilities"
-msgstr ""
+msgstr "Responsabilidades & de plazos"
 
-#: buddypress/groups/index-create.php:118 buddypress/groups/single/edit.php:89
+#: buddypress/groups/index-create.php:120 buddypress/groups/single/edit.php:92
 msgid "What is your group's name? *"
-msgstr "What is your group’s name Spanish? *"
+msgstr "Qué es el nombre de vuestro grupo? *"
 
-#: buddypress/groups/index-create.php:130
-#: buddypress/groups/index-create.php:204
-#: buddypress/groups/index-create.php:358 buddypress/groups/single/edit.php:100
-#: buddypress/groups/single/edit.php:172 buddypress/members/single/edit.php:202
-#: buddypress/members/single/edit.php:230
-#: buddypress/members/single/edit.php:263
-#: buddypress/members/single/edit.php:423
-#: buddypress/members/single/edit.php:1103
-#: plugins/events-manager/forms/event-editor.php:76
-#: plugins/events-manager/forms/event-editor.php:108
-#: plugins/events-manager/forms/event/location-moz.php:86
-#: plugins/events-manager/forms/event/location-moz.php:105
-#: plugins/events-manager/forms/event/location-moz.php:122
-#: plugins/events-manager/forms/event/location-moz.php:174
-#: plugins/events-manager/forms/event/location-moz.php:185
+#: buddypress/groups/index-create.php:132
+#: buddypress/groups/index-create.php:206
+#: buddypress/groups/index-create.php:368 buddypress/groups/single/edit.php:103
+#: buddypress/groups/single/edit.php:175 buddypress/members/single/edit.php:227
+#: buddypress/members/single/edit.php:277
+#: buddypress/members/single/edit.php:335
+#: buddypress/members/single/edit.php:549
+#: buddypress/members/single/edit.php:1353
+#: plugins/events-manager/forms/event-editor.php:92
+#: plugins/events-manager/forms/event-editor.php:124
+#: plugins/events-manager/forms/event/location-moz.php:106
+#: plugins/events-manager/forms/event/location-moz.php:130
+#: plugins/events-manager/forms/event/location-moz.php:161
+#: plugins/events-manager/forms/event/location-moz.php:238
+#: plugins/events-manager/forms/event/location-moz.php:260
 #: plugins/events-manager/forms/event/when-with-recurring.php:24
 #: plugins/events-manager/forms/event/when-with-recurring.php:32
 #: plugins/events-manager/forms/event/when-with-recurring.php:41
@@ -82,2027 +87,2311 @@ msgstr "What is your group’s name Spanish? *"
 #: plugins/events-manager/forms/event/when.php:95
 #: templates/campaign-rsvp.php:45 templates/campaign-rsvp.php:50
 msgid "This field is required"
-msgstr ""
+msgstr "Este campo está requerido"
 
-#: buddypress/groups/index-create.php:131 lib/groups.php:247
+#: buddypress/groups/index-create.php:133 lib/groups.php:247
 msgid "This group name is already taken"
-msgstr ""
+msgstr "Este nombre de grupo es ya tomado"
 
-#: buddypress/groups/index-create.php:136 buddypress/groups/single/edit.php:104
+#: buddypress/groups/index-create.php:138 buddypress/groups/single/edit.php:107
 msgid "Group Type"
-msgstr ""
+msgstr "Tipo de grupo"
 
-#: buddypress/groups/index-create.php:143 buddypress/groups/single/edit.php:111
-#: plugins/events-manager/forms/event/location-moz.php:76
-#: plugins/events-manager/forms/event/location-moz.php:120
-#: plugins/events-manager/forms/event/location-moz.php:147 search.php:214
+#: buddypress/groups/index-create.php:145 buddypress/groups/single/edit.php:114
+#: buddypress/members/single/profile.php:193
+#: plugins/events-manager/forms/event/location-moz.php:92
+#: plugins/events-manager/forms/event/location-moz.php:156
+#: plugins/events-manager/forms/event/location-moz.php:211 search.php:220
 msgid "Online"
-msgstr ""
+msgstr "On-line"
 
-#: buddypress/groups/index-create.php:148 buddypress/groups/single/edit.php:116
+#: buddypress/groups/index-create.php:150 buddypress/groups/single/edit.php:119
+#: buddypress/members/single/profile.php:195
 msgid "Offline"
-msgstr ""
+msgstr "Off-line"
 
-#: buddypress/groups/index-create.php:155
-#: buddypress/groups/index-create.php:158
-#: buddypress/groups/index-directory.php:334
-#: buddypress/groups/single/edit.php:123 buddypress/groups/single/edit.php:126
-#: buddypress/groups/single/group.php:1000
-#: buddypress/members/index-directory.php:787 footer.php:125
-#: plugins/events-manager/forms/event-editor.php:80
-#: plugins/events-manager/templates/template-parts/events-filters.php:81
+#: buddypress/groups/index-create.php:157
+#: buddypress/groups/index-create.php:160
+#: buddypress/groups/index-directory.php:348
+#: buddypress/groups/single/edit.php:126 buddypress/groups/single/edit.php:129
+#: buddypress/groups/single/group.php:1015
+#: buddypress/members/index-directory.php:787 footer.php:131
+#: plugins/events-manager/forms/event-editor.php:96
+#: plugins/events-manager/templates/template-parts/events-filters.php:71
 #: templates/campaigns-newsletter.php:68 templates/newsletter-form.php:66
 #: templates/newsletter-form.php:68
 msgid "Language"
-msgstr ""
+msgstr "Lengua"
 
-#: buddypress/groups/index-create.php:172 buddypress/groups/single/edit.php:140
+#: buddypress/groups/index-create.php:174 buddypress/groups/single/edit.php:143
 msgid "Group Location"
-msgstr ""
+msgstr "Ubicación de grupo"
 
-#: buddypress/groups/index-create.php:175 buddypress/groups/single/edit.php:143
-#: buddypress/members/single/edit.php:363
-#: plugins/events-manager/forms/event/location-moz.php:130
+#: buddypress/groups/index-create.php:177 buddypress/groups/single/edit.php:146
+#: buddypress/members/single/edit.php:464
+#: plugins/events-manager/forms/event/location-moz.php:184
 msgid "Country"
-msgstr ""
+msgstr "País"
 
-#: buddypress/groups/index-create.php:187
-#: buddypress/groups/index-create.php:188 buddypress/groups/single/edit.php:155
-#: buddypress/groups/single/edit.php:156 buddypress/members/single/edit.php:382
+#: buddypress/groups/index-create.php:189
+#: buddypress/groups/index-create.php:190 buddypress/groups/single/edit.php:158
+#: buddypress/groups/single/edit.php:159 buddypress/members/single/edit.php:491
 msgid "City"
-msgstr ""
+msgstr "Ciudad"
 
-#: buddypress/groups/index-create.php:193
+#: buddypress/groups/index-create.php:195
 msgid "Provide a short group description *"
-msgstr ""
+msgstr "Proporciona descripción de grupo a escaso *"
 
-#: buddypress/groups/index-create.php:208
+#: buddypress/groups/index-create.php:210
 msgid "Select an image"
-msgstr ""
+msgstr "Seleccionar una imagen"
 
-#: buddypress/groups/index-create.php:216 buddypress/groups/single/edit.php:192
-#: buddypress/members/single/edit.php:139
+#: buddypress/groups/index-create.php:218 buddypress/groups/single/edit.php:195
+#: buddypress/members/single/edit.php:141
 msgid "Click or drag a photo above"
-msgstr ""
+msgstr "Clic o arrastrar una foto encima"
 
-#: buddypress/groups/index-create.php:217 buddypress/groups/single/edit.php:193
+#: buddypress/groups/index-create.php:219 buddypress/groups/single/edit.php:196
 msgid "min dimensions 703px by 400px"
-msgstr ""
+msgstr "min Dimensiones 703px por 400px"
 
-#: buddypress/groups/index-create.php:224 buddypress/groups/single/edit.php:200
-#: buddypress/members/single/edit.php:147
+#: buddypress/groups/index-create.php:226 buddypress/groups/single/edit.php:203
+#: buddypress/members/single/edit.php:155
 msgid "Remove file"
-msgstr ""
+msgstr "Saca archivo"
 
-#: buddypress/groups/index-create.php:233 buddypress/groups/single/edit.php:209
+#: buddypress/groups/index-create.php:235 buddypress/groups/single/edit.php:212
 msgid "Tags for your group"
-msgstr ""
+msgstr "Tags Para vuestro grupo"
 
-#: buddypress/groups/index-create.php:258 buddypress/groups/single/edit.php:235
+#: buddypress/groups/index-create.php:268 buddypress/groups/single/edit.php:245
 msgid "Group Meetings"
-msgstr ""
+msgstr "Reuniones de grupo"
 
-#: buddypress/groups/index-create.php:261 buddypress/groups/single/edit.php:238
+#: buddypress/groups/index-create.php:271 buddypress/groups/single/edit.php:248
 msgid "Where do you meet?"
-msgstr ""
+msgstr "Dónde   conoces?"
 
-#: buddypress/groups/index-create.php:264
-#: buddypress/groups/index-create.php:268
-#: buddypress/groups/index-create.php:278 buddypress/groups/single/edit.php:245
-#: buddypress/groups/single/edit.php:255
+#: buddypress/groups/index-create.php:274
+#: buddypress/groups/index-create.php:278
+#: buddypress/groups/index-create.php:288 buddypress/groups/single/edit.php:255
+#: buddypress/groups/single/edit.php:265
 msgid "Address"
-msgstr ""
+msgstr "Dirección"
 
-#: buddypress/groups/index-create.php:269
-#: buddypress/groups/index-create.php:273 buddypress/groups/single/edit.php:250
-msgid "URL"
-msgstr ""
-
+#: buddypress/groups/index-create.php:279
 #: buddypress/groups/index-create.php:283 buddypress/groups/single/edit.php:260
+msgid "URL"
+msgstr "URL"
+
+#: buddypress/groups/index-create.php:293 buddypress/groups/single/edit.php:270
 msgid "Meeting details"
-msgstr ""
-
-#: buddypress/groups/index-create.php:292 buddypress/groups/single/edit.php:265
-#: buddypress/groups/single/group.php:1292
-msgid "Community Links"
-msgstr ""
-
-#: buddypress/groups/index-create.php:295 buddypress/groups/single/edit.php:268
-#: buddypress/groups/single/group.php:1318
-#: buddypress/members/single/profile.php:479
-msgid "Discourse"
-msgstr ""
-
-#: buddypress/groups/index-create.php:299 buddypress/groups/single/edit.php:272
-#: buddypress/groups/single/group.php:1358
-#: buddypress/members/single/profile.php:510
-msgid "Matrix"
-msgstr ""
+msgstr "Conociendo detalles"
 
 #: buddypress/groups/index-create.php:302 buddypress/groups/single/edit.php:275
-msgid "Please format as room-alias:domain"
-msgstr ""
+#: buddypress/groups/single/group.php:1238
+msgid "Community Links"
+msgstr "Enlaces de comunidad"
 
-#: buddypress/groups/index-create.php:308 buddypress/groups/single/edit.php:281
-#: buddypress/groups/single/group.php:1309
-#: buddypress/members/single/profile.php:441
-msgid "Facebook"
-msgstr ""
+#: buddypress/groups/index-create.php:305 buddypress/groups/single/edit.php:278
+#: buddypress/groups/single/group.php:1264
+#: buddypress/members/single/profile.php:490
+msgid "Discourse"
+msgstr "Discurso"
+
+#: buddypress/groups/index-create.php:309 buddypress/groups/single/edit.php:282
+#: buddypress/groups/single/group.php:1304
+#: buddypress/members/single/profile.php:521
+msgid "Matrix"
+msgstr "Matrix"
 
 #: buddypress/groups/index-create.php:312 buddypress/groups/single/edit.php:285
-#: buddypress/groups/single/group.php:1343
-#: buddypress/members/single/profile.php:450
-msgid "Twitter"
-msgstr ""
+msgid "Please format as room-alias:domain"
+msgstr "Complacer formato cuando habitación-alias:ámbito"
 
 #: buddypress/groups/index-create.php:318 buddypress/groups/single/edit.php:291
-#: buddypress/groups/single/group.php:1300
-#: buddypress/members/single/profile.php:432
-msgid "Telegram"
-msgstr ""
+#: buddypress/groups/single/group.php:1255
+#: buddypress/members/single/profile.php:459
+msgid "Facebook"
+msgstr "Facebook"
 
 #: buddypress/groups/index-create.php:322 buddypress/groups/single/edit.php:295
+#: buddypress/groups/single/group.php:1289
+#: buddypress/members/single/profile.php:468
+msgid "Twitter"
+msgstr "Twitter"
+
+#: buddypress/groups/index-create.php:328 buddypress/groups/single/edit.php:301
+#: buddypress/groups/single/group.php:1246
+#: buddypress/members/single/profile.php:450
+msgid "Telegram"
+msgstr "Telegrama"
+
+#: buddypress/groups/index-create.php:332 buddypress/groups/single/edit.php:305
 msgid "GitHub"
-msgstr ""
+msgstr "GitHub"
 
-#: buddypress/groups/index-create.php:329 buddypress/groups/single/edit.php:301
-#: buddypress/groups/single/group.php:1377
+#: buddypress/groups/index-create.php:339 buddypress/groups/single/edit.php:311
+#: buddypress/groups/single/group.php:1323
 msgid "Other"
-msgstr ""
-
-#: buddypress/groups/index-create.php:340
-msgid "Secondary Group Contact"
-msgstr ""
-
-#: buddypress/groups/index-create.php:342
-msgid "Secondary group contact"
-msgstr ""
+msgstr "Otro"
 
 #: buddypress/groups/index-create.php:350
+msgid "Secondary Group Contact"
+msgstr "Contacto de Grupo secundario"
+
+#: buddypress/groups/index-create.php:352
+msgid "Secondary group contact"
+msgstr "Contacto de grupo secundario"
+
+#: buddypress/groups/index-create.php:360
 msgid "Username *"
-msgstr ""
+msgstr "nombre de usuario *"
 
-#: buddypress/groups/index-create.php:351
-#: buddypress/members/single/edit.php:192
+#: buddypress/groups/index-create.php:361
+#: buddypress/members/single/edit.php:210
 msgid "Username"
-msgstr ""
+msgstr "nombre de usuario *"
 
-#: buddypress/groups/index-create.php:359
+#: buddypress/groups/index-create.php:369
 msgid "Invalid user"
+msgstr "Email nulo"
+
+#: buddypress/groups/index-create.php:380
+msgid "Congratulations on creating a Mozilla Community Group!"
+msgstr "¡Felicitaciones por crear un grupo comunitario de Mozilla!"
+
+#: buddypress/groups/index-create.php:381
+msgid "This is the Mozilla Groups README."
+msgstr "Este es el archivo README de Mozilla Groups."
+
+#: buddypress/groups/index-create.php:381
+msgid ""
+"It contains all the information required to successfully setup and manage a "
+"Mozilla group. Please read it carefully."
 msgstr ""
+"Contiene toda la información necesaria para configurar y administrar con "
+"éxito un grupo de Mozilla. Por favor léalo atentamente."
+
+#: buddypress/groups/index-create.php:382
+msgid ""
+"Mozilla Community Groups are groups of people who meet regularly and work "
+"collaboratively to advance Mozilla’s mission. Anyone who is working to "
+"advance Mozilla’s mission can start a Community Group. Groups can meet in-"
+"person or virtually and can be organized around a region, contribution area, "
+"identity, or interest. All groups must respect and adhere to the "
+msgstr ""
+"Los grupos comunitarios de Mozilla son grupos de personas que se reúnen "
+"regularmente y trabajan en colaboración para avanzar en la misión de "
+"Mozilla. Cualquiera que esté trabajando para avanzar en la misión de Mozilla "
+"puede comenzar un grupo comunitario. Los grupos pueden reunirse en persona o "
+"virtualmente y pueden organizarse en torno a una región, área de "
+"contribución, identidad o interés. Todos los grupos deben respetar y "
+"adherirse a la "
+
+#: buddypress/groups/index-create.php:382
+#: buddypress/groups/index-create.php:385
+msgid "Community Participation Guidelines"
+msgstr "Las directrices de Participación de la Comunidad de Mozilla*"
+
+#: buddypress/groups/index-create.php:382
+msgid "and follow the terms &amp; responsibilities."
+msgstr "y siga los términos y responsabilidades."
+
+#: buddypress/groups/index-create.php:383
+msgid "All Mozilla Community Groups must:"
+msgstr "Todos los grupos de la comunidad de Mozilla deben:"
+
+#: buddypress/groups/index-create.php:385
+#: buddypress/groups/index-create.php:386
+msgid "Adhere to and uphold the "
+msgstr "Adherirse y mantener la "
+
+#: buddypress/groups/index-create.php:386
+#: buddypress/groups/index-create.php:420
+msgid "Volunteer Leadership Principles"
+msgstr "Principios de liderazgo voluntario"
+
+#: buddypress/groups/index-create.php:387
+msgid ""
+"Be open and welcoming to everyone who shares Mozilla’s goals and want to "
+"contribute in a healthy and constructive manner to participate."
+msgstr ""
+"Sea abierto y acogedor con todos los que comparten los objetivos de Mozilla "
+"y desean contribuir de manera saludable y constructiva para participar."
+
+#: buddypress/groups/index-create.php:388
+msgid "Be easy to join and cannot restrict membership."
+msgstr "Sea fácil de unir y no puede restringir la membresía."
+
+#: buddypress/groups/index-create.php:389
+msgid ""
+"Contribute to Mozilla by regularly participating in campaigns, activities, "
+"events or other Mozilla related projects."
+msgstr ""
+"Contribuya a Mozilla participando regularmente en campañas, actividades, "
+"eventos u otros proyectos relacionados con Mozilla."
+
+#: buddypress/groups/index-create.php:390
+msgid ""
+"Be active – demonstrated by having more than five members and hosting at "
+"least one event every six months."
+msgstr ""
+"Mantente activo: demuestra tener más de cinco miembros y organizar al menos "
+"un evento cada seis meses."
+
+#: buddypress/groups/index-create.php:391
+msgid "Have two group contacts that change every year."
+msgstr "Tenga dos contactos grupales que cambien cada año."
+
+#: buddypress/groups/index-create.php:393
+msgid ""
+"Only groups that meet our requirements and have been reviewed by a community "
+"manager will appear as “verified” groups."
+msgstr ""
+"Solo los grupos que cumplan con nuestros requisitos y hayan sido revisados "
+"por un administrador de la comunidad aparecerán como grupos “verificados”."
+
+#: buddypress/groups/index-create.php:395
+msgid "Becoming a verified group:"
+msgstr "Convertirse en un grupo verificado:"
+
+#: buddypress/groups/index-create.php:396
+msgid ""
+"All groups will be reviewed by a community manager after three months in the "
+"portal. In order to become a “verified group” it must be reviewed and "
+"approved by a community manager. At the time of their review they must be "
+"able to demonstrate they are upholding the terms & responsibilities of the "
+"group by having:"
+msgstr ""
+"Todos los grupos serán revisados por un administrador de la comunidad "
+"después de tres meses en el portal. Para convertirse en un “grupo "
+"verificado” debe ser revisado y aprobado por un administrador de la "
+"comunidad. En el momento de su revisión, deben poder demostrar que cumplen "
+"con los términos y responsabilidades del grupo al tener:"
 
 #: buddypress/groups/index-create.php:398
-msgid "I Agree"
-msgstr ""
+msgid "An accurate, up to date group profile."
+msgstr "Un perfil de grupo preciso y actualizado."
+
+#: buddypress/groups/index-create.php:399
+msgid "More than five members."
+msgstr "Más de cinco miembros."
 
 #: buddypress/groups/index-create.php:400
-#: buddypress/members/single/edit.php:1099
-msgid "I agree to respect and adhere to"
-msgstr ""
+msgid "Hosted at least one event"
+msgstr "Organizó al menos un evento"
 
 #: buddypress/groups/index-create.php:401
-msgid "Mozilla’s Community Participation Guidelines *"
-msgstr ""
+msgid "Two responsive group contacts."
+msgstr "Dos contactos grupales receptivos."
 
 #: buddypress/groups/index-create.php:403
+msgid ""
+"Groups that fail to meet the criteria at the time of the review may be asked "
+"to update their group profile, or be removed from the portal."
+msgstr ""
+"A los grupos que no cumplan con los criterios en el momento de la revisión "
+"se les puede solicitar que actualicen su perfil de grupo o que se los "
+"elimine del portal."
+
+#: buddypress/groups/index-create.php:404
+msgid ""
+"Validated groups will be reviewed on an annual basis to ensure they continue "
+"to uphold the guidelines and criteria."
+msgstr ""
+"Los grupos validados serán revisados anualmente para asegurar que continúen "
+"manteniendo las pautas y criterios."
+
+#: buddypress/groups/index-create.php:405
+msgid "Naming your group:"
+msgstr "Nombrando su grupo:"
+
+#: buddypress/groups/index-create.php:406
+msgid ""
+"Group names should be informative and help new and established community "
+"members identify the groups that are most relevant to their interests and "
+"identities."
+msgstr ""
+"Los nombres de los grupos deben ser informativos y ayudar a los miembros "
+"nuevos y establecidos de la comunidad a identificar los grupos más "
+"relevantes para sus intereses e identidades."
+
+#: buddypress/groups/index-create.php:407
+msgid "Choose a group name that will:"
+msgstr "Elija un nombre de grupo que:"
+
+#: buddypress/groups/index-create.php:409
+msgid "Reduce confusion"
+msgstr "Reducir la confusión"
+
+#: buddypress/groups/index-create.php:409
+msgid ""
+"Names should be descriptive and accurately reflect the focus of the group. "
+"Groups that have the exact same focus and mandate may be asked to merge or "
+"revise their title or description to be more descriptive."
+msgstr ""
+"Los nombres deben ser descriptivos y reflejar con precisión el enfoque del "
+"grupo. Se puede solicitar a los grupos que tienen exactamente el mismo "
+"enfoque y mandato que fusionen o revisen su título o descripción para que "
+"sean más descriptivos."
+
+#: buddypress/groups/index-create.php:410
+msgid "Avoid exclusivity"
+msgstr "Evitar exclusividad"
+
+#: buddypress/groups/index-create.php:410
+msgid ""
+"Using more descriptive titles helps avoid the appearance that a particular "
+"group exclusively represents the entire topic or area throughout the "
+"movement."
+msgstr ""
+"El uso de títulos más descriptivos ayuda a evitar la apariencia de que un "
+"grupo en particular representa exclusivamente el tema o área completa "
+"durante todo el movimiento."
+
+#: buddypress/groups/index-create.php:411
+msgid "Encourage diversity"
+msgstr "Fomentar la diversidad"
+
+#: buddypress/groups/index-create.php:411
+msgid ""
+"Group names should not suggest that people are obligated to join a group to "
+"participate within a focus area or region. Mozilla will not acknowledge any "
+"hierarchy between groups."
+msgstr ""
+"Los nombres de los grupos no deben sugerir que las personas están obligadas "
+"a unirse a un grupo para participar dentro de un área o región de enfoque. "
+"Mozilla no reconocerá ninguna jerarquía entre grupos."
+
+#: buddypress/groups/index-create.php:413
+msgid "Group contacts:"
+msgstr "Contactos de grupo"
+
+#: buddypress/groups/index-create.php:414
+msgid ""
+"Group contacts are the people who are responsible for maintaining the "
+"group’s page on the portal and liaising, on behalf of the group, with "
+"Mozilla staff. There must always be two group contacts and they must change "
+"every year, their responsibilities are:"
+msgstr ""
+"Los contactos grupales son las personas responsables de mantener la página "
+"del grupo en el portal y establecer contactos, en nombre del grupo, con el "
+"personal de Mozilla. Siempre debe haber dos contactos grupales y deben "
+"cambiar cada año, sus responsabilidades son:"
+
+#: buddypress/groups/index-create.php:416
+msgid "Maintain the content and activity of the group page."
+msgstr "Mantener el contenido y la actividad de la página del grupo."
+
+#: buddypress/groups/index-create.php:417
+msgid ""
+"Answer questions from community managers during the “verification” process."
+msgstr ""
+"Responda las preguntas de los administradores de la comunidad durante el "
+"proceso de “verificación”."
+
+#: buddypress/groups/index-create.php:419
+msgid ""
+"In order to be validated, group contacts must be responsive and able to "
+"answer and address issues on the group page. We recommend that group "
+"contacts are people who feel comfortable communicating in English, and have "
+"a good understanding of what is happening inside their group."
+msgstr ""
+"Para ser validados, los contactos del grupo deben ser receptivos y capaces "
+"de responder y abordar problemas en la página del grupo. Recomendamos que "
+"los contactos grupales sean personas que se sientan cómodas comunicándose en "
+"inglés y comprendan bien lo que sucede dentro de su grupo."
+
+#: buddypress/groups/index-create.php:420
+msgid "Note that group contacts"
+msgstr "Tenga en cuenta que los contactos grupales"
+
+#: buddypress/groups/index-create.php:420
+msgid " do not"
+msgstr " no haga"
+
+#: buddypress/groups/index-create.php:420
+msgid ""
+" have to correspond to governance roles inside the community. Communities "
+"are free to create their own internal structures and governance though all "
+"leadership roles should follow the"
+msgstr ""
+"tienen que corresponder a los roles de gobierno dentro de la comunidad. Las "
+"comunidades son libres de crear sus propias estructuras internas y "
+"gobernanza, aunque todos los roles de liderazgo deben seguir el"
+
+#: buddypress/groups/index-create.php:420
+msgid ""
+"If you have any other questions about group creation or management please "
+msgstr ""
+"Si tiene alguna otra pregunta sobre la creación o gestión de grupos, por "
+"favor "
+
+#: buddypress/groups/index-create.php:420
+msgid "visit the FAQ"
+msgstr "visite las preguntas frecuentes"
+
+#: buddypress/groups/index-create.php:423
+msgid "I Agree"
+msgstr "Estoy de acuerdo"
+
+#: buddypress/groups/index-create.php:425
+#: buddypress/members/single/edit.php:1349
+msgid "I agree to respect and adhere to"
+msgstr "Apalabro respeto y adherir a"
+
+#: buddypress/groups/index-create.php:426
+msgid "Mozilla’s Community Participation Guidelines *"
+msgstr "Las directrices de Participación de la Comunidad de Mozilla *"
+
+#: buddypress/groups/index-create.php:428
 msgid "Please agree to the Community Participation Guidelines"
-msgstr ""
+msgstr "Las directrices de Participación de la Comunidad de Mozilla"
 
-#: buddypress/groups/index-create.php:412 buddypress/groups/single/edit.php:307
+#: buddypress/groups/index-create.php:436 buddypress/groups/single/edit.php:317
 msgid "Continue"
-msgstr ""
+msgstr "Continúa"
 
-#: buddypress/groups/index-directory.php:231
+#: buddypress/groups/index-directory.php:237
 msgid "Groups"
-msgstr "Spanish Groups"
+msgstr "Grupos"
 
-#: buddypress/groups/index-directory.php:233
+#: buddypress/groups/index-directory.php:239
 msgid ""
 "Meet up with people who share your passion and join the movement for an open "
 "internet."
 msgstr ""
+"Conoce arriba con personas que comparten vuestra pasión y unir el movimiento "
+"para un internet abierto."
 
-#: buddypress/groups/index-directory.php:236
+#: buddypress/groups/index-directory.php:242
 msgid "Look for groups in your area, or"
-msgstr ""
+msgstr "Busca grupos en vuestra área, o"
 
-#: buddypress/groups/index-directory.php:236
+#: buddypress/groups/index-directory.php:246
 msgid "create your own."
-msgstr ""
-
-#: buddypress/groups/index-directory.php:274
-msgid "Search groups"
-msgstr ""
-
-#: buddypress/groups/index-directory.php:276
-#: buddypress/groups/single/group.php:978
-#: buddypress/members/index-directory.php:764 header.php:195
-#: plugins/events-manager/templates/events-search.php:82 search.php:135
-#: search.php:150 search.php:152
-msgid "Search"
-msgstr ""
+msgstr "crear vuestro propio."
 
 #: buddypress/groups/index-directory.php:288
+msgid "Search groups"
+msgstr "Grupos de búsqueda"
+
+#: buddypress/groups/index-directory.php:290
+#: buddypress/groups/single/group.php:993
+#: buddypress/members/index-directory.php:764 header.php:203 header.php:322
+#: plugins/events-manager/templates/events-search.php:82 search.php:140
+#: search.php:155 search.php:157
+msgid "Search"
+msgstr "Búsqueda"
+
 #: buddypress/groups/index-directory.php:302
+#: buddypress/groups/index-directory.php:316
 msgid "Discover Groups"
-msgstr ""
-
-#: buddypress/groups/index-directory.php:296
-#: buddypress/members/single/profile.php:162
-msgid "Groups I'm In"
-msgstr ""
-
-#: buddypress/groups/index-directory.php:300
-#: buddypress/groups/single/group.php:854
-msgid "Showing"
-msgstr ""
+msgstr "Descubre Grupos"
 
 #: buddypress/groups/index-directory.php:310
+#: buddypress/members/single/profile.php:153
+msgid "Groups I'm In"
+msgstr "Grupos  soy En"
+
+#: buddypress/groups/index-directory.php:314
+#: buddypress/groups/single/group.php:863
+msgid "Showing"
+msgstr "Mostrando"
+
+#: buddypress/groups/index-directory.php:324
 msgid "Groups I'm in"
-msgstr ""
+msgstr "Grupos  soy en"
 
-#: buddypress/groups/index-directory.php:318
+#: buddypress/groups/index-directory.php:332
 msgid "Filter by:"
-msgstr ""
+msgstr "Filtro por:"
 
-#: buddypress/groups/index-directory.php:320
-#: buddypress/groups/single/group.php:985
-#: buddypress/groups/single/group.php:1398
+#: buddypress/groups/index-directory.php:334
+#: buddypress/groups/single/group.php:1000
+#: buddypress/groups/single/group.php:1344
 #: buddypress/members/index-directory.php:773
-#: buddypress/members/single/profile.php:118
-#: plugins/events-manager/templates/event-single.php:234
-#: plugins/events-manager/templates/template-parts/events-filters.php:75
+#: buddypress/members/single/profile.php:109
+#: plugins/events-manager/templates/event-single.php:250
+#: plugins/events-manager/templates/template-parts/events-filters.php:65
 msgid "Location"
-msgstr ""
+msgstr "Ubicación"
 
-#: buddypress/groups/index-directory.php:322
 #: buddypress/groups/index-directory.php:336
-#: buddypress/groups/index-directory.php:352
+#: buddypress/groups/index-directory.php:350
+#: buddypress/groups/index-directory.php:366
 #: plugins/events-manager/templates/template-parts/options.php:20
 msgid "All"
-msgstr ""
+msgstr "Todo"
 
-#: buddypress/groups/index-directory.php:350
-#: buddypress/groups/single/group.php:1016
-#: buddypress/members/index-directory.php:803
-#: plugins/events-manager/templates/template-parts/events-filters.php:87
-msgid "Tag"
-msgstr ""
-
-#: buddypress/groups/index-directory.php:370
+#: buddypress/groups/index-directory.php:364
 #: buddypress/groups/single/group.php:1031
+#: buddypress/members/index-directory.php:803
+#: plugins/events-manager/templates/template-parts/events-filters.php:77
+msgid "Tag"
+msgstr "Etiqueta"
+
+#: buddypress/groups/index-directory.php:385
+#: buddypress/groups/single/group.php:1053
 #: buddypress/members/index-directory.php:823
-#: plugins/events-manager/templates/template-parts/events-filters.php:138
+#: plugins/events-manager/templates/template-parts/events-filters.php:131
 msgid "Show Filters"
-msgstr ""
+msgstr "Filtros de espectáculo"
 
-#: buddypress/groups/index-directory.php:371
-#: buddypress/groups/single/group.php:1032
+#: buddypress/groups/index-directory.php:386
+#: buddypress/groups/single/group.php:1054
 #: buddypress/members/index-directory.php:824
-#: plugins/events-manager/templates/template-parts/events-filters.php:137
+#: plugins/events-manager/templates/template-parts/events-filters.php:130
 msgid "Hide Filters"
-msgstr ""
+msgstr "Filtros de escondrijo"
 
-#: buddypress/groups/index-directory.php:377
+#: buddypress/groups/index-directory.php:392
 msgid "No results found.  Please try another search term."
-msgstr ""
+msgstr "Ningún resultado encontró.  Complacer probar otro plazo de búsqueda."
 
-#: buddypress/groups/index-directory.php:381
-#: buddypress/groups/single/group.php:1040
+#: buddypress/groups/index-directory.php:396
+#: buddypress/groups/single/group.php:1062
 #: buddypress/members/index-directory.php:834
-#: plugins/events-manager/templates/events-list.php:232 search.php:131
+#: plugins/events-manager/templates/events-list.php:273 search.php:136
 msgid "Results for "
-msgstr ""
+msgstr "Resultados para "
 
-#: buddypress/groups/index-directory.php:465 front-page.php:240
+#: buddypress/groups/index-directory.php:485 front-page.php:259
 msgid " more tags"
-msgstr ""
+msgstr " Más tags"
 
-#: buddypress/groups/single/edit.php:67
+#: buddypress/groups/single/edit.php:66
 msgid "Edit Group"
-msgstr ""
+msgstr "Edita Grupo"
 
-#: buddypress/groups/single/edit.php:161
+#: buddypress/groups/single/edit.php:164
 msgid "Description *"
-msgstr ""
+msgstr "Descripción *"
 
-#: buddypress/groups/single/edit.php:176
+#: buddypress/groups/single/edit.php:179
 msgid "Group Photo"
-msgstr ""
+msgstr "Foto de grupo"
 
-#: buddypress/groups/single/edit.php:307
+#: buddypress/groups/single/edit.php:317
 msgid "Save"
-msgstr ""
+msgstr "Salva"
 
-#: buddypress/groups/single/group.php:786
+#: buddypress/groups/single/group.php:774
 msgid "Verified"
-msgstr ""
+msgstr "Verificado"
 
-#: buddypress/groups/single/group.php:792
+#: buddypress/groups/single/group.php:780
 msgid "Unverified"
-msgstr ""
+msgstr "Non Verificado"
 
-#: buddypress/groups/single/group.php:829
+#: buddypress/groups/single/group.php:826
 msgid "Created"
-msgstr ""
+msgstr "Creado"
 
-#: buddypress/groups/single/group.php:840
-#: buddypress/groups/single/group.php:861
+#: buddypress/groups/single/group.php:841
+#: buddypress/groups/single/group.php:870
 msgid "About us"
-msgstr ""
-
-#: buddypress/groups/single/group.php:845
-#: buddypress/groups/single/group.php:866
-msgid "Our Events"
-msgstr ""
+msgstr "Aproximadamente nos"
 
 #: buddypress/groups/single/group.php:850
-#: buddypress/groups/single/group.php:871
+#: buddypress/groups/single/group.php:875
+msgid "Our Events"
+msgstr "Nuestros Acontecimientos"
+
+#: buddypress/groups/single/group.php:859
+#: buddypress/groups/single/group.php:880
 msgid "Our Members"
-msgstr ""
+msgstr "Nuestros Miembros"
 
-#: buddypress/groups/single/group.php:878
-#: buddypress/groups/single/group.php:1561
+#: buddypress/groups/single/group.php:887
+#: buddypress/groups/single/group.php:1531
 msgid "Group Contacts"
-msgstr ""
+msgstr "Contactos de grupo"
 
-#: buddypress/groups/single/group.php:931
+#: buddypress/groups/single/group.php:946
 #: buddypress/members/index-directory.php:744
 msgid "People"
-msgstr ""
+msgstr "Personas"
 
-#: buddypress/groups/single/group.php:976
+#: buddypress/groups/single/group.php:991
 #: buddypress/members/index-directory.php:762
 msgid "Search people"
-msgstr ""
+msgstr "Personas de búsqueda"
 
-#: buddypress/groups/single/group.php:982
+#: buddypress/groups/single/group.php:997
 #: buddypress/members/index-directory.php:771
 msgid "Search criteria:"
-msgstr ""
+msgstr "Criterios de búsqueda:"
 
-#: buddypress/groups/single/group.php:987
 #: buddypress/groups/single/group.php:1002
-#: buddypress/groups/single/group.php:1018
+#: buddypress/groups/single/group.php:1017
+#: buddypress/groups/single/group.php:1033
 #: buddypress/members/index-directory.php:775
 #: buddypress/members/index-directory.php:789
 #: buddypress/members/index-directory.php:805
-#: plugins/events-manager/forms/event/location-moz.php:146
+#: plugins/events-manager/forms/event/location-moz.php:209
 #: templates/event-export.php:54 templates/event-export.php:67
 msgid "Select"
-msgstr ""
+msgstr "Selecciona"
 
-#: buddypress/groups/single/group.php:1091
+#: buddypress/groups/single/group.php:1117
 #: buddypress/members/index-directory.php:891
 msgid "No members found"
-msgstr ""
+msgstr "Ningún miembro encontró"
 
-#: buddypress/groups/single/group.php:1095
+#: buddypress/groups/single/group.php:1121
 msgid "This group currently has no members"
-msgstr ""
+msgstr "Este grupo actualmente tiene ningún miembro"
 
-#: buddypress/groups/single/group.php:1169
-#: buddypress/groups/single/group.php:1542
-#: buddypress/members/single/profile.php:255
-#: buddypress/members/single/profile.php:327
-#: plugins/events-manager/forms/event/location-moz.php:182
-#: plugins/events-manager/templates/event-single.php:244
-#: plugins/events-manager/templates/template-parts/single-event-card.php:79
-#: single-activity.php:275 templates/blocks/events-block.php:87
-msgid "Online Event"
-msgstr ""
-
-#: buddypress/groups/single/group.php:1252
-#: buddypress/groups/single/group.php:1258
+#: buddypress/groups/single/group.php:1198
+#: buddypress/groups/single/group.php:1204
 msgid "Join Group"
-msgstr ""
+msgstr "Une Grupo"
 
-#: buddypress/groups/single/group.php:1253
-#: buddypress/groups/single/group.php:1259
+#: buddypress/groups/single/group.php:1199
+#: buddypress/groups/single/group.php:1205
 msgid "Leave Group"
-msgstr ""
+msgstr "Deja Grupo"
 
-#: buddypress/groups/single/group.php:1268
+#: buddypress/groups/single/group.php:1214
 msgid "Share Group"
-msgstr ""
+msgstr "Grupo de participación"
 
-#: buddypress/groups/single/group.php:1272
+#: buddypress/groups/single/group.php:1218
 msgid "About Us"
-msgstr ""
+msgstr "Aproximadamente Nos"
 
-#: buddypress/groups/single/group.php:1334
-#: buddypress/members/single/profile.php:495
+#: buddypress/groups/single/group.php:1280
+#: buddypress/members/single/profile.php:506
 msgid "Github"
-msgstr ""
+msgstr "Github"
 
-#: buddypress/groups/single/group.php:1385
+#: buddypress/groups/single/group.php:1331
 msgid "Meetings"
-msgstr ""
+msgstr "Reuniones"
 
-#: buddypress/groups/single/group.php:1389
+#: buddypress/groups/single/group.php:1335
 msgid "Meeting Details"
-msgstr ""
+msgstr "Conociendo Detalles"
 
-#: buddypress/groups/single/group.php:1426
+#: buddypress/groups/single/group.php:1374
 msgid "Discussions"
-msgstr ""
+msgstr "Discusiones"
 
-#: buddypress/groups/single/group.php:1432
+#: buddypress/groups/single/group.php:1380
 msgid "Topic"
-msgstr ""
+msgstr "Tema"
 
-#: buddypress/groups/single/group.php:1433
+#: buddypress/groups/single/group.php:1381
 msgid "Replies"
-msgstr ""
+msgstr "Respuestas"
 
-#: buddypress/groups/single/group.php:1434
+#: buddypress/groups/single/group.php:1382
 msgid "Views"
-msgstr ""
+msgstr "Vistas"
 
-#: buddypress/groups/single/group.php:1435
-#: buddypress/groups/single/group.php:1480 functions.php:183 search.php:281
+#: buddypress/groups/single/group.php:1383
+#: buddypress/groups/single/group.php:1429 functions.php:184 search.php:291
 msgid "Activity"
-msgstr ""
+msgstr "Actividad"
 
-#: buddypress/groups/single/group.php:1464
+#: buddypress/groups/single/group.php:1412
 msgid "View more topics"
-msgstr ""
+msgstr "Vista más temas"
 
-#: buddypress/groups/single/group.php:1492
+#: buddypress/groups/single/group.php:1444
 msgid "Events this month"
-msgstr ""
+msgstr "Acontecimientos este mes"
 
-#: buddypress/groups/single/group.php:1496
-#: buddypress/members/single/profile.php:208 front-page.php:228 search.php:277
+#: buddypress/groups/single/group.php:1457
+#: buddypress/members/single/profile.php:211 search.php:286
 msgid "Members"
-msgstr ""
+msgstr "Miembros"
 
-#: buddypress/groups/single/group.php:1525
-#: plugins/events-manager/templates/event-single.php:441
-#: single-activity.php:248
+#: buddypress/groups/single/group.php:1485
+#: plugins/events-manager/templates/event-single.php:460
+#: single-activity.php:264
 msgid "Related Events"
-msgstr ""
+msgstr "Relacionó Acontecimientos"
 
-#: buddypress/groups/single/group.php:1554 single-activity.php:288
+#: buddypress/groups/single/group.php:1507
+#: buddypress/members/single/profile.php:262
+#: buddypress/members/single/profile.php:337
+#: plugins/events-manager/forms/event/location-moz.php:251
+#: plugins/events-manager/templates/event-single.php:259
+#: plugins/events-manager/templates/template-parts/events-filters.php:23
+#: plugins/events-manager/templates/template-parts/single-event-card.php:75
+#: single-activity.php:294 templates/blocks/events-block.php:91
+msgid "Online Event"
+msgstr "Acontecimiento on-line"
+
+#: buddypress/groups/single/group.php:1523 single-activity.php:307
 msgid "View more events"
-msgstr ""
+msgstr "Vista más acontecimientos"
 
-#: buddypress/groups/single/group.php:1615
-#: plugins/events-manager/templates/template-parts/event-single/event-sidebar.php:83
+#: buddypress/groups/single/group.php:1591
+#: plugins/events-manager/templates/template-parts/event-single/event-sidebar.php:98
 msgid "Preferred Language"
-msgstr ""
+msgstr "Lengua preferida"
 
-#: buddypress/groups/single/group.php:1627
-#: buddypress/members/single/profile.php:542
-#: plugins/events-manager/templates/template-parts/event-single/event-sidebar.php:27
-#: single-activity.php:182 single-campaign.php:100
+#: buddypress/groups/single/group.php:1604
+#: buddypress/members/single/profile.php:553
+#: plugins/events-manager/templates/template-parts/event-single/event-sidebar.php:30
+#: single-activity.php:190 single-campaign.php:118
 msgid "Tags"
-msgstr ""
+msgstr "Etiquetas"
 
-#: buddypress/groups/single/group.php:1666
+#: buddypress/groups/single/group.php:1652
 msgid "Reporting Group"
-msgstr ""
+msgstr "Informando Grupo"
 
-#: buddypress/groups/single/group.php:1670
+#: buddypress/groups/single/group.php:1656
 msgid "Please provide a reason you are reporting this group"
-msgstr ""
+msgstr "Complacer proporcionar una razón  estás informando este grupo"
 
-#: buddypress/groups/single/group.php:1679
+#: buddypress/groups/single/group.php:1665
 msgid "Report Group"
-msgstr ""
+msgstr "Grupo de informe"
 
 #: buddypress/members/index-directory.php:746
 msgid ""
 "Ready to make it official? Set up a profile to attend events, join groups "
 "and manage your subscription settings. "
 msgstr ""
+"A punto para hacerlo oficial? Instalado un perfil para atender "
+"acontecimientos, unir grupos y dirigir vuestros encuadres de suscripción. "
 
-#: buddypress/members/single/edit.php:26
+#: buddypress/members/single/edit.php:27
 msgid "CONGRATULATIONS!"
-msgstr ""
+msgstr "FELICITACIONES!"
 
-#: buddypress/members/single/edit.php:29
+#: buddypress/members/single/edit.php:30
 msgid ""
 "Your Account has been created! You can keep adding to your profile or dive "
 "right in. You are now ready to connect with other users, participate in "
 "events and projects, and get involved in the Mozilla community."
 msgstr ""
+"Vuestra Cuenta ha sido creada!  Puedes mantener añadir a vuestro perfil o "
+"derecho de zambullimiento en.  Eres ahora a punto para conectar con otros "
+"usuarios, participa en acontecimientos y proyectos, y conseguir implicado en "
+"la comunidad de Mozilla."
 
-#: buddypress/members/single/edit.php:35
+#: buddypress/members/single/edit.php:36
 msgid ""
 "Notice: We had a problem registering you for our newsletter. Please try "
 "signing up again later. To try again "
 msgstr ""
+"Aviso:  tuvimos un problema que registra tú para nuestro newsletter. "
+"Complacer probar firmando arriba otra vez más tarde. Para probar otra vez "
 
-#: buddypress/members/single/edit.php:42
+#: buddypress/members/single/edit.php:39
 msgid "Click here"
-msgstr ""
+msgstr "haga clic aquí"
 
-#: buddypress/members/single/edit.php:51
+#: buddypress/members/single/edit.php:46
 msgid "Complete your profile"
-msgstr ""
+msgstr "Completo vuestro perfil"
 
-#: buddypress/members/single/edit.php:51
+#: buddypress/members/single/edit.php:49
 msgid "Go back to browsing"
-msgstr ""
+msgstr "Vuelve a explorar"
 
 #: buddypress/members/single/edit.php:59
 msgid "Edit Profile"
-msgstr ""
+msgstr "Edita Perfil"
 
 #: buddypress/members/single/edit.php:59
-#: buddypress/members/single/edit.php:1110
+#: buddypress/members/single/edit.php:1360
 msgid "Complete Profile"
-msgstr ""
+msgstr "Perfil completo"
 
-#: buddypress/members/single/edit.php:67
+#: buddypress/members/single/edit.php:68
 msgid ""
 "We've pre-populated some of your information via your connected account with "
 msgstr ""
+"Hemos pre-pobló algunos de vuestra información vía vuestra cuenta conectada "
+"con "
 
-#: buddypress/members/single/edit.php:68
+#: buddypress/members/single/edit.php:69
 msgid "Mozilla SSO."
-msgstr ""
+msgstr "Mozilla SSO."
 
-#: buddypress/members/single/edit.php:80
+#: buddypress/members/single/edit.php:81
 msgid "Primary Information"
-msgstr ""
+msgstr "Información primaria"
 
-#: buddypress/members/single/edit.php:82 buddypress/members/single/edit.php:481
-#: buddypress/members/single/edit.php:709
-#: buddypress/members/single/edit.php:958
+#: buddypress/members/single/edit.php:83 buddypress/members/single/edit.php:629
+#: buddypress/members/single/edit.php:911
+#: buddypress/members/single/edit.php:1197
 msgid "Visibility Settings"
-msgstr ""
+msgstr "Encuadres de visibilidad"
 
-#: buddypress/members/single/edit.php:84 buddypress/members/single/edit.php:483
-#: buddypress/members/single/edit.php:711
-#: buddypress/members/single/edit.php:960
+#: buddypress/members/single/edit.php:85 buddypress/members/single/edit.php:632
+#: buddypress/members/single/edit.php:914
+#: buddypress/members/single/edit.php:1199
 msgid "Custom"
-msgstr ""
+msgstr "Hecho de encargo"
 
-#: buddypress/members/single/edit.php:95
+#: buddypress/members/single/edit.php:97
 msgid "Profile Photo (optional)"
-msgstr ""
+msgstr "Foto de perfil (opcional)"
 
-#: buddypress/members/single/edit.php:140
+#: buddypress/members/single/edit.php:143
 msgid "minimum dimensions 175px by 175px"
-msgstr ""
+msgstr "Dimensiones mínimas 175px por 175px"
 
-#: buddypress/members/single/edit.php:164
-#: buddypress/members/single/edit.php:210
-#: buddypress/members/single/edit.php:235
-#: buddypress/members/single/edit.php:267
-#: buddypress/members/single/edit.php:303
-#: buddypress/members/single/edit.php:338
-#: buddypress/members/single/edit.php:385
-#: buddypress/members/single/edit.php:431
-#: buddypress/members/single/edit.php:462
-#: buddypress/members/single/edit.php:509
-#: buddypress/members/single/edit.php:539
-#: buddypress/members/single/edit.php:569
-#: buddypress/members/single/edit.php:599
-#: buddypress/members/single/edit.php:629
-#: buddypress/members/single/edit.php:659
-#: buddypress/members/single/edit.php:692
-#: buddypress/members/single/edit.php:754
-#: buddypress/members/single/edit.php:833
-#: buddypress/members/single/edit.php:865
-#: buddypress/members/single/edit.php:934
-#: buddypress/members/single/edit.php:973
-#: buddypress/members/single/edit.php:995
-#: buddypress/members/single/edit.php:1019
-#: buddypress/members/single/edit.php:1043
+#: buddypress/members/single/edit.php:175
+#: buddypress/members/single/edit.php:241
+#: buddypress/members/single/edit.php:286
+#: buddypress/members/single/edit.php:341
+#: buddypress/members/single/edit.php:392
+#: buddypress/members/single/edit.php:437
+#: buddypress/members/single/edit.php:498
+#: buddypress/members/single/edit.php:563
+#: buddypress/members/single/edit.php:603
+#: buddypress/members/single/edit.php:660
+#: buddypress/members/single/edit.php:696
+#: buddypress/members/single/edit.php:732
+#: buddypress/members/single/edit.php:766
+#: buddypress/members/single/edit.php:802
+#: buddypress/members/single/edit.php:840
+#: buddypress/members/single/edit.php:890
+#: buddypress/members/single/edit.php:958
+#: buddypress/members/single/edit.php:1051
+#: buddypress/members/single/edit.php:1086
+#: buddypress/members/single/edit.php:1172
+#: buddypress/members/single/edit.php:1212
+#: buddypress/members/single/edit.php:1238
+#: buddypress/members/single/edit.php:1264
+#: buddypress/members/single/edit.php:1289
 msgid "Can be viewed by"
-msgstr ""
+msgstr "Puede ser visto por"
 
-#: buddypress/members/single/edit.php:187
+#: buddypress/members/single/edit.php:200
 msgid "Username (required)"
-msgstr ""
+msgstr "nombre de usuario (requerido)"
 
-#: buddypress/members/single/edit.php:203
+#: buddypress/members/single/edit.php:230
 msgid "This username is already taken"
-msgstr ""
+msgstr "Este nombre de grupo es ya tomado"
 
-#: buddypress/members/single/edit.php:206
+#: buddypress/members/single/edit.php:235
 msgid "Usernames are public"
-msgstr ""
+msgstr "nombre de usuarios es público"
 
-#: buddypress/members/single/edit.php:212 buddypress/members/single/home.php:15
+#: buddypress/members/single/edit.php:245 buddypress/members/single/home.php:15
 msgid "Public (Everyone)"
-msgstr ""
+msgstr "Público (Todo el mundo)"
 
-#: buddypress/members/single/edit.php:219
+#: buddypress/members/single/edit.php:254
 msgid "First Name (required)"
-msgstr ""
+msgstr "Primer Nombre (requerido)"
 
-#: buddypress/members/single/edit.php:224 templates/campaign-rsvp.php:43
+#: buddypress/members/single/edit.php:266 templates/campaign-rsvp.php:43
 msgid "First Name"
-msgstr ""
+msgstr "Primer Nombre"
 
-#: buddypress/members/single/edit.php:232
+#: buddypress/members/single/edit.php:281
 msgid "Your first name is always visible to registered users"
-msgstr ""
+msgstr "Vuestro primer nombre es siempre visible a registró usuarios"
 
-#: buddypress/members/single/edit.php:252
+#: buddypress/members/single/edit.php:310
 msgid "Last Name (required)"
-msgstr ""
+msgstr "Último Nombre (requerido)"
 
-#: buddypress/members/single/edit.php:257 templates/campaign-rsvp.php:48
+#: buddypress/members/single/edit.php:322 templates/campaign-rsvp.php:48
 msgid "Last Name"
-msgstr ""
+msgstr "Último Nombre"
 
-#: buddypress/members/single/edit.php:283
+#: buddypress/members/single/edit.php:364
 msgid "Preferred Pronouns (optional)"
-msgstr ""
+msgstr "Prefirió Pronombres (opcionales)"
 
-#: buddypress/members/single/edit.php:285
+#: buddypress/members/single/edit.php:368
 msgid "Preferred Pronoun"
-msgstr ""
+msgstr "Pronombre preferido"
 
-#: buddypress/members/single/edit.php:325
+#: buddypress/members/single/edit.php:422
 msgid "Bio (optional)"
-msgstr ""
+msgstr "Bio (Opcional)"
 
-#: buddypress/members/single/edit.php:361
+#: buddypress/members/single/edit.php:460
 msgid "Country (optional)"
-msgstr ""
+msgstr "País (opcional)"
 
-#: buddypress/members/single/edit.php:381
+#: buddypress/members/single/edit.php:484
 msgid "City (optional)"
-msgstr ""
+msgstr "Ciudad (opcional)"
 
-#: buddypress/members/single/edit.php:408
+#: buddypress/members/single/edit.php:523
 msgid "Email contact (required)"
-msgstr ""
+msgstr "Contacto de email (requerido)"
 
-#: buddypress/members/single/edit.php:413
-#: buddypress/members/single/profile.php:134
-#: plugins/events-manager/forms/event-editor.php:63
+#: buddypress/members/single/edit.php:533
+#: buddypress/members/single/profile.php:124
+#: plugins/events-manager/forms/event-editor.php:79
 #: templates/campaign-rsvp.php:55 templates/campaigns-newsletter.php:44
 msgid "Email"
-msgstr ""
+msgstr "E-mail"
 
-#: buddypress/members/single/edit.php:424
+#: buddypress/members/single/edit.php:552
 msgid "An account with this email already exists"
-msgstr ""
+msgstr "Este email es ya en uso"
 
-#: buddypress/members/single/edit.php:425 lib/members.php:239
+#: buddypress/members/single/edit.php:555 lib/members.php:239
 msgid "Invalid email address"
-msgstr ""
-
-#: buddypress/members/single/edit.php:447
-msgid "Phone contact (optional)"
-msgstr ""
-
-#: buddypress/members/single/edit.php:479
-msgid "Social Links"
-msgstr ""
-
-#: buddypress/members/single/edit.php:493
-msgid "Mozilla Discourse username (optional)"
-msgstr ""
-
-#: buddypress/members/single/edit.php:524
-msgid "Facebook username (optional)"
-msgstr ""
-
-#: buddypress/members/single/edit.php:554
-msgid "Twitter username (optional)"
-msgstr ""
+msgstr "Dirección de correo electrónico nula"
 
 #: buddypress/members/single/edit.php:584
-msgid "LinkedIn username (optional)"
-msgstr ""
+msgid "Phone contact (optional)"
+msgstr "Contacto de teléfono (opcional)"
 
-#: buddypress/members/single/edit.php:614
-msgid "Github username (optional)"
-msgstr ""
+#: buddypress/members/single/edit.php:625
+msgid "Social Links"
+msgstr "Enlaces sociales"
 
 #: buddypress/members/single/edit.php:644
+msgid "Mozilla Discourse username (optional)"
+msgstr "nombre de usuario Discurso de Mozilla (opcional)"
+
+#: buddypress/members/single/edit.php:679
+msgid "Facebook username (optional)"
+msgstr "nombre de usuario Facebook (opcional)"
+
+#: buddypress/members/single/edit.php:715
+msgid "Twitter username (optional)"
+msgstr "nombre de usuario Twitter (opcional)"
+
+#: buddypress/members/single/edit.php:750
+msgid "LinkedIn username (optional)"
+msgstr "nombre de usuario LinkedIn (opcional)"
+
+#: buddypress/members/single/edit.php:785
+msgid "Github username (optional)"
+msgstr "nombre de usuario Github (Opcional)"
+
+#: buddypress/members/single/edit.php:823
 msgid "Telegram username (optional)"
-msgstr ""
+msgstr "nombre de usuario Telegrama (opcional)"
 
-#: buddypress/members/single/edit.php:674
+#: buddypress/members/single/edit.php:861
 msgid "Matrix username (optional)"
-msgstr ""
+msgstr "nombre de usuario Matricial (opcional)"
 
-#: buddypress/members/single/edit.php:688
+#: buddypress/members/single/edit.php:875
+msgid "username:domain"
+msgstr "usuario:ámbito"
+
+#: buddypress/members/single/edit.php:884
 msgid "Please format as username:domain"
-msgstr ""
+msgstr "Complacer formato como nombre de usuario:ámbito"
 
-#: buddypress/members/single/edit.php:707
+#: buddypress/members/single/edit.php:908
 msgid "Communication & Interests"
-msgstr ""
+msgstr "Intereses & de comunicación"
 
-#: buddypress/members/single/edit.php:734
-#: buddypress/members/single/edit.php:805
+#: buddypress/members/single/edit.php:937
+#: buddypress/members/single/edit.php:1017
 msgid "Languages spoken (optional)"
-msgstr ""
+msgstr "Las lenguas habladas (opcionales)"
 
-#: buddypress/members/single/edit.php:736
-#: buddypress/members/single/edit.php:811
-#: buddypress/members/single/edit.php:835
+#: buddypress/members/single/edit.php:940
+#: buddypress/members/single/edit.php:1028
+#: buddypress/members/single/edit.php:1054
 msgid "Make Selection"
-msgstr ""
+msgstr "Selección de marca"
 
-#: buddypress/members/single/edit.php:776
+#: buddypress/members/single/edit.php:987
 msgid "Make Selection (optional)"
-msgstr ""
+msgstr "Selección de marca (opcional)"
 
-#: buddypress/members/single/edit.php:787
-#: buddypress/members/single/edit.php:859
+#: buddypress/members/single/edit.php:1000
+#: buddypress/members/single/edit.php:1079
 msgid "Add Another Language"
-msgstr ""
+msgstr "Añadir Otra Lengua"
 
-#: buddypress/members/single/edit.php:897
+#: buddypress/members/single/edit.php:1122
 msgid "Skills and interests (optional)"
-msgstr ""
+msgstr "Habilidades e intereses (opcionales)"
 
-#: buddypress/members/single/edit.php:956
+#: buddypress/members/single/edit.php:1195
 msgid "Community Portal Activity"
-msgstr ""
+msgstr "Actividad de Portal de la comunidad"
 
-#: buddypress/members/single/edit.php:970
+#: buddypress/members/single/edit.php:1209
 msgid "Groups joined"
-msgstr ""
+msgstr "Los grupos unieron"
 
-#: buddypress/members/single/edit.php:992
+#: buddypress/members/single/edit.php:1234
 msgid "Events attended"
-msgstr ""
+msgstr "Los acontecimientos atendieron"
 
-#: buddypress/members/single/edit.php:1016
+#: buddypress/members/single/edit.php:1261
 msgid "Events organized"
-msgstr ""
+msgstr "Los acontecimientos organizaron"
 
-#: buddypress/members/single/edit.php:1040
+#: buddypress/members/single/edit.php:1286
 msgid "Campaigns participated in"
-msgstr ""
+msgstr "Las campañas participaron en"
 
-#: buddypress/members/single/edit.php:1100
+#: buddypress/members/single/edit.php:1350
 msgid "Mozilla's Community Participation Guidelines*"
-msgstr ""
+msgstr "Las directrices de Participación de la Comunidad de Mozilla*"
 
-#: buddypress/members/single/edit.php:1112
+#: buddypress/members/single/edit.php:1362
 msgid "Delete Profile"
-msgstr ""
+msgstr "Elimina Perfil"
 
-#: buddypress/members/single/edit.php:1113
+#: buddypress/members/single/edit.php:1363
 msgid ""
 "Could not delete profile at this time, please contact a community manager"
 msgstr ""
+"No podría eliminar perfil en este tiempo, complacer contactar un director de "
+"comunidad"
 
 #: buddypress/members/single/home.php:14
 msgid "Registered Users"
-msgstr ""
+msgstr "Registró Usuarios"
 
 #: buddypress/members/single/home.php:16
 msgid "Private (Only Me)"
-msgstr ""
+msgstr "Privado (Sólo Me)"
 
-#: buddypress/members/single/home.php:21
-msgid "She/Her"
-msgstr ""
-
-#: buddypress/members/single/home.php:22
-msgid "He/Him"
-msgstr ""
-
-#: buddypress/members/single/home.php:23
-msgid "They/Them"
-msgstr ""
-
-#: buddypress/members/single/profile.php:43
-#: plugins/events-manager/forms/event/bookings.php:144
-msgid "Edit"
-msgstr ""
-
-#: buddypress/members/single/profile.php:101
+#: buddypress/members/single/profile.php:93
 msgid "Contact Information"
-msgstr ""
+msgstr "Información de contacto"
 
-#: buddypress/members/single/profile.php:149
+#: buddypress/members/single/profile.php:139
 msgid "Phone"
-msgstr ""
+msgstr "Teléfono"
 
-#: buddypress/members/single/profile.php:227
+#: buddypress/members/single/profile.php:229
 msgid "Recent Events"
-msgstr ""
+msgstr "Acontecimientos recientes"
 
-#: buddypress/members/single/profile.php:299
+#: buddypress/members/single/profile.php:305
 msgid "Organized Events"
-msgstr ""
+msgstr "Organizó Acontecimientos"
 
-#: buddypress/members/single/profile.php:364
+#: buddypress/members/single/profile.php:378
 msgid "Campaigns Participated In"
-msgstr ""
+msgstr "Las campañas Participaron En"
 
-#: buddypress/members/single/profile.php:423
+#: buddypress/members/single/profile.php:441
 msgid "Social Handles"
-msgstr ""
+msgstr "Mangos sociales"
 
-#: buddypress/members/single/profile.php:470
+#: buddypress/members/single/profile.php:481
 msgid "Linkedin"
-msgstr ""
+msgstr "LinkedIn"
 
-#: buddypress/members/single/profile.php:518
+#: buddypress/members/single/profile.php:529
 msgid "Languages spoken"
-msgstr ""
+msgstr "Las lenguas habladas"
+
+#: campaign-status.php:3 single-campaign.php:39
+msgid "Active"
+msgstr "Activa"
+
+#: campaign-status.php:4 single-campaign.php:40
+msgid "Closed"
+msgstr "Cerrada"
 
 #: countries.php:12
 msgid "Andorra"
-msgstr ""
+msgstr "Andorra"
 
 #: countries.php:13
 msgid "United Arab Emirates"
-msgstr ""
+msgstr "Emiratos Árabes Unidos"
 
 #: countries.php:14
 msgid "Afghanistan"
-msgstr ""
+msgstr "Afganistán"
 
 #: countries.php:15
 msgid "Antigua and Barbuda"
-msgstr ""
+msgstr "Antigua y Barbuda"
 
 #: countries.php:16
 msgid "Anguilla"
-msgstr ""
+msgstr "Anguilla"
 
 #: countries.php:17
 msgid "Albania"
-msgstr ""
+msgstr "Albania"
 
 #: countries.php:18
 msgid "Armenia"
-msgstr ""
+msgstr "Armenia"
 
 #: countries.php:19
 msgid "Angola"
-msgstr ""
+msgstr "Angola"
 
 #: countries.php:20
 msgid "Antarctica"
-msgstr ""
+msgstr "Antártida"
 
 #: countries.php:21
 msgid "Argentina"
-msgstr ""
+msgstr "Argentina"
 
 #: countries.php:22
 msgid "American Samoa"
-msgstr ""
+msgstr "Samoa americana"
 
 #: countries.php:23
 msgid "Austria"
-msgstr ""
+msgstr "Austria"
 
 #: countries.php:24
 msgid "Australia"
-msgstr ""
+msgstr "Australia"
 
 #: countries.php:25
 msgid "Aruba"
-msgstr ""
+msgstr "Aruba"
 
 #: countries.php:26
 msgid "Azerbaijan"
-msgstr ""
+msgstr "Azerbayán"
 
 #: countries.php:27
 msgid "Bosnia and Herzegovina"
-msgstr ""
+msgstr "Bosnia-Herzegovina"
 
 #: countries.php:28
 msgid "Barbados"
-msgstr ""
+msgstr "Barbados"
 
 #: countries.php:29
 msgid "Bangladesh"
-msgstr ""
+msgstr "Bangladesh"
 
 #: countries.php:30
 msgid "Belgium"
-msgstr ""
+msgstr "Bélgica"
 
 #: countries.php:31
 msgid "Burkina Faso"
-msgstr ""
+msgstr "Burkina Faso"
 
 #: countries.php:32
 msgid "Bulgaria"
-msgstr ""
+msgstr "Bulgaria"
 
 #: countries.php:33
 msgid "Bahrain"
-msgstr ""
+msgstr "Bahrain"
 
 #: countries.php:34
 msgid "Burundi"
-msgstr ""
+msgstr "Burundi"
 
 #: countries.php:35
 msgid "Benin"
-msgstr ""
+msgstr "Benin"
 
 #: countries.php:36
 msgid "Saint Barthelemy"
-msgstr ""
+msgstr "San Bartolomé"
 
 #: countries.php:37
 msgid "Bermuda"
-msgstr ""
+msgstr "Bermuda"
 
 #: countries.php:38
 msgid "Brunei"
-msgstr ""
+msgstr "Brunei"
 
 #: countries.php:39
 msgid "Bolivia"
-msgstr ""
+msgstr "Bolivia"
 
 #: countries.php:40
 msgid "Bonaire, Sint Eustatius, and Saba"
-msgstr ""
+msgstr "Bonaire San Eustaquio y Saba"
 
 #: countries.php:41
 msgid "Brazil"
-msgstr ""
+msgstr "Brasil"
 
 #: countries.php:42
 msgid "Bahamas, The"
-msgstr ""
+msgstr "Las Bahamas"
 
 #: countries.php:43
 msgid "Bhutan"
-msgstr ""
+msgstr "Bhutan"
 
 #: countries.php:44
 msgid "Bouvet Island"
-msgstr ""
+msgstr "Isla Bouvet"
 
 #: countries.php:45
 msgid "Botswana"
-msgstr ""
+msgstr "Botswana"
 
 #: countries.php:46
 msgid "Belarus"
-msgstr ""
+msgstr "Belarús"
 
 #: countries.php:47
 msgid "Belize"
-msgstr ""
+msgstr "Belice"
 
 #: countries.php:48
 msgid "Canada"
-msgstr ""
+msgstr "Canadá"
 
 #: countries.php:49
 msgid "Cocos (Keeling) Islands"
-msgstr ""
+msgstr "Islas Cocos (Keeling)"
 
 #: countries.php:50
 msgid "Congo (Kinshasa)"
-msgstr ""
+msgstr "Congo (Kinshasa)"
 
 #: countries.php:51
 msgid "Central African Republic"
-msgstr ""
+msgstr "República Centroafricana"
 
 #: countries.php:52
 msgid "Congo (Brazzaville)"
-msgstr ""
+msgstr "Congo (Brazzaville)"
 
 #: countries.php:53
 msgid "Switzerland"
-msgstr ""
+msgstr "Suiza"
 
 #: countries.php:54
 msgid "Cote d'Ivoire"
-msgstr ""
+msgstr "Costa Ivory"
 
 #: countries.php:55
 msgid "Cook Islands"
-msgstr ""
+msgstr "Islas Cook"
 
 #: countries.php:56
 msgid "Chile"
-msgstr ""
+msgstr "Chile"
 
 #: countries.php:57
 msgid "Cameroon"
-msgstr ""
+msgstr "Camerún"
 
 #: countries.php:58
 msgid "China"
-msgstr ""
+msgstr "China"
 
 #: countries.php:59
 msgid "Colombia"
-msgstr ""
+msgstr "Colombia"
 
 #: countries.php:60
 msgid "Clipperton Island"
-msgstr ""
+msgstr "Isla Clipperton"
 
 #: countries.php:61
 msgid "Costa Rica"
-msgstr ""
+msgstr "Costa Rica"
 
 #: countries.php:62
 msgid "Cuba"
-msgstr ""
+msgstr "Cuba"
 
 #: countries.php:63
 msgid "Cabo Verde"
-msgstr ""
+msgstr "Cabo Verde"
 
 #: countries.php:64
-msgid "Cura\\u00e7ao"
-msgstr ""
+msgid "Curaçao"
+msgstr "Curazao"
 
 #: countries.php:65
 msgid "Christmas Island"
-msgstr ""
+msgstr "Isla de Navidad"
 
 #: countries.php:66
 msgid "Cyprus"
-msgstr ""
+msgstr "Chipre"
 
 #: countries.php:67
 msgid "Czech Republic"
-msgstr ""
+msgstr "República Checa"
 
 #: countries.php:68
 msgid "Germany"
-msgstr ""
+msgstr "Alemania"
 
 #: countries.php:69
 msgid "Diego Garcia"
-msgstr ""
+msgstr "Diego García"
 
 #: countries.php:70
 msgid "Djibouti"
-msgstr ""
+msgstr "Djibouti"
 
 #: countries.php:71
 msgid "Denmark"
-msgstr ""
+msgstr "Dinamarca"
 
 #: countries.php:72
 msgid "Dominica"
-msgstr ""
+msgstr "Dominica"
 
 #: countries.php:73
 msgid "Dominican Republic"
-msgstr ""
+msgstr "República Dominicana"
 
 #: countries.php:74
 msgid "Algeria"
-msgstr ""
+msgstr "Argelia"
 
 #: countries.php:75
 msgid "Ecuador"
-msgstr ""
+msgstr "Ecuador"
 
 #: countries.php:76
 msgid "Estonia"
-msgstr ""
+msgstr "Estonia"
 
 #: countries.php:77
 msgid "Egypt"
-msgstr ""
+msgstr "Egipto"
 
 #: countries.php:78
 msgid "Western Sahara"
-msgstr ""
+msgstr "Sáhara Occidental"
 
 #: countries.php:79
 msgid "Eritrea"
-msgstr ""
+msgstr "Eritrea"
 
 #: countries.php:80
 msgid "Spain"
-msgstr ""
+msgstr "España"
 
 #: countries.php:81
 msgid "Ethiopia"
-msgstr ""
+msgstr "Etiopía"
 
 #: countries.php:82
 msgid "Finland"
-msgstr ""
+msgstr "Finlandia"
 
 #: countries.php:83
 msgid "Fiji"
-msgstr ""
+msgstr "Fiji"
 
 #: countries.php:84
 msgid "Falkland Islands (Islas Malvinas)"
-msgstr ""
+msgstr "Islas Malvinas (Falkland)"
 
 #: countries.php:85
 msgid "Micronesia, Federated States of"
-msgstr ""
+msgstr "Estados Federados de la Micronesia"
 
 #: countries.php:86
 msgid "Faroe Islands"
-msgstr ""
+msgstr "Islas Faroe"
 
 #: countries.php:87
 msgid "France"
-msgstr ""
+msgstr "Francia"
 
 #: countries.php:88
 msgid "Gabon"
-msgstr ""
+msgstr "Gabón"
 
 #: countries.php:89
 msgid "United Kingdom"
-msgstr ""
+msgstr "Reino Unido"
 
 #: countries.php:90
 msgid "Grenada"
-msgstr ""
+msgstr "Granada"
 
 #: countries.php:91
 msgid "Georgia"
-msgstr ""
+msgstr "Georgia"
 
 #: countries.php:92
 msgid "French Guiana"
-msgstr ""
+msgstr "Guayana Francesa"
 
 #: countries.php:93
 msgid "Guernsey"
-msgstr ""
+msgstr "Guernsey"
 
 #: countries.php:94
 msgid "Ghana"
-msgstr ""
+msgstr "Ghana"
 
 #: countries.php:95
 msgid "Gibraltar"
-msgstr ""
+msgstr "Gibraltar"
 
 #: countries.php:96
 msgid "Greenland"
-msgstr ""
+msgstr "Groenlandia"
 
 #: countries.php:97
 msgid "Gambia, The"
-msgstr ""
+msgstr "Gambia"
 
 #: countries.php:98
 msgid "Guinea"
-msgstr ""
+msgstr "Guinea"
 
 #: countries.php:99
 msgid "Guadeloupe"
-msgstr ""
+msgstr "Guadalupe"
 
 #: countries.php:100
 msgid "Equatorial Guinea"
-msgstr ""
+msgstr "Guinea Ecuatorial"
 
 #: countries.php:101
 msgid "Greece"
-msgstr ""
+msgstr "Grecia"
 
 #: countries.php:102
 msgid "South Georgia and South Sandwich Islands"
-msgstr ""
+msgstr "Georgia del Sur y las Islas Sandwich del Sur"
 
 #: countries.php:103
 msgid "Guatemala"
-msgstr ""
+msgstr "Guatemala"
 
 #: countries.php:104
 msgid "Guam"
-msgstr ""
+msgstr "Guam"
 
 #: countries.php:105
 msgid "Guinea-Bissau"
-msgstr ""
+msgstr "Guinea-Bissau"
 
 #: countries.php:106
 msgid "Guyana"
-msgstr ""
+msgstr "Guyana"
 
 #: countries.php:107
 msgid "Hong Kong"
-msgstr ""
+msgstr "Hong Kong"
 
 #: countries.php:108
 msgid "Heard Island and McDonald Islands"
-msgstr ""
+msgstr "Islas Heard e Islas McDonald"
 
 #: countries.php:109
 msgid "Honduras"
-msgstr ""
+msgstr "Honduras"
 
 #: countries.php:110
 msgid "Croatia"
-msgstr ""
+msgstr "Croacia"
 
 #: countries.php:111
 msgid "Haiti"
-msgstr ""
+msgstr "Haiti"
 
 #: countries.php:112
 msgid "Hungary"
-msgstr ""
+msgstr "Hungría"
 
 #: countries.php:113
 msgid "Indonesia"
-msgstr ""
+msgstr "Indonesia"
 
 #: countries.php:114
 msgid "Ireland"
-msgstr ""
+msgstr "Irlanda"
 
 #: countries.php:115
 msgid "Israel"
-msgstr ""
+msgstr "Israel"
 
 #: countries.php:116
 msgid "Isle of Man"
-msgstr ""
+msgstr "Isla de Man"
 
 #: countries.php:117
 msgid "India"
-msgstr ""
+msgstr "India"
 
 #: countries.php:118
 msgid "British Indian Ocean Territory"
-msgstr ""
+msgstr "Territorio británico en el Océano Índico"
 
 #: countries.php:119
 msgid "Iraq"
-msgstr ""
+msgstr "Iraq"
 
 #: countries.php:120
 msgid "Iran"
-msgstr ""
+msgstr "Irán"
 
 #: countries.php:121
 msgid "Iceland"
-msgstr ""
+msgstr "Islandia"
 
 #: countries.php:122
 msgid "Italy"
-msgstr ""
+msgstr "Italia"
 
 #: countries.php:123
 msgid "Jersey"
-msgstr ""
+msgstr "Jersey"
 
 #: countries.php:124
 msgid "Jamaica"
-msgstr ""
+msgstr "Jamaica"
 
 #: countries.php:125
 msgid "Jordan"
-msgstr ""
+msgstr "Jordania"
 
 #: countries.php:126
 msgid "Japan"
-msgstr ""
+msgstr "Japón"
 
 #: countries.php:127
 msgid "Kenya"
-msgstr ""
+msgstr "Kenia"
 
 #: countries.php:128
 msgid "Kyrgyzstan"
-msgstr ""
+msgstr "Kyrgyzstan"
 
 #: countries.php:129
 msgid "Cambodia"
-msgstr ""
+msgstr "Camboya"
 
 #: countries.php:130
 msgid "Kiribati"
-msgstr ""
+msgstr "Kiribati"
 
 #: countries.php:131
 msgid "Comoros"
-msgstr ""
+msgstr "Comoros"
 
 #: countries.php:132
 msgid "Saint Kitts and Nevis"
-msgstr ""
+msgstr "Saint Kitts y Nevis"
 
 #: countries.php:133
 msgid "Korea, North"
-msgstr ""
+msgstr "Corea del Norte"
 
 #: countries.php:134
 msgid "Korea, South"
-msgstr ""
+msgstr "Corea del Sur"
 
 #: countries.php:135
 msgid "Kuwait"
-msgstr ""
+msgstr "Kuwait"
 
 #: countries.php:136
 msgid "Cayman Islands"
-msgstr ""
+msgstr "Islas Caimán"
 
 #: countries.php:137
 msgid "Kazakhstan"
-msgstr ""
+msgstr "Kazajstán"
 
 #: countries.php:138
 msgid "Laos"
-msgstr ""
+msgstr "Laos"
 
 #: countries.php:139
 msgid "Lebanon"
-msgstr ""
+msgstr "Líbano"
 
 #: countries.php:140
 msgid "Saint Lucia"
-msgstr ""
+msgstr "Santa Lucía"
 
 #: countries.php:141
 msgid "Liechtenstein"
-msgstr ""
+msgstr "Liechtenstein"
 
 #: countries.php:142
 msgid "Sri Lanka"
-msgstr ""
+msgstr "Sri Lanka"
 
 #: countries.php:143
 msgid "Liberia"
-msgstr ""
+msgstr "Liberia"
 
 #: countries.php:144
 msgid "Lesotho"
-msgstr ""
+msgstr "Lesotho"
 
 #: countries.php:145
 msgid "Lithuania"
-msgstr ""
+msgstr "Lituania"
 
 #: countries.php:146
 msgid "Luxembourg"
-msgstr ""
+msgstr "Luxemburgo"
 
 #: countries.php:147
 msgid "Latvia"
-msgstr ""
+msgstr "Letonia"
 
 #: countries.php:148
 msgid "Libya"
-msgstr ""
+msgstr "Libia"
 
 #: countries.php:149
 msgid "Morocco"
-msgstr ""
+msgstr "Marruecos"
 
 #: countries.php:150
 msgid "Monaco"
-msgstr ""
+msgstr "Mónaco"
 
 #: countries.php:151
 msgid "Moldova"
-msgstr ""
+msgstr "Moldavia"
 
 #: countries.php:152
 msgid "Montenegro"
-msgstr ""
+msgstr "Montenegro"
 
 #: countries.php:153
 msgid "Saint Martin"
-msgstr ""
+msgstr "San Martín"
 
 #: countries.php:154
 msgid "Madagascar"
-msgstr ""
+msgstr "Madagascar"
 
 #: countries.php:155
 msgid "Marshall Islands"
-msgstr ""
+msgstr "Islas Marshall"
 
 #: countries.php:156
 msgid "Macedonia"
-msgstr ""
+msgstr "Macedonia"
 
 #: countries.php:157
 msgid "Mali"
-msgstr ""
+msgstr "Mali"
 
 #: countries.php:158
 msgid "Burma"
-msgstr ""
+msgstr "Burma"
 
 #: countries.php:159
 msgid "Mongolia"
-msgstr ""
+msgstr "Mongolia"
 
 #: countries.php:160
 msgid "Macau"
-msgstr ""
+msgstr "Macao"
 
 #: countries.php:161
 msgid "Northern Mariana Islands"
-msgstr ""
+msgstr "Islas Marianas del Norte"
 
 #: countries.php:162
 msgid "Martinique"
-msgstr ""
+msgstr "Martinica"
 
 #: countries.php:163
 msgid "Mauritania"
-msgstr ""
+msgstr "Mauritania"
 
 #: countries.php:164
 msgid "Montserrat"
-msgstr ""
+msgstr "Montserrat"
 
 #: countries.php:165
 msgid "Malta"
-msgstr ""
+msgstr "Malta"
 
 #: countries.php:166
 msgid "Mauritius"
-msgstr ""
+msgstr "Mauricio"
 
 #: countries.php:167
 msgid "Maldives"
-msgstr ""
+msgstr "Maldivas"
 
 #: countries.php:168
 msgid "Malawi"
-msgstr ""
+msgstr "Malawi"
 
 #: countries.php:169
 msgid "Mexico"
-msgstr ""
+msgstr "México"
 
 #: countries.php:170
 msgid "Malaysia"
-msgstr ""
+msgstr "Malasia"
 
 #: countries.php:171
 msgid "Mozambique"
-msgstr ""
+msgstr "Mozambique"
 
 #: countries.php:172
 msgid "Namibia"
-msgstr ""
+msgstr "Namibia"
 
 #: countries.php:173
 msgid "New Caledonia"
-msgstr ""
+msgstr "Nueva Caledonia"
 
 #: countries.php:174
 msgid "Niger"
-msgstr ""
+msgstr "Níger"
 
 #: countries.php:175
 msgid "Norfolk Island"
-msgstr ""
+msgstr "Isla Norfolk"
 
 #: countries.php:176
 msgid "Nigeria"
-msgstr ""
+msgstr "Nigeria"
 
 #: countries.php:177
 msgid "Nicaragua"
-msgstr ""
+msgstr "Nicaragua"
 
 #: countries.php:178
 msgid "Netherlands"
-msgstr ""
+msgstr "Holanda (Países Bajos)"
 
 #: countries.php:179
 msgid "Norway"
-msgstr ""
+msgstr "Noruega"
 
 #: countries.php:180
 msgid "Nepal"
-msgstr ""
+msgstr "Nepal"
 
 #: countries.php:181 languages.php:408
 msgid "Nauru"
-msgstr ""
+msgstr "Nauru"
 
 #: countries.php:182
 msgid "Niue"
-msgstr ""
+msgstr "Niue"
 
 #: countries.php:183
 msgid "New Zealand"
-msgstr ""
+msgstr "Nueva Zelanda"
 
 #: countries.php:184
 msgid "Oman"
-msgstr ""
+msgstr "Omán"
 
 #: countries.php:185
 msgid "Panama"
-msgstr ""
+msgstr "Panamá"
 
 #: countries.php:186
 msgid "Peru"
-msgstr ""
+msgstr "Perú"
 
 #: countries.php:187
 msgid "French Polynesia"
-msgstr ""
+msgstr "Polinesia Francesa"
 
 #: countries.php:188
 msgid "Papua New Guinea"
-msgstr ""
+msgstr "Papúa Nueva Guinea"
 
 #: countries.php:189
 msgid "Philippines"
-msgstr ""
+msgstr "Filipinas"
 
 #: countries.php:190
 msgid "Pakistan"
-msgstr ""
+msgstr "Pakistán"
 
 #: countries.php:191
 msgid "Poland"
-msgstr ""
+msgstr "Polonia"
 
 #: countries.php:192
 msgid "Saint Pierre and Miquelon"
-msgstr ""
+msgstr "San Pedro y Miquelón"
 
 #: countries.php:193
 msgid "Pitcairn Islands"
-msgstr ""
+msgstr "Islas Pitcairn"
 
 #: countries.php:194
 msgid "Puerto Rico"
-msgstr ""
+msgstr "Puerto Rico"
 
 #: countries.php:195
 msgid "Portugal"
-msgstr ""
+msgstr "Portugal"
 
 #: countries.php:196
 msgid "Palau"
-msgstr ""
+msgstr "Palau"
 
 #: countries.php:197
 msgid "Paraguay"
-msgstr ""
+msgstr "Paraguay"
 
 #: countries.php:198
 msgid "Qatar"
-msgstr ""
+msgstr "Qatar"
 
 #: countries.php:199
 msgid "Midway Islands"
-msgstr ""
+msgstr "Islas Midway"
 
 #: countries.php:200
 msgid "Bassas da India"
-msgstr ""
+msgstr "Bassas da India"
 
 #: countries.php:201
 msgid "Juan de Nova Island"
-msgstr ""
+msgstr "Isla Juan de Nova"
 
 #: countries.php:202
 msgid "Wake Island"
-msgstr ""
+msgstr "Isla Wake"
 
 #: countries.php:203
 msgid "Glorioso Islands"
-msgstr ""
+msgstr "Islas Glorioso"
 
 #: countries.php:204
 msgid "Akrotiri"
-msgstr ""
+msgstr "Akrotiri"
 
 #: countries.php:205
 msgid "Reunion"
-msgstr ""
+msgstr "Reunión"
 
 #: countries.php:206
 msgid "Romania"
-msgstr ""
+msgstr "Rumanía"
 
 #: countries.php:207
 msgid "Serbia"
-msgstr ""
+msgstr "Serbia"
 
 #: countries.php:208
 msgid "Russia"
-msgstr ""
+msgstr "Rusia"
 
 #: countries.php:209
 msgid "Rwanda"
-msgstr ""
+msgstr "Ruanda"
 
 #: countries.php:210
 msgid "Saudi Arabia"
-msgstr ""
+msgstr "Arabia Saudí"
 
 #: countries.php:211
 msgid "Solomon Islands"
-msgstr ""
+msgstr "Islas Salomón"
 
 #: countries.php:212
 msgid "Seychelles"
-msgstr ""
+msgstr "Seychelles"
 
 #: countries.php:213
 msgid "Sudan"
-msgstr ""
+msgstr "Sudán"
 
 #: countries.php:214
 msgid "Sweden"
-msgstr ""
+msgstr "Suecia"
 
 #: countries.php:215
 msgid "Singapore"
-msgstr ""
+msgstr "Singapur"
 
 #: countries.php:216
 msgid "Saint Helena, Ascension, and Tristan da Cunha"
-msgstr ""
+msgstr "Santa Elena Ascensión y Tristán de Acuña"
 
 #: countries.php:217
 msgid "Slovenia"
-msgstr ""
+msgstr "Eslovenia"
 
 #: countries.php:218
 msgid "Slovakia"
-msgstr ""
+msgstr "Eslovaquia"
 
 #: countries.php:219
 msgid "Sierra Leone"
-msgstr ""
+msgstr "Sierra Leona"
 
 #: countries.php:220
 msgid "San Marino"
-msgstr ""
+msgstr "San Marino"
 
 #: countries.php:221
 msgid "Senegal"
-msgstr ""
+msgstr "Senegal"
 
 #: countries.php:222
 msgid "Somalia"
-msgstr ""
+msgstr "Somalia"
 
 #: countries.php:223
 msgid "Suriname"
-msgstr ""
+msgstr "Suriname"
 
 #: countries.php:224
 msgid "South Sudan"
-msgstr ""
+msgstr "Sudán del Sur"
 
 #: countries.php:225
 msgid "Sao Tome and Principe"
-msgstr ""
+msgstr "San Tome y Príncipe"
 
 #: countries.php:226
 msgid "El Salvador"
-msgstr ""
+msgstr "El Salvador"
 
 #: countries.php:227
 msgid "Sint Maarten"
-msgstr ""
+msgstr "Sint Maarten"
 
 #: countries.php:228
 msgid "Syria"
-msgstr ""
+msgstr "Siria"
 
 #: countries.php:229
 msgid "Swaziland"
-msgstr ""
+msgstr "Swazilandia"
 
 #: countries.php:230
 msgid "Turks and Caicos Islands"
-msgstr ""
+msgstr "Islas Turcas y Caicos"
 
 #: countries.php:231
 msgid "Chad"
-msgstr ""
+msgstr "Chad"
 
 #: countries.php:232
 msgid "French Southern and Antarctic Lands"
-msgstr ""
+msgstr "Territorios franceses del sur y tierras antárticas"
 
 #: countries.php:233
 msgid "Togo"
-msgstr ""
+msgstr "Togo"
 
 #: countries.php:234
 msgid "Thailand"
-msgstr ""
+msgstr "Tailandia"
 
 #: countries.php:235
 msgid "Tajikistan"
-msgstr ""
+msgstr "Tayikistán"
 
 #: countries.php:236 languages.php:597
 msgid "Tokelau"
-msgstr ""
+msgstr "Tokelau"
 
 #: countries.php:237
 msgid "Timor-Leste"
-msgstr ""
+msgstr "Timor Oriental"
 
 #: countries.php:238
 msgid "Turkmenistan"
-msgstr ""
+msgstr "Turkmenistán"
 
 #: countries.php:239
 msgid "Tunisia"
-msgstr ""
+msgstr "Túnez"
 
 #: countries.php:240
 msgid "Tonga"
-msgstr ""
+msgstr "Tonga"
 
 #: countries.php:241
 msgid "Turkey"
-msgstr ""
+msgstr "Turquía"
 
 #: countries.php:242
 msgid "Trinidad and Tobago"
-msgstr ""
+msgstr "Trinidad y Tobago"
 
 #: countries.php:243 languages.php:615
 msgid "Tuvalu"
-msgstr ""
+msgstr "Tuvalu"
 
 #: countries.php:244
 msgid "Taiwan"
-msgstr ""
+msgstr "Taiwán"
 
 #: countries.php:245
 msgid "Tanzania"
-msgstr ""
+msgstr "Tanzania"
 
 #: countries.php:246
 msgid "Ukraine"
-msgstr ""
+msgstr "Ucrania"
 
 #: countries.php:247
 msgid "Uganda"
-msgstr ""
+msgstr "Uganda"
 
 #: countries.php:248
 msgid "United States"
-msgstr ""
+msgstr "Estados Unidos"
 
 #: countries.php:249
 msgid "Uruguay"
-msgstr ""
+msgstr "Uruguay"
 
 #: countries.php:250
 msgid "Uzbekistan"
-msgstr ""
+msgstr "Uzbekistán"
 
 #: countries.php:251
 msgid "Vatican City"
-msgstr ""
+msgstr "Ciudad del Vaticano"
 
 #: countries.php:252
 msgid "Saint Vincent and the Grenadines"
-msgstr ""
+msgstr "San Vicente y las Granadinas"
 
 #: countries.php:253
 msgid "Venezuela"
-msgstr ""
+msgstr "Venezuela"
 
 #: countries.php:254
 msgid "Virgin Islands, British"
-msgstr ""
+msgstr "Islas Vírgenes Británicas"
 
 #: countries.php:255
 msgid "Virgin Islands, U.S."
-msgstr ""
+msgstr "Islas Vírgenes U.S."
 
 #: countries.php:256
 msgid "Vietnam"
-msgstr ""
+msgstr "Vietnám"
 
 #: countries.php:257
 msgid "Vanuatu"
-msgstr ""
+msgstr "Vanuatu"
 
 #: countries.php:258
 msgid "Wallis and Futuna"
-msgstr ""
+msgstr "Wallis y Futuna"
 
 #: countries.php:259
 msgid "Samoa"
-msgstr ""
+msgstr "Samoa"
 
 #: countries.php:260
 msgid "Ashmore and Cartier Islands"
-msgstr ""
+msgstr "Islas Ashmore y Cartier"
 
 #: countries.php:261
 msgid "Baker Island"
-msgstr ""
+msgstr "Isla Baker"
 
 #: countries.php:262
 msgid "Coral Sea Islands"
-msgstr ""
+msgstr "Islas del Mar del Coral"
 
 #: countries.php:263
 msgid "Dhekelia"
-msgstr ""
+msgstr "Dhekelia"
 
 #: countries.php:264
 msgid "Europa Island"
-msgstr ""
+msgstr "Isla Europa"
 
 #: countries.php:265
 msgid "Gaza Strip"
-msgstr ""
+msgstr "Franja de Gaza"
 
 #: countries.php:266
 msgid "Howland Island"
-msgstr ""
+msgstr "Isla Howland"
 
 #: countries.php:267
 msgid "Jan Mayen"
-msgstr ""
+msgstr "Jan Mayen"
 
 #: countries.php:268
 msgid "Kosovo"
-msgstr ""
+msgstr "Kosovo"
 
 #: countries.php:269
 msgid "Palmyra Atoll"
-msgstr ""
+msgstr "Atolón Palmira"
 
 #: countries.php:270
 msgid "Kingman Reef"
-msgstr ""
+msgstr "Arrecife Kingman"
 
 #: countries.php:271
 msgid "Paracel Islands"
-msgstr ""
+msgstr "Islas Paracelso"
 
 #: countries.php:272
 msgid "Jarvis Island"
-msgstr ""
+msgstr "Isla Jarvis"
 
 #: countries.php:273
 msgid "Svalbard"
-msgstr ""
+msgstr "Svalbard"
 
 #: countries.php:274
 msgid "Spratly Islands"
-msgstr ""
+msgstr "Islas Spratly"
 
 #: countries.php:275
 msgid "Tromelin Island"
-msgstr ""
+msgstr "Isla Tromelin"
 
 #: countries.php:276
 msgid "Johnston Atoll"
-msgstr ""
+msgstr "Atolón Johnston"
 
 #: countries.php:277
 msgid "Navassa Island"
-msgstr ""
+msgstr "Isla de Navaza"
 
 #: countries.php:278
 msgid "West Bank"
-msgstr ""
+msgstr "Cisjordania"
 
 #: countries.php:279
 msgid "Yemen"
-msgstr ""
+msgstr "Yemen"
 
 #: countries.php:280
 msgid "Mayotte"
-msgstr ""
+msgstr "Mayotte"
 
 #: countries.php:281
 msgid "South Africa"
-msgstr ""
+msgstr "Sudáfrica"
 
 #: countries.php:282
 msgid "Zambia"
-msgstr ""
+msgstr "Zambia"
 
 #: countries.php:283
 msgid "Zimbabwe"
-msgstr ""
+msgstr "Zimbabwe"
 
-#: footer.php:46
+#: footer.php:45
 msgid "Accept"
-msgstr ""
+msgstr "Acepta"
 
-#: footer.php:53
+#: footer.php:52
 msgid "Mozilla Logo"
-msgstr ""
+msgstr "Logotipo de Mozilla"
 
-#: footer.php:92
+#: footer.php:91
 msgid "Mozilla"
-msgstr ""
+msgstr "Mozilla"
 
-#: footer.php:119
+#: footer.php:118
 msgid ""
 "Portions of this content are copyright 1998-2019 by individual mozilla.org "
 "contributors. Content available under a "
 msgstr ""
+"Las porciones de este contenido son copyright 1998-2019 por individuales "
+"mozilla.org colaboradores. El contenido disponible bajo un "
 
-#: footer.php:120
+#: footer.php:119
 msgid " Creative Commons license."
-msgstr ""
+msgstr " Creativo Commons licencia."
 
-#: front-page.php:151 page-campaigns.php:150 page-campaigns.php:206
+#: front-page.php:157 page-campaigns.php:161 page-campaigns.php:225
 #: templates/campaign-rsvp.php:23 templates/campaign-rsvp.php:68
 #: templates/event-rsvp.php:23
 msgid "Get Involved"
-msgstr ""
+msgstr "Consigue Implicado"
 
-#: front-page.php:270
+#: front-page.php:291
 msgid "More Groups."
-msgstr ""
+msgstr "Más Grupos."
 
-#: front-page.php:329
+#: front-page.php:354
 msgid "More Events."
-msgstr ""
+msgstr "Más Acontecimientos."
 
-#: functions.php:143
+#: functions.php:144
 msgid "Mozilla Custom Theme Menu"
-msgstr ""
-
-#: functions.php:163
-msgid "Static Pages"
-msgstr ""
+msgstr "Mozilla Carta de Tema Hecho de encargo"
 
 #: functions.php:164
+msgid "Static Pages"
+msgstr "Páginas estáticas"
+
+#: functions.php:165
 msgid "Static Page"
-msgstr ""
+msgstr "Página estática"
 
-#: functions.php:182 page-activities.php:40
+#: functions.php:183 page-activities.php:40
 msgid "Activities"
-msgstr ""
+msgstr "Actividades"
 
-#: functions.php:201 page-campaigns.php:122
+#: functions.php:202 page-campaigns.php:124
 msgid "Campaigns"
-msgstr ""
+msgstr "Campañas"
 
-#: functions.php:202 search.php:167
+#: functions.php:203 search.php:172
 msgid "Campaign"
-msgstr ""
+msgstr "Campaña"
 
-#: header.php:73 header.php:84 header.php:100 header.php:108 header.php:116
+#: header.php:81 header.php:92 header.php:108 header.php:116 header.php:124
 msgid "Mozilla Community Portal"
-msgstr ""
+msgstr "Portal de Comunidad del Mozilla"
 
-#: header.php:73
+#: header.php:81
 msgid "Groups - Mozilla Community Portal"
-msgstr ""
+msgstr "Grupos - Portal de Comunidad del Mozilla"
 
-#: header.php:84
+#: header.php:92
 msgid "Events - Mozilla Community Portal"
-msgstr ""
-
-#: header.php:100
-msgid "People - Mozilla Community Portal"
-msgstr ""
+msgstr "Acontecimientos - Portal de Comunidad del Mozilla"
 
 #: header.php:108
-msgid "Activities - Mozilla Community Portal"
-msgstr ""
+msgid "People - Mozilla Community Portal"
+msgstr "Personas - Portal de Comunidad del Mozilla"
 
 #: header.php:116
+msgid "Activities - Mozilla Community Portal"
+msgstr "Actividades - Portal de Comunidad del Mozilla"
+
+#: header.php:124
 msgid "Campaigns - Mozilla Community Portal"
-msgstr ""
+msgstr "Campañas - Portal de Comunidad del Mozilla"
 
-#: header.php:184 header.php:304
+#: header.php:192 header.php:312
 msgid "Log Out"
-msgstr ""
+msgstr "Registro Fuera"
 
-#: header.php:186 header.php:306
+#: header.php:194 header.php:314
 msgid "Log In / Sign Up"
-msgstr ""
-
-#: header.php:314
-msgid "Seach"
-msgstr ""
+msgstr "Registro En / Firmar Arriba"
 
 #: languages.php:12
 msgid "Abkhazian"
-msgstr ""
+msgstr "Abkhazian es"
 
 #: languages.php:13
 msgid "Abron"
-msgstr ""
+msgstr "Abron es"
 
 #: languages.php:14
 msgid "Achinese"
-msgstr ""
+msgstr "Achinese es"
 
 #: languages.php:15
 msgid "Acoli"
@@ -4746,763 +5035,840 @@ msgstr ""
 
 #: lib/events.php:20
 msgid "Please"
-msgstr ""
+msgstr "Complacer"
 
 #: lib/events.php:21
 msgid "log in"
-msgstr ""
+msgstr "Registro en"
 
 #: lib/events.php:22
 msgid "to create or join events"
-msgstr ""
+msgstr "Para crear o unir acontecimientos"
 
-#: lib/groups.php:461
+#: lib/groups.php:460
 msgid "Joined Group"
-msgstr ""
+msgstr "Grupo unido"
 
-#: lib/groups.php:471
+#: lib/groups.php:470
 msgid "Could not join group"
-msgstr ""
+msgstr "No podría unir grupo"
 
-#: lib/groups.php:697
+#: lib/groups.php:696
 msgid "Export Events"
-msgstr ""
+msgstr "Acontecimientos de exportación"
 
 #: lib/members.php:254
 msgid "This email is already in use"
-msgstr ""
+msgstr "Este email es ya en uso"
 
 #: lib/members.php:270
 msgid "This username is already in use"
-msgstr ""
+msgstr "Este nombre de usuario es ya en uso"
 
 #: lib/utils.php:129 lib/utils.php:142
 msgid "Image size is too small"
-msgstr ""
+msgstr "Lorem ipsum"
 
 #: lib/utils.php:134 lib/utils.php:146
 msgid "Invalid image provided"
-msgstr ""
+msgstr "Imagen de acontecimiento"
 
 #: lib/utils.php:157
 msgid "Image size to large "
-msgstr ""
+msgstr "Imagen de acontecimiento "
 
-#: lib/utils.php:158
-msgid "KB maximum"
-msgstr ""
+#: lib/utils.php:157
+msgid "(250KB maximum)"
+msgstr "(250KB max)"
 
-#: lib/utils.php:557
+#: lib/utils.php:596
 msgid "Group Created On"
-msgstr ""
+msgstr "El grupo Creó Encima"
 
-#: lib/utils.php:558
+#: lib/utils.php:597
 msgid "Admins"
-msgstr ""
+msgstr "Admins"
 
-#: lib/utils.php:559
+#: lib/utils.php:598 page-events.php:21
 msgid "Events"
-msgstr ""
+msgstr "Acontecimientos"
 
-#: lib/utils.php:560
+#: lib/utils.php:599
 msgid "Group Verified On"
-msgstr ""
+msgstr "El grupo Verificó Encima"
 
 #: page-activities.php:42
 msgid ""
 "Activities are “evergreen” because they’re always important, relevant to "
 "Mozilla’s mission and need your participation now!"
 msgstr ""
+"Las actividades son “perennifolias” porque son siempre importantes, "
+"pertinentes a la misión de Mozilla y necesitar vuestra participación ahora!"
 
-#: page-campaigns.php:124
+#: page-campaigns.php:126
 msgid ""
 "Campaigns are how we come together to solve big problems. Take a look at our "
 "active campaigns and join in!"
 msgstr ""
+"Las campañas son cómo nosotras viene junto de solucionar problemas grandes. "
+"Tomar una mirada en nuestras campañas activas y unir en!"
 
-#: page-campaigns.php:186
+#: page-campaigns.php:197
 msgid "Campaign Incoming!"
-msgstr ""
+msgstr "Campaña Incoming!"
 
-#: page-campaigns.php:187
+#: page-campaigns.php:198
 msgid ""
 "An extra cool Mozilla campaign is coming soon.  Keep an eye out for when it "
 "launches."
 msgstr ""
+"Una campaña de Mozilla fresca extra está viniendo pronto.  Mantener un ojo "
+"fuera para cuándo  lanza."
 
-#: page-campaigns.php:238
+#: page-campaigns.php:257
 msgid "Past Campaigns"
-msgstr ""
+msgstr "Campañas pasadas"
 
-#: page-campaigns.php:239
+#: page-campaigns.php:258
 msgid ""
 "Mozilla communities do great work together. These campaigns are over now but "
 "feel free to check out what everyone accomplished."
 msgstr ""
+"Comunidades de Mozilla  el trabajo grande junto. Estas campañas son encima "
+"ahora pero sentir libre de comprobar qué todo el mundo cumplió."
 
-#: page-edit-event.php:40
+#: page-edit-event.php:41
 msgid "Edit Event"
-msgstr ""
+msgstr "Edita Acontecimiento"
 
-#: page-edit-event.php:40 plugins/events-manager/forms/event-editor.php:247
+#: page-edit-event.php:41 plugins/events-manager/forms/event-editor.php:266
 msgid "Create Event"
-msgstr ""
+msgstr "Crea Acontecimiento"
 
-#: page-edit-event.php:55
+#: page-edit-event.php:56
 msgid "You are not authorized to edit this event."
-msgstr ""
+msgstr "No eres autorizado para editar este acontecimiento."
 
-#: page-events.php:23
+#: page-events.php:22
 msgid ""
 "Ready to join the movement? Check out what's happening soon in your area. "
 msgstr ""
+"A punto para unir el movimiento? Comprobar qué está pasando pronto en "
+"vuestra área. "
 
-#: page-events.php:24
+#: page-events.php:23
 msgid "Explore community events near you, "
-msgstr ""
+msgstr "Explora acontecimientos de comunidad os te acercáis, "
 
-#: page-events.php:24
+#: page-events.php:23
 msgid "organize your own!"
-msgstr ""
+msgstr "Organizar vuestro propio!"
 
 #: plugins/events-manager/classes/em-ticket.php:240
 msgid "Standard Ticket"
-msgstr ""
+msgstr "Ticket estándar"
 
 #: plugins/events-manager/classes/em-ticket.php:412
 msgid "Changes saved"
-msgstr ""
+msgstr "Los cambios salvaron"
 
 #: plugins/events-manager/classes/em-ticket.php:419
 msgid "Ticket created"
-msgstr ""
+msgstr "El ticket creó"
 
 #: plugins/events-manager/classes/em-ticket.php:422
 #: plugins/events-manager/classes/em-ticket.php:423
 #: plugins/events-manager/classes/em-ticket.php:428
 #: plugins/events-manager/classes/em-ticket.php:429
 msgid "There was a problem saving the ticket."
-msgstr ""
+msgstr "Había un problema salvando el ticket."
 
 #: plugins/events-manager/classes/em-ticket.php:542
 msgid "Missing fields: "
-msgstr ""
+msgstr "Campos desaparecidos: "
 
 #: plugins/events-manager/classes/em-ticket.php:795
 msgid "You cannot delete a ticket that has a booking on it."
-msgstr ""
+msgstr "No puedes eliminar un ticket que tiene un reservando encima lo."
 
-#: plugins/events-manager/forms/event-editor.php:29
+#: plugins/events-manager/forms/event-editor.php:28
 msgid "Unauthorized Access"
-msgstr ""
+msgstr "Acceso no autorizado"
 
-#: plugins/events-manager/forms/event-editor.php:29
+#: plugins/events-manager/forms/event-editor.php:28
 msgid "You do not have the rights to manage this event."
-msgstr ""
+msgstr "No tienes los derechos de dirigir este acontecimiento."
 
-#: plugins/events-manager/forms/event-editor.php:56
+#: plugins/events-manager/forms/event-editor.php:72
 msgid "Your Details"
-msgstr ""
+msgstr "Vuestros Detalles"
 
-#: plugins/events-manager/forms/event-editor.php:59
-#: plugins/events-manager/forms/event/bookings-ticket-form.php:31
+#: plugins/events-manager/forms/event-editor.php:75
+#: plugins/events-manager/forms/event/bookings-ticket-form.php:22
 msgid "Name"
-msgstr ""
+msgstr "Nombre"
 
-#: plugins/events-manager/forms/event-editor.php:73
+#: plugins/events-manager/forms/event-editor.php:89
 msgid "Event Name *"
-msgstr ""
+msgstr "Nombre de acontecimiento *"
 
-#: plugins/events-manager/forms/event-editor.php:82
+#: plugins/events-manager/forms/event-editor.php:98
 msgid " Language"
-msgstr ""
+msgstr " Lengua"
 
-#: plugins/events-manager/forms/event-editor.php:105
+#: plugins/events-manager/forms/event-editor.php:121
 msgid "Event description *"
-msgstr ""
+msgstr "Descripción de acontecimiento *"
 
-#: plugins/events-manager/forms/event-editor.php:106
+#: plugins/events-manager/forms/event-editor.php:122
 msgid ""
 "Add in the details of your event’s agenda here. If this is a multi-day "
 "event, you can add in the details of each day’s schedule and start/end time."
 msgstr ""
+"Añade en los detalles del orden del día de vuestro acontecimiento aquí. Si "
+"esto es un multi-acontecimiento de día,  puedes añadir en los detalles de "
+"los programa y fin/de inicio de cada día tiempo."
 
-#: plugins/events-manager/forms/event-editor.php:112
+#: plugins/events-manager/forms/event-editor.php:128
 msgid "Event goal(s)"
-msgstr ""
+msgstr "Objetivo de acontecimiento(s)"
 
-#: plugins/events-manager/forms/event-editor.php:154
+#: plugins/events-manager/forms/event-editor.php:171
 msgid "Expected # of attendees"
-msgstr ""
+msgstr "Esperado # de attendees"
 
-#: plugins/events-manager/forms/event-editor.php:158
+#: plugins/events-manager/forms/event-editor.php:175
 msgid "Is this event part of an activity or campaign?"
-msgstr ""
+msgstr "Es esta parte de acontecimiento de una actividad o campaña?"
 
-#: plugins/events-manager/forms/event-editor.php:160
+#: plugins/events-manager/forms/event-editor.php:177
 msgid "No"
-msgstr ""
+msgstr "Non"
 
-#: plugins/events-manager/forms/event-editor.php:185
+#: plugins/events-manager/forms/event-editor.php:202
 msgid "External link URL"
-msgstr ""
+msgstr "enlace Externo URL"
 
-#: plugins/events-manager/forms/event-editor.php:199
+#: plugins/events-manager/forms/event-editor.php:218
 msgid ""
 "The Mozilla Project welcomes contributions from everyone who shares our "
 "goals and wants to contribute in a healthy and constructive manner within "
 "our communities. By creating an event on this platform you are agreeing to "
 "respect and adhere to"
 msgstr ""
+"El Proyecto de Mozilla da la bienvenida a contribuciones de todo el mundo "
+"quién comparte nuestros objetivos y quiere contribuir en una manera sana y "
+"constructiva dentro de nuestras comunidades. Por crear un acontecimiento en "
+"esta plataforma  estás apalabrando respeto y adherir a"
 
-#: plugins/events-manager/forms/event-editor.php:200
+#: plugins/events-manager/forms/event-editor.php:219
 msgid "Mozilla’s Community Participation Guidelines (“CPG”)"
-msgstr ""
+msgstr "Las directrices de Participación de la Comunidad de Mozilla (“CPG”)"
 
-#: plugins/events-manager/forms/event-editor.php:201
+#: plugins/events-manager/forms/event-editor.php:220
 msgid ""
 "in order to help us create a safe and positive community experience for all. "
 "Events that do not share our goals, or violate the CPG in any way, will be "
 "removed from the platform and potentially subject to further consequences."
 msgstr ""
+"Para ayudarnos crear una comunidad segura y positiva experiencia para todo. "
+"Acontecimientos que no comparte nuestros objetivos, o violar el CPG en "
+"cualquier manera, será sacado de la plataforma y potencialmente sujeto a "
+"consecuencias más lejanas."
 
-#: plugins/events-manager/forms/event-editor.php:212
+#: plugins/events-manager/forms/event-editor.php:231
 msgid ""
 "I agree to respect and adhere to Mozilla’s Community Participation "
 "Guidelines *"
 msgstr ""
+"Apalabro respeto y adherir a las directrices de Participación de la "
+"Comunidad de Mozilla *"
 
-#: plugins/events-manager/forms/event-editor.php:215
+#: plugins/events-manager/forms/event-editor.php:234
 msgid "Please agree to the community guidelines"
-msgstr ""
+msgstr "Lorem ipsum test"
 
-#: plugins/events-manager/forms/event-editor.php:225
+#: plugins/events-manager/forms/event-editor.php:244
 msgid ""
 "This action will permanently delete this event. Would you like to continue?"
 msgstr ""
+"Esta acción permanentemente eliminará este acontecimiento.  te gusta "
+"continuar?"
 
-#: plugins/events-manager/forms/event-editor.php:239
-msgid "Cancel Event"
-msgstr ""
+#: plugins/events-manager/forms/event-editor.php:258
+#, fuzzy
+#| msgid "Related Events"
+msgid "Delete Event"
+msgstr "Relacionó Acontecimientos"
 
-#: plugins/events-manager/forms/event-editor.php:249
+#: plugins/events-manager/forms/event-editor.php:268
 msgid "Update Event"
-msgstr ""
+msgstr "Acontecimiento de actualización"
+
+#: plugins/events-manager/forms/event/bookings-ticket-form.php:22
+msgid "Enter a ticket name."
+msgstr "Introducir un nombre de ticket."
+
+#: plugins/events-manager/forms/event/bookings-ticket-form.php:26
+#: plugins/events-manager/templates/event-single.php:333
+msgid "Description"
+msgstr "Descripción"
+
+#: plugins/events-manager/forms/event/bookings-ticket-form.php:29
+#: plugins/events-manager/forms/event/bookings.php:94
+msgid "Price"
+msgstr "Precio"
 
 #: plugins/events-manager/forms/event/bookings-ticket-form.php:31
-msgid "Enter a ticket name."
-msgstr ""
-
-#: plugins/events-manager/forms/event/bookings-ticket-form.php:35
-#: plugins/events-manager/templates/event-single.php:314
-msgid "Description"
-msgstr ""
-
-#: plugins/events-manager/forms/event/bookings-ticket-form.php:38
-#: plugins/events-manager/forms/event/bookings.php:96
-msgid "Price"
-msgstr ""
-
-#: plugins/events-manager/forms/event/bookings-ticket-form.php:40
 msgid "Enter a maximum number of spaces (required)."
-msgstr ""
+msgstr "Introducir un número máximo de espacios (requeridos)."
+
+#: plugins/events-manager/forms/event/bookings-ticket-form.php:31
+msgid "Spaces"
+msgstr "Espacios"
+
+#: plugins/events-manager/forms/event/bookings-ticket-form.php:37
+#: plugins/events-manager/forms/event/bookings-ticket-form.php:43
+msgid "Leave either blank for no upper/lower limit."
+msgstr "Dejar cualquier espacio para ningún límite/más bajo superior."
 
 #: plugins/events-manager/forms/event/bookings-ticket-form.php:40
-msgid "Spaces"
-msgstr ""
-
-#: plugins/events-manager/forms/event/bookings-ticket-form.php:46
-#: plugins/events-manager/forms/event/bookings-ticket-form.php:52
-msgid "Leave either blank for no upper/lower limit."
-msgstr ""
-
-#: plugins/events-manager/forms/event/bookings-ticket-form.php:49
-#: plugins/events-manager/forms/event/bookings-ticket-form.php:54
+#: plugins/events-manager/forms/event/bookings-ticket-form.php:45
 msgid "spaces per booking"
-msgstr ""
+msgstr "Espacios por reservar"
 
-#: plugins/events-manager/forms/event/bookings-ticket-form.php:59
+#: plugins/events-manager/forms/event/bookings-ticket-form.php:50
 msgid "Show Advanced Options"
-msgstr ""
+msgstr "El espectáculo Adelantó Opciones"
 
-#: plugins/events-manager/forms/event/bookings-ticket-form.php:59
+#: plugins/events-manager/forms/event/bookings-ticket-form.php:50
 msgid "Hide Advanced Options"
-msgstr ""
+msgstr "El escondrijo Adelantó Opciones"
 
-#: plugins/events-manager/forms/event/bookings.php:21
+#: plugins/events-manager/forms/event/bookings.php:19
 msgid "Enable registration for this event"
-msgstr ""
+msgstr "Habilita inscripción para este acontecimiento"
 
-#: plugins/events-manager/forms/event/bookings.php:44
+#: plugins/events-manager/forms/event/bookings.php:42
 msgid "Ticket Options"
-msgstr ""
+msgstr "Opciones de ticket"
 
-#: plugins/events-manager/forms/event/bookings.php:48
+#: plugins/events-manager/forms/event/bookings.php:46
 msgid "Tickets"
-msgstr ""
+msgstr "Billets"
 
-#: plugins/events-manager/forms/event/bookings.php:55
+#: plugins/events-manager/forms/event/bookings.php:53
 msgid ""
 "Modifications to event tickets will cause all bookings to individual "
 "recurrences of this event to be deleted."
 msgstr ""
+"Las modificaciones a tickets de acontecimiento causarán todo bookings a "
+"individuales recurrences de este acontecimiento para ser eliminado."
 
-#: plugins/events-manager/forms/event/bookings.php:70
+#: plugins/events-manager/forms/event/bookings.php:68
 msgid ""
 "You can edit individual recurrences and disassociate them with this "
 "recurring event."
 msgstr ""
+"Puedes editar individual recurrences y disassociate les con este recurring "
+"acontecimiento."
 
-#: plugins/events-manager/forms/event/bookings.php:91
+#: plugins/events-manager/forms/event/bookings.php:89
 msgid ""
 "You can have single or multiple tickets, where certain tickets become "
 "available under certain conditions, e.g. early bookings, group discounts, "
 "maximum bookings per ticket, etc."
 msgstr ""
+"Puedes tener tickets solos o múltiples, donde los tickets seguros devienen "
+"disponibles bajo condiciones seguras, p. ej. tempranos bookings, descuentos "
+"de grupo, máximos bookings por ticket, etc."
 
-#: plugins/events-manager/forms/event/bookings.php:91
+#: plugins/events-manager/forms/event/bookings.php:89
 msgid "Basic HTML is allowed in ticket labels and descriptions."
-msgstr ""
+msgstr "HTML básico está dejado en etiquetas de ticket y descripciones."
+
+#: plugins/events-manager/forms/event/bookings.php:93
+msgid "Ticket Name"
+msgstr "Nombre de ticket"
 
 #: plugins/events-manager/forms/event/bookings.php:95
-msgid "Ticket Name"
-msgstr ""
+msgid "Min/Max"
+msgstr "Mix/Maxee"
+
+#: plugins/events-manager/forms/event/bookings.php:96
+msgid "Start/End"
+msgstr "Fin/de inicio"
 
 #: plugins/events-manager/forms/event/bookings.php:97
-msgid "Min/Max"
-msgstr ""
+msgid "Avail. Spaces"
+msgstr "Avail. Espacios"
 
 #: plugins/events-manager/forms/event/bookings.php:98
-msgid "Start/End"
-msgstr ""
-
-#: plugins/events-manager/forms/event/bookings.php:99
-msgid "Avail. Spaces"
-msgstr ""
-
-#: plugins/events-manager/forms/event/bookings.php:100
 msgid "Booked Spaces"
-msgstr ""
+msgstr "Reservó Espacios"
 
-#: plugins/events-manager/forms/event/bookings.php:107
+#: plugins/events-manager/forms/event/bookings.php:105
 msgid "Add new ticket"
-msgstr ""
+msgstr "Añade ticket nuevo"
+
+#: plugins/events-manager/forms/event/bookings.php:142
+msgid "Edit"
+msgstr "Edita"
+
+#: plugins/events-manager/forms/event/bookings.php:144
+msgid "Delete"
+msgstr "Elimina"
 
 #: plugins/events-manager/forms/event/bookings.php:146
-msgid "Delete"
-msgstr ""
-
-#: plugins/events-manager/forms/event/bookings.php:148
 msgid "View Bookings"
-msgstr ""
+msgstr "Vista Bookings"
 
-#: plugins/events-manager/forms/event/bookings.php:158
+#: plugins/events-manager/forms/event/bookings.php:156
 msgid "Free"
-msgstr ""
+msgstr "Libre"
 
-#: plugins/events-manager/forms/event/bookings.php:202
-#: plugins/events-manager/forms/event/bookings.php:232
-#: plugins/events-manager/forms/event/bookings.php:333
+#: plugins/events-manager/forms/event/bookings.php:200
+#: plugins/events-manager/forms/event/bookings.php:230
+#: plugins/events-manager/forms/event/bookings.php:331
 msgid "day(s)"
-msgstr ""
+msgstr "Día(s)"
 
-#: plugins/events-manager/forms/event/bookings.php:263
+#: plugins/events-manager/forms/event/bookings.php:261
 msgid "Close Ticket Editor"
-msgstr ""
+msgstr "Editor de Ticket cercano"
 
-#: plugins/events-manager/forms/event/bookings.php:286
+#: plugins/events-manager/forms/event/bookings.php:284
 msgid "Cancel Ticket Recreation"
-msgstr ""
+msgstr "Cancela Recreación de Ticket"
 
-#: plugins/events-manager/forms/event/bookings.php:294
+#: plugins/events-manager/forms/event/bookings.php:292
 msgid "Modify Recurring Event Tickets "
-msgstr ""
+msgstr "Modifica Recurring Tickets de Acontecimiento "
+
+#: plugins/events-manager/forms/event/bookings.php:300
+msgid "Event Options"
+msgstr "Opciones de acontecimiento"
 
 #: plugins/events-manager/forms/event/bookings.php:302
-msgid "Event Options"
-msgstr ""
-
-#: plugins/events-manager/forms/event/bookings.php:304
 msgid "Total Spaces"
-msgstr ""
+msgstr "Espacios totales"
 
-#: plugins/events-manager/forms/event/bookings.php:311
+#: plugins/events-manager/forms/event/bookings.php:309
 msgid ""
 "Individual tickets with remaining spaces will not be available if total "
 "booking spaces reach this limit. Leave blank for no limit."
 msgstr ""
+"Tickets individuales con los espacios restantes no serán disponibles si "
+"totales reservando los espacios logran este límite. Deja espacio para ningún "
+"límite."
 
-#: plugins/events-manager/forms/event/bookings.php:314
+#: plugins/events-manager/forms/event/bookings.php:312
 msgid "Maximum Spaces Per Booking"
-msgstr ""
+msgstr "Espacios máximos Por Reservar"
 
-#: plugins/events-manager/forms/event/bookings.php:321
+#: plugins/events-manager/forms/event/bookings.php:319
 msgid ""
 "If set, the total number of spaces for a single booking to this event cannot "
 "exceed this amount."
 msgstr ""
+"Si puesto, el número total de espacios para un solos reservando a este "
+"acontecimiento no puede superar esta cantidad."
 
-#: plugins/events-manager/forms/event/bookings.php:321
+#: plugins/events-manager/forms/event/bookings.php:319
 msgid "Leave blank for no limit."
-msgstr ""
+msgstr "Deja espacio para ningún límite."
 
-#: plugins/events-manager/forms/event/bookings.php:324
+#: plugins/events-manager/forms/event/bookings.php:322
 msgid "Booking Cut-Off Date"
-msgstr ""
+msgstr "Reservando Corte-Fuera Fecha"
 
-#: plugins/events-manager/forms/event/bookings.php:340
+#: plugins/events-manager/forms/event/bookings.php:338
 msgid "The event starts before"
-msgstr ""
+msgstr "Los inicios de acontecimiento antes de que"
+
+#: plugins/events-manager/forms/event/bookings.php:344
+msgid "The event starts after"
+msgstr "Los inicios de acontecimiento después de que"
 
 #: plugins/events-manager/forms/event/bookings.php:346
-msgid "The event starts after"
-msgstr ""
-
-#: plugins/events-manager/forms/event/bookings.php:348
 msgid "at"
-msgstr ""
+msgstr "En"
 
-#: plugins/events-manager/forms/event/bookings.php:352
+#: plugins/events-manager/forms/event/bookings.php:350
 msgid ""
 "This is the definite date after which bookings will be closed for this "
 "event, regardless of individual ticket settings above. Default value will be "
 "the event start date."
 msgstr ""
+"Esto es la fecha definitiva después de qué bookings será cerrado para este "
+"acontecimiento, a toda costa de encuadres de ticket individual encima. "
+"Default El valor será la fecha de inicio del acontecimiento."
 
 #: plugins/events-manager/forms/event/categories-public.php:26
 msgid "Select a tag for your event"
-msgstr ""
+msgstr "Seleccionar un tag para vuestro acontecimiento"
 
 #: plugins/events-manager/forms/event/featured-image-public.php:16
 msgid "Event Image"
-msgstr ""
+msgstr "Imagen de acontecimiento"
 
 #: plugins/events-manager/forms/event/featured-image-public.php:56
 msgid "Click or drag a .PNG or .JPG above. Min dimensions 703px by 400px"
 msgstr ""
+"Clic o arrastrar un .PNG O .JPG Encima. Min Dimensiones 703px por 400px"
 
 #: plugins/events-manager/forms/event/group.php:27
 msgid "Hosted By"
-msgstr ""
+msgstr "Hosted Por"
 
 #: plugins/events-manager/forms/event/group.php:29
 msgid "No group"
-msgstr ""
+msgstr "Ningún grupo"
 
 #: plugins/events-manager/forms/event/group.php:43
 msgid ""
 "As a site admin, you see all group events, users will only be able to choose "
 "groups they are admins of."
 msgstr ""
+"Como sitio admin,  ves todos acontecimientos de grupo, los usuarios sólo "
+"serán capaces de escoger grupos  son admins de."
 
-#: plugins/events-manager/forms/event/location-moz.php:38
+#: plugins/events-manager/forms/event/location-moz.php:50
 msgid "Edit location details"
-msgstr ""
+msgstr "Edita detalles de ubicación"
 
-#: plugins/events-manager/forms/event/location-moz.php:63
+#: plugins/events-manager/forms/event/location-moz.php:70
 msgid "Is this event online or on location? *"
-msgstr ""
+msgstr "Es este acontecimiento on-line o encima ubicación? *"
 
-#: plugins/events-manager/forms/event/location-moz.php:83
+#: plugins/events-manager/forms/event/location-moz.php:102
 msgid "Physical Location"
-msgstr ""
+msgstr "Ubicación física"
 
-#: plugins/events-manager/forms/event/location-moz.php:98
+#: plugins/events-manager/forms/event/location-moz.php:114
 msgid "Online Meeting Link *"
-msgstr ""
+msgstr "Enlace de Reunión on-line *"
 
-#: plugins/events-manager/forms/event/location-moz.php:99
+#: plugins/events-manager/forms/event/location-moz.php:115
 msgid "Location Name *"
-msgstr ""
+msgstr "Ubicación *"
 
-#: plugins/events-manager/forms/event/location-moz.php:106
+#: plugins/events-manager/forms/event/location-moz.php:131
 msgid "This field requires a valid url"
-msgstr ""
+msgstr "Este campo está requerido"
 
-#: plugins/events-manager/forms/event/location-moz.php:119
+#: plugins/events-manager/forms/event/location-moz.php:149
 msgid "Address *"
-msgstr ""
+msgstr "Dirección *"
 
-#: plugins/events-manager/forms/event/location-moz.php:129
+#: plugins/events-manager/forms/event/location-moz.php:183
 msgid "Where will this event be held? *"
-msgstr ""
+msgstr "Dónde  este acontecimiento ser aguantado? *"
 
-#: plugins/events-manager/forms/event/location-moz.php:154
+#: plugins/events-manager/forms/event/location-moz.php:218
 msgid "Online Event *"
-msgstr ""
+msgstr "Acontecimiento on-line *"
 
-#: plugins/events-manager/forms/event/location-moz.php:156
+#: plugins/events-manager/forms/event/location-moz.php:220
 msgid "On Location"
-msgstr ""
+msgstr "Encima Ubicación"
 
-#: plugins/events-manager/forms/event/location-moz.php:179
+#: plugins/events-manager/forms/event/location-moz.php:243
 msgid "City *"
-msgstr ""
+msgstr "Ciudad *"
 
-#: plugins/events-manager/forms/event/location-moz.php:180
+#: plugins/events-manager/forms/event/location-moz.php:244
 msgid "URL *"
-msgstr ""
+msgstr "URL *"
 
 #: plugins/events-manager/forms/event/when-with-recurring.php:20
 #: plugins/events-manager/forms/event/when.php:21
 msgid "Start date *"
-msgstr ""
+msgstr "Fecha de inicio *"
 
 #: plugins/events-manager/forms/event/when-with-recurring.php:28
 #: plugins/events-manager/forms/event/when.php:34
 msgid "End Date *"
-msgstr ""
+msgstr "Fecha de fin *"
 
 #: plugins/events-manager/forms/event/when-with-recurring.php:38
 #: plugins/events-manager/forms/event/when.php:49
 msgid "Start time *"
-msgstr ""
+msgstr "Tiempo de inicio *"
 
 #: plugins/events-manager/forms/event/when-with-recurring.php:45
 #: plugins/events-manager/forms/event/when.php:61
 msgid "End time *"
-msgstr ""
+msgstr "Tiempo de fin *"
 
 #: plugins/events-manager/forms/event/when-with-recurring.php:53
 #: plugins/events-manager/forms/event/when.php:74
 msgid "Timezone *"
-msgstr ""
+msgstr "Zona horaria *"
 
 #: plugins/events-manager/placeholders/bookingform.php:62
-msgid "Will Not Attend"
-msgstr ""
+msgid "I won't attend"
+msgstr "No voy a asistir"
 
-#: plugins/events-manager/templates/event-single.php:226
-msgid "Attend"
-msgstr ""
+#: plugins/events-manager/placeholders/bookingform.php:90
+#: plugins/events-manager/templates/event-single.php:242
+msgid "I will attend"
+msgstr "Asistiré"
 
-#: plugins/events-manager/templates/event-single.php:248
+#: plugins/events-manager/templates/event-single.php:263
 msgid "View more events in "
-msgstr ""
+msgstr "Vista más acontecimientos en "
 
-#: plugins/events-manager/templates/event-single.php:250
+#: plugins/events-manager/templates/event-single.php:265
 msgid "This is an online-only event"
-msgstr ""
+msgstr "Esto es un on-line-acontecimiento único"
 
-#: plugins/events-manager/templates/event-single.php:252
+#: plugins/events-manager/templates/event-single.php:267
 msgid "Meeting link"
-msgstr ""
-
-#: plugins/events-manager/templates/event-single.php:336
-msgid "Goals"
-msgstr ""
+msgstr "Conociendo enlace"
 
 #: plugins/events-manager/templates/event-single.php:355
+msgid "Goals"
+msgstr "Objetivos"
+
+#: plugins/events-manager/templates/event-single.php:374
 msgid "Attendees"
-msgstr ""
+msgstr "Attendants"
 
-#: plugins/events-manager/templates/event-single.php:426
+#: plugins/events-manager/templates/event-single.php:445
 msgid "View all attendees"
-msgstr ""
+msgstr "Vista todo attendees"
 
-#: plugins/events-manager/templates/event-single.php:543
+#: plugins/events-manager/templates/event-single.php:557
+msgid "Reporting Event"
+msgstr "Acontecimiento de informe"
+
+#: plugins/events-manager/templates/event-single.php:561
+msgid "Please provide a reason you are reporting this event"
+msgstr "Complacer proporcionar una razón estás informando este evento"
+
+#: plugins/events-manager/templates/event-single.php:570
 msgid "Report Event"
-msgstr ""
+msgstr "Acontecimiento de informe"
 
-#: plugins/events-manager/templates/events-list.php:136
-#: plugins/events-manager/templates/events-list.php:194
+#: plugins/events-manager/templates/events-list.php:139
+#: plugins/events-manager/templates/events-list.php:235
 msgid "Upcoming Events"
-msgstr ""
+msgstr "Upcoming Acontecimientos"
 
-#: plugins/events-manager/templates/events-list.php:155
+#: plugins/events-manager/templates/events-list.php:169
 msgid "Events I'm attending"
-msgstr ""
+msgstr "Acontecimientos  estoy atendiendo"
 
-#: plugins/events-manager/templates/events-list.php:168
+#: plugins/events-manager/templates/events-list.php:195
 msgid "My Events"
-msgstr ""
+msgstr "Mis Acontecimientos"
 
-#: plugins/events-manager/templates/events-list.php:182
+#: plugins/events-manager/templates/events-list.php:223
 msgid "Past events"
-msgstr ""
+msgstr "Acontecimientos pasados"
 
-#: plugins/events-manager/templates/events-list.php:187
+#: plugins/events-manager/templates/events-list.php:228
 msgid "Showing:"
-msgstr ""
+msgstr "Mostrando:"
 
-#: plugins/events-manager/templates/events-list.php:203
+#: plugins/events-manager/templates/events-list.php:244
 msgid "Events I'm Attending"
-msgstr ""
+msgstr "Acontecimientos  estoy Atendiendo"
 
-#: plugins/events-manager/templates/events-list.php:212
+#: plugins/events-manager/templates/events-list.php:253
 msgid "Events I've Organized"
-msgstr ""
+msgstr "Acontecimientos  he Organizado"
 
-#: plugins/events-manager/templates/events-list.php:218
+#: plugins/events-manager/templates/events-list.php:259
 msgid "Past Events"
-msgstr ""
+msgstr "Acontecimientos pasados"
 
-#: plugins/events-manager/templates/events-list.php:421
+#: plugins/events-manager/templates/events-list.php:462
 msgid "No results found. Please try another search term."
-msgstr ""
+msgstr "Ningún resultado encontró. Complacer probar otro plazo de búsqueda."
 
-#: plugins/events-manager/templates/events-list.php:423
+#: plugins/events-manager/templates/events-list.php:464
 msgid "There are currently no events."
-msgstr ""
+msgstr "Hay actualmente ningún acontecimiento."
 
 #: plugins/events-manager/templates/events-search.php:80
 msgid "Search events"
-msgstr ""
+msgstr "Acontecimientos de búsqueda"
 
 #: plugins/events-manager/templates/template-parts/event-single/event-host.php:45
 msgid "Hosted by"
-msgstr ""
+msgstr "Hosted Por"
 
 #: plugins/events-manager/templates/template-parts/event-single/event-sidebar.php:21
 msgid "Links"
-msgstr ""
+msgstr "Enlaces"
 
-#: plugins/events-manager/templates/template-parts/event-single/event-sidebar.php:50
+#: plugins/events-manager/templates/template-parts/event-single/event-sidebar.php:54
 msgid "Part of"
-msgstr ""
+msgstr "Parte de"
 
-#: plugins/events-manager/templates/template-parts/event-single/event-sidebar.php:73
-#: templates/share-modal.php:32
+#: plugins/events-manager/templates/template-parts/event-single/event-sidebar.php:88
+#: templates/share-modal.php:37
 msgid "Share"
-msgstr ""
+msgstr "Participación"
 
-#: plugins/events-manager/templates/template-parts/events-filters.php:71
+#: plugins/events-manager/templates/template-parts/events-filters.php:61
 msgid "Filter By:"
-msgstr ""
+msgstr "Filtro Por:"
 
-#: plugins/events-manager/templates/template-parts/events-filters.php:93
+#: plugins/events-manager/templates/template-parts/events-filters.php:83
 msgid "Campaign or Activity"
-msgstr ""
+msgstr "Campaña o Actividad"
 
-#: search.php:181
+#: pronouns.php:3
+msgid "She/Her"
+msgstr "Ella/Le"
+
+#: pronouns.php:4
+msgid "He/Him"
+msgstr "Él/Le"
+
+#: pronouns.php:5
+msgid "They/Them"
+msgstr "Ellos/Les"
+
+#: search.php:186
 msgid "Page"
-msgstr ""
+msgstr "Página"
 
-#: search.php:197
+#: search.php:202
 msgid "Event"
-msgstr ""
+msgstr "Acontecimiento"
 
-#: search.php:238
+#: search.php:244
 msgid "Group"
-msgstr ""
+msgstr "Grupo"
 
-#: search.php:289
+#: search.php:299
 msgid "Member"
-msgstr ""
+msgstr "Miembro"
 
-#: single-activity.php:59
+#: single-activity.php:60
 msgid "Share Activity"
-msgstr ""
+msgstr "Actividad de participación"
 
-#: single-activity.php:190
+#: single-activity.php:198
 msgid "Time Commitment"
-msgstr ""
+msgstr "Compromiso de tiempo"
 
-#: single-campaign.php:108
+#: single-campaign.php:126
 msgid "Share Campaign"
-msgstr ""
+msgstr "Campaña de participación"
 
 #: templates/campaign-rsvp.php:25 templates/campaign-rsvp.php:30
 #: templates/event-rsvp.php:25 templates/event-rsvp.php:30
 msgid "Sign Up"
-msgstr ""
+msgstr "Señal Arriba"
 
 #: templates/campaign-rsvp.php:27 templates/event-rsvp.php:27
 msgid ""
 "Create a Community Portal account to connect with the community and "
 "participate in a number of exciting campaigns."
 msgstr ""
+"Crear una cuenta de Portal de la Comunidad para conectar con la comunidad y "
+"participar en un número de campañas apasionantes."
 
 #: templates/campaign-rsvp.php:32 templates/event-rsvp.php:32
 msgid "Already a member?"
-msgstr ""
+msgstr "Ya un miembro?"
 
 #: templates/campaign-rsvp.php:33 templates/event-rsvp.php:33
 msgid "Log In"
-msgstr ""
+msgstr "Registro En"
 
 #: templates/campaign-rsvp.php:38
 msgid "Get involved without a user account"
-msgstr ""
+msgstr "Consigue implicado sin una cuenta de usuario"
 
 #: templates/campaign-rsvp.php:39
 msgid ""
 "Fill out the form below to join this campaign without creating a user account"
 msgstr ""
+"Llena fuera de la forma abajo para unir esta campaña sin crear una cuenta de "
+"usuario"
 
 #: templates/campaign-rsvp.php:57
 msgid "Invalid email"
-msgstr ""
+msgstr "Email nulo"
 
 #: templates/campaign-rsvp.php:62 templates/campaigns-newsletter.php:81
 msgid "I'm okay with Mozilla handling my info as explained in this"
-msgstr ""
+msgstr "Soy vale con Mozilla que maneja mi info cuando explicado en este"
 
 #: templates/campaign-rsvp.php:63 templates/campaigns-newsletter.php:82
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Política de privacidad"
 
 #: templates/campaign-rsvp.php:65
 msgid "You must agree to the privacy policy"
-msgstr ""
+msgstr "Tienes que apalabrar la política de privacidad"
 
 #: templates/campaign-rsvp.php:76
 msgid "Thank you for getting involved!"
-msgstr ""
+msgstr "Gracias Para conseguir implicó!"
 
 #: templates/campaign-rsvp.php:77
 msgid "An email has been sent with more details"
-msgstr ""
+msgstr "Un email ha sido enviado con más detalles"
 
 #: templates/campaign-rsvp.php:80
 msgid "Something went wrong."
-msgstr ""
+msgstr "Algo fue mal."
 
 #: templates/campaign-rsvp.php:81
 msgid "Please try again later."
-msgstr ""
+msgstr "Complacer probar otra vez más tarde."
 
 #: templates/campaigns-newsletter.php:35 templates/newsletter-form.php:29
 msgid "Get Updates"
-msgstr ""
+msgstr "Consigue Actualizaciones"
 
 #: templates/campaigns-newsletter.php:36 templates/newsletter-form.php:30
 msgid ""
 "Subscribe to our newsletter and join Mozillians all around the world and "
 "learn about impactful opportunities to support Mozilla’s mission."
 msgstr ""
+"Suscribe a nuestro newsletter y unir Mozillians en todas partes el mundial y "
+"aprender sobre impactful oportunidades de apoyar la misión de Mozilla."
 
 #: templates/campaigns-newsletter.php:46 templates/newsletter-form.php:45
 msgid "Invalid email."
-msgstr ""
+msgstr "Email nulo."
 
 #: templates/campaigns-newsletter.php:50 templates/newsletter-form.php:48
 msgid "Country or Region"
-msgstr ""
+msgstr "País o Región"
 
 #: templates/campaigns-newsletter.php:52
 msgid "Select country or region"
-msgstr ""
+msgstr "Selecciona país o región"
 
 #: templates/campaigns-newsletter.php:70
 msgid "Select language"
-msgstr ""
+msgstr "Selecciona lengua"
 
-#: templates/campaigns-newsletter.php:75 templates/newsletter-form.php:85
+#: templates/campaigns-newsletter.php:75
 msgid "We’ll default to English but send in these languages whenever we can."
 msgstr ""
+"Nosotros default a ingleses pero enviar estas lenguas siempre que podemos."
 
 #: templates/campaigns-newsletter.php:84 templates/newsletter-form.php:91
 msgid "You must agree to the privacy notice."
-msgstr ""
+msgstr "Tienes que apalabrar el aviso de intimidad."
 
 #: templates/campaigns-newsletter.php:87
 msgid "Subscribe"
-msgstr ""
+msgstr "Suscribe"
 
 #: templates/campaigns-newsletter.php:91
 msgid "Thanks!"
-msgstr ""
+msgstr "Gracias!"
 
 #: templates/campaigns-newsletter.php:92
 msgid ""
@@ -5510,43 +5876,90 @@ msgid ""
 "newsletter you may have to do so. Please check your inbox and spam filter "
 "for an email from us."
 msgstr ""
+"Si  has no anteriormente confirmó una suscripción a un Mozilla-relacionado "
+"newsletter  puedes tener que hacer tan. Complacer comprobar vuestra bandeja "
+"de entrada y spam filtro para un email de nosotros."
 
 #: templates/campaigns-newsletter.php:95
 msgid "Sorry!"
-msgstr ""
+msgstr "Triste!"
 
 #: templates/campaigns-newsletter.php:96
 msgid "Looks like something went wrong."
-msgstr ""
+msgstr "Parece algo fue mal."
 
 #: templates/newsletter-form.php:50
 msgid "Country or region"
+msgstr "País o región"
+
+#: templates/newsletter-form.php:85
+msgid "We'll default to English but send in these languages whenever we can."
 msgstr ""
+"Nosotros default a ingleses pero enviar estas lenguas siempre que podemos."
 
 #: templates/newsletter-form.php:89
 msgid "Yes, subscribe me to the newsletter"
-msgstr ""
+msgstr "Sí, suscribirme al newsletter"
 
-#: templates/share-modal.php:36
+#: templates/share-modal.php:46
 msgid "Copy share link"
-msgstr ""
-
-#: templates/share-modal.php:37
-msgid "Link copied"
-msgstr ""
-
-#: templates/share-modal.php:42
-msgid "Share to Facebook"
-msgstr ""
+msgstr "Enlace de participación de la copia"
 
 #: templates/share-modal.php:47
+msgid "Link copied"
+msgstr "Lorem ipsum"
+
+#: templates/share-modal.php:55
+msgid "Share to Facebook"
+msgstr "Participación a Facebook"
+
+#: templates/share-modal.php:63
 msgid "Share to Twitter"
-msgstr ""
+msgstr "Participación a Twitter"
 
-#: templates/share-modal.php:52
+#: templates/share-modal.php:71
 msgid "Share to Discourse"
-msgstr ""
+msgstr "Participación a Discurso"
 
-#: templates/share-modal.php:57
+#: templates/share-modal.php:80
 msgid "Share to Telegram"
-msgstr ""
+msgstr "Participación a Telegrama"
+
+#~ msgid "1. Basic Information"
+#~ msgstr "1. Información básica"
+
+#~ msgid "Cancel Event"
+#~ msgstr "Cancela Acontecimiento"
+
+#~ msgid "Will Not Attend"
+#~ msgstr "No Atenderá"
+
+#~ msgid "Attend"
+#~ msgstr "Atiende"
+
+#~ msgid ""
+#~ "We use cookies to improve your experience on our site and to show you "
+#~ "personalized advertising."
+#~ msgstr ""
+#~ "Utilizamos cookies para mejorar su experiencia en nuestro sitio y "
+#~ "mostrarle publicidad personalizada."
+
+#~ msgid "To find out more, read our"
+#~ msgstr "Para saber más, lea nuestra"
+
+#~ msgid "privacy policy"
+#~ msgstr "Política de privacidad"
+
+#~ msgid "and"
+#~ msgstr "y"
+
+#~ msgid "cookie policy"
+#~ msgstr "política de cookies"
+
+#~ msgid ""
+#~ "We will default to English but send in these languages whenever we can."
+#~ msgstr ""
+#~ "Nosotros default a ingleses pero enviar estas lenguas siempre que podemos."
+
+#~ msgid "KB maximum"
+#~ msgstr "KB max"

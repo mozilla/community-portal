@@ -148,7 +148,7 @@ div.time-picker ul li {
 	&__image-upload {
 		@extend .input;
 		&#dropzone-photo-uploader {
-			border: 0;
+			border: 1px solid transparent;
 			background-size: contain;
 			align-items: center;
 			background-color: $color-gray-20;
@@ -163,6 +163,9 @@ div.time-picker ul li {
 			padding-top: 45.3%;
 			@include tablet-and-up {
 				margin-bottom: 80px;
+			}
+			&:hover {
+				border: 1px solid $color-blue-50;
 			}
 		}
     }

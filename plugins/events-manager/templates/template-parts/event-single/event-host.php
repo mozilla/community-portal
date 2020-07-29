@@ -35,7 +35,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'of
 	<div class="row">
 		<div class="
 		<?php
-		if ( is_array( $admins ) && count( $admins ) < 2 ) :
+		if ( isset( $admins ) && is_array( $admins ) && count( $admins ) < 2 ) :
 			echo 'col-lg-12 col-md-6';
 else :
 	echo 'events-single__hosts--multiple';
@@ -50,7 +50,7 @@ col-sm-12 events-single__hosts">
 				<?php endif; ?>
 		</div>
 		<div class="events-single__member-card col-lg-12 col-md-6 col-sm-12">
-			<a href="<?php echo esc_attr( get_home_url(null, '/people/' . $hosted_user->user_nicename )); ?>">
+			<a href="<?php echo esc_attr( get_home_url( null, '/people/' . $hosted_user->user_nicename ) ); ?>">
 				<div class="events-single__avatar
 				<?php
 				if ( false === $info['profile_image']->display || false === $info['profile_image']->value ) :
@@ -62,7 +62,7 @@ col-sm-12 events-single__hosts">
 					style="background-image: url('<?php print esc_url_raw( $avatar_url ); ?>')"<?php endif; ?> data-username="<?php print esc_attr( $hosted_user->user_nicename ); ?>">
 				</div>
 				<p class="events-single__username"><?php echo esc_html( $hosted_user->user_nicename ); ?></p>
-				<?php if ( strlen( $info['first_name']->value ) > 0 || strlen( $info['last_name']->value) > 0 ) : ?>
+				<?php if ( strlen( $info['first_name']->value ) > 0 || strlen( $info['last_name']->value ) > 0 ) : ?>
 					<div class="events-single__name">
 					<?php
 					if ( $info['first_name']->display && $info['first_name']->value ) :

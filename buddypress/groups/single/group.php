@@ -21,20 +21,7 @@
 
 	$template_dir = get_template_directory();
 	require "{$template_dir}/languages.php";
-	$months = array(
-		'01' => 'Jan',
-		'02' => 'Feb',
-		'03' => 'Mar',
-		'04' => 'Apr',
-		'05' => 'May',
-		'06' => 'Jun',
-		'07' => 'Jul',
-		'08' => 'Aug',
-		'09' => 'uyp',
-		'10' => 'Oct',
-		'11' => 'Nov',
-		'12' => 'Dec',
-	);
+	require "{$template_dir}/countries.php";
 
 	$group           = $bp->groups->current_group;
 	$group_meta      = groups_get_groupmeta( $group->id, 'meta' );
@@ -79,7 +66,7 @@
 		$search_user = false;
 	}
 
-	$location     = isset( $_GET['location'] ) ? htmlspecialchars( sanitize_text_field( wp_unslash( $_GET['location'] ) ), ENT_QUOTES, 'UTF-8' ) : '';
+	$location     = isset( $_GET['country'] ) ? htmlspecialchars( sanitize_text_field( wp_unslash( $_GET['country'] ) ), ENT_QUOTES, 'UTF-8' ) : '';
 	$get_language = isset( $_GET['language'] ) ? htmlspecialchars( sanitize_text_field( wp_unslash( $_GET['language'] ) ), ENT_QUOTES, 'UTF-8' ) : '';
 	$get_tag      = isset( $_GET['tag'] ) ? htmlspecialchars( sanitize_text_field( wp_unslash( $_GET['tag'] ) ), ENT_QUOTES, 'UTF-8' ) : '';
 
@@ -131,10 +118,10 @@
 	$used_country_list = array();
 	$used_languages    = array();
 
+	$live_user = ! empty( $live_user ) ? $live_user : false;
 
 	// Time to filter stuff!
 	foreach ( $real_members as $index => $member ) {
-
 		$info           = mozilla_get_user_info( $live_user, $member, $logged_in );
 		$member->info   = $info;
 		$member_tags    = array_filter( explode( ',', $info['tags']->value ) );
@@ -155,10 +142,8 @@
 			} else {
 				$member_country = $info['location']->value;
 			}
-
-			$key = array_search( $member_country, $countries, true );
-			if ( $key ) {
-				$used_country_list[ $key ] = $countries[ $key ];
+			if ( isset($countries[ $member_country ] ) ) {
+				$used_country_list[ $member_country ] = $countries[ $member_country ];
 			}
 		}
 
@@ -178,7 +163,7 @@
 			if ( $info['tags']->display &&
 				$info['location']->display &&
 				array_key_exists( $country_code, $countries ) &&
-				strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+				strtolower( $country_code ) === strtolower( $member_country ) &&
 				in_array( $get_tag, array_map( 'strtolower', $member_tags ), true ) &&
 				stripos( $member->data->user_nicename, $search_user ) !== false &&
 				$info['languages']->display &&
@@ -194,7 +179,7 @@
 				if ( $info['tags']->display &&
 					$info['location']->display &&
 					array_key_exists( $country_code, $countries ) &&
-					strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+					strtolower( $country_code ) === strtolower( $member_country ) &&
 					in_array( $get_tag, array_map( 'strtolower', $member_tags ), true ) &&
 					$info['first_name']->display &&
 					stripos( $info['first_name']->value, $first_name ) !== false &&
@@ -209,7 +194,7 @@
 				if ( $info['tags']->display &&
 					$info['location']->display &&
 					array_key_exists( $country_code, $countries ) &&
-					strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+					strtolower( $country_code ) === strtolower( $member_country ) &&
 					in_array( $get_tag, array_map( 'strtolower', $member_tags ), true ) &&
 					$info['first_name']->display &&
 					stripos( $info['first_name']->value, $search_user ) !== false &&
@@ -226,7 +211,7 @@
 			if ( $last_name ) {
 				if ( $info['tags']->display && $info['location']->display &&
 					array_key_exists( $country_code, $countries ) &&
-					strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+					strtolower( $country_code ) === strtolower( $member_country ) &&
 					in_array( $get_tag, array_map( 'strtolower', $member_tags ), true ) &&
 					$info['last_name']->display &&
 					stripos( $info['last_name']->value, $last_name ) !== false &&
@@ -240,7 +225,7 @@
 			} else {
 				if ( $info['tags']->display && $info['location']->display &&
 					array_key_exists( $country_code, $countries ) &&
-					strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+					strtolower( $country_code ) === strtolower( $member_country ) &&
 					in_array( $get_tag, array_map( 'strtolower', $member_tags ), true ) &&
 					$info['last_name']->display &&
 					stripos( $info['last_name']->value, $search_user ) !== false &&
@@ -329,7 +314,7 @@
 			if ( $info['tags']->display &&
 				$info['location']->display &&
 				array_key_exists( $country_code, $countries ) &&
-				strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+				strtolower( $country_code ) === strtolower( $member_country ) &&
 				in_array( $get_tag, array_map( 'strtolower', $member_tags ), true ) &&
 				stripos( $member->data->user_nicename, $search_user ) !== false ) {
 					$filtered_members[] = $member;
@@ -341,7 +326,7 @@
 				if ( $info['tags']->display &&
 					$info['location']->display &&
 					array_key_exists( $country_code, $countries ) &&
-					strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+					strtolower( $country_code ) === strtolower( $member_country ) &&
 					in_array( $get_tag, array_map( 'strtolower', $member_tags ), true ) &&
 					$info['first_name']->display &&
 					stripos( $info['first_name']->value, $first_name ) !== false ) {
@@ -352,7 +337,7 @@
 				if ( $info['tags']->display &&
 					$info['location']->display &&
 					array_key_exists( $country_code, $countries ) &&
-					strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+					strtolower( $country_code ) === strtolower( $member_country ) &&
 					in_array( $get_tag, array_map( 'strtolower', $member_tags ), true ) &&
 					$info['first_name']->display &&
 					stripos( $info['first_name']->value, $search_user ) !== false ) {
@@ -365,7 +350,7 @@
 			if ( $last_name ) {
 				if ( $info['tags']->display && $info['location']->display &&
 					array_key_exists( $country_code, $countries ) &&
-					strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+					strtolower( $country_code ) === strtolower( $member_country ) &&
 					in_array( $get_tag, array_map( 'strtolower', $member_tags ), true ) &&
 					$info['last_name']->display &&
 					stripos( $info['last_name']->value, $last_name ) !== false ) {
@@ -375,7 +360,7 @@
 			} else {
 				if ( $info['tags']->display && $info['location']->display &&
 					array_key_exists( $country_code, $countries ) &&
-					strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+					strtolower( $country_code ) === strtolower( $member_country ) &&
 					in_array( $get_tag, array_map( 'strtolower', $member_tags ), true ) &&
 					$info['last_name']->display &&
 					stripos( $info['last_name']->value, $search_user ) !== false ) {
@@ -390,6 +375,7 @@
 
 		// Location / language / tag!
 		if ( false === $search_user && $country_code && $language_code && $get_tag ) {
+
 			if ( $info['languages']->display &&
 				$info['tags']->display &&
 				in_array( $get_tag, array_map( 'strtolower', $member_tags ), true ) &&
@@ -397,7 +383,7 @@
 				in_array( $language_code, $info['languages']->value, true ) &&
 				$info['location']->display &&
 				array_key_exists( $country_code, $countries ) &&
-				strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) ) {
+				strtolower( $country_code ) === strtolower( $member_country ) ) {
 					$filtered_members[] = $member;
 					continue;
 			}
@@ -409,13 +395,14 @@
 
 		// Search / location / language!
 		if ( $search_user && false === $get_tag && $country_code && $language_code ) {
-			if ( $info['language']->display &&
+
+			if ( $info['languages']->display &&
 				$info['location']->display &&
 				array_key_exists( $country_code, $countries ) &&
-				strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+				strtolower( $country_code ) === strtolower( $member_country ) &&
 				is_array( $info['languages']->value ) &&
 				in_array( $language_code, $info['languages']->value, true ) &&
-				stripos( false !== $member->data->user_nicename, $search_user ) ) {
+				false !== stripos( $member->data->user_nicename, $search_user ) ) {
 					$filtered_members[] = $member;
 					continue;
 			}
@@ -424,7 +411,7 @@
 			if ( $first_name ) {
 				if ( $info['location']->display &&
 					array_key_exists( $country_code, $countries ) &&
-					strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+					strtolower( $country_code ) === strtolower( $member_country ) &&
 					$info['first_name']->display &&
 					stripos( $info['first_name']->value, $first_name ) !== false &&
 					$info['languages']->display &&
@@ -437,7 +424,7 @@
 			} else {
 				if ( $info['location']->display &&
 					array_key_exists( $country_code, $countries ) &&
-					strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+					strtolower( $country_code ) === strtolower( $member_country ) &&
 					$info['first_name']->display &&
 					stripos( $info['first_name']->value, $search_user ) !== false &&
 					$info['languages']->display &&
@@ -453,7 +440,7 @@
 			if ( $last_name ) {
 				if ( $info['location']->display &&
 					array_key_exists( $country_code, $countries ) &&
-					strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+					strtolower( $country_code ) === strtolower( $member_country ) &&
 					$info['last_name']->display &&
 					stripos( $info['last_name']->value, $last_name ) !== false &&
 					$info['languages']->display &&
@@ -466,7 +453,7 @@
 			} else {
 				if ( $info['location']->display &&
 					array_key_exists( $country_code, $countries ) &&
-					strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+					strtolower( $country_code ) === strtolower( $member_country ) &&
 					$info['last_name']->display &&
 					stripos( $info['last_name']->value, $search_user ) !== false &&
 					$info['languages']->display &&
@@ -487,7 +474,7 @@
 
 			// Country and username!
 			if ( array_key_exists( $country_code, $countries ) &&
-				strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+				strtolower( $country_code ) === strtolower( $member_country ) &&
 				$info['location']->display &&
 				stripos( $member->data->user_nicename, $search_user ) !== false ) {
 				$filtered_members[] = $member;
@@ -498,7 +485,7 @@
 			// Country and first name!
 			if ( $first_name ) {
 				if ( array_key_exists( $country_code, $countries ) &&
-					strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+					strtolower( $country_code ) === strtolower( $member_country ) &&
 					$info['location']->display &&
 					$info['first_name']->display &&
 					stripos( $info['first_name']->value, $first_name ) !== false ) {
@@ -507,7 +494,7 @@
 				}
 			} else {
 				if ( array_key_exists( $country_code, $countries ) &&
-					strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+					strtolower( $country_code ) === strtolower( $member_country ) &&
 					$info['location']->display &&
 					$info['first_name']->display &&
 					stripos( $info['first_name']->value, $search_user ) !== false ) {
@@ -519,7 +506,7 @@
 			// Country and last name!
 			if ( $last_name ) {
 				if ( array_key_exists( $country_code, $countries ) &&
-					strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+					strtolower( $country_code ) === strtolower( $member_country ) &&
 					$info['location']->display &&
 					$info['first_name']->display &&
 					stripos( $info['last_name']->value, $last_name ) !== false ) {
@@ -528,7 +515,7 @@
 				}
 			} else {
 				if ( array_key_exists( $country_code, $countries ) &&
-					strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+					strtolower( $country_code ) === strtolower( $member_country ) &&
 					$info['location']->display &&
 					$info['last_name']->display &&
 					stripos( $info['last_name']->value, $search_user ) !== false ) {
@@ -668,7 +655,7 @@
 		if ( $country_code && false === $get_tag && false === $search_user && $language_code ) {
 			if ( $info['location']->display &&
 				array_key_exists( $country_code, $countries ) &&
-				strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+				strtolower( $country_code ) === strtolower( $member_country ) &&
 				$info['languages']->display &&
 				is_array( $info['languages']->value ) &&
 				in_array( $language_code, $info['languages']->value, true ) ) {
@@ -684,7 +671,7 @@
 			if ( $info['tags']->display &&
 				$info['location']->display &&
 				array_key_exists( $country_code, $countries ) &&
-				strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) &&
+				strtolower( $country_code ) === strtolower( $member_country ) &&
 				in_array( $get_tag, array_map( 'strtolower', $member_tags ), true ) ) {
 					$filtered_members[] = $member;
 					continue;
@@ -699,7 +686,7 @@
 
 			if ( $info['location']->display &&
 				array_key_exists( $country_code, $countries ) &&
-				strtolower( $countries[ $country_code ] ) === strtolower( $member_country ) ) {
+				strtolower( $country_code ) === strtolower( $member_country ) ) {
 					$filtered_members[] = $member;
 					continue;
 			}
@@ -769,6 +756,7 @@
 		}
 		$filtered_members[] = $member;
 	}
+
 	$count = count( $filtered_members );
 	?>
 	<div class="content">
@@ -797,7 +785,11 @@
 						if ( isset( $group_meta['group_country'] ) && strlen( $group_meta['group_country'] ) > 1 ) {
 							$location_code = $group_meta['group_country'];
 							?>
-							<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?><?php echo '/groups/?location=' . esc_attr( $location_code ); ?>" class="group__status">
+							<a href="
+							<?php
+							if ( $current_translation ) :
+								?>
+								<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?><?php echo '/groups/?country=' . esc_attr( $location_code ); ?>" class="group__status">
 							<?php
 						}
 
@@ -817,7 +809,11 @@
 							$country       = $countries[ $group_meta['group_country'] ];
 							$location_code = $group_meta['group_country'];
 							?>
-							<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?><?php echo '/groups/?location=' . esc_attr( $location_code ); ?>" class="group__status"><?php echo esc_html( $country ); ?></a> |
+							<a href="
+							<?php
+							if ( $current_translation ) :
+								?>
+								<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?><?php echo '/groups/?country=' . esc_attr( $location_code ); ?>" class="group__status"><?php echo esc_html( $country ); ?></a> |
 							<?php
 						}
 					}
@@ -825,7 +821,8 @@
 					</span>
 					<span class="group__created">
 					<?php
-						$created      = gmdate( 'F d, Y', strtotime( $group->date_created ) );
+						$date_format  = 'en' === $current_translation ? 'F d, Y' : 'd F, Y';
+						$created      = mozilla_localize_date( $group->date_created, $date_format );
 						$created_word = __( 'Created', 'community-portal' );
 						echo '<span> ' . esc_html( $created_word ) . ' ' . esc_html( $created );
 					?>
@@ -837,17 +834,29 @@
 						<?php
 						if ( bp_is_group_home() && ! $is_events && ! $is_people ) :
 							?>
-							group__menu-link--active<?php endif; ?>" href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>"><?php esc_html_e( 'About us', 'community-portal' ); ?></a></li>
+							group__menu-link--active<?php endif; ?>" href="
+								<?php
+								if ( $current_translation ) :
+									?>
+									<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>"><?php esc_html_e( 'About us', 'community-portal' ); ?></a></li>
 						<li class="menu-item"><a class="group__menu-link
 						<?php
 						if ( $is_events ) :
 							?>
-							group__menu-link--active<?php endif; ?>" href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>?view=events"><?php esc_html_e( 'Our Events', 'community-portal' ); ?></a></li>
+							group__menu-link--active<?php endif; ?>" href="
+								<?php
+								if ( $current_translation ) :
+									?>
+									<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>?view=events"><?php esc_html_e( 'Our Events', 'community-portal' ); ?></a></li>
 						<li class="menu-item"><a class="group__menu-link
 						<?php
 						if ( $is_people ) :
 							?>
-							group__menu-link--active<?php endif; ?>" href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>/?view=people"><?php esc_html_e( 'Our Members', 'community-portal' ); ?></a></li>
+							group__menu-link--active<?php endif; ?>" href="
+								<?php
+								if ( $current_translation ) :
+									?>
+									<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>/?view=people"><?php esc_html_e( 'Our Members', 'community-portal' ); ?></a></li>
 					</ul>
 				</div>
 				<div class="group__nav group__nav--mobile">
@@ -890,7 +899,11 @@
 								}
 
 								?>
-							<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/people/<?php echo esc_attr( $a->user_nicename ); ?>" class="members__member-card">
+							<a href="
+								<?php
+								if ( $current_translation ) :
+									?>
+									<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/people/<?php echo esc_attr( $a->user_nicename ); ?>" class="members__member-card">
 								<div class="members__avatar
 								<?php
 								if ( false === $info['profile_image']->display || false === $info['profile_image']->value ) :
@@ -915,24 +928,26 @@
 										}
 										?>
 									</div>
-									<?php if ( $info['location']->display && $info['location']->value ) : ?>
+									<?php if ( $info['location']->display && $info['location']->value && isset($countries[ $info['location']->value] ) ) : ?>
 									<div class="members__location">
 										<svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 											<path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 											<path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 										</svg>&nbsp;
-										<?php echo esc_html( $info['location']->value ); ?>
+										<?php echo esc_html( $countries[$info['location']->value] ); ?>
 									</div>
 									<?php endif; ?>
 								</div>
 							</a>
 							<?php endforeach; ?>
 						</div>
-									<h2 class="group__card-title"><?php esc_html_e( 'People', 'community-portal' ); ?>
-																					<?php
-																					if ( $members['count'] > 0 ) :
-																						?>
-																						<?php echo esc_html( " ({$members['count']})" ); ?><?php endif; ?></h2>
+							<h2 class="group__card-title">
+							<?php
+							esc_html_e( 'People', 'community-portal' );
+							?>
+							<?php if ( ! empty( $group_members['count'] ) && $group_members['count'] > 0 ) : ?>
+								<?php echo esc_html( " ({$group_members['count']})" ); ?>
+							<?php endif; ?></h2>
 						<?php if ( $group_members['count'] > 0 ) : ?>
 						<div class="group members__search-container">
 								<form method="GET" action="<?php echo ! empty( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : ''; ?>" class="members__form" id="members-search-form">
@@ -951,13 +966,13 @@
 									?>
 									<input type="hidden" value="<?php echo esc_attr( $get_tag ); ?>" name="tag" id="user-tag" />
 									<?php
-									if ( isset( $_GET['location'] ) && strlen( $location ) > 0 ) {
+									if ( isset( $_GET['country'] ) && strlen( $location ) > 0 ) {
 										$location = trim( $location );
 									} else {
 										$location = '';
 									}
 									?>
-									<input type="hidden" value="<?php echo esc_attr( $location ); ?>" name="location" id="user-location" />
+									<input type="hidden" value="<?php echo esc_attr( $location ); ?>" name="country" id="user-location" />
 									<?php
 									if ( isset( $_GET['language'] ) && strlen( $get_language ) > 0 ) {
 										$get_language = trim( $get_language );
@@ -988,7 +1003,7 @@
 										<?php foreach ( $used_country_list as $code   => $country ) : ?>
 										<option value="<?php echo esc_attr( $code ); ?>"
 															<?php
-															if ( isset( $_GET['location'] ) && strlen( $location ) > 0 && $location === $code ) :
+															if ( isset( $_GET['country'] ) && strlen( $location ) > 0 && $location === $code ) :
 																?>
 											selected<?php endif; ?>><?php echo esc_html( $country ); ?></option>
 										<?php endforeach; ?>
@@ -1017,6 +1032,13 @@
 									<select class="members__tag-select">
 										<option value=""><?php esc_html_e( 'Select', 'community-portal' ); ?></option>
 										<?php foreach ( $tags as $loop_tag ) : ?>
+											<?php
+											if ( $current_translation ) {
+												if ( false !== stripos( $loop_tag->slug, '_' ) ) {
+													$loop_tag->slug = substr( $loop_tag->slug, 0, stripos( $loop_tag->slug, '_' ) );
+												}
+											}
+											?>
 										<option value="<?php echo esc_html( $loop_tag->slug ); ?>" 
 																<?php
 																if ( isset( $_GET['tag'] ) && strtolower( trim( $get_tag ) ) === strtolower( $loop_tag->slug ) ) :
@@ -1050,7 +1072,11 @@
 										$avatar_url = $info['profile_image']->value;
 									}
 									?>
-							<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/people/<?php echo esc_attr( $member->user_nicename ); ?>" class="members__member-card">
+							<a href="
+									<?php
+									if ( $current_translation ) :
+										?>
+										<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/people/<?php echo esc_attr( $member->user_nicename ); ?>" class="members__member-card">
 								<div class="members__avatar
 									<?php
 									if ( false === $info['profile_image']->display || false === $info['profile_image']->value ) :
@@ -1075,13 +1101,13 @@
 										}
 										?>
 									</div>
-									<?php if ( $info['location']->display && $info['location']->value ) : ?>
+									<?php if ( $info['location']->display && $info['location']->value && isset($countries[$info['location']->value])) : ?>
 										<div class="members__location">
 											<svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 												<path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 												<path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 											</svg>&nbsp;
-											<?php echo esc_html( $info['location']->value ); ?>
+											<?php echo esc_html( $countries[ $info['location']->value ] ); ?>
 										</div>
 									<?php endif; ?>
 								</div>
@@ -1097,24 +1123,12 @@
 					</div>
 					<?php elseif ( true === $is_events ) : ?>
 						<?php
-						$months = array(
-							'01' => 'Jan',
-							'02' => 'Feb',
-							'03' => 'Mar',
-							'04' => 'Apr',
-							'05' => 'May',
-							'06' => 'Jun',
-							'07' => 'Jul',
-							'08' => 'Aug',
-							'09' => 'Sep',
-							'10' => 'Oct',
-							'11' => 'Nov',
-							'12' => 'Dec',
-						);
 
 						$args   = array(
 							'group' => $group->id,
-							'scope' => 'all',
+								'scope' => 'all',
+								'orderby' => 'event_start_date',
+								'order' => 'DESC',
 						);
 						$events = EM_Events::get( $args );
 						?>
@@ -1123,90 +1137,14 @@
 							<?php
 							$categories    = $event->get_categories();
 							$location      = em_get_location( $event->location_id );
-							$site_url      = get_site_url();
-							$url           = $site_url . '/events/' . $event->slug;
+							$site_url      = get_home_url( null, 'events/' );
+							$url           = $site_url . $event->slug;
 							$all_countries = em_get_countries();
+							$time          = gmdate( 'm', strtotime( $event->start_date ) );
+
+							include locate_template( 'plugins/events-manager/templates/template-parts/single-event-card.php', false, false );
+
 							?>
-							<div class="col-lg-4 col-md-6 events__column">
-								<div class="event-card">
-									<a class="events__link" href="<?php echo esc_url_raw( $url ); ?>">
-										<div class="event-card__image"
-											<?php
-												$event_meta = get_post_meta( $event->post_id, 'event-meta' );
-												$img_url    = $event_meta[0]->image_url;
-
-											if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty( $_SERVER['SERVER_PORT'] ) && 443 === $_SERVER['SERVER_PORT'] ) {
-												$img_url = preg_replace( '/^http:/i', 'https:', $img_url );
-											} else {
-												$img_url = $img_url;
-											}
-
-											if ( $img_url && '' !== $img_url ) :
-												?>
-												style="background-image: url(<?php echo esc_url_raw( $img_url ); ?>)"<?php endif; ?>
-										>
-											<?php
-
-												$month     = gmdate( 'M', strtotime( $event->start_date ) );
-												$date      = gmdate( 'd', strtotime( $event->start_date ) );
-												$year_part = gmdate( 'Y', strtotime( $event->start_date ) );
-
-												$event_time = strtotime( $event->start_date );
-											?>
-											<p class="event-card__image__date"><span><?php echo esc_html( gmdate( 'M', $event_time ) ); ?></span><span><?php echo esc_html( gmdate( 'd', $event_time ) ); ?></span></p>
-										</div>
-										<div class="event-card__description">
-											<h3 class="event-card__description__title title--event-card"><?php echo esc_html( $event->event_name ); ?></h2>
-											<p><?php echo esc_html( $month . ' ' . $date . ', ' . $year_part . ' @ ' . substr( $event->event_start_time, 0, 5 ) . ' - ' . substr( $event->event_end_time, 0, 5 ) . ' ' . $event->event_timezone ); ?></p>
-											<div class="event-card__location">
-												<svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-													<path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-													<path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-												</svg>
-												<p class="text--light text--small">
-													<?php
-													if ( 'OE' === $location->country ) {
-														esc_html_e( 'Online Event', 'community-portal' );
-													} else {
-														if ( $location->address ) {
-															echo esc_html( $location->address ) . ' - ';
-														}
-
-														if ( strlen( $location->town ) > 0 ) {
-															echo esc_html( $location->town );
-															if ( $location->country ) {
-																echo ', ' . esc_html( $all_countries[ $location->country ] );
-															}
-														} else {
-															echo esc_html( $all_countries[ $location->country ] );
-														}
-													}
-													?>
-												</p>
-											</div>
-										</div>
-										<ul class="events__tags">
-											<?php
-											
-											if ( is_array( $categories->terms ) ) :
-												if ( count( $categories->terms ) <= 2 ) :
-													foreach ( $categories->terms as $category ) {
-														if ($current_translation) {
-															$translation = get_term_by('slug', $category->slug . '-' . $current_translation, 'event-categories');
-														}
-														$term_name = isset($translation) && strlen($translation->name) > 0 ? $translation->name : $category->name;
-														?>
-													<li class="tag"><?php echo esc_html( $term_name ); ?></li>
-														<?php
-														break;
-													}
-												endif;
-											endif;
-											?>
-										</ul>
-									</a>
-								</div>
-							</div>
 					<?php endforeach; ?>
 					</div>
 					<?php else : ?>
@@ -1222,7 +1160,11 @@
 								?>
 							<div class="group__card-image" style="background-image: url('<?php echo esc_url_raw( $group_image_url ); ?>');">
 								<?php if ( $is_admin ) : ?>
-								<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>/admin/edit-details/" class="group__edit-link">
+								<a href="
+									<?php
+									if ( $current_translation ) :
+										?>
+										<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>/admin/edit-details/" class="group__edit-link">
 									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 										<path d="M23.64 6.36L17.64 0.36C17.16 -0.12 16.44 -0.12 15.96 0.36L0.36 15.96C0.12 16.2 0 16.44 0 16.8V22.8C0 23.52 0.48 24 1.2 24H7.2C7.56 24 7.8 23.88 8.04 23.64L23.64 8.04C24.12 7.56 24.12 6.84 23.64 6.36ZM6.72 21.6H2.4V17.28L16.8 2.88L21.12 7.2L6.72 21.6Z" fill="#0060DF"/>
 									</svg>
@@ -1232,7 +1174,11 @@
 							<?php else : ?>
 							<div class="group__card-no-image">
 								<?php if ( $is_admin ) : ?>
-								<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>/admin/edit-details/" class="group__edit-link">
+								<a href="
+									<?php
+									if ( $current_translation ) :
+										?>
+										<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>/admin/edit-details/" class="group__edit-link">
 									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 										<path d="M23.64 6.36L17.64 0.36C17.16 -0.12 16.44 -0.12 15.96 0.36L0.36 15.96C0.12 16.2 0 16.44 0 16.8V22.8C0 23.52 0.48 24 1.2 24H7.2C7.56 24 7.8 23.88 8.04 23.64L23.64 8.04C24.12 7.56 24.12 6.84 23.64 6.36ZM6.72 21.6H2.4V17.28L16.8 2.88L21.12 7.2L6.72 21.6Z" fill="#0060DF"/>
 									</svg>
@@ -1416,7 +1362,9 @@
 
 							if ( isset( $options['discourse_url'] ) && strlen( $options['discourse_url'] ) > 0 ) {
 								$discourse_api_url = rtrim( $options['discourse_url'], '/' );
-								$api_url           = "{$options['discourse_url']}/c/{$discourse_group['discourse_category_id']}";
+								
+								$discourse_category_id = intval( trim( $discourse_group['discourse_category_id'] ) );
+								$api_url           = "{$options['discourse_url']}/c/{$discourse_category_id}";
 
 								$topics = mozilla_discourse_get_category_topics( $api_url );
 								$topics = array_slice( $topics, 0, 4 );
@@ -1477,7 +1425,9 @@
 					<div class="group__right-column">
 						<div class="group__card">
 							<div class="group__card-content group__card-content--small">
-								<span><?php esc_html_e( 'Activity', 'community-portal' ); ?></span>
+								<div>
+									<p class="group__card-content__subtitle"><?php esc_html_e( 'Activity', 'community-portal' ); ?></p>
+								</div>
 								<?php
 									$args = array(
 										'group' => $group->id,
@@ -1487,42 +1437,53 @@
 									$events      = EM_Events::get( $args );
 									$event_count = count( $events );
 									?>
-								<div class="group__member-count-container">
-									<span class="group__event-count"><?php echo esc_html( $event_count ); ?></span>
-									<?php esc_html_e( 'Events this month' ); ?>
-								</div>
-								<div class="group__member-count-container">
-									<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>?view=people" class="group__member-count"><?php echo esc_html( $member_count ); ?></a>
-									<?php esc_html_e( 'Members', 'community-portal' ); ?>
-								</div>
+								<a href="<?php if ( $current_translation ) : ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>/?view=events" class="group__member-count">
+									<div class="group__member-count-container">
+										<p>
+											<span class="group__member-count__numeral"><?php echo esc_html( $event_count ); ?></span>
+											<span><?php esc_html_e( 'Events this month', 'community-portal' ); ?></span>
+										</p>
+									</div>
+								</a>
+
+								<a href="
+									<?php
+									if ( $current_translation ) :
+										?>
+								<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>?view=people" class="group__member-count">
+									<div class="group__member-count-container">
+										<p>
+											<span class="group__member-count__numeral"><?php echo esc_html( $member_count ); ?></span>
+											<span><?php esc_html_e( 'Members', 'community-portal' ); ?></span>
+										</p>
+									</div>
+								</a>
 							</div>
 						</div>
 						<?php
-							$args       = array(
+							$args   = array(
 								'group'   => $group->id,
 								'orderby' => 'event_start_date',
 								'order'   => 'DESC',
 								'scope'   => 'all',
 							);
-							$events     = EM_Events::get( $args );
-							$event      = isset( $events[0] ) ? $events[0] : false;
-							$event_time = strtotime( $event->start_date );
-							$event_date = gmdate( 'M d', $event_time );
-
-
-							$location = em_get_location( $event->location_id );
-
-							if( $current_translation ) {
-								$event_link = "/{$current_translation}/events/{$event->event_slug}";
-							} else {
-								$event_link = "/events/{$event->event_slug}";
+							$events = EM_Events::get( $args );
+							$event  = isset( $events[0] ) && ! empty( $events[0] ) ? $events[0] : false;
+							$event_date;
+							if ( $event && isset( $event->start_date ) ) {
+								$date_format = 'en' === $current_translation ? 'M d' : 'd M';
+								$event_date  = mozilla_localize_date( $event->start_date, $date_format );
 							}
 
+							$location   = $event ? em_get_location( $event->location_id ) : null;
+							$event_link = $event ? get_home_url( null, 'events/' . $event->event_slug ) : null;
 							?>
 						<?php if ( $event ) : ?>
 						<div class="group__card">
 							<div class="group__card-content group__card-content--small">
-								<span><?php esc_html_e( 'Related Events', 'community-portal' ); ?></span>
+								<div>
+									<p class="group__card-content__subtitle"><?php esc_html_e( 'Related Events', 'community-portal' ); ?></p>
+								</div>
 
 								<a class="group__event wtf" href="<?php echo esc_url_raw( $event_link ); ?>"> 
 									<div class="group__event-date">
@@ -1531,7 +1492,11 @@
 									<div class="group__event-info">
 										<div class="group__event-title"><?php echo esc_html( $event->event_name ); ?></div>
 										<div class="group__event-time">
-											<?php echo esc_html( gmdate( 'M d, Y', $event_time ) . " ∙ {$event->start_time}" ); ?>
+											<?php
+												$date_format    = 'en' === $current_translation ? 'F d, Y ∙ H:i' : 'd F, Y ∙ H:i';
+												$formatted_date = mozilla_localize_date( $event->start_date, $date_format );
+												echo esc_html( $formatted_date ) . ' ' . esc_html__( 'UTC' );
+											?>
 										</div>
 										<div class="group__event-location">
 											<svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1550,7 +1515,11 @@
 										</div>
 									</div>
 								</a>
-								<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>/?view=events" class="group__events-link">
+								<a href="
+								<?php
+								if ( $current_translation ) :
+									?>
+									<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>/?view=events" class="group__events-link">
 									<?php esc_html_e( 'View more events', 'community-portal' ); ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
 								</a>
 							</div>
@@ -1558,7 +1527,9 @@
 						<?php endif; ?>
 						<div class="group__card">
 							<div class="group__card-content group__card-content--small">
-								<span><?php esc_html_e( 'Group Contacts', 'community-portal' ); ?></span> 
+								<div>
+									<p class="group__card-content__subtitle"><?php esc_html_e( 'Group Contacts', 'community-portal' ); ?></p>
+								</div>
 								<div class="group__admins">
 									<?php foreach ( $admins as $admin ) : ?>
 										<?php
@@ -1578,7 +1549,11 @@
 										}
 
 										?>
-									<a class="group__admin" href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/people/<?php echo esc_attr( $u->user_nicename ); ?>">
+									<a class="group__admin" href="
+										<?php
+										if ( $current_translation ) :
+											?>
+											<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/people/<?php echo esc_attr( $u->user_nicename ); ?>">
 										<div class="members__avatar
 										<?php
 										if ( false === $info['profile_image']->display || false === $info['profile_image']->value ) :
@@ -1590,8 +1565,8 @@
 											style="background-image: url('<?php echo esc_url_raw( $avatar_url ); ?>')"<?php endif; ?> data-username="<?php echo esc_attr( $u->user_nicename ); ?>">
 										</div>
 										<div class="username">
-											<div><?php echo esc_html( "@{$u->user_nicename}" ); ?></div>
-											<div class="group__admin-name">
+											<p class="group__admin-username"><?php echo esc_html( "@{$u->user_nicename}" ); ?></>
+											<p class="group__admin-name">
 												<?php
 												if ( $info['first_name']->display && $info['first_name']->value ) :
 													echo esc_html( $info['first_name']->value );
@@ -1602,37 +1577,44 @@
 													echo esc_html( $info['last_name']->value );
 													?>
 													<?php endif; ?>
-											</div>
+											</p>
 										</div>
 									</a>
 									<?php endforeach; ?>
 								</div>
 							</div>
 						</div>
-												<?php if ( strlen( $group_meta['group_language'] ) > 0 && array_key_exists( strtolower( $group_meta['group_language'] ), $languages ) ) : ?>
+							<?php if ( isset( $group_meta['group_language'] ) && strlen( $group_meta['group_language'] ) > 0 && array_key_exists( strtolower( $group_meta['group_language'] ), $languages ) ) : ?>
 						<div class="group__card">
 							<div class="group__card-content group__card-content--small">
-								<span><?php esc_html_e( 'Preferred Language', 'community-portal' ); ?></span>
-								<div class="group__tags">
-									<div class="group__language">
-										<a href="/groups/?language=<?php echo esc_attr( strtolower( $group_meta['group_language'] ) ); ?>" class="group__language-link"><?php echo esc_html( $languages[ strtolower( $group_meta['group_language'] ) ] ); ?></a>
-									</div>
+								<div>
+									<p class="group__card-content__subtitle"><?php esc_html_e( 'Preferred Language', 'community-portal' ); ?></p>
+								</div>
+								<div class="group__language">
+									<a href="<?php echo esc_url_raw( add_query_arg( array('language' => strtolower( $group_meta['group_language'] ) ),get_home_url( null, 'groups') ) ); ?>" class="group__language-link"><?php echo esc_html( $languages[ strtolower( $group_meta['group_language'] ) ] ); ?></a>
 								</div>
 							</div>
 						</div>
 						<?php endif; ?>
-						<?php if ( count( array_unique( $group_meta['group_tags'] ) ) > 0 ) : ?>
+						<?php $group_tags = isset($group_meta['group_tags']) ? array_unique( array_filter( $group_meta['group_tags'], 'mozilla_filter_inactive_tags')) : false; ?>
+						<?php if ( isset( $group_tags ) && is_array($group_tags) && count( $group_tags ) > 0 ) : ?>
 						<div class="group__card">
 							<div class="group__card-content group__card-content--small">
-								<span><?php esc_html_e( 'Tags', 'community-portal' ); ?></span>
+								<div>
+									<p class="group__card-content__subtitle"><?php esc_html_e( 'Tags', 'community-portal' ); ?></p>
+								</div>
 								<div class="group__tags">
-									<?php foreach ( array_unique( $group_meta['group_tags'] ) as $tag_loop ) : ?>
+									<?php foreach ( $group_tags as $tag_loop ) : ?>
+										
 										<?php
 										foreach ( $tags as $t ) {
 											$found = false;
 											if ( $current_translation ) {
 												$temp_slug = $t->slug;
-												$temp_slug = substr( $temp_slug, 0, stripos( $temp_slug, '-' ) );
+												if ( false !== stripos( $temp_slug, '_' ) ) {
+													$temp_slug = substr( $temp_slug, 0, stripos( $temp_slug, '_' ) );
+												}
+
 												if ( $tag_loop === $temp_slug ) {
 													$tag_name = $t->name;
 													$found    = true;
@@ -1648,9 +1630,13 @@
 											}
 										}
 										?>
-										<?php if ( ! empty( $system_tag[0]->name ) ) : ?>
-									<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/?tag=<?php echo esc_attr( $tag_loop ); ?>" class="group__tag"><?php echo esc_html( $system_tag[0]->name ); ?></a>
-									<?php endif; ?>
+										<?php if ( ! empty( $tag_name ) ) : ?>
+											<a href="
+											<?php
+											if ( $current_translation ) :
+												?>
+												<?php echo esc_url_raw( "/{$current_translation}/" ); ?><?php endif; ?>/groups/?tag=<?php echo esc_attr( $tag_loop ); ?>" class="group__tag"><?php echo esc_html( $tag_name ); ?></a>
+										<?php endif; ?>
 									<?php endforeach; ?>
 								</div>
 							</div>
@@ -1667,10 +1653,10 @@
 						if ( ! empty( $_SERVER['HTTP_HOST'] ) && ! empty( $_SERVER['REQUEST_URI'] ) ) {
 							$server_host = sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) );
 							$server_uri  = sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) );
-							$body        = __( 'Please provide a reason you are reporting this group', 'community-portal' ) . "https://{$server_host}{$server_uri}";
+							$body        = __( 'Please provide a reason you are reporting this group', 'community-portal' ) . " https://{$server_host}{$server_uri}";
 						}
 						?>
-						<a href="mailto:<?php echo esc_attr( $report_email ); ?>?subject=<?php echo esc_attr( $subject ); ?>&body=<?php esc_attr( $body ); ?>" class="group__report-group-link">
+						<a href="mailto:<?php echo esc_attr( $report_email ); ?>?subject=<?php echo esc_attr( $subject ); ?>&body=<?php echo esc_attr( $body ); ?>" class="group__report-group-link">
 						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 							<path d="M12 8V12" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

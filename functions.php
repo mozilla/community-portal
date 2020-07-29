@@ -34,6 +34,7 @@ add_action( 'init', 'mozilla_init' );
 add_action( 'admin_init', 'mozilla_redirect_admin' );
 add_action( 'get_header', 'mozilla_remove_admin_login_header' );
 add_action( 'wp_enqueue_scripts', 'mozilla_init_scripts' );
+add_action( 'wp_enqueue_scripts', 'mozilla_init_fe_styles' );
 add_action( 'admin_enqueue_scripts', 'mozilla_init_admin_scripts' );
 add_action( 'admin_menu', 'mozilla_add_menu_item' );
 
@@ -61,6 +62,7 @@ add_action( 'wp_ajax_nopriv_validate_group', 'mozilla_validate_group_name' );
 add_action( 'wp_ajax_validate_group', 'mozilla_validate_group_name' );
 add_action( 'wp_ajax_check_user', 'mozilla_validate_username' );
 add_action( 'wp_ajax_delete_user', 'mozilla_delete_user' );
+add_action( 'wp_ajax_get_locations', 'mozilla_get_locations' );
 add_action( 'wp_ajax_newsletter_subscribe', 'mozilla_newsletter_subscribe' );
 add_action( 'wp_ajax_nopriv_newsletter_subscribe', 'mozilla_newsletter_subscribe' );
 add_action( 'wp_ajax_mailchimp_unsubscribe', 'mozilla_mailchimp_unsubscribe' );
@@ -104,6 +106,7 @@ remove_action( 'em_event_save', 'bp_em_group_event_save', 1, 2 );
 remove_action( 'media_buttons', 'media_buttons' );
 
 // Filters.
+add_filter( 'send_email_change_email', '__return_false' );
 add_filter( 'nav_menu_link_attributes', 'mozilla_add_menu_attrs', 10, 3 );
 add_filter( 'nav_menu_css_class', 'mozilla_menu_class', 10, 4 );
 add_filter( 'em_get_countries', 'mozilla_add_online_to_countries', 10, 1 );
@@ -116,6 +119,8 @@ add_filter( 'wp_redirect', 'mozilla_events_redirect' );
 add_filter( 'em_event_delete', 'mozilla_delete_events', 10, 2 );
 add_filter( 'body_class', 'mozilla_update_body_class' );
 add_filter( 'acf/load_field/name=featured_group', 'acf_load_bp_groups', 10, 1 );
+add_filter('acf/fields/post_object/query/name=event', 'mozilla_query_all_events', 10, 3);
+add_filter('acf/fields/post_object/query/name=single_event', 'mozilla_query_all_events', 10, 3);
 add_filter( 'query_vars', 'mozilla_add_query_vars_filter' );
 add_filter( 'bp_groups_list_table_get_columns', 'mozilla_add_group_columns' );
 add_filter( 'bp_groups_admin_get_group_custom_column', 'mozilla_group_addional_column_info', 10, 3 );
@@ -131,10 +136,6 @@ function mozilla_theme_setup() {
 }
 
 
-// Include theme style.css file not in admin page.
-if ( ! is_admin() ) {
-	wp_enqueue_style( 'style', get_stylesheet_uri(), array(), filemtime( get_template_directory() . '/style.css' ), false );
-}
 
 /**
  * Initialize theme
@@ -218,4 +219,18 @@ function mozilla_init() {
 }
 
 
+
+add_filter( 'wpml_sl_blacklist_requests', 'wpml_sl_blacklist_requests', 10, 2 );
+
+/**
+ * Stop WPML from rewriting Event URLs
+ *
+ * @param array $blacklist current list of blacklisted strings.
+ * @param mixed $sitepress the current sitepress instance.
+ */
+function wpml_sl_blacklist_requests( $blacklist, $sitepress ) {
+  $blacklist[] = '/events\/[a-zA-z]/';
+  $blacklist[] = '/.+/';
+	return $blacklist;
+}
 

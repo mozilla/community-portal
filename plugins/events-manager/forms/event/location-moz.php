@@ -8,16 +8,24 @@
  * @author  Playground Inc.
  */
 
-$em_event    = $GLOBALS['EM_Event'];
-$em_location = $GLOBALS['EM_Location'];
+	global $EM_Event;
+	$em_location = $GLOBALS['EM_Location'];
 
-$required = apply_filters( 'em_required_html', '<i>*</i>' );
+if ( 0 !== $EM_Event->location_id ) {
+	$em_location = $EM_Event->get_location();
+} else {
+	$em_location = new EM_Location();
+}
+
+	$required = apply_filters( 'em_required_html', '<i>*</i>' );
+	$location_type = '';
 if ( isset( $_REQUEST['nonce'] ) && wp_verify_nonce( sanitize_key( $_REQUEST['nonce'] ), 'edit-event' ) && isset( $_REQUEST['event_id'] ) ) {
-	$event         = sanitize_key( $_REQUEST['event_id'] );
-	$event         = em_get_event( $event );
-	$event_meta    = get_post_meta( $event->post_id, 'event-meta' );
-	$location_type = isset( $event_meta[0]->location_type ) && strlen( $event_meta[0]->location_type ) > 0 ? $event_meta[0]->location_type : null;
-
+	$event               = sanitize_key( $_REQUEST['event_id'] );
+	$event               = em_get_event( $event );
+	$event_meta          = get_post_meta( $event->post_id, 'event-meta' );
+	$event_location_type = isset( $event_meta[0]->location_type ) && strlen( $event_meta[0]->location_type ) > 0 ? $event_meta[0]->location_type : null;
+	$location_type       = get_post_meta( $em_location->post_id, 'location-type', true );
+	$location_type       = isset( $location_type ) && strlen( $location_type ) > 0 ? $location_type : $event_location_type;
 } else {
 	$event = false;
 }
@@ -25,12 +33,16 @@ if ( isset( $_REQUEST['nonce'] ) && wp_verify_nonce( sanitize_key( $_REQUEST['no
 ?>
 <div id="em-location-data" class="em-location-data">
 	<div>
-		<button id="em-location-reset" class="btn event-creator__location-reset 
-		<?php
-		if ( ! $event ) {
-			echo esc_attr( 'hidden' ); }
-		?>
-		" style="">
+		<button 
+			id="em-location-reset"
+			class="btn event-creator__location-reset 
+			<?php
+			if ( ! $event ) {
+				echo esc_attr( 'hidden' ); }
+			?>
+			" 
+			type="button"
+		>
 			<a>
 				<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path d="M23.64 6.36L17.64 0.36C17.16 -0.12 16.44 -0.12 15.96 0.36L0.36 15.96C0.12 16.2 0 16.44 0 16.8V22.8C0 23.52 0.48 24 1.2 24H7.2C7.56 24 7.8 23.88 8.04 23.64L23.64 8.04C24.12 7.56 24.12 6.84 23.64 6.36ZM6.72 21.6H2.4V17.28L16.8 2.88L21.12 7.2L6.72 21.6Z" fill="#0060DF"/>
@@ -44,62 +56,75 @@ if ( isset( $_REQUEST['nonce'] ) && wp_verify_nonce( sanitize_key( $_REQUEST['no
 	if ( $event ) {
 		echo esc_attr( 'event-creator__location-edit' ); }
 	?>
-	em-location-data event-creator__location">
-		<?php
-			global $em_location;
-		if ( 0 !== $em_event->location_id ) {
-			$em_location = $em_event->get_location();
-		} else {
-			$em_location = new EM_Location();
-		}
-		?>
+		em-location-data event-creator__location">
 		<div class="event-creator__three-up">
-			<div class="wide 
-			<?php
-			if ( $event ) {
-				echo esc_attr( 'wide--md-third' ); }
-			?>
-			">
-				<label class="event-creator__label" for="location-type"><?php esc_html_e( 'Is this event online or on location? *', 'community-portal' ); ?></label>
-				<select class="event-creator__dropdown" name="location-type" id="location-type" 
+			<div 
+				class="wide 
 				<?php
 				if ( $event ) {
-					echo esc_attr( 'disabled' ); }
+					echo esc_attr( 'wide--md-third' ); }
 				?>
-				required>
-					<option value="online" 
-					<?php
-					if ( 'online' === $location_type ) :
-						echo esc_attr( 'selected' );
-					endif;
-					?>
-					default ><?php esc_html_e( 'Online', 'community-portal' ); ?></option>
-					<option value="address" 
-					<?php
-					if ( 'address' === $location_type ) :
-						echo esc_attr( 'selected' );
-endif;
-					?>
-					><?php esc_html_e( 'Physical Location', 'community-portal' ); ?></option>
+				"
+			>
+				<label class="event-creator__label" for="location-type">
+					<?php esc_html_e( 'Is this event online or on location? *', 'community-portal' ); ?>
+				</label>
+				<input type="hidden" id="location-type--hidden" name="location-type" value="<?php echo esc_attr( $location_type ); ?>">
+				<select 
+					class="event-creator__dropdown" 
+					name="location-type" 
+					id="location-type" 
+					<?php if ( isset( $location_type ) && strlen( $location_type ) > 0 ) : ?>
+						<?php echo esc_attr( 'disabled' ); ?>
+						tabindex=<?php echo esc_attr( '-1' ); ?>
+					<?php endif; ?>
+					required
+				>
+					<option 
+						value="online" 
+						<?php
+						if ( isset( $location_type ) && 'online' === $location_type ) :
+							echo esc_attr( 'selected' );
+							endif;
+						?>
+						default 
+					>
+						<?php esc_html_e( 'Online', 'community-portal' ); ?>
+					</option>
+					<option 
+						value="address" 
+						<?php
+						if ( isset( $location_type ) && 'address' === $location_type ) :
+							echo esc_attr( 'selected' );
+							endif;
+						?>
+					>
+						<?php esc_html_e( 'Physical Location', 'community-portal' ); ?>
+					</option>
 				</select>
 				<div class="form__error-container">
 					<p class="form__error"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></p>
 				</div>
-				<input id="location-type-placeholder" type="hidden" name="location-type" value=
-				<?php
-				if ( isset( $location_type ) && strlen( $location_type ) > 0 ) {
-					echo esc_attr( $location_type );
-				}
-				?>
-				>
 			</div>
 			<div class="wide--double">
-				<label class="event-creator__label event-creator__label--online" for="location-name" id="location-name-label">
-					<span class="online"><?php esc_html_e( 'Online Meeting Link *', 'commuity-portal' ); ?></span>
-					<span class="in-person"><?php esc_html_e( 'Location Name *', 'commuity-portal' ); ?></span>	
+				<?php
+					$location_class = isset( $location_type ) && 'address' === $location_type ? 'event-creator__label--in-person' : 'event-creator__label--online';
+				?>
+				<label class="event-creator__label <?php echo esc_attr( $location_class ); ?>" for="location-name-mozilla" id="location-name-label">
+					<span class="online"><?php esc_html_e( 'Online Meeting Link *', 'community-portal' ); ?></span>
+					<span class="in-person"><?php esc_html_e( 'Location Name *', 'community-portal' ); ?></span>	
 				</label>
 				<input id='location-id' name='location_id' type='hidden' value='<?php echo esc_attr( $em_location->location_id ); ?>' size='15'  />
-				<input class="event-creator__input" id="location-name" type="type" name="location_name" required value="<?php echo esc_attr( $em_location->location_name ); ?>" required />	
+				<input 
+					class="event-creator__input" 
+					id="location-name-mozilla" 
+					type="type" 
+					name="location_name" 
+					required
+					value="<?php echo esc_attr( $em_location->location_name ); ?>" 
+					<?php echo $event ? esc_attr( 'readonly' ) : null; ?> 
+					tabindex=<?php echo $event ? esc_attr( '-1' ) : esc_attr( '0' ); ?>
+				/>	
 				<div class="form__error-container">
 					<p class="form__error">
 						<span class="in-person"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></span>
@@ -110,14 +135,28 @@ endif;
 		</div>
 		<div class="event-creator__three-up 
 		<?php
-		if ( 'online' === $location_type || ! $event_id ) :
+		if ( ! isset( $event ) ) {
 			echo esc_attr( 'event-creator__hidden' );
-		endif;
+		} elseif ( ! isset( $location_type ) ) {
+			echo esc_attr( 'event-creator__hidden' );
+
+		} elseif ( 'address' !== $location_type ) {
+			echo esc_attr( 'event-creator__hidden' );
+		}
 		?>
 		">
 			<div class="em-location-data-address wide--full">
-				<label class="event-creator__label" for="location-address"><?php esc_html_e( 'Address *', 'commuity-portal' ); ?></label>
-				<input class="event-creator__input" id="location-address" type="text" name="location_address" required value="<?php $em_location->location_address ? print esc_attr( $em_location->location_address ) : esc_html_e( 'Online', 'community-portal' ); ?>" required/> 
+				<label class="event-creator__label" for="location-address"><?php esc_html_e( 'Address *', 'community-portal' ); ?></label>
+				<input 
+					class="event-creator__input" 
+					id="location-address" 
+					type="text" 
+					name="location_address" 
+					required 
+					value="<?php $em_location->location_address ? print esc_attr( $em_location->location_address ) : esc_attr_e( 'Online', 'community-portal' ); ?>" 
+					<?php echo $event ? esc_attr( 'readonly' ) : null; ?>
+					tabindex=<?php echo $event ? esc_attr( '-1' ) : esc_attr( '0' ); ?>
+				/> 
 				<div class="form__error-container">
 					<p class="form__error"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></p>
 				</div>
@@ -125,25 +164,50 @@ endif;
 		</div>
 		<div class="event-creator__three-up">
 			<div class="wide">
-				<label id="location-country-label" class="event-creator__label event-creator__label--online " for="location-country">
-					<span class="online"><?php esc_html_e( 'Where will this event be held? *', 'commuity-portal' ); ?></span>
-					<span class="in-person"><?php esc_html_e( 'Country', 'commuity-portal' ); ?></span>
+				<label 
+					id="location-country-label" 
+					class="event-creator__label 
+						<?php
+							if (isset( $location_type )) {
+								if ('online' === $location_type) {
+									echo esc_attr( 'event-creator__label--online' );
+								} else {
+									echo esc_attr( 'event-creator__label--in-person' );
+								}
+							} else {
+								echo esc_attr('event-creator__label--online');
+							}
+						?>" 
+					for="location-country"
+				>
+					<span class="online"><?php esc_html_e( 'Where will this event be held? *', 'community-portal' ); ?></span>
+					<span class="in-person"><?php esc_html_e( 'Country', 'community-portal' ); ?></span>
 				</label>
-				<select class="event-creator__dropdown" id="location-country" name="location_country" 
-				<?php
-				if ( $event ) :
-					echo esc_attr( 'disabled' );
-endif;
-				?>
-				required>
-					<option value="0" 
-					<?php
-					if ( '' === $em_location->location_country && '' === $em_location->location_id ) {
-						echo esc_attr( 'selected="selected"' );
-					} else {
-						echo esc_attr( '' ); }
-					?>
-					><?php esc_html_e( 'Select', 'commuity-portal' ); ?></option>
+				<input type="hidden" id="location-country--hidden" name="location_country" value="<?php echo esc_attr( $em_location->location_country ); ?>">
+				<select 
+					class="event-creator__dropdown" 
+					id="location-country" 
+					name="location_country" 
+					required
+					<?php if ( isset( $em_location->location_country ) && strlen( $em_location->location_country ) > 0 ) : ?>
+						<?php echo esc_attr( 'disabled' ); ?>
+						tabindex=<?php echo esc_attr( '-1' ); ?>
+					<?php endif; ?>
+				>
+					<option 
+						value="0" 
+						default
+
+						<?php
+						if ( '' === $em_location->location_country ) {
+							echo esc_attr( 'selected="selected"' );
+						} else {
+							echo esc_attr( '' );
+						}
+						?>
+					>
+						<?php esc_html_e( 'Select', 'community-portal' ); ?>
+					</option>
 					<optgroup label="<?php esc_html_e( 'Online', 'community-portal' ); ?>">
 						<option value="OE" 
 						<?php
@@ -151,7 +215,7 @@ endif;
 							echo esc_attr( 'selected' );
 						}
 						?>
-						><?php esc_html_e( 'Online Event *', 'commuity-portal' ); ?></option>
+						><?php esc_html_e( 'Online Event *', 'community-portal' ); ?></option>
 					</optgroup>
 					<optgroup label="<?php esc_html_e( 'On Location', 'community-portal' ); ?>">
 						<?php
@@ -176,10 +240,21 @@ endif;
 			</div>
 			<div class="wide--double">
 			<label class="event-creator__label event-creator__label--in-person" for="location-town">
-					<span class="in-person"><?php esc_html_e( 'City *', 'commuity-portal' ); ?></span>
-					<span class="online"><?php esc_html_e( 'URL *', 'commuity-portal' ); ?></span>
+					<span class="in-person"><?php esc_html_e( 'City *', 'community-portal' ); ?></span>
+					<span class="online"><?php esc_html_e( 'URL *', 'community-portal' ); ?></span>
 				</label>
-				<input class="event-creator__input" id="location-town" type="text" name="location_town" data-string="<?php esc_html_e( 'Online Event', 'community-portal' ); ?>" value="<?php echo esc_attr( $em_location->location_town ); ?>"  maxlength="180" required/>
+				<input 
+					class="event-creator__input" 
+					id="location-town" 
+					type="text" 
+					name="location_town" 
+					data-string="<?php esc_attr_e( 'Online Event', 'community-portal' ); ?>" 
+					value="<?php echo esc_attr( $em_location->location_town ); ?>"  
+					maxlength="180" 
+					required
+					<?php echo $event ? esc_attr( 'readonly' ) : null; ?> 
+					tabindex=<?php echo $event ? esc_attr( '-1' ) : esc_attr( '0' ); ?>
+				/>
 				<div class="form__error-container">
 					<p class="form__error">
 						<?php esc_html_e( 'This field is required', 'community-portal' ); ?>

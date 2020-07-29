@@ -47,8 +47,11 @@ $total_pages = ceil( $activity_count / $activities_per_page );
 			<?php foreach ( $activities as $activity ) : ?>
 				<?php
 				$activity_image  = wp_get_attachment_url( get_post_thumbnail_id( $activity->ID ) );
-				$activitiy_desc  = get_field( 'card_description', $activity->ID );
-				$time_commitment = get_field( 'time_commitment', $activity->ID );
+
+				if (function_exists('get_field')) {
+					$activitiy_desc  = get_field( 'card_description', $activity->ID );
+					$time_commitment = get_field( 'time_commitment', $activity->ID );
+				}
 				?>
 				<div class="col-lg-4 col-md-6 activities__column">
 					<div class="activities__card">
@@ -68,14 +71,14 @@ $total_pages = ceil( $activity_count / $activities_per_page );
 								<?php endif; ?>
 								<?php
 									$tags = get_the_tags( $activity->ID );
-									if ( ( is_array( $tags ) && count( $tags ) > 0 ) || $time_commitment ) :
+									if ( ( is_array( $tags ) && count( $tags ) > 0 ) || ! empty( $time_commitment ) ) :
 
 								?>
 									<div class="activities__tag-container">
 										<?php if ( is_array( $tags ) && count( $tags ) > 0 ) : ?>
 										<span class="activities__tag"><?php echo esc_html( $tags[0]->name ); ?></span>
 										<?php endif; ?>
-										<?php if ( $time_commitment ) : ?>
+										<?php if ( ! empty( $time_commitment ) ) : ?>
 										<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 											<path d="M7.99992 14.6654C11.6818 14.6654 14.6666 11.6806 14.6666 7.9987C14.6666 4.3168 11.6818 1.33203 7.99992 1.33203C4.31802 1.33203 1.33325 4.3168 1.33325 7.9987C1.33325 11.6806 4.31802 14.6654 7.99992 14.6654Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 											<path d="M8 4V8L10.6667 9.33333" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -120,7 +123,7 @@ $total_pages = ceil( $activity_count / $activities_per_page );
 				<div class="activities__pagination">
 					<div class="activities__pagination-container">
 						<?php if ( $total_pages > 1 ) : ?>
-						<a href="<?php echo esc_attr( add_query_arg(array('a' => $previous_page), get_home_url( null, 'activities' ) ) ); ?>" class="activities__pagination-link">
+						<a href="<?php echo esc_attr( add_query_arg(array('a' => $previous_page), get_home_url( null, 'activities' ) ) ); ?>" class="activities__pagination-link activities__pagination-link--arrow">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 								<path d="M17 23L6 12L17 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 							</svg>
@@ -148,7 +151,7 @@ $total_pages = ceil( $activity_count / $activities_per_page );
 								if ( $p === $total_pages ) :
 									?>
 								activities__pagination-link--active<?php endif; ?>"><?php echo esc_html( $total_pages ); ?></a><?php endif; ?>
-						<a href="<?php echo esc_attr( add_query_arg( array( 'a' => $next_page ), get_home_url( null, 'activities' ) ) ); ?>" class="activities__pagination-link">
+						<a href="<?php echo esc_attr( add_query_arg( array( 'a' => $next_page ), get_home_url( null, 'activities' ) ) ); ?>" class="activities__pagination-link activities__pagination-link--arrow">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 							<path d="M7 23L18 12L7 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>

@@ -16,7 +16,9 @@
 	get_header();
 
 	$template_dir = get_template_directory();
+
 	require "{$template_dir}/languages.php";
+	require "{$theme_directory}/countries.php";
 
 	// Execute actions by buddypress!
 	do_action( 'bp_before_directory_groups_page' );
@@ -39,7 +41,7 @@
 	}
 
 	$mygroups     = isset( $_GET['mygroups'] ) ? htmlspecialchars( sanitize_text_field( wp_unslash( $_GET['mygroups'] ) ), ENT_QUOTES, 'UTF-8' ) : '';
-	$location     = isset( $_GET['location'] ) ? htmlspecialchars( sanitize_text_field( wp_unslash( $_GET['location'] ) ), ENT_QUOTES, 'UTF-8' ) : '';
+	$location     = isset( $_GET['country'] ) ? htmlspecialchars( sanitize_text_field( wp_unslash( $_GET['country'] ) ), ENT_QUOTES, 'UTF-8' ) : '';
 	$get_language = isset( $_GET['language'] ) ? htmlspecialchars( sanitize_text_field( wp_unslash( $_GET['language'] ) ), ENT_QUOTES, 'UTF-8' ) : '';
 	$get_tag      = isset( $_GET['tag'] ) ? htmlspecialchars( sanitize_text_field( wp_unslash( $_GET['tag'] ), ENT_QUOTES, 'UTF-8' ) ) : '';
 
@@ -102,8 +104,8 @@
 		}
 
 		if ( isset( $_GET['tag'] ) && strlen( $get_tag ) > 0
-			&& isset( $_GET['location'] ) && strlen( $location ) > 0
-			&& isset( $_GET['language'] ) && strlen( $get_language ) > 0 ) {
+			&& isset( $_GET['country'] ) && strlen( $location ) > 0
+			&& isset( $_GET['country'] ) && strlen( $get_language ) > 0 ) {
 
 			if ( isset( $meta['group_language'] ) ) {
 				if ( in_array( strtolower( trim( $get_tag ) ), array_map( 'strtolower', $meta['group_tags'] ), true )
@@ -114,7 +116,7 @@
 				}
 			}
 		} elseif ( ( ! isset( $_GET['tag'] ) || 0 === strlen( $get_tag ) )
-			&& isset( $_GET['location'] ) && strlen( $location ) > 0
+			&& isset( $_GET['country'] ) && strlen( $location ) > 0
 			&& isset( $_GET['language'] ) && strlen( $get_language ) > 0 ) {
 
 			if ( isset( $meta['group_language'] ) ) {
@@ -125,7 +127,7 @@
 				}
 			}
 		} elseif ( isset( $_GET['tag'] ) && strlen( $get_tag ) > 0
-			&& ( ! isset( $_GET['location'] ) || 0 === strlen( $location ) )
+			&& ( ! isset( $_GET['country'] ) || 0 === strlen( $location ) )
 			&& ( ! isset( $_GET['language'] ) || 0 === strlen( $get_language ) ) ) {
 
 			if ( in_array( strtolower( trim( $get_tag ) ), array_map( 'strtolower', $meta['group_tags'] ), true ) ) {
@@ -133,7 +135,7 @@
 				continue;
 			}
 		} elseif ( isset( $_GET['tag'] ) && strlen( $get_tag ) > 0
-			&& ( ! isset( $_GET['location'] ) || strlen( $location ) === 0 )
+			&& ( ! isset( $_GET['country'] ) || strlen( $location ) === 0 )
 			&& isset( $_GET['language'] ) && strlen( $get_language ) > 0 ) {
 
 			if ( isset( $meta['group_language'] ) ) {
@@ -143,7 +145,7 @@
 					continue;
 				}
 			}
-		} elseif ( isset( $_GET['location'] ) && strlen( $location ) > 0
+		} elseif ( isset( $_GET['country'] ) && strlen( $location ) > 0
 			&& ( ! isset( $_GET['language'] ) || 0 === strlen( $get_language ) )
 			&& ( ! isset( $_GET['tag'] ) || 0 === strlen( $get_tag ) )
 			) {
@@ -152,7 +154,7 @@
 				continue;
 			}
 		} elseif ( isset( $_GET['language'] ) && strlen( $get_language ) > 0
-			&& ( ! isset( $_GET['location'] ) || 0 === strlen( $location ) )
+			&& ( ! isset( $_GET['country'] ) || 0 === strlen( $location ) )
 			&& ( ! isset( $_GET['tag'] ) || 0 === strlen( $get_tag ) )
 		) {
 			if ( isset( $meta['group_language'] ) ) {
@@ -174,7 +176,9 @@
 	}
 
 	foreach ( $language_code_with_groups as $code ) {
-		$used_language_list[ $code ] = $languages[ $code ];
+		if ( ! empty( $languages[ $code ] ) ) {
+			$used_language_list[ $code ] = $languages[ $code ];
+		}
 	}
 
 	asort( $used_language_list );
@@ -217,11 +221,13 @@
 
 	$group_count = count( $filtered_groups );
 	$offset      = ( $p - 1 ) * $groups_per_page;
-	$groups      = array_slice( $filtered_groups, $offset, $groups_per_page );
+
+	$groups = array_slice( $filtered_groups, $offset, $groups_per_page );
 
 
 	$total_pages = ceil( $group_count / $groups_per_page );
 	$tags        = get_tags( array( 'hide_empty' => false ) );
+
 	?>
 <div class="content">
 	<?php do_action( 'bp_before_directory_groups_content' ); ?>
@@ -233,13 +239,21 @@
 					<?php echo esc_html_e( 'Meet up with people who share your passion and join the movement for an open internet.', 'community-portal' ); ?>
 				</p>
 				<p class="groups__hero-copy">
-					<?php echo esc_html_e( 'Look for groups in your area, or', 'community-portal' ); ?> <a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/create/step/group-details/" class="groups__hero-link"><?php echo esc_html_e( 'create your own.', 'community-portal' ); ?></a>
+					<?php echo esc_html_e( 'Look for groups in your area, or', 'community-portal' ); ?> <a href="
+				<?php
+				if ( $current_translation ) :
+					?>
+					<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/create/step/group-details/" class="groups__hero-link"><?php echo esc_html_e( 'create your own.', 'community-portal' ); ?></a>
 					<svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M2.33337 8.66634L6.00004 4.99967L2.33337 1.33301" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 					</svg>
 				</p>
 				<div class="groups__search-container">
-					<form method="GET" action="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/" class="groups__form" id="group-search-form">
+					<form method="GET" action="
+					<?php
+					if ( $current_translation ) :
+						?>
+						<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/" class="groups__form" id="group-search-form">
 						<?php
 						if ( isset( $_GET['tag'] ) && strlen( $get_tag ) > 0 ) {
 							$get_tag = trim( $get_tag );
@@ -247,11 +261,11 @@
 						?>
 						<input type="hidden" value="<?php echo esc_attr( $get_tag ); ?>" name="tag" id="group-tag" />
 						<?php
-						if ( isset( $_GET['location'] ) && strlen( $location ) > 0 ) {
+						if ( isset( $_GET['country'] ) && strlen( $location ) > 0 ) {
 							$location = trim( $location );
 						}
 						?>
-						<input type="hidden" value="<?php echo esc_attr( $location ); ?>" name="location" id="group-location" />
+						<input type="hidden" value="<?php echo esc_attr( $location ); ?>" name="country" id="group-location" />
 						<?php
 						if ( isset( $_GET['language'] ) && strlen( $get_language ) > 0 ) {
 							$get_language = trim( $get_language );
@@ -271,7 +285,7 @@
 							<path d="M9.16667 15.8333C12.8486 15.8333 15.8333 12.8486 15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 							<path d="M17.5 17.5L13.875 13.875" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>
-							<input type="text" name="q" id="groups-search" class="groups__search-input" placeholder="<?php esc_attr_e( 'Search groups', 'community-portal' ); ?>" value="<?php echo esc_attr( $original_query ); ?>" />
+							<input type="text" name="q" id="groups-search" class="groups__search-input" placeholder="<?php esc_attr_e( 'Search groups', 'community-portal' ); ?>" value="<?php echo ! empty( $original_query ) ? esc_attr( $original_query ) : ''; ?>" />
 						</div>
 						<input type="button" class="groups__search-cta" value="<?php esc_attr_e( 'Search', 'community-portal' ); ?>" />
 					</form>
@@ -281,7 +295,7 @@
 		<div class="groups__container">
 			<div class="groups__nav">
 				<ul class="groups__menu">
-					<li class="menu-item"><a class="groups__menu-link
+					<li class="menu-item"><a class="group__menu-link groups__menu-link
 					<?php
 					if ( ! isset( $_GET['mygroups'] ) || ( isset( $_GET['mygroups'] ) && 'false' === $_GET['mygroups'] ) ) :
 						?>
@@ -289,7 +303,7 @@
 					<?php
 					if ( $logged_in ) :
 						?>
-						<li class="menu-item"><a class="groups__menu-link
+						<li class="menu-item"><a class="group__menu-link groups__menu-link
 						<?php
 						if ( isset( $_GET['mygroups'] ) && 'true' === $_GET['mygroups'] ) :
 							?>
@@ -312,7 +326,7 @@
 			</div>
 				<div class="groups__filter-container
 				<?php
-				if ( ! isset( $_GET['location'] ) && ! isset( $_GET['mygroups'] ) ) :
+				if ( ! isset( $_GET['country'] ) && ! isset( $_GET['mygroups'] ) ) :
 					?>
 					groups__filter-container--hidden<?php endif; ?>">
 				<span><?php esc_html_e( 'Filter by:', 'community-portal' ); ?></span>
@@ -323,7 +337,7 @@
 						<?php foreach ( $used_country_list as $code   => $country ) : ?>
 						<option value="<?php echo esc_attr( $code ); ?>"
 												<?php
-												if ( isset( $_GET['location'] ) && strlen( $location ) > 0 && $location === $code ) :
+												if ( isset( $_GET['country'] ) && strlen( $location ) > 0 && $location === $code ) :
 													?>
 							selected<?php endif; ?>><?php echo esc_html( $country ); ?></option>
 						<?php endforeach; ?>
@@ -350,10 +364,11 @@
 					<label class="groups__label"><?php esc_html_e( 'Tag', 'community-portal' ); ?></label>
 					<select class="groups__tag-select">
 						<option value=""><?php esc_html_e( 'All', 'community-portal' ); ?></option>
+
 						<?php foreach ( $tags as $loop_tag ) : ?>
 							<?php
-							if ( $current_translation ) {
-								$loop_tag->slug = substr( $loop_tag->slug, 0, stripos( $loop_tag->slug, '-' ) );
+							if ( false !== stripos( $loop_tag->slug, '_' ) ) {
+								$loop_tag->slug = substr( $loop_tag->slug, 0, stripos( $loop_tag->slug, '_' ) );
 							}
 							?>
 						<option value="<?php echo esc_attr( $loop_tag->slug ); ?>" 
@@ -366,7 +381,7 @@
 				</div>
 			</div>
 			<div class="groups__show-filters-container">
-				<a href="#" class="groups__toggle-filter <?php echo ( isset( $_GET['location'] ) || isset( $_GET['mygroups'] ) ? 'groups__toggle-filter--hide' : 'groups__toggle-filter--show' ); ?>">
+				<a href="#" class="groups__toggle-filter <?php echo ( isset( $_GET['country'] ) || isset( $_GET['mygroups'] ) ? 'groups__toggle-filter--hide' : 'groups__toggle-filter--show' ); ?>">
 					<span class="filters__show"><?php esc_html_e( 'Show Filters', 'community-portal' ); ?></span>
 					<span class="filters__hide"><?php esc_html_e( 'Hide Filters', 'community-portal' ); ?></span>
 				</a>
@@ -376,7 +391,7 @@
 				<?php if ( 0 === count( $groups ) ) : ?>
 					<div class="groups__no-results"><?php esc_html_e( 'No results found.  Please try another search term.', 'community-portal' ); ?></div>
 				<?php else : ?>
-					<?php if ( $original_query ) : ?>
+					<?php if ( ! empty( $original_query ) ) : ?>
 				<div class="groups__results-query">
 						<?php echo esc_html_e( 'Results for ', 'community-portal' ) . esc_html( "\"{$original_query}\"" ); ?>
 				</div>
@@ -399,7 +414,11 @@
 							}
 						}
 						?>
-					<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>" class="groups__card">
+					<a href="
+						<?php
+						if ( $current_translation ) :
+							?>
+							<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>" class="groups__card">
 						<div class="groups__group-image" style="background-image: url('<?php echo isset( $meta['group_image_url'] ) && strlen( $meta['group_image_url'] ) > 0 ? esc_url_raw( $group_image_url ) : esc_url_raw( get_stylesheet_directory_uri() . '/images/group.png' ); ?>');">
 						</div>
 						<div class="groups__card-content">
@@ -442,10 +461,11 @@
 								<div class="groups__card-tags">
 									<?php
 										$tag_counter = 0;
+										$group_tags = isset($meta['group_tags']) ? array_unique( array_filter( $meta['group_tags'], 'mozilla_filter_inactive_tags')) : null;
 									?>
-									<?php if ( isset( $meta['group_tags'] ) && is_array( $meta['group_tags'] ) ) : ?>
+									<?php if ( isset($group_tags ) && is_array( $group_tags ) ) : ?>
 									<ul class="groups__card-tags__container">
-										<?php foreach ( array_unique( $meta['group_tags'] ) as $key => $value ) : ?>
+										<?php foreach ( $group_tags as $key => $value ) : ?>
 											<?php
 
 											$system_tag = array_values(
@@ -461,8 +481,8 @@
 										<li class="groups__tag"><?php echo esc_html( $system_tag[0]->name ); ?></li>
 												<?php $tag_counter++; ?>
 										<?php endif; ?>
-											<?php if ( 2 === $tag_counter && count( $meta['group_tags'] ) > 2 ) : ?>
-										<li class="groups__tag">+ <?php echo esc_html( count( $meta['group_tags'] ) - 2 ); ?> <?php esc_html_e( ' more tags', 'community-portal' ); ?></li>
+											<?php if ( 2 === $tag_counter && count( $group_tags ) > 2 ) : ?>
+										<li class="groups__tag">+ <?php echo esc_html( count( $group_tags )  - 2 ); ?> <?php esc_html_e( ' more tags', 'community-portal' ); ?></li>
 												<?php break; ?>
 										<?php endif; ?>
 									<?php endforeach; ?>
@@ -505,7 +525,11 @@
 				<div class="groups__pagination">
 					<div class="groups__pagination-container">
 						<?php if ( $total_pages > 1 ) : ?>
-						<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/?page=<?php echo esc_attr( $previous_page ); ?>
+						<a href="
+							<?php
+							if ( $current_translation ) :
+								?>
+								<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/?page=<?php echo esc_attr( $previous_page ); ?>
 														<?php
 														if ( $q ) :
 															?>
@@ -519,13 +543,13 @@
 								?>
 	&tag=<?php echo esc_attr( $get_tag ); ?><?php endif; ?>
 							<?php
-							if ( isset( $_GET['location'] ) ) :
+							if ( isset( $_GET['country'] ) ) :
 								?>
-	&location=<?php echo esc_attr( $location ); ?><?php endif; ?>
+	&country=<?php echo esc_attr( $location ); ?><?php endif; ?>
 							<?php
 							if ( isset( $_GET['language'] ) ) :
 								?>
-	&language=<?php echo esc_attr( $get_language ); ?><?php endif; ?>" class="groups__pagination-link">
+	&language=<?php echo esc_attr( $get_language ); ?><?php endif; ?>" class="groups__pagination-link groups__pagination-link--arrow">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 								<path d="M17 23L6 12L17 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 							</svg>
@@ -533,7 +557,11 @@
 							<?php
 							if ( $page_min > 1 ) :
 								?>
-								<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/?page=1
+								<a href="
+								<?php
+								if ( $current_translation ) :
+									?>
+									<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/?page=1
 								<?php
 								if ( $q ) :
 									?>
@@ -547,15 +575,19 @@
 									?>
 	&tag=<?php echo esc_attr( $get_tag ); ?><?php endif; ?>
 								<?php
-								if ( isset( $_GET['location'] ) ) :
+								if ( isset( $_GET['country'] ) ) :
 									?>
-	&location=<?php echo esc_attr( $location ); ?><?php endif; ?>
+	&country=<?php echo esc_attr( $location ); ?><?php endif; ?>
 								<?php
 								if ( isset( $_GET['language'] ) ) :
 									?>
 	&language=<?php echo esc_attr( $get_language ); ?><?php endif; ?>" class="groups__pagination-link groups__pagination-link--first"><?php echo esc_html( '1' ); ?></a>&hellip; <?php endif; ?>
 							<?php for ( $x = $page_min - 1; $x < $page_max; $x++ ) : ?>
-						<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/?page=<?php echo esc_attr( $x + 1 ); ?>
+						<a href="
+								<?php
+								if ( $current_translation ) :
+									?>
+									<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/?page=<?php echo esc_attr( $x + 1 ); ?>
 														<?php
 														if ( $q ) :
 															?>
@@ -569,9 +601,9 @@
 									?>
 	&tag=<?php echo esc_attr( $get_tag ); ?><?php endif; ?>
 								<?php
-								if ( isset( $_GET['location'] ) ) :
+								if ( isset( $_GET['country'] ) ) :
 									?>
-	&location=<?php echo esc_attr( $location ); ?><?php endif; ?>
+	&country=<?php echo esc_attr( $location ); ?><?php endif; ?>
 								<?php
 								if ( isset( $_GET['language'] ) ) :
 									?>
@@ -588,7 +620,11 @@
 							<?php
 							if ( $total_pages > $range && $p < $total_pages - 1 ) :
 								?>
-								&hellip; <a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/?page=<?php echo esc_attr( $total_pages ); ?>
+								&hellip; <a href="
+								<?php
+								if ( $current_translation ) :
+									?>
+									<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/?page=<?php echo esc_attr( $total_pages ); ?>
 								<?php
 								if ( $q ) :
 									?>
@@ -602,9 +638,9 @@
 									?>
 	&tag=<?php echo esc_attr( $get_tag ); ?><?php endif; ?>
 								<?php
-								if ( isset( $_GET['location'] ) ) :
+								if ( isset( $_GET['country'] ) ) :
 									?>
-	&location=<?php echo esc_attr( $location ); ?><?php endif; ?>
+	&country=<?php echo esc_attr( $location ); ?><?php endif; ?>
 								<?php
 								if ( isset( $_GET['language'] ) ) :
 									?>
@@ -613,7 +649,11 @@
 								if ( $p === $total_pages ) :
 									?>
 	groups__pagination-link--active<?php endif; ?>"><?php echo esc_html( $total_pages ); ?></a><?php endif; ?>
-						<a href="<?php if( $current_translation ): ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/?page=<?php echo esc_attr( $next_page ); ?>
+						<a href="
+							<?php
+							if ( $current_translation ) :
+								?>
+								<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/?page=<?php echo esc_attr( $next_page ); ?>
 														<?php
 														if ( $q ) :
 															?>
@@ -627,13 +667,13 @@
 								?>
 	&tag=<?php echo esc_attr( $get_tag ); ?><?php endif; ?>
 							<?php
-							if ( isset( $_GET['location'] ) ) :
+							if ( isset( $_GET['country'] ) ) :
 								?>
-	&location=<?php echo esc_attr( $location ); ?><?php endif; ?>
+	&country=<?php echo esc_attr( $location ); ?><?php endif; ?>
 							<?php
 							if ( isset( $_GET['language'] ) ) :
 								?>
-	&language=<?php echo esc_attr( $get_language ); ?><?php endif; ?>" class="groups__pagination-link">
+	&language=<?php echo esc_attr( $get_language ); ?><?php endif; ?>" class="groups__pagination-link groups__pagination-link--arrow">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 							<path d="M7 23L18 12L7 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>

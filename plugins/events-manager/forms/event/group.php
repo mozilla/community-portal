@@ -26,7 +26,7 @@ foreach ( $user_groups['groups'] as $group_id ) {
 <div class="event-creator__container">
 	<label for="group" class="event-creator__label"><?php esc_html_e( 'Hosted By', 'community-portal' ); ?></label>
 	<select name="group_id" id="group" class="event-creator__dropdown">
-		<option value=""><?php esc_html_e( 'No group', 'commuity-portal' ); ?></option>
+		<option value=""><?php esc_html_e( 'No group', 'community-portal' ); ?></option>
 		<?php if ( count( $active_groups ) > 0 ) : ?>
 			<?php foreach ( $active_groups as $bp_group ) : ?>
 			<option value="<?php echo esc_attr( $bp_group->id ); ?>" 
@@ -40,6 +40,6 @@ foreach ( $user_groups['groups'] as $group_id ) {
 		<?php endif; ?>
 	</select>
 	<?php if ( em_wp_is_super_admin() ) : ?>
-		<?php esc_html_e( 'As a site admin, you see all group events, users will only be able to choose groups they are admins of.', 'commuity-portal' ); ?>
+    <p><?php esc_html_e( 'As a site admin, you see all group events, users will only be able to choose groups they are admins of.', 'community-portal' ); ?></p>
 	<?php endif; ?>
 </div>

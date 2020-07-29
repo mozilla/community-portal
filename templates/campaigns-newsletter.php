@@ -36,7 +36,7 @@
 			<p class="newsletter__text"><?php esc_html_e( 'Subscribe to our newsletter and join Mozillians all around the world and learn about impactful opportunities to support Mozilla’s mission.', 'community-portal' ); ?></p>
 		</div>
 		<div class="col-lg-6 newsletter__signup">
-			<form id="newsletter_form" name="newsletter__form" action="https://www.mozilla.org/en-US/newsletter/" method="post" class="newsletter__form" novalidate>
+			<form id="newsletter_form" name="newsletter__form" action="https://www.mozilla.org/newsletter/" method="post" class="newsletter__form" novalidate>
 				<?php wp_nonce_field( 'newsletter_nonce', 'newsletter_nonce_field' ); ?>
 				<input type="hidden" id="fmt" name="fmt" value="H">
 				<input type="hidden" id="newsletters" name="newsletters" value="about-mozilla">
@@ -72,7 +72,7 @@
 								<option value="<?php echo esc_attr( $index ); ?>" <?php echo ( strtoupper( $user_language ) === strtoupper( $index ) ? esc_attr( 'selected' ) : esc_attr( '' ) ); ?>><?php echo esc_html( $language ); ?></option>
 							<?php endforeach; ?>
 						</select>
-						<p class="newsletter__subtext"><?php esc_html_e( 'We’ll default to English but send in these languages whenever we can.', 'commmunity-portal' ); ?></p>
+						<p class="newsletter__subtext"><?php esc_html_e( 'We’ll default to English but send in these languages whenever we can.', 'community-portal' ); ?></p>
 					</div>
 				</div>
 				<div id="newsletter_privacy" class="newsletter__cpg cpg">

@@ -9,15 +9,17 @@
  * @version 1.0.0
  * @author  Playground Inc.
  */
+
 	// Lets get the group data!
 	global $bp;
+
+	$user         = wp_get_current_user();
 	$group        = $bp->groups->current_group;
 	$group_meta   = groups_get_groupmeta( $group->id, 'meta' );
 	$member_count = groups_get_total_member_count( $group->id );
 	$is_member    = groups_is_user_member( $user->ID, $group->id );
 	$admins       = groups_get_group_admins( $group->id );
 	$admin_count  = count( $admins );
-	$user         = wp_get_current_user();
 
 	$args = array(
 		'group_id'   => $group->id,

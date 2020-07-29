@@ -15,6 +15,9 @@
 	get_header();
 	global $post;
 
+	$theme_directory     = get_template_directory();
+	require "{$theme_directory}/countries.php";
+
 	$featured_image = get_the_post_thumbnail_url();
 
 	// Get the advanced custom fields for the activity.
@@ -57,33 +60,35 @@
 										<?php esc_html_e( 'Share Activity', 'community-portal' ); ?>
 									</a>
 								</div>
-								<hr class="activity__keyline" />
-								<div class="activity__description-container">
-									<?php
-										echo wp_kses(
-											wpautop( $post->post_content ),
-											array(
-												'h2'     => array( 'class' => array() ),
-												'h3'     => array( 'class' => array() ),
-												'h4'     => array( 'class' => array() ),
-												'p'      => array( 'class' => array() ),
-												'br'     => array(),
-												'div'    => array( 'class' => array() ),
-												'img'    => array(
-													'href' => array(),
-													'class' => array(),
-													'alt'  => array(),
-												),
-												'a'      => array(
-													'class' => array(),
-													'href' => array(),
-												),
-												'figure' => array( 'class' => array() ),
-												'figcaption' => array( 'class' => array() ),
-											)
-										);
+								<?php if ( ! empty( $post->post_content ) ) : ?>
+									<hr class="activity__keyline" />
+									<div class="activity__description-container">
+										<?php
+											echo wp_kses(
+												wpautop( $post->post_content ),
+												array(
+													'h2'  => array( 'class' => array() ),
+													'h3'  => array( 'class' => array() ),
+													'h4'  => array( 'class' => array() ),
+													'p'   => array( 'class' => array() ),
+													'br'  => array(),
+													'div' => array( 'class' => array() ),
+													'img' => array(
+														'href' => array(),
+														'class' => array(),
+														'alt'  => array(),
+													),
+													'a'   => array(
+														'class' => array(),
+														'href' => array(),
+													),
+													'figure' => array( 'class' => array() ),
+													'figcaption' => array( 'class' => array() ),
+												)
+											);
 										?>
-								</div>
+									</div>
+								<?php endif; ?>
 							</div>
 						</div>
 						<?php if ( strlen( $youtube_video ) > 0 ) : ?>
@@ -102,10 +107,13 @@
 						</div>
 						<?php endif; ?>
 						<?php if ( strlen( $activity_flow_title ) > 0 ) : ?>
-						<h2 class="activity__card-title"><?php echo esc_html( $activity_flow_title ); ?></h2>
-						<?php endif; ?>
-						<div class="activity__card activity__card--flow">        
-							<div class="activity__card-content">
+							<h2 class="activity__card-title"><?php echo esc_html( $activity_flow_title ); ?></h2>
+							<?php
+						endif;
+						if ( is_array( $activity_flow ) && count( $activity_flow ) > 0 ) :
+							?>
+							<div class="activity__card activity__card--flow">        
+								<div class="activity__card-content">
 								<?php
 								echo wp_kses(
 									$activity_flow_copy,
@@ -116,40 +124,41 @@
 									)
 								);
 								?>
-								<?php if ( is_array( $activity_flow ) && count( $activity_flow ) > 0 && strlen( $activity_flow[0]['title'] ) > 0 ) : ?>
-								<div class="activity__accordion">
-									<?php $accordion_counter = 0; ?>
-									<?php foreach ( $activity_flow as $flow ) : ?>
-										<?php if ( strlen( $flow['title'] ) > 0 && strlen( $flow['copy'] ) > 0 ) : ?>
-										<div class="activity__accordion-container">
-											<div role="heading" aria-level="3">
-												<button class="activity__accordion-input" id="ac-<?php echo esc_attr( $accordion_counter ); ?>" role="button" name="accordion-<?php echo esc_attr( $accordion_counter ); ?>" type="button" aria-expanded="false" aria-controls="ac-panel-<?php echo esc_attr( $accordion_counter ); ?>">
-													<?php echo esc_html( $flow['title'] ); ?>
-												</button>
+								<?php if ( strlen( $activity_flow[0]['title'] ) > 0 ) : ?>
+									<div class="activity__accordion">
+										<?php $accordion_counter = 0; ?>
+										<?php foreach ( $activity_flow as $flow ) : ?>
+											<?php if ( strlen( $flow['title'] ) > 0 && strlen( $flow['copy'] ) > 0 ) : ?>
+											<div class="activity__accordion-container">
+												<div role="heading" aria-level="3">
+													<button class="activity__accordion-input" id="ac-<?php echo esc_attr( $accordion_counter ); ?>" role="button" name="accordion-<?php echo esc_attr( $accordion_counter ); ?>" type="button" aria-expanded="false" aria-controls="ac-panel-<?php echo esc_attr( $accordion_counter ); ?>">
+														<?php echo esc_html( $flow['title'] ); ?>
+													</button>
+												</div>
+												<div id="ac-panel-<?php echo esc_attr( $accordion_counter ); ?>" class="activity__accordion-content" aria-labelledby="ac-<?php echo esc_attr( $accordion_counter ); ?>">
+													<?php
+													echo wp_kses(
+														$flow['copy'],
+														array(
+															'p' => array(),
+															'a' => array(
+																'href' => array(),
+																'class' => array(),
+															),
+															'div' => array( 'class' => array() ),
+														)
+													);
+													?>
+												</div>
 											</div>
-											<div id="ac-panel-<?php echo esc_attr( $accordion_counter ); ?>" class="activity__accordion-content" aria-labelledby="ac-<?php echo esc_attr( $accordion_counter ); ?>">
-												<?php
-												echo wp_kses(
-													$flow['copy'],
-													array(
-														'p' => array(),
-														'a' => array(
-															'href' => array(),
-															'class' => array(),
-														),
-														'div' => array( 'class' => array() ),
-													)
-												);
-												?>
-											</div>
-										</div>
-										<?php endif; ?>
-										<?php $accordion_counter++; ?>
-									<?php endforeach; ?>
+											<?php endif; ?>
+											<?php $accordion_counter++; ?>
+										<?php endforeach; ?>
+									</div>
+									<?php endif; ?>
 								</div>
-								<?php endif; ?>
 							</div>
-						</div>
+						<?php endif; ?>
 						<?php if ( strlen( $additional_information_title_left ) > 0 ) : ?>
 						<h2 class="activity__card-title"><?php echo esc_html( $additional_information_title_left ); ?></h2>               
 						<?php endif; ?>
@@ -174,30 +183,32 @@
 						<?php endif; ?>
 					</div>
 					<div class="activity__right-column">
-						<div class="activity__card">
-							<div class="activity__card-content">
-								<?php if ( is_array( $tags ) && count( $tags ) > 0 ) : ?>
-								<span><?php esc_html_e( 'Tags', 'community-portal' ); ?></span>
-								<div class="activity__tags">
-									<?php foreach ( $tags as $loop_tag ) : ?>
-									<span class="activity__tag"><?php echo esc_html( $loop_tag->name ); ?></span>
-								<?php endforeach; ?>
-								</div>
-								<?php endif; ?>
-								<?php if ( $time_commitment ) : ?>
-								<span><?php esc_html_e( 'Time Commitment', 'community-portal' ); ?></span>
-								<div class="activity__time-commitment">
-									<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path d="M8 14.6654C11.6819 14.6654 14.6667 11.6806 14.6667 7.9987C14.6667 4.3168 11.6819 1.33203 8 1.33203C4.3181 1.33203 1.33333 4.3168 1.33333 7.9987C1.33333 11.6806 4.3181 14.6654 8 14.6654Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-										<path d="M8 4V8L10.6667 9.33333" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-									</svg>
+						<?php if ( ( is_array( $tags ) && count( $tags ) > 0 ) || $time_commitment ) : ?>
+							<div class="activity__card">
+								<div class="activity__card-content">
+									<?php if ( is_array( $tags ) && count( $tags ) > 0 ) : ?>
+									<span><?php esc_html_e( 'Tags', 'community-portal' ); ?></span>
+									<div class="activity__tags">
+										<?php foreach ( $tags as $loop_tag ) : ?>
+										<span class="activity__tag"><?php echo esc_html( $loop_tag->name ); ?></span>
+									<?php endforeach; ?>
+									</div>
+									<?php endif; ?>
+									<?php if ( $time_commitment ) : ?>
+									<span><?php esc_html_e( 'Time Commitment', 'community-portal' ); ?></span>
+									<div class="activity__time-commitment">
+										<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M8 14.6654C11.6819 14.6654 14.6667 11.6806 14.6667 7.9987C14.6667 4.3168 11.6819 1.33203 8 1.33203C4.3181 1.33203 1.33333 4.3168 1.33333 7.9987C1.33333 11.6806 4.3181 14.6654 8 14.6654Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+											<path d="M8 4V8L10.6667 9.33333" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+										</svg>
 
-									<?php echo esc_html( $time_commitment ); ?>
+										<?php echo esc_html( $time_commitment ); ?>
+									</div>
+									<?php endif; ?>
 								</div>
-								<?php endif; ?>
 							</div>
-						</div>
-						<?php if ( strlen( $additional_information_title_right ) || strlen( $additional_information_copy_right ) > 0 ) : ?>
+						<?php endif; ?>
+						<?php if ( strlen( $additional_information_title_right ) > 0 || strlen( $additional_information_copy_right ) > 0 ) : ?>
 						<div class="activity__card activity__card--additional">
 							<div class="activity__card-content">
 							<?php if ( strlen( $additional_information_title_right ) > 0 ) : ?>
@@ -253,10 +264,9 @@
 								<span><?php esc_html_e( 'Related Events', 'community-portal' ); ?></span>
 								<?php foreach ( $related_events as $event ) : ?>
 									<?php
-									$event_time = strtotime( $event->start_date );
-									$event_date = gmdate( 'M d', $event_time );
-
-									$location = em_get_location( $event->location_id );
+										$date_format = 'en' === $current_translation ? 'M d' : 'd M';
+										$event_date  = mozilla_localize_date( $event->start_date, $date_format );
+										$location    = em_get_location( $event->location_id );
 									?>
 								<a class="activity__event
 									<?php
@@ -269,7 +279,11 @@
 									<div class="activity__event-info">
 										<div class="activity__event-title"><?php echo esc_html( $event->event_name ); ?></div>
 										<div class="activity__event-time">
-											<?php echo esc_html( gmdate( 'M d, Y', $event_time ) . " ∙ {$event->start_time}" ); ?>
+											<?php
+												$date_format = 'en' === $current_translation ? 'F d, Y ∙ H:i' : 'd F Y ∙ H:i';
+												$event_date  = mozilla_localize_date( $event->start_date, $date_format );
+												echo esc_html( $event_date ) . ' ' . esc_html__( 'UTC' );
+											?>
 										</div>
 										<div class="activity__event-location">
 											<svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -289,7 +303,7 @@
 									</div>
 								</a>   
 								<?php endforeach; ?>
-								<a href="<?php echo esc_attr( add_query_arg( array( 'initiative' => $post->ID ), get_home_url( null, '/events/' ) ) ); ?>" class="activity__events-link">
+								<a href="<?php echo esc_attr( add_query_arg( array( 'initiative' => $initiative_id ), get_home_url( null, '/events/' ) ) ); ?>" class="activity__events-link">
 									<?php esc_html_e( 'View more events', 'community-portal' ); ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
 								</a>
 							</div>

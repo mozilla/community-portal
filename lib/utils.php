@@ -154,9 +154,7 @@ function mozilla_upload_image() {
 							}
 						}
 					} else {
-						$image_size_string = __( 'Image size to large ', 'community-portal' );
-						$max_string        = __( 'KB maximum', 'community-portal' );
-						print esc_html( "{$image_size_string} ({$max_files_size_allowed} {$max_string})" );
+						print esc_html_e( 'Image size to large ', 'community-portal' ) . esc_html_e( '(250KB maximum)', 'community-portal' );
 					}
 				}
 			}
@@ -175,10 +173,10 @@ function mozilla_determine_site_section() {
 		$path_items = array_filter( explode( '/', esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ) );
 
 		if ( count( $path_items ) > 0 ) {
-			if( mozilla_get_current_translation() ) {
+			if ( mozilla_get_current_translation() && ! empty( $path_items[2] ) ) {
 				$section = $path_items[2];
 			} else {
-				$values = array_values( $path_items );
+				$values  = array_values( $path_items );
 				$section = array_shift( $values );
 			}
 
@@ -237,10 +235,17 @@ function mozilla_init_scripts() {
 		gtag("js", new Date());
 		gtag("config", "' . esc_attr( $google_analytics_id ) . '");
     </script>';
-  
-    wp_add_inline_script( 'google-analytics', $script, 'after' );
-    
+
+		wp_add_inline_script( 'google-analytics', $script, 'after' );
+
 	}
+}
+
+/**
+ * Initialize front end scripts
+ */
+function mozilla_init_fe_styles() {
+	wp_enqueue_style( 'style', get_stylesheet_uri(), array(), filemtime( get_template_directory() . '/style.css' ), false );
 }
 
 /**
@@ -442,15 +447,24 @@ function mozilla_menu_class( $classes, $item, $args ) {
 	if ( ! empty( $_SERVER['REQUEST_URI'] ) ) {
 		$request_uri = trim( esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
 
-		$path_items = array_filter( explode( '/', $request_uri ) );
-		$menu_url   = strtolower( str_replace( '/', '', $item->url ) );
+		$current_translation = mozilla_get_current_translation();
+		$path_items          = array_filter( explode( '/', $request_uri ) );
+		$menu_url_parts      = explode( '/', $item->url );
+		$menu_url            = strtolower( str_replace( '/', '', $item->url ) );
 
 		if ( count( $path_items ) > 0 ) {
-			$current_translation = mozilla_get_current_translation();
-			$key                 = $current_translation ? 2 : 1;
-			if ( strtolower( $path_items[ $key ] ) === $menu_url ) {
-				$item->current = true;
-				$classes[]     = 'menu-item--active';
+			if ( 'en' !== $current_translation && ! empty( $path_items[2] ) && ! empty( $menu_url_parts[2] ) ) {
+				if ( strtolower( $path_items[2] ) === strtolower( $menu_url_parts[2] ) ) {
+					$item->current = true;
+					$classes[]     = 'menu-item--active';
+				}
+			} else {
+				if ( ! empty( $path_items[2] ) && ! empty( $menu_url_parts[1] ) ) {
+					if ( strtolower( $path_items[2] ) === strtolower( $menu_url_parts[1] ) ) {
+						$item->current = true;
+						$classes[]     = 'menu-item--active';
+					}
+				}
 			}
 		}
 	}
@@ -473,43 +487,68 @@ function mozilla_add_query_vars_filter( $vars ) {
 }
 
 /**
- * Match taxonomy
+ *
+ * Create Event Category
+ *
+ * @param int $term_id id of the existing term.
+ * @param int $tt_id id for taxonomy.
  */
-function mozilla_match_categories() {
-	$current_translation = mozilla_get_current_translation();
-	$cat_terms = get_terms( EM_TAXONOMY_CATEGORY, array( 'hide_empty' => false ) );
-	$wp_terms  = get_terms( 'post_tag', array( 'hide_empty' => false ) );
-	
-	$cat_terms_slugs = array_map(
-		function( $n ) {
-			return $n->slug;
-		},
-		$cat_terms
-	);
-
-	$wp_terms_slugs = array_map(
-		function( $n ) {
-			return $n->slug;
-		},
-		$wp_terms
-	);
-
-	foreach ( $wp_terms as $single_term ) {
-		if ( ! in_array( $single_term->slug, $cat_terms_slugs, true ) ) {
-			if ($current_translation && stripos($single_term->slug, $current_translation) === false) {
-				$slug = $single_term->slug . '-' . $current_translation;
-				wp_insert_term( $single_term->name, EM_TAXONOMY_CATEGORY , array('slug' => $slug ));
-				continue;
-			}
-			wp_insert_term( $single_term->name, EM_TAXONOMY_CATEGORY , array('slug' => $single_term->slug));
-		}
-	}
-	foreach ( $cat_terms as $cat_term ) {
-		if ( is_array($wp_terms_slugs) && ! in_array( $cat_term->slug, $wp_terms_slugs, true ) ) {
-			wp_delete_term( $cat_term->term_id, EM_TAXONOMY_CATEGORY );
-		}
+function mozilla_create_event_category( $term_id, $tt_id ) {
+	$term = get_term( $term_id, 'post_tag' );
+	if ( ! empty( $term ) && false === stripos( $term->slug, '_' ) ) {
+		wp_insert_term( $term->name, 'event-categories', array( 'slug' => $term->slug ) );
 	}
 }
+
+add_action( 'create_post_tag', 'mozilla_create_event_category', 10, 2 );
+
+/**
+ *
+ * Update Event Categories
+ *
+ * @param int $term_id id of the existing term.
+ * @param int $tt_id id for taxonomy.
+ */
+function mozilla_update_event_category( $term_id, $tt_id ) {
+	$term     = get_term( $term_id, 'post_tag' );
+	$cat_term = get_term_by( 'slug', $term->slug, 'event-categories' );
+	if ( empty( $cat_term ) ) {
+		$cat_term = get_term_by( 'name', $term->name, 'event-categories' );
+	}
+	if ( ! empty( $term ) && ! empty( $cat_term ) && false === stripos( $term->slug, '_' ) ) {
+		wp_update_term(
+			$cat_term->term_id,
+			'event-categories',
+			array(
+				'slug' => $term->slug,
+				'name' => $term->name,
+			)
+		);
+		return;
+	}
+	mozilla_create_event_category( $term_id, $tt_id );
+
+}
+add_action( 'edited_post_tag', 'mozilla_update_event_category', 10, 3 );
+
+/**
+ * Delete Event Categories
+ *
+ * @param int    $term_id id of the existing term.
+ * @param int    $tt_id id for taxonomy.
+ * @param object $deleted_term the deleted term.
+ * @param object $object_ids deleted object.
+ */
+function mozilla_delete_event_category( $term_id, $tt_id, $deleted_term, $object_ids ) {
+	$cat_term = get_term_by( 'slug', $deleted_term->slug, 'event-categories' );
+	if ( empty( $cat_term ) ) {
+		$cat_term = get_term_by( 'name', $deleted_term->name, 'event-categories' );
+	}
+	if ( ! empty( $deleted_term ) && ! empty( $cat_term ) && false === stripos( $deleted_term->slug, '_' ) ) {
+		wp_delete_term( $cat_term->term_id, 'event-categories' );
+	}
+}
+add_action( 'delete_post_tag', 'mozilla_delete_event_category', 10, 4 );
 
 /**
  * Redirect non admins
@@ -664,7 +703,9 @@ function mozilla_save_post( $post_id, $post, $update ) {
 			}
 
 			if ( isset( $_POST['location-type'] ) ) {
-				$event->location_type = sanitize_text_field( wp_unslash( $_POST['location-type'] ) );
+				$event->location_type = isset( $_POST['location-type'] ) ? sanitize_text_field( wp_unslash( $_POST['location-type'] ) ) : $event_update_meta[0]->location_type;
+				$location_id          = isset( $_POST['location_id'] ) ? sanitize_text_field( wp_unslash( $_POST['location_id'] ) ) : null;
+				mozilla_add_location_type( $location_id, $event->location_type );
 			} else {
 				$event->location_type = $event_update_meta[0]->location_type;
 			}
@@ -961,5 +1002,98 @@ function mozilla_update_script_attributes( $html, $handle ) {
  * Gets the current language of the site
  */
 function mozilla_get_current_translation() {
-	return ICL_LANGUAGE_CODE;
+	if ( defined( 'ICL_LANGUAGE_CODE' ) ) {
+		return ICL_LANGUAGE_CODE;
+	} else {
+		return 'en';
+	}
 }
+
+/**
+ * Returns the formatted/translated date
+ *
+ * @param mixed  $date the date to be translated.
+ * @param string $format the desired format.
+ */
+function mozilla_localize_date( $date, $format ) {
+	$formatted_date = date_i18n( $format, strtotime( $date ) );
+	return $formatted_date;
+}
+
+
+/**
+ * Maps tags saved by name to be slugs
+ *
+ * @param string $tag the saved tag.
+ */
+function mozilla_map_tags( $tag ) {
+	$term_obj = get_term_by( 'slug', $tag, 'post_tag' );
+	if ( is_object( $term_obj ) && ! empty( $term_obj ) && isset( $term_obj->slug ) && strlen( $term_obj->slug ) > 0 ) {
+		if ( false !== stripos( $term_obj->slug, '_' ) ) {
+			$term_obj->slug = substr( $term_obj->slug, 0, stripos( $term_obj->slug, '_' ) );
+		};
+		return $term_obj->slug;
+	}
+	return '';
+}
+
+/**
+ * Filters tags for active tags
+ *
+ * @param string $tag the saved tag.
+ */
+function mozilla_filter_inactive_tags( $tag ) {
+	$term_obj = get_term_by( 'slug', $tag, 'post_tag' );
+	return is_object( $term_obj ) && ! empty( $term_obj ) && isset( $term_obj->slug ) && strlen( $term_obj->slug ) > 0;
+}
+
+/**
+ * Maps initiatives to use IDs for English versions
+ *
+ * @param mixed $post the individual post.
+ */
+function mozilla_apply_default_post_ids( $post ) {
+	$post_type = $post->post_type;
+	$post->ID  = apply_filters( 'wpml_object_id', $post->ID, $post_type, true, 'en' );
+	return $post;
+}
+
+/**
+ * Adjusts filters on ACF post search to allow all events
+ *
+ * @param array   $args current arguments.
+ * @param object  $post current post.
+ * @param integer $post_id current post id.
+ */
+function mozilla_query_all_events( $args, $post, $post_id ) {
+	$args['suppress_filters'] = true;
+	return $args;
+}
+
+
+/**
+ * Takes in an array of member bookings and returns the associated event
+ *
+ * @param object $booking individual booking.
+ */
+function mozilla_replace_bookings_with_events( $booking ) {
+	$event = em_get_event( $booking->event_id );
+	return $event;
+}
+
+/**
+ * Sorts an array of events based on start date
+ *
+ * @param object $event_1 first event.
+ * @param object $event_2 second event.
+ */
+function mozilla_sort_events_by_date( $event_1, $event_2 ) {
+	if ( strtotime( $event_1->event_start_date ) === strtotime( $event_2->event_start_date ) ) {
+		return 0;
+	} elseif ( strtotime( $event_1->event_start_date ) > strtotime( $event_2->event_start_date ) ) {
+		return -1;
+	} else {
+		return 1;
+	}
+}
+

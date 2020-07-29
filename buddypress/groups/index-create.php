@@ -13,12 +13,13 @@
 session_start();
 do_action( 'bp_before_create_group_page' );
 
-$user = wp_get_current_user();
-$meta = get_user_meta( $user->ID );
+$user                = wp_get_current_user();
+$meta                = get_user_meta( $user->ID );
 $current_translation = mozilla_get_current_translation();
+$step                = null;
 
 if ( ! isset( $meta['agree'][0] ) || 'I Agree' !== $meta['agree'][0] ) {
-	if( $current_translation ) {
+	if ( $current_translation ) {
 		wp_safe_redirect( "/{$current_translation}/people/{$user->user_nicename}/profile/edit/group/1/" );
 	} else {
 		wp_safe_redirect( "/people/{$user->user_nicename}/profile/edit/group/1/" );
@@ -34,7 +35,7 @@ if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHO
 if ( 3 === $step ) {
 	if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['group_slug'] ) && isset( $_REQUEST['group_create_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['group_create_field'] ) ), 'group_create' ) ) {
 		$slug = sanitize_text_field( wp_unslash( $_POST['group_slug'] ) );
-		if( $current_translation ) {
+		if ( $current_translation ) {
 			wp_safe_redirect( "/{$current_translation}/groups/{$slug}" );
 		} else {
 			wp_safe_redirect( "/groups/{$slug}" );
@@ -54,8 +55,8 @@ if ( isset( $_SESSION['form'] ) ) {
 	$form = $_SESSION['form'];
 }
 
-$form_tags = isset( $form['tags'] ) ? array_filter( explode( ',', $form['tags'] ), 'strlen' ) : array();
-
+$form_tags           = isset( $form['tags'] ) ? array_filter( explode( ',', $form['tags'] ), 'strlen' ) : array();
+$current_translation = mozilla_get_current_translation();
 ?>
 <div class="content">
 	<div class="create-group">
@@ -66,6 +67,7 @@ $form_tags = isset( $form['tags'] ) ? array_filter( explode( ',', $form['tags'] 
 			</div>
 		</div>
 		<form action="<?php bp_group_creation_form_action(); ?>" method="post" id="create-group-form" class="standard-form create-group__form" enctype="multipart/form-data" novalidate>
+			<input type="hidden" id="string-translation" value="<?php echo esc_attr( $current_translation ); ?>" />
 			<div class="create-group__container">
 				<ol class="create-group__menu">
 					<li class="create-group__menu-item
@@ -205,7 +207,7 @@ $form_tags = isset( $form['tags'] ) ? array_filter( explode( ',', $form['tags'] 
 								</div>
 							</div>
 							<div class="create-group__input-container create-group__input-container--40 create-group__input-container--vertical-spacing">
-								<label class="create-group__label"><?php esc_html_e( 'Select an image', 'community-portal' ); ?></label>
+								<label for="dropzone-trigger" class="create-group__label"><?php esc_html_e( 'Select an image', 'community-portal' ); ?></label>
 								<div id="dropzone-photo-uploader" class="create-group__image-upload">
 									<div class="dz-message" data-dz-message="">
 										<div>
@@ -233,10 +235,18 @@ $form_tags = isset( $form['tags'] ) ? array_filter( explode( ',', $form['tags'] 
 									<legend class="create-group__label"><?php esc_html_e( 'Tags for your group', 'community-portal' ); ?></legend>
 									<?php
 										// Get all tags!
+
 										$tags = get_tags( array( 'hide_empty' => false ) );
 									?>
 									<div class="create-group__tag-container">
 										<?php foreach ( $tags as $loop_tag ) : ?>
+											<?php
+											if ( 'en' !== $current_translation ) {
+												if ( false !== stripos( $loop_tag->slug, '_' ) ) {
+													$loop_tag->slug = substr( $loop_tag->slug, 0, stripos( $loop_tag->slug, '_' ) );
+												}
+											}
+											?>
 											<input class="create-group__checkbox" type="checkbox" id="<?php echo esc_attr( $loop_tag->slug ); ?>" data-value="<?php echo esc_attr( $loop_tag->slug ); ?>">
 											<label class="create-group__tag
 											<?php
@@ -365,46 +375,60 @@ $form_tags = isset( $form['tags'] ) ? array_filter( explode( ',', $form['tags'] 
 					</section>
 					<?php if ( 1 === $step ) : ?>
 					<section class="create-group__details">
-						<?php
-							$category_id            = get_cat_ID( 'Group Terms of Service', 'community-portal' );
-							$terms_of_service_posts = get_posts(
-								array(
-									'numberposts' => 1,
-									'category'    => $category_id,
-								)
-							);
-						?>
-						<?php if ( 1 === count( $terms_of_service_posts ) ) : ?>
-
 						<div class="create-group__terms">
-							<?php
-							echo wp_kses(
-								apply_filters( 'the_content', $terms_of_service_posts[0]->post_content ),
-								array(
-									'br'  => array(),
-									'p'   => array( 'class' => array() ),
-									'b'   => array(),
-									'h3'  => array(),
-									'div' => array(),
-									'a'   => array( 'href' => array() ),
-									'li'  => array(),
-									'ul'  => array(),
-									'ol'  => array(),
-								)
-							);
-							?>
+							<p class="has-large-font-size"><?php echo esc_html( '1.' ); ?><?php esc_html_e( 'Basic Information', 'community-portal' ); ?></p>
+							<p><?php esc_html_e( 'Congratulations on creating a Mozilla Community Group!', 'community-portal' ); ?></p>
+							<p><strong><?php esc_html_e( 'This is the Mozilla Groups README.', 'community-portal' ); ?> </strong><?php esc_html_e( 'It contains all the information required to successfully setup and manage a Mozilla group. Please read it carefully.', 'community-portal' ); ?></p>
+							<p><?php esc_html_e( 'Mozilla Community Groups are groups of people who meet regularly and work collaboratively to advance Mozilla’s mission. Anyone who is working to advance Mozilla’s mission can start a Community Group. Groups can meet in-person or virtually and can be organized around a region, contribution area, identity, or interest. All groups must respect and adhere to the ', 'community-portal' ); ?><a href="https://www.mozilla.org/about/governance/policies/participation/"><?php esc_html_e( 'Community Participation Guidelines', 'community-portal' ); ?></a> <?php esc_html_e( 'and follow the terms &amp; responsibilities.', 'community-portal' ); ?></p>
+							<p><?php esc_html_e( 'All Mozilla Community Groups must:', 'community-portal' ); ?></p>
+							<ul>
+								<li><?php esc_html_e( 'Adhere to and uphold the ', 'community-portal' ); ?><a href="https://www.mozilla.org/about/governance/policies/participation/"><?php esc_html_e( 'Community Participation Guidelines', 'community-portal' ); ?></a>.</li>
+								<li><?php esc_html_e( 'Adhere to and uphold the ', 'community-portal' ); ?><a href="https://wiki.mozilla.org/Volunteer_leadership_principles"><?php esc_html_e( 'Volunteer Leadership Principles', 'community-portal' ); ?></a>.</li>
+								<li><?php esc_html_e( 'Be open and welcoming to everyone who shares Mozilla’s goals and want to contribute in a healthy and constructive manner to participate.', 'community-portal' ); ?></li>
+								<li><?php esc_html_e( 'Be easy to join and cannot restrict membership.', 'community-portal' ); ?></li>
+								<li><?php esc_html_e( 'Contribute to Mozilla by regularly participating in campaigns, activities, events or other Mozilla related projects.', 'community-portal' ); ?></li>
+								<li><?php esc_html_e( 'Be active – demonstrated by having more than five members and hosting at least one event every six months.', 'community-portal' ); ?></li>
+								<li><?php esc_html_e( 'Have two group contacts that change every year.', 'community-portal' ); ?></li>
+							</ul>						
+							<p><?php esc_html_e( 'Only groups that meet our requirements and have been reviewed by a community manager will appear as “verified” groups.', 'community-portal' ); ?></p>
+							<p class="has-large-font-size"><?php echo esc_html( '2. ' ); ?><?php esc_html_e( 'Terms & Responsibilities', 'community-portal' ); ?></p>
+							<h3><?php esc_html_e( 'Becoming a verified group:', 'community-portal' ); ?></h3>
+							<p><?php esc_html_e( 'All groups will be reviewed by a community manager after three months in the portal. In order to become a “verified group” it must be reviewed and approved by a community manager. At the time of their review they must be able to demonstrate they are upholding the terms & responsibilities of the group by having:', 'community-portal' ); ?></p>		
+							<ul>
+								<li><?php esc_html_e( 'An accurate, up to date group profile.', 'community-portal' ); ?></li>
+								<li><?php esc_html_e( 'More than five members.', 'community-portal' ); ?></li>
+								<li><?php esc_html_e( 'Hosted at least one event', 'community-portal' ); ?></li>
+								<li><?php esc_html_e( 'Two responsive group contacts.', 'community-portal' ); ?></li>
+							</ul>
+							<p><?php esc_html_e( 'Groups that fail to meet the criteria at the time of the review may be asked to update their group profile, or be removed from the portal.', 'community-portal' ); ?></p>
+							<p><?php esc_html_e( 'Validated groups will be reviewed on an annual basis to ensure they continue to uphold the guidelines and criteria.', 'community-portal' ); ?></p>		
+							<h3><?php esc_html_e( 'Naming your group:', 'community-portal' ); ?></h3>
+							<p><?php esc_html_e( 'Group names should be informative and help new and established community members identify the groups that are most relevant to their interests and identities.', 'community-portal' ); ?></p>
+							<p><?php esc_html_e( 'Choose a group name that will:', 'community-portal' ); ?></p>
+							<ul>
+								<li><strong><?php esc_html_e( 'Reduce confusion', 'community-portal' ); ?></strong> - <?php esc_html_e( 'Names should be descriptive and accurately reflect the focus of the group. Groups that have the exact same focus and mandate may be asked to merge or revise their title or description to be more descriptive.', 'community-portal' ); ?></li>
+								<li><strong><?php esc_html_e( 'Avoid exclusivity', 'community-portal' ); ?></strong> - <?php esc_html_e( 'Using more descriptive titles helps avoid the appearance that a particular group exclusively represents the entire topic or area throughout the movement.', 'community-portal' ); ?></li>
+								<li><strong><?php esc_html_e( 'Encourage diversity', 'community-portal' ); ?></strong> - <?php esc_html_e( 'Group names should not suggest that people are obligated to join a group to participate within a focus area or region. Mozilla will not acknowledge any hierarchy between groups.', 'community-portal' ); ?></li>
+							</ul>
+							<h3><?php esc_html_e( 'Group contacts:', 'community-portal' ); ?></h3>
+							<p><?php esc_html_e( 'Group contacts are the people who are responsible for maintaining the group’s page on the portal and liaising, on behalf of the group, with Mozilla staff. There must always be two group contacts and they must change every year, their responsibilities are:', 'community-portal' ); ?></p>
+							<ul>
+								<li><?php esc_html_e( 'Maintain the content and activity of the group page.', 'community-portal' ); ?></li>
+								<li><?php esc_html_e( 'Answer questions from community managers during the “verification” process.', 'community-portal' ); ?></li>
+							</ul>
+							<p><?php esc_html_e( 'In order to be validated, group contacts must be responsive and able to answer and address issues on the group page. We recommend that group contacts are people who feel comfortable communicating in English, and have a good understanding of what is happening inside their group.', 'community-portal' ); ?></p>
+							<p><?php esc_html_e( 'Note that group contacts', 'community-portal' ); ?><strong><?php esc_html_e( ' do not', 'community-portal' ); ?></strong> <?php esc_html_e( ' have to correspond to governance roles inside the community. Communities are free to create their own internal structures and governance though all leadership roles should follow the', 'community-portal' ); ?><a href="https://wiki.mozilla.org/Volunteer_leadership_principles"> <?php esc_html_e( 'Volunteer Leadership Principles', 'community-portal' ); ?></a>. <?php esc_html_e( 'If you have any other questions about group creation or management please ', 'community-portal' ); ?><a href="https://discourse.mozilla.org/t/frequently-asked-questions-portal-edition-faq/43224"><?php esc_html_e( 'visit the FAQ', 'community-portal' ); ?></a>. </p>
 						</div>
 						<div class="create-group__input-container create-group__input-container--full cpg">
 							<input class="checkbox--hidden" type="checkbox" name="agree" id="agree" value="<?php esc_attr_e( 'I Agree', 'community-portal' ); ?>" required />
 							<label class="cpg__label" for="agree">
 								<?php esc_html_e( 'I agree to respect and adhere to', 'community-portal' ); ?>
-								<a class="create-group__checkbox-container__link" href="https://www.mozilla.org/en-US/about/governance/policies/participation/"><?php esc_html_e( 'Mozilla’s Community Participation Guidelines *', 'community-portal' ); ?></a>
+								<a class="create-group__checkbox-container__link" href="https://www.mozilla.org/about/governance/policies/participation/"><?php esc_html_e( 'Mozilla’s Community Participation Guidelines *', 'community-portal' ); ?></a>
 								<div class="form__error-container form__error-container--checkbox">
 									<p class="form__error"><?php esc_html_e( 'Please agree to the Community Participation Guidelines', 'community-portal' ); ?></p>
 								</div>
 							</label>
 						</div>
-						<?php endif; ?>
 						<input type="hidden" name="step" value="2" />
 					</section>
 					<?php endif; ?>

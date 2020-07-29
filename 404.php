@@ -37,7 +37,7 @@ else :
 							<?php esc_html_e( 'Ooops, looks like the page you are trying to reach is no longer available. If you are having trouble locating a destination on Community Portal, try visiting the home page.', 'community-portal' ); ?>
 						<?php endif; ?>
 					</p>
-					<a href="/" class="not-found__cta"><?php esc_html_e( 'Return Home' ); ?></a>
+					<a href="<?php echo get_home_url() ?>" class="not-found__cta"><?php esc_html_e( 'Return Home', 'community-portal' ); ?></a>
 				</div>
 				<div class="not-found__image-container"> 
 					<img src="<?php echo esc_url_raw( $theme_directory ); ?>/images/404.png" class="not-found__image" />

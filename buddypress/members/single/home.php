@@ -17,11 +17,6 @@
 	);
 
 	$theme_directory = get_template_directory();
-	$pronouns        = array(
-		__( 'She/Her', 'community-portal' ),
-		__( 'He/Him', 'community-portal' ),
-		__( 'They/Them', 'community-portal' ),
-	);
 
 	$tags = get_tags( array( 'hide_empty' => false ) );
 	?>
@@ -72,7 +67,6 @@
 			$is_me = $logged_in && intval( $live_user->ID ) === intval( $user->ID );
 			$info  = mozilla_get_user_info( $live_user, $user, $logged_in );
 			include "{$theme_directory}/buddypress/members/single/profile.php";
-
 		?>
 	<?php endif; ?>
 </div>	
