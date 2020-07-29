@@ -22,6 +22,14 @@
 	$args = array(
 		'post_type'      => 'campaign',
 		'posts_per_page' => -1,
+		'meta_key'			=> 'campaign_start_date',
+		'orderby'			=> 'meta_value',
+		'order'				=> 'DESC'
+	);
+
+	$translated_status = array(
+		'Active' => __( 'Active', 'community-portal' ),
+		'Closed' => __( 'Closed', 'community-portal' ),
 	);
 
 	$current_translation = mozilla_get_current_translation();
