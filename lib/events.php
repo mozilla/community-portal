@@ -331,6 +331,9 @@ function mozilla_get_locations() {
  * @param string  $location_type location type value.
  */
 function mozilla_add_location_type( $post_id, $location_type = null ) {
+	if (empty($post_id)) {
+		return;
+	}
 	$location = em_get_location( $post_id );
 	if ( ! empty( $location_type ) ) {
 		update_post_meta( $location->post_id, 'location-type', $location_type );

@@ -703,8 +703,8 @@ function mozilla_save_post( $post_id, $post, $update ) {
 			}
 
 			if ( isset( $_POST['location-type'] ) ) {
-				$event->location_type = isset( $_POST['location-type']) && strlen( $_POST['location-type'] ) > 0 ? sanitize_text_field( wp_unslash( $_POST['location-type'] ) ) : $event_update_meta[0]->location_type ;
-				$location_id          = sanitize_text_field( wp_unslash( $_POST['location_id'] ) );
+				$event->location_type = isset( $_POST['location-type'] ) ? sanitize_text_field( wp_unslash( $_POST['location-type'] ) ) : $event_update_meta[0]->location_type;
+				$location_id          = isset( $_POST['location_id'] ) ? sanitize_text_field( wp_unslash( $_POST['location_id'] ) ) : null;
 				mozilla_add_location_type( $location_id, $event->location_type );
 			} else {
 				$event->location_type = $event_update_meta[0]->location_type;
@@ -1050,22 +1050,50 @@ function mozilla_filter_inactive_tags( $tag ) {
 /**
  * Maps initiatives to use IDs for English versions
  *
- * @param mixed $post_object the individual post.
+ * @param mixed $post the individual post.
  */
-function mozilla_apply_default_post_ids($post) {
+function mozilla_apply_default_post_ids( $post ) {
 	$post_type = $post->post_type;
-	$post->ID = apply_filters( 'wpml_object_id', $post->ID, $post_type, true, 'en' );
-  return $post;
+	$post->ID  = apply_filters( 'wpml_object_id', $post->ID, $post_type, true, 'en' );
+	return $post;
 }
 
-/** 
+/**
  * Adjusts filters on ACF post search to allow all events
  *
- * @param array $args current arguments.
- * @param object $post current post.
+ * @param array   $args current arguments.
+ * @param object  $post current post.
  * @param integer $post_id current post id.
  */
 function mozilla_query_all_events( $args, $post, $post_id ) {
 	$args['suppress_filters'] = true;
 	return $args;
 }
+
+
+/**
+ * Takes in an array of member bookings and returns the associated event
+ *
+ * @param object $booking individual booking.
+ */
+function mozilla_replace_bookings_with_events( $booking ) {
+	$event = em_get_event( $booking->event_id );
+	return $event;
+}
+
+/**
+ * Sorts an array of events based on start date
+ *
+ * @param object $event_1 first event.
+ * @param object $event_2 second event.
+ */
+function mozilla_sort_events_by_date( $event_1, $event_2 ) {
+	if ( strtotime( $event_1->event_start_date ) === strtotime( $event_2->event_start_date ) ) {
+		return 0;
+	} elseif ( strtotime( $event_1->event_start_date ) > strtotime( $event_2->event_start_date ) ) {
+		return -1;
+	} else {
+		return 1;
+	}
+}
+

@@ -13,8 +13,8 @@
 ?>
 <?php
 	require "{$theme_directory}/languages.php";
-  require "{$theme_directory}/countries.php";
-  require "{$theme_directory}/pronouns.php";
+	require "{$theme_directory}/countries.php";
+	require "{$theme_directory}/pronouns.php";
 	$current_translation = mozilla_get_current_translation();
 
 	$event_countries = em_get_countries();
@@ -32,7 +32,11 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 			<div class="profile__card-header-container">
 				<?php if ( $is_me ) : ?>
 					<div class="profile__edit-link-container profile__edit-link-container--mobile">
-					<a href="<?php if ( $current_translation ) :?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/people/<?php echo esc_attr( $info['username']->value ); ?>/profile/edit/group/1" class="profile__link">
+					<a href="
+					<?php
+					if ( $current_translation ) :
+						?>
+						<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/people/<?php echo esc_attr( $info['username']->value ); ?>/profile/edit/group/1" class="profile__link">
 							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M23.64 6.36L17.64 0.36C17.16 -0.12 16.44 -0.12 15.96 0.36L0.36 15.96C0.12 16.2 0 16.44 0 16.8V22.8C0 23.52 0.48 24 1.2 24H7.2C7.56 24 7.8 23.88 8.04 23.64L23.64 8.04C24.12 7.56 24.12 6.84 23.64 6.36ZM6.72 21.6H2.4V17.28L16.8 2.88L21.12 7.2L6.72 21.6Z" fill="#0060DF"/>
 							</svg>
@@ -59,15 +63,19 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 							<?php echo esc_html( "{$info['last_name']->value}" ); ?>
 						<?php endif; ?>
 					</span>
-					<?php if ( $info['pronoun']->display && isset($pronouns[$info['pronoun']->value])) : ?>
+					<?php if ( $info['pronoun']->display && isset( $pronouns[ $info['pronoun']->value ] ) ) : ?>
 						<div class="profile__pronoun">
-							<?php echo esc_html( $pronouns[$info['pronoun']->value] ); ?>
+							<?php echo esc_html( $pronouns[ $info['pronoun']->value ] ); ?>
 						</div>
 					<?php endif; ?>
 				</div>
 				<?php if ( $is_me ) : ?>
 					<div class="profile__edit-link-container">
-						<a href="<?php if ( $current_translation ) : ?> <?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/people/<?php echo esc_attr( $info['username']->value ); ?>/profile/edit/group/1" class="profile__link">
+						<a href="
+						<?php
+						if ( $current_translation ) :
+							?>
+							<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/people/<?php echo esc_attr( $info['username']->value ); ?>/profile/edit/group/1" class="profile__link">
 							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M23.64 6.36L17.64 0.36C17.16 -0.12 16.44 -0.12 15.96 0.36L0.36 15.96C0.12 16.2 0 16.44 0 16.8V22.8C0 23.52 0.48 24 1.2 24H7.2C7.56 24 7.8 23.88 8.04 23.64L23.64 8.04C24.12 7.56 24.12 6.84 23.64 6.36ZM6.72 21.6H2.4V17.28L16.8 2.88L21.12 7.2L6.72 21.6Z" fill="#0060DF"/>
 							</svg>
@@ -92,7 +100,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 				<?php if ( ( $info['location']->display && $info['location']->value ) || ( $info['email']->value && $info['email']->display ) || ( $info['phone']->value && $info['phone']->display ) ) : ?>
 					<span class="profile__contact-title"><?php esc_html_e( 'Contact Information', 'community-portal' ); ?></span>
 				<?php endif; ?>
-				<?php if ( $info['location']->display && $info['location']->value && $countries[$info['location']->value ]) : ?>
+				<?php if ( $info['location']->display && $info['location']->value && $countries[ $info['location']->value ] ) : ?>
 					<div class="profile__location-container">
 						<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="profile__location-icon">
 							<circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
@@ -179,21 +187,21 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 										<?php
 									}
 									if ( isset( $group_meta['group_country'] ) && strlen( $group_meta['group_country'] ) > 1 ) {
-									?>
+										?>
 										<span>
 											<?php echo esc_html( $countries[ $group_meta['group_country'] ] ); ?>
 										</span>
-									<?php
+										<?php
 									}
-									if ( isset( $group_meta['group_type'] ) ) { 
+									if ( isset( $group_meta['group_type'] ) ) {
 										?>
 										<span class="profile__group-location__online">
 											<?php
-												if ( 'Online' === $group_meta['group_type'] ) {
-													esc_html_e( 'Online', 'community-portal' );
-												} else {
-													esc_html_e( 'Offline', 'community-portal' );
-												}
+											if ( 'Online' === $group_meta['group_type'] ) {
+												esc_html_e( 'Online', 'community-portal' );
+											} else {
+												esc_html_e( 'Offline', 'community-portal' );
+											}
 											?>
 										</span>
 										<?php
@@ -228,12 +236,15 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 				<?php if ( count( $events->bookings ) > 0 ) : ?>
 					<h2 class="profile__heading"><?php esc_html_e( 'Recent Events', 'community-portal' ); ?></h2>
 					<div class="profile__card profile__card--links">
-						<?php foreach ( $events->bookings as $event_booking ) : ?>
+						<?php
+							$events = array_map( 'mozilla_replace_bookings_with_events', $events->bookings );
+						?>
+						<?php usort( $events, 'mozilla_sort_events_by_date' ); ?>
+						<?php foreach ( $events as $event ) : ?>
 							<?php
-								$event       = em_get_event( $event_booking->event_id );
-								$event_time  = strtotime( $event->start_date );
+								$event_time  = strtotime( $event->event_start_date );
 								$date_format = 'en' === $current_translation ? 'M d' : 'd M';
-								$event_date  = mozilla_localize_date( $event->start_date, $date_format );
+								$event_date  = mozilla_localize_date( $event->event_start_date, $date_format );
 								$location    = em_get_location( $event->location_id );
 							?>
 							<a class="profile__event" href="<?php echo esc_attr( get_home_url( null, 'events/' . $event->slug ) ); ?>">
@@ -247,7 +258,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 									<div class="profile__event-time">
 										<?php
 											$date_format = 'en' === $current_translation ? 'F d, Y ∙ H:i' : 'd F, Y ∙ H:i';
-											$event_date  = mozilla_localize_date( $event->start_date, $date_format );
+											$event_date  = mozilla_localize_date( $event->event_start_date . $event->event_start_time, $date_format );
 											echo esc_html( $event_date );
 										?>
 									</div>
@@ -273,7 +284,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 								</div>
 							</a>
 							<?php $events_attended_count++; ?>
-							<?php if ( $events_attended_count < count( $events->bookings ) ) : ?>
+							<?php if ( $events_attended_count < count( $events ) ) : ?>
 								<hr class="profile__group-line" />
 							<?php endif; ?>
 						<?php endforeach; ?>
@@ -298,7 +309,8 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 					);
 					$events_organized         = EM_Events::get( $args );
 					$events_organized         = array_unique( array_merge( $events_organized, $private_events_organized ), SORT_REGULAR );
-					$events_organized_count   = 0;
+					usort( $events_organized, 'mozilla_sort_events_by_date' );
+					$events_organized_count = 0;
 					?>
 				<?php if ( count( $events_organized ) > 0 ) : ?>
 					<h2 class="profile__heading">
@@ -308,7 +320,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 						<?php foreach ( $events_organized as $event ) : ?>
 							<?php
 								$date_format = 'en' === $current_translation ? 'M d' : 'd M';
-								$event_date  = mozilla_localize_date( $event->start_date, $date_format );
+								$event_date  = mozilla_localize_date( $event->event_start_date, $date_format );
 								$location    = em_get_location( $event->location_id );
 							?>
 							<a class="profile__event" href="<?php echo esc_attr( get_home_url( null, 'events/' . $event->slug ) ); ?>">
@@ -322,7 +334,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 									<div class="profile__event-time">
 										<?php
 											$date_format = 'en' === $current_translation ? 'F d, Y ∙ H:i' : 'd F, Y ∙ H:i';
-											$event_date  = mozilla_localize_date( $event->start_date, $date_format );
+											$event_date  = mozilla_localize_date( $event->event_start_date . $event->event_start_time, $date_format );
 											echo esc_html( $event_date );
 										?>
 									</div>
@@ -359,11 +371,11 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 			<?php endif; ?>
 			<?php if ( $info['campaigns_participated']->display ) : ?>
 				<?php
-					$campaigns        = get_user_meta( $user->ID, 'campaigns', true );
-	
+					$campaigns = get_user_meta( $user->ID, 'campaigns', true );
+
 					$campaign_count   = 0;
 					$campaign_objects = array();
-					
+
 
 				if ( is_array( $campaigns ) ) {
 					foreach ( $campaigns as $cid ) {
@@ -566,7 +578,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 								$temp_name = $t->name;
 								if ( strtolower( $temp_slug ) === strtolower( $loop_tag ) ) {
 									$t->slug = $temp_slug;
-									$found = true;
+									$found   = true;
 									break;
 								}
 							} else {
@@ -580,7 +592,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 						}
 						?>
 						<?php if ( $found ) : ?>
-							<a href="<?php echo esc_url_raw( add_query_arg(array('tag' => $temp_slug), get_home_url(null, 'people'))) ;?>" class="profile__static-tag">
+							<a href="<?php echo esc_url_raw( add_query_arg( array( 'tag' => $temp_slug ), get_home_url( null, 'people' ) ) ); ?>" class="profile__static-tag">
 								<span>
 									<?php echo esc_html( $temp_name ); ?>
 								</span>
