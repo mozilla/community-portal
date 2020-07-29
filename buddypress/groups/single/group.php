@@ -1597,7 +1597,7 @@
 						</div>
 						<?php endif; ?>
 						<?php $group_tags = isset($group_meta['group_tags']) ? array_unique( array_filter( $group_meta['group_tags'], 'mozilla_filter_inactive_tags')) : false; ?>
-						<?php if ( isset( $group_tags ) && count( $group_tags ) > 0 ) : ?>
+						<?php if ( isset( $group_tags ) && is_array($group_tags) && count( $group_tags ) > 0 ) : ?>
 						<div class="group__card">
 							<div class="group__card-content group__card-content--small">
 								<div>
