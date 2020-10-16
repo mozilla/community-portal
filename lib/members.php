@@ -423,20 +423,23 @@ function mozilla_get_user_info( $me, $user, $logged_in ) {
 	// Location!
 	global $countries;
 	$object = new stdClass();
-	if ( isset( $community_fields['city'] ) && strlen( $community_fields['city'] ) > 0 && isset( $community_fields['country'] ) && strlen( $community_fields['country'] ) > 1 ) {
-		$object->value = "{$community_fields['city']}, {$countries[$community_fields['country']]}";
+	if ( isset( $community_fields['country'] ) && strlen( $community_fields['country'] ) > 0 && isset( $countries[ $community_fields['country'] ] ) ) {
+		$object->value = $community_fields['country'];
 	} else {
-		if ( isset( $community_fields['city'] ) && strlen( $community_fields['city'] ) > 0 ) {
-			$object->value = $community_fields['city'];
-		} elseif ( isset( $community_fields['country'] ) && strlen( $community_fields['country'] ) > 0 && isset( $countries[ $community_fields['country'] ] ) ) {
-			$object->value = $community_fields['country'];
-		} else {
-			$object->value = false;
-		}
+		$object->value = false;
 	}
-
 	$object->display  = mozilla_display_field( 'location', isset( $meta['profile_location_visibility'][0] ) ? $meta['profile_location_visibility'][0] : false, $is_me, $logged_in );
 	$data['location'] = $object;
+
+	// City
+	$object = new stdClass();
+	if ( isset( $community_fields['city'] ) && strlen( $community_fields['city'] ) > 0 ) {
+		$object->value = $community_fields['city'];
+	} else {
+		$object->value = false;
+	}
+	$object->display  = mozilla_display_field( 'location', isset( $meta['profile_location_visibility'][0] ) ? $meta['profile_location_visibility'][0] : false, $is_me, $logged_in );
+	$data['city'] = $object;
 
 	// Profile Image!
 	$object                = new stdClass();
