@@ -146,6 +146,11 @@
 																'class' => array(),
 															),
 															'div' => array( 'class' => array() ),
+															'b'   => array(),
+															'i'   => array(),
+															'ul'  => array(),
+															'ol'  => array(),
+															'li'  => array(),
 														)
 													);
 													?>
