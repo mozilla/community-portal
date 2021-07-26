@@ -42,7 +42,7 @@ Parent Page: Events
 
 Title: Edit  
 URL slug: edit-event  
-Parent Page: Events  
+Parent Page: Events  -- Set that page in Event Manager as editing for events
 
 Title: Locations  
 URL slug: locations  
@@ -54,13 +54,13 @@ Parent Page: Events
 
 Title: Tags  
 URL slug: tags  
-Parent Page: Events  
+Parent Page: Events
 
 TItle: Groups  
 URL slug: groups  
 
 Title: People  
-URL slug: people  
+URL slug: people  -- Take the page from Buddypress that is Members and rename it
 
 Title: Register  
 URL slug: register  
@@ -71,4 +71,4 @@ Require various plugin settings and also to check the code about what is doing. 
 
 ### Sample data
 
-This is a MySQL dump with credential as admin/password with admin rights [community.tar.gz](https://github.com/mozilla/community-portal/files/6880193/community.tar.gz).
+This is a MySQL dump with credential as admin/password with admin rights and plugins configured [community.tar.gz](https://github.com/mozilla/community-portal/files/6880233/community.tar.gz).
