@@ -68,3 +68,7 @@ URL slug: register
 ### Settings
 
 Require various plugin settings and also to check the code about what is doing. The first step is required that you user accept the T&C or you cannot create events.
+
+### Sample data
+
+This is a MySQL dump with credential as admin/password with admin rights [community.tar.gz](https://github.com/mozilla/community-portal/files/6880193/community.tar.gz).
