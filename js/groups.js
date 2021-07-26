@@ -14,7 +14,7 @@ jQuery(function(){
             e.stopPropagation();
         }
 	});
-	
+
 	const checkMatrixValue = function(value) {
     const username = new RegExp(/^[a-z0-9.\-_=/]+:/, 'gi');
     const domain = new RegExp(/(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$|(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9])$|\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*/, 'gi');
@@ -41,7 +41,7 @@ jQuery(function(){
 			if (!validMatrixId) {
 				formErrorState(this);
 				return
-			} 
+			}
 		}
 		formClearError(this);
 	}
@@ -51,7 +51,7 @@ jQuery(function(){
 	}
 
 	const getCurrentTags = function(tagsInput) {
-		let currentValue = tagsInput.val(); 
+		let currentValue = tagsInput.val();
 		currentValue = currentValue.length > 0 ? currentValue.split(/,\s?/) : [];
 		return currentValue;
 	}
@@ -60,7 +60,7 @@ jQuery(function(){
 		let newValues = currentValue;
 		if (currentValue.length > 1) {
 			newValues = currentValue.join(',');
-		} 
+		}
 		$tagsInput.val(`${newValues}`);
 	}
 
@@ -83,20 +83,20 @@ jQuery(function(){
 	const $tagsInput = jQuery('#tags');
 
     jQuery('.create-group__checkbox').on('change', function(e) {
-		var $this = jQuery(this);
-		var id = $this.prop('id');
-		var $label = jQuery('label[for=' + id + ']');
-		var tag = $this.data('value');
-		currentValue = getCurrentTags($tagsInput);
+      var $this = jQuery(this);
+      var id = $this.prop('id');
+      var $label = jQuery('label[for=' + id + ']');
+      var tag = $this.data('value');
+      currentValue = getCurrentTags($tagsInput);
 
-		if(!$label.hasClass('create-group__tag--active')) {
-			addNewTag($tagsInput, currentValue, tag);
-		} 
-		if($label.hasClass('create-group__tag--active')){
-			removeExistingTag($tagsInput, currentValue, tag);
-		}	
-		$label.toggleClass('create-group__tag--active');
-		return false;
+      if(!$label.hasClass('create-group__tag--active')) {
+        addNewTag($tagsInput, currentValue, tag);
+      }
+      if($label.hasClass('create-group__tag--active')){
+        removeExistingTag($tagsInput, currentValue, tag);
+      }
+      $label.toggleClass('create-group__tag--active');
+      return false;
     });
 
     jQuery('.dz-remove').click(function(e){
@@ -114,15 +114,15 @@ jQuery(function(){
 
     jQuery('.create-group__cta').click(function(e){
         e.preventDefault();
-		var error = false;
-		
-		const $matrixInput = jQuery('#group-matrix');
-		if ($matrixInput.val() !== '') {
-			const validMatrixId = checkMatrixValue($matrixInput.val());
-			if (!validMatrixId) {
-				formErrorState($matrixInput);
-			}
-		}
+        var error = false;
+
+        const $matrixInput = jQuery('#group-matrix');
+        if ($matrixInput.val() !== '') {
+          const validMatrixId = checkMatrixValue($matrixInput.val());
+          if (!validMatrixId) {
+            formErrorState($matrixInput);
+          }
+        }
 
         jQuery(':input[required]').each(function(index, element){
             var $ele = jQuery(element);
@@ -143,50 +143,50 @@ jQuery(function(){
         });
 
         if(!jQuery('#group-admin-id').val()) {
-			jQuery('#group-admin-id')
-				.prev('.form__error-container')
-				.addClass('form__error-container--visible');
+            jQuery('#group-admin-id')
+              .prev('.form__error-container')
+              .addClass('form__error-container--visible');
 
-            if(jQuery('#group-admin').length > 0) {    
-				jQuery('#group-admin').addClass('create-group__input--error');
-				if (jQuery('#group-admin').val()) {
-					jQuery('#group-admin-id')
-						.prev('.form__error-container')
-						.addClass('form__error-container--secondary');
-				}
+            if(jQuery('#group-admin').length > 0) {
+              jQuery('#group-admin').addClass('create-group__input--error');
+              if (jQuery('#group-admin').val()) {
+                jQuery('#group-admin-id')
+                  .prev('.form__error-container')
+                  .addClass('form__error-container--secondary');
+              }
                 error = true;
             }
-            
+
         } else {
-			jQuery('#group-admin-id')
-				.prev('.form__error-container')
-				.removeClass('form__error-container--visible')
-				.removeClass('form__error-container--secondary');
-            jQuery('#group-admin-id').removeClass('create-group__input--error');
-            jQuery('#group-admin').removeClass('create-group__input--error');
+          jQuery('#group-admin-id')
+            .prev('.form__error-container')
+            .removeClass('form__error-container--visible')
+            .removeClass('form__error-container--secondary');
+                jQuery('#group-admin-id').removeClass('create-group__input--error');
+                jQuery('#group-admin').removeClass('create-group__input--error');
 		}
-		
+
         if(error || jQuery('.create-group__input--error').length > 0) {
-			jQuery('#create-group-form')
-				.find('.create-group__input--error:first')
-				.focus();
+          jQuery('#create-group-form')
+            .find('.create-group__input--error:first')
+            .focus();
             return false;
         } else {
-            
+
             jQuery('#create-group-form').submit();
             return true;
-        }  
+        }
 
         return false;
     });
-  
+
     jQuery(document).on('click', '.group__join-cta', function(e) {
         e.preventDefault();
         var $this = jQuery(this);
         var group = $this.data('group');
         var nonce = jQuery('#join_group_nonce_field').val();
 
-        var post = { 
+        var post = {
             'group': group,
             'join_group_nonce_field': nonce
         };
@@ -202,7 +202,7 @@ jQuery(function(){
 
                 if(response.status == 'success') {
                     var memberCount = parseInt(jQuery('.group__member-count').text());
-                    
+
                     memberCount++;
                     jQuery('.group__member-count').text(memberCount);
                     $this.addClass('group__leave-cta');
@@ -226,8 +226,8 @@ jQuery(function(){
         var $this = jQuery(this);
         var group = $this.data('group');
         var nonce = jQuery('#leave_group_nonce_field').val();
-        
-        var post = { 
+
+        var post = {
             'group': group,
             'leave_group_nonce_field': nonce
         };
@@ -240,16 +240,16 @@ jQuery(function(){
             method: 'POST',
             success: function(response) {
                 response = jQuery.parseJSON(response);
-                
+
                 if(response.status == 'success') {
                     var memberCount = parseInt(jQuery('.group__member-count').text());
-                    
+
                     memberCount--;
                     jQuery('.group__member-count').text(memberCount);
 
                     $this.addClass('group__join-cta');
                     $this.removeClass('group__leave-cta');
-                    
+
                     location.reload();
                 } else {
                     if(response.status === 'error' && response.msg === 'Not Logged In') {
@@ -282,7 +282,7 @@ jQuery(function(){
             } else {
                 $this.removeClass("create-group__input--error");
 				$errorContainer.removeClass("form__error-container--visible").removeClass("form__error-container--secondary");
-				
+
             }
         });
     });
@@ -295,7 +295,7 @@ jQuery(function(){
                 for(var x = 0; x < data.length; x++) {
                     users.push(data[x].data.ID+ ":" + data[x].data.user_nicename );
                 }
-                
+
                 suggest(users);
 
             });
@@ -305,7 +305,7 @@ jQuery(function(){
             var data = item.split(':');
             var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
             if(data.length === 2) {
-                return '<div class="autocomplete-suggestion" data-val="' + data[1] + '" data-id="' + data[0] + '">' + data[1].replace(re, "<b>$1</b>") + '</div>';    
+                return '<div class="autocomplete-suggestion" data-val="' + data[1] + '" data-id="' + data[0] + '">' + data[1].replace(re, "<b>$1</b>") + '</div>';
             } else {
                 return '<div class="autocomplete-suggestion" data-val="' + item + '">' + item.replace(re, "<b>$1</b>") + '</div>';
             }
@@ -405,7 +405,7 @@ jQuery(function(){
     jQuery('.groups__menu-link').click(function(e) {
         e.preventDefault();
         var $this = jQuery(this);
-        
+
         if($this.data('nav') == 'mygroups') {
             jQuery('input[name="mygroups"]').val('true');
         } else {
@@ -420,7 +420,7 @@ jQuery(function(){
 
     jQuery('.groups__nav-select').change(function(e){
         var $this = jQuery(this);
-        
+
         if($this.val() == 'mygroups') {
             jQuery('input[name="mygroups"]').val('true');
         } else {
@@ -455,7 +455,7 @@ jQuery(function(){
         jQuery('#create-group-form').submit();
 
 	});
-	
+
 	jQuery('#agree').on('change', function() {
 		const $this = jQuery(this);
 		const label = $this.next('.cpg__label');

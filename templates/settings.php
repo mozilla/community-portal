@@ -29,7 +29,7 @@
 					<label for="github-link">Github Link</label>
 				</th>
 				<td>
-					<input type="text" id="github-link" name="github_link" class="regular-text" value="<?php echo esc_url_raw( $options['github_link'] ); ?>" />
+					<input type="text" id="github-link" name="github_link" class="regular-text" value="<?php echo isset( $options['github_link'] ) ? esc_url_raw( $options['github_link'] ) : ''; ?>" />
 				</td>
 			</tr>
 			<tr>
@@ -37,7 +37,7 @@
 					<label for="community-discourse">Community Portal Discourse</label>
 				</th>
 				<td>
-					<input type="text" id="community-discourse" name="community_discourse" class="regular-text" value="<?php echo esc_url_raw( $options['community_discourse'] ); ?>" />
+					<input type="text" id="community-discourse" name="community_discourse" class="regular-text" value="<?php echo isset( $options['community_discourse'] ) ?  esc_url_raw( $options['community_discourse'] ) : ''; ?>" />
 				</td>
 			</tr>
 			<tr>
@@ -45,7 +45,7 @@
 					<label for="mailchimp">Mailchimp API Key</label>
 				</th>
 				<td>
-					<input type="text" id="mailchimp" name="mailchimp" class="regular-text" value="<?php echo esc_attr( $options['mailchimp'] ); ?>" />
+					<input type="text" id="mailchimp" name="mailchimp" class="regular-text" value="<?php echo isset( $options['mailchimp'] ) ? esc_attr( $options['mailchimp'] ): ''; ?>" />
 				</td>
 			</tr>
 			<tr>
@@ -53,7 +53,7 @@
 					<label for="company">Company</label>
 				</th>
 				<td>
-					<input type="text" id="company" name="company" class="regular-text" value="<?php echo esc_attr( $options['company'] ); ?>" />
+					<input type="text" id="company" name="company" class="regular-text" value="<?php echo isset( $options['company'] ) ? esc_attr( $options['company'] ): ''; ?>" />
 				</td>
 			</tr>
 			<tr>
@@ -61,7 +61,7 @@
 					<label for="address">Address</label>
 				</th>
 				<td>
-					<input type="text" id="address" name="address" class="regular-text" value="<?php echo esc_attr( $options['address'] ); ?>" />
+					<input type="text" id="address" name="address" class="regular-text" value="<?php echo isset( $options['address'] ) ?  esc_attr( $options['address'] ): ''; ?>" />
 				</td>
 			</tr>
 			<tr>
@@ -69,7 +69,7 @@
 					<label for="city">City</label>
 				</th>
 				<td>
-					<input type="text" id="city" name="city" class="regular-text" value="<?php echo esc_attr( $options['city'] ); ?>" />
+					<input type="text" id="city" name="city" class="regular-text" value="<?php echo isset( $options['city'] ) ? esc_attr( $options['city'] ) : ''; ?>" />
 				</td>
 			</tr>
 			<tr>
@@ -77,7 +77,7 @@
 					<label for="state">State / Province</label>
 				</th>
 				<td>
-					<input type="text" id="state" name="state" class="regular-text" value="<?php echo esc_attr( $options['state'] ); ?>" />
+					<input type="text" id="state" name="state" class="regular-text" value="<?php echo isset( $options['state'] ) ? esc_attr( $options['state'] ) : ''; ?>" />
 				</td>
 			</tr>
 			<tr>
@@ -85,7 +85,7 @@
 					<label for="zip">Postal /Zip</label>
 				</th>
 				<td>
-					<input type="text" id="zip" name="zip" class="regular-text" value="<?php echo esc_attr( $options['zip'] ); ?>" />
+					<input type="text" id="zip" name="zip" class="regular-text" value="<?php echo isset( $options['zip'] ) ? esc_attr( $options['zip'] ) : ''; ?>" />
 				</td>
 			</tr>
 			<tr>
@@ -93,7 +93,7 @@
 					<label for="country">Country</label>
 				</th>
 				<td>
-					<input type="text" id="country" name="country" class="regular-text" value="<?php echo esc_attr( $options['country'] ); ?>" />
+					<input type="text" id="country" name="country" class="regular-text" value="<?php echo isset( $options['country'] ) ? esc_attr( $options['country'] ) : ''; ?>" />
 				</td>
 			</tr>
 			<tr>
@@ -101,7 +101,7 @@
 					<label for="phone">Phone</label>
 				</th>
 				<td>
-					<input type="text" id="phone" name="phone" class="regular-text" value="<?php echo esc_attr( $options['phone'] ); ?>" />
+					<input type="text" id="phone" name="phone" class="regular-text" value="<?php echo isset( $options['phone'] ) ? esc_attr( $options['phone'] ) : ''; ?>" />
 				</td>
 			</tr>
 			<tr>
@@ -109,7 +109,7 @@
 					<label for="google-analytics-id">Google Analytics ID</label>
 				</th>
 				<td>
-					<input type="text" id="google-analytics-id" name="google_analytics_id" class="regular-text" value="<?php echo esc_attr( $options['google_analytics_id'] ); ?>" />
+					<input type="text" id="google-analytics-id" name="google_analytics_id" class="regular-text" value="<?php echo isset( $options['google_analytics_id'] ) ? esc_attr( $options['google_analytics_id'] ) : ''; ?>" />
 				</td>
 			</tr>
 			<tr>
@@ -117,7 +117,7 @@
 					<label for="google-analytics-id">Google Analytics SRI Hash</label>
 				</th>
 				<td>
-					<input type="text" id="google-analytics-sri" name="google_analytics_sri" class="regular-text" value="<?php echo esc_attr( $options['google_analytics_sri'] ); ?>" />
+					<input type="text" id="google-analytics-sri" name="google_analytics_sri" class="regular-text" value="<?php echo isset( $options['google_analytics_sri'] ) ? esc_attr( $options['google_analytics_sri'] ) : ''; ?>" />
 				</td>
 			</tr>
 			<tr>
@@ -157,7 +157,7 @@
 					<label for="default-open-graph-title">Default Open Graph Title</label>
 				</th>
 				<td>
-					<input type="text" id="default-open-graph-title" name="default_open_graph_title" class="regular-text" value="<?php echo esc_attr( $options['default_open_graph_title'] ); ?>" />
+					<input type="text" id="default-open-graph-title" name="default_open_graph_title" class="regular-text" value="<?php echo isset( $options['default_open_graph_desc'] ) ? esc_attr( $options['default_open_graph_title'] ) : ''; ?>" />
 				</td>
 			</tr>
 			<tr>
@@ -165,7 +165,7 @@
 					<label for="default-open-graph-desc">Default Open Graph Description</label>
 				</th>
 				<td>
-					<input type="text" id="default-open-graph-desc" name="default_open_graph_desc" class="regular-text" value="<?php echo esc_attr( $options['default_open_graph_desc'] ); ?>" />
+					<input type="text" id="default-open-graph-desc" name="default_open_graph_desc" class="regular-text" value="<?php echo isset( $options['default_open_graph_desc'] ) ? esc_attr( $options['default_open_graph_desc'] ) : ''; ?>" />
 				</td>
 			</tr>
 			<tr>
@@ -194,5 +194,5 @@
 			</tr>
 		</tbody>
 	</table>
-	<input type="submit" value="Save Settings" />
+	<input type="submit" class="button button-primary" value="Save Settings" />
 </form>
