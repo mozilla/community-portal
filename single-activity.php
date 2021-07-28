@@ -34,6 +34,31 @@
 	$time_commitment                    = get_field( 'time_commitment' );
 	$metrics                            = get_field( 'metrics' );
 
+	$html_tags_allowed = array(
+		'h2'  => array( 'class' => array() ),
+		'h3'  => array( 'class' => array() ),
+		'h4'  => array( 'class' => array() ),
+		'p'   => array( 'class' => array() ),
+		'b'   => array(),
+		'i'   => array(),
+		'ul'  => array(),
+		'ol'  => array(),
+		'li'  => array(),
+		'br'  => array(),
+		'div' => array( 'class' => array() ),
+		'img' => array(
+			'href' => array(),
+			'class' => array(),
+			'alt'  => array(),
+		),
+		'a'   => array(
+			'class' => array(),
+			'href' => array(),
+		),
+		'figure' => array( 'class' => array() ),
+		'figcaption' => array( 'class' => array() ),
+	);
+
 	// Tags for activity.
 	$tags = get_the_terms( $post, 'post_tag' );
 ?>
@@ -66,25 +91,7 @@
 										<?php
 											echo wp_kses(
 												wpautop( $post->post_content ),
-												array(
-													'h2'  => array( 'class' => array() ),
-													'h3'  => array( 'class' => array() ),
-													'h4'  => array( 'class' => array() ),
-													'p'   => array( 'class' => array() ),
-													'br'  => array(),
-													'div' => array( 'class' => array() ),
-													'img' => array(
-														'href' => array(),
-														'class' => array(),
-														'alt'  => array(),
-													),
-													'a'   => array(
-														'class' => array(),
-														'href' => array(),
-													),
-													'figure' => array( 'class' => array() ),
-													'figcaption' => array( 'class' => array() ),
-												)
+												$html_tags_allowed
 											);
 										?>
 									</div>
@@ -112,16 +119,12 @@
 						endif;
 						if ( is_array( $activity_flow ) && count( $activity_flow ) > 0 ) :
 							?>
-							<div class="activity__card activity__card--flow">        
+							<div class="activity__card activity__card--flow">
 								<div class="activity__card-content">
 								<?php
 								echo wp_kses(
 									$activity_flow_copy,
-									array(
-										'p'   => array(),
-										'a'   => array( 'href' => array() ),
-										'div' => array( 'class' => array() ),
-									)
+									$html_tags_allowed
 								);
 								?>
 								<?php if ( strlen( $activity_flow[0]['title'] ) > 0 ) : ?>
@@ -139,19 +142,7 @@
 													<?php
 													echo wp_kses(
 														$flow['copy'],
-														array(
-															'p' => array(),
-															'a' => array(
-																'href' => array(),
-																'class' => array(),
-															),
-															'div' => array( 'class' => array() ),
-															'b'   => array(),
-															'i'   => array(),
-															'ul'  => array(),
-															'ol'  => array(),
-															'li'  => array(),
-														)
+														$html_tags_allowed
 													);
 													?>
 												</div>
@@ -165,22 +156,15 @@
 							</div>
 						<?php endif; ?>
 						<?php if ( strlen( $additional_information_title_left ) > 0 ) : ?>
-						<h2 class="activity__card-title"><?php echo esc_html( $additional_information_title_left ); ?></h2>               
+						<h2 class="activity__card-title"><?php echo esc_html( $additional_information_title_left ); ?></h2>
 						<?php endif; ?>
 						<?php if ( strlen( $additional_information_copy_left ) > 0 ) : ?>
-						<div class="activity__card activity__card--additional">        
+						<div class="activity__card activity__card--additional">
 							<div class="activity__card-content">
 								<?php
 								echo wp_kses(
 									$additional_information_copy_left,
-									array(
-										'p'   => array(),
-										'div' => array( 'class' => array() ),
-										'a'   => array(
-											'href'  => array(),
-											'class' => array(),
-										),
-									)
+									$html_tags_allowed
 								);
 								?>
 							</div>
@@ -224,14 +208,7 @@
 									<?php
 									echo wp_kses(
 										$additional_information_copy_right,
-										array(
-											'p'   => array( 'class' => array() ),
-											'div' => array( 'class' => array() ),
-											'a'   => array(
-												'href'  => array(),
-												'class' => array(),
-											),
-										)
+										$html_tags_allowed
 									);
 									?>
 								</div>
@@ -277,7 +254,7 @@
 									<?php
 									if ( false === next( $related_events ) ) :
 										?>
-									activity__event--last<?php endif; ?>" href="<?php echo esc_attr( get_home_url( null, '/events/' . $event->event_slug ) ); ?>"> 
+									activity__event--last<?php endif; ?>" href="<?php echo esc_attr( get_home_url( null, '/events/' . $event->event_slug ) ); ?>">
 									<div class="activity__event-date">
 										<?php echo esc_html( $event_date ); ?>
 									</div>
@@ -306,7 +283,7 @@
 											<?php endif; ?>
 										</div>
 									</div>
-								</a>   
+								</a>
 								<?php endforeach; ?>
 								<a href="<?php echo esc_attr( add_query_arg( array( 'initiative' => $initiative_id ), get_home_url( null, '/events/' ) ) ); ?>" class="activity__events-link">
 									<?php esc_html_e( 'View more events', 'community-portal' ); ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
