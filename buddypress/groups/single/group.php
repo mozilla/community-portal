@@ -908,7 +908,7 @@
 								<?php
 								if ( false === $info['profile_image']->display || false === $info['profile_image']->value ) :
 									?>
-									members__avatar--identicon<?php endif; ?>" 
+									members__avatar--identicon<?php endif; ?>"
 									<?php
 									if ( $info['profile_image']->display && $info['profile_image']->value ) :
 										?>
@@ -1017,14 +1017,14 @@
 										<option value=""><?php esc_html_e( 'Select', 'community-portal' ); ?></option>
 										<?php foreach ( $used_languages as $code => $language ) : ?>
 											<?php if ( strlen( $code ) > 1 ) : ?>
-										<option value="<?php echo esc_attr( $code ); ?>" 
+										<option value="<?php echo esc_attr( $code ); ?>"
 																<?php
 																if ( isset( $_GET['language'] ) && strtolower( trim( $get_language ) ) === strtolower( $code ) ) :
 																	?>
 											selected<?php endif; ?>><?php echo esc_html( $language ); ?></option>
 										<?php endif; ?>
 										<?php endforeach; ?>
-									</select>  
+									</select>
 								</div>
 								<?php endif; ?>
 								<div class="members__select-container">
@@ -1039,13 +1039,13 @@
 												}
 											}
 											?>
-										<option value="<?php echo esc_html( $loop_tag->slug ); ?>" 
+										<option value="<?php echo esc_html( $loop_tag->slug ); ?>"
 																<?php
 																if ( isset( $_GET['tag'] ) && strtolower( trim( $get_tag ) ) === strtolower( $loop_tag->slug ) ) :
 																	?>
 											selected<?php endif; ?>><?php echo esc_html( $loop_tag->name ); ?></option>
 										<?php endforeach; ?>
-									</select>  
+									</select>
 								</div>
 							</div>
 							<div class="groups__show-filters-container">
@@ -1060,7 +1060,7 @@
 								if ( isset( $_GET['u'] ) && strlen( $search_user ) > 0 ) :
 									?>
 									<div class="members__results-for"><?php esc_html_e( 'Results for ', 'community-portal' ) . "\"{$search_user}\"" . esc_html( " ({$count})" ); ?></div>
-							<?php endif; ?>			
+							<?php endif; ?>
 								<?php foreach ( $filtered_members as $member ) : ?>
 									<?php
 									$is_me = $logged_in && intval( $group_user->ID ) === intval( $member->user_id );
@@ -1081,7 +1081,7 @@
 									<?php
 									if ( false === $info['profile_image']->display || false === $info['profile_image']->value ) :
 										?>
-									members__avatar--identicon<?php endif; ?>" 
+									members__avatar--identicon<?php endif; ?>"
 									<?php
 									if ( $info['profile_image']->display && $info['profile_image']->value ) :
 										?>
@@ -1116,7 +1116,7 @@
 							<?php else : ?>
 								<h2 class="members__title--no-members-found"><?php esc_html_e( 'No members found', 'community-portal' ); ?></h2>
 							<?php endif; ?>
-						</div>  
+						</div>
 						<?php else : ?>
 							<p><?php esc_html_e( 'This group currently has no members', 'community-portal' ); ?></p>
 						<?php endif; ?>
@@ -1232,6 +1232,10 @@
 								|| ( isset( $group_meta['group_github'] ) && strlen( trim( $group_meta['group_github'] ) ) > 0 )
 								|| ( isset( $group_meta['group_twitter'] ) && strlen( trim( $group_meta['group_twitter'] ) ) > 0 )
 								|| ( isset( $group_meta['group_matrix'] ) && strlen( trim( $group_meta['group_matrix'] ) ) > 0 )
+								|| ( isset( $group_meta['group_mastodon'] ) && strlen( trim( $group_meta['group_mastodon'] ) ) > 0 )
+								|| ( isset( $group_meta['group_youtube'] ) && strlen( trim( $group_meta['group_youtube'] ) ) > 0 )
+								|| ( isset( $group_meta['group_peertube'] ) && strlen( trim( $group_meta['group_peertube'] ) ) > 0 )
+								|| ( isset( $group_meta['group_pixelfed'] ) && strlen( trim( $group_meta['group_pixelfed'] ) ) > 0 )
 								|| ( isset( $group_meta['group_other'] ) && strlen( $group_meta['group_other'] ) > 0 ) ) :
 									?>
 								<div class="group__community-links">
@@ -1304,6 +1308,66 @@
 											<a href="<?php echo ( mozilla_verify_url( $group_meta['group_matrix'], true ) ? esc_url_raw( mozilla_verify_url( $group_meta['group_matrix'], true ) ) : 'https://chat.mozilla.org/#/room/#' . esc_attr( $group_meta['group_matrix'] ) ); ?>" class="group__social-link"><?php esc_html_e( 'Matrix', 'community-portal' ); ?></a>
 										</div>
 									<?php endif; ?>
+									<?php if ( isset( $group_meta['group_youtube'] ) && strlen( trim( $group_meta['group_youtube'] ) ) > 0 ) : ?>
+										<div class="group__community-link-container">
+											<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
+												<path d="M12.6113 12.6035L12.6729 13.4307C13.1969 12.7881 13.9056 12.4668 14.7988 12.4668C15.7513 12.4668 16.4053 12.8428 16.7607 13.5947C17.2803 12.8428 18.0208 12.4668 18.9824 12.4668C19.7845 12.4668 20.3815 12.7015 20.7734 13.1709C21.1654 13.6357 21.3613 14.3376 21.3613 15.2764V20H19.3789V15.2832C19.3789 14.8639 19.2969 14.5586 19.1328 14.3672C18.9688 14.1712 18.6794 14.0732 18.2646 14.0732C17.6722 14.0732 17.262 14.3558 17.0342 14.9209L17.041 20H15.0654V15.29C15.0654 14.8617 14.9811 14.5518 14.8125 14.3604C14.6439 14.1689 14.3568 14.0732 13.9512 14.0732C13.3906 14.0732 12.985 14.3057 12.7344 14.7705V20H10.7588V12.6035H12.6113Z" fill="black"/>
+												<line x1="9" y1="9" x2="6" y2="9" stroke="black" stroke-width="2"/>
+												<line x1="26" y1="9" x2="23" y2="9" stroke="black" stroke-width="2"/>
+												<line x1="9" y1="24" x2="6" y2="24" stroke="black" stroke-width="2"/>
+												<line x1="26" y1="24" x2="23" y2="24" stroke="black" stroke-width="2"/>
+												<line x1="7" y1="9" x2="7" y2="23" stroke="black" stroke-width="2"/>
+												<line x1="25" y1="9" x2="25" y2="23" stroke="black" stroke-width="2"/>
+											</svg>
+											<a href="<?php echo ( esc_attr( $group_meta['group_youtube'] ) ); ?>" class="group__social-link"><?php esc_html_e( 'Youtube', 'community-portal' ); ?></a>
+										</div>
+									<?php endif; ?>
+									<?php if ( isset( $group_meta['group_peertube'] ) && strlen( trim( $group_meta['group_peertube'] ) ) > 0 ) : ?>
+										<div class="group__community-link-container">
+											<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
+												<path d="M12.6113 12.6035L12.6729 13.4307C13.1969 12.7881 13.9056 12.4668 14.7988 12.4668C15.7513 12.4668 16.4053 12.8428 16.7607 13.5947C17.2803 12.8428 18.0208 12.4668 18.9824 12.4668C19.7845 12.4668 20.3815 12.7015 20.7734 13.1709C21.1654 13.6357 21.3613 14.3376 21.3613 15.2764V20H19.3789V15.2832C19.3789 14.8639 19.2969 14.5586 19.1328 14.3672C18.9688 14.1712 18.6794 14.0732 18.2646 14.0732C17.6722 14.0732 17.262 14.3558 17.0342 14.9209L17.041 20H15.0654V15.29C15.0654 14.8617 14.9811 14.5518 14.8125 14.3604C14.6439 14.1689 14.3568 14.0732 13.9512 14.0732C13.3906 14.0732 12.985 14.3057 12.7344 14.7705V20H10.7588V12.6035H12.6113Z" fill="black"/>
+												<line x1="9" y1="9" x2="6" y2="9" stroke="black" stroke-width="2"/>
+												<line x1="26" y1="9" x2="23" y2="9" stroke="black" stroke-width="2"/>
+												<line x1="9" y1="24" x2="6" y2="24" stroke="black" stroke-width="2"/>
+												<line x1="26" y1="24" x2="23" y2="24" stroke="black" stroke-width="2"/>
+												<line x1="7" y1="9" x2="7" y2="23" stroke="black" stroke-width="2"/>
+												<line x1="25" y1="9" x2="25" y2="23" stroke="black" stroke-width="2"/>
+											</svg>
+											<a href="<?php echo ( esc_attr( $group_meta['group_peertube'] ) ); ?>" class="group__social-link"><?php esc_html_e( 'Peertube', 'community-portal' ); ?></a>
+										</div>
+									<?php endif; ?>
+									<?php if ( isset( $group_meta['group_mastodon'] ) && strlen( trim( $group_meta['group_mastodon'] ) ) > 0 ) : ?>
+										<div class="group__community-link-container">
+											<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
+												<path d="M12.6113 12.6035L12.6729 13.4307C13.1969 12.7881 13.9056 12.4668 14.7988 12.4668C15.7513 12.4668 16.4053 12.8428 16.7607 13.5947C17.2803 12.8428 18.0208 12.4668 18.9824 12.4668C19.7845 12.4668 20.3815 12.7015 20.7734 13.1709C21.1654 13.6357 21.3613 14.3376 21.3613 15.2764V20H19.3789V15.2832C19.3789 14.8639 19.2969 14.5586 19.1328 14.3672C18.9688 14.1712 18.6794 14.0732 18.2646 14.0732C17.6722 14.0732 17.262 14.3558 17.0342 14.9209L17.041 20H15.0654V15.29C15.0654 14.8617 14.9811 14.5518 14.8125 14.3604C14.6439 14.1689 14.3568 14.0732 13.9512 14.0732C13.3906 14.0732 12.985 14.3057 12.7344 14.7705V20H10.7588V12.6035H12.6113Z" fill="black"/>
+												<line x1="9" y1="9" x2="6" y2="9" stroke="black" stroke-width="2"/>
+												<line x1="26" y1="9" x2="23" y2="9" stroke="black" stroke-width="2"/>
+												<line x1="9" y1="24" x2="6" y2="24" stroke="black" stroke-width="2"/>
+												<line x1="26" y1="24" x2="23" y2="24" stroke="black" stroke-width="2"/>
+												<line x1="7" y1="9" x2="7" y2="23" stroke="black" stroke-width="2"/>
+												<line x1="25" y1="9" x2="25" y2="23" stroke="black" stroke-width="2"/>
+											</svg>
+											<a href="<?php echo ( esc_attr( $group_meta['group_mastodon'] ) ); ?>" class="group__social-link"><?php esc_html_e( 'Mastodon', 'community-portal' ); ?></a>
+										</div>
+									<?php endif; ?>
+									<?php if ( isset( $group_meta['group_pixelfed'] ) && strlen( trim( $group_meta['group_pixelfed'] ) ) > 0 ) : ?>
+										<div class="group__community-link-container">
+											<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
+												<path d="M12.6113 12.6035L12.6729 13.4307C13.1969 12.7881 13.9056 12.4668 14.7988 12.4668C15.7513 12.4668 16.4053 12.8428 16.7607 13.5947C17.2803 12.8428 18.0208 12.4668 18.9824 12.4668C19.7845 12.4668 20.3815 12.7015 20.7734 13.1709C21.1654 13.6357 21.3613 14.3376 21.3613 15.2764V20H19.3789V15.2832C19.3789 14.8639 19.2969 14.5586 19.1328 14.3672C18.9688 14.1712 18.6794 14.0732 18.2646 14.0732C17.6722 14.0732 17.262 14.3558 17.0342 14.9209L17.041 20H15.0654V15.29C15.0654 14.8617 14.9811 14.5518 14.8125 14.3604C14.6439 14.1689 14.3568 14.0732 13.9512 14.0732C13.3906 14.0732 12.985 14.3057 12.7344 14.7705V20H10.7588V12.6035H12.6113Z" fill="black"/>
+												<line x1="9" y1="9" x2="6" y2="9" stroke="black" stroke-width="2"/>
+												<line x1="26" y1="9" x2="23" y2="9" stroke="black" stroke-width="2"/>
+												<line x1="9" y1="24" x2="6" y2="24" stroke="black" stroke-width="2"/>
+												<line x1="26" y1="24" x2="23" y2="24" stroke="black" stroke-width="2"/>
+												<line x1="7" y1="9" x2="7" y2="23" stroke="black" stroke-width="2"/>
+												<line x1="25" y1="9" x2="25" y2="23" stroke="black" stroke-width="2"/>
+											</svg>
+											<a href="<?php echo ( esc_attr( $group_meta['group_pixelfed'] ) ); ?>" class="group__social-link"><?php esc_html_e( 'Pixelfed', 'community-portal' ); ?></a>
+										</div>
+									<?php endif; ?>
 									<?php if ( isset( $group_meta['group_other'] ) && strlen( $group_meta['group_other'] ) > 0 && mozilla_verify_url( $group_meta['group_other'], false ) ) : ?>
 										<div class="group__community-link-container">
 											<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1352,7 +1416,7 @@
 									</p>
 								<?php endif; ?>
 								<?php endif; ?>
-							</div>  
+							</div>
 						</div>
 						<?php endif; ?>
 						<?php if ( isset( $discourse_group['discourse_category_url'] ) && strlen( $discourse_group['discourse_category_url'] ) > 0 ) : ?>
@@ -1362,7 +1426,7 @@
 
 							if ( isset( $options['discourse_url'] ) && strlen( $options['discourse_url'] ) > 0 ) {
 								$discourse_api_url = rtrim( $options['discourse_url'], '/' );
-								
+
 								$discourse_category_id = intval( trim( $discourse_group['discourse_category_id'] ) );
 								$api_url           = "{$options['discourse_url']}/c/{$discourse_category_id}";
 
@@ -1485,7 +1549,7 @@
 									<p class="group__card-content__subtitle"><?php esc_html_e( 'Related Events', 'community-portal' ); ?></p>
 								</div>
 
-								<a class="group__event wtf" href="<?php echo esc_url_raw( $event_link ); ?>"> 
+								<a class="group__event wtf" href="<?php echo esc_url_raw( $event_link ); ?>">
 									<div class="group__event-date">
 										<?php echo esc_html( $event_date ); ?>
 									</div>
@@ -1558,7 +1622,7 @@
 										<?php
 										if ( false === $info['profile_image']->display || false === $info['profile_image']->value ) :
 											?>
-											members__avatar--identicon<?php endif; ?>" 
+											members__avatar--identicon<?php endif; ?>"
 											<?php
 											if ( $info['profile_image']->display && $info['profile_image']->value ) :
 												?>
@@ -1605,7 +1669,7 @@
 								</div>
 								<div class="group__tags">
 									<?php foreach ( $group_tags as $tag_loop ) : ?>
-										
+
 										<?php
 										foreach ( $tags as $t ) {
 											$found = false;

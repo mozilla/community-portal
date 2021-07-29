@@ -43,11 +43,11 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 						</a>
 					</div>
 				<?php endif; ?>
-				<div class="profile__avatar 
+				<div class="profile__avatar
 				<?php
 				if ( false === $info['profile_image']->value || false === $info['profile_image']->display ) :
 					?>
-					profile__avatar--empty<?php endif; ?>" 
+					profile__avatar--empty<?php endif; ?>"
 					<?php
 					if ( $info['profile_image']->display ) :
 						?>
@@ -288,7 +288,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 								<hr class="profile__group-line" />
 							<?php endif; ?>
 						<?php endforeach; ?>
-					</div>        
+					</div>
 				<?php endif; ?>
 			<?php endif; ?>
 
@@ -405,7 +405,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 										$date_format = 'en' === $current_translation ? 'F d' : 'd F';
 										echo esc_html( mozilla_localize_date( $start, $date_format ) );
 										?>
-										- 
+										-
 											<?php
 											echo esc_html( mozilla_localize_date( $end, $date_format . ' Y' ) );
 									} else {
@@ -446,7 +446,11 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 				( $info['linkedin']->display && $info['linkedin']->value ) ||
 				( $info['discourse']->display && $info['discourse']->value ) ||
 				( $info['github']->display && $info['github']->value ) ||
-				( $info['matrix']->display && $info['matrix']->value )
+				( $info['matrix']->display && $info['matrix']->value ) ||
+				( $info['youtube']->display && $info['youtube']->value ) ||
+				( $info['peertube']->display && $info['peertube']->value ) ||
+				( $info['pixelfed']->display && $info['pixelfed']->value ) ||
+				( $info['mastodon']->display && $info['mastodon']->value )
 			) :
 			?>
 			<div class="profile__social-card profile__card--right">
@@ -531,6 +535,66 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 								<line x1="25" y1="9" x2="25" y2="23" stroke="black" stroke-width="2"/>
 							</svg>
 							<?php esc_html_e( 'Matrix', 'community-portal' ); ?>
+						</a>
+					<?php endif; ?>
+					<?php if ( $info['mastodon']->value && $info['mastodon']->display ) : ?>
+						<a href="<?php echo esc_attr( $info['mastodon']->value ); ?>" class="profile__social-link">
+							<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
+								<path d="M12.6113 12.6035L12.6729 13.4307C13.1969 12.7881 13.9056 12.4668 14.7988 12.4668C15.7513 12.4668 16.4053 12.8428 16.7607 13.5947C17.2803 12.8428 18.0208 12.4668 18.9824 12.4668C19.7845 12.4668 20.3815 12.7015 20.7734 13.1709C21.1654 13.6357 21.3613 14.3376 21.3613 15.2764V20H19.3789V15.2832C19.3789 14.8639 19.2969 14.5586 19.1328 14.3672C18.9688 14.1712 18.6794 14.0732 18.2646 14.0732C17.6722 14.0732 17.262 14.3558 17.0342 14.9209L17.041 20H15.0654V15.29C15.0654 14.8617 14.9811 14.5518 14.8125 14.3604C14.6439 14.1689 14.3568 14.0732 13.9512 14.0732C13.3906 14.0732 12.985 14.3057 12.7344 14.7705V20H10.7588V12.6035H12.6113Z" fill="black"/>
+								<line x1="9" y1="9" x2="6" y2="9" stroke="black" stroke-width="2"/>
+								<line x1="26" y1="9" x2="23" y2="9" stroke="black" stroke-width="2"/>
+								<line x1="9" y1="24" x2="6" y2="24" stroke="black" stroke-width="2"/>
+								<line x1="26" y1="24" x2="23" y2="24" stroke="black" stroke-width="2"/>
+								<line x1="7" y1="9" x2="7" y2="23" stroke="black" stroke-width="2"/>
+								<line x1="25" y1="9" x2="25" y2="23" stroke="black" stroke-width="2"/>
+							</svg>
+							<?php esc_html_e( 'Mastodon', 'community-portal' ); ?>
+						</a>
+					<?php endif; ?>
+					<?php if ( $info['youtube']->value && $info['youtube']->display ) : ?>
+						<a href="<?php echo esc_attr( $info['youtube']->value ); ?>" class="profile__social-link">
+							<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
+								<path d="M12.6113 12.6035L12.6729 13.4307C13.1969 12.7881 13.9056 12.4668 14.7988 12.4668C15.7513 12.4668 16.4053 12.8428 16.7607 13.5947C17.2803 12.8428 18.0208 12.4668 18.9824 12.4668C19.7845 12.4668 20.3815 12.7015 20.7734 13.1709C21.1654 13.6357 21.3613 14.3376 21.3613 15.2764V20H19.3789V15.2832C19.3789 14.8639 19.2969 14.5586 19.1328 14.3672C18.9688 14.1712 18.6794 14.0732 18.2646 14.0732C17.6722 14.0732 17.262 14.3558 17.0342 14.9209L17.041 20H15.0654V15.29C15.0654 14.8617 14.9811 14.5518 14.8125 14.3604C14.6439 14.1689 14.3568 14.0732 13.9512 14.0732C13.3906 14.0732 12.985 14.3057 12.7344 14.7705V20H10.7588V12.6035H12.6113Z" fill="black"/>
+								<line x1="9" y1="9" x2="6" y2="9" stroke="black" stroke-width="2"/>
+								<line x1="26" y1="9" x2="23" y2="9" stroke="black" stroke-width="2"/>
+								<line x1="9" y1="24" x2="6" y2="24" stroke="black" stroke-width="2"/>
+								<line x1="26" y1="24" x2="23" y2="24" stroke="black" stroke-width="2"/>
+								<line x1="7" y1="9" x2="7" y2="23" stroke="black" stroke-width="2"/>
+								<line x1="25" y1="9" x2="25" y2="23" stroke="black" stroke-width="2"/>
+							</svg>
+							<?php esc_html_e( 'Youtube', 'community-portal' ); ?>
+						</a>
+					<?php endif; ?>
+					<?php if ( $info['peertube']->value && $info['peertube']->display ) : ?>
+						<a href="<?php echo esc_attr( $info['peertube']->value ); ?>" class="profile__social-link">
+							<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
+								<path d="M12.6113 12.6035L12.6729 13.4307C13.1969 12.7881 13.9056 12.4668 14.7988 12.4668C15.7513 12.4668 16.4053 12.8428 16.7607 13.5947C17.2803 12.8428 18.0208 12.4668 18.9824 12.4668C19.7845 12.4668 20.3815 12.7015 20.7734 13.1709C21.1654 13.6357 21.3613 14.3376 21.3613 15.2764V20H19.3789V15.2832C19.3789 14.8639 19.2969 14.5586 19.1328 14.3672C18.9688 14.1712 18.6794 14.0732 18.2646 14.0732C17.6722 14.0732 17.262 14.3558 17.0342 14.9209L17.041 20H15.0654V15.29C15.0654 14.8617 14.9811 14.5518 14.8125 14.3604C14.6439 14.1689 14.3568 14.0732 13.9512 14.0732C13.3906 14.0732 12.985 14.3057 12.7344 14.7705V20H10.7588V12.6035H12.6113Z" fill="black"/>
+								<line x1="9" y1="9" x2="6" y2="9" stroke="black" stroke-width="2"/>
+								<line x1="26" y1="9" x2="23" y2="9" stroke="black" stroke-width="2"/>
+								<line x1="9" y1="24" x2="6" y2="24" stroke="black" stroke-width="2"/>
+								<line x1="26" y1="24" x2="23" y2="24" stroke="black" stroke-width="2"/>
+								<line x1="7" y1="9" x2="7" y2="23" stroke="black" stroke-width="2"/>
+								<line x1="25" y1="9" x2="25" y2="23" stroke="black" stroke-width="2"/>
+							</svg>
+							<?php esc_html_e( 'PeerTube', 'community-portal' ); ?>
+						</a>
+					<?php endif; ?>
+					<?php if ( $info['pixelfed']->value && $info['pixelfed']->display ) : ?>
+						<a href="<?php echo esc_attr( $info['pixelfed']->value ); ?>" class="profile__social-link">
+							<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
+								<path d="M12.6113 12.6035L12.6729 13.4307C13.1969 12.7881 13.9056 12.4668 14.7988 12.4668C15.7513 12.4668 16.4053 12.8428 16.7607 13.5947C17.2803 12.8428 18.0208 12.4668 18.9824 12.4668C19.7845 12.4668 20.3815 12.7015 20.7734 13.1709C21.1654 13.6357 21.3613 14.3376 21.3613 15.2764V20H19.3789V15.2832C19.3789 14.8639 19.2969 14.5586 19.1328 14.3672C18.9688 14.1712 18.6794 14.0732 18.2646 14.0732C17.6722 14.0732 17.262 14.3558 17.0342 14.9209L17.041 20H15.0654V15.29C15.0654 14.8617 14.9811 14.5518 14.8125 14.3604C14.6439 14.1689 14.3568 14.0732 13.9512 14.0732C13.3906 14.0732 12.985 14.3057 12.7344 14.7705V20H10.7588V12.6035H12.6113Z" fill="black"/>
+								<line x1="9" y1="9" x2="6" y2="9" stroke="black" stroke-width="2"/>
+								<line x1="26" y1="9" x2="23" y2="9" stroke="black" stroke-width="2"/>
+								<line x1="9" y1="24" x2="6" y2="24" stroke="black" stroke-width="2"/>
+								<line x1="26" y1="24" x2="23" y2="24" stroke="black" stroke-width="2"/>
+								<line x1="7" y1="9" x2="7" y2="23" stroke="black" stroke-width="2"/>
+								<line x1="25" y1="9" x2="25" y2="23" stroke="black" stroke-width="2"/>
+							</svg>
+							<?php esc_html_e( 'Pixelfed', 'community-portal' ); ?>
 						</a>
 					<?php endif; ?>
 				</div>

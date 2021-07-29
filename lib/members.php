@@ -191,6 +191,14 @@ function mozilla_update_member() {
 				'profile_github_visibility',
 				'telegram',
 				'profile_telegram_visibility',
+				'mastodon',
+				'profile_mastodon_visibility',
+				'youtube',
+				'profile_youtube_visibility',
+				'pixelfed',
+				'profile_pixelfed_visibility',
+				'peertube',
+				'profile_peertube_visibility',
 				'matrix',
 				'profile_matrix_visibility',
 				'languages',
@@ -520,6 +528,26 @@ function mozilla_get_user_info( $me, $user, $logged_in ) {
 	$object->value   = isset( $community_fields['matrix'] ) && strlen( $community_fields['matrix'] ) > 0 ? $community_fields['matrix'] : false;
 	$object->display = mozilla_display_field( 'matrix', isset( $community_fields['profile_matrix_visibility'] ) ? $community_fields['profile_matrix_visibility'] : false, $is_me, $logged_in );
 	$data['matrix']  = $object;
+
+	$object          = new stdClass();
+	$object->value   = isset( $community_fields['mastodon'] ) && strlen( $community_fields['mastodon'] ) > 0 ? $community_fields['mastodon'] : false;
+	$object->display = mozilla_display_field( 'mastodon', isset( $community_fields['profile_mastodon_visibility'] ) ? $community_fields['profile_mastodon_visibility'] : false, $is_me, $logged_in );
+	$data['mastodon']  = $object;
+
+	$object           = new stdClass();
+	$object->value    = isset( $community_fields['youtube'] ) && strlen( $community_fields['youtube'] ) > 0 ? $community_fields['youtube'] : false;
+	$object->display  = mozilla_display_field( 'youtube', isset( $community_fields['profile_youtube_visibility'] ) ? $community_fields['profile_youtube_visibility'] : false, $is_me, $logged_in );
+	$data['youtube'] = $object;
+
+	$object           = new stdClass();
+	$object->value    = isset( $community_fields['pixelfed'] ) && strlen( $community_fields['pixelfed'] ) > 0 ? $community_fields['pixelfed'] : false;
+	$object->display  = mozilla_display_field( 'pixelfed', isset( $community_fields['profile_pixelfed_visibility'] ) ? $community_fields['profile_pixelfed_visibility'] : false, $is_me, $logged_in );
+	$data['pixelfed'] = $object;
+
+	$object           = new stdClass();
+	$object->value    = isset( $community_fields['peertube'] ) && strlen( $community_fields['peertube'] ) > 0 ? $community_fields['peertube'] : false;
+	$object->display  = mozilla_display_field( 'peertube', isset( $community_fields['profile_peertube_visibility'] ) ? $community_fields['profile_peertube_visibility'] : false, $is_me, $logged_in );
+	$data['peertube'] = $object;
 
 	// Languages!
 	$object            = new stdClass();
