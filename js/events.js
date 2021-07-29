@@ -19,10 +19,10 @@ jQuery(function() {
 		url.searchParams.set(key.toLowerCase(), value);
 		return url;
 	}
-	
+
 	const relocate = function(url) {
 		window.location.href = url;
-	} 
+	}
 
     const applyFilters = function() {
 		const $filters = jQuery(".events__filter__option");
@@ -72,7 +72,7 @@ jQuery(function() {
             });
         }
     }
-	
+
 
 	// FORM VALIDATION
 	const toggleVisibility = function($selector, value, hidden) {
@@ -95,7 +95,7 @@ jQuery(function() {
 			$label.removeClass(`${className}--in-person`);
 			$label.addClass(`${className}--online`);
 			return;
-		} 
+		}
 		$label.addClass(`${className}--in-person`);
 		$label.removeClass(`${className}--online`);
 	}
@@ -115,7 +115,7 @@ jQuery(function() {
 			const $this = jQuery(this);
 			if ($this.hasClass('event-creator__input--error')){
 				toggleError($this, false);
-			} 
+			}
 		});
     }
 
@@ -149,7 +149,7 @@ jQuery(function() {
 						toggleStrings($this.next('.form__error-container'), 'form__error', true);
 						$this.addClass('event-creator__input--error');
 						$allClear = false;
-					} 
+					}
 				} else if (!$this.val()) {
 					toggleStrings($this.next('.form__error-container'), 'form__error', false);
 				}
@@ -214,7 +214,7 @@ jQuery(function() {
             });
         }
     }
-	
+
 	const clearLocationNameErrors = function() {
 		jQuery("#location-name-mozilla").on('focus', function() {
 			const $this = jQuery(this);
@@ -222,7 +222,7 @@ jQuery(function() {
 			if ($errorContainer.hasClass("form__error--online")) {
 				$errorContainer.removeClass("form__error--online");
 				return
-			} 
+			}
 			if ($errorContainer.hasClass("form__error--in-person")) {
 				$errorContainer.removeClass('form__error--in-person');
 			}
@@ -277,10 +277,10 @@ jQuery(function() {
 			clearPrePopErrors('form__error-container--visible');
 			clearPrePopErrors('event-creator__input--error');
 			return;
-        } 
+        }
 		$city.val('');
 	}
-	
+
 	const toggleSelectAbility = function(selects, enabled) {
 		selects.forEach((select) => {
 			let $el = jQuery(`#location-${select}`);
@@ -320,7 +320,7 @@ jQuery(function() {
 		$errors.each(function() {
 			const $this = jQuery(this);
 			toggleError($this);
-		});	
+		});
 	}
 
 	const displayReset = function(display) {
@@ -358,7 +358,7 @@ jQuery(function() {
 		});
 
 	}
-	
+
 	const handleLocationEdit = function(fields) {
 		const inputs = ['name-mozilla', 'town', 'address'];
 		const selects = ['type', 'country'];
@@ -394,7 +394,7 @@ jQuery(function() {
 		toggleStrings($locationNameLabel, 'event-creator__label', false);
 		toggleStrings($countryLabel, 'event-creator__label', false);
 	}
-	
+
 	const handleOnlineEvent = function() {
         const $locationCountry = jQuery('#location-country');
         const $locationCity = jQuery('#location-town');
@@ -428,7 +428,7 @@ jQuery(function() {
 	jQuery('#location-name-mozilla').autoComplete({
         source: function(term, suggest) {
             jQuery.getJSON('/wp-admin/admin-ajax.php?action=get_locations', { q: term }, function(data){
-	
+
 				const locations = data.map((location) => {
 					return {
 						name: location.location_name,
@@ -439,7 +439,7 @@ jQuery(function() {
 						type: location.location_type,
 					};
 				});
-				suggest(locations); 
+				suggest(locations);
             });
         },
         renderItem: function(item, search) {
@@ -468,7 +468,7 @@ jQuery(function() {
 			toggleLocationType(false);
         });
 	}
-	
+
 	const trackSelectValues = function() {
 		const ids = ['location-country']
 		ids.forEach((id) => {
@@ -480,26 +480,40 @@ jQuery(function() {
 		});
 	}
 
+	const timezoneInEvent = function() {
+		const data = jQuery('.timezone span');
+    if ( data.lenght != 0 ) {
+      var tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      var locale = Intl.DateTimeFormat().resolvedOptions().locale;
+      var date_start = new Date(data.data('start-date') + "T" + data.data('start-time') + data.data('timezone-offset'));
+      console.log(data.data('start-date') + " " + data.data('start-time') + " " + data.data('timezone-offset'))
+      var date_end = new Date(data.data('end-date') + "T" + data.data('end-time') + data.data('timezone-offset'));
+      data.html(date_start.toLocaleString(locale, { timeZone: tz, month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }) + ' - ' + date_end.toLocaleString(locale, { timeZone: tz, month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }))
+    }
+	}
+
 	const init = function() {
         toggleMobileEventsNav(".events__nav__toggle", ".events__nav");
         toggleMobileEventsNav(".events__filter__toggle", ".events__filter");
         eventsMobileNav();
         applyFilters();
 
-		editLocation();
+        editLocation();
 
-		// LOCATION HANDLER
-		handleLocationTypeChange();
-		trackSelectValues();
-		
-		// FORM VALIDATION
-		handleSubmit();
-		
-		// Event handlers
-		clearLocationNameErrors();
-		handleEventCancellation();
-		showDebugInformation();
-		handleOnlineEvent();
+        // LOCATION HANDLER
+        handleLocationTypeChange();
+        trackSelectValues();
+
+        // FORM VALIDATION
+        handleSubmit();
+
+        // Event handlers
+        clearLocationNameErrors();
+        handleEventCancellation();
+        showDebugInformation();
+        handleOnlineEvent();
+
+        timezoneInEvent();
     }
 
     init();
