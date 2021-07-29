@@ -903,7 +903,9 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 								</option>
 							<?php endforeach; ?>
 						</select>
-					</div><div class="profile__form-field">
+					</div>
+				</div>
+				<div class="profile__form-field">
 					<div class="profile__input-container">
 						<label class="profile__label" for="matrix">
 							<?php esc_html_e( 'Youtube Channel link (optional)', 'community-portal' ); ?>
@@ -944,7 +946,8 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 							<?php endforeach; ?>
 						</select>
 					</div>
-				</div><div class="profile__form-field">
+				</div>
+				<div class="profile__form-field">
 					<div class="profile__input-container">
 						<label class="profile__label" for="peertube">
 							<?php esc_html_e( 'peertube (optional)', 'community-portal' ); ?>
@@ -985,7 +988,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 						</select>
 					</div>
 				</div>
-				</div><div class="profile__form-field">
+				<div class="profile__form-field">
 					<div class="profile__input-container">
 						<label class="profile__label" for="pixelfed">
 							<?php esc_html_e( 'Pixelfed URL (optional)', 'community-portal' ); ?>
@@ -1025,7 +1028,8 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 							<?php endforeach; ?>
 						</select>
 					</div>
-				</div></div><div class="profile__form-field">
+				</div>
+				<div class="profile__form-field">
 					<div class="profile__input-container">
 						<label class="profile__label" for="mastodon">
 							<?php esc_html_e( 'Mastodon URL (optional)', 'community-portal' ); ?>

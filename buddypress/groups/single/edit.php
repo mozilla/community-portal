@@ -44,10 +44,10 @@ if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHO
 	$form['group_meeting_details'] = isset( $group_meta['group_meeting_details'] ) ? $group_meta['group_meeting_details'] : '';
 	$form['group_discourse']       = isset( $group_meta['group_discourse'] ) ? $group_meta['group_discourse'] : '';
 	$form['group_telegram']        = isset( $group_meta['group_telegram'] ) ? $group_meta['group_telegram'] : '';
-	$form['group_mastodon']        = isset( $group_meta['group_telegram'] ) ? $group_meta['group_mastodon'] : '';
-	$form['group_youtube']        = isset( $group_meta['group_telegram'] ) ? $group_meta['group_youtube'] : '';
-	$form['group_peertube']        = isset( $group_meta['group_telegram'] ) ? $group_meta['group_peertube'] : '';
-	$form['group_pixelfed']        = isset( $group_meta['group_telegram'] ) ? $group_meta['group_pixelfed'] : '';
+	$form['group_mastodon']        = isset( $group_meta['group_mastodon'] ) ? $group_meta['group_mastodon'] : '';
+	$form['group_youtube']         = isset( $group_meta['group_youtube'] ) ? $group_meta['group_youtube'] : '';
+	$form['group_peertube']        = isset( $group_meta['group_peertube'] ) ? $group_meta['group_peertube'] : '';
+	$form['group_pixelfed']        = isset( $group_meta['group_pixelfed'] ) ? $group_meta['group_pixelfed'] : '';
 	$form['group_facebook']        = isset( $group_meta['group_facebook'] ) ? $group_meta['group_facebook'] : '';
 	$form['group_github']          = isset( $group_meta['group_github'] ) ? $group_meta['group_github'] : '';
 	$form['group_twitter']         = isset( $group_meta['group_twitter'] ) ? $group_meta['group_twitter'] : '';
@@ -308,6 +308,26 @@ $form_tags = isset( $form['tags'] ) && is_array( $form['tags'] ) ? array_unique(
 					<div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--50">
 						<label class="create-group__label" for="group-github"><?php esc_html_e( 'GitHub', 'community-portal' ); ?></label>
 						<input placeholder="https://" type="text" name="group_github" id="group-github" class="create-group__input create-group__input--inline"  value="<?php print isset( $form['group_github'] ) ? esc_url_raw( $form['group_github'] ) : ''; ?>"/>
+					</div>
+				</div>
+				<div class="create-group__input-row">
+					<div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--50">
+						<label class="create-group__label" for="group-youtube"><?php esc_html_e( 'Youtube', 'community-portal' ); ?></label>
+						<input type="text" placeholder="https://" name="group_youtube" id="group-youtube" class="create-group__input create-group__input--inline"  value="<?php print isset( $form['group_youtube'] ) ? esc_url_raw( $form['group_youtube'] ) : ''; ?>"/>
+					</div>
+					<div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--50">
+						<label class="create-group__label" for="group-peertube"><?php esc_html_e( 'PeerTube', 'community-portal' ); ?></label>
+						<input placeholder="https://" type="text" name="group_github" id="group-peertube" class="create-group__input create-group__input--inline"  value="<?php print isset( $form['group_github'] ) ? esc_url_raw( $form['group_peertube'] ) : ''; ?>"/>
+					</div>
+				</div>
+				<div class="create-group__input-row">
+					<div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--50">
+						<label class="create-group__label" for="group-pixelfed"><?php esc_html_e( 'Pixelfed', 'community-portal' ); ?></label>
+						<input type="text" placeholder="https://" name="group_pixelfed" id="group-pixelfed" class="create-group__input create-group__input--inline"  value="<?php print isset( $form['group_pixelfed'] ) ? esc_url_raw( $form['group_pixelfed'] ) : ''; ?>"/>
+					</div>
+					<div class="create-group__input-container create-group__input-container--vertical-spacing create-group__input-container--50">
+						<label class="create-group__label" for="group-mastodon"><?php esc_html_e( 'Mastodon', 'community-portal' ); ?></label>
+						<input placeholder="https://" type="text" name="group_mastodon" id="group-mastodon" class="create-group__input create-group__input--inline"  value="<?php print isset( $form['group_mastodon'] ) ? esc_url_raw( $form['group_mastodon'] ) : ''; ?>"/>
 					</div>
 				</div>
 				<div class="create-group__input-row">
