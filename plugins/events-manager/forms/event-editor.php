@@ -33,7 +33,15 @@ if ( isset( $_REQUEST['event_id'] ) ) {
 }
 
 $required = apply_filters( 'em_required_html', '<i>*</i>' );
-echo esc_html( $EM_Notices );
+$notices = wp_kses( $EM_Notices, array(
+    'p' => array(),
+    'div' => array(
+		'class' => array()
+	),
+) );
+if ( !empty( $notices ) ) {
+	echo '<div class="event-wrap">' . $notices . '</div>';
+}
 
 if ( ! empty( $_REQUEST['success'] ) ) {
 	if ( ! get_option( 'dbem_events_form_reshow' ) ) {
@@ -57,7 +65,7 @@ if ( isset( $event_nonce ) && false !== $event_nonce ) {
 $action_url = apply_filters( 'wpml_permalink', $action_url, 'en' );
 
 ?>
-<form enctype='multipart/form-data' id="event-form" novalidate class="em-event-admin-editor 
+<form enctype='multipart/form-data' id="event-form" novalidate class="em-event-admin-editor
 <?php
 if ( $EM_Event->is_recurring() ) {
 	echo 'em-event-admin-recurring';
@@ -111,7 +119,7 @@ if ( $EM_Event->is_recurring() ) {
 					em_locate_template( 'forms/event/location-moz.php', true );
 				?>
 			</div>
-		</div> 	
+		</div>
 	</div>
 	<?php if ( ! is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) : ?>
 		<div class="event-wrap event-creator">
@@ -215,13 +223,13 @@ else :
 	<div class="event-wrap event-creator">
 		<div class="event-creator__container">
 			<p>
-				<?php esc_html_e( 'The Mozilla Project welcomes contributions from everyone who shares our goals and wants to contribute in a healthy and constructive manner within our communities. By creating an event on this platform you are agreeing to respect and adhere to', 'community-portal' ); ?> 
-				<a class="event-creator__link" href="https://www.mozilla.org/about/governance/policies/participation/"><?php esc_html_e( 'Mozilla’s Community Participation Guidelines (“CPG”)', 'community-portal' ); ?></a> 
+				<?php esc_html_e( 'The Mozilla Project welcomes contributions from everyone who shares our goals and wants to contribute in a healthy and constructive manner within our communities. By creating an event on this platform you are agreeing to respect and adhere to', 'community-portal' ); ?>
+				<a class="event-creator__link" href="https://www.mozilla.org/about/governance/policies/participation/"><?php esc_html_e( 'Mozilla’s Community Participation Guidelines (“CPG”)', 'community-portal' ); ?></a>
 				<?php esc_html_e( 'in order to help us create a safe and positive community experience for all. Events that do not share our goals, or violate the CPG in any way, will be removed from the platform and potentially subject to further consequences.', 'community-portal' ); ?>
 			</p>
 		</div>
 		<div class="event-creator__container cpg">
-			<input class="checkbox--hidden" type="checkbox" id="cpg" required 
+			<input class="checkbox--hidden" type="checkbox" id="cpg" required
 			<?php
 			if ( isset( $event_id ) ) {
 				echo 'checked'; }
@@ -268,7 +276,7 @@ else :
 			$update_label = __( 'Update Event', 'community-portal' );
 		endif;
     ?>
-    
+
 		<input id="event-creator__submit-btn" type='submit' class='button-primary btn btn--dark btn--submit' value='<?php echo esc_attr( $update_label ); ?>' />
 		<?php wp_nonce_field( 'event_update', 'event_update_field' ); ?>
 		<input type="hidden" name="event_id" value="<?php echo esc_attr( $EM_Event->event_id ); ?>" />
@@ -285,5 +293,5 @@ else :
 			?>
 			" />
 		<?php endif; ?>
-	</div>		
+	</div>
 </form>

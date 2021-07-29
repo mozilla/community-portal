@@ -857,6 +857,8 @@
 								if ( $current_translation ) :
 									?>
 									<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>/?view=people"><?php esc_html_e( 'Our Members', 'community-portal' ); ?></a></li>
+						<li class="menu-item"><a class="group__menu-link" href="
+									<?php echo esc_url_raw( "/events.ics?group=" . esc_attr( $group->slug ) ); ?>"><?php esc_html_e( 'ICS Feed', 'community-portal' ); ?></a></li>
 					</ul>
 				</div>
 				<div class="group__nav group__nav--mobile">
@@ -908,7 +910,7 @@
 								<?php
 								if ( false === $info['profile_image']->display || false === $info['profile_image']->value ) :
 									?>
-									members__avatar--identicon<?php endif; ?>" 
+									members__avatar--identicon<?php endif; ?>"
 									<?php
 									if ( $info['profile_image']->display && $info['profile_image']->value ) :
 										?>
@@ -1017,14 +1019,14 @@
 										<option value=""><?php esc_html_e( 'Select', 'community-portal' ); ?></option>
 										<?php foreach ( $used_languages as $code => $language ) : ?>
 											<?php if ( strlen( $code ) > 1 ) : ?>
-										<option value="<?php echo esc_attr( $code ); ?>" 
+										<option value="<?php echo esc_attr( $code ); ?>"
 																<?php
 																if ( isset( $_GET['language'] ) && strtolower( trim( $get_language ) ) === strtolower( $code ) ) :
 																	?>
 											selected<?php endif; ?>><?php echo esc_html( $language ); ?></option>
 										<?php endif; ?>
 										<?php endforeach; ?>
-									</select>  
+									</select>
 								</div>
 								<?php endif; ?>
 								<div class="members__select-container">
@@ -1039,13 +1041,13 @@
 												}
 											}
 											?>
-										<option value="<?php echo esc_html( $loop_tag->slug ); ?>" 
+										<option value="<?php echo esc_html( $loop_tag->slug ); ?>"
 																<?php
 																if ( isset( $_GET['tag'] ) && strtolower( trim( $get_tag ) ) === strtolower( $loop_tag->slug ) ) :
 																	?>
 											selected<?php endif; ?>><?php echo esc_html( $loop_tag->name ); ?></option>
 										<?php endforeach; ?>
-									</select>  
+									</select>
 								</div>
 							</div>
 							<div class="groups__show-filters-container">
@@ -1060,7 +1062,7 @@
 								if ( isset( $_GET['u'] ) && strlen( $search_user ) > 0 ) :
 									?>
 									<div class="members__results-for"><?php esc_html_e( 'Results for ', 'community-portal' ) . "\"{$search_user}\"" . esc_html( " ({$count})" ); ?></div>
-							<?php endif; ?>			
+							<?php endif; ?>
 								<?php foreach ( $filtered_members as $member ) : ?>
 									<?php
 									$is_me = $logged_in && intval( $group_user->ID ) === intval( $member->user_id );
@@ -1081,7 +1083,7 @@
 									<?php
 									if ( false === $info['profile_image']->display || false === $info['profile_image']->value ) :
 										?>
-									members__avatar--identicon<?php endif; ?>" 
+									members__avatar--identicon<?php endif; ?>"
 									<?php
 									if ( $info['profile_image']->display && $info['profile_image']->value ) :
 										?>
@@ -1116,7 +1118,7 @@
 							<?php else : ?>
 								<h2 class="members__title--no-members-found"><?php esc_html_e( 'No members found', 'community-portal' ); ?></h2>
 							<?php endif; ?>
-						</div>  
+						</div>
 						<?php else : ?>
 							<p><?php esc_html_e( 'This group currently has no members', 'community-portal' ); ?></p>
 						<?php endif; ?>
@@ -1352,7 +1354,7 @@
 									</p>
 								<?php endif; ?>
 								<?php endif; ?>
-							</div>  
+							</div>
 						</div>
 						<?php endif; ?>
 						<?php if ( isset( $discourse_group['discourse_category_url'] ) && strlen( $discourse_group['discourse_category_url'] ) > 0 ) : ?>
@@ -1362,7 +1364,7 @@
 
 							if ( isset( $options['discourse_url'] ) && strlen( $options['discourse_url'] ) > 0 ) {
 								$discourse_api_url = rtrim( $options['discourse_url'], '/' );
-								
+
 								$discourse_category_id = intval( trim( $discourse_group['discourse_category_id'] ) );
 								$api_url           = "{$options['discourse_url']}/c/{$discourse_category_id}";
 
@@ -1485,7 +1487,7 @@
 									<p class="group__card-content__subtitle"><?php esc_html_e( 'Related Events', 'community-portal' ); ?></p>
 								</div>
 
-								<a class="group__event wtf" href="<?php echo esc_url_raw( $event_link ); ?>"> 
+								<a class="group__event wtf" href="<?php echo esc_url_raw( $event_link ); ?>">
 									<div class="group__event-date">
 										<?php echo esc_html( $event_date ); ?>
 									</div>
@@ -1558,7 +1560,7 @@
 										<?php
 										if ( false === $info['profile_image']->display || false === $info['profile_image']->value ) :
 											?>
-											members__avatar--identicon<?php endif; ?>" 
+											members__avatar--identicon<?php endif; ?>"
 											<?php
 											if ( $info['profile_image']->display && $info['profile_image']->value ) :
 												?>
@@ -1605,7 +1607,7 @@
 								</div>
 								<div class="group__tags">
 									<?php foreach ( $group_tags as $tag_loop ) : ?>
-										
+
 										<?php
 										foreach ( $tags as $t ) {
 											$found = false;
