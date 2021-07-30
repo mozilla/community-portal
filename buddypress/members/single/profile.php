@@ -43,11 +43,11 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 						</a>
 					</div>
 				<?php endif; ?>
-				<div class="profile__avatar 
+				<div class="profile__avatar
 				<?php
 				if ( false === $info['profile_image']->value || false === $info['profile_image']->display ) :
 					?>
-					profile__avatar--empty<?php endif; ?>" 
+					profile__avatar--empty<?php endif; ?>"
 					<?php
 					if ( $info['profile_image']->display ) :
 						?>
@@ -239,7 +239,6 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 						<?php
 							$events = array_map( 'mozilla_replace_bookings_with_events', $events->bookings );
 						?>
-						<?php usort( $events, 'mozilla_sort_events_by_date' ); ?>
 						<?php foreach ( $events as $event ) : ?>
 							<?php
 								$event_time  = strtotime( $event->event_start_date );
@@ -288,7 +287,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 								<hr class="profile__group-line" />
 							<?php endif; ?>
 						<?php endforeach; ?>
-					</div>        
+					</div>
 				<?php endif; ?>
 			<?php endif; ?>
 
@@ -299,6 +298,8 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 						'scope'        => 'all',
 						'private_only' => true,
 						'pagination'   => false,
+						'orderby'      => 'event_start_date',
+						'order'        => 'ASC'
 					);
 					$private_events_organized = EM_Events::get( $args );
 					$args                     = array(
@@ -306,10 +307,11 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 						'scope'      => 'all',
 						'private'    => false,
 						'pagination' => false,
+						'orderby'    => 'event_start_date',
+						'order'      => 'ASC'
 					);
 					$events_organized         = EM_Events::get( $args );
 					$events_organized         = array_unique( array_merge( $events_organized, $private_events_organized ), SORT_REGULAR );
-					usort( $events_organized, 'mozilla_sort_events_by_date' );
 					$events_organized_count = 0;
 					?>
 				<?php if ( count( $events_organized ) > 0 ) : ?>
@@ -405,7 +407,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 										$date_format = 'en' === $current_translation ? 'F d' : 'd F';
 										echo esc_html( mozilla_localize_date( $start, $date_format ) );
 										?>
-										- 
+										-
 											<?php
 											echo esc_html( mozilla_localize_date( $end, $date_format . ' Y' ) );
 									} else {
