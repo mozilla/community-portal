@@ -37,7 +37,7 @@
         font-size: remCalc(16);
         line-height: 24px;
         margin-top: 16px;
-        text-decoration: none; 
+        text-decoration: none;
     }
 
     &__debug-info {
@@ -77,7 +77,7 @@
 			}
 		}
 	}
-	
+
 	&__external-link,
 	&__host {
 		&:hover {
@@ -119,13 +119,13 @@
     .em-booking-form-details {
         text-align: right;
     }
-        
+
     .card {
         background-color: $color-white;
         padding: 32px;
 
         &--with-img {
-            padding: 0;    
+            padding: 0;
         }
 
         &__image {
@@ -166,7 +166,7 @@
         &__time {
             margin: 0;
         }
-        
+
         #em-booking {
             flex-basis: 100%;
 
@@ -246,7 +246,7 @@
                 }
             }
         }
-        
+
     }
 
     &__attributes.card,
@@ -292,7 +292,7 @@
                 padding-left: 0;
             }
 
-            a, 
+            a,
             a:visited {
                 color: $color-black;
             }
@@ -340,7 +340,7 @@
                 @include tablet-and-up {
                     align-items: center;
                     border-top: 0;
-                    display: flex; 
+                    display: flex;
                     padding-top: 32px;
                 }
 
@@ -368,6 +368,7 @@
         .events-single__host {
             display: block;
             margin-top: 16px;
+            text-align: center;
         }
 
         @include tablet-and-up {
@@ -377,7 +378,7 @@
     }
 
     &__attributes.card {
-        
+
         @include desktop-and-up {
            margin-top: 0;
         }
@@ -390,7 +391,7 @@
         }
 
         @include desktop-and-up {
-            padding: 16px 0;  
+            padding: 16px 0;
         }
     }
 
@@ -403,7 +404,7 @@
     &__share {
         border-top: 1px solid $color-gray-20;
         padding-top: 32px;
-        
+
         svg {
             position: relative;
             top: 2px;
@@ -414,7 +415,7 @@
 	&__language {
         margin-top: 32px;
 	}
-	
+
 	&__language.card {
 		.col-sm-12 {
 			padding: 0;
