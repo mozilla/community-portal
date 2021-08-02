@@ -33,6 +33,10 @@ function mozilla_create_group() {
 			'group_github',
 			'group_twitter',
 			'group_matrix',
+			'group_mastodon',
+			'group_youtube',
+			'group_peertube',
+			'group_pixelfed',
 			'group_other',
 			'group_country',
 			'group_city',
@@ -341,6 +345,10 @@ function mozilla_edit_group() {
 							$meta['group_github']    = isset( $_POST['group_github'] ) ? sanitize_text_field( wp_unslash( $_POST['group_github'] ) ) : '';
 							$meta['group_twitter']   = isset( $_POST['group_twitter'] ) ? sanitize_text_field( wp_unslash( $_POST['group_twitter'] ) ) : '';
 							$meta['group_matrix']    = isset( $_POST['group_matrix'] ) ? sanitize_text_field( wp_unslash( $_POST['group_matrix'] ) ) : '';
+							$meta['group_mastodon']    = isset( $_POST['group_mastodon'] ) ? sanitize_text_field( wp_unslash( $_POST['group_mastodon'] ) ) : '';
+							$meta['group_youtube']    = isset( $_POST['group_youtube'] ) ? sanitize_text_field( wp_unslash( $_POST['group_youtube'] ) ) : '';
+							$meta['group_pixelfed']    = isset( $_POST['group_pixelfed'] ) ? sanitize_text_field( wp_unslash( $_POST['group_pixelfed'] ) ) : '';
+							$meta['group_peertube']    = isset( $_POST['group_peertube'] ) ? sanitize_text_field( wp_unslash( $_POST['group_peertube'] ) ) : '';
 							$meta['group_other']     = isset( $_POST['group_other'] ) ? sanitize_text_field( wp_unslash( $_POST['group_other'] ) ) : '';
 
 							groups_update_groupmeta( $group_id, 'meta', $meta );

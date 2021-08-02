@@ -23,21 +23,21 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 
 <?php if ( true === $complete && false === $edit ) : ?>
 	<div class="profile__container">
-		<section class="profile__success-message-container"> 
+		<section class="profile__success-message-container">
 			<h1 class="profile__title"><?php esc_html_e( 'CONGRATULATIONS!', 'community-portal' ); ?></h1>
 			<p class="profile__success-message">
 				<?php
 					esc_html_e( 'Your Account has been created! You can keep adding to your profile or dive right in. You are now ready to connect with other users, participate in events and projects, and get involved in the Mozilla community.', 'community-portal' );
 				?>
 			</p>
-			<?php if ( isset( $subscribed ) && intval( $subscribed ) !== 1 ) : ?>	
+			<?php if ( isset( $subscribed ) && intval( $subscribed ) !== 1 ) : ?>
 				<p class="profile__error-message">
 					<?php
 						esc_html_e( 'Notice: We had a problem registering you for our newsletter. Please try signing up again later. To try again ', 'community-portal' );
 					?>
 					<a class="newsletter__link" href="<?php echo esc_attr( get_home_url( null, 'newsletter' ) ); ?>">
 						<?php esc_html_e( 'Click here', 'community-portal' ); ?>
-					</a> 
+					</a>
 				</p>
 			<?php endif; ?>
 			<div class="profile__button-container">
@@ -118,8 +118,8 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 							}
 						}
 						?>
-						<div 
-							id="dropzone-photo-uploader" 
+						<div
+							id="dropzone-photo-uploader"
 							class="profile__image-upload"
 							<?php if ( $form && isset( $form['image_url'] ) && strlen( $form['image_url'] ) > 0 ) : ?>
 								style="background: url('<?php echo esc_url_raw( $avatar_url ); ?>') cover;"
@@ -133,12 +133,12 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 									<div class="form__error-container">
 										<p class="form__error form__error--image"></p>
 									</div>
-									<button 
-										id="dropzone-trigger" 
-										type="button" 
-										class="dropzone__image-instructions profile__image-instructions 
+									<button
+										id="dropzone-trigger"
+										type="button"
+										class="dropzone__image-instructions profile__image-instructions
 											<?php if ( isset( $community_fields['image_url'] ) && strlen( $community_fields['image_url'] ) !== 0 ) : ?>
-												dropzone__image-instructions--hidden 
+												dropzone__image-instructions--hidden
 											<?php endif; ?>"
 									>
 										<?php esc_html_e( 'Click or drag a photo above', 'community-portal' ); ?>
@@ -147,22 +147,22 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 										</span>
 									</button>
 								</div>
-								<button 
+								<button
 									class="dz-remove
 									<?php if ( ! isset( $community_fields['image_url'] ) || isset( $community_fields['image_url'] ) && 0 === strlen( $community_fields['image_url'] ) ) : ?>
 										dz-remove--hide
-									<?php endif; ?>" 
-									type="button" 
-									data-dz-remove="" 
+									<?php endif; ?>"
+									type="button"
+									data-dz-remove=""
 								>
 										<?php esc_html_e( 'Remove file', 'community-portal' ); ?>
 								</button>
 							</div>
 						</div>
-						<input 
-							type="hidden" 
-							name="image_url" 
-							id="image-url" 
+						<input
+							type="hidden"
+							name="image_url"
+							id="image-url"
 							value="
 								<?php if ( $form && isset( $form['image_url'] ) ) : ?>
 									<?php echo esc_url( $form['image_url'] ); ?>
@@ -170,7 +170,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 									<?php if ( is_array( $community_fields ) && isset( $community_fields['image_url'] ) ) : ?>
 										<?php echo esc_url( $community_fields['image_url'] ); ?>
 									<?php endif; ?>
-								<?php endif; ?>" 
+								<?php endif; ?>"
 						/>
 					</div>
 					<div class="profile__select-container">
@@ -179,7 +179,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 						</label>
 						<select id="profile-image-visibility" name="profile_image_url_visibility" class="profile__select">
 							<?php foreach ( $visibility_options as $key   => $value ) : ?>
-								<option 
+								<option
 									value="<?php echo esc_attr( $key ); ?>"
 									<?php if ( $form && isset( $form['	'] ) && "{$key}" === $form['profile_image_url_visibility'] ) : ?>
 										selected
@@ -202,19 +202,19 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 					<label class="profile__label" for="username">
 						<?php esc_html_e( 'Username (required)', 'community-portal' ); ?>
 					</label>
-					<input 
-						type="text" 
-						name="username" 
-						id="username" 
+					<input
+						type="text"
+						name="username"
+						id="username"
 						class="profile__input
 							<?php if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] && ! isset( $form['username'] ) || ( isset( $form['username'] ) && empty( trim( $form['username'] ) ) || isset( $form['username_error_message'] ) ) ) : ?>
 								profile__input--error
-							<?php endif; ?>" 
-						placeholder="<?php esc_attr_e( 'Username', 'community-portal' ); ?>" 
-						value="<?php echo isset( $form['username'] ) ? esc_attr( wp_unslash( $form['username'] ) ) : esc_attr( wp_unslash( $user->user_nicename ) ); ?>"  
+							<?php endif; ?>"
+						placeholder="<?php esc_attr_e( 'Username', 'community-portal' ); ?>"
+						value="<?php echo isset( $form['username'] ) ? esc_attr( wp_unslash( $form['username'] ) ) : esc_attr( wp_unslash( $user->user_nicename ) ); ?>"
 						required
 					/>
-					<div 
+					<div
 						class="form__error-container
 							<?php if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] && ! isset( $form['username'] ) || ( isset( $form['username'] ) && empty( trim( $form['username'] ) ) || isset( $form['username_error_message'] ) ) ) : ?>
 								form__error-container--visible
@@ -256,21 +256,21 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 					<label class="profile__label" for="first-name">
 						<?php esc_html_e( 'First Name (required)', 'community-portal' ); ?>
 					</label>
-					<input 
-						type="text" 
-						name="first_name" 
-						id="first-name" 
+					<input
+						type="text"
+						name="first_name"
+						id="first-name"
 						class="profile__input
 							<?php
 							if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] && ! isset( $form['first_name'] ) || ( isset( $form['first_name'] ) && empty( trim( $form['first_name'] ) ) ) ) :
 								?>
 								profile__input--error
-							<?php endif; ?>" 
-						placeholder="<?php esc_attr_e( 'First Name', 'community-portal' ); ?>" 
-						value="<?php echo isset( $form['first_name'] ) ? esc_attr( wp_unslash( $form['first_name'] ) ) : esc_attr( wp_unslash( $meta['first_name'][0] ) ); ?>" 
-						required 
+							<?php endif; ?>"
+						placeholder="<?php esc_attr_e( 'First Name', 'community-portal' ); ?>"
+						value="<?php echo isset( $form['first_name'] ) ? esc_attr( wp_unslash( $form['first_name'] ) ) : esc_attr( wp_unslash( $meta['first_name'][0] ) ); ?>"
+						required
 					/>
-					<div 
+					<div
 						class="form__error-container
 							<?php if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] && ! isset( $form['first_name'] ) || ( isset( $form['first_name'] ) && empty( trim( $form['first_name'] ) ) ) ) : ?>
 									form__error-container--visible
@@ -291,7 +291,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 					<select id="firstname-visibility" name="first_name_visibility" class="profile__select">
 						<?php foreach ( $visibility_options as $key   => $value ) : ?>
 							<?php if ( 'Private (Only Me)' !== $value ) : ?>
-								<option 
+								<option
 									value="<?php echo esc_html( $key ); ?>"
 									<?php
 									if ( isset( $meta['first_name_visibility'][0] ) && "{$key}" === $meta['first_name_visibility'][0] ) :
@@ -312,21 +312,21 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 					<label class="profile__label" for="last-name">
 						<?php esc_html_e( 'Last Name (required)', 'community-portal' ); ?>
 					</label>
-					<input 
-						type="text" 
-						name="last_name" 
-						id="last-name" 
+					<input
+						type="text"
+						name="last_name"
+						id="last-name"
 						class="profile__input
 							<?php
 							if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] && ! isset( $form['last_name'] ) || ( isset( $form['last_name'] ) && empty( trim( $form['last_name'] ) ) ) ) :
 								?>
 								profile__input--error
-							<?php endif; ?>" 
-						placeholder="<?php esc_attr_e( 'Last Name', 'community-portal' ); ?>" 
-						value="<?php echo isset( $form['last_name'] ) ? esc_attr( wp_unslash( $form['last_name'] ) ) : esc_attr( wp_unslash( $meta['last_name'][0] ) ); ?>" 
-						required 
+							<?php endif; ?>"
+						placeholder="<?php esc_attr_e( 'Last Name', 'community-portal' ); ?>"
+						value="<?php echo isset( $form['last_name'] ) ? esc_attr( wp_unslash( $form['last_name'] ) ) : esc_attr( wp_unslash( $meta['last_name'][0] ) ); ?>"
+						required
 					/>
-					<div 
+					<div
 						class="form__error-container
 							<?php
 							if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] && ! isset( $form['last_name'] ) || ( isset( $form['last_name'] ) && empty( trim( $form['last_name'] ) ) ) ) :
@@ -345,7 +345,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 					</label>
 					<select id="lastname-visibility" name="last_name_visibility" class="profile__select">
 						<?php foreach ( $visibility_options as $key   => $value ) : ?>
-							<option 
+							<option
 								value="<?php echo esc_attr( $key ); ?>"
 									<?php
 									if ( isset( $meta['last_name_visibility'][0] ) && "{$key}" === $meta['last_name_visibility'][0] ) :
@@ -369,9 +369,9 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 						<select id="pronoun" name="pronoun" class="profile__select">
 							<option value="">
 								<?php esc_html_e( 'Preferred Pronoun', 'community-portal' ); ?>
-							</option> 
+							</option>
 							<?php foreach ( $pronouns as $key=>$p ) : ?>
-								<option 
+								<option
 									value="<?php echo esc_attr( $key ); ?>"
 									<?php
 									if ( $form && isset( $form['pronoun'] ) && $form['pronoun'] === $key ) :
@@ -396,7 +396,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 						</label>
 						<select id="profile-pronoun-visibility" name="profile_pronoun_visibility" class="profile__select">
 							<?php foreach ( $visibility_options as $key   => $value ) : ?>
-								<option 
+								<option
 									value="<?php echo esc_html( $key ); ?>"
 									<?php
 									if ( $form && isset( $form['profile_pronoun_visibility'] ) && "{$key}" === $form['profile_pronoun_visibility'] ) :
@@ -467,7 +467,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 								<?php esc_html_e( 'Country', 'community-portal' ); ?>
 							</option>
 							<?php foreach ( $countries as $key    => $value ) : ?>
-								<option 
+								<option
 									value="<?php echo esc_attr( $key ); ?>"
 									<?php if ( $form && isset( $form['country'] ) && $form['country'] === $key ) : ?>
 										selected
@@ -486,14 +486,14 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 						<label class="profile__label" for="city">
 							<?php esc_html_e( 'City (optional)', 'community-portal' ); ?>
 						</label>
-						<input 
-							type="text" 
-							name="city" 
-							id="city" 
-							class="profile__input" 
-							placeholder="<?php esc_attr_e( 'City', 'community-portal' ); ?>" 
-							value="<?php echo isset( $form['city'] ) ? esc_attr( wp_unslash( $form['city'] ) ) : esc_attr( $community_fields['city'] ); ?>" 
-							maxlength="180" 
+						<input
+							type="text"
+							name="city"
+							id="city"
+							class="profile__input"
+							placeholder="<?php esc_attr_e( 'City', 'community-portal' ); ?>"
+							value="<?php echo isset( $form['city'] ) ? esc_attr( wp_unslash( $form['city'] ) ) : esc_attr( $community_fields['city'] ); ?>"
+							maxlength="180"
 						/>
 					</div>
 					<div class="profile__select-container">
@@ -502,7 +502,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 						</label>
 						<select id="profile-location-visibility" name="profile_location_visibility" class="profile__select">
 							<?php foreach ( $visibility_options as $key   => $value ) : ?>
-								<option 
+								<option
 									value="<?php echo esc_attr( $key ); ?>"
 									<?php if ( $form && isset( $form['profile_location_visibility'] ) && "{$key}" === $form['profile_location_visibility'] ) : ?>
 										selected
@@ -525,16 +525,16 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 					<label class="profile__label" for="email">
 						<?php esc_html_e( 'Email contact (required)', 'community-portal' ); ?>
 					</label>
-					<input 
-						type="email" 
-						name="email" 
-						id="email" 
+					<input
+						type="email"
+						name="email"
+						id="email"
 						class="profile__input
 							<?php if ( ! empty( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] && ! isset( $form['email'] ) || ( isset( $form['email'] ) && empty( trim( $form['email'] ) ) || isset( $form['email_error_message'] ) ) ) : ?>
 								profile__input--error
-							<?php endif; ?>" 
-						placeholder="<?php esc_attr_e( 'Email', 'community-portal' ); ?>" 
-						value="<?php echo isset( $form['email'] ) ? esc_attr( $form['email'] ) : esc_attr( $user->user_email ); ?>" 
+							<?php endif; ?>"
+						placeholder="<?php esc_attr_e( 'Email', 'community-portal' ); ?>"
+						value="<?php echo isset( $form['email'] ) ? esc_attr( $form['email'] ) : esc_attr( $user->user_email ); ?>"
 						required
 					/>
 					<div class="form__error-container
@@ -567,7 +567,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 					</label>
 					<select id="email-visibility" name="email_visibility" class="profile__select">
 						<?php foreach ( $visibility_options as $key   => $value ) : ?>
-							<option 
+							<option
 								value="<?php echo esc_attr( $key ); ?>"
 									<?php if ( isset( $meta['email_visibility'][0] ) && "{$key}" === $meta['email_visibility'][0] ) : ?>
 										selected
@@ -586,11 +586,11 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 						<label class="profile__label" for="phone">
 							<?php esc_html_e( 'Phone contact (optional)', 'community-portal' ); ?>
 						</label>
-						<input 
-							type="text" 
-							name="phone" 
-							id="phone" 
-							class="profile__input" 
+						<input
+							type="text"
+							name="phone"
+							id="phone"
+							class="profile__input"
 							value="
 								<?php if ( $form && isset( $form['phone'] ) ) : ?>
 									<?php echo esc_attr( $form['phone'] ); ?>
@@ -607,7 +607,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 						</label>
 						<select id="profile-phone-visibility" name="profile_phone_visibility" class="profile__select">
 							<?php foreach ( $visibility_options as $key   => $value ) : ?>
-								<option 
+								<option
 									value="<?php echo esc_attr( $key ); ?>"
 									<?php if ( isset( $community_fields['profile_phone_visibility'] ) && "{$key}" === $community_fields['profile_phone_visibility'] ) : ?>
 										selected
@@ -874,12 +874,12 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 							}
 						}
 						?>
-						<input 
+						<input
 							placeholder="<?php esc_attr_e('username:domain', 'community-portal') ?>"
-							type="text" 
-							name="matrix" 
-							id="matrix" 
-							class="profile__input" 
+							type="text"
+							name="matrix"
+							id="matrix"
+							class="profile__input"
 							value="<?php echo esc_attr( $matrix_input ); ?>"
 						/>
 						<div class="form__error-container form__error-container--checkbox">
@@ -905,6 +905,171 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 						</select>
 					</div>
 				</div>
+				<div class="profile__form-field">
+					<div class="profile__input-container">
+						<label class="profile__label" for="matrix">
+							<?php esc_html_e( 'Youtube Channel link (optional)', 'community-portal' ); ?>
+						</label>
+						<?php
+						if ( $form && isset( $form['youtube'] ) ) {
+							$youtube_input = $form['youtube'];
+						} else {
+							if ( is_array( $community_fields ) && isset( $community_fields['youtube'] ) ) {
+								$youtube_input = $community_fields['youtube'];
+							} else {
+								$youtube_input = '';
+							}
+						}
+						?>
+						<input
+							placeholder="<?php esc_attr_e('https://youtube.com/channel/XXXXXX', 'community-portal') ?>"
+							type="text"
+							name="youtube"
+							id="youtube"
+							class="profile__input"
+							value="<?php echo esc_attr( $youtube_input ); ?>"
+						/>
+					</div>
+					<div class="profile__select-container">
+						<label class="profile__label" for="profile-youtube-visibility">
+							<?php esc_html_e( 'Can be viewed by', 'community-portal' ); ?>
+						</label>
+						<select id="profile-youtube-visibility" name="profile_youtube_visibility" class="profile__select">
+							<?php foreach ( $visibility_options as $key   => $value ) : ?>
+								<option value="<?php echo esc_attr( $key ); ?>"
+									<?php if ( isset( $community_fields['profile_youtube_visibility'] ) && "{$key}" === $community_fields['profile_youtube_visibility'] ) : ?>
+										selected
+									<?php endif; ?>
+								>
+									<?php echo esc_html( $value ); ?>
+								</option>
+							<?php endforeach; ?>
+						</select>
+					</div>
+				</div>
+				<div class="profile__form-field">
+					<div class="profile__input-container">
+						<label class="profile__label" for="peertube">
+							<?php esc_html_e( 'peertube (optional)', 'community-portal' ); ?>
+						</label>
+						<?php
+						if ( $form && isset( $form['peertube'] ) ) {
+							$peertube_input = $form['peertube'];
+						} else {
+							if ( is_array( $community_fields ) && isset( $community_fields['peertube'] ) ) {
+								$peertube_input = $community_fields['peertube'];
+							} else {
+								$peertube_input = '';
+							}
+						}
+						?>
+						<input
+							type="text"
+							name="peertube"
+							id="peertube"
+							class="profile__input"
+							value="<?php echo esc_attr( $peertube_input ); ?>"
+						/>
+					</div>
+					<div class="profile__select-container">
+						<label class="profile__label" for="profile-peertube-visibility">
+							<?php esc_html_e( 'Can be viewed by', 'community-portal' ); ?>
+						</label>
+						<select id="profile-peertube-visibility" name="profile_peertube_visibility" class="profile__select">
+							<?php foreach ( $visibility_options as $key   => $value ) : ?>
+								<option value="<?php echo esc_attr( $key ); ?>"
+									<?php if ( isset( $community_fields['profile_peertube_visibility'] ) && "{$key}" === $community_fields['profile_peertube_visibility'] ) : ?>
+										selected
+									<?php endif; ?>
+								>
+									<?php echo esc_html( $value ); ?>
+								</option>
+							<?php endforeach; ?>
+						</select>
+					</div>
+				</div>
+				<div class="profile__form-field">
+					<div class="profile__input-container">
+						<label class="profile__label" for="pixelfed">
+							<?php esc_html_e( 'Pixelfed URL (optional)', 'community-portal' ); ?>
+						</label>
+						<?php
+						if ( $form && isset( $form['pixelfed'] ) ) {
+							$pixelfed_input = $form['pixelfed'];
+						} else {
+							if ( is_array( $community_fields ) && isset( $community_fields['pixelfed'] ) ) {
+								$pixelfed_input = $community_fields['pixelfed'];
+							} else {
+								$pixelfed_input = '';
+							}
+						}
+						?>
+						<input
+							type="text"
+							name="pixelfed"
+							id="pixelfed"
+							class="profile__input"
+							value="<?php echo esc_attr( $pixelfed_input ); ?>"
+						/>
+					</div>
+					<div class="profile__select-container">
+						<label class="profile__label" for="profile-pixelfed-visibility">
+							<?php esc_html_e( 'Can be viewed by', 'community-portal' ); ?>
+						</label>
+						<select id="profile-pixelfed-visibility" name="profile_pixelfed_visibility" class="profile__select">
+							<?php foreach ( $visibility_options as $key   => $value ) : ?>
+								<option value="<?php echo esc_attr( $key ); ?>"
+									<?php if ( isset( $community_fields['profile_pixelfed_visibility'] ) && "{$key}" === $community_fields['profile_pixelfed_visibility'] ) : ?>
+										selected
+									<?php endif; ?>
+								>
+									<?php echo esc_html( $value ); ?>
+								</option>
+							<?php endforeach; ?>
+						</select>
+					</div>
+				</div>
+				<div class="profile__form-field">
+					<div class="profile__input-container">
+						<label class="profile__label" for="mastodon">
+							<?php esc_html_e( 'Mastodon URL (optional)', 'community-portal' ); ?>
+						</label>
+						<?php
+						if ( $form && isset( $form['mastodon'] ) ) {
+							$mastodon_input = $form['mastodon'];
+						} else {
+							if ( is_array( $community_fields ) && isset( $community_fields['mastodon'] ) ) {
+								$mastodon_input = $community_fields['mastodon'];
+							} else {
+								$mastodon_input = '';
+							}
+						}
+						?>
+						<input
+							type="text"
+							name="mastodon"
+							id="mastodon"
+							class="profile__input"
+							value="<?php echo esc_attr( $mastodon_input ); ?>"
+						/>
+					</div>
+					<div class="profile__select-container">
+						<label class="profile__label" for="profile-mastodon-visibility">
+							<?php esc_html_e( 'Can be viewed by', 'community-portal' ); ?>
+						</label>
+						<select id="profile-mastodon-visibility" name="profile_mastodon_visibility" class="profile__select">
+							<?php foreach ( $visibility_options as $key   => $value ) : ?>
+								<option value="<?php echo esc_attr( $key ); ?>"
+									<?php if ( isset( $community_fields['profile_mastodon_visibility'] ) && "{$key}" === $community_fields['profile_mastodon_visibility'] ) : ?>
+										selected
+									<?php endif; ?>
+								>
+									<?php echo esc_html( $value ); ?>
+								</option>
+							<?php endforeach; ?>
+						</select>
+					</div>
+				</div>
 			</section>
 			<section class="profile__form-container">
 				<div class="profile__form-primary">
@@ -914,7 +1079,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 							<?php esc_html_e( 'Visibility Settings', 'community-portal' ); ?>
 						</label>
 						<select id="communication-visibility" name="communication_visibility" class="profile__select">
-							<option><?php esc_html_e( 'Custom', 'community-portal' ); ?></option>   
+							<option><?php esc_html_e( 'Custom', 'community-portal' ); ?></option>
 							<?php foreach ( $visibility_options as $key   => $value ) : ?>
 								<option value="<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $value ); ?></option>
 							<?php endforeach; ?>
@@ -962,7 +1127,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 							</label>
 							<select id="profile-languages-visibility" class="profile__select profile__select--flex">
 								<?php foreach ( $visibility_options as $key   => $value ) : ?>
-									<option 
+									<option
 										value="<?php echo esc_attr( $key ); ?>"
 										<?php
 										if ( isset( $community_fields['profile_languages_visibility'] ) && "{$key}" === $community_fields['profile_languages_visibility'] ) :
@@ -997,16 +1162,16 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 							<button type="button" class="profile__remove-language">&mdash;</button>
 						</div>
 						<div class="profile__select-container profile__select-container--empty">
-						</div>                      
+						</div>
 					</div>
-					<div class="profile__add-language-container"> 
+					<div class="profile__add-language-container">
 						<a href="#" class="profile__add-language"><?php esc_html_e( 'Add Another Language', 'community-portal' ); ?></a>
 					</div>
 				<?php else : ?>
 					<hr class="profile__keyline" />
 					<?php foreach ( $languages_spoken as $index => $value ) : ?>
 						<div class="profile__form-field profile__form-field--tight">
-							<div 
+							<div
 								class="profile__select-container profile__select-container--full
 								<?php if ( $index > 0 ) : ?>
 									profile__select-container--no-label
@@ -1020,9 +1185,9 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 										<?php esc_html_e( 'Languages spoken (optional)', 'community-portal' ); ?>
 									</label>
 								<?php endif; ?>
-								<select 
-									id="languages-<?php echo esc_attr( $index ); ?>" 
-									name="languages[]" 
+								<select
+									id="languages-<?php echo esc_attr( $index ); ?>"
+									name="languages[]"
 									class="profile__select
 									<?php if ( $index > 0 ) : ?>
 										profile__select--short
@@ -1030,7 +1195,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 								>
 									<option value=""><?php esc_html_e( 'Make Selection', 'community-portal' ); ?>
 									<?php foreach ( $languages as $key    => $language ) : ?>
-										<option 
+										<option
 											value="<?php echo esc_attr( $key ); ?>"
 											<?php if ( $form && isset( $form['languages'][ $index ] ) && $form['languages'][ $index ] === $key ) : ?>
 												selected
@@ -1074,11 +1239,11 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 								</div>
 							<?php else : ?>
 								<div class="profile__select-container profile__select-container--empty">
-								</div>  
+								</div>
 							<?php endif; ?>
 						</div>
 						<?php if ( ( $index + 1 ) === count( $languages_spoken ) ) : ?>
-							<div class="profile__add-language-container"> 
+							<div class="profile__add-language-container">
 								<a href="#" class="profile__add-language"><?php esc_html_e( 'Add Another Language', 'community-portal' ); ?></a>
 							</div>
 						<?php endif; ?>
@@ -1090,7 +1255,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 					</label>
 					<select id="profile-languages-visibility-mobile" class="profile__select profile__select--mobile">
 						<?php foreach ( $visibility_options as $key   => $value ) : ?>
-							<option 
+							<option
 								value="<?php echo esc_html( $key ); ?>"
 								<?php if ( $form && isset( $form['profile_languages_visibility'] ) && "{$key}" === $form['profile_languages_visibility'] ) : ?>
 									selected
@@ -1137,19 +1302,19 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 										}
 									}
 									?>
-									<input 
-										class="profile__checkbox" 
-										type="checkbox" 
-										id="<?php echo esc_attr( $loop_tag->slug ); ?>" 
+									<input
+										class="profile__checkbox"
+										type="checkbox"
+										id="<?php echo esc_attr( $loop_tag->slug ); ?>"
 										data-value="<?php echo esc_attr( $loop_tag->slug ); ?>"
 									>
-									<label 
+									<label
 										class="profile__tag
 											<?php
 											if ( in_array( $loop_tag->slug, $form_tags, true ) ) :
 												?>
 												profile__tag--active
-											<?php endif; ?>" 
+											<?php endif; ?>"
 										for="<?php echo esc_attr( $loop_tag->slug ); ?>"
 									>
 										<?php echo esc_html( $loop_tag->name ); ?>
@@ -1167,7 +1332,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 								}
 							}
 							?>
-							<input type="hidden" value="<?php echo esc_attr( $input_tags ); ?>" name="tags" id="tags" /> 
+							<input type="hidden" value="<?php echo esc_attr( $input_tags ); ?>" name="tags" id="tags" />
 						</fieldset>
 					</div>
 					<div class="profile__select-container">
@@ -1176,7 +1341,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 						</label>
 						<select id="profile-tags-visibility" name="profile_tags_visibility" class="profile__select">
 							<?php foreach ( $visibility_options as $key   => $value ) : ?>
-								<option 
+								<option
 									value="<?php echo esc_attr( $key ); ?>"
 									<?php if ( $form && isset( $form['profile_tags_visibility'] ) && "{$key}" === $form['profile_tags_visibility'] ) : ?>
 										selected
@@ -1215,7 +1380,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 						<label class="profile__label" for="profile-groups-joined-visibility"><?php esc_html_e( 'Can be viewed by', 'community-portal' ); ?></label>
 						<select id="profile-groups-joined-visibility" name="profile_groups_joined_visibility" class="profile__select">
 							<?php foreach ( $visibility_options as $key   => $value ) : ?>
-								<option 
+								<option
 									value="<?php echo esc_attr( $key ); ?>"
 									<?php if ( $form && isset( $form['profile_groups_joined_visibility'] ) && "{$key}" === $form['profile_groups_joined_visibility'] ) : ?>
 										selectd
@@ -1242,11 +1407,11 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 						</label>
 						<select id="profile-events-attended-visibility" name="profile_events_attended_visibility" class="profile__select">
 							<?php foreach ( $visibility_options as $key   => $value ) : ?>
-								<option 
+								<option
 									value="<?php echo esc_attr( $key ); ?>"
 									<?php if ( $form && isset( $form['profile_events_attended_visibility'] ) && "{$key}" === $form['profile_events_attended_visibility'] ) : ?>
 										selected
-									<?php else : ?> 
+									<?php else : ?>
 										<?php if ( isset( $community_fields['profile_events_attended_visibility'] ) && "{$key}" === $community_fields['profile_events_attended_visibility'] ) : ?>
 											selected
 										<?php endif; ?>
@@ -1267,7 +1432,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 						<label class="profile__label" for="profile-events-organized-visibility"><?php esc_html_e( 'Can be viewed by', 'community-portal' ); ?></label>
 						<select id="profile-events-organized-visibility" name="profile_events_organized_visibility" class="profile__select">
 							<?php foreach ( $visibility_options as $key => $value ) : ?>
-								<option 
+								<option
 									value="<?php echo esc_attr( "{$key}" ); ?>"
 									<?php if ( $form && isset( $form['profile_events_organized_visibility'] ) && "{$key}" === $form['profile_events_organized_visibility'] ) : ?>
 										selected
@@ -1292,7 +1457,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 						<label class="profile__label" for="profile-discourse-visibility"><?php esc_html_e( 'Can be viewed by', 'community-portal' ); ?></label>
 						<select id="profile-campaigns-visibility" name="profile_campaigns_visibility" class="profile__select">
 							<?php foreach ( $visibility_options as $key   => $value ) : ?>
-								<option 
+								<option
 									value="<?php echo esc_attr( $key ); ?>"
 									<?php
 									if ( $form && isset( $form['profile_campaigns_visibility'] ) && "{$key}" === $form['profile_campaigns_visibility'] ) :
@@ -1312,7 +1477,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 						</select>
 					</div>
 				</div>
-			</section>  
+			</section>
 		<?php endif; ?>
 		<?php
 			$category_id = get_cat_ID( 'Community Participation Guidelines' );
@@ -1335,7 +1500,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 			endif;
 		?>
 		<?php if ( ! isset( $meta['agree'][0] ) || 'I Agree' !== $meta['agree'][0] ) : ?>
-			<?php if ( 1 === count( $guidelines ) ) : ?> 
+			<?php if ( 1 === count( $guidelines ) ) : ?>
 				<section class="profile__form-container cpg">
 					<?php
 						echo wp_kses(
