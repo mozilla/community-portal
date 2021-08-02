@@ -45,7 +45,17 @@ col-sm-12 events-single__hosts">
 				<p class="events-single__label"><?php esc_html_e( 'Hosted by', 'community-portal' ); ?></p>
 				<?php if ( isset( $group ) ) : ?>
 					<a class="events-single__host" href="<?php echo esc_url_raw( get_home_url( null, 'groups/' . bp_get_group_slug( $group ) ) ); ?>">
-						<?php echo esc_html( bp_get_group_name( $group ) ); ?>
+						<?php
+							$group_info = groups_get_groupmeta( $group->id );
+							$group_info = unserialize( $group_info['meta'][0] );
+							if ( isset( $group_info['group_image_url'] ) ) {
+						?>
+						<div class="group__card-image" style="background-image: url('<?php echo esc_url_raw( $group_info['group_image_url'] ) ?>');"></div>
+						<?php
+							}
+
+							echo esc_html( bp_get_group_name( $group ) );
+						?>
 					</a>
 				<?php endif; ?>
 		</div>
@@ -55,7 +65,7 @@ col-sm-12 events-single__hosts">
 				<?php
 				if ( false === $info['profile_image']->display || false === $info['profile_image']->value ) :
 					?>
-					members__avatar--identicon<?php endif; ?>" 
+					members__avatar--identicon<?php endif; ?>"
 					<?php
 					if ( $info['profile_image']->display && $info['profile_image']->value ) :
 						?>
@@ -77,6 +87,6 @@ col-sm-12 events-single__hosts">
 				<?php endif; ?>
 			</a>
 		</div>
-	</div> 
+	</div>
 	</div>
 </div>
