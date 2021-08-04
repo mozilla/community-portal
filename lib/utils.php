@@ -1080,20 +1080,3 @@ function mozilla_replace_bookings_with_events( $booking ) {
 	$event = em_get_event( $booking->event_id );
 	return $event;
 }
-
-/**
- * Sorts an array of events based on start date
- *
- * @param object $event_1 first event.
- * @param object $event_2 second event.
- */
-function mozilla_sort_events_by_date( $event_1, $event_2 ) {
-	if ( strtotime( $event_1->event_start_date ) === strtotime( $event_2->event_start_date ) ) {
-		return 0;
-	} elseif ( strtotime( $event_1->event_start_date ) > strtotime( $event_2->event_start_date ) ) {
-		return -1;
-	} else {
-		return 1;
-	}
-}
-

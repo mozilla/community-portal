@@ -239,7 +239,6 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 						<?php
 							$events = array_map( 'mozilla_replace_bookings_with_events', $events->bookings );
 						?>
-						<?php usort( $events, 'mozilla_sort_events_by_date' ); ?>
 						<?php foreach ( $events as $event ) : ?>
 							<?php
 								$event_time  = strtotime( $event->event_start_date );
@@ -299,6 +298,8 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 						'scope'        => 'all',
 						'private_only' => true,
 						'pagination'   => false,
+						'orderby'      => 'event_start_date',
+						'order'        => 'ASC'
 					);
 					$private_events_organized = EM_Events::get( $args );
 					$args                     = array(
@@ -306,10 +307,11 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 						'scope'      => 'all',
 						'private'    => false,
 						'pagination' => false,
+						'orderby'    => 'event_start_date',
+						'order'      => 'ASC'
 					);
 					$events_organized         = EM_Events::get( $args );
 					$events_organized         = array_unique( array_merge( $events_organized, $private_events_organized ), SORT_REGULAR );
-					usort( $events_organized, 'mozilla_sort_events_by_date' );
 					$events_organized_count = 0;
 					?>
 				<?php if ( count( $events_organized ) > 0 ) : ?>
