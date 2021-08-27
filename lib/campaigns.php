@@ -10,10 +10,6 @@
  * @author     Playground Inc.
  */
 
-?>
-
-<?php
-
 /**
  * Unsubscribe from MailChimp mailing list
  */
