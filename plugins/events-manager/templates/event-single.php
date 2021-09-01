@@ -64,7 +64,29 @@ if ( $em_event->event_start_date !== $em_event->event_end_date ) {
 	$formatted_start_date = mozilla_localize_date( $em_event->event_start_date, $date_format );
 }
 
-	$all_related_events = array();
+if ( strpos( $em_event->event_timezone, 'UTC-' ) !== false || strpos( $em_event->event_timezone, 'UTC+' ) !== false ) {
+	$timezone = str_replace('UTC+','',str_replace('UTC-','',$em_event->event_timezone));
+	$timezone_offset = ( (int)$timezone * 60 );
+	if ( strpos( $em_event->event_timezone, 'UTC-' ) !== false ) {
+		$timezone_offset = '-' . date('H:i', mktime(0,substr( $timezone_offset, 1)));
+	} else {
+		$timezone_offset = '+' . date('H:i', mktime(0,substr( $timezone_offset, 1)));
+	}
+}else {
+	$timezone = new DateTimeZone( $em_event->event_timezone );
+	$timezone_offset = new DateTime( "now", $timezone );
+	$timezone_offset = $timezone_offset->format('Z');
+	if( $timezone_offset[0] !== '-' ) {
+		$timezone_offset = '+' . $timezone_offset;
+	}
+
+	$hours = floor(substr( $timezone_offset, 1) / 3600);
+    $minutes = (substr( $timezone_offset, 1) % 60);
+	$timezone_offset = $timezone_offset[0] . sprintf('%02d:%02d', $hours, $minutes);
+}
+
+
+$all_related_events = array();
 if ( is_array( $categories ) && count( $categories ) > 0 ) {
 	foreach ( $categories as $category ) {
 		$related_events = EM_Events::get( array( 'category' => $category->term_id ) );
@@ -120,7 +142,7 @@ if ( isset( $em_event->group_id ) ) {
 					$img_url = $img_url;
 				}
 				?>
-				<div class="card__image 
+				<div class="card__image
 				<?php
 				if ( '' !== $img_url && $img_url ) {
 					echo esc_attr( 'card__image--active' );
@@ -128,7 +150,7 @@ if ( isset( $em_event->group_id ) ) {
 					echo esc_attr( '' );
 				}
 				?>
-					" 
+					"
 					<?php
 					if ( $img_url && strlen( $img_url ) > 0 ) :
 						?>
@@ -159,7 +181,7 @@ if ( isset( $em_event->group_id ) ) {
 						</a>
 					<?php elseif ( isset( $admins ) ) : ?>
 						<?php foreach ( $admins as $admin ) : ?>
-							<?php if ( $admin->user_id === $current_user_id || intval( get_current_user_id() ) === intval( $em_event->event_owner ) || current_user_can( 'edit_post' ) ) : ?>  
+							<?php if ( $admin->user_id === $current_user_id || intval( get_current_user_id() ) === intval( $em_event->event_owner ) || current_user_can( 'edit_post' ) ) : ?>
 								<a class="btn card__edit-btn
 								<?php
 								if ( $img_url && isset( $_SERVER['REQUEST_URI'] ) ) :
@@ -204,6 +226,9 @@ if ( isset( $em_event->group_id ) ) {
 								echo esc_html( ' - ' ) . esc_html( substr( $em_event->event_end_time, 0, 5 ) ) . esc_html( ' ' ) . esc_html( $em_event->event_timezone );
 							}
 							?>
+						</p>
+						<p card="card__time" class="timezone">
+							In your timezone: <span data-start-time="<?php echo esc_html( $em_event->event_start_time ) ?>" data-end-time="<?php echo esc_html( $em_event->event_end_time ) ?>" data-start-date="<?php echo $em_event->event_start_date; ?>" data-end-date="<?php echo $em_event->event_end_date; ?>" data-timezone-offset="<?php echo esc_html( $timezone_offset ) ?>"></span>
 						</p>
 					</div>
 					<?php
@@ -309,7 +334,7 @@ if ( isset( $em_event->group_id ) ) {
 							};
 							mapboxgl.accessToken = "<?php echo esc_html( $map_box_access_token ); ?>";
 							var map = new mapboxgl.Map({
-								container: 'map', 
+								container: 'map',
 								style: 'mapbox://styles/mapbox/streets-v11',
 								center: [<?php echo esc_html( $coordinates[0] ) . ', ' . esc_html( $coordinates[1] ); ?> ],
 								zoom: 15,
@@ -371,12 +396,12 @@ if ( isset( $em_event->group_id ) ) {
 			<?php if ( is_array( $active_bookings ) && count( $active_bookings ) > 0 ) : ?>
 			<div class="events-single__title--with-parenthetical">
 				<h2 class="title--secondary">
-					<?php esc_html_e( 'Attendees', 'community-portal' ); ?> 
+					<?php esc_html_e( 'Attendees', 'community-portal' ); ?>
 				</h2>
 				<p class="events-single__parenthetical">
 				(
 					<span>
-						<?php echo esc_html__( 'Actual:', 'community-portal' ) . ' ' . esc_html( count( $active_bookings ) ); ?> 
+						<?php echo esc_html__( 'Actual:', 'community-portal' ) . ' ' . esc_html( count( $active_bookings ) ); ?>
 					</span>
 					<?php if ( $projected_attendees ) : ?>
 						<span class="expected-attendees"><?php echo esc_html__( 'Expecting:', 'community-portal' ) . ' ' . esc_html( $projected_attendees ); ?></span>
@@ -406,13 +431,13 @@ if ( isset( $em_event->group_id ) ) {
 							<?php
 							if ( false === $info['profile_image']->display || false === $info['profile_image']->value ) :
 								?>
-								members__avatar--identicon<?php endif; ?>" 
+								members__avatar--identicon<?php endif; ?>"
 								<?php
 								if ( $info['profile_image']->display && $info['profile_image']->value ) :
 									?>
 								style="background-image: url('<?php print esc_url_raw( $avatar_url ); ?>')"<?php endif; ?> data-username="<?php print esc_attr( $user->user_nicename ); ?>">
 							</div>
-							<div class="events-single__user-details"> 
+							<div class="events-single__user-details">
 								<p class="events-single__username"><?php echo esc_html( $user->user_nicename ); ?></p>
 							<?php if ( $info['first_name']->display && $info['first_name']->value || $info['last_name']->display && $info['last_name']->value ) : ?>
 								<div class="events-single__name">
@@ -480,7 +505,7 @@ if ( isset( $em_event->group_id ) ) {
 
 			<div class="row events-single__all-attendees">
 				<p class="title--secondary col-sm-12"><?php echo esc_html( $count ) . esc_html__( ' Attendees', 'community-portal' ); ?></p>
-				<?php foreach ( $em_event->bookings as $booking ) : ?>    
+				<?php foreach ( $em_event->bookings as $booking ) : ?>
 					<?php if ( !empty($booking) && isset($booking->booking_status) && '3' !== $booking->booking_status ) : ?>
 						<?php
 								$user  = $booking->person->data;
@@ -499,13 +524,13 @@ if ( isset( $em_event->group_id ) ) {
 								<?php
 								if ( false === $info['profile_image']->display || false === $info['profile_image']->value ) :
 									?>
-									members__avatar--identicon<?php endif; ?>" 
+									members__avatar--identicon<?php endif; ?>"
 									<?php
 									if ( $info['profile_image']->display && $info['profile_image']->value ) :
 										?>
 									style="background-image: url('<?php print esc_url_raw( $avatar_url ); ?>')"<?php endif; ?> data-username="<?php print esc_attr( $user->user_nicename ); ?>">
 								</div>
-								<div class="events-single__user-details"> 
+								<div class="events-single__user-details">
 									<p class="events-single__username">
 										<?php echo esc_attr( $user->user_nicename ); ?>
 									</p>
@@ -568,7 +593,7 @@ if ( isset( $em_event->group_id ) ) {
 				<circle cx="12" cy="16" r="0.5" fill="#CDCDD4" stroke="#0060DF"/>
 			</svg>
 			<?php esc_html_e( 'Report Event', 'community-portal' ); ?>
-		</a>                                
+		</a>
 </div>
 
 <?php endif ?>
