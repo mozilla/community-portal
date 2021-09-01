@@ -10,9 +10,8 @@
  * @author  Playground Inc.
  */
 
+get_header();
 ?>
-
-<?php get_header(); ?>
 	<div class="content">
 		<div class="page">
 			<div class="page__container">

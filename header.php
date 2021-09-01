@@ -62,7 +62,6 @@ if (
 
 	$protocol = ! empty( wp_get_server_protocol() ) && 0 === stripos( wp_get_server_protocol(), 'https' ) ? 'https://' : 'http://';
 ?>
-
 <!DOCTYPE html>
 <html <?php language_attributes(); ?> class="no-js">
 	<head>
@@ -182,7 +181,7 @@ if (
 								<?php
 								if ( ! $avatar ) :
 									?>
-									nav__avatar--empty<?php endif; ?>" 
+									nav__avatar--empty<?php endif; ?>"
 									<?php
 									if ( $avatar ) :
 										?>
@@ -271,7 +270,7 @@ if (
 							<?php
 							if ( ! $avatar ) :
 								?>
-								nav__avatar--empty<?php endif; ?>" 
+								nav__avatar--empty<?php endif; ?>"
 								<?php
 								if ( $avatar ) :
 									?>
@@ -301,7 +300,7 @@ if (
 								<?php
 								if ( ! $avatar ) :
 									?>
-									nav__avatar--empty<?php endif; ?>" 
+									nav__avatar--empty<?php endif; ?>"
 									<?php
 									if ( $avatar ) :
 										?>

@@ -10,10 +10,8 @@
  * @author  Playground Inc.
  */
 
+get_header();
 ?>
-
-<?php ?>
-<?php get_header(); ?>
 	<div class="content content--homepage">
 		<?php
 			$current_translation = mozilla_get_current_translation();
@@ -262,7 +260,7 @@
 											<?php endif; ?>
 											<?php endforeach; ?>
 										</ul>
-										<?php endif; ?>	
+										<?php endif; ?>
 									</div>
 								</div>
 							</div>
