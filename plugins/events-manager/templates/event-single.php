@@ -550,7 +550,7 @@ if ( isset( $em_event->group_id ) ) {
 		endif;
 	?>
 </div>
-<?php if ( ! empty( $group ) && isset( $options['report_email'] ) && is_user_logged_in() && isset( $_SERVER['HTTP_HOST'] ) ) : ?>
+<?php if ( isset( $options['report_email'] ) && is_user_logged_in() && isset( $_SERVER['HTTP_HOST'] ) ) : ?>
 <div class="events-single__report-container">
 	<?php
 		$report_email = trim( sanitize_email( $options['report_email'] ) );
