@@ -376,5 +376,10 @@ function mozilla_custom_ics( $sql ) {
 		}
 	}
 
+	if ( isset( $_GET[ 'event_id' ] ) ) {
+		$event_id = esc_sql( $_GET[ 'event_id' ] );
+		$sql = str_replace( 'WHERE', 'WHERE wp_em_events.event_id=' . $event_id . ' AND ', $sql );
+	}
+
 	return $sql;
 }
