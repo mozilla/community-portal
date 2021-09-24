@@ -68,9 +68,9 @@ if ( strpos( $em_event->event_timezone, 'UTC-' ) !== false || strpos( $em_event-
 	$timezone = str_replace('UTC+','',str_replace('UTC-','',$em_event->event_timezone));
 	$timezone_offset = ( (int)$timezone * 60 );
 	if ( strpos( $em_event->event_timezone, 'UTC-' ) !== false ) {
-		$timezone_offset = '-' . date('H:i', mktime(0,substr( $timezone_offset, 1)));
+		$timezone_offset = '-' . date('H:i', mktime(0, $timezone_offset));
 	} else {
-		$timezone_offset = '+' . date('H:i', mktime(0,substr( $timezone_offset, 1)));
+		$timezone_offset = '+' . date('H:i', mktime(0, $timezone_offset));
 	}
 }else {
 	$timezone = new DateTimeZone( $em_event->event_timezone );
