@@ -115,7 +115,7 @@
 					<div class="row">
 						<div class="col-md-6">
 							<p class="footer__copy">
-								<?php echo esc_html_e( __printf( 'Portions of this content are copyright 1998-%s by individual mozilla.org contributors. Content available under a ', date("Y") ), 'community-portal' ); ?>
+								<?php echo esc_html_e( printf( 'Portions of this content are copyright 1998-%s by individual mozilla.org contributors. Content available under a ', date("Y") ), 'community-portal' ); ?>
 								<a href="https://www.mozilla.org/foundation/licensing/website-content/" class="footer__link"><?php echo esc_html_e( ' Creative Commons license.', 'community-portal' ); ?></a>
 							</p>
 						</div>
