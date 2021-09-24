@@ -115,18 +115,18 @@
 					<div class="row">
 						<div class="col-md-6">
 							<p class="footer__copy">
-								<?php echo esc_html_e( 'Portions of this content are copyright 1998-2019 by individual mozilla.org contributors. Content available under a ', 'community-portal' ); ?>
+								<?php echo esc_html_e( __printf( 'Portions of this content are copyright 1998-%s by individual mozilla.org contributors. Content available under a ', date("Y") ), 'community-portal' ); ?>
 								<a href="https://www.mozilla.org/foundation/licensing/website-content/" class="footer__link"><?php echo esc_html_e( ' Creative Commons license.', 'community-portal' ); ?></a>
 							</p>
 						</div>
 						<div class="col-md-6 language-selector">
 							<div class="language-selector__container">
-								<?php 
+								<?php
 									if ( function_exists( 'icl_get_languages' ) ) {
 										$wpml_languages   = icl_get_languages( 'skip_missing=N&orderby=KEY&order=DIR&link_empty_to=str' );
 										$current_langauge = ICL_LANGUAGE_CODE;
 									}
-									if ( isset( $wpml_languages ) && count( $wpml_languages ) > 1 ) : 
+									if ( isset( $wpml_languages ) && count( $wpml_languages ) > 1 ) :
 								?>
 									<p class="language-selector__label"><?php esc_html_e( 'Language', 'community-portal' ); ?></p>
 									<?php
@@ -196,6 +196,6 @@
 					</div>
 				</div>
 			</div>
-		</footer> 
+		</footer>
 	</body>
 </html>
