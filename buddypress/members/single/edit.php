@@ -460,11 +460,11 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 				<div class="profile__form-field">
 					<div class="profile__select-container profile__select-container--inline profile__select-container--half">
 						<label class="profile__label" for="country">
-							<?php esc_html_e( 'Country (optional)', 'community-portal' ); ?>
+							<?php esc_html_e( 'Location (optional)', 'community-portal' ); ?>
 						</label>
 						<select id="country" name="country" class="profile__select">
 							<option value="0">
-								<?php esc_html_e( 'Country', 'community-portal' ); ?>
+								<?php esc_html_e( 'Location', 'community-portal' ); ?>
 							</option>
 							<?php foreach ( $countries as $key    => $value ) : ?>
 								<option 
