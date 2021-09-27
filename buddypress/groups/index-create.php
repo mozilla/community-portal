@@ -174,7 +174,7 @@ $current_translation = mozilla_get_current_translation();
 								<label class="create-group__label" for="group-country"><?php esc_html_e( 'Group Location', 'community-portal' ); ?></label>
 								<div class="create-group__select-container">
 									<select id="group-country" class="create-group__select" name="group_country">
-										<option value="0"><?php esc_html_e( 'Country', 'community-portal' ); ?></option>
+										<option value="0"><?php esc_html_e( 'Location', 'community-portal' ); ?></option>
 										<?php foreach ( $countries as $code => $country ) : ?>
 										<option value="<?php echo esc_attr( $code ); ?>"
 																<?php

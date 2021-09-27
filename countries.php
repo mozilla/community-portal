@@ -51,7 +51,7 @@ $countries = array(
 	'CF' => __( 'Central African Republic',  'community-portal' ),
 	'CG' => __( 'Congo (Brazzaville)',  'community-portal' ),
 	'CH' => __( 'Switzerland',  'community-portal' ),
-	'CI' => __( "Cote d'Ivoire",  'community-portal' ),
+	'CI' => __( 'Côte d’Ivoire',  'community-portal' ),
 	'CK' => __( 'Cook Islands',  'community-portal' ),
 	'CL' => __( 'Chile',  'community-portal' ),
 	'CM' => __( 'Cameroon',  'community-portal' ),
@@ -282,6 +282,3 @@ $countries = array(
 	'ZM' => __( 'Zambia',  'community-portal' ),
   'ZW' => __( 'Zimbabwe',  'community-portal' ),
 );
-
-
-

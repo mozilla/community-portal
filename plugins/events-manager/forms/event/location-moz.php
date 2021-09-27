@@ -181,7 +181,7 @@ if ( isset( $_REQUEST['nonce'] ) && wp_verify_nonce( sanitize_key( $_REQUEST['no
 					for="location-country"
 				>
 					<span class="online"><?php esc_html_e( 'Where will this event be held? *', 'community-portal' ); ?></span>
-					<span class="in-person"><?php esc_html_e( 'Country', 'community-portal' ); ?></span>
+					<span class="in-person"><?php esc_html_e( 'Location', 'community-portal' ); ?></span>
 				</label>
 				<input type="hidden" id="location-country--hidden" name="location_country" value="<?php echo esc_attr( $em_location->location_country ); ?>">
 				<select 

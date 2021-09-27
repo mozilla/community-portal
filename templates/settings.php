@@ -90,7 +90,7 @@
 			</tr>
 			<tr>
 				<th scope="row">
-					<label for="country">Country</label>
+					<label for="country">Location</label>
 				</th>
 				<td>
 					<input type="text" id="country" name="country" class="regular-text" value="<?php echo esc_attr( $options['country'] ); ?>" />
