@@ -18,7 +18,7 @@
 	$em_tickets = $em_event->get_bookings()->get_tickets()
 ?>
 
-<div id="em-booking" class="em-booking 
+<div id="em-booking" class="em-booking
 <?php
 if ( get_option( 'dbem_css_rsvp' ) ) {
 	echo 'css-booking';}
@@ -62,10 +62,10 @@ if ( get_option( 'dbem_css_rsvp' ) ) {
 		<?php esc_html_e( 'I won\'t attend', 'community-portal' ); ?>
 	</a>
 	<?php else : ?>
-	<form 
-		class="em-booking-form" 
-		name='booking-form' 
-		method='post' 
+	<form
+		class="em-booking-form"
+		name='booking-form'
+		method='post'
 		action='<?php echo esc_url_raw( remove_query_arg( 'cancel', apply_filters( 'em_booking_form_action_url', '' ) ) ); ?>'
 	>
 		<input type='hidden' name='action' value='booking_add'/>
@@ -82,12 +82,13 @@ if ( get_option( 'dbem_css_rsvp' ) ) {
 			}
 		}
 		?>
-		<input type="submit" class="btn btn--dark btn--submit 
+		<input type="submit" class="btn btn--dark btn--submit
 		<?php
 		if ( is_admin() ) {
 			echo 'button-primary ';}
 		?>
 		em-booking-submit" id="em-booking-submit" value="<?php echo esc_attr_e( 'I will attend', 'community-portal' ); ?>" />
-	</form>	
+		<a class="btn btn--dark btn--submit em-booking-submit" style="margin-top: 10px;" href="<?php echo esc_url_raw( "/events.ics?event_id=" . esc_attr( $em_event->get_bookings()->event_id ) );?>"><?php echo esc_attr_e( 'Add to calendar', 'community-portal' ); ?></a>
+	</form>
 	<?php endif; ?>
 </div>
