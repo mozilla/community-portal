@@ -66,12 +66,13 @@ if ( $em_event->event_start_date !== $em_event->event_end_date ) {
 
 if ( strpos( $em_event->event_timezone, 'UTC-' ) !== false || strpos( $em_event->event_timezone, 'UTC+' ) !== false ) {
 	$timezone = str_replace('UTC+','',str_replace('UTC-','',$em_event->event_timezone));
-	$timezone_offset = ( (int)$timezone * 60 );
+	$timezone_offset_seconds = ( (int)$timezone * 60 );
 	if ( strpos( $em_event->event_timezone, 'UTC-' ) !== false ) {
-		$timezone_offset = '-' . date('H:i', mktime(0,substr( $timezone_offset, 1)));
+		$timezone_offset = '-';
 	} else {
-		$timezone_offset = '+' . date('H:i', mktime(0,substr( $timezone_offset, 1)));
+		$timezone_offset = '+';
 	}
+	$timezone_offset .= date('H:i', mktime(0, $timezone_offset_seconds));
 }else {
 	$timezone = new DateTimeZone( $em_event->event_timezone );
 	$timezone_offset = new DateTime( "now", $timezone );
