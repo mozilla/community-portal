@@ -9,6 +9,7 @@
 	<!-- Exclude minified Javascript files. -->
 	<exclude-pattern>*.min.js</exclude-pattern>
 
+	<rule ref="WordPress"/>
 	<rule ref="WordPress-Docs"/>
 
 	<rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
