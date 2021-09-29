@@ -18,4 +18,4 @@ jobs:
       steps:
         - uses: actions/checkout@v2
         - name: WPCS check
-          uses: 10up/wpcs-action@master
+          uses: 10up/wpcs-action@develop
