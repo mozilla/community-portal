@@ -12,16 +12,15 @@
   <!-- Treat all files as UTF-8. -->
   <config name="encoding" value="utf-8"/>
   <file>./</file>
-
-	<rule ref="WordPress"/>
 	<rule ref="WordPress-Docs"/>
 
 	<rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
 	<rule ref="Generic.Commenting.Todo"/>
-
-	<exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
-	<exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
-	<exclude name="WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase"/>
+  <rule ref="WordPress">
+    <exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
+    <exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+    <exclude name="WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase"/>
+  </rule>
 
 	<config name="minimum_supported_wp_version" value="5.6"/>
 
