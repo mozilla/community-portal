@@ -1,3 +1,5 @@
 node_modules
 style.css
 .DS_Store
+vendor
+composer.lock
