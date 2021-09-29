@@ -4,10 +4,14 @@
 	<description>A custom set of rules to check for a WPized WordPress project</description>
 	<!-- Exclude the Composer Vendor directory. -->
 	<exclude-pattern>/vendor/*</exclude-pattern>
-	<!-- Exclude the Node Modules directory. -->
-	<exclude-pattern>/node_modules/*</exclude-pattern>
-	<!-- Exclude minified Javascript files. -->
-	<exclude-pattern>*.min.js</exclude-pattern>
+
+  <!-- Only check PHP files. -->
+  <arg name="extensions" value="php"/>
+  <!-- Show progress. -->
+  <arg value="p"/>
+  <!-- Treat all files as UTF-8. -->
+  <config name="encoding" value="utf-8"/>
+  <file>./</file>
 
 	<rule ref="WordPress"/>
 	<rule ref="WordPress-Docs"/>

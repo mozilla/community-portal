@@ -21,3 +21,4 @@ jobs:
           uses: 10up/wpcs-action@develop
           with:
             use_local_config: 'true'
+            paths: '.'
