@@ -12,22 +12,10 @@ on:
       - "707"
 
 jobs:
-  coding-standards:
-    name: "Coding Standards"
-
-    runs-on: "ubuntu-latest"
-
-    strategy:
-      matrix:
-        php-version:
-          - "7.2"
-
-        dependencies:
-          - "highest"
-
-    steps:
-      - name: "Checkout"
-        uses: "actions/checkout@v2.3.1"
-
-      - name: WPCS check
-        uses: 10up/wpcs-action@master
+  phpcs:
+      name: WPCS
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - name: WPCS check
+          uses: 10up/wpcs-action@master
