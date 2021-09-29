@@ -16,7 +16,7 @@
 	require "{$theme_directory}/countries.php";
 	require "{$theme_directory}/pronouns.php";
 	$current_translation = mozilla_get_current_translation();
-	$show_minimum_items = 1;
+	$show_minimum_items = 3;
 
 	$event_countries = em_get_countries();
 
@@ -225,7 +225,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 								</div>
 							</a>
 							<?php $group_count++; ?>
-							<hr class="profile__group-line" />
+							<hr class="profile__group-line<?php echo $group_hidden; ?>" />
 					<?php endforeach; ?>
 					<?php if ( $group_count >= $show_minimum_items ) : ?>
 						<a href="#" class="group__events-link show-more">
@@ -296,7 +296,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 								</div>
 							</a>
 							<?php $events_attended_count++; ?>
-							<hr class="profile__group-line" />
+							<hr class="profile__group-line<?php echo $event_hidden; ?>" />
 						<?php endforeach; ?>
 						<?php if ( $events_attended_count >= $show_minimum_items ) : ?>
 							<a href="#" class="group__events-link show-more">
@@ -385,7 +385,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 							<?php
 								$events_organized_count++;
 							?>
-							<hr class="profile__group-line" />
+							<hr class="profile__group-line<?php echo $event_hidden; ?>" />
 						<?php endforeach; ?>
 						<?php if ( $events_organized_count >= $show_minimum_items ) : ?>
 							<a href="#" class="group__events-link show-more">
@@ -459,7 +459,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 								<?php endif; ?>
 							</a>
 							<?php $campaign_count++; ?>
-							<hr class="profile__group-line" />
+							<hr class="profile__group-line<?php echo $campaign_hidden; ?>" />
 						<?php endif; ?>
 					<?php endforeach; ?>
 					<?php if ( $campaign_count >= $show_minimum_items ) : ?>
