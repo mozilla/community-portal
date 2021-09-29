@@ -8,6 +8,10 @@
     position: relative;
     width: 100%;
 
+    .hidden {
+        display: none;
+    }
+
     a {
 
         &.profile__languages-link {
