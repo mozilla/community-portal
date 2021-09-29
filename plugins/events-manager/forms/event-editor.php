@@ -33,13 +33,16 @@ if ( isset( $_REQUEST['event_id'] ) ) {
 }
 
 $required = apply_filters( 'em_required_html', '<i>*</i>' );
-$notices = wp_kses( $EM_Notices, array(
-    'p' => array(),
-    'div' => array(
-		'class' => array()
-	),
-) );
-if ( !empty( $notices ) ) {
+$notices  = wp_kses(
+	$EM_Notices,
+	array(
+		'p'   => array(),
+		'div' => array(
+			'class' => array(),
+		),
+	)
+);
+if ( ! empty( $notices ) ) {
 	echo '<div class="event-wrap">' . $notices . '</div>';
 }
 
@@ -127,7 +130,7 @@ if ( $EM_Event->is_recurring() ) {
 				<div class="event-creator__three-up">
 					<div class="half">
 						<label class="event-form-details event-creator__label" for="event-description"><?php esc_html_e( 'Event description *', 'community-portal' ); ?></label>
-						<textarea name="content" id="event-description" placeholder="<?php esc_html_e( 'Add in the details of your event’s agenda here. If this is a multi-day event, you can add in the details of each day’s schedule and start/end time.', 'community-portal'); ?>" rows="10" id="event-description" class="event-creator__input event-creator__textarea" style="width:100%" required maxlength="3000"><?php echo esc_html( $EM_Event->post_content ); ?></textarea>
+						<textarea name="content" id="event-description" placeholder="<?php esc_html_e( 'Add in the details of your event’s agenda here. If this is a multi-day event, you can add in the details of each day’s schedule and start/end time.', 'community-portal' ); ?>" rows="10" id="event-description" class="event-creator__input event-creator__textarea" style="width:100%" required maxlength="3000"><?php echo esc_html( $EM_Event->post_content ); ?></textarea>
 						<div class="form__error-container">
 							<p class="form__error"><?php esc_html_e( 'This field is required', 'community-portal' ); ?></p>
 						</div>
@@ -168,10 +171,10 @@ if ( $EM_Event->is_recurring() ) {
 						'posts_per_page' => -1,
 					);
 
-					$activities  = new WP_Query( $args );
+					$activities = new WP_Query( $args );
 
 					$initiatives = array_merge( $initiatives, $activities->posts );
-					array_map('mozilla_apply_default_post_ids', $initiatives);
+					array_map( 'mozilla_apply_default_post_ids', $initiatives );
 					?>
 			<?php if ( count( $initiatives ) > 0 ) : ?>
 			<div class="event-creator__three-up">
@@ -275,7 +278,7 @@ else :
 		else :
 			$update_label = __( 'Update Event', 'community-portal' );
 		endif;
-    ?>
+		?>
 
 		<input id="event-creator__submit-btn" type='submit' class='button-primary btn btn--dark btn--submit' value='<?php echo esc_attr( $update_label ); ?>' />
 		<?php wp_nonce_field( 'event_update', 'event_update_field' ); ?>

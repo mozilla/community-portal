@@ -88,7 +88,7 @@ if ( get_option( 'dbem_css_rsvp' ) ) {
 			echo 'button-primary ';}
 		?>
 		em-booking-submit" id="em-booking-submit" value="<?php echo esc_attr_e( 'I will attend', 'community-portal' ); ?>" />
-		<a class="btn btn--dark btn--submit em-booking-submit" style="margin-top: 10px;" href="<?php echo esc_url_raw( "/events.ics?event_id=" . esc_attr( $em_event->get_bookings()->event_id ) );?>"><?php echo esc_attr_e( 'Add to calendar', 'community-portal' ); ?></a>
+		<a class="btn btn--dark btn--submit em-booking-submit" style="margin-top: 10px;" href="<?php echo esc_url_raw( '/events.ics?event_id=' . esc_attr( $em_event->get_bookings()->event_id ) ); ?>"><?php echo esc_attr_e( 'Add to calendar', 'community-portal' ); ?></a>
 	</form>
 	<?php endif; ?>
 </div>

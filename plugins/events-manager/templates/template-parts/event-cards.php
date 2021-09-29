@@ -26,4 +26,4 @@ if ( isset( $categories ) && is_array( $categories ) ) {
 	);
 }
 
-include locate_template( 'plugins/events-manager/templates/template-parts/single-event-card.php', false, false );
+require locate_template( 'plugins/events-manager/templates/template-parts/single-event-card.php', false, false );

@@ -40,6 +40,6 @@ foreach ( $user_groups['groups'] as $group_id ) {
 		<?php endif; ?>
 	</select>
 	<?php if ( em_wp_is_super_admin() ) : ?>
-    <p><?php esc_html_e( 'As a site admin, you see all group events, users will only be able to choose groups they are admins of.', 'community-portal' ); ?></p>
+	<p><?php esc_html_e( 'As a site admin, you see all group events, users will only be able to choose groups they are admins of.', 'community-portal' ); ?></p>
 	<?php endif; ?>
 </div>

@@ -11,11 +11,11 @@
  */
 
 get_header();
-$results = array();
-$theme_directory     = get_template_directory();
+$results         = array();
+$theme_directory = get_template_directory();
 require "{$theme_directory}/countries.php";
 $current_translation = mozilla_get_current_translation();
-$date_format        = 'en' === $current_translation ? 'F d, Y' : 'd F Y';
+$date_format         = 'en' === $current_translation ? 'F d, Y' : 'd F Y';
 
 
 $p = intval( get_query_var( 'page' ) ) <= 1 ? 1 : intval( get_query_var( 'page' ) );
@@ -139,7 +139,7 @@ else :
 	?>
 					<?php esc_html_e( 'Search', 'community-portal' ); ?><?php endif; ?></h1>
 				<div class="search__search-form-container">
-					<form method="GET" action="<?php echo get_home_url()?>" class="groups__form" id="group-search-form">
+					<form method="GET" action="<?php echo get_home_url(); ?>" class="groups__form" id="group-search-form">
 						<div class="search__input-container">
 							<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M9.16667 15.8333C12.8486 15.8333 15.8333 12.8486 15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -170,7 +170,7 @@ else :
 					<div class="search__result">
 						<?php if ( isset( $result->post_type ) && 'campaign' === $result->post_type ) : ?>
 						<h3 class="search__result-title search__result-title--campaign"><?php esc_html_e( 'Campaign', 'community-portal' ); ?></h3>
-						<a href="<?php echo esc_attr( get_home_url(null, 'campaigns/' . $result->post_name)); ?>" class="search__result-link"><?php echo esc_html( $result->post_title ); ?></a>
+						<a href="<?php echo esc_attr( get_home_url( null, 'campaigns/' . $result->post_name ) ); ?>" class="search__result-link"><?php echo esc_html( $result->post_title ); ?></a>
 						<div class="search__result-dates">
 							<?php
 							$start_date = get_field( 'campaign_start_date', $result->ID );
@@ -342,13 +342,23 @@ else :
 				<div class="campaigns__pagination-container">
 					<?php if ( $total_pages > 1 ) : ?>
 					<a 
-						href="<?php 
-						if ($search_term) {
-							echo esc_attr(add_query_arg( array('s' => $search_term, 'page' => $previous_page ), get_home_url()));
+						href="
+						<?php
+						if ( $search_term ) {
+							echo esc_attr(
+								add_query_arg(
+									array(
+										's'    => $search_term,
+										'page' => $previous_page,
+									),
+									get_home_url()
+								)
+							);
 						} else {
-							echo esc_attr(add_query_arg( array('page' => $previous_page ), get_home_url()));
-						}	
-						?>" 
+							echo esc_attr( add_query_arg( array( 'page' => $previous_page ), get_home_url() ) );
+						}
+						?>
+						" 
 						class="campaigns__pagination-link campaigns__pagination-link--arrow">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 							<path d="M17 23L6 12L17 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -358,49 +368,79 @@ else :
 						if ( $page_min > 1 ) :
 							?>
 							<a 
-								href="<?php 
-									if ($search_term) {
-										echo esc_attr(add_query_arg( array('s' => $search_term, 'page' => $previous_page ), get_home_url()));
-									} else {
-										echo esc_attr(add_query_arg( array('page' => $previous_page ), get_home_url()));
-									}	
-								?>" 
+								href="
+								<?php
+								if ( $search_term ) {
+									echo esc_attr(
+										add_query_arg(
+											array(
+												's'    => $search_term,
+												'page' => $previous_page,
+											),
+											get_home_url()
+										)
+									);
+								} else {
+									echo esc_attr( add_query_arg( array( 'page' => $previous_page ), get_home_url() ) );
+								}
+								?>
+								" 
 								class="campaigns__pagination-link campaigns__pagination-link--first"><?php echo '1'; ?></a>&hellip; <?php endif; ?>
 							<?php for ( $x = $page_min - 1; $x < $page_max; $x++ ) : ?>
 							<a
-								href="<?php 
-									if ($search_term) {
-										echo esc_attr(add_query_arg( array('s' => $search_term, 'page' => $x + 1 ), get_home_url()));
-									} else {
-										echo esc_attr(add_query_arg( array('page' => $x + 1 ), get_home_url()));
-									}	
-								?>"  
+								href="
+								<?php
+								if ( $search_term ) {
+									echo esc_attr(
+										add_query_arg(
+											array(
+												's'    => $search_term,
+												'page' => $x + 1,
+											),
+											get_home_url()
+										)
+									);
+								} else {
+									echo esc_attr( add_query_arg( array( 'page' => $x + 1 ), get_home_url() ) );
+								}
+								?>
+								"  
 								class="campaigns__pagination-link
-							<?php
-							if ( $p === $x + 1 ) :
-								?>
+								<?php
+								if ( $p === $x + 1 ) :
+									?>
 						campaigns__pagination-link--active<?php endif; ?>
-							<?php
-							if ( $x === $page_max - 1 ) :
-								?>
+								<?php
+								if ( $x === $page_max - 1 ) :
+									?>
 	campaigns__pagination-link--last<?php endif; ?>"><?php echo esc_html( $x + 1 ); ?></a>
 					<?php endfor; ?>
 						<?php
 						if ( $total_pages > $range && $p < $total_pages - 1 ) :
 							?>
-							&hellip; <a href="<?php echo esc_url( add_query_arg( array( 'p' => $total_pages ), get_home_url( null, 'campaigns') )) ?>" class="campaigns__pagination-link
+							&hellip; <a href="<?php echo esc_url( add_query_arg( array( 'p' => $total_pages ), get_home_url( null, 'campaigns' ) ) ); ?>" class="campaigns__pagination-link
 							<?php
 							if ( $p === $total_pages ) :
 								?>
 							campaigns__pagination-link--active<?php endif; ?>"><?php echo esc_html( $total_pages ); ?></a><?php endif; ?>
 					<a 
-						href="<?php 
-							if ($search_term) {
-								echo esc_attr(add_query_arg( array('s' => $search_term, 'page' => $next_page ), get_home_url()));
-							} else {
-								echo esc_attr(add_query_arg( array('page' => $next_page ), get_home_url()));
-							}	
-							?>"  
+						href="
+						<?php
+						if ( $search_term ) {
+							echo esc_attr(
+								add_query_arg(
+									array(
+										's'    => $search_term,
+										'page' => $next_page,
+									),
+									get_home_url()
+								)
+							);
+						} else {
+							echo esc_attr( add_query_arg( array( 'page' => $next_page ), get_home_url() ) );
+						}
+						?>
+							"  
 							class="campaigns__pagination-link campaigns__pagination-link--arrow">
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 						<path d="M7 23L18 12L7 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

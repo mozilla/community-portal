@@ -48,11 +48,11 @@ col-sm-12 events-single__hosts">
 						<?php
 							$group_info = groups_get_groupmeta( $group->id );
 							$group_info = unserialize( $group_info['meta'][0] );
-							if ( isset( $group_info['group_image_url'] ) ) {
-						?>
-						<div class="group__card-image" style="background-image: url('<?php echo esc_url_raw( $group_info['group_image_url'] ) ?>');"></div>
-						<?php
-							}
+						if ( isset( $group_info['group_image_url'] ) ) {
+							?>
+						<div class="group__card-image" style="background-image: url('<?php echo esc_url_raw( $group_info['group_image_url'] ); ?>');"></div>
+							<?php
+						}
 
 							echo esc_html( bp_get_group_name( $group ) );
 						?>

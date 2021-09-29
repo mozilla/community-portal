@@ -446,8 +446,8 @@ function mozilla_get_user_info( $me, $user, $logged_in ) {
 	} else {
 		$object->value = false;
 	}
-	$object->display  = mozilla_display_field( 'location', isset( $meta['profile_location_visibility'][0] ) ? $meta['profile_location_visibility'][0] : false, $is_me, $logged_in );
-	$data['city'] = $object;
+	$object->display = mozilla_display_field( 'location', isset( $meta['profile_location_visibility'][0] ) ? $meta['profile_location_visibility'][0] : false, $is_me, $logged_in );
+	$data['city']    = $object;
 
 	// Profile Image!
 	$object                = new stdClass();
@@ -529,14 +529,14 @@ function mozilla_get_user_info( $me, $user, $logged_in ) {
 	$object->display = mozilla_display_field( 'matrix', isset( $community_fields['profile_matrix_visibility'] ) ? $community_fields['profile_matrix_visibility'] : false, $is_me, $logged_in );
 	$data['matrix']  = $object;
 
-	$object          = new stdClass();
-	$object->value   = isset( $community_fields['mastodon'] ) && strlen( $community_fields['mastodon'] ) > 0 ? $community_fields['mastodon'] : false;
-	$object->display = mozilla_display_field( 'mastodon', isset( $community_fields['profile_mastodon_visibility'] ) ? $community_fields['profile_mastodon_visibility'] : false, $is_me, $logged_in );
-	$data['mastodon']  = $object;
-
 	$object           = new stdClass();
-	$object->value    = isset( $community_fields['youtube'] ) && strlen( $community_fields['youtube'] ) > 0 ? $community_fields['youtube'] : false;
-	$object->display  = mozilla_display_field( 'youtube', isset( $community_fields['profile_youtube_visibility'] ) ? $community_fields['profile_youtube_visibility'] : false, $is_me, $logged_in );
+	$object->value    = isset( $community_fields['mastodon'] ) && strlen( $community_fields['mastodon'] ) > 0 ? $community_fields['mastodon'] : false;
+	$object->display  = mozilla_display_field( 'mastodon', isset( $community_fields['profile_mastodon_visibility'] ) ? $community_fields['profile_mastodon_visibility'] : false, $is_me, $logged_in );
+	$data['mastodon'] = $object;
+
+	$object          = new stdClass();
+	$object->value   = isset( $community_fields['youtube'] ) && strlen( $community_fields['youtube'] ) > 0 ? $community_fields['youtube'] : false;
+	$object->display = mozilla_display_field( 'youtube', isset( $community_fields['profile_youtube_visibility'] ) ? $community_fields['profile_youtube_visibility'] : false, $is_me, $logged_in );
 	$data['youtube'] = $object;
 
 	$object           = new stdClass();

@@ -37,7 +37,7 @@
 					<label for="community-discourse">Community Portal Discourse</label>
 				</th>
 				<td>
-					<input type="text" id="community-discourse" name="community_discourse" class="regular-text" value="<?php echo isset( $options['community_discourse'] ) ?  esc_url_raw( $options['community_discourse'] ) : ''; ?>" />
+					<input type="text" id="community-discourse" name="community_discourse" class="regular-text" value="<?php echo isset( $options['community_discourse'] ) ? esc_url_raw( $options['community_discourse'] ) : ''; ?>" />
 				</td>
 			</tr>
 			<tr>
@@ -45,7 +45,7 @@
 					<label for="mailchimp">Mailchimp API Key</label>
 				</th>
 				<td>
-					<input type="text" id="mailchimp" name="mailchimp" class="regular-text" value="<?php echo isset( $options['mailchimp'] ) ? esc_attr( $options['mailchimp'] ): ''; ?>" />
+					<input type="text" id="mailchimp" name="mailchimp" class="regular-text" value="<?php echo isset( $options['mailchimp'] ) ? esc_attr( $options['mailchimp'] ) : ''; ?>" />
 				</td>
 			</tr>
 			<tr>
@@ -53,7 +53,7 @@
 					<label for="company">Company</label>
 				</th>
 				<td>
-					<input type="text" id="company" name="company" class="regular-text" value="<?php echo isset( $options['company'] ) ? esc_attr( $options['company'] ): ''; ?>" />
+					<input type="text" id="company" name="company" class="regular-text" value="<?php echo isset( $options['company'] ) ? esc_attr( $options['company'] ) : ''; ?>" />
 				</td>
 			</tr>
 			<tr>
@@ -61,7 +61,7 @@
 					<label for="address">Address</label>
 				</th>
 				<td>
-					<input type="text" id="address" name="address" class="regular-text" value="<?php echo isset( $options['address'] ) ?  esc_attr( $options['address'] ): ''; ?>" />
+					<input type="text" id="address" name="address" class="regular-text" value="<?php echo isset( $options['address'] ) ? esc_attr( $options['address'] ) : ''; ?>" />
 				</td>
 			</tr>
 			<tr>
