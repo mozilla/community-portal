@@ -72,7 +72,7 @@ if ( strpos( $em_event->event_timezone, 'UTC-' ) !== false || strpos( $em_event-
 	} else {
 		$timezone_offset = '+';
 	}
-	$timezone_offset .= date( 'H:i', mktime( 0, $timezone_offset_seconds ) );
+	$timezone_offset .= gmdate( 'H:i', mktime( 0, $timezone_offset_seconds ) );
 } else {
 	$timezone        = new DateTimeZone( $em_event->event_timezone );
 	$timezone_offset = new DateTime( 'now', $timezone );
