@@ -229,7 +229,7 @@ if ( isset( $em_event->group_id ) ) {
 							?>
 						</p>
 						<p card="card__time" class="timezone">
-							In your timezone: <span data-start-time="<?php echo esc_html( $em_event->event_start_time ); ?>" data-end-time="<?php echo esc_html( $em_event->event_end_time ); ?>" data-start-date="<?php echo $em_event->event_start_date; ?>" data-end-date="<?php echo $em_event->event_end_date; ?>" data-timezone-offset="<?php echo esc_html( $timezone_offset ); ?>"></span>
+							<?php _e('In your timezone:', 'community-portal'); ?> <span data-start-time="<?php echo esc_html( $em_event->event_start_time ); ?>" data-end-time="<?php echo esc_html( $em_event->event_end_time ); ?>" data-start-date="<?php echo esc_html( $em_event->event_start_date ); ?>" data-end-date="<?php echo esc_html( $em_event->event_end_date ); ?>" data-timezone-offset="<?php echo esc_html( $timezone_offset ); ?>"></span>
 						</p>
 					</div>
 					<?php

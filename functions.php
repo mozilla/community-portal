@@ -234,6 +234,9 @@ function wpml_sl_blacklist_requests( $blacklist, $sitepress ) {
 	return $blacklist;
 }
 
+/**
+ * Gutenberg is unused so don't enqueue assets
+ */
 function remove_wp_block_library_css() {
 	wp_dequeue_style( 'wp-block-library' );
 	wp_dequeue_style( 'wp-block-library-theme' );

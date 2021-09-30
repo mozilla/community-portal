@@ -115,7 +115,9 @@
 					<div class="row">
 						<div class="col-md-6">
 							<p class="footer__copy">
-								<?php echo esc_html_e( printf( 'Portions of this content are copyright 1998-%s by individual mozilla.org contributors. Content available under a ', date( 'Y' ) ), 'community-portal' ); ?>
+								<?php
+								/* translators: Copyright footer text */
+								printf( esc_html_e( 'Portions of this content are copyright 1998-%s by individual mozilla.org contributors. Content available under a ', 'community-portal' ), (string)gmdate( 'Y' ) ); ?>
 								<a href="https://www.mozilla.org/foundation/licensing/website-content/" class="footer__link"><?php echo esc_html_e( ' Creative Commons license.', 'community-portal' ); ?></a>
 							</p>
 						</div>
@@ -130,7 +132,7 @@
 									?>
 									<p class="language-selector__label"><?php esc_html_e( 'Language', 'community-portal' ); ?></p>
 									<?php
-										$url = get_site_url( null, $_SERVER['REQUEST_URI'] );
+										$url = get_site_url( null, $_SERVER['REQUEST_URI'] ); // phpcs:ignore
 									?>
 									<ul id="footer-language-selector" class="language-selector__select">
 										<li class="language-selector__language language-selector__language--active"><?php echo esc_html( $wpml_languages[ $current_langauge ]['translated_name'] ); ?></li>

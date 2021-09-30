@@ -139,7 +139,7 @@ else :
 	?>
 					<?php esc_html_e( 'Search', 'community-portal' ); ?><?php endif; ?></h1>
 				<div class="search__search-form-container">
-					<form method="GET" action="<?php echo get_home_url(); ?>" class="groups__form" id="group-search-form">
+					<form method="GET" action="<?php echo esc_html( get_home_url() ); ?>" class="groups__form" id="group-search-form">
 						<div class="search__input-container">
 							<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M9.16667 15.8333C12.8486 15.8333 15.8333 12.8486 15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -181,7 +181,7 @@ else :
 						<div class="search__result-description">
 							<?php echo wp_kses( $description, array( 'p' => array() ) ); ?>
 						</div>
-						<?php endif; ?>                
+						<?php endif; ?>
 						<?php if ( isset( $result->post_type ) && 'page' === $result->post_type ) : ?>
 						<h3 class="search__result-title search__result-title--campaign"><?php esc_html_e( 'Page', 'community-portal' ); ?></h3>
 						<div class="search__result-dates">
@@ -194,7 +194,7 @@ else :
 						<div class="search__result-description">
 							<?php echo wp_kses( $description, array( 'p' => array() ) ); ?>
 						</div>
-						<?php endif; ?>      
+						<?php endif; ?>
 						<?php if ( isset( $result->post_type ) && 'event' === $result->post_type ) : ?>
 							<?php
 							$location = em_get_location( $result->location_id );
@@ -204,10 +204,10 @@ else :
 						<div class="search__event-date">
 							<?php echo esc_html( date_i18n( $date_format, strtotime( $result->event_start_date ) ) ); ?>
 							<?php if ( isset( $result->event_start_time ) ) : ?>
-							@ <?php echo esc_html( date_i18n( 'H:i', strtotime( $result->event_start_time ) ) ); ?> 
+							@ <?php echo esc_html( date_i18n( 'H:i', strtotime( $result->event_start_time ) ) ); ?>
 						<?php endif; ?>
 							<?php if ( isset( $results->event_end_time ) && $result->event_start_time !== $results->event_end_time ) : ?>
-							- <?php echo esc_html( date_i18n( 'H:i', strtotime( $result->event_end_time ) ) ); ?> 
+							- <?php echo esc_html( date_i18n( 'H:i', strtotime( $result->event_end_time ) ) ); ?>
 						<?php endif; ?>
 						</div>
 						<div class="search__event-location">
@@ -220,7 +220,7 @@ else :
 									<?php esc_html_e( 'Online', 'community-portal' ); ?>
 								<?php else : ?>
 									<?php if ( $location->location_address ) : ?>
-										<?php echo esc_html( $location->location_address ); ?> - 
+										<?php echo esc_html( $location->location_address ); ?> -
 									<?php endif; ?>
 									<?php if ( $location->town ) : ?>
 										<?php
@@ -239,7 +239,7 @@ else :
 								<?php endif; ?>
 							</p>
 						</div>
-						<?php endif; ?>              
+						<?php endif; ?>
 						<?php if ( 'BP_Groups_Group' === get_class( $result ) ) : ?>
 						<h3 class="search__result-title search__result-title--group"><?php print esc_html_e( 'Group', 'community-portal' ); ?></h3>
 						<a href="<?php echo esc_attr( get_home_url( null, 'groups/' . $result->slug ) ); ?>" class="search__result-link"><?php echo esc_html( $result->name ); ?></a>
@@ -286,14 +286,14 @@ else :
 								<?php echo esc_html( "{$member_count}&nbsp;" . __( 'Members', 'community-portal' ) ); ?>
 							</p>
 						</div>
-						<?php endif; ?>                
+						<?php endif; ?>
 						<?php if ( isset( $result->post_type ) && 'activity' === $result->post_type ) : ?>
 						<h3 class="search__result-title search__result-title--activity"><?php echo esc_html_e( 'Activity', 'community-portal' ); ?></h3>
 						<a href="<?php echo esc_attr( get_home_url( null, 'activities/' . $result->post_name ) ); ?>" class="search__result-link"><?php echo esc_html( $result->post_title ); ?></a>
 						<div class="search__result-description">
 							<?php echo wp_kses( $description, array( 'p' => array() ) ); ?>
 						</div>
-						<?php endif; ?>                   
+						<?php endif; ?>
 
 						<?php if ( 'WP_User' === get_class( $result ) ) : ?>
 						<h3 class="search__result-title search__result-title--member"><?php echo esc_html_e( 'Member', 'community-portal' ); ?></h3>
@@ -306,8 +306,8 @@ else :
 								<?php echo esc_html( $result->info['last_name']->value ); ?>
 						<?php endif; ?>
 						</div>
-						<?php endif; ?>             
-					</div>   
+						<?php endif; ?>
+					</div>
 				<?php endforeach; ?>
 				</div>
 			</div>
@@ -341,7 +341,7 @@ else :
 			<div class="campaigns__pagination">
 				<div class="campaigns__pagination-container">
 					<?php if ( $total_pages > 1 ) : ?>
-					<a 
+					<a
 						href="
 						<?php
 						if ( $search_term ) {
@@ -358,7 +358,7 @@ else :
 							echo esc_attr( add_query_arg( array( 'page' => $previous_page ), get_home_url() ) );
 						}
 						?>
-						" 
+						"
 						class="campaigns__pagination-link campaigns__pagination-link--arrow">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 							<path d="M17 23L6 12L17 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -367,7 +367,7 @@ else :
 						<?php
 						if ( $page_min > 1 ) :
 							?>
-							<a 
+							<a
 								href="
 								<?php
 								if ( $search_term ) {
@@ -384,7 +384,7 @@ else :
 									echo esc_attr( add_query_arg( array( 'page' => $previous_page ), get_home_url() ) );
 								}
 								?>
-								" 
+								"
 								class="campaigns__pagination-link campaigns__pagination-link--first"><?php echo '1'; ?></a>&hellip; <?php endif; ?>
 							<?php for ( $x = $page_min - 1; $x < $page_max; $x++ ) : ?>
 							<a
@@ -404,7 +404,7 @@ else :
 									echo esc_attr( add_query_arg( array( 'page' => $x + 1 ), get_home_url() ) );
 								}
 								?>
-								"  
+								"
 								class="campaigns__pagination-link
 								<?php
 								if ( $p === $x + 1 ) :
@@ -423,7 +423,7 @@ else :
 							if ( $p === $total_pages ) :
 								?>
 							campaigns__pagination-link--active<?php endif; ?>"><?php echo esc_html( $total_pages ); ?></a><?php endif; ?>
-					<a 
+					<a
 						href="
 						<?php
 						if ( $search_term ) {
@@ -440,7 +440,7 @@ else :
 							echo esc_attr( add_query_arg( array( 'page' => $next_page ), get_home_url() ) );
 						}
 						?>
-							"  
+							"
 							class="campaigns__pagination-link campaigns__pagination-link--arrow">
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 						<path d="M7 23L18 12L7 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

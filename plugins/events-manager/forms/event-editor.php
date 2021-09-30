@@ -43,7 +43,7 @@ $notices  = wp_kses(
 	)
 );
 if ( ! empty( $notices ) ) {
-	echo '<div class="event-wrap">' . $notices . '</div>';
+	echo '<div class="event-wrap">' . $notices . '</div>'; // phpcs:ignore
 }
 
 if ( ! empty( $_REQUEST['success'] ) ) {

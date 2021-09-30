@@ -953,7 +953,7 @@ function mozilla_export_users() {
 		$language_string = esc_html( sanitize_text_field( $language_string ) );
 		$country         = esc_html( sanitize_text_field( $country ) );
 
-		print "{$first_name},{$last_name},{$email},{$date},\"{$language_string}\",{$country}\n";
+		print "{$first_name},{$last_name},{$email},{$date},\"{$language_string}\",{$country}\n"; // phpcs:ignore
 	}
 	die();
 }

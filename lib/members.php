@@ -439,7 +439,7 @@ function mozilla_get_user_info( $me, $user, $logged_in ) {
 	$object->display  = mozilla_display_field( 'location', isset( $meta['profile_location_visibility'][0] ) ? $meta['profile_location_visibility'][0] : false, $is_me, $logged_in );
 	$data['location'] = $object;
 
-	// City
+	// City!
 	$object = new stdClass();
 	if ( isset( $community_fields['city'] ) && strlen( $community_fields['city'] ) > 0 ) {
 		$object->value = $community_fields['city'];

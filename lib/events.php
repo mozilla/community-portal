@@ -367,7 +367,7 @@ add_filter( 'em_events_get_sql', 'mozilla_custom_ics', 99999 );
 function mozilla_custom_ics( $sql ) {
 	// Get events of a Buddypress group
 	if ( isset( $_GET['group'] ) ) {
-		$group_slug = esc_sql( $_GET['group'] );
+		$group_slug = esc_sql( wp_unslash( $_GET['group'] ) );
 		$group      = groups_get_groups( array( 'slug' => array( $group_slug ) ) );
 		$group      = $group['groups'][0];
 		if ( ! empty( $group->id ) ) {
@@ -377,7 +377,7 @@ function mozilla_custom_ics( $sql ) {
 	}
 
 	if ( isset( $_GET['event_id'] ) ) {
-		$event_id = esc_sql( $_GET['event_id'] );
+		$event_id = esc_sql( wp_unslash( $_GET['event_id'] ) );
 		$sql      = str_replace( 'WHERE', 'WHERE wp_em_events.event_id=' . $event_id . ' AND ', $sql );
 	}
 
