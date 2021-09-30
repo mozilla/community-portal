@@ -247,7 +247,7 @@ class EM_Ticket extends EM_Object {
 				// Retreiving from the database.
 				global $wpdb;
 				$sql    = 'SELECT * FROM ' . EM_TICKETS_TABLE . " WHERE ticket_id ='$ticket_data'"; // phpcs:ignore
-				$ticket = $wpdb->get_row( $sql, ARRAY_A );
+				$ticket = $wpdb->get_row( $sql, ARRAY_A ); // phpcs:ignore
 			}
 			// Save into the object.
 			$this->to_object( $ticket );
@@ -408,7 +408,7 @@ class EM_Ticket extends EM_Object {
 					}
 				}
 				$sql                    = "UPDATE $table SET " . implode( ', ', $set_array ) . " WHERE ticket_id={$this->ticket_id}"; // phpcs:ignore
-				$result                 = $wpdb->query( $sql );
+				$result                 = $wpdb->query( $sql ); // phpcs:ignore
 				$this->feedback_message = __( 'Changes saved', 'community-portal' );
 			} else {
 				if ( isset( $data['ticket_id'] ) && empty( $data['ticket_id'] ) ) {
@@ -790,7 +790,7 @@ class EM_Ticket extends EM_Object {
 		if ( $this->can_manage() ) {
 			if ( count( $this->get_bookings()->bookings ) === 0 ) {
 				$sql    = $wpdb->prepare( 'DELETE FROM ' . EM_TICKETS_TABLE . ' WHERE ticket_id=%d', $this->ticket_id ); // phpcs:ignore
-				$result = $wpdb->query( $sql );
+				$result = $wpdb->query( $sql ); // phpcs:ignore
 			} else {
 				$this->feedback_message = __( 'You cannot delete a ticket that has a booking on it.', 'community-portal' );
 				$this->add_error( $this->feedback_message );
