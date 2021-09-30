@@ -142,7 +142,7 @@
 			} else {
 				$member_country = $info['location']->value;
 			}
-			if ( isset($countries[ $member_country ] ) ) {
+			if ( isset( $countries[ $member_country ] ) ) {
 				$used_country_list[ $member_country ] = $countries[ $member_country ];
 			}
 		}
@@ -858,7 +858,7 @@
 									?>
 									<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>/?view=people"><?php esc_html_e( 'Our Members', 'community-portal' ); ?></a></li>
 						<li class="menu-item"><a class="group__menu-link" href="
-									<?php echo esc_url_raw( "/events.ics?group=" . esc_attr( $group->slug ) ); ?>"><?php esc_html_e( 'ICS Feed', 'community-portal' ); ?></a></li>
+									<?php echo esc_url_raw( '/events.ics?group=' . esc_attr( $group->slug ) ); ?>"><?php esc_html_e( 'ICS Feed', 'community-portal' ); ?></a></li>
 					</ul>
 				</div>
 				<div class="group__nav group__nav--mobile">
@@ -930,13 +930,13 @@
 										}
 										?>
 									</div>
-									<?php if ( $info['location']->display && $info['location']->value && isset($countries[ $info['location']->value] ) ) : ?>
+									<?php if ( $info['location']->display && $info['location']->value && isset( $countries[ $info['location']->value ] ) ) : ?>
 									<div class="members__location">
 										<svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 											<path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 											<path d="M8 9.66602C9.10457 9.66602 10 8.77059 10 7.66602C10 6.56145 9.10457 5.66602 8 5.66602C6.89543 5.66602 6 6.56145 6 7.66602C6 8.77059 6.89543 9.66602 8 9.66602Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 										</svg>&nbsp;
-										<?php echo esc_html( $countries[$info['location']->value] ); ?>
+										<?php echo esc_html( $countries[ $info['location']->value ] ); ?>
 									</div>
 									<?php endif; ?>
 								</div>
@@ -1103,7 +1103,7 @@
 										}
 										?>
 									</div>
-									<?php if ( $info['location']->display && $info['location']->value && isset($countries[$info['location']->value])) : ?>
+									<?php if ( $info['location']->display && $info['location']->value && isset( $countries[ $info['location']->value ] ) ) : ?>
 										<div class="members__location">
 											<svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 												<path d="M14 7.66602C14 12.3327 8 16.3327 8 16.3327C8 16.3327 2 12.3327 2 7.66602C2 6.07472 2.63214 4.54859 3.75736 3.42337C4.88258 2.29816 6.4087 1.66602 8 1.66602C9.5913 1.66602 11.1174 2.29816 12.2426 3.42337C13.3679 4.54859 14 6.07472 14 7.66602Z" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1127,10 +1127,10 @@
 						<?php
 
 						$args   = array(
-							'group' => $group->id,
-								'scope' => 'all',
-								'orderby' => 'event_start_date',
-								'order' => 'DESC',
+							'group'   => $group->id,
+							'scope'   => 'all',
+							'orderby' => 'event_start_date',
+							'order'   => 'DESC',
 						);
 						$events = EM_Events::get( $args );
 						?>
@@ -1455,7 +1455,7 @@
 								$discourse_api_url = rtrim( $options['discourse_url'], '/' );
 
 								$discourse_category_id = intval( trim( $discourse_group['discourse_category_id'] ) );
-								$api_url           = "{$options['discourse_url']}/c/{$discourse_category_id}";
+								$api_url               = "{$options['discourse_url']}/c/{$discourse_category_id}";
 
 								$topics = mozilla_discourse_get_category_topics( $api_url );
 								$topics = array_slice( $topics, 0, 4 );
@@ -1528,7 +1528,11 @@
 									$events      = EM_Events::get( $args );
 									$event_count = count( $events );
 									?>
-								<a href="<?php if ( $current_translation ) : ?><?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>/?view=events" class="group__member-count">
+								<a href="
+								<?php
+								if ( $current_translation ) :
+									?>
+									<?php echo esc_url_raw( "/{$current_translation}" ); ?><?php endif; ?>/groups/<?php echo esc_attr( $group->slug ); ?>/?view=events" class="group__member-count">
 									<div class="group__member-count-container">
 										<p>
 											<span class="group__member-count__numeral"><?php echo esc_html( $event_count ); ?></span>
@@ -1682,13 +1686,13 @@
 									<p class="group__card-content__subtitle"><?php esc_html_e( 'Preferred Language', 'community-portal' ); ?></p>
 								</div>
 								<div class="group__language">
-									<a href="<?php echo esc_url_raw( add_query_arg( array('language' => strtolower( $group_meta['group_language'] ) ),get_home_url( null, 'groups') ) ); ?>" class="group__language-link"><?php echo esc_html( $languages[ strtolower( $group_meta['group_language'] ) ] ); ?></a>
+									<a href="<?php echo esc_url_raw( add_query_arg( array( 'language' => strtolower( $group_meta['group_language'] ) ), get_home_url( null, 'groups' ) ) ); ?>" class="group__language-link"><?php echo esc_html( $languages[ strtolower( $group_meta['group_language'] ) ] ); ?></a>
 								</div>
 							</div>
 						</div>
 						<?php endif; ?>
-						<?php $group_tags = isset($group_meta['group_tags']) ? array_unique( array_filter( $group_meta['group_tags'], 'mozilla_filter_inactive_tags')) : false; ?>
-						<?php if ( isset( $group_tags ) && is_array($group_tags) && count( $group_tags ) > 0 ) : ?>
+						<?php $group_tags = isset( $group_meta['group_tags'] ) ? array_unique( array_filter( $group_meta['group_tags'], 'mozilla_filter_inactive_tags' ) ) : false; ?>
+						<?php if ( isset( $group_tags ) && is_array( $group_tags ) && count( $group_tags ) > 0 ) : ?>
 						<div class="group__card">
 							<div class="group__card-content group__card-content--small">
 								<div>

@@ -15,7 +15,7 @@
 	<div class="content">
 	<?php
 		$template_dir = get_template_directory();
-		include "{$template_dir}/buddypress/groups/index-directory.php"; 
+		require "{$template_dir}/buddypress/groups/index-directory.php";
 	?>
 	</div>
 <?php get_footer(); ?>

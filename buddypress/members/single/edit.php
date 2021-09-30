@@ -45,7 +45,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 				<a href="<?php echo esc_attr( get_home_url( null, 'people/' . $username . '/profile/edit/group/1' ) ); ?>" class="btn btn--dark btn--submit">
 					<?php esc_html_e( 'Complete your profile', 'community-portal' ); ?>
 				</a>
-				<a href="<?php echo esc_url_raw(get_home_url()); ?>" class="btn btn--light btn--submit">
+				<a href="<?php echo esc_url_raw( get_home_url() ); ?>" class="btn btn--light btn--submit">
 					<?php esc_html_e( 'Go back to browsing', 'community-portal' ); ?>
 				</a>
 			</div>
@@ -58,7 +58,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 				<h1 class="profile__title">
 					<?php ( isset( $meta['agree'][0] ) && 'I Agree' === $meta['agree'][0] ) ? esc_html_e( 'Edit Profile', 'community-portal' ) : esc_html_e( 'Complete Profile', 'community-portal' ); ?>
 				</h1>
-				<?php if ( !isset( $meta['agree'][0] ) || 'I Agree' !== $meta['agree'][0] ) : ?>
+				<?php if ( ! isset( $meta['agree'][0] ) || 'I Agree' !== $meta['agree'][0] ) : ?>
 					<p class="profile__hero-copy profile__hero-copy--green">
 						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -70,7 +70,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 							<a href="https://wiki.mozilla.org/IAM/Frequently_asked_questions" class="profile__hero-link"><?php esc_html_e( 'Mozilla SSO.', 'community-portal' ); ?></a>
 						</span>
 					</p>
-				<?php endif;?>
+				<?php endif; ?>
 
 			</div>
 		</div>
@@ -370,7 +370,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 							<option value="">
 								<?php esc_html_e( 'Preferred Pronoun', 'community-portal' ); ?>
 							</option>
-							<?php foreach ( $pronouns as $key=>$p ) : ?>
+							<?php foreach ( $pronouns as $key => $p ) : ?>
 								<option
 									value="<?php echo esc_attr( $key ); ?>"
 									<?php
@@ -875,7 +875,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 						}
 						?>
 						<input
-							placeholder="<?php esc_attr_e('username:domain', 'community-portal') ?>"
+							placeholder="<?php esc_attr_e( 'username:domain', 'community-portal' ); ?>"
 							type="text"
 							name="matrix"
 							id="matrix"
@@ -922,7 +922,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 						}
 						?>
 						<input
-							placeholder="<?php esc_attr_e('https://youtube.com/channel/XXXXXX', 'community-portal') ?>"
+							placeholder="<?php esc_attr_e( 'https://youtube.com/channel/XXXXXX', 'community-portal' ); ?>"
 							type="text"
 							name="youtube"
 							id="youtube"

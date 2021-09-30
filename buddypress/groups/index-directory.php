@@ -461,9 +461,9 @@
 								<div class="groups__card-tags">
 									<?php
 										$tag_counter = 0;
-										$group_tags = isset($meta['group_tags']) ? array_unique( array_filter( $meta['group_tags'], 'mozilla_filter_inactive_tags')) : null;
+										$group_tags  = isset( $meta['group_tags'] ) ? array_unique( array_filter( $meta['group_tags'], 'mozilla_filter_inactive_tags' ) ) : null;
 									?>
-									<?php if ( isset($group_tags ) && is_array( $group_tags ) ) : ?>
+									<?php if ( isset( $group_tags ) && is_array( $group_tags ) ) : ?>
 									<ul class="groups__card-tags__container">
 										<?php foreach ( $group_tags as $key => $value ) : ?>
 											<?php
@@ -482,7 +482,7 @@
 												<?php $tag_counter++; ?>
 										<?php endif; ?>
 											<?php if ( 2 === $tag_counter && count( $group_tags ) > 2 ) : ?>
-										<li class="groups__tag">+ <?php echo esc_html( count( $group_tags )  - 2 ); ?> <?php esc_html_e( ' more tags', 'community-portal' ); ?></li>
+										<li class="groups__tag">+ <?php echo esc_html( count( $group_tags ) - 2 ); ?> <?php esc_html_e( ' more tags', 'community-portal' ); ?></li>
 												<?php break; ?>
 										<?php endif; ?>
 									<?php endforeach; ?>

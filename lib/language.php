@@ -56,20 +56,20 @@ function mozilla_check_language( $url, $active_languages ) {
  * Updates the website locale based on browser settings
  */
 function mozilla_match_browser_locale() {
-	if ( isset( $_SERVER['REQUEST_URI'] ) && function_exists('icl_get_languages') ) {
+	if ( isset( $_SERVER['REQUEST_URI'] ) && function_exists( 'icl_get_languages' ) ) {
 		$url            = get_site_url( null, esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
 		$wpml_languages = icl_get_languages( 'skip_missing=N&orderby=KEY&order=DIR&link_empty_to=str' );
-		if (empty(ICL_LANGUAGE_CODE)) {
+		if ( empty( ICL_LANGUAGE_CODE ) ) {
 			return;
 		}
-    $base_url = get_site_url(null, ICL_LANGUAGE_CODE ); 
-		if ( wp_doing_ajax() || is_admin() || isset( $_GET['action'] ) || false !== stripos($url, get_site_url(null, 'wp'))) {
+		$base_url = get_site_url( null, ICL_LANGUAGE_CODE );
+		if ( wp_doing_ajax() || is_admin() || isset( $_GET['action'] ) || false !== stripos( $url, get_site_url( null, 'wp' ) ) ) {
 			return;
 		}
 
-		if ( false !== stripos($url, $base_url) ) {
-			if (false === stripos($url, $base_url . '/' )) {
-				mozilla_wpml_redirect($base_url . '/');
+		if ( false !== stripos( $url, $base_url ) ) {
+			if ( false === stripos( $url, $base_url . '/' ) ) {
+				mozilla_wpml_redirect( $base_url . '/' );
 			}
 			return;
 		}
@@ -102,27 +102,26 @@ function mozilla_add_default_language( $url, $code ) {
 function mozilla_get_translated_tag( $category ) {
 	$current_translation = mozilla_get_current_translation();
 	if ( 'en' !== $current_translation ) {
-    $translation = get_term_by( 'slug', $category->slug . '_' . $current_translation, 'post_tag' );
+		$translation = get_term_by( 'slug', $category->slug . '_' . $current_translation, 'post_tag' );
 		if ( ! empty( $translation ) ) {
-			return (object) [
-        'name' => $translation->name,
-		'id' => $translation->term_id,
-		];
+			return (object) array(
+				'name' => $translation->name,
+				'id'   => $translation->term_id,
+			);
 		}
 	}
-	return (object) [
-    'name' => $category->name,
-    'id' => $category->term_id,
-	];
+	return (object) array(
+		'name' => $category->name,
+		'id'   => $category->term_id,
+	);
 }
 
 /**
  * Handle redirect after login
- *
  */
 function mozilla_redirect_after_login() {
 	$url = get_site_url();
-	wp_redirect($url);
+	wp_redirect( $url );
 	die();
 }
 

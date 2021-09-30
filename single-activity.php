@@ -15,7 +15,7 @@
 	get_header();
 	global $post;
 
-	$theme_directory     = get_template_directory();
+	$theme_directory = get_template_directory();
 	require "{$theme_directory}/countries.php";
 
 	$featured_image = get_the_post_thumbnail_url();
@@ -35,33 +35,33 @@
 	$metrics                            = get_field( 'metrics' );
 
 	$html_tags_allowed = array(
-		'h2'  => array( 'class' => array() ),
-		'h3'  => array( 'class' => array() ),
-		'h4'  => array( 'class' => array() ),
-		'p'   => array( 'class' => array() ),
-		'b'   => array(),
-		'i'   => array(),
-		'ul'  => array(),
-		'ol'  => array(),
-		'li'  => array(),
-		'br'  => array(),
-		'div' => array( 'class' => array() ),
-		'img' => array(
-			'href' => array(),
+		'h2'         => array( 'class' => array() ),
+		'h3'         => array( 'class' => array() ),
+		'h4'         => array( 'class' => array() ),
+		'p'          => array( 'class' => array() ),
+		'b'          => array(),
+		'i'          => array(),
+		'ul'         => array(),
+		'ol'         => array(),
+		'li'         => array(),
+		'br'         => array(),
+		'div'        => array( 'class' => array() ),
+		'img'        => array(
+			'href'  => array(),
 			'class' => array(),
-			'alt'  => array(),
+			'alt'   => array(),
 		),
-		'a'   => array(
+		'a'          => array(
 			'class' => array(),
-			'href' => array(),
+			'href'  => array(),
 		),
-		'figure' => array( 'class' => array() ),
+		'figure'     => array( 'class' => array() ),
 		'figcaption' => array( 'class' => array() ),
 	);
 
 	// Tags for activity.
 	$tags = get_the_terms( $post, 'post_tag' );
-?>
+	?>
 	<div class="content">
 		<section class="activity">
 			<div class="activity__container">

@@ -16,11 +16,11 @@
 
 	$template_dir = get_template_directory();
 
-	$categories = ( ! is_null( $event ) ) ? $event->get_categories() : false;
-	$location   = em_get_location( $event->location_id );
-	$url        = get_home_url( null, '/events/' . $event->slug );
+	$categories      = ( ! is_null( $event ) ) ? $event->get_categories() : false;
+	$location        = em_get_location( $event->location_id );
+	$url             = get_home_url( null, '/events/' . $event->slug );
 	$card_event_meta = get_post_meta( $event->post_id, 'event-meta' );
-	$location_type = isset($card_event_meta[0]->location_type) && strlen($card_event_meta[0]->location_type) > 0 ? $card_event_meta[0]->location_type : null;
+	$location_type   = isset( $card_event_meta[0]->location_type ) && strlen( $card_event_meta[0]->location_type ) > 0 ? $card_event_meta[0]->location_type : null;
 
 ?>
 <div class="col-lg-4 col-md-6 events__column">
@@ -28,7 +28,7 @@
 		<a class="events__link" href="<?php echo esc_url_raw( $url ); ?>">
 			<div class="event-card__image"
 			<?php
-				$img_url         = $card_event_meta[0]->image_url;
+				$img_url = $card_event_meta[0]->image_url;
 
 			if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'off' !== $_SERVER['HTTPS'] ) || 443 === $_SERVER['SERVER_PORT'] ) {
 				$img_url = preg_replace( '/^http:/i', 'https:', $img_url );
@@ -58,8 +58,8 @@
 			<div class="event-card__description">
 				<h3 class="event-card__description__title title--event-card"><?php echo esc_html( $event->event_name ); ?></h2>
 			<?php
-				$date_format    = 'en' === $current_translation ? 'F d, Y' : 'd F, Y';
-				$formatted_date = mozilla_localize_date( $event->start_date, $date_format );
+				$date_format        = 'en' === $current_translation ? 'F d, Y' : 'd F, Y';
+				$formatted_date     = mozilla_localize_date( $event->start_date, $date_format );
 				$formatted_end_date = mozilla_localize_date( $event->end_date, $date_format );
 			?>
 				<p><?php echo esc_html( $formatted_date ) . esc_html( ' @ ' ) . esc_html( substr( $event->event_start_time, 0, 5 ) ) . esc_html( ' - ' ) . esc_html( $formatted_date ) . esc_html( ' @ ' ) . esc_html( substr( $event->event_end_time, 0, 5 ) ) . esc_html( ' ' ) . esc_html( $event->event_timezone ); ?></p>
@@ -72,10 +72,10 @@
 					</svg>
 					<p class="text--light text--small">
 					<?php
-					if ( ('OE' === $location->country) || (!empty($location_type) && 'online' === $location_type) ) {
+					if ( ( 'OE' === $location->country ) || ( ! empty( $location_type ) && 'online' === $location_type ) ) {
 						esc_html_e( 'Online Event', 'community-portal' );
 					} else {
-						if ( isset( $location->address ) && strlen($location->address) > 0 && 'online' !== $location->address) {
+						if ( isset( $location->address ) && strlen( $location->address ) > 0 && 'online' !== $location->address ) {
 							echo esc_html( $location->address ) . esc_html( ' - ' );
 						}
 

@@ -17,7 +17,7 @@ if ( 0 !== $EM_Event->location_id ) {
 	$em_location = new EM_Location();
 }
 
-	$required = apply_filters( 'em_required_html', '<i>*</i>' );
+	$required      = apply_filters( 'em_required_html', '<i>*</i>' );
 	$location_type = '';
 if ( isset( $_REQUEST['nonce'] ) && wp_verify_nonce( sanitize_key( $_REQUEST['nonce'] ), 'edit-event' ) && isset( $_REQUEST['event_id'] ) ) {
 	$event               = sanitize_key( $_REQUEST['event_id'] );
@@ -168,16 +168,17 @@ if ( isset( $_REQUEST['nonce'] ) && wp_verify_nonce( sanitize_key( $_REQUEST['no
 					id="location-country-label" 
 					class="event-creator__label 
 						<?php
-							if (isset( $location_type )) {
-								if ('online' === $location_type) {
-									echo esc_attr( 'event-creator__label--online' );
-								} else {
-									echo esc_attr( 'event-creator__label--in-person' );
-								}
+						if ( isset( $location_type ) ) {
+							if ( 'online' === $location_type ) {
+								echo esc_attr( 'event-creator__label--online' );
 							} else {
-								echo esc_attr('event-creator__label--online');
+								echo esc_attr( 'event-creator__label--in-person' );
 							}
-						?>" 
+						} else {
+							echo esc_attr( 'event-creator__label--online' );
+						}
+						?>
+						" 
 					for="location-country"
 				>
 					<span class="online"><?php esc_html_e( 'Where will this event be held? *', 'community-portal' ); ?></span>

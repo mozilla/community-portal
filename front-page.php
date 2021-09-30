@@ -236,7 +236,7 @@ get_header();
 										<?php
 												$tag_counter = 0;
 										if ( isset( $meta ) && isset( $meta['group_tags'] ) ) :
-											$group_tags = array_unique( array_filter( $meta['group_tags'], 'mozilla_filter_inactive_tags'));
+											$group_tags = array_unique( array_filter( $meta['group_tags'], 'mozilla_filter_inactive_tags' ) );
 
 											?>
 										<ul class="groups__card-tags__container">
@@ -323,10 +323,9 @@ get_header();
 								$values        = array_values( $event );
 								$event         = array_shift( $values );
 								$all_countries = em_get_countries();
-								if (!empty($event)) {
+								if ( ! empty( $event ) ) {
 									include locate_template( 'plugins/events-manager/templates/template-parts/single-event-card.php', false, false );
 								}
-
 							}
 						}
 					}

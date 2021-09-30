@@ -49,7 +49,7 @@ if ( count( $categories ) > 0 ) {
 	$current_translation = mozilla_get_current_translation();
 
 	foreach ( $categories as $category ) {
-		$term_object                             = mozilla_get_translated_tag( $category );
+		$term_object                          = mozilla_get_translated_tag( $category );
 		$categories[ $category->id ]          = array();
 		$categories[ $category->id ]['value'] = $term_object->id;
 		$categories[ $category->id ]['label'] = $term_object->name;

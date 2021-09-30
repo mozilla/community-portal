@@ -22,9 +22,9 @@
 	$args = array(
 		'post_type'      => 'campaign',
 		'posts_per_page' => -1,
-		'meta_key'			=> 'campaign_start_date',
-		'orderby'			=> 'meta_value',
-		'order'				=> 'DESC'
+		'meta_key'       => 'campaign_start_date',
+		'orderby'        => 'meta_value',
+		'order'          => 'DESC',
 	);
 
 	$translated_status = array(
@@ -151,11 +151,11 @@
 						<h2 class="campaigns__active-campaign-title"><?php print esc_html( $current_campaign->post_title ); ?></h2>
 						<div class="campaigns__active-campaign-date-container">
 				<?php
-						$date_format          = 'en' === $current_translation ? 'F d' : 'd F';
-						if ( ! $current_campaign_end_date ) {
-							$date_format          = 'en' === $current_translation ? 'F d, Y' : 'd F Y';
-						}
-            
+						$date_format = 'en' === $current_translation ? 'F d' : 'd F';
+				if ( ! $current_campaign_end_date ) {
+					$date_format = 'en' === $current_translation ? 'F d, Y' : 'd F Y';
+				}
+
 								$formatted_start_date = mozilla_localize_date( $current_campaign_start_date, $date_format );
 								print esc_html( $formatted_start_date );
 				?>
@@ -217,10 +217,10 @@
 							<h2 class="campaigns__active-campaign-title"><?php print esc_html( $incoming_campaign->post_title ); ?></h2>
 							<div class="campaigns__active-campaign-date-container">
 								<?php
-									$date_format          = 'en' === $current_translation ? 'F d' : 'd F';
-									if (! $incoming_campaign_end_date ) {
-										$date_format          = 'en' === $current_translation ? 'F d, Y' : 'd F Y';	
-									}
+									$date_format = 'en' === $current_translation ? 'F d' : 'd F';
+								if ( ! $incoming_campaign_end_date ) {
+									$date_format = 'en' === $current_translation ? 'F d, Y' : 'd F Y';
+								}
 									$formatted_start_date = mozilla_localize_date( $incoming_campaign_start_date, $date_format );
 									print esc_html( $formatted_start_date );
 
@@ -294,10 +294,10 @@
 							<h2 class="campaigns__active-campaign-title campaigns__active-campaign-title--card"><?php print esc_html( $campaign->post_title ); ?></h2>
 							<div class="campaigns__active-campaign-date-container campaigns__active-campaign-date-container--card">
 					<?php
-									$date_format          = 'en' === $current_translation ? 'F d' : 'd F';
-									if ( !$campaign_end_date ) {
-										$date_format          = 'en' === $current_translation ? 'F d, Y' : 'd F Y';
-									}
+									$date_format = 'en' === $current_translation ? 'F d' : 'd F';
+					if ( ! $campaign_end_date ) {
+						$date_format = 'en' === $current_translation ? 'F d, Y' : 'd F Y';
+					}
 
 									$formatted_start_date = mozilla_localize_date( $campaign_start_date, $date_format );
 									print esc_html( $formatted_start_date );

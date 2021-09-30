@@ -13,7 +13,7 @@
 ?>
 
 <?php
-	$theme_directory     = get_template_directory();
+	$theme_directory = get_template_directory();
 	require "{$theme_directory}/countries.php";
 	$em_event = $GLOBALS['EM_Event'];
 if ( isset( $GLOBALS['EM_Tags'] ) ) {
@@ -65,25 +65,25 @@ if ( $em_event->event_start_date !== $em_event->event_end_date ) {
 }
 
 if ( strpos( $em_event->event_timezone, 'UTC-' ) !== false || strpos( $em_event->event_timezone, 'UTC+' ) !== false ) {
-	$timezone = str_replace('UTC+','',str_replace('UTC-','',$em_event->event_timezone));
-	$timezone_offset_seconds = ( (int)$timezone * 60 );
+	$timezone                = str_replace( 'UTC+', '', str_replace( 'UTC-', '', $em_event->event_timezone ) );
+	$timezone_offset_seconds = ( (int) $timezone * 60 );
 	if ( strpos( $em_event->event_timezone, 'UTC-' ) !== false ) {
 		$timezone_offset = '-';
 	} else {
 		$timezone_offset = '+';
 	}
-	$timezone_offset .= date('H:i', mktime(0, $timezone_offset_seconds));
-}else {
-	$timezone = new DateTimeZone( $em_event->event_timezone );
-	$timezone_offset = new DateTime( "now", $timezone );
-	$timezone_offset = $timezone_offset->format('Z');
-	if( $timezone_offset[0] !== '-' ) {
+	$timezone_offset .= gmdate( 'H:i', mktime( 0, $timezone_offset_seconds ) );
+} else {
+	$timezone        = new DateTimeZone( $em_event->event_timezone );
+	$timezone_offset = new DateTime( 'now', $timezone );
+	$timezone_offset = $timezone_offset->format( 'Z' );
+	if ( $timezone_offset[0] !== '-' ) {
 		$timezone_offset = '+' . $timezone_offset;
 	}
 
-	$hours = floor(substr( $timezone_offset, 1) / 3600);
-    $minutes = (substr( $timezone_offset, 1) % 60);
-	$timezone_offset = $timezone_offset[0] . sprintf('%02d:%02d', $hours, $minutes);
+	$hours           = floor( substr( $timezone_offset, 1 ) / 3600 );
+	$minutes         = ( substr( $timezone_offset, 1 ) % 60 );
+	$timezone_offset = $timezone_offset[0] . sprintf( '%02d:%02d', $hours, $minutes );
 }
 
 
@@ -229,7 +229,7 @@ if ( isset( $em_event->group_id ) ) {
 							?>
 						</p>
 						<p card="card__time" class="timezone">
-							In your timezone: <span data-start-time="<?php echo esc_html( $em_event->event_start_time ) ?>" data-end-time="<?php echo esc_html( $em_event->event_end_time ) ?>" data-start-date="<?php echo $em_event->event_start_date; ?>" data-end-date="<?php echo $em_event->event_end_date; ?>" data-timezone-offset="<?php echo esc_html( $timezone_offset ) ?>"></span>
+							<?php esc_html_e( 'In your timezone:', 'community-portal' ); ?> <span data-start-time="<?php echo esc_html( $em_event->event_start_time ); ?>" data-end-time="<?php echo esc_html( $em_event->event_end_time ); ?>" data-start-date="<?php echo esc_html( $em_event->event_start_date ); ?>" data-end-date="<?php echo esc_html( $em_event->event_end_date ); ?>" data-timezone-offset="<?php echo esc_html( $timezone_offset ); ?>"></span>
 						</p>
 					</div>
 					<?php
@@ -278,7 +278,7 @@ if ( isset( $em_event->group_id ) ) {
 				<div class="row">
 					<div class="card__address col-md-5 col-sm-12">
 					<?php $location = $em_event->location; ?>
-					<?php if ( isset($location_type) && $location_type !== 'online' && isset( $location->location_country ) && strlen( $location->location_country ) > 0 && 'OE' !== $location->location_country ) : ?>
+					<?php if ( isset( $location_type ) && $location_type !== 'online' && isset( $location->location_country ) && strlen( $location->location_country ) > 0 && 'OE' !== $location->location_country ) : ?>
 						<p><?php echo esc_html( $location->location_name ); ?></p>
 						<p><?php echo esc_html( $location->location_address ); ?></p>
 						<?php if ( 'OE' === $location->location_country ) : ?>
@@ -454,9 +454,9 @@ if ( isset( $em_event->group_id ) ) {
 								</div>
 								<?php endif; ?>
 
-								<?php if ( $info['location']->display && $info['location']->value && isset($countries[$info['location']->value])) : ?>
+								<?php if ( $info['location']->display && $info['location']->value && isset( $countries[ $info['location']->value ] ) ) : ?>
 									<p class="events-single__country">
-										<?php echo esc_html( $countries[$info['location']->value] ); ?>
+										<?php echo esc_html( $countries[ $info['location']->value ] ); ?>
 									</p>
 								<?php endif; ?>
 							</div>
@@ -494,7 +494,7 @@ if ( isset( $em_event->group_id ) ) {
 			</div>
 		</div>
 	<?php endif; ?>
-	<?php if ( isset( $em_event->bookings ) && !empty($em_event->bookings) ) : ?>
+	<?php if ( isset( $em_event->bookings ) && ! empty( $em_event->bookings ) ) : ?>
 	<div id="attendees-lightbox" class="lightbox">
 		<div class="lightbox__container">
 			<button id="close-attendees-lightbox" class="btn btn--close">
@@ -507,7 +507,7 @@ if ( isset( $em_event->group_id ) ) {
 			<div class="row events-single__all-attendees">
 				<p class="title--secondary col-sm-12"><?php echo esc_html( $count ) . esc_html__( ' Attendees', 'community-portal' ); ?></p>
 				<?php foreach ( $em_event->bookings as $booking ) : ?>
-					<?php if ( !empty($booking) && isset($booking->booking_status) && '3' !== $booking->booking_status ) : ?>
+					<?php if ( ! empty( $booking ) && isset( $booking->booking_status ) && '3' !== $booking->booking_status ) : ?>
 						<?php
 								$user  = $booking->person->data;
 								$is_me = $logged_in && intval( $active_user->ID ) === intval( $user->ID );
@@ -548,10 +548,10 @@ if ( isset( $em_event->group_id ) ) {
 											?>
 										</div>
 									<?php endif; ?>
-									<?php if ( $info['location']->display && $info['location']->value && isset($countries[$info['location']->value]) ) : ?>
+									<?php if ( $info['location']->display && $info['location']->value && isset( $countries[ $info['location']->value ] ) ) : ?>
 
 									<p class="events-single__country">
-										<?php echo esc_html( $countries[$info['location']->value] ); ?>
+										<?php echo esc_html( $countries[ $info['location']->value ] ); ?>
 									</p>
 									<?php endif; ?>
 								</div>
@@ -581,11 +581,11 @@ if ( isset( $em_event->group_id ) ) {
 	<?php
 		$report_email = trim( sanitize_email( $options['report_email'] ) );
 		$subject      = sprintf( '%s %s', __( 'Reporting Event', 'community-portal' ), $em_event->event_name );
-		if ( ! empty( $_SERVER['HTTP_HOST'] ) && ! empty( $_SERVER['REQUEST_URI'] ) ) {
-			$server_host = sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) );
-			$server_uri  = sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) );
-			$body        = __('Please provide a reason you are reporting this event', 'community-portal') . " https://" . $server_host . $server_uri;
-		}
+	if ( ! empty( $_SERVER['HTTP_HOST'] ) && ! empty( $_SERVER['REQUEST_URI'] ) ) {
+		$server_host = sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) );
+		$server_uri  = sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) );
+		$body        = __( 'Please provide a reason you are reporting this event', 'community-portal' ) . ' https://' . $server_host . $server_uri;
+	}
 	?>
 		<a href="mailto:<?php echo esc_attr( $report_email ); ?>?subject=<?php echo esc_attr( $subject ); ?>&body=<?php echo esc_attr( $body ); ?>" class="group__report-group-link">
 			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

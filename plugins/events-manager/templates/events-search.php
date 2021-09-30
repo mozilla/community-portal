@@ -24,7 +24,7 @@
 			$query_view         = isset( $_GET['view'] ) && strlen( sanitize_title_for_query( wp_unslash( $_GET['view'] ) ) ) > 0 ? sanitize_text_field( wp_unslash( $_GET['view'] ) ) : '';
 			$args['search_url'] = add_query_arg( array( 'view' => $query_view ), get_home_url( null, 'events' ) );
 			$query_page         = isset( $_GET['pno'] ) && strlen( sanitize_title_for_query( wp_unslash( $_GET['pno'] ) ) ) > 0 ? sanitize_text_field( wp_unslash( $_GET['pno'] ) ) : false;
-			$query_country      = isset( $_GET['country'] ) && strlen( sanitize_text_field( wp_unslash( $_GET['country'] ) ) ) > 0 ? sanitize_text_field( wp_unslash( urldecode( $_GET['country'] ) ) ) : false;
+			$query_country      = isset( $_GET['country'] ) && strlen( sanitize_text_field( wp_unslash( $_GET['country'] ) ) ) > 0 ? sanitize_text_field( wp_unslash( urldecode( sanitize_text_field( wp_unslash( $_GET['country'] ) ) ) ) ) : false;
 			$query_language     = isset( $_GET['language'] ) && strlen( sanitize_title_for_query( wp_unslash( $_GET['language'] ) ) ) > 0 ? sanitize_text_field( wp_unslash( $_GET['language'] ) ) : false;
 			$query_category     = isset( $_GET['tag'] ) && strlen( sanitize_title_for_query( wp_unslash( $_GET['tag'] ) ) ) > 0 ? sanitize_text_field( wp_unslash( $_GET['tag'] ) ) : false;
 			$query_initiative   = isset( $_GET['initiative'] ) && strlen( sanitize_title_for_query( wp_unslash( $_GET['initiative'] ) ) ) > 0 ? sanitize_title_for_query( wp_unslash( $_GET['initiative'] ) ) : false;

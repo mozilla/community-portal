@@ -16,7 +16,6 @@
  * @param string $string string to return.
  */
 function mozilla_update_events_copy( $string ) {
-
 	$please_string = __( 'Please', 'community-portal' );
 	$login_string  = __( 'log in', 'community-portal' );
 	$create_string = __( 'to create or join events', 'community-portal' );
@@ -331,7 +330,7 @@ function mozilla_get_locations() {
  * @param string  $location_type location type value.
  */
 function mozilla_add_location_type( $post_id, $location_type = null ) {
-	if (empty($post_id)) {
+	if ( empty( $post_id ) ) {
 		return;
 	}
 	$location = em_get_location( $post_id );
@@ -339,8 +338,8 @@ function mozilla_add_location_type( $post_id, $location_type = null ) {
 		update_post_meta( $location->post_id, 'location-type', $location_type );
 		return;
 	}
-	if ( isset( $_POST['location-type'] ) ) {
-		$location_type = sanitize_text_field( wp_unslash( $_POST['location-type'] ) );
+	if ( isset( $_POST['location-type'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$location_type = sanitize_text_field( wp_unslash( $_POST['location-type'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		update_post_meta( $post_id, 'location-type', $location_type );
 	}
 }
@@ -354,31 +353,37 @@ function mozilla_add_location_type( $post_id, $location_type = null ) {
  * @param bool    $update if this is an update.
  */
 function mozilla_handle_location_save( $post_id, $post, $update ) {
-	if ( isset( $_POST['location-type'] ) ) {
-		$location_type = sanitize_text_field( wp_unslash( $_POST['location-type'] ) );
+	if ( isset( $_POST['location-type'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$location_type = sanitize_text_field( wp_unslash( $_POST['location-type'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		update_post_meta( $post_id, 'location-type', $location_type );
 	}
 }
 
 add_action( 'save_post_location', 'mozilla_handle_location_save', 10, 3 );
 
-add_filter('em_events_get_sql', 'mozilla_custom_ics', 99999);
+add_filter( 'em_events_get_sql', 'mozilla_custom_ics', 99999 );
 
+/**
+ * Alter Events Manager query to get the right events
+ *
+ * @param string $sql The original query.
+ * @return string
+ */
 function mozilla_custom_ics( $sql ) {
-	// Get events of a Buddypress group
-	if ( isset( $_GET[ 'group' ] ) ) {
-		$group_slug = esc_sql( $_GET[ 'group' ] );
-		$group = groups_get_groups( array( 'slug' => array( $group_slug ) ) );
-		$group = $group[ 'groups' ][ 0 ];
-		if ( !empty( $group->id ) ) {
+	// Get events of a Buddypress group.
+	if ( isset( $_GET['group'] ) ) {
+		$group_slug = esc_sql( sanitize_text_field( wp_unslash( $_GET['group'] ) ) );
+		$group      = groups_get_groups( array( 'slug' => array( $group_slug ) ) );
+		$group      = $group['groups'][0];
+		if ( ! empty( $group->id ) ) {
 			$sql = str_replace( ' AND event_owner=0', '', $sql );
 			$sql = str_replace( 'WHERE', 'WHERE wp_em_events.group_id=' . $group->id . ' AND ', $sql );
 		}
 	}
 
-	if ( isset( $_GET[ 'event_id' ] ) ) {
-		$event_id = esc_sql( $_GET[ 'event_id' ] );
-		$sql = str_replace( 'WHERE', 'WHERE wp_em_events.event_id=' . $event_id . ' AND ', $sql );
+	if ( isset( $_GET['event_id'] ) ) {
+		$event_id = esc_sql( sanitize_text_field( wp_unslash( $_GET['event_id'] ) ) );
+		$sql      = str_replace( 'WHERE', 'WHERE wp_em_events.event_id=' . $event_id . ' AND ', $sql );
 	}
 
 	return $sql;

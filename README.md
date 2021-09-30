@@ -26,6 +26,14 @@ To live update the styles run ```npm run watch```
 To activate the theme through the Wordpress admin panel.
 
 ### Wordpress
+
+```
+./vendor/bin/phpcs --standard=WordPress .
+./vendor/bin/phpcbf --standard=WordPress .
+```
+
+#### Pages
+
 The following pages need to be created along with their corresponding slugs
 
 Title: Activate  
