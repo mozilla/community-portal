@@ -2,14 +2,7 @@
 
 name: "Code Standards"
 
-on:
-  pull_request:
-    branches:
-      - "master"
-  push:
-    branches:
-      - "master"
-      - "707"
+on: [push, pull_request]
 
 jobs:
   phpcs:
