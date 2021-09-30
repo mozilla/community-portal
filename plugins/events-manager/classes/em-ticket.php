@@ -246,7 +246,7 @@ class EM_Ticket extends EM_Object {
 			} elseif ( is_numeric( $ticket_data ) ) {
 				// Retreiving from the database.
 				global $wpdb;
-				$sql    = 'SELECT * FROM ' . EM_TICKETS_TABLE . " WHERE ticket_id ='$ticket_data'";
+				$sql    = 'SELECT * FROM ' . EM_TICKETS_TABLE . " WHERE ticket_id ='$ticket_data'"; // phpcs:ignore
 				$ticket = $wpdb->get_row( $sql, ARRAY_A );
 			}
 			// Save into the object.
@@ -364,7 +364,7 @@ class EM_Ticket extends EM_Object {
 	private function get_notes() {
 		global $wpdb;
 		if ( ! is_array( $this->notes ) && ! empty( $this->ticket_id ) ) {
-			$notes = $wpdb->get_results( 'SELECT * FROM ' . EM_META_TABLE . " WHERE meta_key='ticket-note' AND object_id ='{$this->ticket_id}'", ARRAY_A );
+			$notes = $wpdb->get_results( 'SELECT * FROM ' . EM_META_TABLE . " WHERE meta_key='ticket-note' AND object_id ='{$this->ticket_id}'", ARRAY_A ); // phpcs:ignore
 			foreach ( $notes as $note ) {
 				$this->ticket_id[] = unserialize( $note['meta_value'] );
 			}
@@ -407,7 +407,7 @@ class EM_Ticket extends EM_Object {
 						$set_array[] = "{$field_name}='" . esc_sql( $data[ $field_name ] ) . "'";
 					}
 				}
-				$sql                    = "UPDATE $table SET " . implode( ', ', $set_array ) . " WHERE ticket_id={$this->ticket_id}";
+				$sql                    = "UPDATE $table SET " . implode( ', ', $set_array ) . " WHERE ticket_id={$this->ticket_id}"; // phpcs:ignore
 				$result                 = $wpdb->query( $sql );
 				$this->feedback_message = __( 'Changes saved', 'community-portal' );
 			} else {
@@ -708,7 +708,7 @@ class EM_Ticket extends EM_Object {
 		if ( ! array_key_exists( $this->event_id, $this->pending_spaces ) || $force_refresh ) {
 			$sub_sql                                 = 'SELECT booking_id FROM ' . EM_BOOKINGS_TABLE . ' WHERE event_id=%d AND booking_status=0';
 			$sql                                     = 'SELECT SUM(ticket_booking_spaces) FROM ' . EM_TICKETS_BOOKINGS_TABLE . " WHERE booking_id IN ($sub_sql) AND ticket_id=%d";
-			$pending_spaces                          = $wpdb->get_var( $wpdb->prepare( $sql, $this->event_id, $this->ticket_id ) );
+			$pending_spaces                          = $wpdb->get_var( $wpdb->prepare( $sql, $this->event_id, $this->ticket_id ) ); // phpcs:ignore
 			$this->pending_spaces[ $this->event_id ] = $pending_spaces > 0 ? $pending_spaces : 0;
 			$this->pending_spaces[ $this->event_id ] = apply_filters( 'em_ticket_get_pending_spaces', $this->pending_spaces[ $this->event_id ], $this, $force_refresh );
 		}
@@ -727,7 +727,7 @@ class EM_Ticket extends EM_Object {
 			$status_cond                            = ! get_option( 'dbem_bookings_approval' ) ? 'booking_status IN (0,1)' : 'booking_status = 1';
 			$sub_sql                                = 'SELECT booking_id FROM ' . EM_BOOKINGS_TABLE . " WHERE event_id=%d AND $status_cond";
 			$sql                                    = 'SELECT SUM(ticket_booking_spaces) FROM ' . EM_TICKETS_BOOKINGS_TABLE . " WHERE booking_id IN ($sub_sql) AND ticket_id=%d";
-			$booked_spaces                          = $wpdb->get_var( $wpdb->prepare( $sql, $this->event_id, $this->ticket_id ) );
+			$booked_spaces                          = $wpdb->get_var( $wpdb->prepare( $sql, $this->event_id, $this->ticket_id ) ); // phpcs:ignore
 			$this->booked_spaces[ $this->event_id ] = $booked_spaces > 0 ? $booked_spaces : 0;
 			$this->booked_spaces[ $this->event_id ] = apply_filters( 'em_ticket_get_booked_spaces', $this->booked_spaces[ $this->event_id ], $this, $force_refresh );
 		}
@@ -745,7 +745,7 @@ class EM_Ticket extends EM_Object {
 		global $wpdb;
 		if ( ! array_key_exists( $this->event_id, $this->bookings_count ) || $force_refresh ) {
 			$sql                                     = 'SELECT COUNT(*) FROM ' . EM_TICKETS_BOOKINGS_TABLE . ' WHERE booking_id IN (SELECT booking_id FROM ' . EM_BOOKINGS_TABLE . ' WHERE event_id=%d) AND ticket_id=%d';
-			$bookings_count                          = $wpdb->get_var( $wpdb->prepare( $sql, $this->event_id, $this->ticket_id ) );
+			$bookings_count                          = $wpdb->get_var( $wpdb->prepare( $sql, $this->event_id, $this->ticket_id ) ); // phpcs:ignore
 			$this->bookings_count[ $this->event_id ] = $bookings_count > 0 ? $bookings_count : 0;
 			$this->bookings_count[ $this->event_id ] = apply_filters( 'em_ticket_get_bookings_count', $this->bookings_count[ $this->event_id ], $this, $force_refresh );
 		}
@@ -789,7 +789,7 @@ class EM_Ticket extends EM_Object {
 		$result = false;
 		if ( $this->can_manage() ) {
 			if ( count( $this->get_bookings()->bookings ) === 0 ) {
-				$sql    = $wpdb->prepare( 'DELETE FROM ' . EM_TICKETS_TABLE . ' WHERE ticket_id=%d', $this->ticket_id );
+				$sql    = $wpdb->prepare( 'DELETE FROM ' . EM_TICKETS_TABLE . ' WHERE ticket_id=%d', $this->ticket_id ); // phpcs:ignore
 				$result = $wpdb->query( $sql );
 			} else {
 				$this->feedback_message = __( 'You cannot delete a ticket that has a booking on it.', 'community-portal' );
@@ -870,7 +870,7 @@ class EM_Ticket extends EM_Object {
 					?>
 					<option>0</option><?php endif; ?>
 				<?php for ( $i = $min; $i <= $available_spaces && $i <= $max; $i++ ) : ?>
-					<option 
+					<option
 					<?php
 					if ( $i === $default_value ) {
 						echo 'selected="selected"';

@@ -16,7 +16,6 @@
  * @param string $string string to return.
  */
 function mozilla_update_events_copy( $string ) {
-
 	$please_string = __( 'Please', 'community-portal' );
 	$login_string  = __( 'log in', 'community-portal' );
 	$create_string = __( 'to create or join events', 'community-portal' );
@@ -339,8 +338,8 @@ function mozilla_add_location_type( $post_id, $location_type = null ) {
 		update_post_meta( $location->post_id, 'location-type', $location_type );
 		return;
 	}
-	if ( isset( $_POST['location-type'] ) ) {
-		$location_type = sanitize_text_field( wp_unslash( $_POST['location-type'] ) );
+	if ( isset( $_POST['location-type'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$location_type = sanitize_text_field( wp_unslash( $_POST['location-type'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		update_post_meta( $post_id, 'location-type', $location_type );
 	}
 }
@@ -354,8 +353,8 @@ function mozilla_add_location_type( $post_id, $location_type = null ) {
  * @param bool    $update if this is an update.
  */
 function mozilla_handle_location_save( $post_id, $post, $update ) {
-	if ( isset( $_POST['location-type'] ) ) {
-		$location_type = sanitize_text_field( wp_unslash( $_POST['location-type'] ) );
+	if ( isset( $_POST['location-type'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$location_type = sanitize_text_field( wp_unslash( $_POST['location-type'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		update_post_meta( $post_id, 'location-type', $location_type );
 	}
 }
