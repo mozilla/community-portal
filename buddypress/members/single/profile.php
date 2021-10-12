@@ -383,10 +383,11 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 					foreach ( $campaigns as $cid ) {
 						$object = get_post( $cid );
 						if ( ! empty( $object ) ) {
-							$campaign_objects[] = $object;
+							$campaign_objects[get_field( 'campaign_start_date', $object->ID )] = $object;
 						}
 					}
 				}
+				ksort($campaign_objects);
 				?>
 				<?php if ( count( $campaign_objects ) > 0 ) : ?>
 					<h2 class="profile__heading"><?php esc_html_e( 'Campaigns Participated In', 'community-portal' ); ?></h2>
