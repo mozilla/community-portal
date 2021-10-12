@@ -16,6 +16,7 @@
 	require "{$theme_directory}/countries.php";
 	require "{$theme_directory}/pronouns.php";
 	$current_translation = mozilla_get_current_translation();
+	$show_minimum_items = 3;
 
 	$event_countries = em_get_countries();
 
@@ -165,8 +166,12 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 							<?php
 								$group      = new BP_Groups_Group( $gid );
 								$group_meta = groups_get_groupmeta( $gid, 'meta' );
+								$group_hidden = '';
+								if ( $group_count >= $show_minimum_items ) {
+									$group_hidden = ' hidden';
+								}
 							?>
-							<a class="profile__group" href=" <?php echo esc_attr( get_home_url( null, 'groups/' . $group->slug ) ); ?>">
+							<a class="profile__group<?php echo $group_hidden; ?>" href="<?php echo esc_attr( get_home_url( null, 'groups/' . $group->slug ) ); ?>">
 								<h2 class="profile__group-title"><?php echo esc_html( str_replace( '\\', '', stripslashes( $group->name ) ) ); ?></h2>
 								<?php
 								if ( ( isset( $group_meta['group_city'] ) && strlen( trim( $group_meta['group_city'] ) ) > 0 ) || ( isset( $group_meta['group_country'] ) && strlen( trim( $group_meta['group_country'] ) ) > 1 ) || isset( $group_meta['group_type'] ) ) :
@@ -220,10 +225,13 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 								</div>
 							</a>
 							<?php $group_count++; ?>
-							<?php if ( $group_count > 0 && $group_count < $groups['total'] ) : ?>
-								<hr class="profile__group-line" />
-							<?php endif; ?>
-						<?php endforeach; ?>
+							<hr class="profile__group-line<?php echo $group_hidden; ?>" />
+					<?php endforeach; ?>
+					<?php if ( $group_count >= $show_minimum_items ) : ?>
+						<a href="#" class="group__events-link show-more">
+									<?php _e('View All', 'community-portal') . ' (' . $group_count . ')'; ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+								</a>
+					<?php endif; ?>
 					</div>
 				<?php endif; ?>
 			<?php endif; ?>
@@ -245,8 +253,13 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 								$date_format = 'en' === $current_translation ? 'M d' : 'd M';
 								$event_date  = mozilla_localize_date( $event->event_start_date, $date_format );
 								$location    = em_get_location( $event->location_id );
+
+								$event_hidden = '';
+								if ( $events_attended_count >= $show_minimum_items ) {
+									$event_hidden = ' hidden';
+								}
 							?>
-							<a class="profile__event" href="<?php echo esc_attr( get_home_url( null, 'events/' . $event->slug ) ); ?>">
+							<a class="profile__event<?php echo $event_hidden; ?>" href="<?php echo esc_attr( get_home_url( null, 'events/' . $event->slug ) ); ?>">
 								<div class="profile__event-date">
 									<?php echo esc_html( $event_date ); ?>
 								</div>
@@ -283,10 +296,13 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 								</div>
 							</a>
 							<?php $events_attended_count++; ?>
-							<?php if ( $events_attended_count < count( $events ) ) : ?>
-								<hr class="profile__group-line" />
-							<?php endif; ?>
+							<hr class="profile__group-line<?php echo $event_hidden; ?>" />
 						<?php endforeach; ?>
+						<?php if ( $events_attended_count >= $show_minimum_items ) : ?>
+							<a href="#" class="group__events-link show-more">
+										<?php echo __('View All', 'community-portal') . '(' . $events_attended_count . ')'; ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+									</a>
+						<?php endif; ?>
 					</div>
 				<?php endif; ?>
 			<?php endif; ?>
@@ -324,8 +340,13 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 								$date_format = 'en' === $current_translation ? 'M d' : 'd M';
 								$event_date  = mozilla_localize_date( $event->event_start_date, $date_format );
 								$location    = em_get_location( $event->location_id );
+
+								$event_hidden = '';
+								if ( $events_organized_count >= $show_minimum_items ) {
+									$event_hidden = ' hidden';
+								}
 							?>
-							<a class="profile__event" href="<?php echo esc_attr( get_home_url( null, 'events/' . $event->slug ) ); ?>">
+							<a class="profile__event<?php echo $event_hidden ?>" href="<?php echo esc_attr( get_home_url( null, 'events/' . $event->slug ) ); ?>">
 								<div class="profile__event-date">
 									<?php echo esc_html( $event_date ); ?>
 								</div>
@@ -364,10 +385,13 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 							<?php
 								$events_organized_count++;
 							?>
-							<?php if ( $events_organized_count < count( $events_organized ) ) : ?>
-								<hr class="profile__group-line" />
-							<?php endif; ?>
+							<hr class="profile__group-line<?php echo $event_hidden; ?>" />
 						<?php endforeach; ?>
+						<?php if ( $events_organized_count >= $show_minimum_items ) : ?>
+							<a href="#" class="group__events-link show-more">
+										<?php echo __('View All', 'community-portal') . ' (' . $events_organized_count . ')'; ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+									</a>
+						<?php endif; ?>
 					</div>
 				<?php endif; ?>
 			<?php endif; ?>
@@ -399,8 +423,13 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 								$start         = get_field( 'campaign_start_date', $campaign->ID );
 								$end           = get_field( 'campaign_end_date', $campaign->ID );
 								$campaign_tags = get_the_terms( $campaign, 'post_tag' );
+
+								$campaign_hidden = '';
+								if ( $campaign_count >= $show_minimum_items ) {
+									$campaign_hidden = ' hidden';
+								}
 							?>
-							<a class="profile__campaign" href="<?php echo esc_attr( get_home_url( null, 'campaigns/' . $campaign->post_name ) ); ?>">
+							<a class="profile__campaign<?php echo $campaign_hidden ?>" href="<?php echo esc_attr( get_home_url( null, 'campaigns/' . $campaign->post_name ) ); ?>">
 								<h3 class="profile__campaign-title"><?php echo esc_html( $campaign->post_title ); ?></h3>
 								<div class="profile__campaign-dates">
 									<?php
@@ -431,11 +460,14 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 								<?php endif; ?>
 							</a>
 							<?php $campaign_count++; ?>
-							<?php if ( $campaign_count < count( $campaign_objects ) ) : ?>
-								<hr class="profile__group-line" />
-							<?php endif; ?>
+							<hr class="profile__group-line<?php echo $campaign_hidden; ?>" />
 						<?php endif; ?>
 					<?php endforeach; ?>
+					<?php if ( $campaign_count >= $show_minimum_items ) : ?>
+						<a href="#" class="group__events-link show-more">
+										<?php echo __('View All', 'community-portal') . ' (' . $campaign_count . ')'; ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+									</a>
+					<?php endif; ?>
 				</div>
 			<?php endif; ?>
 		<?php endif; ?>
@@ -655,7 +687,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 				<?php esc_html_e( 'Tags', 'community-portal' ); ?>
 				<div class="profile__tags-container">
 					<?php $tags = array_filter( explode( ',', $info['tags']->value ) ); ?>
-					<?php $system_tags = get_tags( array( 'hide_empty' => false ) ); ?>
+					<?php $system_tags = get_tags( array( 'hidden_empty' => false ) ); ?>
 					<?php foreach ( $tags as $loop_tag ) : ?>
 						<?php
 						foreach ( $system_tags as $t ) {

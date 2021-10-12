@@ -41,7 +41,7 @@ jQuery(function(){
 			if (!validMatrixId) {
 				formErrorState(this);
 				return
-			} 
+			}
 		}
 		formClearError(this);
 	}
@@ -74,7 +74,7 @@ jQuery(function(){
 
 		if (language){
 			params += '&lang=' + language;
-		} 
+		}
 		if (country) {
 			params += '&country=' + country;
 		}
@@ -125,7 +125,7 @@ jQuery(function(){
 		if (re.test($this.val())=== false) {
 			$this.addClass('error');
 			return false;
-		} 
+		}
 		$this.removeClass('error');
 		return true
 	}
@@ -138,7 +138,7 @@ jQuery(function(){
 		const verified = verifyEmail(email);
 		if (!verified) {
 			return false;
-		} 
+		}
 		const country = jQuery('#newsletter-country').val();
 		const language = jQuery('#newsletter-language').val();
 		return handleSignUpSubmit(email.val(), country, language);
@@ -158,7 +158,7 @@ jQuery(function(){
 
         var $ele = jQuery(ele);
         var user = $ele.data('username');
- 
+
         var avatar = new Identicon(btoa(user + 'mozilla-community-portal'), { format: 'svg' }).toString();
         $ele.css({'background-image': "url('data:image/svg+xml;base64," + avatar + "')"});
 
@@ -192,13 +192,13 @@ jQuery(function(){
 				formErrorState($matrixInput);
 			}
 		}
-	
+
         jQuery(':input[required]').each(function(index, element) {
             var $ele = jQuery(element);
             var $errorMsg = $ele.next('.form__error-container');
 
             if($ele.val() == "" || $ele.val() == "0" || ($ele.is(':checkbox') && $ele.prop("checked") === false)) {
-                error = true;           
+                error = true;
                 $ele.addClass("profile__input--error");
                 $errorMsg.addClass('form__error-container--visible');
 			}
@@ -305,7 +305,7 @@ jQuery(function(){
     });
 
     jQuery('.profile__remove-language').click(function(e) {
-    
+
         e.preventDefault();
 
         var $element = jQuery(this).parent().parent();
@@ -333,9 +333,9 @@ jQuery(function(){
         }
 
 	});
-	
+
 	const getCurrentTags = function(tagsInput) {
-		let currentValue = tagsInput.val(); 
+		let currentValue = tagsInput.val();
 		currentValue = currentValue.length > 0 ? currentValue.split(/,\s?/) : [];
 		return currentValue;
 	}
@@ -344,7 +344,7 @@ jQuery(function(){
 		let newValues = currentValue;
 		if (currentValue.length > 1) {
 			newValues = currentValue.join(',');
-		} 
+		}
 		$tagsInput.val(`${newValues}`);
 	}
 
@@ -376,10 +376,10 @@ jQuery(function(){
 
 		if(!$label.hasClass('profile__tag--active')) {
 			addNewTag($tagsInput, currentValue, tag);
-		} 
+		}
 		if($label.hasClass('profile__tag--active')){
 			removeExistingTag($tagsInput, currentValue, tag);
-		}	
+		}
 		$label.toggleClass('profile__tag--active');
 		return false;
 	});
@@ -393,7 +393,7 @@ jQuery(function(){
 			.removeClass('form__error-container--secondary')
 			.removeClass('form__error-container--tertiary');
 	}
-	
+
 	function handleMultipleErrorStates(input, secondary = false, tertiary = false) {
 		const $this = jQuery(input);
 		var $errorContainer = $this.next('.form__error-container');
@@ -458,7 +458,7 @@ jQuery(function(){
 		const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		if (re.test(value.toLowerCase()) === false) {
 			handleMultipleErrorStates($this, false, true);
-		} 
+		}
 		const get = {};
         get.u = value;
 
@@ -562,7 +562,7 @@ jQuery(function(){
 		jQuery('input[name="language"]').val(language);
 
 		jQuery('#members-search-form').submit();
-        
+
     });
 
     jQuery('.members__tag-select').change(function(e){
@@ -570,9 +570,9 @@ jQuery(function(){
         jQuery('input[name="tag"]').val(tag);
         jQuery('#members-search-form').submit();
 
-        
+
     });
-    
+
     jQuery('.members__toggle-filter').click(function(e) {
 		const $this = jQuery(this);
 
@@ -591,6 +591,17 @@ jQuery(function(){
             }
         });
 
+        return false;
+    });
+
+    jQuery('.show-more').click(function(e) {
+        const $this = jQuery(this);
+        e.preventDefault();
+        var items = $this.parent().find('a');
+        jQuery(items).each(function( index ) {
+          jQuery(this).removeClass('hidden');
+          $this.addClass('hidden');
+        });
         return false;
     });
 
