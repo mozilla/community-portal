@@ -2,81 +2,132 @@
 
 This repo will contain all the theme files for the new Mozilla community portal.  
 
-## Requirements
-* Node version 8.9.3
-* Running instance of Wordpress.  For development and deployment to wpengine purposes we are currently using wpe-devkit (https://wpengine.com/devkit/).  
-* All the required wordpress plugins. (buddypress v4.4.0, eventmanager v5.9.5, advanced custom fields v5.8.2) 
-* WPML is required if you will use the link of the theme, otherwise you need to remove manually the `/en/` to work
+## Setup Wordpress and Install the Theme
 
-## Getting Started
-1. Clone the repo into the wp-content/themes folder of the wordpress instance.  
-2. Install all the node dependences by running the following command ```npm install```
-3. Compile the assets or you cannot enable the theme
+- Keep in mind that when you’re serving the site, your server needs to be running at the root of the Wordpress install. The URL in the address bar when you view the site should not contain any sub-directories.
+- During development it’s recommended that you use a local URL.
+	- NOTE: If you have Docker running you may need to quit it, as it may cause port conflicts with Local or your virtual host. 
+- In a new directory, set up a fresh Wordpress install (wordpress.org)
+- Go to the Mozilla community portal repo, and clone or download the theme files. They need to go into the `wp-content/themes` directory of the Wordpress install you just created.
+- Navigate to this theme folder in your terminal, and run `npm install` to install dependencies.
+- Run `npm run compile` to compile the .scss files and generate a `style.css` file for the theme, to live update the styles run `npm run watch`.
+- Depending on how you are running Wordpress, you may need to create a new database for the site (or you can use the DB dump at the bottom of this readme). 
+- Run the site in the browser. Depending on your set up, you may be lead through the typical Wordpress site setup.
+- Login to the site as an administrator, and go to `appearance > themes` and activate the Mozilla theme. It has no preview screenshot. 
 
-### Compile
-To compile the sass files run ```npm run compile```
+## Install Plugins
+- Once the site is created, the following plugins need to be installed:
+    - [Auth0](https://auth0.com/wordpress) (only on production)
+    - [BuddyPress](https://buddypress.org/)
+    - [Events Manager (for BuddyPress)](http://wp-events-plugin.com/)
+    - [ACF Pro](https://www.advancedcustomfields.com/pro/) (free version works)
+    - [WPML](https://wpml.org/) (works not always without but in case of error is enough to remove `/en/` from the URL)
+    
+## Create the required Pages
+- Before creating pages, activate BuddyPress. This will automatically create some pages, and reduce those you need to manually create
 
-### Build
-To build the project run the following command ```npm run build```
+| Page Name | URL Slug | Page Parent |
+| --------- | -------- | ----------- |  
+| Activate | `/activate` | n/a |
+| Community Portal | set to front page in `Settings > Reading` | n/a |
+| Events | `/events` | n/a |
+| Categories | `/categories` | Events |
+| Edit | `/edit` | Events | 
+| Locations | `/locations` | Events |
+| My Bookings | `/my-bookings` | Events |
+| Tags |	`/tags` |	Events |
+| Groups |	`/groups` |	n/a |
+| Members |	`/people` |	n/a |
+| Register |	`/register` |	n/a |
 
-### Watch
-To live update the styles run ```npm run watch```
+## Add the Theme Settings
+- Go to `Mozilla Settings` in the left sidebar to add the following settings.
 
-### Activate
-To activate the theme through the Wordpress admin panel.
+| Setting | Value |
+| ------- | ----- |
+| Report Group / Event Email | `<Your email>` |
+| Github Link |	https://github.com/mozilla/community-portal |
+| Community Portal Discourse |  |
+| Mailchimp API Key	| `<a test API key>` |
+| Company |	Mozilla |
+| Address | |
+| City | Toronto |
+| State / Province |  |
+| Postal / Zip |  |
+| Country |  |
+| Phone |  |
+| Google Analytics ID |  | (only on production)
+| Discourse API Key |	 | (only on production)
+| Discourse API URL |	 | (only on production)
+| Discourse URL |  (only on production)
+| Mapbox Access Token |  | (only on production)
+| Default Open Graph Title | Community Portal - Mozilla |
+| Default Open Graph Description | Community Portal - Mozilla |
+| Max Image Filesize Upload (KB) | 250 |
+| 404 Error Title | Page not Found |
+| 404 Error Copy | Oops, we got lost! |
 
-### Wordpress
+## Set up Theme Menus
+- Next set up the menus `Appearance > Menus`:
+    - Create 4 new Menus with the followign items:
+        - Main
+          - Sign Up / Log Out (#)
+          - Search (#)
+        - Mozilla
+          - About (#)
+          - Mission (#)
+          - Contact (#)
+          - Donate (#)
+        - Mozilla Main Menu
+          - Campaigns (/campaigns)
+          - Activities (/activities)
+          - Events (/events)
+          - Groups (/groups)
+          - People (/people)
+          - * Assign this menu to the Display locations of ‘Mozilla Custom Theme Menu’
+        - Resources
+          - Code of Conduct (#)
+          - Privacy Policy (#)
+          - Creative License (#)
+          - Legal Notices (#)
+### Settings
+
+## Auth0 Setup (only production)
+- Go to the Plugins page and activate the Auth0 plugin
+- In 1password there is a `domain`, `client ID` and `client Secret` in the secure note - configure the plugin with this information.
+
+## Setup BuddyPress
+- Activate BuddyPress if you have not already
+- Go to Plugins > BuddyPress > Settings
+- Components Tab
+  - everything except ‘Site Tracking’ should be enabled
+- Options Tab
+  - Set the template to ‘BuddyPress Legacy’
+  - everything else here should be checked except for ‘Post Comments’
+- Pages Tab
+  - Set Members -> Members
+  - Set Activity Streams -> Activity
+  - Set User Groups -> Groups
+
+## Setup ACF Pro (free version works)
+- Activate the plugin
+- Import the ACF fields
+  - Go to `Custom Fields > Tools`
+  - We’re going to import the field settings via a JSON import
+  - In the theme files, there is a top-level directory called ACF, this contains JSON files with the info ACF needs to set up our fields
+   - Under `Import Field Groups` choose the oldest file in this directory and import it.
+   - Repeat this step for the remaining files, in chronological order.
+
+Require various plugin settings and also to check the code about what is doing. The first step is required that you user accept the T&C or you cannot create events.
+
+### Style rules enforcement
 
 ```
+composer update # To download PHPCS
 ./vendor/bin/phpcs --standard=WordPress .
 ./vendor/bin/phpcbf --standard=WordPress .
 ```
 
-#### Pages
-
-The following pages need to be created along with their corresponding slugs
-
-Title: Activate  
-URL slug: activate  
-
-Title: Community Portal (This page should be set to the front page)
-
-Title: Events  
-URL slug: events  
-
-Title: Categories  
-URL slug: categories  
-Parent Page: Events  
-
-Title: Edit  
-URL slug: edit-event  
-Parent Page: Events  -- Set that page in Event Manager as editing for events
-
-Title: Locations  
-URL slug: locations  
-Parent Page: Events  
-
-Title: My Bookings  
-URL slug: my-bookings  
-Parent Page: Events  
-
-Title: Tags  
-URL slug: tags  
-Parent Page: Events
-
-TItle: Groups  
-URL slug: groups  
-
-Title: People  
-URL slug: people  -- Take the page from Buddypress that is Members and rename it
-
-Title: Register  
-URL slug: register  
-
-### Settings
-
-Require various plugin settings and also to check the code about what is doing. The first step is required that you user accept the T&C or you cannot create events.
-
 ### Sample data
 
-This is a MySQL dump with credential as admin/password with admin rights and plugins configured [community.tar.gz](https://github.com/mozilla/community-portal/files/6901006/community.tar.gz).
+This is a MySQL dump with credential as `admin/password` with admin rights and plugins configured [community.tar.gz](https://github.com/mozilla/community-portal/files/6901006/community.tar.gz) as host `community.test`.
