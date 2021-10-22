@@ -16,7 +16,7 @@
 	require "{$theme_directory}/countries.php";
 	require "{$theme_directory}/pronouns.php";
 	$current_translation = mozilla_get_current_translation();
-	$show_minimum_items = 3;
+	$show_minimum_items  = 3;
 
 	$event_countries = em_get_countries();
 
@@ -164,12 +164,12 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 					<div class="profile__card profile__card--links">
 					<?php foreach ( $groups['groups'] as $gid ) : ?>
 							<?php
-								$group      = new BP_Groups_Group( $gid );
-								$group_meta = groups_get_groupmeta( $gid, 'meta' );
+								$group        = new BP_Groups_Group( $gid );
+								$group_meta   = groups_get_groupmeta( $gid, 'meta' );
 								$group_hidden = '';
-								if ( $group_count >= $show_minimum_items ) {
-									$group_hidden = ' hidden';
-								}
+							if ( $group_count >= $show_minimum_items ) {
+								$group_hidden = ' hidden';
+							}
 							?>
 							<a class="profile__group<?php echo $group_hidden; ?>" href="<?php echo esc_attr( get_home_url( null, 'groups/' . $group->slug ) ); ?>">
 								<h2 class="profile__group-title"><?php echo esc_html( str_replace( '\\', '', stripslashes( $group->name ) ) ); ?></h2>
@@ -229,7 +229,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 					<?php endforeach; ?>
 					<?php if ( $group_count >= $show_minimum_items ) : ?>
 						<a href="#" class="group__events-link show-more">
-									<?php _e('View All', 'community-portal') . ' (' . $group_count . ')'; ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+									<?php _e( 'View All', 'community-portal' ) . ' (' . $group_count . ')'; ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
 								</a>
 					<?php endif; ?>
 					</div>
@@ -255,9 +255,9 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 								$location    = em_get_location( $event->location_id );
 
 								$event_hidden = '';
-								if ( $events_attended_count >= $show_minimum_items ) {
-									$event_hidden = ' hidden';
-								}
+							if ( $events_attended_count >= $show_minimum_items ) {
+								$event_hidden = ' hidden';
+							}
 							?>
 							<a class="profile__event<?php echo $event_hidden; ?>" href="<?php echo esc_attr( get_home_url( null, 'events/' . $event->slug ) ); ?>">
 								<div class="profile__event-date">
@@ -300,7 +300,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 						<?php endforeach; ?>
 						<?php if ( $events_attended_count >= $show_minimum_items ) : ?>
 							<a href="#" class="group__events-link show-more">
-										<?php echo __('View All', 'community-portal') . '(' . $events_attended_count . ')'; ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+										<?php echo __( 'View All', 'community-portal' ) . '(' . $events_attended_count . ')'; ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
 									</a>
 						<?php endif; ?>
 					</div>
@@ -342,11 +342,11 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 								$location    = em_get_location( $event->location_id );
 
 								$event_hidden = '';
-								if ( $events_organized_count >= $show_minimum_items ) {
-									$event_hidden = ' hidden';
-								}
+							if ( $events_organized_count >= $show_minimum_items ) {
+								$event_hidden = ' hidden';
+							}
 							?>
-							<a class="profile__event<?php echo $event_hidden ?>" href="<?php echo esc_attr( get_home_url( null, 'events/' . $event->slug ) ); ?>">
+							<a class="profile__event<?php echo $event_hidden; ?>" href="<?php echo esc_attr( get_home_url( null, 'events/' . $event->slug ) ); ?>">
 								<div class="profile__event-date">
 									<?php echo esc_html( $event_date ); ?>
 								</div>
@@ -389,7 +389,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 						<?php endforeach; ?>
 						<?php if ( $events_organized_count >= $show_minimum_items ) : ?>
 							<a href="#" class="group__events-link show-more">
-										<?php echo __('View All', 'community-portal') . ' (' . $events_organized_count . ')'; ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+										<?php echo __( 'View All', 'community-portal' ) . ' (' . $events_organized_count . ')'; ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
 									</a>
 						<?php endif; ?>
 					</div>
@@ -407,11 +407,11 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 					foreach ( $campaigns as $cid ) {
 						$object = get_post( $cid );
 						if ( ! empty( $object ) ) {
-							$campaign_objects[get_field( 'campaign_start_date', $object->ID )] = $object;
+							$campaign_objects[ get_field( 'campaign_start_date', $object->ID ) ] = $object;
 						}
 					}
 				}
-				ksort($campaign_objects);
+				ksort( $campaign_objects );
 				?>
 				<?php if ( count( $campaign_objects ) > 0 ) : ?>
 					<h2 class="profile__heading"><?php esc_html_e( 'Campaigns Participated In', 'community-portal' ); ?></h2>
@@ -425,11 +425,11 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 								$campaign_tags = get_the_terms( $campaign, 'post_tag' );
 
 								$campaign_hidden = '';
-								if ( $campaign_count >= $show_minimum_items ) {
-									$campaign_hidden = ' hidden';
-								}
+							if ( $campaign_count >= $show_minimum_items ) {
+								$campaign_hidden = ' hidden';
+							}
 							?>
-							<a class="profile__campaign<?php echo $campaign_hidden ?>" href="<?php echo esc_attr( get_home_url( null, 'campaigns/' . $campaign->post_name ) ); ?>">
+							<a class="profile__campaign<?php echo $campaign_hidden; ?>" href="<?php echo esc_attr( get_home_url( null, 'campaigns/' . $campaign->post_name ) ); ?>">
 								<h3 class="profile__campaign-title"><?php echo esc_html( $campaign->post_title ); ?></h3>
 								<div class="profile__campaign-dates">
 									<?php
@@ -465,7 +465,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 					<?php endforeach; ?>
 					<?php if ( $campaign_count >= $show_minimum_items ) : ?>
 						<a href="#" class="group__events-link show-more">
-										<?php echo __('View All', 'community-portal') . ' (' . $campaign_count . ')'; ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+										<?php echo __( 'View All', 'community-portal' ) . ' (' . $campaign_count . ')'; ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
 									</a>
 					<?php endif; ?>
 				</div>
