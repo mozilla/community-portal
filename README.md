@@ -13,35 +13,11 @@ This repo will contain all the theme files for the new Mozilla community portal.
 - Run `npm run compile` to compile the .scss files and generate a `style.css` file for the theme, to live update the styles run `npm run watch`.
 - Depending on how you are running Wordpress, you may need to create a new database for the site (or you can use the DB dump at the bottom of this readme). 
 - Run the site in the browser. Depending on your set up, you may be lead through the typical Wordpress site setup.
-- Login to the site as an administrator, and go to `appearance > themes` and activate the Mozilla theme. It has no preview screenshot. 
+- Login to the site as an administrator, and go to `appearance > themes` and activate the Mozilla theme. It has no preview screenshot. ## Add the Theme Settings
 
-## Install Plugins
-- Once the site is created, the following plugins need to be installed:
-    - [Auth0](https://auth0.com/wordpress) (only on production)
-    - [BuddyPress](https://buddypress.org/)
-    - [Events Manager (for BuddyPress)](http://wp-events-plugin.com/)
-    - [ACF Pro](https://www.advancedcustomfields.com/pro/) (free version works)
-    - [WPML](https://wpml.org/) (works not always without but in case of error is enough to remove `/en/` from the URL)
-    
-## Create the required Pages
-- Before creating pages, activate BuddyPress. This will automatically create some pages, and reduce those you need to manually create
+### Theme settings
 
-| Page Name | URL Slug | Page Parent |
-| --------- | -------- | ----------- |  
-| Activate | `/activate` | n/a |
-| Community Portal | set to front page in `Settings > Reading` | n/a |
-| Events | `/events` | n/a |
-| Categories | `/categories` | Events |
-| Edit | `/edit` | Events | 
-| Locations | `/locations` | Events |
-| My Bookings | `/my-bookings` | Events |
-| Tags |	`/tags` |	Events |
-| Groups |	`/groups` |	n/a |
-| Members |	`/people` |	n/a |
-| Register |	`/register` |	n/a |
-
-## Add the Theme Settings
-- Go to `Mozilla Settings` in the left sidebar to add the following settings.
+Go to `Mozilla Settings` in the left sidebar to add the following settings.
 
 | Setting | Value |
 | ------- | ----- |
@@ -67,7 +43,7 @@ This repo will contain all the theme files for the new Mozilla community portal.
 | 404 Error Title | Page not Found |
 | 404 Error Copy | Oops, we got lost! |
 
-## Set up Theme Menus
+### Set up Theme Menus
 - Next set up the menus `Appearance > Menus`:
     - Create 4 new Menus with the followign items:
         - Main
@@ -90,6 +66,39 @@ This repo will contain all the theme files for the new Mozilla community portal.
           - Privacy Policy (#)
           - Creative License (#)
           - Legal Notices (#)
+
+## Sample data
+
+This is [MySQL dump](https://github.com/mozilla/community-portal/files/7418593/community.tar.gz) with credentials as `admin/password` with admin rights and plugins configured (as this readme) with some example events as host `community.test`.
+
+## Install Plugins
+- Once the site is created, the following plugins need to be installed:
+    - [Auth0](https://auth0.com/wordpress) (only on production)
+    - [BuddyPress](https://buddypress.org/)
+    - [Events Manager (for BuddyPress)](http://wp-events-plugin.com/)
+    - [ACF Pro](https://www.advancedcustomfields.com/pro/) (free version works)
+    - [WPML](https://wpml.org/) (works not always without but in case of error is enough to remove `/en/` from the URL)
+- Only for development
+    - [Query Monitor](https://wordpress.org/plugins/query-monitor/)
+    - [Classic Editor](https://wordpress.org/plugins/classic-editor/)
+    
+### Create the required Pages
+- Before creating pages, activate BuddyPress. This will automatically create some pages, and reduce those you need to manually create
+
+| Page Name | URL Slug | Page Parent |
+| --------- | -------- | ----------- |  
+| Activate | `/activate` | n/a |
+| Community Portal | set to front page in `Settings > Reading` | n/a |
+| Events | `/events` | n/a |
+| Categories | `/categories` | Events |
+| Edit | `/edit` | Events | 
+| Locations | `/locations` | Events |
+| My Bookings | `/my-bookings` | Events |
+| Tags |	`/tags` |	Events |
+| Groups |	`/groups` |	n/a |
+| Members |	`/people` |	n/a |
+| Register |	`/register` |	n/a |
+
 ### Settings
 
 ## Auth0 Setup (only production)
@@ -120,6 +129,8 @@ This repo will contain all the theme files for the new Mozilla community portal.
 
 Require various plugin settings and also to check the code about what is doing. The first step is required that you user accept the T&C or you cannot create events.
 
+## Dev instructions
+
 ### Style rules enforcement
 
 ```
@@ -128,6 +139,30 @@ composer update # To download PHPCS
 ./vendor/bin/phpcbf --standard=WordPress .
 ```
 
-### Sample data
+### Create a Dev Environment locally
 
-This is a MySQL dump with credential as `admin/password` with admin rights and plugins configured [community.tar.gz](https://github.com/mozilla/community-portal/files/6901006/community.tar.gz) as host `community.test`.
+Using [VVV](https://github.com/Varying-Vagrant-Vagrants/vvv) copy the file `default-config.yml` as `config.yml` in the same folder.  
+Next in the `sites` section in the YAML file add:
+```
+    community:
+        repo: https://github.com/Varying-Vagrant-Vagrants/custom-site-template
+        custom:
+            delete_default_plugins: true
+            install_plugins:
+                - query-monitor
+		- classic-editor
+		- buddypress
+		- events-manager
+		- advanced-custom-fields
+            wpconfig_constants:
+                WP_DEBUG: true
+                WP_DEBUG_LOG: wp-content/debug.log
+                WP_DISABLE_FATAL_ERROR_HANDLER: true
+        nginx_upstream: php73
+        hosts:
+            - community.test
+```
+
+Download the sample data above in this readme, put in the `VVV/database/sql/backups/` folder as `community.sql.gz`.  
+Now you can launch in the terminal `vagrant up` (check the [documentation](https://varyingvagrantvagrants.org/docs/en-US/installation/) to install VVV).  
+After running you will have a working dev environment with database and plugins configured.
