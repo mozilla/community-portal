@@ -16,7 +16,7 @@
 	require "{$theme_directory}/countries.php";
 	require "{$theme_directory}/pronouns.php";
 	$current_translation = mozilla_get_current_translation();
-	$show_minimum_items = 3;
+	$show_minimum_items  = 3;
 
 	$event_countries = em_get_countries();
 
@@ -164,14 +164,14 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 					<div class="profile__card profile__card--links">
 					<?php foreach ( $groups['groups'] as $gid ) : ?>
 							<?php
-								$group      = new BP_Groups_Group( $gid );
-								$group_meta = groups_get_groupmeta( $gid, 'meta' );
+								$group        = new BP_Groups_Group( $gid );
+								$group_meta   = groups_get_groupmeta( $gid, 'meta' );
 								$group_hidden = '';
-								if ( $group_count >= $show_minimum_items ) {
-									$group_hidden = ' hidden';
-								}
+							if ( $group_count >= $show_minimum_items ) {
+								$group_hidden = ' hidden';
+							}
 							?>
-							<a class="profile__group<?php echo $group_hidden; ?>" href="<?php echo esc_attr( get_home_url( null, 'groups/' . $group->slug ) ); ?>">
+							<a class="profile__group<?php echo esc_html( $group_hidden ); ?>" href="<?php echo esc_attr( get_home_url( null, 'groups/' . $group->slug ) ); ?>">
 								<h2 class="profile__group-title"><?php echo esc_html( str_replace( '\\', '', stripslashes( $group->name ) ) ); ?></h2>
 								<?php
 								if ( ( isset( $group_meta['group_city'] ) && strlen( trim( $group_meta['group_city'] ) ) > 0 ) || ( isset( $group_meta['group_country'] ) && strlen( trim( $group_meta['group_country'] ) ) > 1 ) || isset( $group_meta['group_type'] ) ) :
@@ -225,11 +225,11 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 								</div>
 							</a>
 							<?php $group_count++; ?>
-							<hr class="profile__group-line<?php echo $group_hidden; ?>" />
+							<hr class="profile__group-line<?php echo esc_html( $group_hidden ); ?>" />
 					<?php endforeach; ?>
 					<?php if ( $group_count >= $show_minimum_items ) : ?>
 						<a href="#" class="group__events-link show-more">
-									<?php _e('View All', 'community-portal') . ' (' . $group_count . ')'; ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+									<?php esc_html__( 'View All', 'community-portal' ) . ' (' . esc_html( $group_count ) . ')'; ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
 								</a>
 					<?php endif; ?>
 					</div>
@@ -255,11 +255,11 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 								$location    = em_get_location( $event->location_id );
 
 								$event_hidden = '';
-								if ( $events_attended_count >= $show_minimum_items ) {
-									$event_hidden = ' hidden';
-								}
+							if ( $events_attended_count >= $show_minimum_items ) {
+								$event_hidden = ' hidden';
+							}
 							?>
-							<a class="profile__event<?php echo $event_hidden; ?>" href="<?php echo esc_attr( get_home_url( null, 'events/' . $event->slug ) ); ?>">
+							<a class="profile__event<?php echo esc_html( $event_hidden ); ?>" href="<?php echo esc_attr( get_home_url( null, 'events/' . $event->slug ) ); ?>">
 								<div class="profile__event-date">
 									<?php echo esc_html( $event_date ); ?>
 								</div>
@@ -296,11 +296,11 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 								</div>
 							</a>
 							<?php $events_attended_count++; ?>
-							<hr class="profile__group-line<?php echo $event_hidden; ?>" />
+							<hr class="profile__group-line<?php echo esc_html( $event_hidden ); ?>" />
 						<?php endforeach; ?>
 						<?php if ( $events_attended_count >= $show_minimum_items ) : ?>
 							<a href="#" class="group__events-link show-more">
-										<?php echo __('View All', 'community-portal') . '(' . $events_attended_count . ')'; ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+										<?php echo esc_html__( 'View All', 'community-portal' ) . '(' . esc_html( $events_attended_count ) . ')'; ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
 									</a>
 						<?php endif; ?>
 					</div>
@@ -342,11 +342,11 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 								$location    = em_get_location( $event->location_id );
 
 								$event_hidden = '';
-								if ( $events_organized_count >= $show_minimum_items ) {
-									$event_hidden = ' hidden';
-								}
+							if ( $events_organized_count >= $show_minimum_items ) {
+								$event_hidden = ' hidden';
+							}
 							?>
-							<a class="profile__event<?php echo $event_hidden ?>" href="<?php echo esc_attr( get_home_url( null, 'events/' . $event->slug ) ); ?>">
+							<a class="profile__event<?php echo esc_html( $event_hidden ); ?>" href="<?php echo esc_attr( get_home_url( null, 'events/' . $event->slug ) ); ?>">
 								<div class="profile__event-date">
 									<?php echo esc_html( $event_date ); ?>
 								</div>
@@ -385,11 +385,11 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 							<?php
 								$events_organized_count++;
 							?>
-							<hr class="profile__group-line<?php echo $event_hidden; ?>" />
+							<hr class="profile__group-line<?php echo esc_html( $event_hidden ); ?>" />
 						<?php endforeach; ?>
 						<?php if ( $events_organized_count >= $show_minimum_items ) : ?>
 							<a href="#" class="group__events-link show-more">
-										<?php echo __('View All', 'community-portal') . ' (' . $events_organized_count . ')'; ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+										<?php echo esc_html__( 'View All', 'community-portal' ) . ' (' . esc_html( $events_organized_count ) . ')'; ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
 									</a>
 						<?php endif; ?>
 					</div>
@@ -407,11 +407,11 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 					foreach ( $campaigns as $cid ) {
 						$object = get_post( $cid );
 						if ( ! empty( $object ) ) {
-							$campaign_objects[get_field( 'campaign_start_date', $object->ID )] = $object;
+							$campaign_objects[ get_field( 'campaign_start_date', $object->ID ) ] = $object;
 						}
 					}
 				}
-				ksort($campaign_objects);
+				ksort( $campaign_objects );
 				?>
 				<?php if ( count( $campaign_objects ) > 0 ) : ?>
 					<h2 class="profile__heading"><?php esc_html_e( 'Campaigns Participated In', 'community-portal' ); ?></h2>
@@ -425,11 +425,11 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 								$campaign_tags = get_the_terms( $campaign, 'post_tag' );
 
 								$campaign_hidden = '';
-								if ( $campaign_count >= $show_minimum_items ) {
-									$campaign_hidden = ' hidden';
-								}
+							if ( $campaign_count >= $show_minimum_items ) {
+								$campaign_hidden = ' hidden';
+							}
 							?>
-							<a class="profile__campaign<?php echo $campaign_hidden ?>" href="<?php echo esc_attr( get_home_url( null, 'campaigns/' . $campaign->post_name ) ); ?>">
+							<a class="profile__campaign<?php echo esc_html( $campaign_hidden ); ?>" href="<?php echo esc_attr( get_home_url( null, 'campaigns/' . $campaign->post_name ) ); ?>">
 								<h3 class="profile__campaign-title"><?php echo esc_html( $campaign->post_title ); ?></h3>
 								<div class="profile__campaign-dates">
 									<?php
@@ -460,12 +460,12 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 								<?php endif; ?>
 							</a>
 							<?php $campaign_count++; ?>
-							<hr class="profile__group-line<?php echo $campaign_hidden; ?>" />
+							<hr class="profile__group-line<?php echo esc_html( $campaign_hidden ); ?>" />
 						<?php endif; ?>
 					<?php endforeach; ?>
 					<?php if ( $campaign_count >= $show_minimum_items ) : ?>
 						<a href="#" class="group__events-link show-more">
-										<?php echo __('View All', 'community-portal') . ' (' . $campaign_count . ')'; ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+										<?php echo esc_html__( 'View All', 'community-portal' ) . ' (' . esc_html( $campaign_count ) . ')'; ?><svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.33301 8.66634L5.99967 4.99967L2.33301 1.33301" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
 									</a>
 					<?php endif; ?>
 				</div>
@@ -636,21 +636,12 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 						<a href="<?php echo esc_attr( $info['pixelfed']->value ); ?>" class="profile__social-link">
 							<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<circle cx="16" cy="16" r="16" fill="#CDCDD4"/>
-								<g
-	 id="Page-1"
-	 stroke="none"
-	 stroke-width="1"
-	 fill="none"
-	 fill-rule="evenodd"
-	 transform="matrix(0.44897959,0,0,0.44897959,4.7755103,4.7755103)">
-	<g
-	   id="icon-copy-6"
-	   fill="#000000">
-	  <path
-		 d="M 26.198975,16.165416 C 26.119137,15.671725 25.997071,15.183495 25.832778,14.706495 25.40327,13.457749 24.707155,12.326751 23.768817,11.388212 L 18.820091,6.4384255 C 18.628605,6.2468992 18.425398,6.0651186 18.205958,5.8873902 18.945732,2.7779446 21.749367,0.5 25.005686,0.5 c 3.429843,0 6.357469,2.5271874 6.900166,5.8913433 0.06514,0.4048724 0.09821,0.7640171 0.09821,1.1085317 v 6.999875 c 0,0.878027 -0.168989,1.736963 -0.49248,2.549113 -1.067757,-0.56365 -2.289008,-0.883447 -3.586368,-0.883447 z M 23.8074,31.046185 c -0.223984,1.41741 -0.100236,2.878591 0.371194,4.24732 0.429509,1.248746 1.125623,2.379744 2.063962,3.318283 l 4.949627,4.950686 c 0.191175,0.190661 0.394025,0.371879 0.613359,0.549601 C 31.065962,47.221794 28.262192,49.5 25.005686,49.5 c -3.429897,0 -6.357563,-2.527268 -6.900192,-5.891505 -0.06511,-0.404615 -0.09818,-0.76381 -0.09818,-1.10837 V 35.50025 c 0,-0.0064 9e-6,-0.01282 2.7e-5,-0.01923 l 4.59827,-4.434834 z m 11.33941,-5.168387 c 0.05003,-0.01624 0.09995,-0.03293 0.149739,-0.05009 1.250035,-0.431139 2.3801,-1.126732 3.317571,-2.064404 l 4.948727,-4.949787 c 0.191514,-0.191555 0.373282,-0.394839 0.550998,-0.614365 C 47.222277,18.938379 49.5,21.74313 49.5,25.000437 c 0,3.430633 -2.526727,6.358926 -5.890243,6.901671 -0.404528,0.06512 -0.763646,0.0982 -1.108132,0.0982 h -6.998376 c -1.056748,0 -2.085836,-0.244942 -3.038961,-0.709549 -0.505743,-0.246519 -0.977588,-0.551953 -1.406585,-0.90735 1.934087,-0.862289 3.433975,-2.498464 4.089107,-4.505615 z m -2.164945,-7.815834 c 0.505054,-1.12035 0.77179,-2.325631 0.77179,-3.562214 V 7.499875 c 0,-0.2702157 -0.01523,-0.5419946 -0.04484,-0.8235787 2.721205,-1.6753333 6.314594,-1.3031901 8.616831,0.999495 2.425304,2.4266407 2.70907,6.2839547 0.714311,9.0459157 -0.238057,0.330416 -0.469145,0.60835 -0.714262,0.85352 l -4.948726,4.949786 c -0.548388,0.548506 -1.180179,0.993408 -1.874291,1.328019 0.0027,-0.08208 0.0041,-0.164499 0.0041,-0.247231 0,-2.202519 -0.975177,-4.181514 -2.524922,-5.543837 z m -3.863787,12.892655 c 0.731501,0.784141 1.604938,1.434093 2.579733,1.909246 1.188286,0.579239 2.478846,0.886416 3.805438,0.886416 h 6.998376 c 0.270193,0 0.54195,-0.01524 0.823514,-0.04486 1.675415,2.721432 1.303125,6.315677 -0.999442,8.618738 -2.424892,2.425411 -6.282214,2.709064 -9.044062,0.714318 -0.330212,-0.238011 -0.608087,-0.469149 -0.853203,-0.714318 L 27.479705,37.374373 C 26.733064,36.627572 26.178435,35.72613 25.832696,34.723272 25.42472,33.538775 25.341877,32.266466 25.584207,31.046185 h 2.341007 c 0.405859,0 0.80427,-0.0313 1.192864,-0.09157 z M 18.036109,17.005126 C 16.949856,16.519651 15.750783,16.250594 14.496751,16.250594 H 7.4983754 c -0.2663464,0 -0.5341903,0.01474 -0.8120522,0.04341 C 5.0111787,13.5721 5.3832109,9.9787981 7.6856753,7.6758403 10.110567,5.2504289 13.967889,4.9667757 16.729737,6.9615215 c 0.330213,0.2380116 0.608087,0.4691494 0.853204,0.7143188 l 4.948671,4.9506067 c 0.746683,0.746843 1.301306,1.648266 1.647046,2.651102 0.100386,0.291311 0.181087,0.587963 0.242103,0.887867 h -3.785522 c -0.973366,0 -1.872472,0.312024 -2.59913,0.83971 z m -1.774854,18.2486 c -0.0024,0.08203 -0.0035,0.164205 -0.0035,0.246524 v 6.999875 c 0,0.270216 0.01523,0.541995 0.04484,0.823579 C 13.581331,44.999049 9.9879108,44.626888 7.6856753,42.32416 5.2607836,39.898748 4.9771911,36.0406 6.9715096,33.27816 7.2094701,32.947876 7.4405584,32.669943 7.6856753,32.424773 l 4.9487257,-4.949786 c 0.746641,-0.746801 1.64789,-1.30155 2.650534,-1.647363 0.31995,-0.110247 0.64631,-0.196757 0.97632,-0.259529 z m 0,-11.460596 c -0.523494,0.07929 -1.041261,0.205968 -1.546431,0.380038 -1.250035,0.431139 -2.380101,1.126732 -3.317572,2.064404 L 6.4485257,31.187359 C 6.2539281,31.381998 6.0693935,31.588746 5.8889474,31.812338 2.7803249,31.074168 0.5,28.262233 0.5,25.000437 0.5,21.566274 3.0317905,18.636033 6.4096121,18.09742 6.5515625,18.07324 7.2396907,18.00056 7.4983754,18.00056 h 6.9983756 c 0.803206,0 1.5786,0.13853 2.302175,0.393784 -0.342735,0.612344 -0.537671,1.315631 -0.537671,2.0636 z"
-		 id="Combined-Shape" />
-	</g>
-  </g>
+								<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="matrix(0.44897959,0,0,0.44897959,4.7755103,4.7755103)">
+								<g id="icon-copy-6" fill="#000000">
+									<path
+										d="M 26.198975,16.165416 C 26.119137,15.671725 25.997071,15.183495 25.832778,14.706495 25.40327,13.457749 24.707155,12.326751 23.768817,11.388212 L 18.820091,6.4384255 C 18.628605,6.2468992 18.425398,6.0651186 18.205958,5.8873902 18.945732,2.7779446 21.749367,0.5 25.005686,0.5 c 3.429843,0 6.357469,2.5271874 6.900166,5.8913433 0.06514,0.4048724 0.09821,0.7640171 0.09821,1.1085317 v 6.999875 c 0,0.878027 -0.168989,1.736963 -0.49248,2.549113 -1.067757,-0.56365 -2.289008,-0.883447 -3.586368,-0.883447 z M 23.8074,31.046185 c -0.223984,1.41741 -0.100236,2.878591 0.371194,4.24732 0.429509,1.248746 1.125623,2.379744 2.063962,3.318283 l 4.949627,4.950686 c 0.191175,0.190661 0.394025,0.371879 0.613359,0.549601 C 31.065962,47.221794 28.262192,49.5 25.005686,49.5 c -3.429897,0 -6.357563,-2.527268 -6.900192,-5.891505 -0.06511,-0.404615 -0.09818,-0.76381 -0.09818,-1.10837 V 35.50025 c 0,-0.0064 9e-6,-0.01282 2.7e-5,-0.01923 l 4.59827,-4.434834 z m 11.33941,-5.168387 c 0.05003,-0.01624 0.09995,-0.03293 0.149739,-0.05009 1.250035,-0.431139 2.3801,-1.126732 3.317571,-2.064404 l 4.948727,-4.949787 c 0.191514,-0.191555 0.373282,-0.394839 0.550998,-0.614365 C 47.222277,18.938379 49.5,21.74313 49.5,25.000437 c 0,3.430633 -2.526727,6.358926 -5.890243,6.901671 -0.404528,0.06512 -0.763646,0.0982 -1.108132,0.0982 h -6.998376 c -1.056748,0 -2.085836,-0.244942 -3.038961,-0.709549 -0.505743,-0.246519 -0.977588,-0.551953 -1.406585,-0.90735 1.934087,-0.862289 3.433975,-2.498464 4.089107,-4.505615 z m -2.164945,-7.815834 c 0.505054,-1.12035 0.77179,-2.325631 0.77179,-3.562214 V 7.499875 c 0,-0.2702157 -0.01523,-0.5419946 -0.04484,-0.8235787 2.721205,-1.6753333 6.314594,-1.3031901 8.616831,0.999495 2.425304,2.4266407 2.70907,6.2839547 0.714311,9.0459157 -0.238057,0.330416 -0.469145,0.60835 -0.714262,0.85352 l -4.948726,4.949786 c -0.548388,0.548506 -1.180179,0.993408 -1.874291,1.328019 0.0027,-0.08208 0.0041,-0.164499 0.0041,-0.247231 0,-2.202519 -0.975177,-4.181514 -2.524922,-5.543837 z m -3.863787,12.892655 c 0.731501,0.784141 1.604938,1.434093 2.579733,1.909246 1.188286,0.579239 2.478846,0.886416 3.805438,0.886416 h 6.998376 c 0.270193,0 0.54195,-0.01524 0.823514,-0.04486 1.675415,2.721432 1.303125,6.315677 -0.999442,8.618738 -2.424892,2.425411 -6.282214,2.709064 -9.044062,0.714318 -0.330212,-0.238011 -0.608087,-0.469149 -0.853203,-0.714318 L 27.479705,37.374373 C 26.733064,36.627572 26.178435,35.72613 25.832696,34.723272 25.42472,33.538775 25.341877,32.266466 25.584207,31.046185 h 2.341007 c 0.405859,0 0.80427,-0.0313 1.192864,-0.09157 z M 18.036109,17.005126 C 16.949856,16.519651 15.750783,16.250594 14.496751,16.250594 H 7.4983754 c -0.2663464,0 -0.5341903,0.01474 -0.8120522,0.04341 C 5.0111787,13.5721 5.3832109,9.9787981 7.6856753,7.6758403 10.110567,5.2504289 13.967889,4.9667757 16.729737,6.9615215 c 0.330213,0.2380116 0.608087,0.4691494 0.853204,0.7143188 l 4.948671,4.9506067 c 0.746683,0.746843 1.301306,1.648266 1.647046,2.651102 0.100386,0.291311 0.181087,0.587963 0.242103,0.887867 h -3.785522 c -0.973366,0 -1.872472,0.312024 -2.59913,0.83971 z m -1.774854,18.2486 c -0.0024,0.08203 -0.0035,0.164205 -0.0035,0.246524 v 6.999875 c 0,0.270216 0.01523,0.541995 0.04484,0.823579 C 13.581331,44.999049 9.9879108,44.626888 7.6856753,42.32416 5.2607836,39.898748 4.9771911,36.0406 6.9715096,33.27816 7.2094701,32.947876 7.4405584,32.669943 7.6856753,32.424773 l 4.9487257,-4.949786 c 0.746641,-0.746801 1.64789,-1.30155 2.650534,-1.647363 0.31995,-0.110247 0.64631,-0.196757 0.97632,-0.259529 z m 0,-11.460596 c -0.523494,0.07929 -1.041261,0.205968 -1.546431,0.380038 -1.250035,0.431139 -2.380101,1.126732 -3.317572,2.064404 L 6.4485257,31.187359 C 6.2539281,31.381998 6.0693935,31.588746 5.8889474,31.812338 2.7803249,31.074168 0.5,28.262233 0.5,25.000437 0.5,21.566274 3.0317905,18.636033 6.4096121,18.09742 6.5515625,18.07324 7.2396907,18.00056 7.4983754,18.00056 h 6.9983756 c 0.803206,0 1.5786,0.13853 2.302175,0.393784 -0.342735,0.612344 -0.537671,1.315631 -0.537671,2.0636 z" id="Combined-Shape" />
+								</g>
+							</g>
 							</svg>
 							<?php esc_html_e( 'Pixelfed', 'community-portal' ); ?>
 						</a>
