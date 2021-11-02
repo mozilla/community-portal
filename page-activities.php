@@ -64,7 +64,7 @@ $total_pages = ceil( $activity_count / $activities_per_page );
 								<div class="activities__copy-container">
 									<p class="activities__copy">
 										<?php
-											wp_kses(
+											echo wp_kses(
 												wpautop( trim( $activitiy_desc ) ),
 												$html_tags_allowed
 											);
