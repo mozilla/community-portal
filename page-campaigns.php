@@ -140,7 +140,7 @@
 			<?php if ( $current_campaign ) : ?>
 			<div class="campaigns__active-campaign">
 				<div class="campaigns__active-campaign-hero-container">
-		<div class="campaign__hero-image" 
+		<div class="campaign__hero-image"
 				<?php
 				if ( isset( $current_campaign_image ) && strlen( $current_campaign_image ) > 0 ) :
 					?>
@@ -174,21 +174,7 @@
 					<?php
 					echo wp_kses(
 						wpautop( substr( trim( $current_campaign_card_description ), 0, 3000 ) ),
-						array(
-							'p'  => array(
-								'class' => array(),
-							),
-							'br' => array(),
-							'ul' => array(
-								'class' => array(),
-							),
-							'ol' => array(
-								'class' => array(),
-							),
-							'li' => array(
-								'class' => array(),
-							),
-						)
+						$html_tags_allowed
 					);
 					?>
 				</div>
@@ -206,7 +192,7 @@
 					<p class="campaigns__incoming-campaign-copy"><?php esc_html_e( 'An extra cool Mozilla campaign is coming soon.  Keep an eye out for when it launches.', 'community-portal' ); ?></p>
 					<div class="campaigns__active-campaign">
 					<div class="campaigns__active-campaign-hero-container">
-		<div class="campaign__hero-image" 
+		<div class="campaign__hero-image"
 				<?php
 				if ( isset( $incoming_campaign_image ) && strlen( $incoming_campaign_image ) > 0 ) :
 					?>
@@ -284,7 +270,7 @@
 			<a class="campaigns__campaign" href="<?php print esc_html( get_home_url( null, '/campaigns/' . $campaign->post_name ) ); ?>">
 				<div class="campaigns__active-campaign-hero-container campaigns__active-campaign-hero-container--card">
 					<div class="campaigns__past-campaign-hero">
-						<div class="campaign__hero-image campaign__hero-image--card" 
+						<div class="campaign__hero-image campaign__hero-image--card"
 						<?php
 						if ( isset( $campaign_image ) && strlen( $campaign_image ) > 0 ) :
 							?>
@@ -305,7 +291,7 @@
 											<?php
 											if ( $campaign_end_date ) :
 												?>
-									- 
+									-
 												<?php
 												$date_format        = 'en' === $current_translation ? 'F d, Y' : 'd F Y';
 												$formatted_end_date = mozilla_localize_date( $campaign_end_date, $date_format );
@@ -321,21 +307,7 @@
 						<?php
 						echo wp_kses(
 							wpautop( substr( trim( $campaign_card_description ), 0, 3000 ) ),
-							array(
-								'p'  => array(
-									'class' => array(),
-								),
-								'br' => array(),
-								'ul' => array(
-									'class' => array(),
-								),
-								'ol' => array(
-									'class' => array(),
-								),
-								'li' => array(
-									'class' => array(),
-								),
-							)
+							$html_tags_allowed
 						);
 						?>
 					</div>
@@ -401,7 +373,7 @@
 						<?php
 						if ( $total_pages > $range && $p < $total_pages - 1 ) :
 							?>
-							&hellip; <a href="<?php print esc_attr( add_query_arg( array( 'p' => $total_pages ), get_home_url( null, 'campaigns' ) ) ); ?>"  class="campaigns__pagination-link 
+							&hellip; <a href="<?php print esc_attr( add_query_arg( array( 'p' => $total_pages ), get_home_url( null, 'campaigns' ) ) ); ?>"  class="campaigns__pagination-link
 							<?php
 							if ( $total_pages === $p ) :
 								?>
