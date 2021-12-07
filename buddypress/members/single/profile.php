@@ -315,7 +315,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 						'private_only' => true,
 						'pagination'   => false,
 						'orderby'      => 'event_start_date',
-						'order'        => 'ASC',
+						'order'        => 'DESC',
 					);
 					$private_events_organized = EM_Events::get( $args );
 					$args                     = array(
@@ -324,7 +324,7 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 						'private'    => false,
 						'pagination' => false,
 						'orderby'    => 'event_start_date',
-						'order'      => 'ASC',
+						'order'      => 'DESC',
 					);
 					$events_organized         = EM_Events::get( $args );
 					$events_organized         = array_unique( array_merge( $events_organized, $private_events_organized ), SORT_REGULAR );
