@@ -334,7 +334,7 @@ if ( $event_initiative || $event_language ) {
 				if ( $event_language && 'all' !== $event_language ) {
 					$url = $url . '&view=' . esc_attr( trim( $view ) );
 				}
-			?>
+				?>
 			<a href="/events/?pno=<?php print esc_attr( $previous_page ) . esc_attr( $url ); ?>" class="campaigns__pagination-link campaigns__pagination-link--arrow">
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 					<path d="M17 23L6 12L17 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
