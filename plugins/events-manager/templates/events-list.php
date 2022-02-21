@@ -341,13 +341,13 @@ if ( $event_initiative || $event_language ) {
 				</svg>
 			</a>
 			<?php if ( $page_min > 1 ) : ?>
-				<a href="/events/?pno=1<?php print $url; ?>"
+				<a href="/events/?pno=1<?php print esc_attr( $url ); ?>"
 					class="campaigns__pagination-link campaigns__pagination-link--first"><?php print esc_html( '1' ); ?>
 				</a>
 					&hellip;
 					<?php endif; ?>
 				<?php for ( $x = $page_min - 1; $x < $page_max; $x++ ) : ?>
-			<a href="/events/?pno=<?php print esc_attr( $x + 1 ) . $url; ?>"
+			<a href="/events/?pno=<?php print esc_attr( $x + 1 ) . esc_attr( $url ); ?>"
 				class="campaigns__pagination-link
 					<?php
 					if ( $current_page === $x + 1 ) :
@@ -386,7 +386,7 @@ if ( $event_initiative || $event_language ) {
 						$url = $url . '&view=' .  esc_attr( trim( $view ) );
 					}
 				?>
-				<a href="/events/?pno=<?php print esc_attr( $total_pages ) . $url; ?>"
+				<a href="/events/?pno=<?php print esc_attr( $total_pages ) . esc_attr( $url ); ?>"
 					class="campaigns__pagination-link
 					<?php
 					if ( $current_page === $total_pages ) :
