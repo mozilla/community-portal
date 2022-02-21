@@ -312,8 +312,7 @@ if ( $event_initiative || $event_language ) {
 		?>
 	<div class="campaigns__pagination">
 		<div class="campaigns__pagination-container">
-			<?php if ( $total_pages > 1 ) : ?>
-			<?php
+			<?php if ( $total_pages > 1 ) {
 				$url = '';
 				if ( 'all' !== $country && $country ) {
 					$url = '&country=' . esc_attr( $country );
@@ -399,7 +398,7 @@ if ( $event_initiative || $event_language ) {
 				<path d="M7 23L18 12L7 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 			</svg>
 			</a>
-			<?php endif; ?>
+			<?php } ?>
 		</div>
 	</div>
 	<?php else : ?>

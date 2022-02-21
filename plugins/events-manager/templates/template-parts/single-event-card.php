@@ -37,7 +37,7 @@
 			}
 			?>
 
-			<?php if ( $img_url && !empty( $img_url ) ) : ?>
+			<?php if ( $img_url && ! empty( $img_url ) ) : ?>
 				style="background-image: url(<?php echo esc_url_raw( $img_url ); ?>)"
 			<?php endif; ?>
 			>
