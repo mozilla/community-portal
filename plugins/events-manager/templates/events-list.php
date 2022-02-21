@@ -340,7 +340,7 @@ if ( $event_initiative || $event_language ) {
 					<path d="M17 23L6 12L17 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 				</svg>
 			</a>
-			<?php if ( $page_min > 1 ) { ?>
+				<?php if ( $page_min > 1 ) { ?>
 				<a href="/events/?pno=1<?php print esc_attr( $url ); ?>"
 					class="campaigns__pagination-link campaigns__pagination-link--first"><?php print esc_html( '1' ); ?>
 				</a>
@@ -363,7 +363,7 @@ if ( $event_initiative || $event_language ) {
 				if ( $total_pages > $range && $current_page < $total_pages - 1 ) :
 					?>
 					&hellip;
-				<?php
+					<?php
 					$url = '';
 					if ( 'all' !== $country && $country ) {
 						$url = '&country=' . esc_attr( $country );
@@ -384,7 +384,7 @@ if ( $event_initiative || $event_language ) {
 					if ( strlen( $view ) > 0 ) {
 						$url = $url . '&view=' . esc_attr( trim( $view ) );
 					}
-				?>
+					?>
 				<a href="/events/?pno=<?php print esc_attr( $total_pages ) . esc_attr( $url ); ?>"
 					class="campaigns__pagination-link
 					<?php
