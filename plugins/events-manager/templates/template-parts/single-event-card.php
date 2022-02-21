@@ -28,7 +28,7 @@
 		<a class="events__link" href="<?php echo esc_url_raw( $url ); ?>">
 			<div class="event-card__image"
 			<?php
-				$img_url = $card_event_meta[0]->image_url;
+				$img_url = property_exists( $card_event_meta[0], 'image_url' ) ? $card_event_meta[0]->image_url : '';
 
 			if ( ( ! empty( $_SERVER['HTTPS'] ) && ! empty( $_SERVER['SERVER_PORT'] ) && 'off' !== $_SERVER['HTTPS'] ) || 443 === $_SERVER['SERVER_PORT'] ) {
 				$img_url = preg_replace( '/^http:/i', 'https:', $img_url );
@@ -37,7 +37,7 @@
 			}
 			?>
 
-			<?php if ( $img_url && '' !== $img_url ) : ?>
+			<?php if ( $img_url && !empty( $img_url ) ) : ?>
 				style="background-image: url(<?php echo esc_url_raw( $img_url ); ?>)"
 			<?php endif; ?>
 			>
