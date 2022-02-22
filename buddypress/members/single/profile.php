@@ -673,31 +673,33 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 				</div>
 			</div>
 		<?php endif; ?>
-		<?php if ( $info['tags']->value && $info['tags']->display ) : ?>
+		<?php if ( $info['tags']->value && $info['tags']->display ) { ?>
 			<div class="profile__tags-card profile__card--right">
 				<?php esc_html_e( 'Tags', 'community-portal' ); ?>
 				<div class="profile__tags-container">
-					<?php
-						$tags = array_filter( explode( ',', $info['tags']->value ) );
-						foreach ( $tags as $loop_tag ) {
-							$found = false;
-							$temp_name = '';
-							$exist = get_term_by('slug', $loop_tag, 'post_tag');
-							if ( !is_bool( $exist ) ) {
-								$found = true;
-								$temp_name = $exist->name;
-							}
-						?>
+				<?php
+					$tags = array_filter( explode( ',', $info['tags']->value ) );
+					foreach ( $tags as $loop_tag ) {
+						$found = false;
+						$temp_name = '';
+						$exist = get_term_by( 'slug', $loop_tag, 'post_tag' );
+						if ( ! is_bool( $exist ) ) {
+							$found = true;
+							$temp_name = $exist->name;
+						}
+					?>
 						<?php if ( $found ) { ?>
 							<a href="<?php echo esc_url_raw( add_query_arg( array( 'tag' => $loop_tag ), get_home_url( null, 'people' ) ) ); ?>" class="profile__static-tag">
 								<span>
 									<?php echo esc_html( $temp_name ); ?>
 								</span>
 							</a>
-						<?php }
-					} ?>
+						<?php
+						}
+					}
+					?>
 				</div>
 			</div>
-		<?php endif; ?>
+		<?php } ?>
 	</section>
 </div>
