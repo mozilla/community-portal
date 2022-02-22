@@ -694,8 +694,8 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 									<?php echo esc_html( $temp_name ); ?>
 								</span>
 							</a>
-						<?php
-					}
+							<?php
+						}
 				}
 				?>
 				</div>
