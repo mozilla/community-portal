@@ -69,7 +69,7 @@ Go to `Mozilla Settings` in the left sidebar to add the following settings.
 
 ## Sample data
 
-This is [MySQL dump](https://github.com/mozilla/community-portal/files/7418593/community.tar.gz) with credentials as `admin/password` with admin rights and plugins configured (as this readme) with some example events as host `community.test`.
+This is [MySQL dump](https://github.com/mozilla/community-portal/files/8116830/community-2022-02-22-c19c553.tar.gz) with credentials as `admin/password` with admin rights and plugins configured (as this readme) with some example events as host `community.test`.
 
 ## Install Plugins
 - Once the site is created, the following plugins need to be installed:
