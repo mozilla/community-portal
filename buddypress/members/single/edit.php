@@ -425,6 +425,7 @@ $subscribed = get_user_meta( $user->ID, 'newsletter', true );
 							<?php esc_html_e( 'Bio (optional)', 'community-portal' ); ?>
 						</label>
 						<?php
+						$bio = '';
 						if ( $form && isset( $form['bio'] ) ) {
 							$bio = $form['bio'];
 						} else {

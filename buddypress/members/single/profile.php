@@ -677,41 +677,25 @@ if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty(
 			<div class="profile__tags-card profile__card--right">
 				<?php esc_html_e( 'Tags', 'community-portal' ); ?>
 				<div class="profile__tags-container">
-					<?php $tags = array_filter( explode( ',', $info['tags']->value ) ); ?>
-					<?php $system_tags = get_tags( array( 'hidden_empty' => false ) ); ?>
-					<?php foreach ( $tags as $loop_tag ) : ?>
-						<?php
-						foreach ( $system_tags as $t ) {
+					<?php
+						$tags = array_filter( explode( ',', $info['tags']->value ) );
+						foreach ( $tags as $loop_tag ) {
 							$found = false;
-							if ( 'en' !== $current_translation ) {
-								$temp_slug = $t->slug;
-								if ( false !== stripos( $temp_slug, '_' ) ) {
-									$temp_slug = substr( $temp_slug, 0, stripos( $temp_slug, '_' ) );
-								}
-								$temp_name = $t->name;
-								if ( strtolower( $temp_slug ) === strtolower( $loop_tag ) ) {
-									$t->slug = $temp_slug;
-									$found   = true;
-									break;
-								}
-							} else {
-								$temp_name = $t->name;
-								$temp_slug = $t->slug;
-								if ( strtolower( $t->slug ) === strtolower( $loop_tag ) ) {
-									$found = true;
-									break;
-								}
+							$temp_name = '';
+							$exist = get_term_by('slug', $loop_tag, 'post_tag');
+							if ( !is_bool( $exist ) ) {
+								$found = true;
+								$temp_name = $exist->name;
 							}
-						}
 						?>
-						<?php if ( $found ) : ?>
-							<a href="<?php echo esc_url_raw( add_query_arg( array( 'tag' => $temp_slug ), get_home_url( null, 'people' ) ) ); ?>" class="profile__static-tag">
+						<?php if ( $found ) { ?>
+							<a href="<?php echo esc_url_raw( add_query_arg( array( 'tag' => $loop_tag ), get_home_url( null, 'people' ) ) ); ?>" class="profile__static-tag">
 								<span>
 									<?php echo esc_html( $temp_name ); ?>
 								</span>
 							</a>
-						<?php endif; ?>
-					<?php endforeach; ?>
+						<?php }
+					} ?>
 				</div>
 			</div>
 		<?php endif; ?>
