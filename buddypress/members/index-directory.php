@@ -727,6 +727,8 @@ foreach ( $members as $index => $member ) {
 
 }
 
+asort( $used_country_list );
+
 if ( $offset >= count( $filtered_members ) ) {
 	$offset = count( $filtered_members ) - $members_per_page;
 }
@@ -789,14 +791,14 @@ $total_pages = ceil( count( $filtered_members ) / $members_per_page );
 						<option value=""><?php esc_html_e( 'Select', 'community-portal' ); ?></option>
 						<?php foreach ( $used_languages as $code => $language ) : ?>
 							<?php if ( strlen( $code ) > 1 ) : ?>
-						<option value="<?php echo esc_attr( $code ); ?>" 
+						<option value="<?php echo esc_attr( $code ); ?>"
 												<?php
 												if ( isset( $_GET['language'] ) && strtolower( trim( $get_language ) ) === strtolower( $code ) ) :
 													?>
 							selected<?php endif; ?>><?php echo esc_html( $language ); ?></option>
 						<?php endif; ?>
 						<?php endforeach; ?>
-					</select>  
+					</select>
 				</div>
 				<?php endif; ?>
 				<div class="members__select-container">
@@ -809,13 +811,13 @@ $total_pages = ceil( count( $filtered_members ) / $members_per_page );
 								$loop_tag->slug = substr( $loop_tag->slug, 0, stripos( $loop_tag->slug, '_' ) );
 							}
 							?>
-						<option value="<?php echo esc_attr( $loop_tag->slug ); ?>" 
+						<option value="<?php echo esc_attr( $loop_tag->slug ); ?>"
 												<?php
 												if ( isset( $_GET['tag'] ) && strtolower( trim( $get_tag ) ) === strtolower( $loop_tag->slug ) ) :
 													?>
 							selected<?php endif; ?>><?php echo esc_html( $loop_tag->name ); ?></option>
 						<?php endforeach; ?>
-					</select>  
+					</select>
 				</div>
 				</div>
 			<div class="members__show-filters-container">
@@ -855,7 +857,7 @@ $total_pages = ceil( count( $filtered_members ) / $members_per_page );
 					<?php
 					if ( false === $info['profile_image']->display || false === $info['profile_image']->value ) :
 						?>
-					members__avatar--identicon<?php endif; ?>" 
+					members__avatar--identicon<?php endif; ?>"
 					<?php
 					if ( $info['profile_image']->display && $info['profile_image']->value ) :
 						?>
