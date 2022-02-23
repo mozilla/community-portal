@@ -114,13 +114,13 @@ if ( $event_initiative || $event_language ) {
 	<div class="events__nav__container">
 		<ul class="col-md-12 center-md events__nav">
 			<li class="events__nav__item">
-				<a 
-				class="events__nav__link 
+				<a
+				class="events__nav__link
 				<?php
 				if ( 'future' === $view | '' === $view ) {
 					echo esc_attr( 'events__nav__link--active' );}
 				?>
-					" 
+					"
 				href="
 				<?php
 				echo esc_url_raw(
@@ -144,13 +144,13 @@ if ( $event_initiative || $event_language ) {
 			?>
 			<?php if ( $logged_in ) : ?>
 			<li class="events__nav__item">
-				<a 
-				class="events__nav__link 
+				<a
+				class="events__nav__link
 				<?php
 				if ( 'attending' === $view ) {
 					echo esc_attr( 'events__nav__link--active' );}
 				?>
-					" 
+					"
 				href="
 				<?php
 				echo esc_url_raw(
@@ -170,14 +170,14 @@ if ( $event_initiative || $event_language ) {
 				</a>
 			</li>
 			<li class="events__nav__item">
-				<a 
-				class="events__nav__link 
+				<a
+				class="events__nav__link
 				<?php
 				if ( 'organized' === $view ) {
 					echo esc_attr( 'events__nav__link--active' );}
 				?>
-					" 
-				href=" 
+					"
+				href="
 				<?php
 				echo esc_url_raw(
 					add_query_arg(
@@ -197,13 +197,13 @@ if ( $event_initiative || $event_language ) {
 			</li>
 			<?php endif; ?>
 			<li class="events__nav__item">
-				<a 
-				class="events__nav__link 
+				<a
+				class="events__nav__link
 				<?php
 				if ( 'past' === $view ) {
 					echo esc_attr( 'events__nav__link--active' );}
 				?>
-					" 
+					"
 				href="
 				<?php
 				echo esc_url_raw(
@@ -227,7 +227,7 @@ if ( $event_initiative || $event_language ) {
 		<form class="events__nav--mobile" action="">
 			<label class="events__nav__label--mobile" for="eventsView"><?php esc_html_e( 'Showing:', 'community-portal' ); ?></label>
 			<select class="events__nav__options--mobile" name="eventsView" id="eventsView">
-				<option 
+				<option
 				<?php
 				if ( 'future' === $view || '' === $view ) {
 					echo esc_attr( 'selected' );}
@@ -236,7 +236,7 @@ if ( $event_initiative || $event_language ) {
 				<?php
 				if ( $logged_in ) :
 					?>
-					<option 
+					<option
 					<?php
 					if ( 'attending' === $view ) {
 						echo esc_attr( 'selected' );}
@@ -245,13 +245,13 @@ if ( $event_initiative || $event_language ) {
 				<?php
 				if ( $logged_in ) :
 					?>
-					<option 
+					<option
 					<?php
 					if ( 'organized' === $view ) {
 						echo esc_attr( 'selected' );}
 					?>
 					value="organized"><?php esc_html_e( 'Events I\'ve Organized', 'community-portal' ); ?></option><?php endif; ?>
-				<option 
+				<option
 				<?php
 				if ( 'past' === $view ) {
 					echo esc_attr( 'selected' );}
@@ -312,81 +312,42 @@ if ( $event_initiative || $event_language ) {
 		?>
 	<div class="campaigns__pagination">
 		<div class="campaigns__pagination-container">
-			<?php if ( $total_pages > 1 ) : ?>
-			<a href="/events/?pno=<?php print esc_attr( $previous_page ); ?>
-				<?php
-				if ( 'all' !== $country && $country ) :
-					?>
-				&country=<?php print esc_attr( $country ); ?><?php endif; ?>
-				<?php
-				if ( $event_tag && 'all' !== $event_tag ) :
-					?>
-					&tag=<?php print esc_attr( $event_tag ); ?><?php endif; ?>
-				<?php
-				if ( $event_initiative && 'all' !== strtolower( $event_initiative ) ) :
-					?>
-					&initiative=<?php print esc_attr( htmlspecialchars( $initiative_input, ENT_QUOTES, 'UTF-8' ) ); ?>
-					<?php endif; ?>
-				<?php
-				if ( $event_language && 'all' !== $event_language ) :
-					?>
-					&language=<?php print esc_attr( htmlspecialchars( $event_language, ENT_QUOTES, 'UTF-8' ) ); ?><?php endif; ?>
-				<?php
-				if ( strlen( $view ) > 0 ) :
-					?>
-					&view=<?php print esc_attr( trim( $view ) ); ?><?php endif; ?>" class="campaigns__pagination-link campaigns__pagination-link--arrow">
+			<?php
+			if ( $total_pages > 1 ) {
+				$url = '';
+				if ( 'all' !== $country && $country ) {
+					$url = '&country=' . esc_attr( $country );
+				}
+
+				if ( $event_tag && 'all' !== $event_tag ) {
+					$url = $url . '&tag=' . esc_attr( $event_tag );
+				}
+
+				if ( $event_initiative && 'all' !== strtolower( $event_initiative ) ) {
+					$url = $url . '&initiative=' . esc_attr( htmlspecialchars( $initiative_input, ENT_QUOTES, 'UTF-8' ) );
+				}
+
+				if ( $event_language && 'all' !== $event_language ) {
+					$url = $url . '&language=' . esc_attr( htmlspecialchars( $event_language, ENT_QUOTES, 'UTF-8' ) );
+				}
+
+				if ( $event_language && 'all' !== $event_language ) {
+					$url = $url . '&view=' . esc_attr( trim( $view ) );
+				}
+				?>
+			<a href="/events/?pno=<?php print esc_attr( $previous_page ) . esc_attr( $url ); ?>" class="campaigns__pagination-link campaigns__pagination-link--arrow">
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 					<path d="M17 23L6 12L17 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 				</svg>
 			</a>
-				<?php if ( $page_min > 1 ) : ?>
-				<a href="/events/?pno=1
-					<?php
-					if ( 'all' !== $country && $country ) :
-						?>
-					&country=<?php print esc_attr( $country ); ?><?php endif; ?>
-					<?php
-					if ( $event_tag && 'all' !== $event_tag ) :
-						?>
-						&tag=<?php print esc_attr( $event_tag ); ?><?php endif; ?>
-					<?php
-					if ( $event_initiative && 'all' !== $event_initiative ) :
-						?>
-						&initiative=<?php print esc_attr( htmlspecialchars( $initiative, ENT_QUOTES, 'UTF-8' ) ); ?><?php endif; ?>
-					<?php
-					if ( $event_language && 'all' !== $event_language ) :
-						?>
-						&language=<?php print esc_attr( htmlspecialchars( $event_language, ENT_QUOTES, 'UTF-8' ) ); ?><?php endif; ?>
-					<?php
-					if ( strlen( $view ) > 0 ) :
-						?>
-						&view=<?php print esc_attr( trim( $view ) ); ?><?php endif; ?>" 
+				<?php if ( $page_min > 1 ) { ?>
+				<a href="/events/?pno=1<?php print esc_attr( $url ); ?>"
 					class="campaigns__pagination-link campaigns__pagination-link--first"><?php print esc_html( '1' ); ?>
 				</a>
-					&hellip; 
-					<?php endif; ?>
+					&hellip;
+			<?php } ?>
 				<?php for ( $x = $page_min - 1; $x < $page_max; $x++ ) : ?>
-			<a href="/events/?pno=<?php print esc_attr( $x + 1 ); ?>
-					<?php
-					if ( $country && 'all' !== $country ) :
-						?>
-						&country=<?php print esc_attr( $country ); ?><?php endif; ?>
-					<?php
-					if ( $event_tag && 'all' !== $event_tag ) :
-						?>
-						&tag=<?php print esc_attr( $event_tag ); ?><?php endif; ?>
-					<?php
-					if ( $event_initiative && 'all' !== $event_initiative ) :
-						?>
-						&initiative=<?php print esc_attr( htmlspecialchars( $initiative, ENT_QUOTES, 'UTF-8' ) ); ?><?php endif; ?>
-					<?php
-					if ( $event_language && 'all' !== $event_language ) :
-						?>
-						&language=<?php print esc_attr( htmlspecialchars( $event_language, ENT_QUOTES, 'UTF-8' ) ); ?><?php endif; ?>
-					<?php
-					if ( strlen( $view ) > 0 ) :
-						?>
-						&view=<?php print esc_attr( trim( $view ) ); ?><?php endif; ?>" 
+			<a href="/events/?pno=<?php print esc_attr( $x + 1 ) . esc_attr( $url ); ?>"
 				class="campaigns__pagination-link
 					<?php
 					if ( $current_page === $x + 1 ) :
@@ -401,28 +362,30 @@ if ( $event_initiative || $event_language ) {
 				<?php
 				if ( $total_pages > $range && $current_page < $total_pages - 1 ) :
 					?>
-					&hellip; 
-				<a href="/events/?pno=<?php print esc_attr( $total_pages ); ?>
+					&hellip;
 					<?php
-					if ( $country && 'all' !== $country ) :
-						?>
-					&country=<?php print esc_attr( $country ); ?><?php endif; ?>
-					<?php
-					if ( $event_tag && 'all' !== $event_tag ) :
-						?>
-						&tag=<?php print esc_attr( $event_tag ); ?><?php endif; ?>
-					<?php
-					if ( $event_initiative && 'all' !== $event_initiative ) :
-						?>
-						&initiative=<?php print esc_attr( htmlspecialchars( $initiative, ENT_QUOTES, 'UTF-8' ) ); ?><?php endif; ?>
-					<?php
-					if ( $event_language && 'all' !== $event_language ) :
-						?>
-						&language=<?php print esc_attr( htmlspecialchars( $event_language, ENT_QUOTES, 'UTF-8' ) ); ?><?php endif; ?>
-					<?php
-					if ( strlen( $view ) > 0 ) :
-						?>
-						&view=<?php print esc_attr( trim( $view ) ); ?><?php endif; ?>" 
+					$url = '';
+					if ( 'all' !== $country && $country ) {
+						$url = '&country=' . esc_attr( $country );
+					}
+
+					if ( $event_tag && 'all' !== $event_tag ) {
+						$url = $url . '&tag=' . esc_attr( $event_tag );
+					}
+
+					if ( $event_initiative && 'all' !== $event_initiative ) {
+						$url = $url . '&initiative=' . esc_attr( htmlspecialchars( $initiative, ENT_QUOTES, 'UTF-8' ) );
+					}
+
+					if ( $event_language && 'all' !== $event_language ) {
+						$url = $url . '&language=' . esc_attr( htmlspecialchars( $event_language, ENT_QUOTES, 'UTF-8' ) );
+					}
+
+					if ( strlen( $view ) > 0 ) {
+						$url = $url . '&view=' . esc_attr( trim( $view ) );
+					}
+					?>
+				<a href="/events/?pno=<?php print esc_attr( $total_pages ) . esc_attr( $url ); ?>"
 					class="campaigns__pagination-link
 					<?php
 					if ( $current_page === $total_pages ) :
@@ -430,28 +393,12 @@ if ( $event_initiative || $event_language ) {
 					campaigns__pagination-link--active<?php endif; ?>"><?php print esc_attr( $total_pages ); ?>
 				</a>
 			<?php endif; ?>
-			<a href="/events/?pno=<?php print esc_attr( $next_page ); ?>
-				<?php
-				if ( $country && 'all' !== $country ) :
-					?>
-				&country=<?php print esc_attr( $country ); ?><?php endif; ?>
-				<?php
-				if ( $event_tag && 'all' !== $event_tag ) :
-					?>
-					&tag=<?php print esc_attr( $event_tag ); ?><?php endif; ?>
-				<?php
-				if ( $event_initiative && 'all' !== $event_initiative ) :
-					?>
-					&initiative=<?php print esc_attr( htmlspecialchars( $initiative, ENT_QUOTES, 'UTF-8' ) ); ?><?php endif; ?>
-				<?php
-				if ( strlen( $view ) > 0 ) :
-					?>
-					&view=<?php print esc_attr( $view ); ?><?php endif; ?>" class="campaigns__pagination-link campaigns__pagination-link--arrow">
+			<a href="/events/?pno=<?php print esc_attr( $next_page ) . esc_attr( $url ); ?>" class="campaigns__pagination-link campaigns__pagination-link--arrow">
 			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 				<path d="M7 23L18 12L7 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 			</svg>
 			</a>
-			<?php endif; ?>
+			<?php } ?>
 		</div>
 	</div>
 	<?php else : ?>
