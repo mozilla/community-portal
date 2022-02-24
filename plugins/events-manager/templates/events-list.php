@@ -335,7 +335,7 @@ if ( $event_initiative || $event_language ) {
 					$url = $url . '&view=' . esc_attr( trim( $view ) );
 				}
 				?>
-			<a href="/events/?pno=<?php print esc_attr( $previous_page ) . esc_attr( $url ); ?>" class="campaigns__pagination-link campaigns__pagination-link--arrow">
+			<a href="/events/?pno=<?php print esc_attr( $previous_page ) . $url; ?>" class="campaigns__pagination-link campaigns__pagination-link--arrow">
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 					<path d="M17 23L6 12L17 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 				</svg>
@@ -347,7 +347,7 @@ if ( $event_initiative || $event_language ) {
 					&hellip;
 			<?php } ?>
 				<?php for ( $x = $page_min - 1; $x < $page_max; $x++ ) : ?>
-			<a href="/events/?pno=<?php print esc_attr( $x + 1 ) . esc_attr( $url ); ?>"
+			<a href="/events/?pno=<?php print esc_attr( $x + 1 ) . $url; ?>"
 				class="campaigns__pagination-link
 					<?php
 					if ( $current_page === $x + 1 ) :
@@ -385,7 +385,7 @@ if ( $event_initiative || $event_language ) {
 						$url = $url . '&view=' . esc_attr( trim( $view ) );
 					}
 					?>
-				<a href="/events/?pno=<?php print esc_attr( $total_pages ) . esc_attr( $url ); ?>"
+				<a href="/events/?pno=<?php print esc_attr( $total_pages ) . $url; ?>"
 					class="campaigns__pagination-link
 					<?php
 					if ( $current_page === $total_pages ) :
@@ -393,7 +393,7 @@ if ( $event_initiative || $event_language ) {
 					campaigns__pagination-link--active<?php endif; ?>"><?php print esc_attr( $total_pages ); ?>
 				</a>
 			<?php endif; ?>
-			<a href="/events/?pno=<?php print esc_attr( $next_page ) . esc_attr( $url ); ?>" class="campaigns__pagination-link campaigns__pagination-link--arrow">
+			<a href="/events/?pno=<?php print esc_attr( $next_page ) . $url; ?>" class="campaigns__pagination-link campaigns__pagination-link--arrow">
 			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 				<path d="M7 23L18 12L7 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 			</svg>
