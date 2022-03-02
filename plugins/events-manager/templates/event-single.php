@@ -142,13 +142,10 @@ if ( isset( $em_event->group_id ) ) {
 				} else {
 					$img_url = $img_url;
 				}
-				?>
-				<div class="card__image
-				<?php
 				if ( '' !== $img_url && $img_url ) {
-					echo esc_attr( 'card__image--active' );
+					$class_card = esc_attr( 'card__image--active' );
 				} else {
-					echo esc_attr( '' );
+					$class_card =  esc_attr( '' );
 				}
 				$url_edit = esc_attr(
 					add_query_arg(
@@ -157,10 +154,11 @@ if ( isset( $em_event->group_id ) ) {
 							'event_id' => $em_event->event_id,
 							'nonce'    => wp_create_nonce( 'edit-event' ),
 						),
-						 get_home_url( '', 'events/edit-event/' )
+						get_home_url( '', 'events/edit-event/' )
 					)
 				);
-				?>`
+				?>
+				<div class="card__image <? echo $class_card; // phpcs:ignore ?>"
 					<?php
 					if ( $img_url && strlen( $img_url ) > 0 ) :
 						?>
