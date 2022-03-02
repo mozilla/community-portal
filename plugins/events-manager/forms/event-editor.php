@@ -55,7 +55,7 @@ if ( ! empty( $_REQUEST['success'] ) ) {
 $action_url = add_query_arg(
 	array(
 		'action' => 'edit',
-		'lang'   => ICL_LANGUAGE_CODE,
+		'lang'   => defined('ICL_LANGUAGE_CODE') ? ICL_LANGUAGE_CODE : 'en',
 	),
 	get_site_url( null, 'events/edit-event' )
 );
