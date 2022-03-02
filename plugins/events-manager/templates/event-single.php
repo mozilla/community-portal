@@ -142,16 +142,24 @@ if ( isset( $em_event->group_id ) ) {
 				} else {
 					$img_url = $img_url;
 				}
-				?>
-				<div class="card__image
-				<?php
 				if ( '' !== $img_url && $img_url ) {
-					echo esc_attr( 'card__image--active' );
+					$class_card = esc_attr( 'card__image--active' );
 				} else {
-					echo esc_attr( '' );
+					$class_card = esc_attr( '' );
 				}
+
+				$url_edit = esc_attr(
+					add_query_arg(
+						array(
+							'action'   => 'edit',
+							'event_id' => $em_event->event_id,
+							'nonce'    => wp_create_nonce( 'edit-event' ),
+						),
+						get_home_url( '', 'events/edit-event/' )
+					)
+				);
 				?>
-					"
+				<div class="card__image <? echo $class_card; // phpcs:ignore ?>"
 					<?php
 					if ( $img_url && strlen( $img_url ) > 0 ) :
 						?>
@@ -162,20 +170,7 @@ if ( isset( $em_event->group_id ) ) {
 						<?php
 						if ( isset( $img_url ) && strlen( $img_url ) > 0 ) :
 							?>
-							card__edit-btn--white<?php endif; ?>" href="
-															<?php
-																echo esc_attr(
-																	add_query_arg(
-																		array(
-																			'action'   => 'edit',
-																			'event_id' => $em_event->event_id,
-																			'nonce'    => wp_create_nonce( 'edit-event' ),
-																		),
-																		get_home_url( '', 'events/edit-event/' )
-																	)
-																);
-															?>
-															">
+							card__edit-btn--white<?php endif; ?>" href="<?php echo $url_edit; // phpcs:ignore ?>">
 							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M23.64 6.36L17.64 0.36C17.16 -0.12 16.44 -0.12 15.96 0.36L0.36 15.96C0.12 16.2 0 16.44 0 16.8V22.8C0 23.52 0.48 24 1.2 24H7.2C7.56 24 7.8 23.88 8.04   23.64L23.64 8.04C24.12 7.56 24.12 6.84 23.64 6.36ZM6.72 21.6H2.4V17.28L16.8 2.88L21.12 7.2L6.72 21.6Z"  fill="#0060DF"/>
 							</svg>
@@ -187,20 +182,7 @@ if ( isset( $em_event->group_id ) ) {
 								<?php
 								if ( $img_url && isset( $_SERVER['REQUEST_URI'] ) ) :
 									?>
-									card__edit-btn--white<?php endif; ?>" href="
-										<?php
-																		echo esc_attr(
-																			add_query_arg(
-																				array(
-																					'action'   => 'edit',
-																					'event_id' => $em_event->event_id,
-																					'nonce'    => wp_create_nonce( 'edit-event' ),
-																				),
-																				get_home_url( '', 'events/edit-event/' )
-																			)
-																		);
-										?>
-																				">
+									card__edit-btn--white<?php endif; ?>" href="<?php echo $url_edit; // phpcs:ignore ?>">
 									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 										<path d="M23.64 6.36L17.64 0.36C17.16 -0.12 16.44 -0.12 15.96 0.36L0.36 15.96C0.12 16.2 0 16.44 0 16.8V22.8C0 23.52 0.48 24 1.2 24H7.2C7.56 24 7.8 23.88 8.04 23.64L23.64 8.04C24.12 7.56 24.12 6.84 23.64 6.36ZM6.72 21.6H2.4V17.28L16.8 2.88L21.12 7.2L6.72 21.6Z"  fill="#0060DF"/>
 									</svg>
