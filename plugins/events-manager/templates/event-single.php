@@ -145,8 +145,9 @@ if ( isset( $em_event->group_id ) ) {
 				if ( '' !== $img_url && $img_url ) {
 					$class_card = esc_attr( 'card__image--active' );
 				} else {
-					$class_card =  esc_attr( '' );
+					$class_card = esc_attr( '' );
 				}
+
 				$url_edit = esc_attr(
 					add_query_arg(
 						array(
