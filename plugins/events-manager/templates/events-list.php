@@ -313,28 +313,28 @@ if ( $event_initiative || $event_language ) {
 	<div class="campaigns__pagination">
 		<div class="campaigns__pagination-container">
 		<?php
-			$url = '';
-			if ( 'all' !== $country && $country ) {
-				$url = '&country=' . esc_attr( $country );
-			}
+		$url = '';
+		if ( 'all' !== $country && $country ) {
+			$url = '&country=' . esc_attr( $country );
+		}
 
-			if ( $event_tag && 'all' !== $event_tag ) {
-				$url = $url . '&tag=' . esc_attr( $event_tag );
-			}
+		if ( $event_tag && 'all' !== $event_tag ) {
+			$url = $url . '&tag=' . esc_attr( $event_tag );
+		}
 
-			if ( $event_initiative && 'all' !== strtolower( $event_initiative ) ) {
-				$url = $url . '&initiative=' . esc_attr( htmlspecialchars( $initiative_input, ENT_QUOTES, 'UTF-8' ) );
-			}
+		if ( $event_initiative && 'all' !== strtolower( $event_initiative ) ) {
+			$url = $url . '&initiative=' . esc_attr( htmlspecialchars( $initiative_input, ENT_QUOTES, 'UTF-8' ) );
+		}
 
-			if ( $event_language && 'all' !== $event_language ) {
-				$url = $url . '&language=' . esc_attr( htmlspecialchars( $event_language, ENT_QUOTES, 'UTF-8' ) );
-			}
+		if ( $event_language && 'all' !== $event_language ) {
+			$url = $url . '&language=' . esc_attr( htmlspecialchars( $event_language, ENT_QUOTES, 'UTF-8' ) );
+		}
 
-			if ( $event_language && 'all' !== $event_language ) {
-				$url = $url . '&view=' . esc_attr( trim( $view ) );
-			}
-			if ( $total_pages > 1 ) {
-				?>
+		if ( $event_language && 'all' !== $event_language ) {
+			$url = $url . '&view=' . esc_attr( trim( $view ) );
+		}
+		if ( $total_pages > 1 ) {
+			?>
 			<a href="/events/?pno=<?php print esc_attr( $previous_page ) . $url; // phpcs:ignore ?>" class="campaigns__pagination-link campaigns__pagination-link--arrow">
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 					<path d="M17 23L6 12L17 1" stroke="#0060DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
