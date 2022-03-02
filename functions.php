@@ -222,9 +222,9 @@ function mozilla_init() {
  * This should fix the edit-event page not avalaible.
  */
 function force_page_rewrite_rule() {
-	add_rewrite_rule('(.?.+?)(?:/([0-9]+))?/?$','index.php?pagename=$matches[1]&page=$matches[2]','top');
+	add_rewrite_rule( '(.?.+?)(?:/([0-9]+))?/?$', 'index.php?pagename=$matches[1]&page=$matches[2]', 'top' );
 }
-add_action('init', 'force_page_rewrite_rule', 10, 0);
+add_action( 'init', 'force_page_rewrite_rule', 10, 0 );
 
 add_filter( 'wpml_sl_blacklist_requests', 'wpml_sl_blacklist_requests', 10, 2 );
 
