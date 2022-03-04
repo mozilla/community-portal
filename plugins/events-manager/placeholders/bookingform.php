@@ -48,7 +48,7 @@ if ( get_option( 'dbem_css_rsvp' ) ) {
 		add_query_arg(
 			array(
 				'cancel'       => true,
-		 'cancel_nonce' => wp_create_nonce( 'cancel_booking' ),
+				'cancel_nonce' => wp_create_nonce( 'cancel_booking' ),
 			),
 			esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) )
 		)
@@ -56,7 +56,7 @@ if ( get_option( 'dbem_css_rsvp' ) ) {
 	?>
 
 	<?php if ( is_object( $em_booking ) ) : ?>
-	<a class="em-bookings-cancel events-single__cancel btn btn--submit btn--dark" href="<?php echo $cancel_url ?>" onclick="if( !confirm('<?php print esc_attr__( 'Are you sure you dont want to attend this event?', 'community-portal' ); ?>') ){ return false; }">
+	<a class="em-bookings-cancel events-single__cancel btn btn--submit btn--dark" href="<?php echo $cancel_url; // phpcs:ignore ?>" onclick="if( !confirm('<?php print esc_attr__( 'Are you sure you dont want to attend this event?', 'community-portal' ); ?>') ){ return false; }">
 		<?php esc_html_e( 'I won\'t attend', 'community-portal' ); ?>
 	</a>
 	<?php else : ?>
@@ -68,7 +68,7 @@ if ( get_option( 'dbem_css_rsvp' ) ) {
 	>
 		<input type='hidden' name='action' value='booking_add'/>
 		<input type='hidden' name='event_id' value='<?php echo esc_attr( $em_event->get_bookings()->event_id ); ?>'/>
-		<input type='hidden' name='_wpnonce' value='<?php echo wp_create_nonce('booking_add'); ?>'/>
+		<input type='hidden' name='_wpnonce' value='<?php echo wp_create_nonce( 'booking_add' ); // phpcs:ignore ?>'/>
 		<?php
 			$count = 0;
 		foreach ( $em_tickets as $ticket ) {
