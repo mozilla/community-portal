@@ -62,7 +62,7 @@
 				$formatted_date     = mozilla_localize_date( $event->start_date, $date_format );
 				$formatted_end_date = mozilla_localize_date( $event->end_date, $date_format );
 			?>
-				<p><?php echo esc_html( $formatted_date ) . esc_html( ' @ ' ) . esc_html( substr( $event->event_start_time, 0, 5 ) ) . esc_html( ' - ' ) . esc_html( $formatted_date ) . esc_html( ' @ ' ) . esc_html( substr( $event->event_end_time, 0, 5 ) ) . esc_html( ' ' ) . esc_html( $event->event_timezone ); ?></p>
+				<p><?php echo esc_html( $formatted_date ) . esc_html( ' @ ' ) . esc_html( substr( $event->event_start_time, 0, 5 ) ) . esc_html( ' - ' ) . esc_html( $formatted_end_date ) . esc_html( ' @ ' ) . esc_html( substr( $event->event_end_time, 0, 5 ) ) . esc_html( ' ' ) . esc_html( $event->event_timezone ); ?></p>
 
 				<?php if ( strlen( $location->address ) > 0 || strlen( $location->town ) > 0 || strlen( $location->country ) > 0 ) : ?>
 				<div class="event-card__location">
