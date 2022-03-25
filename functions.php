@@ -253,6 +253,8 @@ add_action( 'wp_enqueue_scripts', 'remove_wp_block_library_css', 100 );
 
 /**
  * Force RSVP date as the end date
+ *
+ * @param object $event EM Event.
  */
 add_filter( 'em_event_load_postdata', 'mozilla_force_rsvp_end', 10, 2 );
 function mozilla_force_rsvp_end( $event ) {
