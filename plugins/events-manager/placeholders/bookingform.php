@@ -55,11 +55,13 @@ if ( get_option( 'dbem_css_rsvp' ) ) {
 	);
 	?>
 
-	<?php if ( is_object( $em_booking ) ) : ?>
+	<?php if ( is_object( $em_booking ) ) { ?>
 	<a class="em-bookings-cancel events-single__cancel btn btn--submit btn--dark" href="<?php echo $cancel_url; // phpcs:ignore ?>" onclick="if( !confirm('<?php print esc_attr__( 'Are you sure you dont want to attend this event?', 'community-portal' ); ?>') ){ return false; }">
 		<?php esc_html_e( 'I won\'t attend', 'community-portal' ); ?>
 	</a>
-	<?php else : ?>
+	<?php } else {
+		if ( strtotime( $em_event->event_end_date ) > strtotime( date( 'd/m/Y' ) ) ) {
+			?>
 	<form
 		class="em-booking-form"
 		name='booking-form'
@@ -88,5 +90,9 @@ if ( get_option( 'dbem_css_rsvp' ) ) {
 		em-booking-submit" id="em-booking-submit" value="<?php echo esc_attr_e( 'I will attend', 'community-portal' ); ?>" />
 		<a class="btn btn--dark btn--submit em-booking-submit" style="margin-top: 10px;" href="<?php echo esc_url_raw( '/events.ics?event_id=' . esc_attr( $em_event->get_bookings()->event_id ) ); ?>"><?php echo esc_attr_e( 'Add to calendar', 'community-portal' ); ?></a>
 	</form>
-	<?php endif; ?>
+	<?php
+		} else {
+			echo '<div>' . esc_html_e( 'Event expired', 'community-portal' ) . '</div>';
+		}
+	} ?>
 </div>

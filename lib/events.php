@@ -35,7 +35,9 @@ function mozilla_remove_booking() {
 		$post_id                            = $EM_Event->post_id;
 		$discourse_group_info               = mozilla_get_discourse_info( $post_id, 'event' );
 		$discourse_api_data                 = array();
-		$discourse_api_data['group_id']     = $discourse_group_info['discourse_group_id'];
+		if ( isset( $discourse_group_info['discourse_group_id'] ) ) {
+			$discourse_api_data['group_id']     = $discourse_group_info['discourse_group_id'];
+		}
 		$remove                             = array();
 		$remove[]                           = mozilla_get_user_auth0( $user->ID );
 		$discourse_api_data['remove_users'] = $remove;
