@@ -244,12 +244,16 @@ if ( isset( $em_event->group_id ) ) {
 								),
 							)
 						);
-					} else {
+					} else {i
+						if ( strtotime( $em_event->event_end_date ) < strtotime( date( 'd/m/Y' ) ) ) {
 						?>
 						<div>
 							<button class="btn btn--dark btn--submit event__no-account"><?php esc_html_e( 'I will attend', 'community-portal' ); ?></button>
 						</div>
 						<?php
+						} else {
+							echo '<div>' . esc_html_e( 'Event expired', 'community-portal' ) . '</div>';
+						}
 					}
 					?>
 				</div>
