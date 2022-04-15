@@ -249,7 +249,7 @@ function remove_wp_block_library_css() {
 }
 add_action( 'wp_enqueue_scripts', 'remove_wp_block_library_css', 100 );
 
-// em-event.php 585: apply_filters( 'em_event_load_postdata', $this );.
+// classes/em-event.php 585: apply_filters( 'em_event_load_postdata', $this );.
 
 /**
  * Force RSVP date as the end date
@@ -257,7 +257,7 @@ add_action( 'wp_enqueue_scripts', 'remove_wp_block_library_css', 100 );
  * @param object $event EM Event.
  */
 function mozilla_force_rsvp_end( $event ) {
-	$event->event_rsvp_date = $event->event_end_date;
+	$event->event_rsvp_date = gmdate( 'd/m/Y', strtotime( '+1 months', strtotime( $event->event_end_date ) ) );
 	return $event;
 }
 add_filter( 'em_event_load_postdata', 'mozilla_force_rsvp_end', 10, 2 );

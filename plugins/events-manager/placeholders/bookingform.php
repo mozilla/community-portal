@@ -55,38 +55,47 @@ if ( get_option( 'dbem_css_rsvp' ) ) {
 	);
 	?>
 
-	<?php if ( is_object( $em_booking ) ) : ?>
+	<?php if ( is_object( $em_booking ) ) { ?>
 	<a class="em-bookings-cancel events-single__cancel btn btn--submit btn--dark" href="<?php echo $cancel_url; // phpcs:ignore ?>" onclick="if( !confirm('<?php print esc_attr__( 'Are you sure you dont want to attend this event?', 'community-portal' ); ?>') ){ return false; }">
 		<?php esc_html_e( 'I won\'t attend', 'community-portal' ); ?>
 	</a>
-	<?php else : ?>
-	<form
-		class="em-booking-form"
-		name='booking-form'
-		method='post'
-		action='<?php echo apply_filters( 'em_booking_form_action_url', '' ); // phpcs:ignore ?>#em-booking'
-	>
-		<input type='hidden' name='action' value='booking_add'/>
-		<input type='hidden' name='event_id' value='<?php echo esc_attr( $em_event->get_bookings()->event_id ); ?>'/>
-		<input type='hidden' name='_wpnonce' value='<?php echo wp_create_nonce( 'booking_add' ); // phpcs:ignore ?>'/>
 		<?php
-			$count = 0;
-		foreach ( $em_tickets as $ticket ) {
-			if ( $count < 1 ) {
-				?>
-		<input type="hidden" name="<?php echo esc_attr( 'em_tickets[' . $ticket->ticket_id . '][spaces]' ); ?>" value="1">
-				<?php
-				$count++;
+	} else {
+		if ( strtotime( $em_event->event_end_date ) > strtotime( gmdate( 'd/m/Y' ) ) ) {
+			?>
+		<form
+			class="em-booking-form"
+			name='booking-form'
+			method='post'
+			action='<?php echo apply_filters( 'em_booking_form_action_url', '' ); // phpcs:ignore ?>#em-booking'
+		>
+			<input type='hidden' name='action' value='booking_add'/>
+			<input type='hidden' name='event_id' value='<?php echo esc_attr( $em_event->get_bookings()->event_id ); ?>'/>
+			<input type='hidden' name='_wpnonce' value='<?php echo wp_create_nonce( 'booking_add' ); // phpcs:ignore ?>'/>
+			<?php
+				$count = 0;
+			foreach ( $em_tickets as $ticket ) {
+				if ( $count < 1 ) {
+					?>
+			<input type="hidden" name="<?php echo esc_attr( 'em_tickets[' . $ticket->ticket_id . '][spaces]' ); ?>" value="1">
+					<?php
+					$count++;
+				}
 			}
+			?>
+			<input type="submit" class="btn btn--dark btn--submit
+			<?php
+			if ( is_admin() ) {
+				echo 'button-primary ';
+			}
+			?>
+			em-booking-submit" id="em-booking-submit" value="<?php echo esc_attr_e( 'I will attend', 'community-portal' ); ?>" />
+			<a class="btn btn--dark btn--submit em-booking-submit" style="margin-top: 10px;" href="<?php echo esc_url_raw( '/events.ics?event_id=' . esc_attr( $em_event->get_bookings()->event_id ) ); ?>"><?php echo esc_attr_e( 'Add to calendar', 'community-portal' ); ?></a>
+		</form>
+			<?php
+		} else {
+			echo '<div>' . esc_html_e( 'Event expired', 'community-portal' ) . '</div>';
 		}
-		?>
-		<input type="submit" class="btn btn--dark btn--submit
-		<?php
-		if ( is_admin() ) {
-			echo 'button-primary ';}
-		?>
-		em-booking-submit" id="em-booking-submit" value="<?php echo esc_attr_e( 'I will attend', 'community-portal' ); ?>" />
-		<a class="btn btn--dark btn--submit em-booking-submit" style="margin-top: 10px;" href="<?php echo esc_url_raw( '/events.ics?event_id=' . esc_attr( $em_event->get_bookings()->event_id ) ); ?>"><?php echo esc_attr_e( 'Add to calendar', 'community-portal' ); ?></a>
-	</form>
-	<?php endif; ?>
+	}
+	?>
 </div>
