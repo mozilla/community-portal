@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2020-07-27 10:34-0400\n"
-"PO-Revision-Date: 2022-04-10 14:38-0300\n"
+"PO-Revision-Date: 2022-04-25 20:04-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -33,9 +33,9 @@ msgid ""
 "If you are having trouble locating a destination on Community Portal, try "
 "visiting the home page."
 msgstr ""
-"Ooops, parece la página estás intentando alcanzar ya no está disponible. Si "
-"estás teniendo problemas para localizar un destino en Community Portal, "
-"prueba visitar la página de inicio."
+"Ooops, parece que la página que está intentando alcanzar ya no está "
+"disponible. Si está teniendo problemas para localizar un destino en "
+"Community Portal, pruebe visitar la página de inicio."
 
 #: 404.php:40
 msgid "Return Home"
@@ -43,7 +43,7 @@ msgstr "Volver al inicio"
 
 #: buddypress/groups/index-create.php:66
 msgid "Create a Mozilla Group"
-msgstr "Crear un Grupo de Mozilla"
+msgstr "Crear un grupo de Mozilla"
 
 #: buddypress/groups/index-create.php:81 buddypress/groups/index-create.php:99
 #: buddypress/groups/index-create.php:379 buddypress/groups/single/edit.php:77
@@ -141,7 +141,7 @@ msgstr "Ciudad"
 
 #: buddypress/groups/index-create.php:195
 msgid "Provide a short group description *"
-msgstr "Proporcionar descripción corta de grupo*"
+msgstr "Proporcionar descripción corta del grupo*"
 
 #: buddypress/groups/index-create.php:210
 msgid "Select an image"
@@ -163,7 +163,7 @@ msgstr "Eliminar archivo"
 
 #: buddypress/groups/index-create.php:235 buddypress/groups/single/edit.php:212
 msgid "Tags for your group"
-msgstr "Tags para su grupo"
+msgstr "Etiquetas para su grupo"
 
 #: buddypress/groups/index-create.php:268 buddypress/groups/single/edit.php:245
 msgid "Group Meetings"
@@ -192,7 +192,7 @@ msgstr "Detalles de la reunión"
 #: buddypress/groups/index-create.php:302 buddypress/groups/single/edit.php:275
 #: buddypress/groups/single/group.php:1238
 msgid "Community Links"
-msgstr "Enlaces de comunidad"
+msgstr "Enlaces de la comunidad"
 
 #: buddypress/groups/index-create.php:305 buddypress/groups/single/edit.php:278
 #: buddypress/groups/single/group.php:1264
@@ -208,7 +208,7 @@ msgstr "Matrix"
 
 #: buddypress/groups/index-create.php:312 buddypress/groups/single/edit.php:285
 msgid "Please format as room-alias:domain"
-msgstr "Formatear como alias-habitación:dominio"
+msgstr "Formatear como alias-de-salón:dominio"
 
 #: buddypress/groups/index-create.php:318 buddypress/groups/single/edit.php:291
 #: buddypress/groups/single/group.php:1255
@@ -239,7 +239,7 @@ msgstr "Otro"
 
 #: buddypress/groups/index-create.php:350
 msgid "Secondary Group Contact"
-msgstr "Contacto de Grupo secundario"
+msgstr "Contacto de grupo secundario"
 
 #: buddypress/groups/index-create.php:352
 msgid "Secondary group contact"
@@ -288,16 +288,16 @@ msgstr ""
 "puede comenzar un grupo comunitario. Los grupos pueden reunirse en persona o "
 "virtualmente y pueden organizarse en torno a una región, área de "
 "contribución, identidad o interés. Todos los grupos deben respetar y "
-"adherirse a la "
+"adherirse a las "
 
 #: buddypress/groups/index-create.php:382
 #: buddypress/groups/index-create.php:385
 msgid "Community Participation Guidelines"
-msgstr "Las directrices de Participación de la Comunidad de Mozilla*"
+msgstr "guías de participación de la comunidad de Mozilla"
 
 #: buddypress/groups/index-create.php:382
 msgid "and follow the terms &amp; responsibilities."
-msgstr "y siga los términos y responsabilidades."
+msgstr "y seguir los términos y responsabilidades."
 
 #: buddypress/groups/index-create.php:383
 msgid "All Mozilla Community Groups must:"
@@ -306,31 +306,32 @@ msgstr "Todos los grupos de la comunidad de Mozilla deben:"
 #: buddypress/groups/index-create.php:385
 #: buddypress/groups/index-create.php:386
 msgid "Adhere to and uphold the "
-msgstr "Adherirse y mantener la "
+msgstr "Adherirse y mantener los "
 
 #: buddypress/groups/index-create.php:386
 #: buddypress/groups/index-create.php:420
 msgid "Volunteer Leadership Principles"
-msgstr "Principios de liderazgo voluntario"
+msgstr "principios de liderazgo de los voluntarios"
 
 #: buddypress/groups/index-create.php:387
 msgid ""
 "Be open and welcoming to everyone who shares Mozilla’s goals and want to "
 "contribute in a healthy and constructive manner to participate."
 msgstr ""
-"Sea abierto y acogedor con todos los que comparten los objetivos de Mozilla "
-"y desean contribuir de manera saludable y constructiva para participar."
+"Ser abiertos y acogedores con todos los que comparten los objetivos de "
+"Mozilla y desean contribuir de manera saludable y constructiva para "
+"participar."
 
 #: buddypress/groups/index-create.php:388
 msgid "Be easy to join and cannot restrict membership."
-msgstr "Sea fácil de unir y no puede restringir la membresía."
+msgstr "Ser fácil de unirse y no pueden restringir la membresía."
 
 #: buddypress/groups/index-create.php:389
 msgid ""
 "Contribute to Mozilla by regularly participating in campaigns, activities, "
 "events or other Mozilla related projects."
 msgstr ""
-"Contribuya a Mozilla participando regularmente en campañas, actividades, "
+"Contribuir a Mozilla participando regularmente en campañas, actividades, "
 "eventos u otros proyectos relacionados con Mozilla."
 
 #: buddypress/groups/index-create.php:390
@@ -338,12 +339,12 @@ msgid ""
 "Be active – demonstrated by having more than five members and hosting at "
 "least one event every six months."
 msgstr ""
-"Mantente activo: demuestra tener más de cinco miembros y organizar al menos "
+"Ser activo: demostrado teniendo más de cinco miembros y organizando al menos "
 "un evento cada seis meses."
 
 #: buddypress/groups/index-create.php:391
 msgid "Have two group contacts that change every year."
-msgstr "Tenga dos contactos grupales que cambien cada año."
+msgstr "Tener dos contactos grupales que cambien cada año."
 
 #: buddypress/groups/index-create.php:393
 msgid ""
@@ -381,11 +382,11 @@ msgstr "Más de cinco miembros."
 
 #: buddypress/groups/index-create.php:400
 msgid "Hosted at least one event"
-msgstr "Organizó al menos un evento"
+msgstr "Organizar al menos un evento"
 
 #: buddypress/groups/index-create.php:401
 msgid "Two responsive group contacts."
-msgstr "Dos contactos grupales receptivos."
+msgstr "Dos contactos grupales responsivos."
 
 #: buddypress/groups/index-create.php:403
 msgid ""
@@ -424,7 +425,7 @@ msgstr "Elija un nombre de grupo que:"
 
 #: buddypress/groups/index-create.php:409
 msgid "Reduce confusion"
-msgstr "Reducir la confusión"
+msgstr "Reduzca la confusión"
 
 #: buddypress/groups/index-create.php:409
 msgid ""
@@ -439,7 +440,7 @@ msgstr ""
 
 #: buddypress/groups/index-create.php:410
 msgid "Avoid exclusivity"
-msgstr "Evitar exclusividad"
+msgstr "Evite la exclusividad"
 
 #: buddypress/groups/index-create.php:410
 msgid ""
@@ -453,7 +454,7 @@ msgstr ""
 
 #: buddypress/groups/index-create.php:411
 msgid "Encourage diversity"
-msgstr "Fomentar la diversidad"
+msgstr "Fomente la diversidad"
 
 #: buddypress/groups/index-create.php:411
 msgid ""
@@ -462,12 +463,12 @@ msgid ""
 "hierarchy between groups."
 msgstr ""
 "Los nombres de los grupos no deben sugerir que las personas están obligadas "
-"a unirse a un grupo para participar dentro de un área o región de enfoque. "
+"a unirse a un grupo para participar dentro de un área de enfoque o región. "
 "Mozilla no reconocerá ninguna jerarquía entre grupos."
 
 #: buddypress/groups/index-create.php:413
 msgid "Group contacts:"
-msgstr "Contactos de grupo:"
+msgstr "Contactos del grupo:"
 
 #: buddypress/groups/index-create.php:414
 msgid ""
@@ -476,7 +477,7 @@ msgid ""
 "Mozilla staff. There must always be two group contacts and they must change "
 "every year, their responsibilities are:"
 msgstr ""
-"Los contactos grupales son las personas responsables de mantener la página "
+"Los contactos del grupo son las personas responsables de mantener la página "
 "del grupo en el portal y establecer contactos, en nombre del grupo, con el "
 "personal de Mozilla. Siempre debe haber dos contactos grupales y deben "
 "cambiar cada año, sus responsabilidades son:"
@@ -489,7 +490,7 @@ msgstr "Mantener el contenido y la actividad de la página del grupo."
 msgid ""
 "Answer questions from community managers during the “verification” process."
 msgstr ""
-"Responda las preguntas de los administradores de la comunidad durante el "
+"Responder las preguntas de los administradores de la comunidad durante el "
 "proceso de “verificación”."
 
 #: buddypress/groups/index-create.php:419
@@ -510,7 +511,7 @@ msgstr "Tenga en cuenta que los contactos grupales"
 
 #: buddypress/groups/index-create.php:420
 msgid " do not"
-msgstr " no haga"
+msgstr " no"
 
 #: buddypress/groups/index-create.php:420
 msgid ""
@@ -518,16 +519,16 @@ msgid ""
 "are free to create their own internal structures and governance though all "
 "leadership roles should follow the"
 msgstr ""
-" tienen que corresponder a los roles de gobierno dentro de la comunidad. Las "
-"comunidades son libres de crear sus propias estructuras internas y "
+" tienen que corresponder a los roles de gobernanza dentro de la comunidad. "
+"Las comunidades son libres de crear sus propias estructuras internas y "
 "gobernanza, aunque todos los roles de liderazgo deben seguir el"
 
 #: buddypress/groups/index-create.php:420
 msgid ""
 "If you have any other questions about group creation or management please "
 msgstr ""
-"Si tiene alguna otra pregunta sobre la creación o gestión de grupos, por "
-"favor "
+"Si tiene alguna otra pregunta sobre la creación o administración de grupos, "
+"por favor "
 
 #: buddypress/groups/index-create.php:420
 msgid "visit the FAQ"
@@ -540,19 +541,19 @@ msgstr "Estoy de acuerdo"
 #: buddypress/groups/index-create.php:425
 #: buddypress/members/single/edit.php:1349
 msgid "I agree to respect and adhere to"
-msgstr "Apalabro respeto y adherir a"
+msgstr "Acepto respetar y adherir a"
 
 #: buddypress/groups/index-create.php:426
 msgid "Mozilla’s Community Participation Guidelines *"
-msgstr "Las directrices de Participación de la Comunidad de Mozilla *"
+msgstr "Las guías de participación de la comunidad de Mozilla *"
 
 #: buddypress/groups/index-create.php:428
 msgid "Please agree to the Community Participation Guidelines"
-msgstr "Las directrices de Participación de la Comunidad de Mozilla"
+msgstr "Acepte las guías de participación de la comunidad de Mozilla"
 
 #: buddypress/groups/index-create.php:436 buddypress/groups/single/edit.php:317
 msgid "Continue"
-msgstr "Continúa"
+msgstr "Continuar"
 
 #: buddypress/groups/index-directory.php:237
 msgid "Groups"
@@ -563,20 +564,20 @@ msgid ""
 "Meet up with people who share your passion and join the movement for an open "
 "internet."
 msgstr ""
-"Conoce arriba con personas que comparten vuestra pasión y unir el movimiento "
-"para un internet abierto."
+"Reúnase con personas que comparten su pasión y únase al movimiento para una "
+"internet abierta."
 
 #: buddypress/groups/index-directory.php:242
 msgid "Look for groups in your area, or"
-msgstr "Busca grupos en vuestra área, o"
+msgstr "Busque grupos en vuestra área, o"
 
 #: buddypress/groups/index-directory.php:246
 msgid "create your own."
-msgstr "crear vuestro propio."
+msgstr "cree uno propio."
 
 #: buddypress/groups/index-directory.php:288
 msgid "Search groups"
-msgstr "Grupos de búsqueda"
+msgstr "Buscar grupos"
 
 #: buddypress/groups/index-directory.php:290
 #: buddypress/groups/single/group.php:993
@@ -584,12 +585,12 @@ msgstr "Grupos de búsqueda"
 #: plugins/events-manager/templates/events-search.php:82 search.php:140
 #: search.php:155 search.php:157
 msgid "Search"
-msgstr "Búsqueda"
+msgstr "Buscar"
 
 #: buddypress/groups/index-directory.php:302
 #: buddypress/groups/index-directory.php:316
 msgid "Discover Groups"
-msgstr "Descubre Grupos"
+msgstr "Descubrir grupos"
 
 #: buddypress/groups/index-directory.php:310
 #: buddypress/members/single/profile.php:153
@@ -607,7 +608,7 @@ msgstr "Grupos en los que estoy"
 
 #: buddypress/groups/index-directory.php:332
 msgid "Filter by:"
-msgstr "Filtro por:"
+msgstr "Filtrar por:"
 
 #: buddypress/groups/index-directory.php:334
 #: buddypress/groups/single/group.php:1000
@@ -708,7 +709,7 @@ msgstr "Nuestros miembros"
 #: buddypress/groups/single/group.php:887
 #: buddypress/groups/single/group.php:1531
 msgid "Group Contacts"
-msgstr "Contactos de grupo"
+msgstr "Contactos del grupo"
 
 #: buddypress/groups/single/group.php:946
 #: buddypress/members/index-directory.php:744
@@ -861,8 +862,8 @@ msgid ""
 "Ready to make it official? Set up a profile to attend events, join groups "
 "and manage your subscription settings. "
 msgstr ""
-"A punto para hacerlo oficial? Instalado un perfil para atender "
-"acontecimientos, unir grupos y dirigir vuestros encuadres de suscripción. "
+"¿Está listo para hacerlo oficial? Configure un perfil para asistir a "
+"eventos, unirse a grupos y administrar la configuración de suscripciones. "
 
 #: buddypress/members/single/edit.php:27
 msgid "CONGRATULATIONS!"
@@ -874,18 +875,17 @@ msgid ""
 "right in. You are now ready to connect with other users, participate in "
 "events and projects, and get involved in the Mozilla community."
 msgstr ""
-"Vuestra Cuenta ha sido creada!  Puedes mantener añadir a vuestro perfil o "
-"derecho de zambullimiento en.  Eres ahora a punto para conectar con otros "
-"usuarios, participa en acontecimientos y proyectos, y conseguir implicado en "
-"la comunidad de Mozilla."
+"¡La cuenta ha sido creada! Puede seguir agregando a su perfil o ingresar ya "
+"mismo.  Ahora está listo para conectarse con otros usuarios, participar en "
+"eventos y proyectos e involucrarse en la comunidad de Mozilla."
 
 #: buddypress/members/single/edit.php:36
 msgid ""
 "Notice: We had a problem registering you for our newsletter. Please try "
 "signing up again later. To try again "
 msgstr ""
-"Aviso:  tuvimos un problema que registra tú para nuestro newsletter. "
-"Complacer probar firmando arriba otra vez más tarde. Para probar otra vez "
+"Aviso:  tuvimos un problema que en el registro para nuestro newsletter. "
+"Intente registrarse otra vez más tarde. Para intentar de nuevo "
 
 #: buddypress/members/single/edit.php:39
 msgid "Click here"
@@ -893,11 +893,11 @@ msgstr "Haga clic aquí"
 
 #: buddypress/members/single/edit.php:46
 msgid "Complete your profile"
-msgstr "Completo vuestro perfil"
+msgstr "Complete su perfil"
 
 #: buddypress/members/single/edit.php:49
 msgid "Go back to browsing"
-msgstr "Vuelve a explorar"
+msgstr "Volver a navegar"
 
 #: buddypress/members/single/edit.php:59
 msgid "Edit Profile"
@@ -911,9 +911,7 @@ msgstr "Completar perfil"
 #: buddypress/members/single/edit.php:68
 msgid ""
 "We've pre-populated some of your information via your connected account with "
-msgstr ""
-"Hemos pre-pobló algunos de vuestra información vía vuestra cuenta conectada "
-"con "
+msgstr "Hemos precargado alguna información de la cuenta conectada con "
 
 #: buddypress/members/single/edit.php:69
 msgid "Mozilla SSO."
@@ -927,13 +925,13 @@ msgstr "Información primaria"
 #: buddypress/members/single/edit.php:911
 #: buddypress/members/single/edit.php:1197
 msgid "Visibility Settings"
-msgstr "Encuadres de visibilidad"
+msgstr "Configuración de visibilidad"
 
 #: buddypress/members/single/edit.php:85 buddypress/members/single/edit.php:632
 #: buddypress/members/single/edit.php:914
 #: buddypress/members/single/edit.php:1199
 msgid "Custom"
-msgstr "Hecho de encargo"
+msgstr "Personalizada"
 
 #: buddypress/members/single/edit.php:97
 msgid "Profile Photo (optional)"
@@ -976,11 +974,11 @@ msgstr "Nombre de usuario (requerido)"
 
 #: buddypress/members/single/edit.php:230
 msgid "This username is already taken"
-msgstr "Este nombre de grupo es ya tomado"
+msgstr "Este nombre de grupo ya existe"
 
 #: buddypress/members/single/edit.php:235
 msgid "Usernames are public"
-msgstr "Los nombres de usuarios son públicos"
+msgstr "Los nombres de usuario son públicos"
 
 #: buddypress/members/single/edit.php:245 buddypress/members/single/home.php:15
 msgid "Public (Everyone)"
@@ -988,27 +986,27 @@ msgstr "Público (Todo el mundo)"
 
 #: buddypress/members/single/edit.php:254
 msgid "First Name (required)"
-msgstr "Primer Nombre (requerido)"
+msgstr "Primer nombre (requerido)"
 
 #: buddypress/members/single/edit.php:266 templates/campaign-rsvp.php:43
 msgid "First Name"
-msgstr "Primer Nombre"
+msgstr "Primer nombre"
 
 #: buddypress/members/single/edit.php:281
 msgid "Your first name is always visible to registered users"
-msgstr "Vuestro primer nombre es siempre visible a registró usuarios"
+msgstr "El primer nombre siempre es visible a usuarios registrados"
 
 #: buddypress/members/single/edit.php:310
 msgid "Last Name (required)"
-msgstr "Último Nombre (requerido)"
+msgstr "Apellido (requerido)"
 
 #: buddypress/members/single/edit.php:322 templates/campaign-rsvp.php:48
 msgid "Last Name"
-msgstr "Último Nombre"
+msgstr "Apellido"
 
 #: buddypress/members/single/edit.php:364
 msgid "Preferred Pronouns (optional)"
-msgstr "Prefirió Pronombres (opcionales)"
+msgstr "Pronombre preferido (opcionales)"
 
 #: buddypress/members/single/edit.php:368
 msgid "Preferred Pronoun"
@@ -1028,26 +1026,26 @@ msgstr "Ciudad (opcional)"
 
 #: buddypress/members/single/edit.php:523
 msgid "Email contact (required)"
-msgstr "Contacto de email (requerido)"
+msgstr "Contacto de correo electrónico (requerido)"
 
 #: buddypress/members/single/edit.php:533
 #: buddypress/members/single/profile.php:124
 #: plugins/events-manager/forms/event-editor.php:79
 #: templates/campaign-rsvp.php:55 templates/campaigns-newsletter.php:44
 msgid "Email"
-msgstr "E-mail"
+msgstr "Correo electrónico"
 
 #: buddypress/members/single/edit.php:552
 msgid "An account with this email already exists"
-msgstr "Este email es ya en uso"
+msgstr "Este correo electrónico ya está en uso"
 
 #: buddypress/members/single/edit.php:555 lib/members.php:239
 msgid "Invalid email address"
-msgstr "Dirección de correo electrónico nula"
+msgstr "Dirección de correo electrónico inválida"
 
 #: buddypress/members/single/edit.php:584
 msgid "Phone contact (optional)"
-msgstr "Contacto de teléfono (opcional)"
+msgstr "Teléfono de contacto (opcional)"
 
 #: buddypress/members/single/edit.php:625
 msgid "Social Links"
@@ -1083,82 +1081,82 @@ msgstr "Nombre de usuario de Matrix (opcional)"
 
 #: buddypress/members/single/edit.php:875
 msgid "username:domain"
-msgstr "usuario:ámbito"
+msgstr "usuario:dominio"
 
 #: buddypress/members/single/edit.php:884
 msgid "Please format as username:domain"
-msgstr "Complacer formato como nombre de usuario:ámbito"
+msgstr "El formato es usuario:dominio"
 
 #: buddypress/members/single/edit.php:908
 msgid "Communication & Interests"
-msgstr "Intereses & de comunicación"
+msgstr "Comunicación e intereses"
 
 #: buddypress/members/single/edit.php:937
 #: buddypress/members/single/edit.php:1017
 msgid "Languages spoken (optional)"
-msgstr "Las lenguas habladas (opcionales)"
+msgstr "Idiomas hablados (opcional)"
 
 #: buddypress/members/single/edit.php:940
 #: buddypress/members/single/edit.php:1028
 #: buddypress/members/single/edit.php:1054
 msgid "Make Selection"
-msgstr "Selección de marca"
+msgstr "Hacer selección"
 
 #: buddypress/members/single/edit.php:987
 msgid "Make Selection (optional)"
-msgstr "Selección de marca (opcional)"
+msgstr "Hacer selección (opcional)"
 
 #: buddypress/members/single/edit.php:1000
 #: buddypress/members/single/edit.php:1079
 msgid "Add Another Language"
-msgstr "Añadir Otra Lengua"
+msgstr "Agregar otro idioma"
 
 #: buddypress/members/single/edit.php:1122
 msgid "Skills and interests (optional)"
-msgstr "Habilidades e intereses (opcionales)"
+msgstr "Habilidades e intereses (opcional)"
 
 #: buddypress/members/single/edit.php:1195
 msgid "Community Portal Activity"
-msgstr "Actividad de Portal de la comunidad"
+msgstr "Actividad del portal de la comunidad"
 
 #: buddypress/members/single/edit.php:1209
 msgid "Groups joined"
-msgstr "Los grupos unieron"
+msgstr "Grupos unidos"
 
 #: buddypress/members/single/edit.php:1234
 msgid "Events attended"
-msgstr "Los acontecimientos atendieron"
+msgstr "Eventos asistidos"
 
 #: buddypress/members/single/edit.php:1261
 msgid "Events organized"
-msgstr "Los acontecimientos organizaron"
+msgstr "Eventos organizados"
 
 #: buddypress/members/single/edit.php:1286
 msgid "Campaigns participated in"
-msgstr "Las campañas participaron en"
+msgstr "Campañas participadas en"
 
 #: buddypress/members/single/edit.php:1350
 msgid "Mozilla's Community Participation Guidelines*"
-msgstr "Las directrices de Participación de la Comunidad de Mozilla*"
+msgstr "Guías de participación de la comunidad de Mozilla*"
 
 #: buddypress/members/single/edit.php:1362
 msgid "Delete Profile"
-msgstr "Elimina Perfil"
+msgstr "Eliminar perfil"
 
 #: buddypress/members/single/edit.php:1363
 msgid ""
 "Could not delete profile at this time, please contact a community manager"
 msgstr ""
-"No podría eliminar perfil en este tiempo, complacer contactar un director de "
-"comunidad"
+"No se puede eliminar el perfil en este momento, contacte a un administrador "
+"de la comunidad"
 
 #: buddypress/members/single/home.php:14
 msgid "Registered Users"
-msgstr "Registró Usuarios"
+msgstr "Usuarios registrados"
 
 #: buddypress/members/single/home.php:16
 msgid "Private (Only Me)"
-msgstr "Privado (Sólo Me)"
+msgstr "Privado (Sólo yo)"
 
 #: buddypress/members/single/profile.php:93
 msgid "Contact Information"
@@ -1174,15 +1172,15 @@ msgstr "Acontecimientos recientes"
 
 #: buddypress/members/single/profile.php:305
 msgid "Organized Events"
-msgstr "Organizó Acontecimientos"
+msgstr "Eventos organizados"
 
 #: buddypress/members/single/profile.php:378
 msgid "Campaigns Participated In"
-msgstr "Las campañas Participaron En"
+msgstr "Campañas participadas en"
 
 #: buddypress/members/single/profile.php:441
 msgid "Social Handles"
-msgstr "Mangos sociales"
+msgstr "Usuarios en redes"
 
 #: buddypress/members/single/profile.php:481
 msgid "Linkedin"
@@ -1338,7 +1336,7 @@ msgstr "Botswana"
 
 #: countries.php:46
 msgid "Belarus"
-msgstr "Belarús"
+msgstr "Bielorrusia"
 
 #: countries.php:47
 msgid "Belize"
@@ -1562,7 +1560,7 @@ msgstr "Grecia"
 
 #: countries.php:102
 msgid "South Georgia and South Sandwich Islands"
-msgstr "Georgia del Sur y las Islas Sandwich del Sur"
+msgstr "Georgia del Sur e Islas Sandwich del Sur"
 
 #: countries.php:103
 msgid "Guatemala"
@@ -1630,7 +1628,7 @@ msgstr "Territorio británico en el Océano Índico"
 
 #: countries.php:119
 msgid "Iraq"
-msgstr "Iraq"
+msgstr "Irak"
 
 #: countries.php:120
 msgid "Iran"
@@ -1666,7 +1664,7 @@ msgstr "Kenia"
 
 #: countries.php:128
 msgid "Kyrgyzstan"
-msgstr "Kyrgyzstan"
+msgstr "Kirguistán"
 
 #: countries.php:129
 msgid "Cambodia"
@@ -1682,7 +1680,7 @@ msgstr "Comoros"
 
 #: countries.php:132
 msgid "Saint Kitts and Nevis"
-msgstr "Saint Kitts y Nevis"
+msgstr "San Cristóbal y Nieves"
 
 #: countries.php:133
 msgid "Korea, North"
@@ -1786,7 +1784,7 @@ msgstr "Mali"
 
 #: countries.php:158
 msgid "Burma"
-msgstr "Burma"
+msgstr "Birmania"
 
 #: countries.php:159
 msgid "Mongolia"
@@ -1866,7 +1864,7 @@ msgstr "Nicaragua"
 
 #: countries.php:178
 msgid "Netherlands"
-msgstr "Holanda (Países Bajos)"
+msgstr "Países Bajos"
 
 #: countries.php:179
 msgid "Norway"
@@ -2018,7 +2016,7 @@ msgstr "Singapur"
 
 #: countries.php:216
 msgid "Saint Helena, Ascension, and Tristan da Cunha"
-msgstr "Santa Elena Ascensión y Tristán de Acuña"
+msgstr "Santa Elena, Ascensión y Tristán de Acuña"
 
 #: countries.php:217
 msgid "Slovenia"
@@ -2046,7 +2044,7 @@ msgstr "Somalia"
 
 #: countries.php:223
 msgid "Suriname"
-msgstr "Suriname"
+msgstr "Surinam"
 
 #: countries.php:224
 msgid "South Sudan"
@@ -2054,7 +2052,7 @@ msgstr "Sudán del Sur"
 
 #: countries.php:225
 msgid "Sao Tome and Principe"
-msgstr "San Tome y Príncipe"
+msgstr "Santo Tome y Príncipe"
 
 #: countries.php:226
 msgid "El Salvador"
@@ -2082,7 +2080,7 @@ msgstr "Chad"
 
 #: countries.php:232
 msgid "French Southern and Antarctic Lands"
-msgstr "Territorios franceses del sur y tierras antárticas"
+msgstr "Territorios Franceses del Sur y Tierras Antárticas"
 
 #: countries.php:233
 msgid "Togo"
@@ -2162,7 +2160,7 @@ msgstr "Ciudad del Vaticano"
 
 #: countries.php:252
 msgid "Saint Vincent and the Grenadines"
-msgstr "San Vicente y las Granadinas"
+msgstr "San Vicente y Las Granadinas"
 
 #: countries.php:253
 msgid "Venezuela"
@@ -2290,7 +2288,7 @@ msgstr "Zimbabwe"
 
 #: footer.php:45
 msgid "Accept"
-msgstr "Acepta"
+msgstr "Aceptar"
 
 #: footer.php:52
 msgid "Mozilla Logo"
@@ -2305,18 +2303,18 @@ msgid ""
 "Portions of this content are copyright 1998-2019 by individual mozilla.org "
 "contributors. Content available under a "
 msgstr ""
-"Las porciones de este contenido son copyright 1998-2019 por individuales "
-"mozilla.org colaboradores. El contenido disponible bajo un "
+"Partes de este contenido tienen copyright 1998-2019 por contribuyentes "
+"individuales a mozilla.org. El contenido disponible bajo una "
 
 #: footer.php:119
 msgid " Creative Commons license."
-msgstr " Creativo Commons licencia."
+msgstr " licencia Creative Commons."
 
 #: front-page.php:157 page-campaigns.php:161 page-campaigns.php:225
 #: templates/campaign-rsvp.php:23 templates/campaign-rsvp.php:68
 #: templates/event-rsvp.php:23
 msgid "Get Involved"
-msgstr "Consigue Implicado"
+msgstr "Involúcrese"
 
 #: front-page.php:291
 msgid "More Groups."
@@ -2328,7 +2326,7 @@ msgstr "Más eventos."
 
 #: functions.php:144
 msgid "Mozilla Custom Theme Menu"
-msgstr "Mozilla Carta de Tema Hecho de encargo"
+msgstr "Menú de tema personalizado de Mozilla"
 
 #: functions.php:164
 msgid "Static Pages"
@@ -2352,27 +2350,27 @@ msgstr "Campaña"
 
 #: header.php:81 header.php:92 header.php:108 header.php:116 header.php:124
 msgid "Mozilla Community Portal"
-msgstr "Portal de Comunidad del Mozilla"
+msgstr "Portal de la comunidad de Mozilla"
 
 #: header.php:81
 msgid "Groups - Mozilla Community Portal"
-msgstr "Grupos - Portal de Comunidad del Mozilla"
+msgstr "Grupos - Portal de la comunidad de Mozilla"
 
 #: header.php:92
 msgid "Events - Mozilla Community Portal"
-msgstr "Acontecimientos - Portal de Comunidad del Mozilla"
+msgstr "Eventos - Portal de la comunidad de Mozilla"
 
 #: header.php:108
 msgid "People - Mozilla Community Portal"
-msgstr "Personas - Portal de Comunidad del Mozilla"
+msgstr "Personas - Portal de la comunidad de Mozilla"
 
 #: header.php:116
 msgid "Activities - Mozilla Community Portal"
-msgstr "Actividades - Portal de Comunidad del Mozilla"
+msgstr "Actividades - Portal de la comunidad de Mozilla"
 
 #: header.php:124
 msgid "Campaigns - Mozilla Community Portal"
-msgstr "Campañas - Portal de Comunidad del Mozilla"
+msgstr "Campañas - Portal de la comunidad de Mozilla"
 
 #: header.php:192 header.php:312
 msgid "Log Out"
@@ -2384,2167 +2382,2167 @@ msgstr "Ingresar / Registrarse"
 
 #: languages.php:12
 msgid "Abkhazian"
-msgstr "Abkhazian es"
+msgstr "Abjasio"
 
 #: languages.php:13
 msgid "Abron"
-msgstr "Abron es"
+msgstr "Abrón"
 
 #: languages.php:14
 msgid "Achinese"
-msgstr "Achinese es"
+msgstr "Achinese"
 
 #: languages.php:15
 msgid "Acoli"
-msgstr ""
+msgstr "Acoli"
 
 #: languages.php:16
 msgid "Adangme"
-msgstr ""
+msgstr "Adangme"
 
 #: languages.php:17
 msgid "Adyghe"
-msgstr ""
+msgstr "Adyghé"
 
 #: languages.php:18
 msgid "Afar"
-msgstr ""
+msgstr "Afar"
 
 #: languages.php:19
 msgid "Afrikaans"
-msgstr ""
+msgstr "Africaans"
 
 #: languages.php:20
 msgid "Aghem"
-msgstr ""
+msgstr "Aghem"
 
 #: languages.php:21
 msgid "Akan"
-msgstr ""
+msgstr "Akán"
 
 #: languages.php:22
 msgid "Akoose"
-msgstr ""
+msgstr "Akoose"
 
 #: languages.php:23
 msgid "Albanian"
-msgstr ""
+msgstr "Albanés"
 
 #: languages.php:24
 msgid "Albay Bicolano"
-msgstr ""
+msgstr "Albay Bicolano"
 
 #: languages.php:25
 msgid "Algerian Arabic"
-msgstr ""
+msgstr "Árabe Argelino"
 
 #: languages.php:26
 msgid "Amharic"
-msgstr ""
+msgstr "Amárico"
 
 #: languages.php:27
 msgid "Amo"
-msgstr ""
+msgstr "Amo"
 
 #: languages.php:28
 msgid "Ao Naga"
-msgstr ""
+msgstr "Ao Naga"
 
 #: languages.php:29
 msgid "Arabic"
-msgstr ""
+msgstr "Árabe"
 
 #: languages.php:30
 msgid "Aragonese"
-msgstr ""
+msgstr "Aragonés"
 
 #: languages.php:31
 msgid "Armenian"
-msgstr ""
+msgstr "Armenio"
 
 #: languages.php:32
 msgid "Arpitan"
-msgstr ""
+msgstr "Arpitano"
 
 #: languages.php:33
 msgid "Assamese"
-msgstr ""
+msgstr "Asamés"
 
 #: languages.php:34
 msgid "Asturian"
-msgstr ""
+msgstr "Asturiano"
 
 #: languages.php:35
 msgid "Asu"
-msgstr ""
+msgstr "Asu"
 
 #: languages.php:36
 msgid "Atikamekw"
-msgstr ""
+msgstr "Atikamekw"
 
 #: languages.php:37
 msgid "Atsam"
-msgstr ""
+msgstr "Atsam"
 
 #: languages.php:38
 msgid "Avaric"
-msgstr ""
+msgstr "Avarico"
 
 #: languages.php:39
 msgid "Awadhi"
-msgstr ""
+msgstr "Awadhi"
 
 #: languages.php:40
 msgid "Aymara"
-msgstr ""
+msgstr "Aimará"
 
 #: languages.php:41
 msgid "Azerbaijani"
-msgstr ""
+msgstr "Azerbaiyano"
 
 #: languages.php:42
 msgid "Azerbaijani (Arabic)"
-msgstr ""
+msgstr "Azerbaiyano (Árabe)"
 
 #: languages.php:43
 msgid "Azerbaijani (Cyrillic)"
-msgstr ""
+msgstr "Azerbaiyano (Cirílico)"
 
 #: languages.php:44
 msgid "Badaga"
-msgstr ""
+msgstr "Badaga"
 
 #: languages.php:45
 msgid "Bafia"
-msgstr ""
+msgstr "Bafia"
 
 #: languages.php:46
 msgid "Bafut"
-msgstr ""
+msgstr "Bafut"
 
 #: languages.php:47
 msgid "Bagheli"
-msgstr ""
+msgstr "Bagheli"
 
 #: languages.php:48
 msgid "Bakhtiari"
-msgstr ""
+msgstr "Bajtiari"
 
 #: languages.php:49
 msgid "Balanta-Ganja"
-msgstr ""
+msgstr "Balanta-Ganja"
 
 #: languages.php:50
 msgid "Balinese"
-msgstr ""
+msgstr "Balinés"
 
 #: languages.php:51
 msgid "Balkan Gagauz Turkish"
-msgstr ""
+msgstr "Gagauz Balcánico Turco"
 
 #: languages.php:52
 msgid "Balti"
-msgstr ""
+msgstr "Baltí"
 
 #: languages.php:53
 msgid "Baluchi"
-msgstr ""
+msgstr "Baluchi"
 
 #: languages.php:54
 msgid "Bambara"
-msgstr ""
+msgstr "Bambara"
 
 #: languages.php:55
 msgid "Bambara (N’Ko)"
-msgstr ""
+msgstr "Bambara (N’Ko)"
 
 #: languages.php:56
 msgid "Bamun"
-msgstr ""
+msgstr "Bamun"
 
 #: languages.php:57
 msgid "Bangla"
-msgstr ""
+msgstr "Bengalí"
 
 #: languages.php:58
 msgid "Banjar"
-msgstr ""
+msgstr "Banjar"
 
 #: languages.php:59
 msgid "Bantawa"
-msgstr ""
+msgstr "Bantawa"
 
 #: languages.php:60
 msgid "Baoulé"
-msgstr ""
+msgstr "Baoulé"
 
 #: languages.php:61
 msgid "Basaa"
-msgstr ""
+msgstr "Basa"
 
 #: languages.php:62
 msgid "Bashkir"
-msgstr ""
+msgstr "Baskir"
 
 #: languages.php:63
 msgid "Basque"
-msgstr ""
+msgstr "Vasco"
 
 #: languages.php:64
 msgid "Bassari"
-msgstr ""
+msgstr "Bassari"
 
 #: languages.php:65
 msgid "Batak Toba"
-msgstr ""
+msgstr "Toba Batak"
 
 #: languages.php:66
 msgid "Bateri"
-msgstr ""
+msgstr "Bateri"
 
 #: languages.php:67
 msgid "Bavarian"
-msgstr ""
+msgstr "Bávaro"
 
 #: languages.php:68
 msgid "Beja"
-msgstr ""
+msgstr "Beya"
 
 #: languages.php:69
 msgid "Belarusian"
-msgstr ""
+msgstr "Bielorruso"
 
 #: languages.php:70
 msgid "Bemba"
-msgstr ""
+msgstr "Bemba"
 
 #: languages.php:71
 msgid "Bena"
-msgstr ""
+msgstr "Bena"
 
 #: languages.php:72
 msgid "Betawi"
-msgstr ""
+msgstr "Betawi"
 
 #: languages.php:73
 msgid "Bhilali"
-msgstr ""
+msgstr "Bhilali"
 
 #: languages.php:74
 msgid "Bhili"
-msgstr ""
+msgstr "Bhili"
 
 #: languages.php:75
 msgid "Bhojpuri"
-msgstr ""
+msgstr "Bhoshpuri"
 
 #: languages.php:76
 msgid "Bikol"
-msgstr ""
+msgstr "Bicolano"
 
 #: languages.php:77
 msgid "Bini"
-msgstr ""
+msgstr "Edo"
 
 #: languages.php:78
 msgid "Bishnupriya"
-msgstr ""
+msgstr "Bishnupriya"
 
 #: languages.php:79
 msgid "Bislama"
-msgstr ""
+msgstr "Bislama"
 
 #: languages.php:80
 msgid "Blin"
-msgstr ""
+msgstr "Blin"
 
 #: languages.php:81
 msgid "Bodo"
-msgstr ""
+msgstr "Bodo"
 
 #: languages.php:82
 msgid "Bomu"
-msgstr ""
+msgstr "Bomu"
 
 #: languages.php:83
 msgid "Bosnian"
-msgstr ""
+msgstr "Bosnio"
 
 #: languages.php:84
 msgid "Bosnian (Cyrillic)"
-msgstr ""
+msgstr "Bosnio (Cirílico)"
 
 #: languages.php:85
 msgid "Brahui"
-msgstr ""
+msgstr "Brahui"
 
 #: languages.php:86
 msgid "Braj"
-msgstr ""
+msgstr "Braj"
 
 #: languages.php:87
 msgid "Breton"
-msgstr ""
+msgstr "Bretón"
 
 #: languages.php:88
 msgid "Bube"
-msgstr ""
+msgstr "Bubi"
 
 #: languages.php:89
 msgid "Buginese"
-msgstr ""
+msgstr "Buginés"
 
 #: languages.php:90
 msgid "Buhid"
-msgstr ""
+msgstr "Buhid"
 
 #: languages.php:91
 msgid "Bulgarian"
-msgstr ""
+msgstr "Búlgaro"
 
 #: languages.php:92
 msgid "Bulu"
-msgstr ""
+msgstr "Bulu"
 
 #: languages.php:93
 msgid "Buriat"
-msgstr ""
+msgstr "Buriato"
 
 #: languages.php:94
 msgid "Burmese"
-msgstr ""
+msgstr "Birmano"
 
 #: languages.php:95
 msgid "Bushi"
-msgstr ""
+msgstr "Bushi"
 
 #: languages.php:96
 msgid "Cajun French"
-msgstr ""
+msgstr "Francés Cajún"
 
 #: languages.php:97
 msgid "Cantonese"
-msgstr ""
+msgstr "Cantonés"
 
 #: languages.php:98
 msgid "Cantonese (Simplified)"
-msgstr ""
+msgstr "Cantonés (Simplificado)"
 
 #: languages.php:99
 msgid "Capiznon"
-msgstr ""
+msgstr "Capiznón"
 
 #: languages.php:100
 msgid "Catalan"
-msgstr ""
+msgstr "Catalán"
 
 #: languages.php:101
 msgid "Cebaara Senoufo"
-msgstr ""
+msgstr "Cebaara Senoufo"
 
 #: languages.php:102
 msgid "Cebuano"
-msgstr ""
+msgstr "Cebuano"
 
 #: languages.php:103
 msgid "Central Atlas Tamazight"
-msgstr ""
+msgstr "Tamazight Del Marruecos Central"
 
 #: languages.php:104
 msgid "Central Dusun"
-msgstr ""
+msgstr "Dusun Central"
 
 #: languages.php:105
 msgid "Central Huasteca Nahuatl"
-msgstr ""
+msgstr "Náhuatl Huasteco Central"
 
 #: languages.php:106
 msgid "Central Kurdish"
-msgstr ""
+msgstr "Kurdo Central"
 
 #: languages.php:107
 msgid "Central Mazahua"
-msgstr ""
+msgstr "Mazahua Central"
 
 #: languages.php:108
 msgid "Central Okinawan"
-msgstr ""
+msgstr "Okinawense Central"
 
 #: languages.php:109
 msgid "Central Yupik"
-msgstr ""
+msgstr "Yupik De Alaska Central"
 
 #: languages.php:110
 msgid "Central-Eastern Niger Fulfulde"
-msgstr ""
+msgstr "Fula De Niger Centrooriental"
 
 #: languages.php:111
 msgid "Chakma"
-msgstr ""
+msgstr "Chakma"
 
 #: languages.php:112
 msgid "Chechen"
-msgstr ""
+msgstr "Checheno"
 
 #: languages.php:113
 msgid "Cherokee"
-msgstr ""
+msgstr "Cheroqui"
 
 #: languages.php:114
 msgid "Chhattisgarhi"
-msgstr ""
+msgstr "Chhattisgarhí"
 
 #: languages.php:115
 msgid "Chickasaw"
-msgstr ""
+msgstr "Chickasaw"
 
 #: languages.php:116
 msgid "Chimborazo Highland Quichua"
-msgstr ""
+msgstr "Quechua Del Altiplano Del Chimborazo"
 
 #: languages.php:117
 msgid "Chinese"
-msgstr ""
+msgstr "Chino"
 
 #: languages.php:118
 msgid "Chipewyan"
-msgstr ""
+msgstr "Chipewyan"
 
 #: languages.php:119
 msgid "Choctaw"
-msgstr ""
+msgstr "Muskogi"
 
 #: languages.php:120
 msgid "Church Slavonic"
-msgstr ""
+msgstr "Eslavo Eclesiástico"
 
 #: languages.php:121
 msgid "Chuukese"
-msgstr ""
+msgstr "Chuukés"
 
 #: languages.php:122
 msgid "Chuvash"
-msgstr ""
+msgstr "Chuvasio"
 
 #: languages.php:123
 msgid "Colognian"
-msgstr ""
+msgstr "Kölsch"
 
 #: languages.php:124
 msgid "Comorian"
-msgstr ""
+msgstr "Comorense"
 
 #: languages.php:125
 msgid "Cornish"
-msgstr ""
+msgstr "Córnico"
 
 #: languages.php:126
 msgid "Corsican"
-msgstr ""
+msgstr "Corso"
 
 #: languages.php:127
 msgid "Cree"
-msgstr ""
+msgstr "Cree"
 
 #: languages.php:128
 msgid "Crimean Turkish"
-msgstr ""
+msgstr "Turco De Crimea"
 
 #: languages.php:129
 msgid "Croatian"
-msgstr ""
+msgstr "Croata"
 
 #: languages.php:130
 msgid "Czech"
-msgstr ""
+msgstr "Checo"
 
 #: languages.php:131
 msgid "Dakota"
-msgstr ""
+msgstr "Dakota"
 
 #: languages.php:132
 msgid "Dan"
-msgstr ""
+msgstr "Dan"
 
 #: languages.php:133
 msgid "Dangaura Tharu"
-msgstr ""
+msgstr "Dangaura Tharu"
 
 #: languages.php:134
 msgid "Danish"
-msgstr ""
+msgstr "Danés"
 
 #: languages.php:135
 msgid "Dargwa"
-msgstr ""
+msgstr "Darguin"
 
 #: languages.php:136
 msgid "Deccan"
-msgstr ""
+msgstr "Decán"
 
 #: languages.php:137
 msgid "Divehi"
-msgstr ""
+msgstr "Maldivo"
 
 #: languages.php:138
 msgid "Dogri"
-msgstr ""
+msgstr "Dogri"
 
 #: languages.php:139
 msgid "Domari"
-msgstr ""
+msgstr "Domarí"
 
 #: languages.php:140
 msgid "Dotyali"
-msgstr ""
+msgstr "Doteli"
 
 #: languages.php:141 languages.php:143
 msgid "Duala"
-msgstr ""
+msgstr "Duala"
 
 #: languages.php:142
 msgid "Dutch"
-msgstr ""
+msgstr "Holandés"
 
 #: languages.php:144
 msgid "Dzongkha"
-msgstr ""
+msgstr "Dzongkha"
 
 #: languages.php:145
 msgid "East Futuna"
-msgstr ""
+msgstr "Futuna Oriental"
 
 #: languages.php:146
 msgid "Eastern Cham"
-msgstr ""
+msgstr "Cham Oriental"
 
 #: languages.php:147
 msgid "Eastern Frisian"
-msgstr ""
+msgstr "Frisón Oriental"
 
 #: languages.php:148
 msgid "Eastern Huasteca Nahuatl"
-msgstr ""
+msgstr "Náhuatl Huasteco Oriental"
 
 #: languages.php:149
 msgid "Eastern Lawa"
-msgstr ""
+msgstr "Lawa Oriental"
 
 #: languages.php:150
 msgid "Eastern Magar"
-msgstr ""
+msgstr "Magar Oriental"
 
 #: languages.php:151
 msgid "Eastern Tamang"
-msgstr ""
+msgstr "Tamang Oriental"
 
 #: languages.php:152
 msgid "Efik"
-msgstr ""
+msgstr "Efik"
 
 #: languages.php:153
 msgid "Egyptian Arabic"
-msgstr ""
+msgstr "Árabe Egipcio"
 
 #: languages.php:154
 msgid "Embu"
-msgstr ""
+msgstr "Kiembu"
 
 #: languages.php:155
 msgid "Emilian"
-msgstr ""
+msgstr "Emiliano-Romañol"
 
 #: languages.php:156
 msgid "English"
-msgstr ""
+msgstr "Inglés"
 
 #: languages.php:157
 msgid "Erzya"
-msgstr ""
+msgstr "Erzya"
 
 #: languages.php:158
 msgid "Esperanto"
-msgstr ""
+msgstr "Esperanto"
 
 #: languages.php:159
 msgid "Estonian"
-msgstr ""
+msgstr "Estonio"
 
 #: languages.php:160
 msgid "Ewe"
-msgstr ""
+msgstr "Ewé"
 
 #: languages.php:161
 msgid "Ewondo"
-msgstr ""
+msgstr "Ewondo"
 
 #: languages.php:162
 msgid "Extremaduran"
-msgstr ""
+msgstr "Extremeño"
 
 #: languages.php:163
 msgid "Fang"
-msgstr ""
+msgstr "Fang"
 
 #: languages.php:164
 msgid "Faroese"
-msgstr ""
+msgstr "Feroés"
 
 #: languages.php:165
 msgid "Fiji Jindi"
-msgstr ""
+msgstr "Hindi Fiyiano"
 
 #: languages.php:166
 msgid "Fijian"
-msgstr ""
+msgstr "Fiyiano"
 
 #: languages.php:167
 msgid "Filipino"
-msgstr ""
+msgstr "Filipino"
 
 #: languages.php:168
 msgid "Finnish"
-msgstr ""
+msgstr "Finés"
 
 #: languages.php:169
 msgid "Fon"
-msgstr ""
+msgstr "Fon"
 
 #: languages.php:170
 msgid "Frafra"
-msgstr ""
+msgstr "Frafra"
 
 #: languages.php:171
 msgid "French"
-msgstr ""
+msgstr "Francés"
 
 #: languages.php:172
 msgid "Friulian"
-msgstr ""
+msgstr "Friulano"
 
 #: languages.php:173
 msgid "Fulah"
-msgstr ""
+msgstr "Fula"
 
 #: languages.php:174
 msgid "Fulah (Adlam)"
-msgstr ""
+msgstr "Fula (Adlam)"
 
 #: languages.php:175
 msgid "Fur"
-msgstr ""
+msgstr "Fur"
 
 #: languages.php:176
 msgid "Ga"
-msgstr ""
+msgstr "Ga"
 
 #: languages.php:177
 msgid "Gaguaz"
-msgstr ""
+msgstr "Gaguaz"
 
 #: languages.php:178
 msgid "Galician"
-msgstr ""
+msgstr "Gallego"
 
 #: languages.php:179
 msgid "Gan Chinese"
-msgstr ""
+msgstr "Chino Gan"
 
 #: languages.php:180
 msgid "Ganda"
-msgstr ""
+msgstr "Luganda"
 
 #: languages.php:181
 msgid "Garhwali"
-msgstr ""
+msgstr "Garhwali"
 
 #: languages.php:182
 msgid "Garo"
-msgstr ""
+msgstr "Garo"
 
 #: languages.php:183
 msgid "Gayo"
-msgstr ""
+msgstr "Galó"
 
 #: languages.php:184
 msgid "Georgian"
-msgstr ""
+msgstr "Georgiano"
 
 #: languages.php:185
 msgid "German"
-msgstr ""
+msgstr "Alemán"
 
 #: languages.php:186
 msgid "Gheg Albanian"
-msgstr ""
+msgstr "Albanés guego"
 
 #: languages.php:187
 msgid "Ghomala"
-msgstr ""
+msgstr "Ghomala"
 
 #: languages.php:188
 msgid "Gilaki"
-msgstr ""
+msgstr "Guilakí"
 
 #: languages.php:189
 msgid "Gilbertese"
-msgstr ""
+msgstr "Gilbertés"
 
 #: languages.php:190
 msgid "Goan Konkani"
-msgstr ""
+msgstr "Goan Konkani"
 
 #: languages.php:191
 msgid "Gondi"
-msgstr ""
+msgstr "Gondí"
 
 #: languages.php:192
 msgid "Gorontalo"
-msgstr ""
+msgstr "Gorontalo"
 
 #: languages.php:193
 msgid "Greek"
-msgstr ""
+msgstr "Griego"
 
 #: languages.php:194
 msgid "Gronings"
-msgstr ""
+msgstr "Groningués"
 
 #: languages.php:195
 msgid "Guarani"
-msgstr ""
+msgstr "Guaraní"
 
 #: languages.php:196
 msgid "Guajajára"
-msgstr ""
+msgstr "Guajajara"
 
 #: languages.php:197
 msgid "Gujarati"
-msgstr ""
+msgstr "Guyaratí"
 
 #: languages.php:198
 msgid "Gujari"
-msgstr ""
+msgstr "Gujari"
 
 #: languages.php:199
 msgid "Gurung"
-msgstr ""
+msgstr "Gurung"
 
 #: languages.php:200
 msgid "Gusii"
-msgstr ""
+msgstr "Kisii"
 
 #: languages.php:201
 msgid "Gwichʼin"
-msgstr ""
+msgstr "Gwichʼin"
 
 #: languages.php:202
 msgid "Hdothi"
-msgstr ""
+msgstr "Hdothi"
 
 #: languages.php:203
 msgid "Haitian Creole\t"
-msgstr ""
+msgstr "Criollo Haitiano "
 
 #: languages.php:204
 msgid "Hakka Chinese"
-msgstr ""
+msgstr "Chino Hakka"
 
 #: languages.php:205
 msgid "Hanunoo"
-msgstr ""
+msgstr "Hanunuo"
 
 #: languages.php:206
 msgid "Haryanvi"
-msgstr ""
+msgstr "Haryanvi"
 
 #: languages.php:207
 msgid "Hassaniyya"
-msgstr ""
+msgstr "Hassania"
 
 #: languages.php:208
 msgid "Hausa"
-msgstr ""
+msgstr "Hausa"
 
 #: languages.php:209
 msgid "Hausa (Arabic)"
-msgstr ""
+msgstr "Hausa (Árabe)"
 
 #: languages.php:210
 msgid "Hawaiian"
-msgstr ""
+msgstr "Hawaiano"
 
 #: languages.php:211
 msgid "Hazaragi"
-msgstr ""
+msgstr "Hazara"
 
 #: languages.php:212
 msgid "Hebrew"
-msgstr ""
+msgstr "Hebreo"
 
 #: languages.php:213
 msgid "Herero"
-msgstr ""
+msgstr "Herero"
 
 #: languages.php:214
 msgid "Hiligaynon"
-msgstr ""
+msgstr "Hiligueino"
 
 #: languages.php:215
 msgid "Hindi"
-msgstr ""
+msgstr "Hindi"
 
 #: languages.php:216
 msgid "Hiri Motu"
-msgstr ""
+msgstr "Hiri Motu"
 
 #: languages.php:217
 msgid "Ho"
-msgstr ""
+msgstr "Ho"
 
 #: languages.php:218
 msgid "Hungarian"
-msgstr ""
+msgstr "Húngaro"
 
 #: languages.php:219
 msgid "Iban"
-msgstr ""
+msgstr "Iban"
 
 #: languages.php:220
 msgid "Ibibio"
-msgstr ""
+msgstr "Ibibio"
 
 #: languages.php:221
 msgid "Icelandic"
-msgstr ""
+msgstr "Islandés"
 
 #: languages.php:222
 msgid "Ifè"
-msgstr ""
+msgstr "Ife"
 
 #: languages.php:223
 msgid "Igbo"
-msgstr ""
+msgstr "Igbo"
 
 #: languages.php:224
 msgid "Iloko"
-msgstr ""
+msgstr "Ilocano"
 
 #: languages.php:225
 msgid "Inari Sami"
-msgstr ""
+msgstr "Sami De Inari"
 
 #: languages.php:226
 msgid "Indonesian"
-msgstr ""
+msgstr "Indonesio"
 
 #: languages.php:227
 msgid "Indus Kohistani"
-msgstr ""
+msgstr "Kohistani del Indus"
 
 #: languages.php:228
 msgid "Ingrian"
-msgstr ""
+msgstr "Ingrio"
 
 #: languages.php:229
 msgid "Ingush"
-msgstr ""
+msgstr "Ingusetio"
 
 #: languages.php:230
 msgid "Interlingua"
-msgstr ""
+msgstr "Interlingua"
 
 #: languages.php:231
 msgid "Inuinnaqtun"
-msgstr ""
+msgstr "Inuinnaqtun"
 
 #: languages.php:232
 msgid "Inuktitut"
-msgstr ""
+msgstr "Inuit"
 
 #: languages.php:233
 msgid "Inuktitut (Latin)"
-msgstr ""
+msgstr "Inuit (Latino)"
 
 #: languages.php:234
 msgid "Inupiaq"
-msgstr ""
+msgstr "Iñupiaq"
 
 #: languages.php:235
 msgid "Irish"
-msgstr ""
+msgstr "Irlandés"
 
 #: languages.php:236
 msgid "Italian"
-msgstr ""
+msgstr "Italiano"
 
 #: languages.php:237
 msgid "Jamaican Creole English"
-msgstr ""
+msgstr "Inglés Criollo Jamaicano"
 
 #: languages.php:238
 msgid "Japanese"
-msgstr ""
+msgstr "Japonés"
 
 #: languages.php:239
 msgid "Javanese"
-msgstr ""
+msgstr "Javanés"
 
 #: languages.php:240
 msgid "Jenaama Bozo"
-msgstr ""
+msgstr "Jenaama Bozo"
 
 #: languages.php:241
 msgid "Jju"
-msgstr ""
+msgstr "Jju"
 
 #: languages.php:242
 msgid "Jola-Fonyi"
-msgstr ""
+msgstr "Jola-Fonyi"
 
 #: languages.php:243
 msgid "Jumli"
-msgstr ""
+msgstr "Jumli"
 
 #: languages.php:244
 msgid "Jutish"
-msgstr ""
+msgstr "Juto"
 
 #: languages.php:245
 msgid "Kabardian"
-msgstr ""
+msgstr "Cabardiano"
 
 #: languages.php:246
 msgid "Kabuverdianu"
-msgstr ""
+msgstr "Criollo Caboverdiano"
 
 #: languages.php:247
 msgid "Kabyle"
-msgstr ""
+msgstr "Cabilio"
 
 #: languages.php:248
 msgid "Kachhi"
-msgstr ""
+msgstr "Kachhi"
 
 #: languages.php:249
 msgid "Kaingang"
-msgstr ""
+msgstr "Cáingang"
 
 #: languages.php:250
 msgid "Kako"
-msgstr ""
+msgstr "Kako"
 
 #: languages.php:251
 msgid "Kalaallisut"
-msgstr ""
+msgstr "Groenlandés"
 
 #: languages.php:252
 msgid "Kalanga"
-msgstr ""
+msgstr "Kalanga"
 
 #: languages.php:253
 msgid "Kalenjin"
-msgstr ""
+msgstr "Kalenjin"
 
 #: languages.php:254
 msgid "Kalo Finnish Romani"
-msgstr ""
+msgstr "Caló Romaní Finlandés"
 
 #: languages.php:255
 msgid "Kamba"
-msgstr ""
+msgstr "Kamba"
 
 #: languages.php:256
 msgid "Kanauji"
-msgstr ""
+msgstr "Kannauji"
 
 #: languages.php:257
 msgid "Kangri"
-msgstr ""
+msgstr "Kangri"
 
 #: languages.php:258
 msgid "Kannada"
-msgstr ""
+msgstr "Canarés"
 
 #: languages.php:259
 msgid "Kara-Kalpak"
-msgstr ""
+msgstr "Karakalpako"
 
 #: languages.php:260
 msgid "Karachay-Balkar"
-msgstr ""
+msgstr "Karachái-bálkaro"
 
 #: languages.php:261
 msgid "Karelian"
-msgstr ""
+msgstr "Carelio"
 
 #: languages.php:262
 msgid "Kashmiri"
-msgstr ""
+msgstr "Cachemiro"
 
 #: languages.php:263
 msgid "Kashubian"
-msgstr ""
+msgstr "Casubio"
 
 #: languages.php:264
 msgid "Kathoriya Tharu"
-msgstr ""
+msgstr "Kathoriya Tharu"
 
 #: languages.php:265
 msgid "Kazakh"
-msgstr ""
+msgstr "Kazajo"
 
 #: languages.php:266
 msgid "Kazakh (Arabic)"
-msgstr ""
+msgstr "Kazajo (Árabe)"
 
 #: languages.php:267
 msgid "Kerinci"
-msgstr ""
+msgstr "Kerinci"
 
 #: languages.php:268
 msgid "Khamti"
-msgstr ""
+msgstr "Khamti"
 
 #: languages.php:269
 msgid "Khandesi"
-msgstr ""
+msgstr "Khandesi"
 
 #: languages.php:270
 msgid "Khasi"
-msgstr ""
+msgstr "Khasi"
 
 #: languages.php:271
 msgid "Khmer"
-msgstr ""
+msgstr "Jemer"
 
 #: languages.php:272
 msgid "Khmu"
-msgstr ""
+msgstr "Khmu"
 
 #: languages.php:273
 msgid "Khowar"
-msgstr ""
+msgstr "Jovaro"
 
 #: languages.php:274
 msgid "Kikuyu"
-msgstr ""
+msgstr "Kikuyú"
 
 #: languages.php:275
 msgid "Kimbundu"
-msgstr ""
+msgstr "Kimbundu"
 
 #: languages.php:276
 msgid "Kinaray-a"
-msgstr ""
+msgstr "Kinaray-a"
 
 #: languages.php:277
 msgid "Kinyarwanda"
-msgstr ""
+msgstr "Kinyaruanda"
 
 #: languages.php:278
 msgid "Kirmanjki"
-msgstr ""
+msgstr "Zazaki"
 
 #: languages.php:279
 msgid "Kita Maninkakan"
-msgstr ""
+msgstr "Kita Maninkakan"
 
 #: languages.php:280
 msgid "Kochila Tharu"
-msgstr ""
+msgstr "Kochila Tharu"
 
 #: languages.php:281
 msgid "Kom"
-msgstr ""
+msgstr "Qom"
 
 #: languages.php:282
 msgid "Komering"
-msgstr ""
+msgstr "Komering"
 
 #: languages.php:283
 msgid "Komi"
-msgstr ""
+msgstr "Komi"
 
 #: languages.php:284
 msgid "Komi-Permyak"
-msgstr ""
+msgstr "Komi Permio"
 
 #: languages.php:285
 msgid "Kongo"
-msgstr ""
+msgstr "Kongo"
 
 #: languages.php:286
 msgid "Konkani"
-msgstr ""
+msgstr "Konkani"
 
 #: languages.php:287
 msgid "Korean"
-msgstr ""
+msgstr "Coreano"
 
 #: languages.php:288
 msgid "Koro"
-msgstr ""
+msgstr "Koro"
 
 #: languages.php:289
 msgid "Koro Wachi"
-msgstr ""
+msgstr "Koro Wachi"
 
 #: languages.php:290
 msgid "Kosraean"
-msgstr ""
+msgstr "Kosraseano"
 
 #: languages.php:291
 msgid "Koyra Chiini"
-msgstr ""
+msgstr "Koyra Chiini"
 
 #: languages.php:292
 msgid "Koyraboro Senni"
-msgstr ""
+msgstr "Koyraboro Senni"
 
 #: languages.php:293
 msgid "Kpelle"
-msgstr ""
+msgstr "Kpelle"
 
 #: languages.php:294
 msgid "Krio"
-msgstr ""
+msgstr "Krio"
 
 #: languages.php:295
 msgid "Kuanyama"
-msgstr ""
+msgstr "Kuanyama"
 
 #: languages.php:296
 msgid "Kumaoni"
-msgstr ""
+msgstr "Kumauni"
 
 #: languages.php:297
 msgid "Kumyk"
-msgstr ""
+msgstr "Cumuco"
 
 #: languages.php:298
 msgid "Kurdish"
-msgstr ""
+msgstr "Kurdo"
 
 #: languages.php:299
 msgid "Kurdish (Arabic)"
-msgstr ""
+msgstr "Kurdo (Árabe)"
 
 #: languages.php:300
 msgid "Kyrgyz"
-msgstr ""
+msgstr "Kirguís"
 
 #: languages.php:301
 msgid "Kyrgyz (Arabic)"
-msgstr ""
+msgstr "Kirguís (Árabe)"
 
 #: languages.php:302
 msgid "Kyrgyz (Latin)"
-msgstr ""
+msgstr "Kirguís (Latino)"
 
 #: languages.php:303
 msgid "Kʼicheʼ"
-msgstr ""
+msgstr "Quiché"
 
 #: languages.php:304
 msgid "Ladino"
-msgstr ""
+msgstr "Ladino"
 
 #: languages.php:305
 msgid "Lahnda"
-msgstr ""
+msgstr "Lahnda"
 
 #: languages.php:306
 msgid "Lak"
-msgstr ""
+msgstr "Lak"
 
 #: languages.php:307
 msgid "Laki"
-msgstr ""
+msgstr "Laki"
 
 #: languages.php:308
 msgid "Lakota"
-msgstr ""
+msgstr "Lakota"
 
 #: languages.php:309
 msgid "Lambadi"
-msgstr ""
+msgstr "Lambadi"
 
 #: languages.php:310
 msgid "Lampung Api"
-msgstr ""
+msgstr "Lampung Api"
 
 #: languages.php:311
 msgid "Langi"
-msgstr ""
+msgstr "Lango"
 
 #: languages.php:312
 msgid "Lango [Uganda]"
-msgstr ""
+msgstr "Lango [Uganda]"
 
 #: languages.php:313
 msgid "Lao"
-msgstr ""
+msgstr "Lao"
 
 #: languages.php:314
 msgid "Latgalian"
-msgstr ""
+msgstr "Latgaliano"
 
 #: languages.php:315
 msgid "Latin"
-msgstr ""
+msgstr "Latín"
 
 #: languages.php:316
 msgid "Latvian"
-msgstr ""
+msgstr "Letón"
 
 #: languages.php:317
 msgid "Laz"
-msgstr ""
+msgstr "Laz"
 
 #: languages.php:318
 msgid "Lepcha"
-msgstr ""
+msgstr "Lepcha"
 
 #: languages.php:319
 msgid "Lezghian"
-msgstr ""
+msgstr "Lezgiano"
 
 #: languages.php:320
 msgid "Ligurian"
-msgstr ""
+msgstr "Ligur"
 
 #: languages.php:321
 msgid "Limbu"
-msgstr ""
+msgstr "Limbu"
 
 #: languages.php:322
 msgid "Limburgish"
-msgstr ""
+msgstr "Limburgués"
 
 #: languages.php:323
 msgid "Lingala"
-msgstr ""
+msgstr "Lingala"
 
 #: languages.php:324
 msgid "Lisu"
-msgstr ""
+msgstr "Lisu"
 
 #: languages.php:325
 msgid "Literary Chinese"
-msgstr ""
+msgstr "Chino Literario"
 
 #: languages.php:326
 msgid "Lombard"
-msgstr ""
+msgstr "Lombardo"
 
 #: languages.php:327
 msgid "Lomwe"
-msgstr ""
+msgstr "Lomwe"
 
 #: languages.php:328
 msgid "Low German"
-msgstr ""
+msgstr "Bajo Alemán"
 
 #: languages.php:329
 msgid "Lower Silesian"
-msgstr ""
+msgstr "Bajo Silesio"
 
 #: languages.php:330
 msgid "Lower Sorbian"
-msgstr ""
+msgstr "Bajo Sorabo"
 
 #: languages.php:331
 msgid "Lozi"
-msgstr ""
+msgstr "Lozi"
 
 #: languages.php:332
 msgid "Lü"
-msgstr ""
+msgstr "Lü"
 
 #: languages.php:333
 msgid "Luba-Katanga"
-msgstr ""
+msgstr "Kiluba"
 
 #: languages.php:334
 msgid "Luba-Lulua"
-msgstr ""
+msgstr "Chiluba"
 
 #: languages.php:335
 msgid "Lule Sami"
-msgstr ""
+msgstr "Sami De Lule"
 
 #: languages.php:336
 msgid "Luo"
-msgstr ""
+msgstr "Luo"
 
 #: languages.php:337
 msgid "Luxembourgish"
-msgstr ""
+msgstr "Luxemburgués"
 
 #: languages.php:338
 msgid "Luyia"
-msgstr ""
+msgstr "Luyia"
 
 #: languages.php:339
 msgid "Maasina Fulfulde"
-msgstr ""
+msgstr "Fula Maasina"
 
 #: languages.php:340
 msgid "Macedonian"
-msgstr ""
+msgstr "Macedonio"
 
 #: languages.php:341
 msgid "Machame"
-msgstr ""
+msgstr "Machame"
 
 #: languages.php:342
 msgid "Madurese"
-msgstr ""
+msgstr "Madurés"
 
 #: languages.php:343
 msgid "Mafa"
-msgstr ""
+msgstr "Mafa"
 
 #: languages.php:344
 msgid "Magahi"
-msgstr ""
+msgstr "Magadhi"
 
 #: languages.php:345
 msgid "Maguindanaon"
-msgstr ""
+msgstr "Maguindánao"
 
 #: languages.php:346
 msgid "Main-Franconian"
-msgstr ""
+msgstr "Main-Franconian"
 
 #: languages.php:347
 msgid "Maithili"
-msgstr ""
+msgstr "Maithili"
 
 #: languages.php:348
 msgid "Makasar"
-msgstr ""
+msgstr "Macasarense"
 
 #: languages.php:349
 msgid "Makhuwa"
-msgstr ""
+msgstr "Macua"
 
 #: languages.php:350
 msgid "Makhuwa-Meetto"
-msgstr ""
+msgstr "Macua-Meetto"
 
 #: languages.php:351
 msgid "Makonde"
-msgstr ""
+msgstr "Makonde"
 
 #: languages.php:352
 msgid "Malagasy"
-msgstr ""
+msgstr "Madagascarí"
 
 #: languages.php:353
 msgid "Malay"
-msgstr ""
+msgstr "Malayo"
 
 #: languages.php:354
 msgid "Malay (Arabic)"
-msgstr ""
+msgstr "Malayo (Árabe)"
 
 #: languages.php:355
 msgid "Malayalam"
-msgstr ""
+msgstr "Malabar"
 
 #: languages.php:356
 msgid "Maltese"
-msgstr ""
+msgstr "Maltés"
 
 #: languages.php:357
 msgid "Mandar"
-msgstr ""
+msgstr "Mandé"
 
 #: languages.php:358
 msgid "Mandingo"
-msgstr ""
+msgstr "Mandinga"
 
 #: languages.php:359
 msgid "Mandingo (N’Ko)"
-msgstr ""
+msgstr "Mandinga (N’Ko)"
 
 #: languages.php:360
 msgid "Mandjak"
-msgstr ""
+msgstr "Manjaca"
 
 #: languages.php:361
 msgid "Manipuri"
-msgstr ""
+msgstr "Manipuri"
 
 #: languages.php:362
 msgid "Mankanya"
-msgstr ""
+msgstr "Mankanya"
 
 #: languages.php:363
 msgid "Manx"
-msgstr ""
+msgstr "Manx"
 
 #: languages.php:364
 msgid "Manyika"
-msgstr ""
+msgstr "Manyika"
 
 #: languages.php:365
 msgid "Maori"
-msgstr ""
+msgstr "Maori"
 
 #: languages.php:366
 msgid "Marathi"
-msgstr ""
+msgstr "Maratí"
 
 #: languages.php:367
 msgid "Mari"
-msgstr ""
+msgstr "Mari"
 
 #: languages.php:368
 msgid "Marshallese"
-msgstr ""
+msgstr "Marshalés"
 
 #: languages.php:369
 msgid "Marwari"
-msgstr ""
+msgstr "Marwari"
 
 #: languages.php:370
 msgid "Masaaba"
-msgstr ""
+msgstr "Masaba"
 
 #: languages.php:371
 msgid "Masai"
-msgstr ""
+msgstr "Masái"
 
 #: languages.php:372
 msgid "Masalit"
-msgstr ""
+msgstr "Masalit"
 
 #: languages.php:373
 msgid "Mazanderani"
-msgstr ""
+msgstr "Mazandaraní"
 
 #: languages.php:374
 msgid "Mbunga"
-msgstr ""
+msgstr "Mbunga"
 
 #: languages.php:375
 msgid "Medumba"
-msgstr ""
+msgstr "Medumba"
 
 #: languages.php:376
 msgid "Mende"
-msgstr ""
+msgstr "Mendé"
 
 #: languages.php:377
 msgid "Ménik"
-msgstr ""
+msgstr "Ménik"
 
 #: languages.php:378
 msgid "Mentawai"
-msgstr ""
+msgstr "Mentawai"
 
 #: languages.php:379
 msgid "Meru"
-msgstr ""
+msgstr "Meru"
 
 #: languages.php:380
 msgid "Metaʼ"
-msgstr ""
+msgstr "Metaʼ"
 
 #: languages.php:381
 msgid "Mewari"
-msgstr ""
+msgstr "Mewari"
 
 #: languages.php:382
 msgid "Mewati"
-msgstr ""
+msgstr "Mewati"
 
 #: languages.php:383
 msgid "Min Nan Chinese"
-msgstr ""
+msgstr "Chino Min Del Sur"
 
 #: languages.php:384
 msgid "Minangkabau"
-msgstr ""
+msgstr "Minangkabau"
 
 #: languages.php:385
 msgid "Mingrelian"
-msgstr ""
+msgstr "Megreliano"
 
 #: languages.php:386
 msgid "Mohawk"
-msgstr ""
+msgstr "Mohawk"
 
 #: languages.php:387
 msgid "Moksha"
-msgstr ""
+msgstr "Moksha"
 
 #: languages.php:388
 msgid "Mon"
-msgstr ""
+msgstr "Mon"
 
 #: languages.php:389
 msgid "Mongo"
-msgstr ""
+msgstr "Mongo"
 
 #: languages.php:390
 msgid "Mongolian"
-msgstr ""
+msgstr "Mongol"
 
 #: languages.php:391
 msgid "Mongolian (Mongolian)"
-msgstr ""
+msgstr "Mongol (Mongol)"
 
 #: languages.php:392
 msgid "Montagnais"
-msgstr ""
+msgstr "Innu-aimun"
 
 #: languages.php:393
 msgid "Moose Cree"
-msgstr ""
+msgstr "Moose Cree"
 
 #: languages.php:394
 msgid "Morisyen"
-msgstr ""
+msgstr "Criollo Mauriciano"
 
 #: languages.php:395
 msgid "Moroccan Arabic"
-msgstr ""
+msgstr "Árabe Marroquí"
 
 #: languages.php:396
 msgid "Mossi"
-msgstr ""
+msgstr "Mossi"
 
 #: languages.php:397
 msgid "Mru"
-msgstr ""
+msgstr "Mru"
 
 #: languages.php:398
 msgid "Munda"
-msgstr ""
+msgstr "Munda"
 
 #: languages.php:399
 msgid "Mundang"
-msgstr ""
+msgstr "Mundang"
 
 #: languages.php:400
 msgid "Mundari"
-msgstr ""
+msgstr "Mundari"
 
 #: languages.php:401
 msgid "Mundari (Devanagari)"
-msgstr ""
+msgstr "Mundari (Devanagari)"
 
 #: languages.php:402
 msgid "Muscogee"
-msgstr ""
+msgstr "Muskogui"
 
 #: languages.php:403
 msgid "Muslim Tat"
-msgstr ""
+msgstr "Tatí Musulman"
 
 #: languages.php:404
 msgid "N’Ko"
-msgstr ""
+msgstr "N’Ko"
 
 #: languages.php:405
 msgid "Najdi Arabic"
-msgstr ""
+msgstr "Árabe Najdí"
 
 #: languages.php:406
 msgid "Nama"
-msgstr ""
+msgstr "Nama"
 
 #: languages.php:407
 msgid "Naskapi"
-msgstr ""
+msgstr "Naskapi"
 
 #: languages.php:409
 msgid "Navajo"
-msgstr ""
+msgstr "Navajo"
 
 #: languages.php:410
 msgid "Naxi"
-msgstr ""
+msgstr "Naxi"
 
 #: languages.php:411
 msgid "Ndau"
-msgstr ""
+msgstr "Ndau"
 
 #: languages.php:412
 msgid "Ndonga"
-msgstr ""
+msgstr "Ndonga"
 
 #: languages.php:413
 msgid "Ndzwani Comorian"
-msgstr ""
+msgstr "Comorense Ndzwani"
 
 #: languages.php:414
 msgid "Neapolitan"
-msgstr ""
+msgstr "Napolitano"
 
 #: languages.php:415
 msgid "Negeri Sembilan Malay"
-msgstr ""
+msgstr "Malayo Negeri Sembilan"
 
 #: languages.php:416
 msgid "Nepali"
-msgstr ""
+msgstr "Nepalí"
 
 #: languages.php:417
 msgid "Newari"
-msgstr ""
+msgstr "Nevari"
 
 #: languages.php:418
 msgid "Ngaju"
-msgstr ""
+msgstr "Ngaju"
 
 #: languages.php:419
 msgid "Ngazidja Comorian"
-msgstr ""
+msgstr "Comorense Ngazidja"
 
 #: languages.php:420
 msgid "Ngiemboon"
-msgstr ""
+msgstr "Ngiemboon"
 
 #: languages.php:421
 msgid "Ngomba"
-msgstr ""
+msgstr "Ngomba"
 
 #: languages.php:422
 msgid "Nheengatu"
-msgstr ""
+msgstr "Ñe'engatú"
 
 #: languages.php:423
 msgid "Nigerian Fulfulde"
-msgstr ""
+msgstr "Fula Nigeriano"
 
 #: languages.php:424
 msgid "Nigerian Pidgin"
-msgstr ""
+msgstr "Pidgin Nigeriano"
 
 #: languages.php:425
 msgid "Nimadi"
-msgstr ""
+msgstr "Nimadi"
 
 #: languages.php:426
 msgid "Niuean"
-msgstr ""
+msgstr "Niuano"
 
 #: languages.php:427
 msgid "Nobiin"
-msgstr ""
+msgstr "Nobiin"
 
 #: languages.php:428
 msgid "Noon"
-msgstr ""
+msgstr "Noon"
 
 #: languages.php:429
 msgid "North Ndebele"
-msgstr ""
+msgstr "Ndebele Del Norte"
 
 #: languages.php:430
 msgid "North Slavey"
-msgstr ""
+msgstr "North Slavey"
 
 #: languages.php:431
 msgid "Northeastern Thai"
-msgstr ""
+msgstr "Tailandés Del Nordeste"
 
 #: languages.php:432
 msgid "Northern East Cree"
-msgstr ""
+msgstr "Northern East Cree"
 
 #: languages.php:433
 msgid "Northern Frisian"
-msgstr ""
+msgstr "Frisón Septentrional"
 
 #: languages.php:434
 msgid "Northern Hindko"
-msgstr ""
+msgstr "Hindko Septentrional"
 
 #: languages.php:435
 msgid "Northern Khmer"
-msgstr ""
+msgstr "Khmer Septentrional"
 
 #: languages.php:436
 msgid "Northern Luri"
-msgstr ""
+msgstr "Luri Septentrional"
 
 #: languages.php:437
 msgid "Northern Sami"
-msgstr ""
+msgstr "Sami Septentrional"
 
 #: languages.php:438
 msgid "Northern Sotho\t"
-msgstr ""
+msgstr "Sesoto Del Norte\t"
 
 #: languages.php:439
 msgid "Northern Thai"
-msgstr ""
+msgstr "Tailandés Septentrional"
 
 #: languages.php:440
 msgid "Norwegian Bokmål"
-msgstr ""
+msgstr "Bokmål Noruego"
 
 #: languages.php:441
 msgid "Norwegian Nynorsk"
-msgstr ""
+msgstr "Nynorsk Noruego"
 
 #: languages.php:442
 msgid "Nuer"
-msgstr ""
+msgstr "Nuer"
 
 #: languages.php:443
 msgid "Nyamwezi"
-msgstr ""
+msgstr "Nyamwezi"
 
 #: languages.php:444
 msgid "Nyanja"
-msgstr ""
+msgstr "Chichewa"
 
 #: languages.php:445
 msgid "Nyankole"
-msgstr ""
+msgstr "Nyakole"
 
 #: languages.php:446
 msgid "Nyasa Tonga"
-msgstr ""
+msgstr "Tonga Del Nyasa"
 
 #: languages.php:447
 msgid "Nzima"
-msgstr ""
+msgstr "Nzema"
 
 #: languages.php:448
 msgid "Occitan"
-msgstr ""
+msgstr "Occitano"
 
 #: languages.php:449
 msgid "Odia"
-msgstr ""
+msgstr "Oriya"
 
 #: languages.php:450
 msgid "Oromo"
-msgstr ""
+msgstr "Oromo"
 
 #: languages.php:451
 msgid "Osage"
-msgstr ""
+msgstr "Osage"
 
 #: languages.php:452
 msgid "Ossetic"
-msgstr ""
+msgstr "Osético"
 
 #: languages.php:453
 msgid "Palatine German"
-msgstr ""
+msgstr "Alemán Palatino"
 
 #: languages.php:454
 msgid "Palauan"
-msgstr ""
+msgstr "Palauano"
 
 #: languages.php:455
 msgid "Pampanga"
-msgstr ""
+msgstr "Pampango"
 
 #: languages.php:456
 msgid "Pangasinan"
-msgstr ""
+msgstr "Pangasinán"
 
 #: languages.php:457
 msgid "Papiamento"
-msgstr ""
+msgstr "Papiamento"
 
 #: languages.php:458
 msgid "Parkari Koli"
-msgstr ""
+msgstr "Parkari Koli"
 
 #: languages.php:459
 msgid "Parsi-Dari"
-msgstr ""
+msgstr "Persa Darí"
 
 #: languages.php:460
 msgid "Pashto"
-msgstr ""
+msgstr "Pashtu"
 
 #: languages.php:461
 msgid "Pattani Malay"
-msgstr ""
+msgstr "Malayo Pattani"
 
 #: languages.php:462
 msgid "Pennsylvania German"
-msgstr ""
+msgstr "Alemán De Pensilvania"
 
 #: languages.php:463
 msgid "Persian"
-msgstr ""
+msgstr "Persa"
 
 #: languages.php:464
 msgid "Picard"
-msgstr ""
+msgstr "Picardo"
 
 #: languages.php:465
 msgid "Piedmontese"
-msgstr ""
+msgstr "Piamontés"
 
 #: languages.php:466
 msgid "Plains Cree"
-msgstr ""
+msgstr "Plains Cree"
 
 #: languages.php:467
 msgid "Plautdietsch"
-msgstr ""
+msgstr "Plautdietsch"
 
 #: languages.php:468
 msgid "Pohnpeian"
-msgstr ""
+msgstr "Pohnpeiano"
 
 #: languages.php:469
 msgid "Pökoot"
-msgstr ""
+msgstr "Pökoot"
 
 #: languages.php:470
 msgid "Polish"
-msgstr ""
+msgstr "Polaco"
 
 #: languages.php:471
 msgid "Pontic"
-msgstr ""
+msgstr "Póntico"
 
 #: languages.php:472
 msgid "Portuguese"
-msgstr ""
+msgstr "Portugués"
 
 #: languages.php:473
 msgid "Punjabi"
-msgstr ""
+msgstr "Panjaby"
 
 #: languages.php:474
 msgid "Punjabi (Arabic)"
-msgstr ""
+msgstr "Panjaby (Árabe)"
 
 #: languages.php:475
 msgid "Punu"
-msgstr ""
+msgstr "Punu"
 
 #: languages.php:476
 msgid "Quechua"
-msgstr ""
+msgstr "Quechua"
 
 #: languages.php:477
 msgid "Rajasthani"
-msgstr ""
+msgstr "Rayastaní"
 
 #: languages.php:478
 msgid "Rajbanshi"
-msgstr ""
+msgstr "Rajbanshi"
 
 #: languages.php:479
 msgid "Rana Tharu"
-msgstr ""
+msgstr "Rana Tharu"
 
 #: languages.php:480
 msgid "Rangpuri"
-msgstr ""
+msgstr "Rangpuri"
 
 #: languages.php:481
 msgid "Rejang"
-msgstr ""
+msgstr "Redjang"
 
 #: languages.php:482
 msgid "Réunion Creole French"
-msgstr ""
+msgstr "Criollo De Reunión"
 
 #: languages.php:483
 msgid "Riang [India]"
-msgstr ""
+msgstr "Riang [India]"
 
 #: languages.php:484
 msgid "Riffian"
-msgstr ""
+msgstr "Rifeño"
 
 #: languages.php:485
 msgid "Riffian (Latin)"
-msgstr ""
+msgstr "Rifeño (Latino)"
 
 #: languages.php:486
 msgid "Rinconada Bikol"
-msgstr ""
+msgstr "Rinconada Bikol"
 
 #: languages.php:487
 msgid "Romagnol"
-msgstr ""
+msgstr "Romañol"
 
 #: languages.php:488
 msgid "Romanian"
-msgstr ""
+msgstr "Rumano"
 
 #: languages.php:489
 msgid "Romansh"
-msgstr ""
+msgstr "Romanche"
 
 #: languages.php:490
 msgid "Rombo"
-msgstr ""
+msgstr "Kirombo"
 
 #: languages.php:491
 msgid "Ronga"
-msgstr ""
+msgstr "Xironga"
 
 #: languages.php:492
 msgid "Rotuman"
-msgstr ""
+msgstr "Rotuman"
 
 #: languages.php:493
 msgid "Roviana"
-msgstr ""
+msgstr "Roviana"
 
 #: languages.php:494
 msgid "Rundi"
-msgstr ""
+msgstr "Kirundi"
 
 #: languages.php:495
 msgid "Russian"
-msgstr ""
+msgstr "Ruso"
 
 #: languages.php:496
 msgid "Rusyn"
-msgstr ""
+msgstr "Rusino"
 
 #: languages.php:497
 msgid "Rwa"
-msgstr ""
+msgstr "Rwa"
 
 #: languages.php:498
 msgid "Saafi-Saafi"
-msgstr ""
+msgstr "Saafi-Saafi"
 
 #: languages.php:499
 msgid "Sadri"
-msgstr ""
+msgstr "Sadri"
 
 #: languages.php:500
 msgid "Safaliba"
-msgstr ""
+msgstr "Safaliba"
 
 #: languages.php:501
 msgid "Saho"
-msgstr ""
+msgstr "Saho"
 
 #: languages.php:502
 msgid "Sakha"
-msgstr ""
+msgstr "Sakha"
 
 #: languages.php:503
 msgid "Samburu"
-msgstr ""
+msgstr "Samburu"
 
 #: languages.php:504
 msgid "Samoan"
-msgstr ""
+msgstr "Samoano"
 
 #: languages.php:505
 msgid "Samogitian"
-msgstr ""
+msgstr "Samogitiano"
 
 #: languages.php:506
 msgid "Sangir"
-msgstr ""
+msgstr "Sangir"
 
 #: languages.php:507
 msgid "Sango"
-msgstr ""
+msgstr "Sango"
 
 #: languages.php:508
 msgid "Sangu"
-msgstr ""
+msgstr "Sango"
 
 #: languages.php:509
 msgid "Sanskrit"
-msgstr ""
+msgstr "Sánscrito"
 
 #: languages.php:510
 msgid "Santali"
-msgstr ""
+msgstr "Santalí"
 
 #: languages.php:511
 msgid "Saraiki"
-msgstr ""
+msgstr "Seraiki"
 
 #: languages.php:512
 msgid "Sasak"
-msgstr ""
+msgstr "Sasak"
 
 #: languages.php:513
 msgid "Sassarese Sardinian"
-msgstr ""
+msgstr "Sasarés Sardo"
 
 #: languages.php:514
 msgid "Saterland Frisian"
-msgstr ""
+msgstr "Frisón De Saterland"
 
 #: languages.php:515
 msgid "Saurashtra"
-msgstr ""
+msgstr "Saurashtra"
 
 #: languages.php:516
 msgid "Scots"
-msgstr ""
+msgstr "Escocés"
 
 #: languages.php:517
 msgid "Scottish Gaelic"
-msgstr ""
+msgstr "Gaélico Escocés"
 
 #: languages.php:518
 msgid "Selayar"
-msgstr ""
+msgstr "Selayar"
 
 #: languages.php:519
 msgid "Sena"
-msgstr ""
+msgstr "Sena"
 
 #: languages.php:520
 msgid "Serbian"
-msgstr ""
+msgstr "Serbio"
 
 #: languages.php:521
 msgid "Serbian (Latin)"
-msgstr ""
+msgstr "Serbio (Latino)"
 
 #: languages.php:522
 msgid "Serer"
-msgstr ""
+msgstr "Serer"
 
 #: languages.php:523
 msgid "Seri"
-msgstr ""
+msgstr "Seri"
 
 #: languages.php:524
 msgid "Seselwa Creole French"
-msgstr ""
+msgstr "Criollo Seychellense"
 
 #: languages.php:525
 msgid "Shambala"
-msgstr ""
+msgstr "Shambala"
 
 #: languages.php:526
 msgid "Shan"
-msgstr ""
+msgstr "Shan"
 
 #: languages.php:527
 msgid "Shekhawati"
-msgstr ""
+msgstr "Shekhawati"
 
 #: languages.php:528
 msgid "Sherpa"
-msgstr ""
+msgstr "Sherpa"
 
 #: languages.php:529
 msgid "Shona"
-msgstr ""
+msgstr "Shona"
 
 #: languages.php:530
 msgid "Sichuan Yi"
-msgstr ""
+msgstr "Nuosu"
 
 #: languages.php:531
 msgid "Sicilian"
-msgstr ""
+msgstr "Siciliano"
 
 #: languages.php:532
 msgid "Sidamo"
-msgstr ""
+msgstr "Sidamo"
 
 #: languages.php:533
 msgid "Silesian"
-msgstr ""
+msgstr "Silesio"
 
 #: languages.php:534
 msgid "Sindhi"
-msgstr ""
+msgstr "Sindhi"
 
 #: languages.php:535
 msgid "Sindhi (Devanagari)"
-msgstr ""
+msgstr "Sindhi (Devanagari)"
 
 #: languages.php:536
 msgid "Sinhala"
-msgstr ""
+msgstr "Cingalés"
 
 #: languages.php:537
 msgid "Sinte Romani"
-msgstr ""
+msgstr "Romaní Sinti"
 
 #: languages.php:538
 msgid "Sirmauri"
-msgstr ""
+msgstr "Sirmauri"
 
 #: languages.php:539
 msgid "Skolt Sami"
-msgstr ""
+msgstr "Sami Skolt"
 
 #: languages.php:540
 msgid "Slave"
-msgstr ""
+msgstr "Eslavo"
 
 #: languages.php:541
 msgid "Slovak"
-msgstr ""
+msgstr "Eslovaco"
 
 #: languages.php:542
 msgid "Slovenian"
-msgstr ""
+msgstr "Esloveno"
 
 #: languages.php:543
 msgid "Soga"
-msgstr ""
+msgstr "Soga"
 
 #: languages.php:544
 msgid "Somali"
-msgstr ""
+msgstr "Somalí"
 
 #: languages.php:545
 msgid "Soninke"
-msgstr ""
+msgstr "Soninke"
 
 #: languages.php:546
 msgid "South Ndebele"
-msgstr ""
+msgstr "Ndebele Del Sur"
 
 #: languages.php:547
 msgid "Southern Altai"
-msgstr ""
+msgstr "Altái Del Sur"
 
 #: languages.php:548
 msgid "Southern East Cree"
-msgstr ""
+msgstr "Southern East Cree"
 
 #: languages.php:549
 msgid "Southern Hindko"
-msgstr ""
+msgstr "Hindko Meridional"
 
 #: languages.php:550
 msgid "Southern Kurdish"
-msgstr ""
+msgstr "Kurdo Meridional"
 
 #: languages.php:551
 msgid "Southern Luri"
-msgstr ""
+msgstr "Luri Meridional"
 
 #: languages.php:552
 msgid "Southern Sami"
-msgstr ""
+msgstr "Sami Meridional"
 
 #: languages.php:553
 msgid "Southern Sotho"
-msgstr ""
+msgstr "Sesoto"
 
 #: languages.php:554
 msgid "Southern Thai"
-msgstr ""
+msgstr "Tailandés Meridional"
 
 #: languages.php:555
 msgid "Spanish"
@@ -4552,39 +4550,39 @@ msgstr "Español"
 
 #: languages.php:556
 msgid "Sranan Tongo"
-msgstr ""
+msgstr "Sranan Tongo"
 
 #: languages.php:557
 msgid "Standard Moroccan Tamazigh"
-msgstr ""
+msgstr "Amazig Estándar Marroquí"
 
 #: languages.php:558
 msgid "Sukuma"
-msgstr ""
+msgstr "Sukuma"
 
 #: languages.php:559
 msgid "Sundanese"
-msgstr ""
+msgstr "Sundanés"
 
 #: languages.php:560
 msgid "Susu"
-msgstr ""
+msgstr "Susu"
 
 #: languages.php:561
 msgid "Swabian"
-msgstr ""
+msgstr "Suabo"
 
 #: languages.php:562
 msgid "Swahili"
-msgstr ""
+msgstr "Suajili"
 
 #: languages.php:563
 msgid "Swampy Cree"
-msgstr ""
+msgstr "Swampy Cree"
 
 #: languages.php:564
 msgid "Swati"
-msgstr ""
+msgstr "Suazi"
 
 #: languages.php:565
 msgid "Swedish"
@@ -4592,275 +4590,275 @@ msgstr "Sueco"
 
 #: languages.php:566
 msgid "Swiss German"
-msgstr ""
+msgstr "Alemán Suizo"
 
 #: languages.php:567
 msgid "Sylheti"
-msgstr ""
+msgstr "Silheti"
 
 #: languages.php:568
 msgid "Syriac"
-msgstr ""
+msgstr "Siríaco"
 
 #: languages.php:569
 msgid "Tachelhit"
-msgstr ""
+msgstr "Tashelhit"
 
 #: languages.php:570
 msgid "Tachelhit (Latin)"
-msgstr ""
+msgstr "Tashelhit (Latino)"
 
 #: languages.php:571
 msgid "Tae"
-msgstr ""
+msgstr "Tae"
 
 #: languages.php:572
 msgid "Tagbanwa"
-msgstr ""
+msgstr "Tagbanuá"
 
 #: languages.php:573
 msgid "Tahitian"
-msgstr ""
+msgstr "Tahitiano"
 
 #: languages.php:574
 msgid "Tai Nüa"
-msgstr ""
+msgstr "Tai Nüa"
 
 #: languages.php:575
 msgid "Taita"
-msgstr ""
+msgstr "Taita"
 
 #: languages.php:576
 msgid "Tajik"
-msgstr ""
+msgstr "Tayiko"
 
 #: languages.php:577
 msgid "Tajik (Arabic)"
-msgstr ""
+msgstr "Tayiko (Árabe)"
 
 #: languages.php:578
 msgid "Talysh"
-msgstr ""
+msgstr "Talysh"
 
 #: languages.php:579
 msgid "Tamashek"
-msgstr ""
+msgstr "Tamacheq"
 
 #: languages.php:580
 msgid "Tamil"
-msgstr ""
+msgstr "Tamil"
 
 #: languages.php:581
 msgid "Taroko"
-msgstr ""
+msgstr "Taroko"
 
 #: languages.php:582
 msgid "Tasawaq"
-msgstr ""
+msgstr "Tasawaq"
 
 #: languages.php:583
 msgid "Tatar"
-msgstr ""
+msgstr "Tártaro"
 
 #: languages.php:584
 msgid "Tausug"
-msgstr ""
+msgstr "Joloano"
 
 #: languages.php:585
 msgid "Tavringer Romani"
-msgstr ""
+msgstr "Romaní Escandinavo"
 
 #: languages.php:586
 msgid "Telugu"
-msgstr ""
+msgstr "Telugu"
 
 #: languages.php:587
 msgid "Teso"
-msgstr ""
+msgstr "Teso"
 
 #: languages.php:588
 msgid "Tetum"
-msgstr ""
+msgstr "Tetum"
 
 #: languages.php:589
 msgid "Thai"
-msgstr ""
+msgstr "Tailandés"
 
 #: languages.php:590
 msgid "Thulung"
-msgstr ""
+msgstr "Thulung"
 
 #: languages.php:591
 msgid "Tibetan"
-msgstr ""
+msgstr "Tibetano"
 
 #: languages.php:592
 msgid "Tigre"
-msgstr ""
+msgstr "Tigré"
 
 #: languages.php:593
 msgid "Tigrinya"
-msgstr ""
+msgstr "Tigriña"
 
 #: languages.php:594
 msgid "Timne"
-msgstr ""
+msgstr "Temné"
 
 #: languages.php:595
 msgid "Tiv"
-msgstr ""
+msgstr "Tiv"
 
 #: languages.php:596
 msgid "Tok Pisin"
-msgstr ""
+msgstr "Tok Pisin"
 
 #: languages.php:598
 msgid "Tolaki"
-msgstr ""
+msgstr "Tolaki"
 
 #: languages.php:599
 msgid "Tomo Kan Dogon"
-msgstr ""
+msgstr "Tomo Kan Dogon"
 
 #: languages.php:600
 msgid "Tongan"
-msgstr ""
+msgstr "Tongano"
 
 #: languages.php:601
 msgid "Tooro"
-msgstr ""
+msgstr "Tooro"
 
 #: languages.php:602
 msgid "Tornedalen Finnish"
-msgstr ""
+msgstr "Meänkieli"
 
 #: languages.php:603
 msgid "Traditional Chinese"
-msgstr ""
+msgstr "Chino Tradicional"
 
 #: languages.php:604
 msgid "Tsakhur"
-msgstr ""
+msgstr "Zahur"
 
 #: languages.php:605
 msgid "Tsakonian"
-msgstr ""
+msgstr "Tsakoniano"
 
 #: languages.php:606
 msgid "Tshangla"
-msgstr ""
+msgstr "Tshangla"
 
 #: languages.php:607
 msgid "Tsonga"
-msgstr ""
+msgstr "Tsonga"
 
 #: languages.php:608
 msgid "Tswana"
-msgstr ""
+msgstr "Setsuana"
 
 #: languages.php:609
 msgid "Tulu"
-msgstr ""
+msgstr "Tulu"
 
 #: languages.php:610
 msgid "Tumbuka"
-msgstr ""
+msgstr "Tumbuka"
 
 #: languages.php:611
 msgid "Tunisian Arabic"
-msgstr ""
+msgstr "Árabe Tunecino"
 
 #: languages.php:612
 msgid "Turkish"
-msgstr ""
+msgstr "Turco"
 
 #: languages.php:613
 msgid "Turkmen"
-msgstr ""
+msgstr "Turkmeno"
 
 #: languages.php:614
 msgid "Turoyo"
-msgstr ""
+msgstr "Turoyo"
 
 #: languages.php:616
 msgid "Tuvinian"
-msgstr ""
+msgstr "Tuviniano"
 
 #: languages.php:617
 msgid "Tyap"
-msgstr ""
+msgstr "Tyap"
 
 #: languages.php:618
 msgid "Uab Meto"
-msgstr ""
+msgstr "Uab Meto"
 
 #: languages.php:619
 msgid "Udmurt"
-msgstr ""
+msgstr "Udmurto"
 
 #: languages.php:620
 msgid "Ukrainian"
-msgstr ""
+msgstr "Ucraniano"
 
 #: languages.php:621
 msgid "Ulithian"
-msgstr ""
+msgstr "Ulithiano"
 
 #: languages.php:622
 msgid "Umbundu"
-msgstr ""
+msgstr "Umbundu"
 
 #: languages.php:623
 msgid "nknown language"
-msgstr ""
+msgstr "Idioma desconocido"
 
 #: languages.php:624
 msgid "Upper Sorbian"
-msgstr ""
+msgstr "Alto Sorabo"
 
 #: languages.php:625
 msgid "Urdu"
-msgstr ""
+msgstr "Urdu"
 
 #: languages.php:626
 msgid "Uyghur"
-msgstr ""
+msgstr "Uigur"
 
 #: languages.php:627
 msgid "Uyghur (Cyrillic)"
-msgstr ""
+msgstr "Uigur (Cirílico)"
 
 #: languages.php:628
 msgid "Uzbek"
-msgstr ""
+msgstr "Uzbeco"
 
 #: languages.php:629
 msgid "Uzbek (Arabic)"
-msgstr ""
+msgstr "Uzbeco (Árabe)"
 
 #: languages.php:630
 msgid "Uzbek (Cyrillic)"
-msgstr ""
+msgstr "Uzbeco (Cirílico)"
 
 #: languages.php:631
 msgid "Vai"
-msgstr ""
+msgstr "Vai"
 
 #: languages.php:632
 msgid "Vai (Latin)"
-msgstr ""
+msgstr "Vai (Latino)"
 
 #: languages.php:633
 msgid "Venda"
-msgstr ""
+msgstr "Venda"
 
 #: languages.php:634
 msgid "Venetian"
-msgstr ""
+msgstr "Veneciano"
 
 #: languages.php:635
 msgid "Veps"
-msgstr ""
+msgstr "Vepsio"
 
 #: languages.php:636
 msgid "Vietnamese"
@@ -4868,171 +4866,171 @@ msgstr "Vietnamita"
 
 #: languages.php:637
 msgid "Virgin Islands Creole English"
-msgstr ""
+msgstr "Inglés Ccriollo De Las Islas Vírgenes"
 
 #: languages.php:638
 msgid "Võro"
-msgstr ""
+msgstr "Võro"
 
 #: languages.php:639
 msgid "Votic"
-msgstr ""
+msgstr "Votio"
 
 #: languages.php:640
 msgid "Vunjo"
-msgstr ""
+msgstr "Vunjo"
 
 #: languages.php:641
 msgid "Waddar"
-msgstr ""
+msgstr "Waddar"
 
 #: languages.php:642
 msgid "Wadiyara Koli"
-msgstr ""
+msgstr "Wadiyara Koli"
 
 #: languages.php:643
 msgid "Wagdi"
-msgstr ""
+msgstr "Wagdi"
 
 #: languages.php:644
 msgid "Wallisian"
-msgstr ""
+msgstr "Wallisiano"
 
 #: languages.php:645
 msgid "Walloon"
-msgstr ""
+msgstr "Valón"
 
 #: languages.php:646
 msgid "Walser"
-msgstr ""
+msgstr "Walser"
 
 #: languages.php:647
 msgid "Waray"
-msgstr ""
+msgstr "Samareño"
 
 #: languages.php:648
 msgid "Warlpiri"
-msgstr ""
+msgstr "Warlpiri"
 
 #: languages.php:649
 msgid "Wayuu"
-msgstr ""
+msgstr "Wayú"
 
 #: languages.php:650
 msgid "Welsh"
-msgstr ""
+msgstr "Galés"
 
 #: languages.php:651
 msgid "West Flemish"
-msgstr ""
+msgstr "Flamenco Occidental"
 
 #: languages.php:652
 msgid "Western Balochi"
-msgstr ""
+msgstr "Baluchi Occidental"
 
 #: languages.php:653
 msgid "Western Cham"
-msgstr ""
+msgstr "Cham Occidental"
 
 #: languages.php:654
 msgid "Western Frisian"
-msgstr ""
+msgstr "Frisón Occidental"
 
 #: languages.php:655
 msgid "Western Huasteca Nahuat"
-msgstr ""
+msgstr "Náhuatl Huasteco Occidental"
 
 #: languages.php:656
 msgid "Western Lawa"
-msgstr ""
+msgstr "Lawa Occidental"
 
 #: languages.php:657
 msgid "Western Magar"
-msgstr ""
+msgstr "Magar Occidental"
 
 #: languages.php:658
 msgid "Western Mari"
-msgstr ""
+msgstr "Mari Occidental"
 
 #: languages.php:659
 msgid "Western Tamang"
-msgstr ""
+msgstr "Tamang Occidental"
 
 #: languages.php:660
 msgid "Wolaytta"
-msgstr ""
+msgstr "Wolaitaa"
 
 #: languages.php:661
 msgid "Wolof"
-msgstr ""
+msgstr "Wolof"
 
 #: languages.php:662
 msgid "Wu Chinese"
-msgstr ""
+msgstr "Chino Wu"
 
 #: languages.php:663
 msgid "Xaasongaxango"
-msgstr ""
+msgstr "Xaasongaxango"
 
 #: languages.php:664
 msgid "Xavánte"
-msgstr ""
+msgstr "Xavante"
 
 #: languages.php:665
 msgid "Xiang Chinese"
-msgstr ""
+msgstr "Chino Xiang"
 
 #: languages.php:666
 msgid "Yangben"
-msgstr ""
+msgstr "Yangben"
 
 #: languages.php:667
 msgid "Yao"
-msgstr ""
+msgstr "Yao"
 
 #: languages.php:668
 msgid "Yapese"
-msgstr ""
+msgstr "Yapés"
 
 #: languages.php:669
 msgid "Yemba"
-msgstr ""
+msgstr "Yemba"
 
 #: languages.php:670
 msgid "Yiddish"
-msgstr ""
+msgstr "Yidish"
 
 #: languages.php:671
 msgid "Yoruba"
-msgstr ""
+msgstr "Yoruba"
 
 #: languages.php:672
 msgid "Yucateco"
-msgstr ""
+msgstr "Yucateco"
 
 #: languages.php:673
 msgid "Zaghawa"
-msgstr ""
+msgstr "Zaghawa"
 
 #: languages.php:674
 msgid "Zarma"
-msgstr ""
+msgstr "Zarma"
 
 #: languages.php:675
 msgid "Zaza"
-msgstr ""
+msgstr "Zaza"
 
 #: languages.php:676
 msgid "Zeelandic"
-msgstr ""
+msgstr "Zelandés"
 
 #: languages.php:677
 msgid "Zoroastrian Dari"
-msgstr ""
+msgstr "Zoroastrian Dari"
 
 #: languages.php:678
 msgid "Zulu"
-msgstr ""
+msgstr "Zulú"
 
 #: lib/events.php:20
 msgid "Please"
@@ -5040,7 +5038,7 @@ msgstr "Por favor"
 
 #: lib/events.php:21
 msgid "log in"
-msgstr "iniciar sesión"
+msgstr "inicie sesión"
 
 #: lib/events.php:22
 msgid "to create or join events"
@@ -5048,11 +5046,11 @@ msgstr "para crear o unir eventos"
 
 #: lib/groups.php:460
 msgid "Joined Group"
-msgstr "Grupo unido"
+msgstr "Unido al grupo"
 
 #: lib/groups.php:470
 msgid "Could not join group"
-msgstr "No podría unir grupo"
+msgstr "No se puede unir al grupo"
 
 #: lib/groups.php:696
 msgid "Export Events"
@@ -5072,7 +5070,7 @@ msgstr "Tamaño de imagen demasiado pequeño"
 
 #: lib/utils.php:134 lib/utils.php:146
 msgid "Invalid image provided"
-msgstr "Imagen provista no es válida"
+msgstr "La imagen provista no es válida"
 
 #: lib/utils.php:157
 msgid "Image size to large "
@@ -5084,7 +5082,7 @@ msgstr "(250KB máximo)"
 
 #: lib/utils.php:596
 msgid "Group Created On"
-msgstr "El grupo Creó Encima"
+msgstr "Grupo creado en"
 
 #: lib/utils.php:597
 msgid "Admins"
@@ -5096,35 +5094,35 @@ msgstr "Eventos"
 
 #: lib/utils.php:599
 msgid "Group Verified On"
-msgstr "El grupo Verificó Encima"
+msgstr "Grupo verificado"
 
 #: page-activities.php:42
 msgid ""
 "Activities are “evergreen” because they’re always important, relevant to "
 "Mozilla’s mission and need your participation now!"
 msgstr ""
-"Las actividades son “perennifolias” porque son siempre importantes, "
-"pertinentes a la misión de Mozilla y necesitar vuestra participación ahora!"
+"¡Las actividades son \"perennes\" porque siempre son importantes, relevantes "
+"para la misión de Mozilla y necesitan su participación ahora!"
 
 #: page-campaigns.php:126
 msgid ""
 "Campaigns are how we come together to solve big problems. Take a look at our "
 "active campaigns and join in!"
 msgstr ""
-"Las campañas son cómo nosotras viene junto de solucionar problemas grandes. "
-"Tomar una mirada en nuestras campañas activas y unir en!"
+"Las campañas son la forma en que nos unimos para resolver grandes problemas. "
+"¡Eche un vistazo a nuestras campañas activas y únase!"
 
 #: page-campaigns.php:197
 msgid "Campaign Incoming!"
-msgstr "Campaña Incoming!"
+msgstr "¡Llegando una campaña!"
 
 #: page-campaigns.php:198
 msgid ""
 "An extra cool Mozilla campaign is coming soon.  Keep an eye out for when it "
 "launches."
 msgstr ""
-"Una campaña de Mozilla fresca extra está viniendo pronto.  Mantener un ojo "
-"fuera para cuándo  lanza."
+"Próximamente llegará una campaña extra genial de Mozilla. Esté atento a "
+"cuando se lance."
 
 #: page-campaigns.php:257
 msgid "Past Campaigns"
@@ -5135,8 +5133,8 @@ msgid ""
 "Mozilla communities do great work together. These campaigns are over now but "
 "feel free to check out what everyone accomplished."
 msgstr ""
-"Comunidades de Mozilla  el trabajo grande junto. Estas campañas son encima "
-"ahora pero sentir libre de comprobar qué todo el mundo cumplió."
+"Las comunidades de Mozilla hacen un gran trabajo juntas. Estas campañas ya "
+"terminaron, pero siéntase libre de ver lo que todos lograron."
 
 #: page-edit-event.php:41
 msgid "Edit Event"
@@ -5148,22 +5146,22 @@ msgstr "Crear evento"
 
 #: page-edit-event.php:56
 msgid "You are not authorized to edit this event."
-msgstr "No eres autorizado para editar este acontecimiento."
+msgstr "No está autorizado para editar este evento."
 
 #: page-events.php:22
 msgid ""
 "Ready to join the movement? Check out what's happening soon in your area. "
 msgstr ""
-"A punto para unir el movimiento? Comprobar qué está pasando pronto en "
-"vuestra área. "
+"¿Listo para unirse al movimiento? Compruebe qué está pasando pronto en su "
+"área. "
 
 #: page-events.php:23
 msgid "Explore community events near you, "
-msgstr "Explora acontecimientos de comunidad os te acercáis, "
+msgstr "Explorar eventos de comunidad cercanos, "
 
 #: page-events.php:23
 msgid "organize your own!"
-msgstr "Organizar vuestro propio!"
+msgstr "organizar uno propio!"
 
 #: plugins/events-manager/classes/em-ticket.php:240
 msgid "Standard Ticket"
@@ -5190,7 +5188,7 @@ msgstr "Campos faltantes: "
 
 #: plugins/events-manager/classes/em-ticket.php:795
 msgid "You cannot delete a ticket that has a booking on it."
-msgstr "No puedes eliminar un ticket que tiene un reservando encima lo."
+msgstr "No puede eliminar un ticket que tiene una reserva."
 
 #: plugins/events-manager/forms/event-editor.php:28
 msgid "Unauthorized Access"
@@ -5198,7 +5196,7 @@ msgstr "Acceso no autorizado"
 
 #: plugins/events-manager/forms/event-editor.php:28
 msgid "You do not have the rights to manage this event."
-msgstr "No tienes los derechos de dirigir este acontecimiento."
+msgstr "No tiene los derechos de dirigir este evento."
 
 #: plugins/events-manager/forms/event-editor.php:72
 msgid "Your Details"
@@ -5226,9 +5224,9 @@ msgid ""
 "Add in the details of your event’s agenda here. If this is a multi-day "
 "event, you can add in the details of each day’s schedule and start/end time."
 msgstr ""
-"Añade en los detalles del orden del día de vuestro acontecimiento aquí. Si "
-"esto es un multi-acontecimiento de día,  puedes añadir en los detalles de "
-"los programa y fin/de inicio de cada día tiempo."
+"Añada los detalles de la agenda de su evento aquí. Si se trata de un evento "
+"de varios días, puede agregar los detalles de la programación de cada día y "
+"la hora de inicio/finalización."
 
 #: plugins/events-manager/forms/event-editor.php:128
 msgid "Event goal(s)"
@@ -5240,7 +5238,7 @@ msgstr "# esperado de asistentes"
 
 #: plugins/events-manager/forms/event-editor.php:175
 msgid "Is this event part of an activity or campaign?"
-msgstr "Es esta parte de acontecimiento de una actividad o campaña?"
+msgstr "¿Es este evento parte de una actividad o campaña?"
 
 #: plugins/events-manager/forms/event-editor.php:177
 msgid "No"
@@ -5257,14 +5255,14 @@ msgid ""
 "our communities. By creating an event on this platform you are agreeing to "
 "respect and adhere to"
 msgstr ""
-"El Proyecto de Mozilla da la bienvenida a contribuciones de todo el mundo "
-"quién comparte nuestros objetivos y quiere contribuir en una manera sana y "
-"constructiva dentro de nuestras comunidades. Por crear un acontecimiento en "
-"esta plataforma  estás apalabrando respeto y adherir a"
+"El Proyecto Mozilla agradece las contribuciones de todos los que comparten "
+"nuestros objetivos y desean contribuir de manera saludable y constructiva "
+"dentro de nuestras comunidades. Al crear un evento en esta plataforma, usted "
+"acepta respetar y adherirse a"
 
 #: plugins/events-manager/forms/event-editor.php:219
 msgid "Mozilla’s Community Participation Guidelines (“CPG”)"
-msgstr "Las directrices de Participación de la Comunidad de Mozilla (“CPG”)"
+msgstr "la guías de participación de la comunidad de Mozilla (“CPG”)"
 
 #: plugins/events-manager/forms/event-editor.php:220
 msgid ""
@@ -5272,39 +5270,35 @@ msgid ""
 "Events that do not share our goals, or violate the CPG in any way, will be "
 "removed from the platform and potentially subject to further consequences."
 msgstr ""
-"para ayudarnos crear una comunidad segura y positiva experiencia para todo. "
-"Los eventos que no compartan nuestros objetivos o violen el CPG en cualquier "
-"manera, serán quitados de la plataforma y potencialmente sujetos a "
-"consecuencias posteriores."
+"para ayudarnos a crear una experiencia comunitaria segura y positiva para "
+"todos. Los eventos que no compartan nuestros objetivos o que infrinjan la "
+"CPG de alguna manera se eliminarán de la plataforma y estarán potencialmente "
+"sujetos a otras consecuencias."
 
 #: plugins/events-manager/forms/event-editor.php:231
 msgid ""
 "I agree to respect and adhere to Mozilla’s Community Participation "
 "Guidelines *"
 msgstr ""
-"Apalabro respeto y adherir a las directrices de Participación de la "
-"Comunidad de Mozilla *"
+"Acepto respetar y adherir a las guías de participación de la comunidad de "
+"Mozilla *"
 
 #: plugins/events-manager/forms/event-editor.php:234
 msgid "Please agree to the community guidelines"
-msgstr "Lorem ipsum test"
+msgstr "Acepte las guías de la comunidad"
 
 #: plugins/events-manager/forms/event-editor.php:244
 msgid ""
 "This action will permanently delete this event. Would you like to continue?"
-msgstr ""
-"Esta acción permanentemente eliminará este acontecimiento.  te gusta "
-"continuar?"
+msgstr "Esta acción eliminará permanentemente este evento. ¿Desea continuar?"
 
 #: plugins/events-manager/forms/event-editor.php:258
-#, fuzzy
-#| msgid "Related Events"
 msgid "Delete Event"
-msgstr "Relacionó Acontecimientos"
+msgstr "Borrar evento"
 
 #: plugins/events-manager/forms/event-editor.php:268
 msgid "Update Event"
-msgstr "Acontecimiento de actualización"
+msgstr "Actualizar evento"
 
 #: plugins/events-manager/forms/event/bookings-ticket-form.php:22
 msgid "Enter a ticket name."
@@ -5322,7 +5316,7 @@ msgstr "Precio"
 
 #: plugins/events-manager/forms/event/bookings-ticket-form.php:31
 msgid "Enter a maximum number of spaces (required)."
-msgstr "Introducir un número máximo de espacios (requeridos)."
+msgstr "Introducir un número máximo de espacios (requerido)."
 
 #: plugins/events-manager/forms/event/bookings-ticket-form.php:31
 msgid "Spaces"
@@ -5331,7 +5325,7 @@ msgstr "Espacios"
 #: plugins/events-manager/forms/event/bookings-ticket-form.php:37
 #: plugins/events-manager/forms/event/bookings-ticket-form.php:43
 msgid "Leave either blank for no upper/lower limit."
-msgstr "Dejar cualquier espacio para ningún límite/más bajo superior."
+msgstr "Dejar espacio en blanco para no tener límite superior o inferior."
 
 #: plugins/events-manager/forms/event/bookings-ticket-form.php:40
 #: plugins/events-manager/forms/event/bookings-ticket-form.php:45
@@ -5340,11 +5334,11 @@ msgstr "espacios por reserva"
 
 #: plugins/events-manager/forms/event/bookings-ticket-form.php:50
 msgid "Show Advanced Options"
-msgstr "El espectáculo Adelantó Opciones"
+msgstr "Mostrar opciones avanzadas"
 
 #: plugins/events-manager/forms/event/bookings-ticket-form.php:50
 msgid "Hide Advanced Options"
-msgstr "El escondrijo Adelantó Opciones"
+msgstr "Ocultar opciones avanzadas"
 
 #: plugins/events-manager/forms/event/bookings.php:19
 msgid "Enable registration for this event"
@@ -5356,23 +5350,23 @@ msgstr "Opciones de ticket"
 
 #: plugins/events-manager/forms/event/bookings.php:46
 msgid "Tickets"
-msgstr "Billets"
+msgstr "Tickets"
 
 #: plugins/events-manager/forms/event/bookings.php:53
 msgid ""
 "Modifications to event tickets will cause all bookings to individual "
 "recurrences of this event to be deleted."
 msgstr ""
-"Las modificaciones a tickets de acontecimiento causarán todo bookings a "
-"individuales recurrences de este acontecimiento para ser eliminado."
+"Las modificaciones a tickets de evento causarán que todas las reservas a "
+"recurrencias individuales de este evento se eliminen."
 
 #: plugins/events-manager/forms/event/bookings.php:68
 msgid ""
 "You can edit individual recurrences and disassociate them with this "
 "recurring event."
 msgstr ""
-"Puedes editar individual recurrences y disassociate les con este recurring "
-"acontecimiento."
+"Se pueden editar recurrencias individuales y desasociarlas con este evento "
+"recurrente."
 
 #: plugins/events-manager/forms/event/bookings.php:89
 msgid ""
@@ -5380,13 +5374,13 @@ msgid ""
 "available under certain conditions, e.g. early bookings, group discounts, "
 "maximum bookings per ticket, etc."
 msgstr ""
-"Puedes tener tickets solos o múltiples, donde los tickets seguros devienen "
-"disponibles bajo condiciones seguras, p. ej. tempranos bookings, descuentos "
-"de grupo, máximos bookings por ticket, etc."
+"Puede tener tickets individuales o múltiples, donde ciertos tickets están "
+"disponibles bajo ciertas condiciones, p.ej. reservas anticipadas, descuentos "
+"para grupos, reservas máximas por ticket, etc."
 
 #: plugins/events-manager/forms/event/bookings.php:89
 msgid "Basic HTML is allowed in ticket labels and descriptions."
-msgstr "HTML básico está dejado en etiquetas de ticket y descripciones."
+msgstr "Se permite HTML básico en etiquetas de ticket y descripciones."
 
 #: plugins/events-manager/forms/event/bookings.php:93
 msgid "Ticket Name"
@@ -5402,15 +5396,15 @@ msgstr "Inicio/fin"
 
 #: plugins/events-manager/forms/event/bookings.php:97
 msgid "Avail. Spaces"
-msgstr "Avail. Espacios"
+msgstr "Espacios disp."
 
 #: plugins/events-manager/forms/event/bookings.php:98
 msgid "Booked Spaces"
-msgstr "Espacios reservdos"
+msgstr "Espacios reservados"
 
 #: plugins/events-manager/forms/event/bookings.php:105
 msgid "Add new ticket"
-msgstr "Añade ticket nuevo"
+msgstr "Añadir ticket nuevo"
 
 #: plugins/events-manager/forms/event/bookings.php:142
 msgid "Edit"
@@ -5422,7 +5416,7 @@ msgstr "Eliminar"
 
 #: plugins/events-manager/forms/event/bookings.php:146
 msgid "View Bookings"
-msgstr "Vista Bookings"
+msgstr "Ver reservas"
 
 #: plugins/events-manager/forms/event/bookings.php:156
 msgid "Free"
@@ -5436,19 +5430,19 @@ msgstr "día(s)"
 
 #: plugins/events-manager/forms/event/bookings.php:261
 msgid "Close Ticket Editor"
-msgstr "Editor de Ticket cercano"
+msgstr "Cerrar editor de ticket"
 
 #: plugins/events-manager/forms/event/bookings.php:284
 msgid "Cancel Ticket Recreation"
-msgstr "Cancela Recreación de Ticket"
+msgstr "Cancelar recreación de ticket"
 
 #: plugins/events-manager/forms/event/bookings.php:292
 msgid "Modify Recurring Event Tickets "
-msgstr "Modifica Recurring Tickets de Acontecimiento "
+msgstr "Modificar tickets de eventos recurrentes "
 
 #: plugins/events-manager/forms/event/bookings.php:300
 msgid "Event Options"
-msgstr "Opciones de acontecimiento"
+msgstr "Opciones de evento"
 
 #: plugins/events-manager/forms/event/bookings.php:302
 msgid "Total Spaces"
@@ -5459,37 +5453,37 @@ msgid ""
 "Individual tickets with remaining spaces will not be available if total "
 "booking spaces reach this limit. Leave blank for no limit."
 msgstr ""
-"Tickets individuales con los espacios restantes no serán disponibles si "
-"totales reservando los espacios logran este límite. Deja espacio para ningún "
+"Tickets individuales con espacios restantes no estarán disponibles si las "
+"reservas totales superan este límite. Deje espacio en blanco para no tener "
 "límite."
 
 #: plugins/events-manager/forms/event/bookings.php:312
 msgid "Maximum Spaces Per Booking"
-msgstr "Espacios máximos Por Reservar"
+msgstr "Espacios máximos por reserva"
 
 #: plugins/events-manager/forms/event/bookings.php:319
 msgid ""
 "If set, the total number of spaces for a single booking to this event cannot "
 "exceed this amount."
 msgstr ""
-"Si puesto, el número total de espacios para un solos reservando a este "
-"acontecimiento no puede superar esta cantidad."
+"Si se establece, la cantidad total de espacios para una sola reserva para "
+"este evento no puede exceder esta cantidad."
 
 #: plugins/events-manager/forms/event/bookings.php:319
 msgid "Leave blank for no limit."
-msgstr "Deja espacio para ningún límite."
+msgstr "Dejar en blanco para ningún límite."
 
 #: plugins/events-manager/forms/event/bookings.php:322
 msgid "Booking Cut-Off Date"
-msgstr "Reservando Corte-Fuera Fecha"
+msgstr "Fecha límite de reserva"
 
 #: plugins/events-manager/forms/event/bookings.php:338
 msgid "The event starts before"
-msgstr "Los inicios de acontecimiento antes de que"
+msgstr "El evento inicia antes de"
 
 #: plugins/events-manager/forms/event/bookings.php:344
 msgid "The event starts after"
-msgstr "Los inicios de acontecimiento después de que"
+msgstr "El evento inicia después de"
 
 #: plugins/events-manager/forms/event/bookings.php:346
 msgid "at"
@@ -5501,17 +5495,17 @@ msgid ""
 "event, regardless of individual ticket settings above. Default value will be "
 "the event start date."
 msgstr ""
-"Esto es la fecha definitiva después de qué bookings será cerrado para este "
-"acontecimiento, a toda costa de encuadres de ticket individual encima. "
-"Default El valor será la fecha de inicio del acontecimiento."
+"Esta es la fecha definitiva después de la cual se cerrarán las reservas para "
+"este evento, independientemente de la configuración de tickets individuales "
+"anterior. El valor predeterminado será la fecha de inicio del evento."
 
 #: plugins/events-manager/forms/event/categories-public.php:26
 msgid "Select a tag for your event"
-msgstr "Seleccionar un tag para vuestro acontecimiento"
+msgstr "Seleccione una etiqueta para su evento"
 
 #: plugins/events-manager/forms/event/featured-image-public.php:16
 msgid "Event Image"
-msgstr "Imagen de evento"
+msgstr "Imagen del evento"
 
 #: plugins/events-manager/forms/event/featured-image-public.php:56
 msgid "Click or drag a .PNG or .JPG above. Min dimensions 703px by 400px"
@@ -5520,7 +5514,7 @@ msgstr ""
 
 #: plugins/events-manager/forms/event/group.php:27
 msgid "Hosted By"
-msgstr "Hosted Por"
+msgstr "Organizado por"
 
 #: plugins/events-manager/forms/event/group.php:29
 msgid "No group"
@@ -5531,8 +5525,8 @@ msgid ""
 "As a site admin, you see all group events, users will only be able to choose "
 "groups they are admins of."
 msgstr ""
-"Como sitio admin,  ves todos acontecimientos de grupo, los usuarios sólo "
-"serán capaces de escoger grupos  son admins de."
+"Como administrador del sitio, verá todos los eventos del grupo, los usuarios "
+"sólo serán capaces de escoger grupos de los que son administradores."
 
 #: plugins/events-manager/forms/event/location-moz.php:50
 msgid "Edit location details"
@@ -5540,7 +5534,7 @@ msgstr "Editar detalles de ubicación"
 
 #: plugins/events-manager/forms/event/location-moz.php:70
 msgid "Is this event online or on location? *"
-msgstr "¿Es este evento en línea o presencial? *"
+msgstr "¿Este es un evento en línea o presencial? *"
 
 #: plugins/events-manager/forms/event/location-moz.php:102
 msgid "Physical Location"
@@ -5548,15 +5542,15 @@ msgstr "Ubicación física"
 
 #: plugins/events-manager/forms/event/location-moz.php:114
 msgid "Online Meeting Link *"
-msgstr "Enlace de reunión en línea *"
+msgstr "Enlace de la reunión en línea *"
 
 #: plugins/events-manager/forms/event/location-moz.php:115
 msgid "Location Name *"
-msgstr "Ubicación *"
+msgstr "Nombre de ubicación *"
 
 #: plugins/events-manager/forms/event/location-moz.php:131
 msgid "This field requires a valid url"
-msgstr "Este campo está requerido"
+msgstr "Este campo requiere una URL válida"
 
 #: plugins/events-manager/forms/event/location-moz.php:149
 msgid "Address *"
@@ -5622,7 +5616,7 @@ msgstr "Ver más eventos en "
 
 #: plugins/events-manager/templates/event-single.php:265
 msgid "This is an online-only event"
-msgstr "Esto es un on-line-acontecimiento único"
+msgstr "Esto es un evento sólo en línea"
 
 #: plugins/events-manager/templates/event-single.php:267
 msgid "Meeting link"
@@ -5638,15 +5632,15 @@ msgstr "Asistentes"
 
 #: plugins/events-manager/templates/event-single.php:445
 msgid "View all attendees"
-msgstr "Vista todo attendees"
+msgstr "Ver todos los asistentes"
 
 #: plugins/events-manager/templates/event-single.php:557
 msgid "Reporting Event"
-msgstr "Acontecimiento de informe"
+msgstr "Informando evento"
 
 #: plugins/events-manager/templates/event-single.php:561
 msgid "Please provide a reason you are reporting this event"
-msgstr "Complacer proporcionar una razón estás informando este evento"
+msgstr "Proporcione una razón por la que está informando este evento"
 
 #: plugins/events-manager/templates/event-single.php:570
 msgid "Report Event"
@@ -5659,7 +5653,7 @@ msgstr "Eventos futuros"
 
 #: plugins/events-manager/templates/events-list.php:169
 msgid "Events I'm attending"
-msgstr "Eventos que estoy asistiendo"
+msgstr "Eventos a los que estoy asistiendo"
 
 #: plugins/events-manager/templates/events-list.php:195
 msgid "My Events"
@@ -5675,31 +5669,31 @@ msgstr "Mostrando:"
 
 #: plugins/events-manager/templates/events-list.php:244
 msgid "Events I'm Attending"
-msgstr "Acontecimientos  estoy Atendiendo"
+msgstr "Eventos a los que estoy asistiendo"
 
 #: plugins/events-manager/templates/events-list.php:253
 msgid "Events I've Organized"
-msgstr "Acontecimientos  he Organizado"
+msgstr "Evebtis que he organizado"
 
 #: plugins/events-manager/templates/events-list.php:259
 msgid "Past Events"
-msgstr "Acontecimientos pasados"
+msgstr "Eventos pasados"
 
 #: plugins/events-manager/templates/events-list.php:462
 msgid "No results found. Please try another search term."
-msgstr "Ningún resultado encontró. Complacer probar otro plazo de búsqueda."
+msgstr "No se encontraron resultados. Intente otro término de búsqueda."
 
 #: plugins/events-manager/templates/events-list.php:464
 msgid "There are currently no events."
-msgstr "Hay actualmente ningún acontecimiento."
+msgstr "Actualmente no hay eventos."
 
 #: plugins/events-manager/templates/events-search.php:80
 msgid "Search events"
-msgstr "Acontecimientos de búsqueda"
+msgstr "Eventos de búsqueda"
 
 #: plugins/events-manager/templates/template-parts/event-single/event-host.php:45
 msgid "Hosted by"
-msgstr "Hosted Por"
+msgstr "Organizado por"
 
 #: plugins/events-manager/templates/template-parts/event-single/event-sidebar.php:21
 msgid "Links"
@@ -5724,15 +5718,15 @@ msgstr "Campaña o Actividad"
 
 #: pronouns.php:3
 msgid "She/Her"
-msgstr "Ella/Le"
+msgstr "Ella"
 
 #: pronouns.php:4
 msgid "He/Him"
-msgstr "Él/Le"
+msgstr "Él"
 
 #: pronouns.php:5
 msgid "They/Them"
-msgstr "Ellos/Les"
+msgstr "Ellos"
 
 #: search.php:186
 msgid "Page"
@@ -5740,7 +5734,7 @@ msgstr "Página"
 
 #: search.php:202
 msgid "Event"
-msgstr "Acontecimiento"
+msgstr "Evento"
 
 #: search.php:244
 msgid "Group"
@@ -5777,7 +5771,7 @@ msgstr ""
 
 #: templates/campaign-rsvp.php:32 templates/event-rsvp.php:32
 msgid "Already a member?"
-msgstr "¿Ya eres miembro?"
+msgstr "¿Ya es miembro?"
 
 #: templates/campaign-rsvp.php:33 templates/event-rsvp.php:33
 msgid "Log In"
@@ -5785,22 +5779,22 @@ msgstr "Iniciar sesión"
 
 #: templates/campaign-rsvp.php:38
 msgid "Get involved without a user account"
-msgstr "Consigue implicado sin una cuenta de usuario"
+msgstr "Involúcrese sin una cuenta de usuario"
 
 #: templates/campaign-rsvp.php:39
 msgid ""
 "Fill out the form below to join this campaign without creating a user account"
 msgstr ""
-"Llena fuera de la forma abajo para unir esta campaña sin crear una cuenta de "
-"usuario"
+"Llene el formulario debajo para unirse a esta campaña sin crear una cuenta "
+"de usuario"
 
 #: templates/campaign-rsvp.php:57
 msgid "Invalid email"
-msgstr "Email nulo"
+msgstr "Correo electrónico inválido"
 
 #: templates/campaign-rsvp.php:62 templates/campaigns-newsletter.php:81
 msgid "I'm okay with Mozilla handling my info as explained in this"
-msgstr "Soy vale con Mozilla que maneja mi info cuando explicado en este"
+msgstr "Acepto que Mozilla maneje mi información como se explica aquí"
 
 #: templates/campaign-rsvp.php:63 templates/campaigns-newsletter.php:82
 msgid "Privacy Policy"
@@ -5808,35 +5802,35 @@ msgstr "Política de privacidad"
 
 #: templates/campaign-rsvp.php:65
 msgid "You must agree to the privacy policy"
-msgstr "Tienes que apalabrar la política de privacidad"
+msgstr "Tiene que aceptar la política de privacidad"
 
 #: templates/campaign-rsvp.php:76
 msgid "Thank you for getting involved!"
-msgstr "Gracias Para conseguir implicó!"
+msgstr "¡Gracias por involucrarse!"
 
 #: templates/campaign-rsvp.php:77
 msgid "An email has been sent with more details"
-msgstr "Un email ha sido enviado con más detalles"
+msgstr "Un correo eletrónico ha sido enviado con más detalles"
 
 #: templates/campaign-rsvp.php:80
 msgid "Something went wrong."
-msgstr "Algo fue mal."
+msgstr "Algo falló."
 
 #: templates/campaign-rsvp.php:81
 msgid "Please try again later."
-msgstr "Complacer probar otra vez más tarde."
+msgstr "Intente nuevamente más tarde."
 
 #: templates/campaigns-newsletter.php:35 templates/newsletter-form.php:29
 msgid "Get Updates"
-msgstr "Consigue Actualizaciones"
+msgstr "Obtenga actualizaciones"
 
 #: templates/campaigns-newsletter.php:36 templates/newsletter-form.php:30
 msgid ""
 "Subscribe to our newsletter and join Mozillians all around the world and "
 "learn about impactful opportunities to support Mozilla’s mission."
 msgstr ""
-"Suscribe a nuestro newsletter y unir Mozillians en todas partes el mundial y "
-"aprender sobre impactful oportunidades de apoyar la misión de Mozilla."
+"Suscríbase a nuestro boletín y únase a Mozillians de todo el mundo y aprenda "
+"sobre oportunidades impactantes para apoyar la misión de Mozilla."
 
 #: templates/campaigns-newsletter.php:46 templates/newsletter-form.php:45
 msgid "Invalid email."
@@ -5857,15 +5851,16 @@ msgstr "Seleccionar idioma"
 #: templates/campaigns-newsletter.php:75
 msgid "We’ll default to English but send in these languages whenever we can."
 msgstr ""
-"Nosotros default a ingleses pero enviar estas lenguas siempre que podemos."
+"Usaremos inglés por defecto pero se enviará en estos idiomas siempre que "
+"podamos."
 
 #: templates/campaigns-newsletter.php:84 templates/newsletter-form.php:91
 msgid "You must agree to the privacy notice."
-msgstr "Tienes que apalabrar el aviso de intimidad."
+msgstr "Tiene que aceptar la nota de privacidad."
 
 #: templates/campaigns-newsletter.php:87
 msgid "Subscribe"
-msgstr "Suscribe"
+msgstr "Suscribirse"
 
 #: templates/campaigns-newsletter.php:91
 msgid "Thanks!"
@@ -5877,9 +5872,9 @@ msgid ""
 "newsletter you may have to do so. Please check your inbox and spam filter "
 "for an email from us."
 msgstr ""
-"Si  has no anteriormente confirmó una suscripción a un Mozilla-relacionado "
-"newsletter  puedes tener que hacer tan. Complacer comprobar vuestra bandeja "
-"de entrada y spam filtro para un email de nosotros."
+"Si no ha confirmado previamente una suscripción a un boletín relacionado con "
+"Mozilla, es posible que deba hacerlo. Por favor revise su bandeja de entrada "
+"y el filtro de correo no deseado por un correo electrónico de nosotros."
 
 #: templates/campaigns-newsletter.php:95
 msgid "Sorry!"
@@ -5887,7 +5882,7 @@ msgstr "¡Perdón!"
 
 #: templates/campaigns-newsletter.php:96
 msgid "Looks like something went wrong."
-msgstr "Parece algo fue mal."
+msgstr "Parece que algo falló."
 
 #: templates/newsletter-form.php:50
 msgid "Country or region"
@@ -5896,7 +5891,8 @@ msgstr "País o región"
 #: templates/newsletter-form.php:85
 msgid "We'll default to English but send in these languages whenever we can."
 msgstr ""
-"Nosotros default a ingleses pero enviar estas lenguas siempre que podemos."
+"Usaremos inglés por defecto pero se enviará en estos idiomas siempre que "
+"podamos."
 
 #: templates/newsletter-form.php:89
 msgid "Yes, subscribe me to the newsletter"
