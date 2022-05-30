@@ -387,6 +387,14 @@ function mozilla_is_logged_in() {
 	return count( (array) $current_user ) > 0 ? true : false;
 }
 
+/**
+ * Get user information as object
+ *
+ * @param string  $meta The meta key.
+ * @param boolean $is_me It's me Mario!
+ * @param boolean $logged_in are they logged in.
+ * @param string  $prefix The prefix for the meta.
+ **/
 function mozilla_user_meta_as_object( $meta, $is_me, $logged_in, $prefix='' ) {
 	$object          = new stdClass();
 	$object->value   = isset( $meta[$meta][0] ) ? $meta[$meta][0] : false;
