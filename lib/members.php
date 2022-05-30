@@ -465,7 +465,7 @@ function mozilla_get_user_info( $me, $user, $logged_in ) {
 	$data['pronoun'] = mozilla_user_meta_as_object( 'pronoun', $is_me, $logged_in, 'profile' );
 
 	// Phone!
-	$data['phone']   = mozilla_user_meta_as_object( 'phone', $is_me, $logged_in);
+	$data['phone']   = mozilla_user_meta_as_object( 'phone', $is_me, $logged_in );
 
 	// Groups Joined!
 	$data['groups']  = mozilla_user_meta_as_object( 'groups_joined', $is_me, $logged_in, 'profile' );
