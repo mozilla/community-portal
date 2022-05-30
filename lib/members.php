@@ -391,14 +391,14 @@ function mozilla_is_logged_in() {
  * Get user information as object
  *
  * @param string  $meta The meta key.
- * @param boolean $is_me It's me Mario!
+ * @param boolean $is_me It's me Mario.
  * @param boolean $logged_in are they logged in.
  * @param string  $prefix The prefix for the meta.
  **/
-function mozilla_user_meta_as_object( $meta, $is_me, $logged_in, $prefix='' ) {
+function mozilla_user_meta_as_object( $meta, $is_me, $logged_in, $prefix = '' ) {
 	$object          = new stdClass();
-	$object->value   = isset( $meta[$meta][0] ) ? $meta[$meta][0] : false;
-	$object->display = mozilla_display_field( $meta, isset( $meta[$prefix . $meta . '_visibility'][0] ) ? $meta[$prefix . $meta . '_visibility'][0] : false, $is_me, $logged_in );
+	$object->value   = isset( $meta[ $meta ][ 0 ] ) ? $meta[ $meta ][ 0 ] : false;
+	$object->display = mozilla_display_field( $meta, isset( $meta[ $prefix . $meta . '_visibility' ][ 0 ] ) ? $meta[ $prefix . $meta . '_visibility' ][ 0 ] : false, $is_me, $logged_in );
 
 	return $object;
 }
@@ -429,76 +429,76 @@ function mozilla_get_user_info( $me, $user, $logged_in ) {
 	$data['first_name'] = mozilla_user_meta_as_object('first_name', $is_me, $logged_in);
 
 	// Last Name!
-	$data['last_name'] = mozilla_user_meta_as_object('last_name', $is_me, $logged_in);
+	$data[ 'last_name' ] = mozilla_user_meta_as_object( 'last_name', $is_me, $logged_in);
 
 	// Email!
-	$data['email']   = mozilla_user_meta_as_object('email', $is_me, $logged_in);
+	$data[ 'email' ]   = mozilla_user_meta_as_object( 'email', $is_me, $logged_in);
 
 	// Location!
 	global $countries;
 	$object = new stdClass();
-	if ( isset( $community_fields['country'] ) && strlen( $community_fields['country'] ) > 0 && isset( $countries[ $community_fields['country'] ] ) ) {
-		$object->value = $community_fields['country'];
+	if ( isset( $community_fields[ 'country' ] ) && strlen( $community_fields[ 'country' ] ) > 0 && isset( $countries[ $community_fields[ 'country' ] ] ) ) {
+		$object->value = $community_fields[ 'country' ];
 	} else {
 		$object->value = false;
 	}
-	$object->display  = mozilla_display_field( 'location', isset( $meta['profile_location_visibility'][0] ) ? $meta['profile_location_visibility'][0] : false, $is_me, $logged_in );
-	$data['location'] = $object;
+	$object->display  = mozilla_display_field( 'location', isset( $meta[ 'profile_location_visibility' ][0] ) ? $meta[ 'profile_location_visibility' ][0] : false, $is_me, $logged_in );
+	$data[ 'location' ] = $object;
 
 	// City!
 	$object = new stdClass();
-	if ( isset( $community_fields['city'] ) && strlen( $community_fields['city'] ) > 0 ) {
-		$object->value = $community_fields['city'];
+	if ( isset( $community_fields[ 'city' ] ) && strlen( $community_fields[ 'city' ] ) > 0 ) {
+		$object->value = $community_fields[ 'city' ];
 	} else {
 		$object->value = false;
 	}
-	$object->display = mozilla_display_field( 'location', isset( $meta['profile_location_visibility'][0] ) ? $meta['profile_location_visibility'][0] : false, $is_me, $logged_in );
-	$data['city']    = $object;
+	$object->display = mozilla_display_field( 'location', isset( $meta[ 'profile_location_visibility' ][0] ) ? $meta[ 'profile_location_visibility' ][0] : false, $is_me, $logged_in );
+	$data[ 'city' ]    = $object;
 
 	// Profile Image!
-	$data['profile_image']   = mozilla_user_meta_as_object('image_url', $is_me, $logged_in, 'profile');
+	$data[ 'profile_image' ]   = mozilla_user_meta_as_object( 'image_url', $is_me, $logged_in, 'profile' );
 
 	// Bio!
-	$data['bio']     = mozilla_user_meta_as_object('bio', $is_me, $logged_in, 'profile');
+	$data[ 'bio' ]     = mozilla_user_meta_as_object( 'bio', $is_me, $logged_in, 'profile' );
 
 	// Pronoun Visibility!
-	$data['pronoun'] = mozilla_user_meta_as_object('pronoun', $is_me, $logged_in, 'profile');
+	$data[ 'pronoun' ] = mozilla_user_meta_as_object( 'pronoun', $is_me, $logged_in, 'profile' );
 
 	// Phone!
-	$data['phone']   = mozilla_user_meta_as_object('phone', $is_me, $logged_in);
+	$data[ 'phone' ]   = mozilla_user_meta_as_object( 'phone', $is_me, $logged_in);
 
 	// Groups Joined!
-	$data['groups']  = mozilla_user_meta_as_object('groups_joined', $is_me, $logged_in, 'profile');
+	$data[ 'groups' ]  = mozilla_user_meta_as_object( 'groups_joined', $is_me, $logged_in, 'profile' );
 
 	// Events Attended!
-	$data['events_attended'] = mozilla_user_meta_as_object('events_attended', $is_me, $logged_in, 'profile');
+	$data[ 'events_attended' ] = mozilla_user_meta_as_object( 'events_attended', $is_me, $logged_in, 'profile' );
 
 	// Events Organized!
-	$data['events_organized'] = mozilla_user_meta_as_object('events_organized', $is_me, $logged_in, 'profile');
+	$data[ 'events_organized' ] = mozilla_user_meta_as_object( 'events_organized', $is_me, $logged_in, 'profile' );
 
 	// Campaigns!
 	$object                         = new StdClass();
-	$object->display                = mozilla_display_field( 'campaigns_participated', isset( $community_fields['profile_campaigns_visibility'] ) ? $community_fields['profile_campaigns_visibility'] : false, $is_me, $logged_in );
-	$data['campaigns_participated'] = $object;
+	$object->display                = mozilla_display_field( 'campaigns_participated', isset( $community_fields[ 'profile_campaigns_visibility' ] ) ? $community_fields[ 'profile_campaigns_visibility' ] : false, $is_me, $logged_in );
+	$data[ 'campaigns_participated' ] = $object;
 
 	// Social Media!
-	$data['telegram']  = mozilla_user_meta_as_object('telegram', $is_me, $logged_in, 'profile');
-	$data['facebook']  = mozilla_user_meta_as_object('facebook', $is_me, $logged_in, 'profile');
-	$data['twitter']   = mozilla_user_meta_as_object('twitter', $is_me, $logged_in, 'profile');
-	$data['linkedin']  = mozilla_user_meta_as_object('linkedin', $is_me, $logged_in, 'profile');
-	$data['discourse'] = mozilla_user_meta_as_object('discourse', $is_me, $logged_in, 'profile');
-	$data['github']    = mozilla_user_meta_as_object('github', $is_me, $logged_in, 'profile');
-	$data['matrix']    = mozilla_user_meta_as_object('matrix', $is_me, $logged_in, 'profile');
-	$data['mastodon']  = mozilla_user_meta_as_object('mastodon', $is_me, $logged_in, 'profile');
-	$data['youtube']   = mozilla_user_meta_as_object('youtube', $is_me, $logged_in, 'profile');
-	$data['pixelfed']  = mozilla_user_meta_as_object('pixelfed', $is_me, $logged_in, 'profile');
-	$data['peertube']  = mozilla_user_meta_as_object('peertube', $is_me, $logged_in, 'profile');
+	$data[ 'telegram' ]  = mozilla_user_meta_as_object( 'telegram', $is_me, $logged_in, 'profile' );
+	$data[ 'facebook' ]  = mozilla_user_meta_as_object( 'facebook', $is_me, $logged_in, 'profile' );
+	$data[ 'twitter' ]   = mozilla_user_meta_as_object( 'twitter', $is_me, $logged_in, 'profile' );
+	$data[ 'linkedin' ]  = mozilla_user_meta_as_object( 'linkedin', $is_me, $logged_in, 'profile' );
+	$data[ 'discourse' ] = mozilla_user_meta_as_object( 'discourse', $is_me, $logged_in, 'profile' );
+	$data[ 'github' ]    = mozilla_user_meta_as_object( 'github', $is_me, $logged_in, 'profile' );
+	$data[ 'matrix' ]    = mozilla_user_meta_as_object( 'matrix', $is_me, $logged_in, 'profile' );
+	$data[ 'mastodon' ]  = mozilla_user_meta_as_object( 'mastodon', $is_me, $logged_in, 'profile' );
+	$data[ 'youtube' ]   = mozilla_user_meta_as_object( 'youtube', $is_me, $logged_in, 'profile' );
+	$data[ 'pixelfed' ]  = mozilla_user_meta_as_object( 'pixelfed', $is_me, $logged_in, 'profile' );
+	$data[ 'peertube' ]  = mozilla_user_meta_as_object( 'peertube', $is_me, $logged_in, 'profile' );
 
 	// Languages!
-	$data['languages'] = mozilla_user_meta_as_object('languages', $is_me, $logged_in, 'profile');
+	$data[ 'languages' ] = mozilla_user_meta_as_object( 'languages', $is_me, $logged_in, 'profile' );
 
 	// Tags!
-	$data['tags']    = mozilla_user_meta_as_object('tags', $is_me, $logged_in, 'profile');
+	$data[ 'tags' ]    = mozilla_user_meta_as_object( 'tags', $is_me, $logged_in, 'profile' );
 
 	$object = null;
 	return $data;
