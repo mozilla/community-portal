@@ -437,7 +437,7 @@ function mozilla_get_user_info( $me, $user, $logged_in ) {
 	// Location!
 	global $countries;
 	$object = new stdClass();
-	if ( isset( $community_fields[ 'country' ] ) && strlen( $community_fields['country'] ) > 0 && isset( $countries[ $community_fields['country'] ] ) ) {
+	if ( isset( $community_fields['country'] ) && strlen( $community_fields['country'] ) > 0 && isset( $countries[ $community_fields['country'] ] ) ) {
 		$object->value = $community_fields['country'];
 	} else {
 		$object->value = false;
@@ -447,7 +447,7 @@ function mozilla_get_user_info( $me, $user, $logged_in ) {
 
 	// City!
 	$object = new stdClass();
-	if ( isset( $community_fields[ 'city' ] ) && strlen( $community_fields[ 'city' ] ) > 0 ) {
+	if ( isset( $community_fields['city'] ) && strlen( $community_fields['city'] ) > 0 ) {
 		$object->value = $community_fields['city'];
 	} else {
 		$object->value = false;
@@ -478,7 +478,7 @@ function mozilla_get_user_info( $me, $user, $logged_in ) {
 
 	// Campaigns!
 	$object                         = new StdClass();
-	$object->display                = mozilla_display_field( 'campaigns_participated', isset( $community_fields[ 'profile_campaigns_visibility' ] ) ? $community_fields[ 'profile_campaigns_visibility' ] : false, $is_me, $logged_in );
+	$object->display                = mozilla_display_field( 'campaigns_participated', isset( $community_fields['profile_campaigns_visibility'] ) ? $community_fields['profile_campaigns_visibility'] : false, $is_me, $logged_in );
 	$data['campaigns_participated'] = $object;
 
 	// Social Media!
