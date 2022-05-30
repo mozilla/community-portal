@@ -397,8 +397,8 @@ function mozilla_is_logged_in() {
  **/
 function mozilla_user_meta_as_object( $meta, $is_me, $logged_in, $prefix = '' ) {
 	$object          = new stdClass();
-	$object->value   = isset( $meta[ $meta ][ 0 ] ) ? $meta[ $meta ][ 0 ] : false;
-	$object->display = mozilla_display_field( $meta, isset( $meta[ $prefix . $meta . '_visibility' ][ 0 ] ) ? $meta[ $prefix . $meta . '_visibility' ][ 0 ] : false, $is_me, $logged_in );
+	$object->value   = isset( $meta[ $meta ][0] ) ? $meta[ $meta ][0] : false;
+	$object->display = mozilla_display_field( $meta, isset( $meta[ $prefix . $meta . '_visibility' ][0] ) ? $meta[ $prefix . $meta . '_visibility' ][0] : false, $is_me, $logged_in );
 
 	return $object;
 }
@@ -426,13 +426,13 @@ function mozilla_get_user_info( $me, $user, $logged_in ) {
 	$community_fields = isset( $meta['community-meta-fields'][0] ) ? unserialize( $meta['community-meta-fields'][0] ) : array();
 
 	// First Name!
-	$data['first_name'] = mozilla_user_meta_as_object('first_name', $is_me, $logged_in);
+	$data['first_name'] = mozilla_user_meta_as_object(' first_name', $is_me, $logged_in );
 
 	// Last Name!
-	$data[ 'last_name' ] = mozilla_user_meta_as_object( 'last_name', $is_me, $logged_in);
+	$data[ 'last_name' ] = mozilla_user_meta_as_object( 'last_name', $is_me, $logged_in );
 
 	// Email!
-	$data[ 'email' ]   = mozilla_user_meta_as_object( 'email', $is_me, $logged_in);
+	$data[ 'email' ]   = mozilla_user_meta_as_object( 'email', $is_me, $logged_in );
 
 	// Location!
 	global $countries;
