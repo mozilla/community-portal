@@ -28,11 +28,6 @@ if ( $offset < 0 ) {
 	$offset = 0;
 }
 
-$args = array(
-	'offset' => 0,
-	'number' => -1,
-);
-
 if ( isset( $_GET['u'] ) ) {
 	$search_user = trim( sanitize_text_field( wp_unslash( $_GET['u'] ) ) );
 	if ( strlen( $search_user ) > 0 ) {
@@ -76,8 +71,8 @@ $language_code = strlen( trim( $get_language ) ) > 0 ? strtolower( $get_language
 
 $wp_user_query = new WP_User_Query(
 	array(
-		'offset' => 0,
-		'number' => -1,
+		'offset' => $offset,
+		'number' => $members_per_page,
 	)
 );
 
@@ -87,7 +82,7 @@ $used_country_list = array();
 $used_languages    = array();
 
 // Time to filter stuff!
-foreach ( $members as $index => $member ) {
+/*foreach ( $members as $index => $member ) {
 
 	$info           = mozilla_get_user_info( $live_user, $member, $logged_in );
 	$member->info   = $info;
@@ -725,18 +720,19 @@ foreach ( $members as $index => $member ) {
 
 	$filtered_members[] = $member;
 
-}
+}*/
 
 asort( $used_country_list );
 
-if ( $offset >= count( $filtered_members ) ) {
-	$offset = count( $filtered_members ) - $members_per_page;
+$total_users = count_users();
+if ( $offset >= intVal( $total_users['total_users'] ) ) {
+	$offset = intVal( $total_users['total_users'] ) - $members_per_page;
 }
 
 $tags    = get_tags( array( 'hide_empty' => false ) );
-$members = array_slice( $filtered_members, $offset, $members_per_page );
+// $members = array_slice( $filtered_members, $offset, $members_per_page );
 
-$total_pages = ceil( count( $filtered_members ) / $members_per_page );
+$total_pages = ceil( intVal( $total_users['total_users'] ) / $members_per_page );
 
 ?>
 <div class="content">
@@ -747,6 +743,7 @@ $total_pages = ceil( count( $filtered_members ) / $members_per_page );
 				<p class="members__hero-copy">
 					<?php esc_html_e( 'Ready to make it official? Set up a profile to attend events, join groups and manage your subscription settings. ', 'community-portal' ); ?>
 				</p>
+				<!--
 				<div class="members__search-container">
 					<form method="GET" action="
 					<?php
@@ -766,9 +763,11 @@ $total_pages = ceil( count( $filtered_members ) / $members_per_page );
 						<input type="submit" class="members__search-cta" value="<?php esc_attr_e( 'Search', 'community-portal' ); ?>" />
 					</form>
 				</div>
+				-->
 			</div>
 		</div>
 		<div class="members__container">
+		<!--
 			<div class="members__filter-container members__filter-container--hidden">
 				<span><?php esc_attr_e( 'Search criteria:', 'community-portal' ); ?></span>
 				<div class="members__select-container">
@@ -820,6 +819,7 @@ $total_pages = ceil( count( $filtered_members ) / $members_per_page );
 					</select>
 				</div>
 				</div>
+		-->
 			<div class="members__show-filters-container">
 				<a href="#" class="members__toggle-filter members__toggle-filter--show">
 					<span class="filters__show"><?php esc_html_e( 'Show Filters', 'community-portal' ); ?></span>
@@ -839,7 +839,8 @@ $total_pages = ceil( count( $filtered_members ) / $members_per_page );
 					</div><?php endif; ?>
 				<?php foreach ( $members as $member ) : ?>
 					<?php
-					$info = $member->info;
+					$info = mozilla_get_user_info( $live_user, $member, $logged_in );
+
 
 					if ( ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) || ! empty( $_SERVER['SERVER_PORT'] ) && 443 === $_SERVER['SERVER_PORT'] ) {
 						$avatar_url = preg_replace( '/^http:/i', 'https:', $info['profile_image']->value );
