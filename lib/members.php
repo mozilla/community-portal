@@ -387,6 +387,14 @@ function mozilla_is_logged_in() {
 	return count( (array) $current_user ) > 0 ? true : false;
 }
 
+function mozilla_user_meta_as_object( $meta, $is_me, $logged_in, $prefix='' ) {
+	$object          = new stdClass();
+	$object->value   = isset( $meta[$meta][0] ) ? $meta[$meta][0] : false;
+	$object->display = mozilla_display_field( $meta, isset( $meta[$prefix . $meta . '_visibility'][0] ) ? $meta[$prefix . $meta . '_visibility'][0] : false, $is_me, $logged_in );
+
+	return $object;
+}
+
 /**
  * Get user information
  *
@@ -410,23 +418,13 @@ function mozilla_get_user_info( $me, $user, $logged_in ) {
 	$community_fields = isset( $meta['community-meta-fields'][0] ) ? unserialize( $meta['community-meta-fields'][0] ) : array();
 
 	// First Name!
-	$object          = new stdClass();
-	$object->value   = isset( $meta['first_name'][0] ) ? $meta['first_name'][0] : false;
-	$object->display = mozilla_display_field( 'first_name', isset( $meta['first_name_visibility'][0] ) ? $meta['first_name_visibility'][0] : false, $is_me, $logged_in );
-
-	$data['first_name'] = $object;
+	$data['first_name'] = mozilla_user_meta_as_object('first_name', $is_me, $logged_in);
 
 	// Last Name!
-	$object            = new stdClass();
-	$object->value     = isset( $meta['last_name'][0] ) ? $meta['last_name'][0] : false;
-	$object->display   = mozilla_display_field( 'last_name', isset( $meta['last_name_visibility'][0] ) ? $meta['last_name_visibility'][0] : false, $is_me, $logged_in );
-	$data['last_name'] = $object;
+	$data['last_name'] = mozilla_user_meta_as_object('last_name', $is_me, $logged_in);
 
 	// Email!
-	$object          = new stdClass();
-	$object->value   = isset( $meta['email'][0] ) ? $meta['email'][0] : false;
-	$object->display = mozilla_display_field( 'email', isset( $meta['email_visibility'][0] ) ? $meta['email_visibility'][0] : false, $is_me, $logged_in );
-	$data['email']   = $object;
+	$data['email']   = mozilla_user_meta_as_object('email', $is_me, $logged_in);
 
 	// Location!
 	global $countries;
@@ -450,43 +448,25 @@ function mozilla_get_user_info( $me, $user, $logged_in ) {
 	$data['city']    = $object;
 
 	// Profile Image!
-	$object                = new stdClass();
-	$object->value         = isset( $community_fields['image_url'] ) && strlen( $community_fields['image_url'] ) > 0 ? $community_fields['image_url'] : false;
-	$object->display       = mozilla_display_field( 'image_url', isset( $community_fields['profile_image_url_visibility'] ) ? $community_fields['profile_image_url_visibility'] : false, $is_me, $logged_in );
-	$data['profile_image'] = $object;
+	$data['profile_image']   = mozilla_user_meta_as_object('image_url', $is_me, $logged_in, 'profile');
 
 	// Bio!
-	$object          = new stdClass();
-	$object->value   = isset( $community_fields['bio'] ) && strlen( $community_fields['bio'] ) > 0 ? $community_fields['bio'] : false;
-	$object->display = mozilla_display_field( 'bio', isset( $community_fields['profile_bio_visibility'] ) ? $community_fields['profile_bio_visibility'] : false, $is_me, $logged_in );
-	$data['bio']     = $object;
+	$data['bio']     = mozilla_user_meta_as_object('bio', $is_me, $logged_in, 'profile');
 
 	// Pronoun Visibility!
-	$object          = new stdClass();
-	$object->value   = isset( $community_fields['pronoun'] ) && strlen( $community_fields['pronoun'] ) > 0 ? $community_fields['pronoun'] : false;
-	$object->display = mozilla_display_field( 'pronoun', isset( $community_fields['profile_pronoun_visibility'] ) ? $community_fields['profile_pronoun_visibility'] : false, $is_me, $logged_in );
-	$data['pronoun'] = $object;
+	$data['pronoun'] = mozilla_user_meta_as_object('pronoun', $is_me, $logged_in, 'profile');
 
 	// Phone!
-	$object          = new stdClass();
-	$object->value   = isset( $community_fields['phone'] ) ? $community_fields['phone'] : false;
-	$object->display = mozilla_display_field( 'phone', isset( $community_fields['phone_visibility'] ) ? $community_fields['phone_visibility'] : false, $is_me, $logged_in );
-	$data['phone']   = $object;
+	$data['phone']   = mozilla_user_meta_as_object('phone', $is_me, $logged_in);
 
 	// Groups Joined!
-	$object          = new stdClass();
-	$object->display = mozilla_display_field( 'groups_joined', isset( $community_fields['profile_groups_joined_visibility'] ) ? $community_fields['profile_groups_joined_visibility'] : false, $is_me, $logged_in );
-	$data['groups']  = $object;
+	$data['groups']  = mozilla_user_meta_as_object('groups_joined', $is_me, $logged_in, 'profile');
 
 	// Events Attended!
-	$object                  = new stdClass();
-	$object->display         = mozilla_display_field( 'events_attended', isset( $community_fields['profile_events_attended_visibility'] ) ? $community_fields['profile_events_attended_visibility'] : false, $is_me, $logged_in );
-	$data['events_attended'] = $object;
+	$data['events_attended'] = mozilla_user_meta_as_object('events_attended', $is_me, $logged_in, 'profile');
 
 	// Events Organized!
-	$object                   = new stdClass();
-	$object->display          = mozilla_display_field( 'events_organized', isset( $community_fields['profile_events_organized_visibility'] ) ? $community_fields['profile_events_organized_visibility'] : false, $is_me, $logged_in );
-	$data['events_organized'] = $object;
+	$data['events_organized'] = mozilla_user_meta_as_object('events_organized', $is_me, $logged_in, 'profile');
 
 	// Campaigns!
 	$object                         = new StdClass();
@@ -494,72 +474,23 @@ function mozilla_get_user_info( $me, $user, $logged_in ) {
 	$data['campaigns_participated'] = $object;
 
 	// Social Media!
-	$object           = new stdClass();
-	$object->value    = isset( $community_fields['telegram'] ) && strlen( $community_fields['telegram'] ) > 0 ? $community_fields['telegram'] : false;
-	$object->display  = mozilla_display_field( 'telegram', isset( $community_fields['profile_telegram_visibility'] ) ? $community_fields['profile_telegram_visibility'] : false, $is_me, $logged_in );
-	$data['telegram'] = $object;
-
-	$object           = new stdClass();
-	$object->value    = isset( $community_fields['facebook'] ) && strlen( $community_fields['facebook'] ) > 0 ? $community_fields['facebook'] : false;
-	$object->display  = mozilla_display_field( 'facebook', isset( $community_fields['profile_facebook_visibility'] ) ? $community_fields['profile_facebook_visibility'] : false, $is_me, $logged_in );
-	$data['facebook'] = $object;
-
-	$object          = new stdClass();
-	$object->value   = isset( $community_fields['twitter'] ) && strlen( $community_fields['twitter'] ) > 0 ? $community_fields['twitter'] : false;
-	$object->display = mozilla_display_field( 'twitter', isset( $community_fields['profile_twitter_visibility'] ) ? $community_fields['profile_twitter_visibility'] : false, $is_me, $logged_in );
-	$data['twitter'] = $object;
-
-	$object           = new stdClass();
-	$object->value    = isset( $community_fields['linkedin'] ) && strlen( $community_fields['linkedin'] ) > 0 ? $community_fields['linkedin'] : false;
-	$object->display  = mozilla_display_field( 'linkedin', isset( $community_fields['profile_linkedin_visibility'] ) ? $community_fields['profile_linkedin_visibility'] : false, $is_me, $logged_in );
-	$data['linkedin'] = $object;
-
-	$object            = new stdClass();
-	$object->value     = isset( $community_fields['discourse'] ) && strlen( $community_fields['discourse'] ) > 0 ? $community_fields['discourse'] : false;
-	$object->display   = mozilla_display_field( 'discourse', isset( $community_fields['profile_discourse_visibility'] ) ? $community_fields['profile_discourse_visibility'] : false, $is_me, $logged_in );
-	$data['discourse'] = $object;
-
-	$object          = new stdClass();
-	$object->value   = isset( $community_fields['github'] ) && strlen( $community_fields['github'] ) > 0 ? $community_fields['github'] : false;
-	$object->display = mozilla_display_field( 'github', isset( $community_fields['profile_github_visibility'] ) ? $community_fields['profile_github_visibility'] : false, $is_me, $logged_in );
-	$data['github']  = $object;
-
-	$object          = new stdClass();
-	$object->value   = isset( $community_fields['matrix'] ) && strlen( $community_fields['matrix'] ) > 0 ? $community_fields['matrix'] : false;
-	$object->display = mozilla_display_field( 'matrix', isset( $community_fields['profile_matrix_visibility'] ) ? $community_fields['profile_matrix_visibility'] : false, $is_me, $logged_in );
-	$data['matrix']  = $object;
-
-	$object           = new stdClass();
-	$object->value    = isset( $community_fields['mastodon'] ) && strlen( $community_fields['mastodon'] ) > 0 ? $community_fields['mastodon'] : false;
-	$object->display  = mozilla_display_field( 'mastodon', isset( $community_fields['profile_mastodon_visibility'] ) ? $community_fields['profile_mastodon_visibility'] : false, $is_me, $logged_in );
-	$data['mastodon'] = $object;
-
-	$object          = new stdClass();
-	$object->value   = isset( $community_fields['youtube'] ) && strlen( $community_fields['youtube'] ) > 0 ? $community_fields['youtube'] : false;
-	$object->display = mozilla_display_field( 'youtube', isset( $community_fields['profile_youtube_visibility'] ) ? $community_fields['profile_youtube_visibility'] : false, $is_me, $logged_in );
-	$data['youtube'] = $object;
-
-	$object           = new stdClass();
-	$object->value    = isset( $community_fields['pixelfed'] ) && strlen( $community_fields['pixelfed'] ) > 0 ? $community_fields['pixelfed'] : false;
-	$object->display  = mozilla_display_field( 'pixelfed', isset( $community_fields['profile_pixelfed_visibility'] ) ? $community_fields['profile_pixelfed_visibility'] : false, $is_me, $logged_in );
-	$data['pixelfed'] = $object;
-
-	$object           = new stdClass();
-	$object->value    = isset( $community_fields['peertube'] ) && strlen( $community_fields['peertube'] ) > 0 ? $community_fields['peertube'] : false;
-	$object->display  = mozilla_display_field( 'peertube', isset( $community_fields['profile_peertube_visibility'] ) ? $community_fields['profile_peertube_visibility'] : false, $is_me, $logged_in );
-	$data['peertube'] = $object;
+	$data['telegram']  = mozilla_user_meta_as_object('telegram', $is_me, $logged_in, 'profile');
+	$data['facebook']  = mozilla_user_meta_as_object('facebook', $is_me, $logged_in, 'profile');
+	$data['twitter']   = mozilla_user_meta_as_object('twitter', $is_me, $logged_in, 'profile');
+	$data['linkedin']  = mozilla_user_meta_as_object('linkedin', $is_me, $logged_in, 'profile');
+	$data['discourse'] = mozilla_user_meta_as_object('discourse', $is_me, $logged_in, 'profile');
+	$data['github']    = mozilla_user_meta_as_object('github', $is_me, $logged_in, 'profile');
+	$data['matrix']    = mozilla_user_meta_as_object('matrix', $is_me, $logged_in, 'profile');
+	$data['mastodon']  = mozilla_user_meta_as_object('mastodon', $is_me, $logged_in, 'profile');
+	$data['youtube']   = mozilla_user_meta_as_object('youtube', $is_me, $logged_in, 'profile');
+	$data['pixelfed']  = mozilla_user_meta_as_object('pixelfed', $is_me, $logged_in, 'profile');
+	$data['peertube']  = mozilla_user_meta_as_object('peertube', $is_me, $logged_in, 'profile');
 
 	// Languages!
-	$object            = new stdClass();
-	$object->value     = isset( $community_fields['languages'] ) && count( $community_fields['languages'] ) > 0 ? $community_fields['languages'] : false;
-	$object->display   = mozilla_display_field( 'languages', isset( $community_fields['profile_languages_visibility'] ) ? $community_fields['profile_languages_visibility'] : false, $is_me, $logged_in );
-	$data['languages'] = $object;
+	$data['languages'] = mozilla_user_meta_as_object('languages', $is_me, $logged_in, 'profile');
 
 	// Tags!
-	$object          = new stdClass();
-	$object->value   = isset( $community_fields['tags'] ) && strlen( $community_fields['tags'] ) > 0 ? $community_fields['tags'] : false;
-	$object->display = mozilla_display_field( 'tags', isset( $community_fields['profile_tags_visibility'] ) ? $community_fields['profile_tags_visibility'] : false, $is_me, $logged_in );
-	$data['tags']    = $object;
+	$data['tags']    = mozilla_user_meta_as_object('tags', $is_me, $logged_in, 'profile');
 
 	$object = null;
 	return $data;
