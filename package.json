@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/mozilla/community-portal#readme",
   "dependencies": {
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "node-sass-import": "^2.0.1"
   },
   "devDependencies": {
