@@ -100,7 +100,9 @@ Changes to do with 6.3 release diff:
 3104a3109
 >                                               $event['event_rsvp_date'] = gmdate( 'Y-m-d', strtotime( '+1 months', strtotime( $event['event_end_date'] ) ) );
 ```
-    
+
+Support request: [https://wordpress.org/support/topic/force-a-specific-event_rsvp_date-with-an-hook/](https://wordpress.org/support/topic/force-a-specific-event_rsvp_date-with-an-hook/), [https://wordpress.org/support/topic/force-a-specific-event_rsvp_date-with-an-hook-again/](https://wordpress.org/support/topic/force-a-specific-event_rsvp_date-with-an-hook-again/)
+
 ### Create the required Pages
 - Before creating pages, activate BuddyPress. This will automatically create some pages, and reduce those you need to manually create
 
