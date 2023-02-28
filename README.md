@@ -82,6 +82,27 @@ This is [MySQL dump](https://github.com/mozilla/community-portal/files/8116830/c
     - [Query Monitor](https://wordpress.org/plugins/query-monitor/)
     - [Classic Editor](https://wordpress.org/plugins/classic-editor/)
     
+## Plugin patched
+
+Events Manager require a patch as doesn't allow with a filter to change the Booking Cut off date, as we need that the last day to attend is the last event day (+1 months as we have people that forgot to mark their participation) this requires a patch to `classes/em-events.php`.
+
+Changes to do with 6.3 release diff:
+
+```
+585a586
+>               $this->event_rsvp_date = gmdate( 'Y-m-d', strtotime( '+1 months', strtotime( $this->event_end_date ) ) );
+773a775
+>               $this->event_rsvp_date = gmdate( 'Y-m-d', strtotime( '+1 months', strtotime( $this->event_end_date ) ) );
+907a910
+>                       $this->event_rsvp_date = gmdate( 'Y-m-d', strtotime( '+1 months', strtotime( $this->event_end_date ) ) );
+1568a1572
+>                               $this->event_rsvp_date = gmdate( 'Y-m-d', strtotime( '+1 months', strtotime( $this->event_end_date ) ) );
+3104a3109
+>                                               $event['event_rsvp_date'] = gmdate( 'Y-m-d', strtotime( '+1 months', strtotime( $event['event_end_date'] ) ) );
+```
+
+Support request: [https://wordpress.org/support/topic/force-a-specific-event_rsvp_date-with-an-hook/](https://wordpress.org/support/topic/force-a-specific-event_rsvp_date-with-an-hook/), [https://wordpress.org/support/topic/force-a-specific-event_rsvp_date-with-an-hook-again/](https://wordpress.org/support/topic/force-a-specific-event_rsvp_date-with-an-hook-again/)
+
 ### Create the required Pages
 - Before creating pages, activate BuddyPress. This will automatically create some pages, and reduce those you need to manually create
 
