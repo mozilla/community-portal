@@ -245,7 +245,7 @@ if ( isset( $em_event->group_id ) ) {
 							)
 						);
 					} else {
-						if ( strtotime( $em_event->event_end_date ) > strtotime( gmdate( 'd/m/Y' ) ) ) {
+						if ( strtotime( $em_event->event_end_date ) > strtotime( 'now' ) ) {
 							?>
 						<div>
 							<button class="btn btn--dark btn--submit event__no-account"><?php esc_html_e( 'I will attend', 'community-portal' ); ?></button>

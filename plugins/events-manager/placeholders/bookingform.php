@@ -61,7 +61,7 @@ if ( get_option( 'dbem_css_rsvp' ) ) {
 	</a>
 		<?php
 	} else {
-		if ( strtotime( $em_event->event_end_date ) > strtotime( gmdate( 'd/m/Y' ) ) ) {
+		if ( strtotime( $em_event->event_end_date ) > strtotime( 'now' ) ) {
 			?>
 		<form
 			class="em-booking-form"
