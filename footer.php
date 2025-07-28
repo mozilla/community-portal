@@ -117,7 +117,7 @@
 							<p class="footer__copy">
 								<?php
 								/* translators: Copyright footer text */
-								printf( esc_html_e( 'Portions of this content are copyright 1998-%s by individual mozilla.org contributors. Content available under a ', 'community-portal' ), gmdate( 'Y' ) ); // phpcs:ignore
+								printf( esc_html( 'Portions of this content are copyright 1998-%s by individual mozilla.org contributors. Content available under a ', 'community-portal' ), gmdate( 'Y' ) ); // phpcs:ignore
 								?>
 								<a href="https://www.mozilla.org/foundation/licensing/website-content/" class="footer__link"><?php echo esc_html_e( ' Creative Commons license.', 'community-portal' ); ?></a>
 							</p>
